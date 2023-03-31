@@ -2,4 +2,4 @@
 
 Clone starter project
 
-Build, deploy and interact.
+`git clone https://github.com/dojoengine/dojo-starter.git`
