@@ -1,5 +1,7 @@
 # World
 
+The world acts like a kernel. Contracts are deployed, registered and executed via it. This allows systems upstream to interact with a single contract and not hundreds.
+
 The world interface is as follows:
 
 ```rust

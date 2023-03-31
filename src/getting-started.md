@@ -1,3 +1,5 @@
 # Getting started
 
-TODO
+Clone starter project
+
+Build, deploy and interact.
