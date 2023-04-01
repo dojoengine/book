@@ -1,3 +1,3 @@
 # Overview
 
-The Dojo framework, represents worlds using an Entity Component System (ECS). The ECS provides a simple, modular archtecture for reasoning about a worlds state and state transition functions.
+Dojo employs an Entity Component System (ECS) to represent worlds. The ECS offers a straightforward and modular architecture for understanding a world's state and its state transition functions. By separating concerns into distinct entities, components, and systems, the ECS approach enables developers to easily manage complex interactions, create reusable code, and promote maintainability in their projects.
