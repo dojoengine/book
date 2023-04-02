@@ -1,6 +1,14 @@
 [book]
-authors = ["Tarrence van As"]
+authors = ["Tarrence van As", "Pondering Democritus"]
 language = "en"
 multilingual = false
 src = "src"
 title = "Building Autonomous Worlds with Dojo"
+
+[output.html]
+git-repository-url = "https://github.com/dojoengine/book"
+edit-url-template = "https://github.com/dojoengine/book/edit/master/{path}"
+
+[output.html.fold]
+enable = true
+level = 1

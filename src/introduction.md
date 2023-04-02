@@ -4,6 +4,10 @@ Dojo is an engine for building Autonomous Worlds. It is designed to simplify the
 
 Dojo leverages an [entity component system](https://en.wikipedia.org/wiki/Entity_component_system) and [diamond](https://eips.ethereum.org/EIPS/eip-2535) pattern to provide a modular, extensible world. Worlds are expanded through the introduction of Components (state) and Systems (logic).
 
+> Contributing
+Dojo is open-source and encourages contribution. It is in the early stage of development. Find the book on [Github](https://github.com/dojoengine/book).
+
+
 ## Autonomous Worlds
 
 > Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to. - anon
