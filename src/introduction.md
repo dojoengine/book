@@ -18,14 +18,15 @@ Autonomous Worlds share notable similarities with blockchains in their fundament
 
 ### ECS
 
+Dojo stores and manages all the world state via an ECS (Entity-Component System), and patterns are inspired by the Rust ECS engine [Bevy](https://bevy-cheatbook.github.io/programming/ecs-intro.html).
+
 ### Cairo lang
 
-The Cairo VM and its differences from the EVM.
-Custom compiler
+Cairo is an open-source, Turing-complete smart contract language created by Starkware that powers the Validity Rollup Starknet. It facilitates highly expressive and verifiable computation. Dojo builds on Cairo to create a framework that significantly reduces boilerplate code when developing Autonomous Worlds (AWs) by utilizing `commands`.
 
 ### Dojo Aspirations
 
-The 0-1 moment. 
+Dojo is an ambitious work in progress with the goal of enabling developers to build games or Autonomous Worlds (AWs) in a matter of hours, rather than weeks.
 
 ### Organisational Structure
 
