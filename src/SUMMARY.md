@@ -1,9 +1,9 @@
 # Summary
 
 # Introduction
-[Introduction](./introduction.md)
+- [Introduction](./introduction.md)
 
-# Autonomous Worlds Framework
+# Autonomous Worlds
 - [Framework](./framework.md)
   - [Overview](./framework/overview.md)
   - [World](./framework/world.md)
