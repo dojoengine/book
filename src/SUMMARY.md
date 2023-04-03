@@ -18,7 +18,8 @@
   - [Setup](./getting-started/setup.md)
 
 # Building with Dojo
-- [World](./world/storage.md)
-  - [World Planning](./world/setup.md)
-  - [Component Creation](./world/setup.md)
-  - [System Creation](./world/setup.md)  
+- [World](./world/world-planning.md)
+  - [Component Creation](./world/component-creation.md)
+  - [System Creation](./world/system-creation.md)  
+  - [Building](./world/building.md)  
+  - [Deploying](./world/deploying.md)
