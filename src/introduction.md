@@ -4,6 +4,10 @@ Dojo is an engine for building Autonomous Worlds. It is designed to simplify the
 
 Dojo leverages an [entity component system](https://en.wikipedia.org/wiki/Entity_component_system) and [diamond](https://eips.ethereum.org/EIPS/eip-2535) pattern to provide a modular, extensible world. Worlds are expanded through the introduction of Components (state) and Systems (logic).
 
+> Contributing
+Dojo is open-source and encourages contribution. It is in the early stage of development. Find the book on [Github](https://github.com/dojoengine/book).
+
+
 ## Autonomous Worlds
 
 > Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to. - anon
@@ -18,14 +22,15 @@ Autonomous Worlds share notable similarities with blockchains in their fundament
 
 ### ECS
 
+Dojo stores and manages all the world state via an ECS (Entity-Component System), and patterns are inspired by the Rust ECS engine [Bevy](https://bevy-cheatbook.github.io/programming/ecs-intro.html).
+
 ### Cairo lang
 
-The Cairo VM and its differences from the EVM.
-Custom compiler
+Cairo is an open-source, Turing-complete smart contract language created by Starkware that powers the Validity Rollup Starknet. It facilitates highly expressive and verifiable computation. Dojo builds on Cairo to create a framework that significantly reduces boilerplate code when developing Autonomous Worlds (AWs) by utilizing `commands`.
 
 ### Dojo Aspirations
 
-The 0-1 moment. 
+Dojo is an ambitious work in progress with the goal of enabling developers to build games or Autonomous Worlds (AWs) in a matter of hours, rather than weeks.
 
 ### Organisational Structure
 
