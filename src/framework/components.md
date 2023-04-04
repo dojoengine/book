@@ -7,7 +7,7 @@ When designing a world's components, it is crucial to carefully consider the abs
 Suppose you plan to create two entities that move around the map and are fundamentally different from each other, except for the fact that they both exist within the world. In this case, you could create a shared Position component for both entities. This demonstrates the power of the Entity Component System (ECS) abstraction: by writing a single component, you can reuse it across multiple diverse entities, promoting modularity and flexibility within your world design.
 
 ```rust
-#[derive(Component)]
+#[component]
 struct Position {
     x: u32,
     y: u32

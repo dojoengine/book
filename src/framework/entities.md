@@ -5,13 +5,13 @@ A common misconception for those new to ECS systems is the way entities exist wi
 When defining the components for this entity, it is important to note that we do not reference the entity directly. Instead, we simply provide two structs that the entity will contain. This approach emphasizes the flexibility and composability of the ECS system, allowing for the easy creation and modification of entities with various combinations of components.
 
 ```rust
-#[derive(Component)]
+#[component]
 struct Position {
     x: u32,
     y: u32
 }
 
-#[derive(Component)]
+#[component]
 struct Health {
     value: u32,
 }
