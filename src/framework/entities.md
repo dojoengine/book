@@ -1,4 +1,4 @@
-# Entities
+## Entities
 
 A common misconception for those new to ECS systems is the way entities exist within the World. Different ECS systems handle entities in various ways. In Dojo, entities are treated as a primary key value within the world, to which components can be attached. To illustrate this concept, consider a simple example of a character in a game that has a position and a health component.
 

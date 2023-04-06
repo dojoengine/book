@@ -1,4 +1,4 @@
-# World
+## World
 
 The world functions as a central system kernel, serving as the foundation for initiating and resolving all interactions. Within this kernel, contracts are deployed, registered, and executed, streamlining the process for downstream systems by enabling them to engage with a single contract rather than managing hundreds.
 

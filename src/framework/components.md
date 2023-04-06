@@ -1,4 +1,4 @@
-# Components
+## Components
 
 Components serve as the foundation for defining the world's structure, encapsulating state for systems to mutate. For instance, a Position component can be implemented as a struct, exposing `is_zero` and `is_equal` methods. Dojo compiles these components into contracts that can be declared and installed within a world, enabling the creation of diverse and customizable environments.
 

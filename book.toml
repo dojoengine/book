@@ -7,4 +7,4 @@ title = "Building Autonomous Worlds with Dojo"
 
 [output.html]
 git-repository-url = "https://github.com/dojoengine/book"
-edit-url-template = "https://github.com/dojoengine/book/edit/master/{path}"
+edit-url-template = "https://github.com/dojoengine/book/edit/main/{path}"

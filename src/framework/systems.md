@@ -1,4 +1,4 @@
-# Systems
+## Systems
 
 Systems represent functions that operate on the world state. They take input from the user, retrieve the current state from the world, compute a state transition, and apply it. Each system has a single entry point, the execute function. To streamline interaction with the world, systems can utilize 
 commands.

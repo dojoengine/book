@@ -1,6 +1,6 @@
 # Introduction
 
-Dojo is an engine for building Autonomous Worlds. It is designed to simplify the process of creating, managing, and scaling these ever expanding onchain universes.
+Dojo is a toolchain for building Autonomous Worlds.
 
 Dojo leverages an [entity component system](https://en.wikipedia.org/wiki/Entity_component_system) and [diamond](https://eips.ethereum.org/EIPS/eip-2535) pattern to provide a modular, extensible world. Worlds are expanded through the introduction of Components (state) and Systems (logic).
 
@@ -10,7 +10,7 @@ Dojo is open-source and encourages contribution. It is in the early stage of dev
 
 ## Autonomous Worlds
 
-> Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to. - anon
+> "Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to"
 
 The precise definition of Autonomous Worlds (AWs) remains somewhat elusive, as it is more of an abstract concept that has yet to be fully crystallized. Lattice Labs first introduced the terminology in 2022, but the notion of open worlds operating on the blockchain has been around for a while. The abstraction introduced by MUD served as a catalyst for the market to recognize the potential of these worlds.
 
@@ -22,13 +22,19 @@ Autonomous Worlds share notable similarities with blockchains in their fundament
 
 ### ECS
 
-Dojo stores and manages all the world state via an ECS (Entity-Component System), and patterns are inspired by the Rust ECS engine [Bevy](https://bevy-cheatbook.github.io/programming/ecs-intro.html).
+Dojo utilizes an Entity-Component System (ECS) for managing the world state, drawing inspiration from the Rust ECS engine, Bevy. The ECS is a design pattern that enables efficient and flexible organization of data and behavior within a complex system.
 
 ### Cairo lang
 
-Cairo is an open-source, Turing-complete smart contract language created by Starkware that powers the Validity Rollup Starknet. It facilitates highly expressive and verifiable computation. Dojo builds on Cairo to create a framework that significantly reduces boilerplate code when developing Autonomous Worlds (AWs) by utilizing `commands`.
+Cairo is an open-source, Turing-complete smart contract language developed by Starkware, designed to power the Validity Rollup Starknet. The language enables highly expressive and verifiable computation, making it well-suited for building scalable and secure applications, including decentralized finance (DeFi) projects.
 
-### Dojo Aspirations
+Dojo builds on Cairo to create a robust framework for developing Autonomous Worlds (AWs). By leveraging the capabilities of Cairo, Dojo aims to streamline the development process, improve maintainability, and enhance the performance of AWs.
+
+A key feature of the Dojo framework is its use of [commands](./framework/commands.md). Commands are a design pattern that helps to reduce boilerplate code, resulting in cleaner and more maintainable applications. They achieve this by encapsulating specific actions or operations within self-contained, reusable units.
+
+Developers can write commands freely within Systems, and the Cairo compiler takes care of inlining the appropriate functions. 
+
+### Aspirations
 
 Dojo is an ambitious work in progress with the goal of enabling developers to build games or Autonomous Worlds (AWs) in a matter of hours, rather than weeks.
 

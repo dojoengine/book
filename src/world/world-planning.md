@@ -1,2 +1,2 @@
-# Planning a world
+## Planning a world
 

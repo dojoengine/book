@@ -1,7 +1,6 @@
-# Summary
+## Summary
 
-# Introduction
-- [Introduction](./introduction.md)
+- [Introduction](./README.md)
 
 # Autonomous Worlds
 - [Framework](./framework.md)
