@@ -1,24 +1,28 @@
-## Summary
+## Introduction
 
 - [Introduction](./README.md)
 
-# Autonomous Worlds
-- [Framework](./framework.md)
-  - [Overview](./framework/overview.md)
-  - [World](./framework/world.md)
-  - [Components](./framework/components.md)
-  - [Systems](./framework/systems.md)
-  - [Entities](./framework/entities.md)
-  - [Commands](./framework/commands.md)
-  - [Storage](./framework/storage.md)
+# Tutorials
+- [Getting Started](./1-TUTORIALS/getting-started/getting-started.md)
+  - [Setup](./1-TUTORIALS/getting-started/setup.md)
+- [World](./1-TUTORIALS/world/world-planning.md)
+  - [Component Creation](./1-TUTORIALS/world/component-creation.md)
+  - [System Creation](./1-TUTORIALS/world/system-creation.md)  
+  - [Building](./1-TUTORIALS/world/building.md)  
+  - [Deploying](./1-TUTORIALS/world/deploying.md)
 
-# Getting Started
-- [Getting Started](./framework/storage.md)
-  - [Setup](./getting-started/setup.md)
+# How To
 
-# Building with Dojo
-- [World](./world/world-planning.md)
-  - [Component Creation](./world/component-creation.md)
-  - [System Creation](./world/system-creation.md)  
-  - [Building](./world/building.md)  
-  - [Deploying](./world/deploying.md)
+# API Reference
+
+# Explanation
+- [Framework](./4-EXPLANATION/framework.md)
+  - [Overview](./4-EXPLANATION/framework/overview.md)
+  - [World](./4-EXPLANATION/framework/world.md)
+  - [Components](./4-EXPLANATION/framework/components.md)
+  - [Systems](./4-EXPLANATION/framework/systems.md)
+  - [Entities](./4-EXPLANATION/framework/entities.md)
+  - [Commands](./4-EXPLANATION/framework/commands.md)
+  - [Storage](./4-EXPLANATION/framework/storage.md)
+
+
