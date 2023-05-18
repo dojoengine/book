@@ -2,6 +2,10 @@
 
 - [Introduction](./README.md)
 
+# Getting Started
+
+- [Installation](./getting-started/installation.md)
+
 # Autonomous Worlds
 - [Framework](./framework.md)
   - [Overview](./framework/overview.md)
@@ -11,10 +15,6 @@
   - [Entities](./framework/entities.md)
   - [Commands](./framework/commands.md)
   - [Storage](./framework/storage.md)
-
-# Getting Started
-- [Getting Started](./framework/storage.md)
-  - [Setup](./getting-started/setup.md)
 
 # Building with Dojo
 - [World](./world/world-planning.md)
