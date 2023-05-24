@@ -6,6 +6,9 @@
 
 - [Installation](./getting-started/installation.md)
 
+# Development
+- [Development](./development/enviroment.md)
+
 # Autonomous Worlds
 - [Framework](./framework.md)
   - [Overview](./framework/overview.md)
