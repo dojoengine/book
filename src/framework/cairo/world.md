@@ -7,7 +7,6 @@ The world functions as a central system kernel, serving as the foundation for in
 This function is used to create a new instance of the World with a given name and executor address.
 
 ```rust
-#[constructor]
 fn constructor(name: ShortString, executor_: ContractAddress);
 ```
 
@@ -16,7 +15,6 @@ fn constructor(name: ShortString, executor_: ContractAddress);
 This function initializes the world with the routes that specify the permissions for each system to access components. This function must be called before any other operations on the world are performed.
 
 ```rust
-#[external]
 fn initialize(routes: Array<Route>);
 ```
 
@@ -25,7 +23,6 @@ fn initialize(routes: Array<Route>);
 This function checks if a given system is authorized to access a given component.
 
 ```rust
-#[view]
 fn is_authorized(system: ClassHash, component: ClassHash) -> bool;
 ```
 
@@ -34,7 +31,6 @@ fn is_authorized(system: ClassHash, component: ClassHash) -> bool;
 This function checks if the calling account has an admin role.
 
 ```rust
-#[view]
 fn is_account_admin() -> bool;
 ```
 
@@ -43,7 +39,6 @@ fn is_account_admin() -> bool;
 This function registers a new component in the world. If the component is already registered, the implementation will be updated.
 
 ```rust
-#[external]
 fn register_component(class_hash: ClassHash);
 ```
 
@@ -52,7 +47,6 @@ fn register_component(class_hash: ClassHash);
 This function retrieves the ClassHash of a component using its name.
 
 ```rust
-#[view]
 fn component(name: ShortString) -> ClassHash;
 ```
 
@@ -61,7 +55,6 @@ fn component(name: ShortString) -> ClassHash;
 This function registers a new system in the world. If the system is already registered, the implementation will be updated.
 
 ```rust
-#[external]
 fn register_system(class_hash: ClassHash);
 ```
 
@@ -70,7 +63,6 @@ fn register_system(class_hash: ClassHash);
 This function retrieves the ClassHash of a system using its name.
 
 ```rust
-#[view]
 fn system(name: ShortString) -> ClassHash;
 ```
 
@@ -79,7 +71,6 @@ fn system(name: ShortString) -> ClassHash;
 This function allows the execution of a system.
 
 ```rust
-#[external]
 fn execute(name: ShortString, execute_calldata: Span<felt252>) -> Span<felt252>;
 ```
 
@@ -87,8 +78,7 @@ fn execute(name: ShortString, execute_calldata: Span<felt252>) -> Span<felt252>;
 
 This function issues an autoincremented id to the caller.
 
-```rust
-#[external]
+```rus
 fn uuid() -> usize;
 ```
 
@@ -97,7 +87,6 @@ fn uuid() -> usize;
 This function sets an entity's state in a component's storage.
 
 ```rust
-#[external]
 fn set_entity(component: ShortString, query: Query, offset: u8, value: Span<felt252>);
 ```
 
@@ -106,7 +95,6 @@ fn set_entity(component: ShortString, query: Query, offset: u8, value: Span<felt
 This function deletes an entity from a component's storage.
 
 ```rust
-#[external]
 fn delete_entity(component: ShortString, query: Query);
 ```
 
@@ -115,7 +103,6 @@ fn delete_entity(component: ShortString, query: Query);
 This function retrieves an entity's state from a component's storage.
 
 ```rust
-#[view]
 fn entity(
     component: ShortString,
     address_domain: u32,
@@ -131,7 +118,6 @@ fn entity(
 This function retrieves all entities that contain the state of a specific component.
 
 ```rust
-#[view]
 fn entities(component: ShortString, partition: u250) -> (Span<u250>, Span<Span<felt252>>);
 ```
 
@@ -140,6 +126,5 @@ fn entities(component: ShortString, partition: u250) -> (Span<u250>, Span<Span<f
 This function sets the executor of the world to a given contract address.
 
 ```rust
-#[external]
 fn set_executor(contract_address: ContractAddress);
 ```
