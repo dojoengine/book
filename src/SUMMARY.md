@@ -1,4 +1,4 @@
-## Summary
+# Summary
 
 - [Introduction](./README.md)
   - [AW Theory](./theory/autonomous-worlds.md)
@@ -24,6 +24,9 @@
   - [Katana](./framework/katana/overview.md)
   - [Torii](./framework/torii/overview.md)
 
+-----------
+
+[Contributors](misc/contributors.md)
 
 <!-- # Building with Dojo
 - [World](./world/world-planning.md)
