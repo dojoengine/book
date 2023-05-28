@@ -23,4 +23,4 @@ The typical workflow for building an Dojo World:
 
 A simple design utilising components and systems to create 4 different entities:
 
-![ECS](../images/ECS.png)
+![ECS](../../images/ECS.png)
