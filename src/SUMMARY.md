@@ -15,6 +15,7 @@
 - [Overview](./framework.md)
   - [Cairo ECS](./framework/cairo/overview.md)
     - [World](./framework/cairo/world.md)
+    - [Authorization](./framework/cairo/authorization.md)
     - [Components](./framework/cairo/components.md)
     - [Systems](./framework/cairo/systems.md)
     - [Entities](./framework/cairo/entities.md)

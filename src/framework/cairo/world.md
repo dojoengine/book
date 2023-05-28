@@ -1,130 +1,30 @@
 ## World
 
-The world functions as a central system kernel, serving as the foundation for initiating and resolving all interactions. Within this kernel, contracts are deployed, registered, and executed, streamlining the process for downstream systems by enabling them to engage with a single contract rather than managing hundreds.
+The world contract functions as a central system kernel, serving as the foundation for initiating and resolving all interactions. Within this kernel, contracts are deployed, registered, and executed, streamlining the process for downstream systems by enabling clients to engage with a single contract rather than potentially hundreds.
 
-### constructor (constructor)
 
-This function is used to create a new instance of the World with a given name and executor address.
+> **To think about:** Consider Autonomous Worlds as sovereign blockchains residing within another blockchain - a nested blockchain, so to speak. Just as you can deploy contracts onto Ethereum to enhance its functionality, you can similarly introduce systems into the World contract to enrich its features. While anyone can contribute to the World, akin to Ethereum, authorization is required to interact with component state. There is a dedicated topic to Authorisation.
 
-```rust
-fn constructor(name: ShortString, executor_: ContractAddress);
-```
 
-### initialize (external)
-
-This function initializes the world with the routes that specify the permissions for each system to access components. This function must be called before any other operations on the world are performed.
+### API
 
 ```rust
-fn initialize(routes: Array<Route>);
-```
-
-### is_authorized (view)
-
-This function checks if a given system is authorized to access a given component.
-
-```rust
-fn is_authorized(system: ClassHash, component: ClassHash) -> bool;
-```
-
-### is_account_admin (view)
-
-This function checks if the calling account has an admin role.
-
-```rust
-fn is_account_admin() -> bool;
-```
-
-### register_component (external)
-
-This function registers a new component in the world. If the component is already registered, the implementation will be updated.
-
-```rust
-fn register_component(class_hash: ClassHash);
-```
-
-### component (view)
-
-This function retrieves the ClassHash of a component using its name.
-
-```rust
-fn component(name: ShortString) -> ClassHash;
-```
-
-### register_system (external)
-
-This function registers a new system in the world. If the system is already registered, the implementation will be updated.
-
-```rust
-fn register_system(class_hash: ClassHash);
-```
-
-### system (view)
-
-This function retrieves the ClassHash of a system using its name.
-
-```rust
-fn system(name: ShortString) -> ClassHash;
-```
-
-### execute (external)
-
-This function allows the execution of a system.
-
-```rust
-fn execute(name: ShortString, execute_calldata: Span<felt252>) -> Span<felt252>;
-```
-
-### uuid (external)
-
-This function issues an autoincremented id to the caller.
-
-```rus
-fn uuid() -> usize;
-```
-
-### set_entity (external)
-
-This function sets an entity's state in a component's storage.
-
-```rust
-fn set_entity(component: ShortString, query: Query, offset: u8, value: Span<felt252>);
-```
-
-### delete_entity (external)
-
-This function deletes an entity from a component's storage.
-
-```rust
-fn delete_entity(component: ShortString, query: Query);
-```
-
-### entity (view)
-
-This function retrieves an entity's state from a component's storage.
-
-```rust
-fn entity(
-    component: ShortString,
-    address_domain: u32,
-    partition: u250,
-    keys: Span<u250>,
-    offset: u8,
-    length: usize
-) -> Span<felt252>;
-```
-
-### entities (view)
-
-This function retrieves all entities that contain the state of a specific component.
-
-```rust
-fn entities(component: ShortString, partition: u250) -> (Span<u250>, Span<Span<felt252>>);
-```
-
-### set_executor (external)
-
-This function sets the executor of the world to a given contract address.
-
-```rust
-fn set_executor(contract_address: ContractAddress);
+// World interface
+#[abi]
+trait IWorld {
+    fn initialize(routes: Array<Route>);
+    fn component(name: ShortString) -> ClassHash;
+    fn register_component(class_hash: ClassHash);
+    fn system(name: ShortString) -> ClassHash;
+    fn register_system(class_hash: ClassHash);
+    fn uuid() -> usize;
+    fn execute(name: ShortString, execute_calldata: Span<felt252>) -> Span<felt252>;
+    fn entity(component: ShortString, key: Query, offset: u8, length: usize) -> Span<felt252>;
+    fn set_entity(component: ShortString, key: Query, offset: u8, value: Span<felt252>);
+    fn entities(component: ShortString, partition: u250) -> (Span<u250>, Span<Span<felt252>>);
+    fn set_executor(contract_address: ContractAddress);
+    fn is_authorized(system: ClassHash, component: ClassHash) -> bool;
+    fn is_account_admin() -> bool;
+    fn delete_entity(component: ShortString, query: Query);
+}
 ```
