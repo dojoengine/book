@@ -1,43 +1,33 @@
-# Introduction
+## Dojo: The provable games engine
 
-Dojo is a toolchain for building Autonomous Worlds.
+This guide is dedicated to familiarizing you with the Dojo engine and the transformative potential of Provable games. A special section on the [Theory](./theory/autonomous-worlds.md) elucidates this emergent concept of autonomous worlds and Provable games.
 
-Dojo leverages an [entity component system](https://en.wikipedia.org/wiki/Entity_component_system) and [diamond](https://eips.ethereum.org/EIPS/eip-2535) pattern to provide a modular, extensible world. Worlds are expanded through the introduction of Components (state) and Systems (logic).
+## What is Dojo?
+Dojo is a provable game engine with an integrated toolchain, designed for creating onchain games and autonomous worlds using [Cairo 1.0](https://github.com/starkware-libs/cairo). It employs an [entity component system](https://en.wikipedia.org/wiki/Entity_component_system) and a [diamond pattern](https://eips.ethereum.org/EIPS/eip-2535), facilitating a modular, scalable world. Worlds grow via the addition of Components (state) and Systems (logic). Our architectural design is greatly influenced by the brilliant [Bevy](https://bevyengine.org/) engine.
 
-> Contributing
-Dojo is open-source and encourages contribution. It is in the early stage of development. Find the book on [Github](https://github.com/dojoengine/book).
+#### Key Features
+- Entity Component System (ECS) built on [Cairo 1.0](https://github.com/starkware-libs/cairo)
+- [Sozu](./framework/sozo/overview.md) world migration planner
+- [Torii](./framework/torii/overview.md) networking and indexing stack
+- [Katana](./framework/katana/overview.md) RPC development network
+- Typed SDKs
+
+> Dojo is an open-source project, currently in its early development phase, and warmly welcomes contributors. For additional resources, find the book on [Github](https://github.com/dojoengine/book).
 
 
-## Autonomous Worlds
+### Why Dojo?
 
-> "Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to"
+Dojo is the culmination of lessons learned from attempts at building onchain games, an emerging sector in the gaming industry. Any developer who has endeavored to build an onchain game appreciates the inherent engineering hurdles - a realization that drove us to create Dojo. Just as you wouldn't recreate Unity every time you develop a new game, the same principle applies here. Dojo is designed to handle the complex infrastructure, allowing developers to focus on the unique aspects of their games.
 
-The precise definition of Autonomous Worlds (AWs) remains somewhat elusive, as it is more of an abstract concept that has yet to be fully crystallized. Lattice Labs first introduced the terminology in 2022, but the notion of open worlds operating on the blockchain has been around for a while. The abstraction introduced by MUD served as a catalyst for the market to recognize the potential of these worlds.
 
-Autonomous Worlds share notable similarities with blockchains in their fundamental nature. Once established, they persist, maintaining their state throughout the lifespan of the chain. Players can join or leave, and developers can expand these worlds by deploying features in a permissionless manner, much like how contracts are added to a chain. While there is no universally accepted definition for an Autonomous World, we believe that a game must possess at least the following two essential features to be considered as such:
+### Why Cairo & Starknet?
 
-1. Decentralized data availability layer: While the state execution may reside on a centralized layer, it is crucial that the state can be reconstructed if the execution layer ceases to exist. Rollups offer a solution, providing increased capacity execution layers while ensuring data is permanently settled on Ethereum. This guarantees the world's perpetual persistence.
+Provable games demand zero-knowledge properties for efficient scaling and verification of computations. Cairo addresses this need by providing a generalized language, eliminating the complexity of creating circuits to incorporate SNARKs. Simply program in Cairo and your applications become automatically provable. Moreover, you can deploy your programs on the Cairo Virtual Machine (CVM), which is compatible with Starknet's Layer 2, Starknet appchains, and even in-browser through WebAssembly (WASM)! Dojo aims to supply straightforward ZK primitives to fuel your game development.
 
-2. Permissionless entry point for expanding the world: The World contract must be capable of accepting new systems and components without requiring permission. While this doesn't imply that every component and system will be utilized, they must adhere to this pattern, ensuring open and unrestricted access for potential enhancements.
 
-### ECS
 
-Dojo utilizes an Entity-Component System (ECS) for managing the world state, drawing inspiration from the Rust ECS engine, Bevy. The ECS is a design pattern that enables efficient and flexible organization of data and behavior within a complex system.
+### Vision
+Dojo is a bold work in progress, aimed at empowering developers to construct onchain games and Autonomous Worlds (AWs) within hours, not weeks.
 
-### Cairo lang
-
-Cairo is an open-source, Turing-complete smart contract language developed by Starkware, designed to power the Validity Rollup Starknet. The language enables highly expressive and verifiable computation, making it well-suited for building scalable and secure applications, including decentralized finance (DeFi) projects.
-
-Dojo builds on Cairo to create a robust framework for developing Autonomous Worlds (AWs). By leveraging the capabilities of Cairo, Dojo aims to streamline the development process, improve maintainability, and enhance the performance of AWs.
-
-A key feature of the Dojo framework is its use of [commands](./framework/commands.md). Commands are a design pattern that helps to reduce boilerplate code, resulting in cleaner and more maintainable applications. They achieve this by encapsulating specific actions or operations within self-contained, reusable units.
-
-Developers can write commands freely within Systems, and the Cairo compiler takes care of inlining the appropriate functions. 
-
-### Aspirations
-
-Dojo is an ambitious work in progress with the goal of enabling developers to build games or Autonomous Worlds (AWs) in a matter of hours, rather than weeks.
-
-### Organisational Structure
-
-Dojo is an open-source, MIT-licensed project dedicated to advancing the concept of Autonomous Worlds (AWs).
+### Organizational Structure
+Dojo is an open-source initiative, licensed under MIT, dedicated to promoting and advancing the concept of Autonomous Worlds (AWs).

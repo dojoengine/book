@@ -4,7 +4,7 @@ Commands in Dojo are generalized functions that are expanded at compile time to 
 
 Understanding commands is key to understanding Dojo. You will leverage them heavily within the systems you design.
 
-```rust
+```rust,ignore
 // Retrieve a unique ID from the world, which is helpful when creating a new entity.
 // This function returns a globally unique identifier that can be used as an entity ID.
 fn commands::uuid() -> felt252;
