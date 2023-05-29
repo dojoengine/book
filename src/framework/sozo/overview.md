@@ -20,12 +20,39 @@ cargo install --path ./crates/sozo --profile local --force
 
 This will install Sozo and the required dependencies on your local system.
 
-### Usage
+### API
 
-To build and deploy your Worlds onto the local network using Sozo, use the `migrate` command
+#### Init
+
+Initialize a new project. This will build the starter example.
+
+```bash
+sozo --init
+```
+
+#### Building
+
+After you have designed your world you will then need to build it. This command compiles your contracts and injects the `commands`. After this the contracts are ready to deploy! 
+
+```bash
+sozo --build examples/
+```
+
+#### Migrate
+
+Once you built your contracts successfully you can then deploy them on a network! The following will deploy onto the local Katana network. Make sure you have it running. Check for instructions [here](../katana/overview.md)
 
 ```bash
 sozo --migrate examples/
 ```
 
 This command will prompt Sozo to build and deploy all Worlds found within the specified directory.
+
+#### bind
+
+__coming soon__
+
+#### inspect
+
+__coming soon__
+
