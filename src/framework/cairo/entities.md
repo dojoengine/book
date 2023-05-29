@@ -4,7 +4,7 @@ A common misconception for those new to ECS systems is the way entities exist wi
 
 When defining the components for this entity, it is important to note that we do not reference the entity directly. Instead, we simply provide two structs that the entity will contain. This approach emphasizes the flexibility and composability of the ECS system, allowing for the easy creation and modification of entities with various combinations of components.
 
-```rust
+```rust,ignore
 #[component]
 struct Position {
     x: u32,
@@ -20,19 +20,22 @@ struct Health {
 
 Now, let's create a `SpawnSystem` for the character. It is important to note that we have not explicitly defined an Entity anywhere. Instead, the system will assign a primary key ID to the entity when this system is executed. 
 
-```rust
+```rust,ignore
 // The most basic system that creates a new player entity with a given name and 100 health.
 
 #[system]
-mod SpawnSystem {
-    // The execute function takes a name as input and creates a new player entity with the specified name and 100 health.
-    fn execute(name: String) {
-        // Using a command generate a new player ID and create the player entity with the Health and Name components.
-        let player_id = commands::create((
-            Health::new(100_u8),
-            Name::new(name),
-        ));
-        // The system has no return value.
+mod Spawn {
+    use array::ArrayTrait;
+    use traits::Into;
+
+    use dojo_examples::components::Position;
+    use dojo_examples::components::Moves;
+
+    fn execute() {
+        let caller = starknet::get_caller_address();
+        let player = commands::set_entity(
+            caller.into(), (Moves { remaining: 10 }, Position { x: 0, y: 0 }, )
+        );
         return ();
     }
 }
@@ -40,18 +43,60 @@ mod SpawnSystem {
 
 Finally, lets move the character with the `MoveSystem`.
 
-```rust
+```rust,ignore
 #[system]
-mod MoveSystem {
-    fn execute(player_id: usize) {
-        let player = commands<(Health, Name)>::get(player_id);
-        let positions = commands<(Position, Health)>::entities();
+mod Move {
+    use array::ArrayTrait;
+    use traits::Into;
 
-        // @NOTE: Loops are not available in Cairo 1.0 yet.
-        for (position, health) in positions {
-            let is_zero = position.is_zero();
+    use dojo_examples::components::Position;
+    use dojo_examples::components::Moves;
+
+    #[derive(Serde, Drop)]
+    enum Direction {
+        Left: (),
+        Right: (),
+        Up: (),
+        Down: (),
+    }
+
+    impl DirectionIntoFelt252 of Into<Direction, felt252> {
+        fn into(self: Direction) -> felt252 {
+            match self {
+                Direction::Left(()) => 0,
+                Direction::Right(()) => 1,
+                Direction::Up(()) => 2,
+                Direction::Down(()) => 3,
+            }
         }
+    }
+
+    fn execute(direction: Direction) {
+        let caller = starknet::get_caller_address();
+        let (position, moves) = commands::<Position, Moves>::entity(caller.into());
+        let next = next_position(position, direction);
+        let uh = commands::set_entity(
+            caller.into(),
+            (Moves { remaining: moves.remaining - 1 }, Position { x: next.x, y: next.y }, )
+        );
         return ();
+    }
+
+    fn next_position(position: Position, direction: Direction) -> Position {
+        match direction {
+            Direction::Left(()) => {
+                Position { x: position.x - 1, y: position.y }
+            },
+            Direction::Right(()) => {
+                Position { x: position.x + 1, y: position.y }
+            },
+            Direction::Up(()) => {
+                Position { x: position.x, y: position.y - 1 }
+            },
+            Direction::Down(()) => {
+                Position { x: position.x, y: position.y + 1 }
+            },
+        }
     }
 }
 ```

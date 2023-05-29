@@ -8,7 +8,7 @@ The world contract functions as a central system kernel, serving as the foundati
 
 ### API
 
-```rust
+```rust,ignore
 // World interface
 #[abi]
 trait IWorld {
