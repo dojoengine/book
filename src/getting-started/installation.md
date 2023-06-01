@@ -48,7 +48,7 @@ dojoup --path path/to/dojo
 Or, by using a single Cargo command:
 
 ```sh
-cargo install --git https://github.com/dojoengine/dojo --profile local --force sozo katana torii
+cargo install --git https://github.com/dojoengine/dojo --force sozo katana torii
 ```
 
 Or, by manually building from a local copy of the [Dojo repository](https://github.com/dojoengine/dojo):
@@ -58,9 +58,9 @@ Or, by manually building from a local copy of the [Dojo repository](https://gith
 git clone https://github.com/dojoengine/dojo.git
 cd dojo
 # install Sozo
-cargo install --path ./crates/sozo --profile local --force
+cargo install --path ./crates/sozo --force
 # install Katana
-cargo install --path ./crates/katana --profile local --force
+cargo install --path ./crates/katana --force
 # install Torii
-cargo install --path ./crates/torii --profile local --force
+cargo install --path ./crates/torii --force
 ```
