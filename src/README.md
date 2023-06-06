@@ -7,7 +7,7 @@ Dojo is a provable game engine with an integrated toolchain, designed for creati
 
 #### Key Features
 - Entity Component System (ECS) built on [Cairo 1.0](https://github.com/starkware-libs/cairo)
-- [Sozu](./framework/sozo/overview.md) world migration planner
+- [Sozo](./framework/sozo/overview.md) world migration planner
 - [Torii](./framework/torii/overview.md) networking and indexing stack
 - [Katana](./framework/katana/overview.md) RPC development network
 - Typed SDKs
