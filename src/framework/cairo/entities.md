@@ -29,12 +29,12 @@ mod Spawn {
     use traits::Into;
 
     use dojo_examples::components::Position;
-    use dojo_examples::components::Moves;
+    use dojo_examples::components::Health;
 
     fn execute() {
         let caller = starknet::get_caller_address();
         let player = commands::set_entity(
-            caller.into(), (Moves { remaining: 10 }, Position { x: 0, y: 0 }, )
+            caller.into(), (Health { remaining: 100 }, Position { x: 0, y: 0 }, )
         );
         return ();
     }
