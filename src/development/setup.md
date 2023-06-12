@@ -17,7 +17,7 @@ git clone https://github.com/dojoengine/dojo.git
 
 ## Setup Guide
 
-### Linux
+### Linux & Mac
 
 #### 1. Install Rust and Dependencies
 
@@ -75,10 +75,6 @@ code --install-extension cairo1*.vsix
 ```
 
 The Cairo language server should now be installed globally in your Visual Studio Code. If you have the server enabled, Scarb should automatically pick this up and start linting your Cairo files.
-
-### Mac
-
-_Coming soon_
 
 ### Windows
 
