@@ -1,10 +1,10 @@
 # Sozo
 
-Sozo is a powerful migration planning tool designed to streamline the updating and deployment of AWs. It provides a robust binary command-line interface (CLI) that simplifies World management tasks, enabling you to focus on the creative aspects of World-building. Future versions will provide a GUI.
+`sozo` is a powerful migration planning tool designed to streamline the updating and deployment of AWs. It provides a robust binary command-line interface (CLI) that simplifies World management tasks, enabling you to focus on the creative aspects of World-building. Future versions will provide a GUI.
 
 ## Features
 
-- **Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy management of your Worlds, whether you're updating existing ones or deploying new ones.
+-   **Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy management of your Worlds, whether you're updating existing ones or deploying new ones.
 
 ## Installation
 
@@ -20,39 +20,6 @@ cargo install --path ./crates/sozo --profile local --force
 
 This will install Sozo and the required dependencies on your local system.
 
-### API
-
-#### Init
-
-Initialize a new project. This will build the starter example.
-
-```bash
-sozo --init
-```
-
-#### Building
-
-After you have designed your world you will then need to build it. This command compiles your contracts and injects the `commands`. After this the contracts are ready to deploy! 
-
-```bash
-sozo --build examples/
-```
-
-#### Migrate
-
-Once you built your contracts successfully you can then deploy them on a network! The following will deploy onto the local Katana network. Make sure you have it running. Check for instructions [here](../katana/overview.md)
-
-```bash
-sozo --migrate examples/
-```
-
-This command will prompt Sozo to build and deploy all Worlds found within the specified directory.
-
-#### bind
-
-__coming soon__
-
-#### inspect
-
-__coming soon__
-
+> 📚 **Reference**
+>
+> See the [`sozo` Reference](../../reference/sozo/) for a complete overview of all the available subcommands.
