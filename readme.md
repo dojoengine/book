@@ -1,6 +1,6 @@
 ## 📖 The Dojo Book
 
-Dojo is a toolchain for building Autonomous Worlds.
+Dojo is a toolchain for building Autonomous Worlds. Step into the Dojo [now](https://book.dojoengine.org/).
 
 ### Contributing
 Dojo is open-source and encourages contribution. It is in the early stage of development.
