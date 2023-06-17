@@ -8,3 +8,8 @@ title = "Building Autonomous Worlds with Dojo"
 [output.html]
 git-repository-url = "https://github.com/dojoengine/book"
 edit-url-template = "https://github.com/dojoengine/book/edit/main/{path}"
+no-section-label = true
+
+[output.html.fold]
+enable = true
+level = 1
