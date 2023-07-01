@@ -69,6 +69,8 @@ Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. The 
 -   `starknet_getEvents`
 -   `starknet_getStorageAt`
 -   `starknet_getClassHashAt`
+-   `starknet_getClass`
+-   `starknet_getClassAt`
 
 -   `starknet_syncing`
 
@@ -83,12 +85,30 @@ Katana provides a convenient set of custom RPC methods to quickly and easily con
 `katana_generateBlock`  
 Mine a new block which includes all currently pending transactions
 
+`katana_nextBlockTimestamp`  
+Get the time for the next block
+
+`katana_increaseNextBlockTimestamp`  
+Increase the time for the block by a given amount of time, in seconds
+
+`katana_setNextBlockTimestamp`  
+Similar to `katana_increaseNextBlockTimestamp` but takes the exact timestamp that you want in the next block
+
+`katana_predeployedAccounts`  
+Get the info for all of the predeployed accounts
+
 ### OPTIONS
 
 #### General Options
 
-`--hide-predeployed-accounts`
-&nbsp;&nbsp;&nbsp;&nbsp; Hide the predeployed accounts details
+`--silent`  
+&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup
+
+`--no-mining`  
+&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on demand instead
+
+`-b, --block-time <SECONDS>`  
+&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining
 
 `-h, --help`  
 &nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h')
@@ -101,21 +121,18 @@ Mine a new block which includes all currently pending transactions
 `-p, --port <PORT>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on [default: 5050]
 
-`--block-time <SECONDS>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining
+`--host <HOST>`  
+&nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on
 
 #### Starknet Options
 
-`--seed <SEED>`
+`--seed <SEED>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be predeployed
 
 `--accounts <NUM>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate [default: 10]
 
-`--blocks-on-demand`
-&nbsp;&nbsp;&nbsp;&nbsp; Block generation on demand via an endpoint
-
-`--allow-zero-max-fee`
+`--allow-zero-max-fee`  
 &nbsp;&nbsp;&nbsp;&nbsp; Allow transaction max fee to be zero
 
 #### Environment Options
