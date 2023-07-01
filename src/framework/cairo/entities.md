@@ -18,7 +18,7 @@ struct Health {
 
 ```
 
-Now, let's create a `SpawnSystem` for the character. It is important to note that we have not explicitly defined an Entity anywhere. Instead, the system will assign a primary key ID to the entity when this system is executed. 
+Now, let's create a `SpawnSystem` for the character. It is important to note that we have not explicitly defined an Entity anywhere. Instead, the system will assign a primary key ID to the entity when this system is executed.
 
 ```rust,ignore
 // The most basic system that creates a new player entity with a given name and 100 health.
@@ -28,13 +28,13 @@ mod Spawn {
     use array::ArrayTrait;
     use traits::Into;
 
+    use dojo::world::Context;
     use dojo_examples::components::Position;
     use dojo_examples::components::Health;
 
-    fn execute() {
-        let caller = starknet::get_caller_address();
-        let player = commands::set_entity(
-            caller.into(), (Health { remaining: 100 }, Position { x: 0, y: 0 }, )
+    fn execute(ctx: Context) {
+        set !(
+            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position { x: 0, y: 0 }, )
         );
         return ();
     }
@@ -49,6 +49,7 @@ mod Move {
     use array::ArrayTrait;
     use traits::Into;
 
+    use dojo::world::Context;
     use dojo_examples::components::Position;
     use dojo_examples::components::Moves;
 
@@ -71,12 +72,12 @@ mod Move {
         }
     }
 
-    fn execute(direction: Direction) {
-        let caller = starknet::get_caller_address();
-        let (position, moves) = commands::<Position, Moves>::entity(caller.into());
+    fn execute(ctx: Context, direction: Direction) {
+        let (position, moves) = get !(ctx.world, ctx.origin.into(), (Position, Moves));
         let next = next_position(position, direction);
-        let uh = commands::set_entity(
-            caller.into(),
+        set !(
+            ctx.world,
+            ctx.origin.into(),
             (Moves { remaining: moves.remaining - 1 }, Position { x: next.x, y: next.y }, )
         );
         return ();

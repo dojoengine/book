@@ -5,19 +5,15 @@ Commands in Dojo are generalized functions that are expanded at compile time to 
 Understanding commands is key to understanding Dojo. You will leverage them heavily within the systems you design.
 
 ```rust,ignore
-// Retrieve a unique ID from the world, which is helpful when creating a new entity.
-// This function returns a globally unique identifier that can be used as an entity ID.
-fn commands::uuid() -> felt252;
-
 // Update an existing entity by setting its components with the provided values.
 // This function takes a storage key representing the entity and a generic type T for the components to be updated.
-fn commands::set(storage_key: StorageKey, components: T);
+set!(world: IWorldDispatcher, storage_key: StorageKey, components: T);
 
 // Retrieve the components of a specific type T for an entity identified by the storage key.
 // This function returns the components as an instance of the generic type T.
-fn commands::<T>::get(storage_key: StorageKey) -> T;
+get!(world: IWorldDispatcher, storage_key: StorageKey, components: T) -> T;
 
 // Retrieve all entity IDs that have components matching the provided type T.
 // This function returns an array of entity IDs (felt252) containing the specified components.
-fn commands::<T>::entities() -> Array<felt252>;
+find!(world: IWorldDispatcher, key: StorageKey, components: T);
 ```
