@@ -11,7 +11,7 @@ set!(world: IWorldDispatcher, storage_key: StorageKey, components: T);
 
 // Retrieve the components of a specific type T for an entity identified by the storage key.
 // This function returns the components as an instance of the generic type T.
-get!(world: IWorldDispatcher, storage_key: StorageKey, keycomponents: T) -> T;
+get!(world: IWorldDispatcher, storage_key: StorageKey, components: T) -> T;
 
 // Retrieve all entity IDs that have components matching the provided type T.
 // This function returns an array of entity IDs (felt252) containing the specified components.
