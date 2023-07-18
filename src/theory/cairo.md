@@ -4,7 +4,7 @@ Cairo is an open-source, Turing-complete smart contract language developed by St
 
 Dojo builds on Cairo to create a robust framework for developing Autonomous Worlds (AWs). By leveraging the capabilities of Cairo, Dojo aims to streamline the development process, improve maintainability, and enhance the performance of AWs.
 
-A key feature of the Dojo framework is its use of [commands](./framework/commands.md). Commands are a design pattern that helps to reduce boilerplate code, resulting in cleaner and more maintainable applications. They achieve this by encapsulating specific actions or operations within self-contained, reusable units.
+A key feature of the Dojo framework is its use of [commands](../framework/cairo/commands.md). Commands are a design pattern that helps to reduce boilerplate code, resulting in cleaner and more maintainable applications. They achieve this by encapsulating specific actions or operations within self-contained, reusable units.
 
 Developers can write commands freely within Systems, and the Cairo compiler takes care of inlining the appropriate functions. 
 
