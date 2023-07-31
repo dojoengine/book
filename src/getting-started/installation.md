@@ -2,7 +2,7 @@
 
 ### Önceden derlenmiş binaryler
 
-Önceden derlenmiş ikililer [GitHub sürümleri](https://github.com/dojoengine/dojo/releases) sayfasında bulunabilir.
+Önceden derlenmiş binaryler [GitHub sürümleri](https://github.com/dojoengine/dojo/releases) sayfasında bulunabilir.
 Bunlar [Dojoup](#using-dojoup) kullanılarak daha iyi yönetilir.
 
 ### Dojoup Kullanarak
