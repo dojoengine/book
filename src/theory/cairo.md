@@ -1,24 +1,24 @@
 ## Cairo
 
-Cairo is an open-source, Turing-complete smart contract language developed by Starkware, designed to power the Validity Rollup Starknet. The language enables highly expressive and verifiable computation, making it well-suited for building scalable and secure applications, including decentralized finance (DeFi) projects.
+Cairo, Starkware tarafından geliştirilen açık kaynaklı, Turing-tamamlanmış bir akıllı sözleşme dilidir ve Doğrulama Rollup'ı Starknet'i güçlendirmek üzere tasarlanmıştır. Bu dil, yüksek derecede ifade edilebilir ve doğrulanabilir hesaplamaları mümkün kılarak, merkezi olmayan finans (DeFi) projeleri de dahil olmak üzere ölçeklenebilir ve güvenli uygulamaların geliştirilmesi için uygundur.
 
-Dojo builds on Cairo to create a robust framework for developing Autonomous Worlds (AWs). By leveraging the capabilities of Cairo, Dojo aims to streamline the development process, improve maintainability, and enhance the performance of AWs.
+Dojo kendisini, Cairo üzerine kurarak Özerk Dünyalar (AWs) geliştirmek için sağlam bir framework oluşturur. Cairo'nun gücünden yararlanarak, Dojo geliştirme sürecini basitleştirmeyi, bakımı iyileştirmeyi ve AW'ların performansını artırmayı hedefler.
 
-A key feature of the Dojo framework is its use of [commands](../framework/cairo/commands.md). Commands are a design pattern that helps to reduce boilerplate code, resulting in cleaner and more maintainable applications. They achieve this by encapsulating specific actions or operations within self-contained, reusable units.
+Dojo framework'ün ana özelliği [komutların](../framework/cairo/commands.md) kullanımıdır. Komutlar, boilerplate kodunu azaltmaya yardımcı olan bir tasarım desenidir ve sonuç olarak daha temiz ve daha kolay bakım yapılan uygulamalar oluştururlar. Bu, belirli eylemleri veya işlemleri özerk, yeniden kullanılabilir birimler içine kapsülleyerek gerçekleştirilir.
 
-Developers can write commands freely within Systems, and the Cairo compiler takes care of inlining the appropriate functions. 
+Geliştiriciler, Sistemler içinde komutları özgürce yazabilir ve Cairo derleyicisi uygun işlevleri içeri ekler.
 
-#### Essential Reading
-- [Cairo book](https://cairo-book.github.io/)
-- [Awesome Cairo](https://github.com/auditless/awesome-cairo)
-- [Starknet Book](https://book.starknet.io/)
+#### Temel Okuma
+- [Cairo kitabı](https://cairo-book.github.io/)
+- [Harika Cairo](https://github.com/auditless/awesome-cairo)
+- [Starknet Kitabı](https://book.starknet.io/)
 
-### Starknet as an L2
+### Bir L2 Olarak Starknet
 
-Starknet is a Validity Rollup Layer 2 (L2) solution designed to scale Ethereum. It operates by offering high transaction throughput and low gas costs while maintaining the same level of security as Ethereum Layer 1 (L1). The strategy it uses is akin to solving a sudoku puzzle: verifying a solution is easier than finding the solution from scratch. Similarly, Starknet replaces heavy and costly L1 computation with cheaper L1 verification through the use of STARK proofs computed off-chain.
+Starknet, Ethereum'u ölçeklendirmek için tasarlanmış bir Doğrulama Rollup Katman 2 (L2) çözümüdür. Ethereum Katman 1 (L1) ile aynı güvenlik düzeyini korurken yüksek işlem hacmi ve düşük gaz maliyeti sunar. Kullanılan strateji, bir sudoku bulmacasını çözmeye benzer: bir çözümü doğrulamak, çözümü sıfırdan bulmaktan daha kolaydır. Benzer şekilde, Starknet, zincir dışında hesaplanan STARK kanıtlarının kullanımıyla ağır ve maliyetli L1 hesaplamalarını daha ucuz L1 doğrulamaları ile değiştirir.
 
-In more technical terms, Starknet is a permissionless Validity-Rollup (also known as a "ZK-Rollup") that supports general computation and currently runs as an L2 network over Ethereum. The network's L1 security is guaranteed by its utilization of the STARK cryptographic proof system, which is considered one of the safest and most scalable.
+Daha teknik terimlerle, Starknet, genel hesaplamaları destekleyen izinsiz bir Doğrulama-Rollup (aynı zamanda bir "ZK-Rollup" olarak da bilinir) ve şu anda Ethereum üzerinde bir L2 ağı olarak çalışır. Ağın L1 güvenliği, en güvenli ve en ölçeklenebilirlerden biri olarak kabul edilen STARK kriptografik kanıt sistemini kullanmasıyla garanti altına alınmıştır.
 
-### Starknet as an Appchain
+### Bir Appchain Olarak Starknet
 
-Cairo is an isomorphic, general-purpose language, optimized for Zero-Knowledge (ZK) proofs. It's the driving force behind Starknet, Starkex, and appchains. Remarkably, you can also run it in WebAssembly (WASM) to generate proofs on the client-side! The Dojo team is working closely with the [Madara](https://github.com/keep-starknet-strange/madara) team to enable Starknet appchains to seamlessly run Dojo worlds.
+Cairo, Sıfır Bilgi (ZK) kanıtları için optimize edilmiş izomorfik, genel amaçlı bir dildir. Starknet, Starkex ve appchainlerin arkasındaki itici güçtür. Dikkat çekici şekilde, ayrıca istemci tarafında kanıtlar oluşturmak için WebAssembly'de (WASM) de çalıştırabilirsiniz! Dojo ekibi, Starknet appchainlerinin Dojo dünyalarını sorunsuz bir şekilde çalıştırabilmesini sağlamak için Madara ekibiyle yakından çalışıyor.
