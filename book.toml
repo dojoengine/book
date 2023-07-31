@@ -5,6 +5,12 @@ multilingual = false
 src = "src"
 title = "Building Autonomous Worlds with Dojo"
 
+[build]
+extra-watch-dirs = ["po"]
+
+[preprocessor.gettext]
+after = ["links"]
+
 [output.html]
 git-repository-url = "https://github.com/dojoengine/book"
 edit-url-template = "https://github.com/dojoengine/book/edit/main/{path}"
