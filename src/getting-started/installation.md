@@ -1,66 +1,64 @@
-## Installation
+## Kurulum
 
-### Precompiled binaries
+### Önceden derlenmiş binaryler
 
-Precompiled binaries are available from the [GitHub releases page](https://github.com/dojoengine/dojo/releases).
-These are better managed by using [Dojoup](#using-dojoup).
+Önceden derlenmiş ikililer [GitHub sürümleri](https://github.com/dojoengine/dojo/releases) sayfasında bulunabilir.
+Bunlar [Dojoup](#using-dojoup) kullanılarak daha iyi yönetilir.
 
-### Using Dojoup
+### Dojoup Kullanarak
 
-Dojoup is the Dojo toolchain installer. You can find more about it [here](https://github.com/dojoengine/dojo/blob/master/dojoup/README.md).
+Dojoup, Dojo araç seti yükleyicisidir. Hakkında daha fazla bilgiyi [burada](https://github.com/dojoengine/dojo/blob/master/dojoup/README.md) bulabilirsiniz.
 
-Open your terminal and run the following command:
+Terminalinizi açın ve aşağıdaki komutu çalıştırın:
 
 ```sh
 curl -L https://install.dojoengine.org | bash
 ```
 
-This will install Dojoup, then simply follow the instructions on-screen,
-which will make the `dojoup` command available in your CLI.
+Bu, Dojoup'u yükleyecek. Bunun ardından sadece ekrandaki talimatları izleyin,
+Ayrıca bu dojoup komutunu CLI'nızda kullanılabilir hale getirecektir.
 
-Running `dojoup` by itself will install the latest (nightly) [precompiled binaries](#precompiled-binaries): `sozo`, `katana`, and `torii`.
-See `dojoup --help` for more options, like installing from a specific version or commit.
+Dojoup komutunu tek başına çalıştırmak, en son (gece yarısı) [önceden derlenmiş binaryleri](#precompiled-binaries): sozo, katana ve torii yükleyecektir.
+Bir belirli sürümden veya commit'ten yüklemek gibi daha fazla seçenek için `dojoup --help` komutunu kullanabilirsiniz.
 
-> ℹ️ **Note**
+> ℹ️ **Not**
 >
-> If you're on Windows, you will need to install and use [Git BASH](https://gitforwindows.org/) or [WSL](https://learn.microsoft.com/en-us/windows/wsl/install),
-> as your terminal, since Dojoup currently does not support Powershell or Cmd.
+> Eğer Windows kullanıyorsanız, şu anda Dojoup'un Powershell veya Cmd'yi desteklemediği için terminal olarak [Git BASH](https://gitforwindows.org/) veya [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) yüklemeli ve kullanmalısınız.
 
-### Building from source
+## Kaynaktan Derleme
 
-#### Prerequisites
+### Gereksinimler
 
-You will need the [Rust](https://rust-lang.org) compiler and Cargo, the Rust package manager.
-The easiest way to install both is with [`rustup.rs`](https://rustup.rs/).
+[Rust](https://rust-lang.org) derleyicisi ve Cargo, Rust paket yöneticisine ihtiyacınız olacak.
+Her ikisini de [`rustup.rs`](https://rustup.rs/) ile en kolay şekilde yükleyebilirsiniz.
 
-On Windows, you will also need a recent version of [Visual Studio](https://visualstudio.microsoft.com/downloads/),
-installed with the "Desktop Development With C++" Workloads option.
+Windows'ta, "Desktop Development With C++" iş yükü seçeneğiyle yüklenmiş en son sürüm [Visual Studio](https://visualstudio.microsoft.com/downloads/)'ya da ihtiyacınız olacak.
 
-#### Building
+#### Derleme
 
-You can either use the different [Dojoup](#using-dojoup) flags:
+Farklı [Dojoup](#using-dojoup) bayraklarını kullanabilirsiniz:
 
 ```sh
 dojoup --branch master
 dojoup --path path/to/dojo
 ```
 
-Or, by using a single Cargo command:
+Veya, tek bir Cargo komutu kullanarak:
 
 ```sh
 cargo install --git https://github.com/dojoengine/dojo --force sozo katana torii
 ```
 
-Or, by manually building from a local copy of the [Dojo repository](https://github.com/dojoengine/dojo):
+Veya, manuel olarak yerel bir [Dojo repository](https://github.com/dojoengine/dojo) kopyasından derleyerek:
 
 ```sh
-# clone the repository
+# repository'yi klonlayın
 git clone https://github.com/dojoengine/dojo.git
 cd dojo
-# install Sozo
+# Sozo'yu yükleyin
 cargo install --path ./crates/sozo --force
-# install Katana
+# Katana'yı yükleyin
 cargo install --path ./crates/katana --force
-# install Torii
-cargo install --path ./crates/torii --force
+# Torii'yi yükleyin
+cargo install --path ./crates/torii --force```
 ```
