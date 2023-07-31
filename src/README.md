@@ -30,7 +30,7 @@ Dojo, [onchain oyun](https://naavik.co/digest/primer-fully-on-chain-gaming) oyun
 
 Kanıtlanabilir oyunlar, hesaplamaların verimli ölçeklenmesi ve doğrulanması için sıfır bilgi [(zero-knowledge)](https://ethereum.org/en/zero-knowledge-proofs/) özelliklerini talep eder. [Cairo](https://book.starknet.io/chapter_1/what_is_cairo.html), bu ihtiyacı, [SNARK](https://consensys.net/blog/developers/introduction-to-zk-snarks/)'ları dahil etmek için devreler oluşturma karmaşıklığını ortadan kaldırarak genel bir dil sağlar.
 
-**Cairo'da basitçe programlama yapabilir ve uygulamalarınız otomatik olarak kanıtlanabilir hale gelir.**
+**Cairo'da basitçe programlama yapabilirsiniz ve uygulamalarınız otomatik olarak kanıtlanabilir hale gelir.**
 
 Dahası, programlarınızı [Cairo Virtual Machine](https://medium.com/starkware/cairo-welcome-on-board-1cf3487554f) (CVM) üzerinde, Starknet'ın Katman 2'si, Starknet uygulama zincirleri ve hatta tarayıcı içinde WebAssembly (WASM) üzerinden bile dağıtabilirsiniz! Dojo, oyun geliştirmenizi hızlandırmak için basit ZK ilkel parçaları sağlamayı amaçlar.
 
