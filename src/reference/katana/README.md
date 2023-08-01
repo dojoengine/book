@@ -1,41 +1,41 @@
 ## katana
 
-### NAME
+### AD
 
-katana - Create a local testnet node for deploying and testing Starknet smart contracts.
+katana - Starknet akıllı sözleşmelerini konuşlandırmak ve test etmek için yerel bir testnet düğümü oluşturun.
 
-### SYNOPSIS
+### ÖZET
 
 `katana` [*options*]
 
-### DESCRIPTION
+### AÇIKLAMA
 
-Create a local testnet node for deploying and testing Starknet smart contracts. Katana supports deployment and execution of version 0 and 1 of Cairo contracts.
+Starknet akıllı sözleşmelerini konuşlandırmak ve test etmek için yerel bir testnet düğümü oluşturun. Katana, Cairo sözleşmelerinin 0 ve 1 sürümlerinin konuşlandırılması ve çalıştırılmasını destekler.
 
-This section covers an extensive list of information about Mining Modes, Supported RPC Methods, Katana flags and their usages. You can run multiple flags at the same time.
+Bu bölüm, Madencilik Modları, Desteklenen RPC Metodları, Katana bayrakları ve kullanımları hakkında geniş bilgi içerir. Aynı anda birden fazla bayrak çalıştırabilirsiniz.
 
-#### Mining Modes
+#### Madencilik Modları
 
-Mining modes refer to how frequent blocks are mined using Katana. By default, it automatically generates a new block as soon as a transaction is submitted.
+Madencilik modları, Katana kullanılarak blokların ne sıklıkta oluşturulduğunu belirtir. Varsayılan olarak, bir işlem gönderildiği anda otomatik olarak yeni bir blok oluşturur.
 
-You can change this setting to interval mining if you will, which means that a new block will be generated in a given period of time selected by the user. If you want to go for this type of mining, you can do it by adding the `--block-time <block-time-in-seconds>` flag, like in the following example.
+Bu ayarı, isteğe bağlı olarak aralıklı madenciliğe değiştirebilirsiniz, bu da kullanıcı tarafından seçilen belirli bir süre içinde yeni bir blok oluşturulacağı anlamına gelir. Bu tür madenciliği seçmek isterseniz, aşağıdaki örnekte olduğu gibi --block-time <blok-zamanı-saniye-cinsinden> bayrağını ekleyerek bunu yapabilirsiniz.
 
 ```sh
-# Produces a new block every 10 seconds
+# Her 10 saniyede bir yeni bir blok oluşturur
 katana --block-time 10
 ```
 
-#### Supported Transport Layers
+#### Desteklenen Taşıma Katmanları
 
-Only HTTP connection is supported at the moment. The server listens on port 5050 by default, but it can be changed by running the following command:
+Şu anda yalnızca HTTP bağlantısı desteklenmektedir. Sunucu varsayılan olarak 5050 portunda dinler, ancak aşağıdaki komutu çalıştırarak değiştirilebilir:
 
 ```sh
 katana --port <PORT>
 ```
 
-#### Starknet Feature Compatibility
+#### Starknet Özellik Uyumluluğu
 
-##### Supported Transaction Type
+##### Desteklenen İşlem Türü
 
 | Type           | Version |
 | -------------- | ------- |
@@ -43,11 +43,11 @@ katana --port <PORT>
 | DECLARE        | 1, 2    |
 | DEPLOY_ACCOUNT |         |
 
-#### Supported RPC Methods
+#### Desteklenen RPC Metodları
 
-##### Starknet Methods
+##### Starknet Metodları
 
-Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. The standard methods are based on [this](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) reference.
+Katana, Starknet JSON-RPC spesifikasyonlarının **v0.3.0** sürümünü destekler. Standart metodlar [bu](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) referansa dayanır.
 
 -   `starknet_blockNumber`
 -   `starknet_blockHashAndNumber`
@@ -78,80 +78,80 @@ Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. The 
 -   `starknet_addDeclareTransaction`
 -   `starknet_addDeployAccountTransaction`
 
-##### Custom Methods
+##### Özel Metodlar
 
-Katana provides a convenient set of custom RPC methods to quickly and easily configure the node to suit your testing environment.
+Katana, düğümünüzü test ortamınıza uyacak şekilde hızlı ve kolay bir şekilde yapılandırmak için kullanışlı bir dizi özel RPC metodları sağlar.
 
 `katana_generateBlock`  
-Mine a new block which includes all currently pending transactions
+Şu anda bekleyen tüm işlemleri içeren yeni bir blok oluştur
 
 `katana_nextBlockTimestamp`  
-Get the time for the next block
+Sonraki blok için zamanı al
 
 `katana_increaseNextBlockTimestamp`  
-Increase the time for the block by a given amount of time, in seconds
+Blok için süreyi belirtilen süre kadar, saniye cinsinden artır
 
 `katana_setNextBlockTimestamp`  
-Similar to `katana_increaseNextBlockTimestamp` but takes the exact timestamp that you want in the next block
+`katana_increaseNextBlockTimestamp`'a benzer, ancak sonraki blokta istediğiniz kesin zamanı alır
 
 `katana_predeployedAccounts`  
-Get the info for all of the predeployed accounts
+Önceden konuşlandırılmış tüm hesapların bilgilerini al
 
-### OPTIONS
+### SEÇENEKLER
 
-#### General Options
+#### Genel Seçenekler
 
 `--silent`  
-&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup
+&nbsp;&nbsp;&nbsp;&nbsp; Başlangıçta hiçbir şey yazdırma
 
 `--no-mining`  
-&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on demand instead
+&nbsp;&nbsp;&nbsp;&nbsp; Otomatik ve aralıklı madenciliği devre dışı bırakın ve talep üzerine madencilik yapın
 
 `-b, --block-time <SECONDS>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining
+&nbsp;&nbsp;&nbsp;&nbsp; Aralıklı madencilik için blok süresi (saniye)
 
 `-h, --help`  
-&nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h')
+&nbsp;&nbsp;&nbsp;&nbsp; Yardımı yazdır ('-h' ile özet gör)
 
 `-V, --version`  
-&nbsp;&nbsp;&nbsp;&nbsp; Print version information
+&nbsp;&nbsp;&nbsp;&nbsp; Sürüm bilgisini yazdır
 
-#### Server Options
+#### Sunucu Seçenekleri
 
 `-p, --port <PORT>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on [default: 5050]
+&nbsp;&nbsp;&nbsp;&nbsp; Dinlenecek port numarası [varsayılan: 5050]
 
 `--host <HOST>`  
-&nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on
+&nbsp;&nbsp;&nbsp;&nbsp; Sunucunun dinleyeceği IP adresi
 
-#### Starknet Options
+#### Starknet Seçenekleri
 
 `--seed <SEED>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be predeployed
+&nbsp;&nbsp;&nbsp;&nbsp; Önceden konuşlandırılacak hesapların rastlantısallığı için tohumu belirtin
 
 `--accounts <NUM>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate [default: 10]
+&nbsp;&nbsp;&nbsp;&nbsp; Oluşturulacak ön-finanse edilmiş hesapların sayısı [varsayılan: 10]
 
 `--allow-zero-max-fee`  
-&nbsp;&nbsp;&nbsp;&nbsp; Allow transaction max fee to be zero
+&nbsp;&nbsp;&nbsp;&nbsp; İşlem maksimum ücretinin sıfır olmasına izin ver
 
 #### Environment Options
 
 `--chain-id <CHAIN_ID>`  
-&nbsp;&nbsp;&nbsp;&nbsp; The chain ID [default: KATANA]
+&nbsp;&nbsp;&nbsp;&nbsp; Zincir ID [varsayılan: KATANA]
 
 `--gas-price <GAS_PRICE>`  
-&nbsp;&nbsp;&nbsp;&nbsp; The gas price
+&nbsp;&nbsp;&nbsp;&nbsp; Gaz fiyatı
 
-### EXAMPLES
+### ÖRNEKLER
 
-1. Set the number of accounts to 15 and allow zero fee transaction
+1. Hesap sayısını 15'e ayarla ve sıfır ücretli işlem yapmaya izin ver
 
 ```sh
 katana --accounts 15 --allow-zero-max-fee
 ```
 
-2. Set the chain id SN_GOERLI and run the server on port 8545
+2. Zincir id'sini SN_GOERLI olarak ayarla ve sunucuyu 8545 portunda çalıştır
 
 ```sh
 katana --chain-id SN_GOERLI --port 8545
