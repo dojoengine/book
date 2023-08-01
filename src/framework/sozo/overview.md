@@ -1,25 +1,25 @@
 # Sozo
 
-`sozo` is a powerful migration planning tool designed to streamline the updating and deployment of AWs. It provides a robust binary command-line interface (CLI) that simplifies World management tasks, enabling you to focus on the creative aspects of World-building. Future versions will provide a GUI.
+`sozo` AW'ların güncellenmesini ve dağıtılmasını kolaylaştırmak üzere tasarlanmış güçlü bir geçiş planlama aracıdır. Sağlam bir ikili komut satırı arayüzü (CLI) sunarak Dünya yönetim görevlerini basitleştirir ve size Dünya inşa etmenin yaratıcı yönlerine odaklanma olanağı sağlar. Gelecek sürümler bir GUI sağlayacaktır.
 
-## Features
+## Özellikler
 
--   **Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy management of your Worlds, whether you're updating existing ones or deploying new ones.
+-   **Binary CLI**: Sozo, mevcut Dünyaları güncelleyip yeni olanları dağıtıp dağıtmamanıza bakılmaksızın, Dünyalarınızın kolay yönetimini sağlayan sezgisel bir binary CLI sunar.
 
-## Installation
+## Kurulum
 
-The `sozo` binary can be installed via [`dojoup`](../../getting-started/installation.md#using-dojoup), our dedicated installation package manager.
+`sozo` binary adanmış kurulum paket yöneticimiz olan [`dojoup`](../../getting-started/installation.md#using-dojoup) aracılığıyla kurulabilir.
 
-### Installing from Source
+### Kaynaktan Kurulum
 
-If you prefer to install from the source code:
+Kaynak kodundan kurmayı tercih ederseniz:
 
 ```sh
 cargo install --path ./crates/sozo --profile local --force
 ```
 
-This will install Sozo and the required dependencies on your local system.
+Bu, Sozo'yu ve gerekli bağımlılıkları yerel sisteminize kurar.
 
-> 📚 **Reference**
+> 📚 **Referans**
 >
-> See the [`sozo` Reference](../../reference/sozo/) for a complete overview of all the available subcommands.
+> Tüm kullanılabilir alt komutların tam bir genel bakışı için [`sozo` Reference](../../reference/sozo/) Referansına bakın.
