@@ -1,4 +1,4 @@
-## World
+## Dünya
 
 Dünya sözleşmesi, merkezi bir sistem çekirdeği işlevi görerek tüm etkileşimlerin başlatılması ve çözülmesi için temel sağlar. Bu çekirdek içinde, sözleşmeler dağıtılır, kaydedilir ve yürütülür, istemcilerin tek bir sözleşmeyle, potansiyel olarak yüzlercesi yerine, etkileşime girmesine olanak sağlayarak akışı aşağı sistemler için düzgünleştirir.
 
