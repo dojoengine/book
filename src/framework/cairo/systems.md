@@ -1,7 +1,6 @@
 ## Systems
 
-Systems represent functions that operate on the world state. They take input from the user, retrieve the current state from the world, compute a state transition, and apply it. Each system has a single entry point, the execute function. To streamline interaction with the world, systems can utilize
-commands.
+Sistemler, dünya durumu üzerinde işlem yapan fonksiyonları temsil eder. Kullanıcıdan giriş alırlar, dünyadan mevcut durumu alırlar, bir durum geçişi hesaplarlar ve bunu uygularlar. Her sistem, execute fonksiyonu olan tek bir giriş noktasına sahiptir. Dünya ile etkileşimi hızlandırmak için sistemler komutları kullanabilir.
 
 ```rust,ignore
 #[system]
