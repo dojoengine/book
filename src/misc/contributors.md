@@ -1,50 +1,50 @@
-## Contributing to Dojo Book
+## Dojo Kitabına Katkıda Bulunmak
 
-As the Dojo engine progresses and develops, it is essential for the Dojo book to keep pace with these advancements. Updating and refining the book ensures that it remains a relevant and valuable resource for those interested in understanding and utilizing the latest Dojo engine features and capabilities. All help is welcome!
+Dojo motoru ilerledikçe ve geliştikçe, Dojo kitabının bu gelişmelere ayak uydurması hayati önem taşır. Kitabı güncellemek ve rafine etmek, onun Dojo motorunun en yeni özelliklerini ve yeteneklerini anlamak ve kullanmak isteyenler için ilgili ve değerli bir kaynak olmaya devam etmesini sağlar. Tüm yardımlar hoş karşılanır!
 
-### The purpose of the book
+### Kitabın amacı
 
-The Dojo book is designed to be a comprehensive resource that caters to users at various levels of experience. It aims to serve as both an introductory guide for those new to Dojo and its ancillary packages, as well as a reference for more experienced users seeking to deepen their understanding of the engine's features and capabilities.
+Dojo kitabı, çeşitli deneyim seviyelerindeki kullanıcılara hitap eden kapsamlı bir kaynak olacak şekilde tasarlanmıştır. Hem Dojo ve yan paketlerine yeni başlayanlar için bir giriş kılavuzu olmayı hem de motorun özelliklerini ve yeteneklerini daha derinlemesine anlamak isteyen daha deneyimli kullanıcılar için bir referans olmayı amaçlar.
 
-The book is split into some major chapters:
+Kitap, birkaç ana bölüme ayrılmıştır:
 
-- Framework Theory
-- Getting Started
-- Building a World
+- Framework Teorisi
+- Başlarken
+- Dünya Oluşturma
 
-### Code of Conduct
+### Davranış Kuralları (Code of Conduct)
 
-The book follows the [Rust Code of Conduct](https://www.rust-lang.org/policies/code-of-conduct).
+Kitap, [Rust Davranış Kurallarını](https://www.rust-lang.org/policies/code-of-conduct) takip eder.
 
-### Ways to contribute
+### Katkıda bulunma yolları
 
-#### Issues
+#### Sorunlar
 
-If you think that some content is missing or out-of-date, feel free to open an issue. If you find multiple pieces of content lacking, please open up a separate issue for each.
+Eksik ya da güncel olmayan bir içerik olduğunu düşünüyorsanız, bir sorun oluşturmaktan çekinmeyin. Eksik olan birden çok içerik bulursanız, lütfen her biri için ayrı bir sorun oluşturun.
 
-The issues will then be labeled so other contributors can find chunks of work they are interested in more easily.
+Daha sonra sorunlar, diğer katılımcıların ilgilendikleri iş parçalarını daha kolay bulabilmeleri için etiketlenecektir.
 
-The issue should contain what is missing, or what could be improved, in as much detail as you deem necessary.
+Sorun, eksik olan veya iyileştirilebilecek şeyleri, gerektiğini düşündüğünüz kadar detayla içermelidir.
 
-#### Pull requests
+#### Pull istekleri
 
-Feel free to contribute changes to the book by opening a pull request - anything is welcome, from reformulating a sentence, fixing a typo, to adding new sections or chapters.
+Bir cümleyi yeniden formüle etmek, bir yazım hatasını düzeltmek, yeni bölümler veya başlıklar eklemek - her türlü değişikliği bir pull isteği açarak katkıda bulunabilirsiniz.
 
-When your pull request is open, other contributors will take a look and may request changes. Do not be discouraged!
+Pull isteğiniz açık olduğunda, diğer katkıda bulunanlar bir göz atacak ve değişiklikler isteyebilirler. Cesaretinizi kırmayın!
 
-### Writing style
+### Yazım tarzı
 
-This section documents a few standards for writing used throughout the book.
+Bu bölüm, kitap boyunca kullanılan birkaç yazım standardını belgeler.
 
-#### Chapters start with a second level heading
+#### Bölümler ikinci seviye bir başlıkla başlar
 
-We use:
+Kullanırız:
 
 ```md
 ## Some Page
 ```
 
-We do not use:
+Kullanmayız:
 
 ```md
 # Some Page
