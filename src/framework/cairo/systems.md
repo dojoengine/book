@@ -1,4 +1,4 @@
-## Systems
+## Sistemler
 
 Sistemler, dünya durumu üzerinde işlem yapan fonksiyonları temsil eder. Kullanıcıdan giriş alırlar, dünyadan mevcut durumu alırlar, bir durum geçişi hesaplarlar ve bunu uygularlar. Her sistem, execute fonksiyonu olan tek bir giriş noktasına sahiptir. Dünya ile etkileşimi hızlandırmak için sistemler komutları kullanabilir.
 
