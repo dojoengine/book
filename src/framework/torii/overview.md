@@ -1,15 +1,15 @@
-## Torii - Networking & Indexing
+## Torii - Ağ Oluşturma & İndeksleme
 
-Torii serves as a comprehensive indexing and networking layer for dojo worlds. It systematically organizes the state of dojo worlds, facilitating efficient querying for clients.
+Torii, dojo dünyaları için kapsamlı bir indeksleme ve ağ katmanı olarak hizmet verir. Dojo dünyalarının durumunu sistematik bir şekilde düzenler, istemcilerin etkili bir şekilde sorgulamasını kolaylaştırır.
 
 ### Indexer
 
-__coming soon__
+__yakında gelecek__
 
 ### Graphql
 
-__coming soon__
+__yakında gelecek__
 
 ### RPC
 
-__coming soon__
+__yakında gelecek__
