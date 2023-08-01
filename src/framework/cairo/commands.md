@@ -1,8 +1,8 @@
 ## Commands
 
-Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating components, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
+Dojo'daki Komutlar, sistem yürütmesini kolaylaştırmak için derleme zamanında genişletilen genelleştirilmiş işlevlerdir. Bileşenleri almayı veya güncellemeyi ve benzersiz ID'ler oluşturmayı gibi ortak işlemleri soyutlayarak sistemlerin dünya durumuyla etkileşim kurmasını kolaylaştırırlar. Bu komutları kullanarak, geliştiriciler sistem uygulamalarını basitleştirebilir ve kod okunabilirliğini artırabilirler.
 
-Understanding commands is key to understanding Dojo. You will leverage them heavily within the systems you design.
+Komutları anlamak, Dojo'yu anlamak için anahtardır. Tasarladığınız sistemler içinde onları yoğun bir şekilde kullanacaksınız.
 
 ```rust,ignore
 // Update an existing entity by setting its components with the provided values.
