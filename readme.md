@@ -1,19 +1,19 @@
-## 📖 The Dojo Book
+## 📖 Dojo Kitabı
 
-Dojo is a toolchain for building Autonomous Worlds. Step into the Dojo [now](https://book.dojoengine.org/).
+Dojo, Otonom Dünyalar inşa etmek için bir araç setidir. Dojo'ya [şimdi](https://book.dojoengine.org/) adım atın.
 
-### Contributing
-Dojo is open-source and encourages contribution. It is in the early stage of development.
+### Katkıda Bulunmak
+Dojo açık kaynaklıdır ve katkıyı teşvik eder. Geliştirme sürecinin erken aşamasındadır.
 
-Check our [contributing guidelines](./src/misc/contributors.md). Feel free to contribute wording, sentences, chapters, and guides!
+[Katkıda bulunma kurallarımızı](./src/misc/contributors.md) kontrol edin. Kelime, cümle, bölüm ve rehberler eklemeye katkıda bulunmaktan çekinmeyin!
 
-The book is built with [mdbook](https://github.com/rust-lang/mdBook), which you can get by running:
+Kitap, [mdbook](https://github.com/rust-lang/mdBook) kullanılarak oluşturulmuştur, bunu aşağıdaki komutu çalıştırarak elde edebilirsiniz:
 
 ```
 cargo install mdbook
 ```
 
-To see the book change live run:
+Kitaptaki değişiklikleri canlı olarak görmek için aşağıdaki komutu çalıştırın:
 
 ```sh
 mdbook serve
