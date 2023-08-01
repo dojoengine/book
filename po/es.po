@@ -1,0 +1,2407 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Building Autonomous Worlds with Dojo\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-08-01 11:08-0300\n"
+"Last-Translator: dami <pinonesdamian@gmail.com>\n"
+"Language-Team: Spanish <es@tp.org.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: src/SUMMARY.md:3
+msgid "Introduction"
+msgstr "Introducción"
+
+#: src/SUMMARY.md:4
+msgid "AW Theory"
+msgstr "Teoría AW"
+
+#: src/SUMMARY.md:5
+msgid "Cairo Ecosystem"
+msgstr "Ecosistema de Cairo"
+
+#: src/SUMMARY.md:7
+msgid "Getting Started"
+msgstr "Primeros pasos"
+
+#: src/SUMMARY.md:9
+msgid "Installation"
+msgstr "Instalación"
+
+#: src/SUMMARY.md:11
+msgid "Development"
+msgstr "Desarrollo"
+
+#: src/SUMMARY.md:13
+msgid "Setup"
+msgstr "Configuración"
+
+#: src/SUMMARY.md:15
+msgid "Dojo Engine"
+msgstr "Motor de Dojo"
+
+#: src/SUMMARY.md:17
+msgid "Overview"
+msgstr "Visión general"
+
+#: src/SUMMARY.md:18
+msgid "Cairo ECS"
+msgstr ""
+
+#: src/SUMMARY.md:19
+msgid "World"
+msgstr "Mundo"
+
+#: src/SUMMARY.md:20
+msgid "Authorization"
+msgstr "Autorización"
+
+#: src/SUMMARY.md:21
+msgid "Components"
+msgstr "Componentes"
+
+#: src/SUMMARY.md:22
+msgid "Systems"
+msgstr "Sistemas"
+
+#: src/SUMMARY.md:23
+msgid "Entities"
+msgstr "Entidades"
+
+#: src/SUMMARY.md:24
+msgid "Commands"
+msgstr "Comandos"
+
+#: src/SUMMARY.md:25
+msgid "Storage"
+msgstr "Almacenamiento"
+
+#: src/SUMMARY.md:26
+msgid "Sozo"
+msgstr ""
+
+#: src/SUMMARY.md:27
+msgid "Katana"
+msgstr ""
+
+#: src/SUMMARY.md:28
+msgid "Torii"
+msgstr ""
+
+#: src/SUMMARY.md:30
+msgid "Appendix"
+msgstr "Apéndice"
+
+#: src/SUMMARY.md:32
+msgid "References"
+msgstr "Referencias"
+
+#: src/SUMMARY.md:33
+msgid "sozo Commands"
+msgstr "Comandos de sozo"
+
+#: src/SUMMARY.md:34
+msgid "Project Commands"
+msgstr "Comandos del Proyecto"
+
+#: src/SUMMARY.md:35
+msgid "init"
+msgstr ""
+
+#: src/SUMMARY.md:36
+msgid "build"
+msgstr ""
+
+#: src/SUMMARY.md:37
+msgid "test"
+msgstr ""
+
+#: src/SUMMARY.md:38
+msgid "migrate"
+msgstr ""
+
+#: src/SUMMARY.md:39
+msgid "World Commands"
+msgstr "Comandos del Mundo"
+
+#: src/SUMMARY.md:40
+msgid "execute"
+msgstr ""
+
+#: src/SUMMARY.md:41
+msgid "register"
+msgstr ""
+
+#: src/SUMMARY.md:42
+msgid "system"
+msgstr ""
+
+#: src/SUMMARY.md:43
+msgid "component"
+msgstr ""
+
+#: src/SUMMARY.md:44
+msgid "katana Reference"
+msgstr "referencia de katana"
+
+#: src/SUMMARY.md:48
+msgid "Contributors"
+msgstr "Colaboradores"
+
+#: src/index.md:1
+msgid "## Dojo: The provable games engine"
+msgstr "## Dojo: El motor de juegos demostrables"
+
+#: src/index.md:3
+msgid ""
+"This guide is dedicated to familiarizing you with the Dojo engine and the "
+"transformative potential of Provable games. A special section on the [Theory]"
+"(./theory/autonomous-worlds.md) elucidates this emergent concept of "
+"autonomous worlds and Provable games."
+msgstr ""
+"Esta guía está dedicada a familiarizarte con el motor de Dojo y el potencial "
+"transformador de los juegos demostrables. Una sección especial sobre la "
+"[Teoría](./theory/autonomous-worlds.md) que aclara este emergente concepto "
+"de mundos autónomos y juegos probables."
+
+#: src/index.md:5
+msgid "## What is Dojo?"
+msgstr "## ¿Qué es Dojo?"
+
+#: src/index.md:6
+msgid ""
+"Dojo is a provable game engine with an integrated toolchain, designed for "
+"creating onchain games and autonomous worlds using [Cairo 1.0](https://"
+"github.com/starkware-libs/cairo). It employs an [entity component system]"
+"(https://en.wikipedia.org/wiki/Entity_component_system) and a [diamond "
+"pattern](https://eips.ethereum.org/EIPS/eip-2535), facilitating a modular, "
+"scalable world. Worlds grow via the addition of Components (state) and "
+"Systems (logic). Our architectural design is greatly influenced by the "
+"brilliant [Bevy](https://bevyengine.org/) engine."
+msgstr ""
+"Dojo es un motor de juegos demostrables con una herramienta integrada, "
+"diseñada para crear juegos y mundos autónomos en la cadena de bloques "
+"utilizando [Cairo 1.0](https://github.com/starkware-libs/cairo). Emplea un "
+"[sistema de componentes de entidades](https://en.wikipedia.org/wiki/"
+"Entity_component_system) y el [patrón diamante](https://eips.ethereum.org/"
+"EIPS/eip-2535), facilitando un mundo modular y escalable. Los mundos crecen "
+"mediante la adición de Componentes (estado) y Sistemas (lógica). Nuestro "
+"diseño arquitectónico está fuertemente influenciado por el brillante motor "
+"[Bevy](https://bevyengine.org/)."
+
+#: src/index.md:8
+msgid ""
+"Here's a video of [Cartridge](https://cartridge.gg/)'s [Tarrence](https://"
+"twitter.com/tarrenceva) explaining how Dojo works at the 2023 [Autonomous "
+"Anonymous Summit](https://twitter.com/pet3rpan_/status/1666764726427353091):"
+msgstr ""
+"Aquí tienes un video de [Cartridge](https://cartridge.gg/) donde [Tarrence]"
+"(https://twitter.com/tarrenceva) explica cómo funciona Dojo en la "
+"[Autonomous Anonymous Summit 2023](https://twitter.com/pet3rpan_/"
+"status/1666764726427353091):"
+
+#: src/index.md:10
+msgid ""
+"<video controls poster=\"https://"
+"gf326cjag4w6pdpc42qp22enfhxsywmq6sgs7mkxbn6el7aioyxa.arweave.net/"
+"MXevCSA3LeeN4uag_WiNKe8sWZD0jS-xVwt8RfwIdi4\">\n"
+"  <source src=\"https://sfx25btazqz62pajxecorlp4exskwgokakub44rxmpnsosep5iqa."
+"arweave.net/kW-uhmDMM-08CbkE6K38JeSrGcoCqB5yN2PbJ0iP6iA\" type=\"video/"
+"mp4\">\n"
+"  Your browser does not support the video tag.\n"
+"</video>"
+msgstr ""
+
+#: src/index.md:17
+msgid "#### Key Features"
+msgstr "#### Características clave"
+
+#: src/index.md:18
+msgid ""
+"- Entity Component System (ECS) built on [Cairo 1.0](https://github.com/"
+"starkware-libs/cairo)\n"
+"- [Sozo](./framework/sozo/overview.md) world migration planner\n"
+"- [Torii](./framework/torii/overview.md) networking and indexing stack\n"
+"- [Katana](./framework/katana/overview.md) RPC development network\n"
+"- Typed SDKs"
+msgstr ""
+"- Sistema de Componentes de Entidades (ECS) construido en [Cairo 1.0]"
+"(https://github.com/starkware-libs/cairo)\n"
+"- [Sozo](./framework/sozo/overview.md) planificador de migraciones de "
+"mundos\n"
+"- [Torii](./framework/torii/overview.md) pila de red e indexación\n"
+"- [Katana](./framework/katana/overview.md) red de desarrollo RPC\n"
+"- SDKs tipados"
+
+#: src/index.md:24
+msgid ""
+"> Dojo is an open-source project, currently in its early development phase, "
+"and warmly welcomes contributors. For additional resources, find the book on "
+"[Github](https://github.com/dojoengine/book)."
+msgstr ""
+"> Dojo es un proyecto de código abierto, actualmente en su fase inicial de "
+"desarrollo, y da una cálida bienvenida a los colaboradores. Para obtener "
+"recursos adicionales, encuentra el libro en [Github](https://github.com/"
+"dojoengine/book)."
+
+#: src/index.md:27
+msgid "### Why Dojo?"
+msgstr "### ¿Por qué Dojo?"
+
+#: src/index.md:29
+msgid ""
+"Dojo is the culmination of lessons learned from attempts at building "
+"[onchain games](https://naavik.co/digest/primer-fully-on-chain-gaming), an "
+"emerging sector in the gaming industry. Any developer who has endeavored to "
+"build an onchain game appreciates the inherent engineering hurdles - a "
+"realization that drove us to create Dojo. Just as you wouldn't recreate "
+"Unity every time you develop a new game, the same principle applies here. "
+"Dojo is designed to handle the complex infrastructure, allowing developers "
+"to focus on the unique aspects of their games."
+msgstr ""
+"Dojo es el resultado de las lecciones aprendidas de intentos de construir "
+"[juegos en cadena](https://naavik.co/digest/primer-fully-on-chain-gaming), "
+"un sector emergente en la industria de los videojuegos. Cualquier "
+"desarrollador que haya intentado crear un juego en cadena aprecia los "
+"desafíos de ingeniería inherentes, una realidad que nos impulsó a crear "
+"Dojo. Así como no recrearías Unity cada vez que desarrollas un nuevo juego, "
+"el mismo principio se aplica aquí. Dojo está diseñado para manejar la "
+"infraestructura compleja, permitiendo a los desarrolladores enfocarse en los "
+"aspectos únicos de sus juegos."
+
+#: src/index.md:32
+msgid "### Why Cairo & Starknet?"
+msgstr "### ¿Por qué Cairo y StarkNet?"
+
+#: src/index.md:34
+msgid ""
+"Provable games demand [zero-knowledge](https://ethereum.org/en/zero-"
+"knowledge-proofs/) properties for efficient scaling and verification of "
+"computations. [Cairo](https://book.starknet.io/chapter_1/what_is_cairo.html) "
+"addresses this need by providing a generalized language, eliminating the "
+"complexity of creating circuits to incorporate [SNARKs](https://consensys."
+"net/blog/developers/introduction-to-zk-snarks/). "
+msgstr ""
+"Los juegos demostrables requieren propiedades de [conocimiento cero](https://"
+"ethereum.org/en/zero-knowledge-proofs/)(ZK) para una escalabilidad eficiente y "
+"verificación de cálculos. [Cairo](https://book.starknet.io/chapter_1/"
+"what_is_cairo.html) aborda esta necesidad proporcionando un lenguaje "
+"generalizado, eliminando la complejidad de crear circuitos para incorporar "
+"[SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/). "
+
+#: src/index.md:36
+msgid ""
+"**You can simply program in Cairo and your applications become automatically "
+"provable**. "
+msgstr ""
+"**Puedes simplemente programar en Cairo y tus aplicaciones se vuelven "
+"automáticamente demostrables**. "
+
+#: src/index.md:38
+msgid ""
+"Moreover, you can deploy your programs on the [Cairo Virtual Machine]"
+"(https://medium.com/starkware/cairo-welcome-on-board-1cf3487554f) (CVM), "
+"which is compatible with Starknet's Layer 2, Starknet appchains, and even in-"
+"browser through WebAssembly (WASM)! Dojo aims to supply straightforward ZK "
+"primitives to fuel your game development."
+msgstr ""
+"Además, puedes implementar tus programas en la [Máquina Virtual Cairo]"
+"(https://medium.com/starkware/cairo-welcome-on-board-1cf3487554f) (CVM), que "
+"es compatible con la Capa 2 de Starknet, las appchains de Starknet e incluso "
+"en el navegador a través de WebAssembly (WASM). Dojo tiene como objetivo "
+"proporcionar primitivas de conocimiento cero sencillas(ZK) para impulsar el "
+"desarrollo de tus juegos."
+
+#: src/index.md:40
+msgid ""
+"For more information about Starknet, Cairo and its tech stack, check out the "
+"[Starknet & Cairo book](https://book.starknet.io/)."
+msgstr ""
+"Para obtener más información sobre Starknet, Cairo y su stack tecnológico, "
+"visita el [libreo de Starknet y Cairo](https://book.starknet.io/)."
+
+#: src/index.md:44
+msgid "### Vision"
+msgstr "### Visión"
+
+#: src/index.md:45
+msgid ""
+"Dojo is a bold work in progress, aimed at empowering developers to construct "
+"onchain games and Autonomous Worlds (AWs) within hours, not weeks."
+msgstr ""
+"Dojo es un audaz trabajo en progreso, con el objetivo de capacitar a los "
+"desarrolladores para construir juegos en la cadena y Mundos Autónomos (AWs) "
+"en cuestión de horas, no semanas."
+
+#: src/index.md:47
+msgid "### Organizational Structure"
+msgstr "### Estructura Organizacional"
+
+#: src/index.md:48
+msgid ""
+"Dojo is an open-source initiative, licensed under MIT, dedicated to "
+"promoting and advancing the concept of Autonomous Worlds (AWs). It is "
+"spearheaded by [Cartridge](https://cartridge.gg/), [Realms & BibliothecaDAO]"
+"(https://bibliothecadao.xyz/), [briq](https://briq.construction/) and many "
+"more [contributors](https://github.com/orgs/dojoengine/people)."
+msgstr ""
+"Dojo es una iniciativa de código abierto, con licencia MIT, dedicada a "
+"promover y avanzar en el concepto de Mundos Autónomos (AWs). Es liderado por "
+"[Cartridge](https://cartridge.gg/), [Realms & BibliothecaDAO](https://"
+"bibliothecadao.xyz/), [briq](https://briq.construction/) y muchos otros "
+"[colaboradores](https://github.com/orgs/dojoengine/people)."
+
+#: src/index.md:50
+msgid "### How do I get involved?"
+msgstr "### ¿Cómo puedo involucrarme?"
+
+#: src/index.md:52
+msgid ""
+"Check out our [Github](https://github.com/dojoengine), our [Twitter](https://"
+"twitter.com/dojostarknet), [Discord](https://discord.gg/vUN4Xq9Qv6) and "
+"[contribution guide](https://book.dojoengine.org/misc/contributors.html!)"
+msgstr ""
+"Visita nuestro [Github](https://github.com/dojoengine), [Twitter]"
+"(https://twitter.com/dojostarknet), [Discord](https://discord.gg/vUN4Xq9Qv6) "
+"y [guía de contribución](https://book.dojoengine.org/misc/contributors.html!)."
+
+#: src/theory/autonomous-worlds.md:1
+msgid "## Autonomous Worlds"
+msgstr "## Mundos Autónomos"
+
+#: src/theory/autonomous-worlds.md:3
+msgid ""
+"> \"Autonomous worlds represent persistent, permissionless, and "
+"decentralized open environments that users can freely interact with and "
+"contribute to.\""
+msgstr ""
+"> \"Los mundos autónomos representan entornos abiertos, persistentes, sin "
+"permisos y descentralizados, en los que los usuarios pueden interactuar y "
+"contribuir libremente.\""
+
+#: src/theory/autonomous-worlds.md:5
+msgid ""
+"The precise definition of Autonomous Worlds (AWs) remains somewhat elusive, "
+"as it is more of an abstract concept that has yet to be fully crystallized. "
+"Lattice first [introduced](https://0xparc.org/blog/autonomous-worlds) the "
+"terminology in 2022, but the notion of open worlds operating on the "
+"blockchain has been around for a while. The abstraction introduced by MUD "
+"served as a catalyst for the market to recognize the potential of these "
+"worlds."
+msgstr ""
+"La definición precisa de los Mundos Autónomos (AWs, por sus siglas en "
+"inglés) sigue siendo algo escurridiza, ya que es más bien un concepto "
+"abstracto que aún no se ha cristalizado completamente. Lattice [introdujo]"
+"(https://0xparc.org/blog/autonomous-worlds)  por primera vez el término en "
+"2022, pero la noción de mundos abiertos que operan en la cadena de bloques "
+"ha existido durante un tiempo. La abstracción presentada por MUD sirvió como "
+"un catalizador para que el mercado reconociera el potencial de estos mundos."
+
+#: src/theory/autonomous-worlds.md:7
+msgid ""
+"Autonomous Worlds share notable similarities with blockchains in their "
+"fundamental nature. Once established, they persist, maintaining their state "
+"throughout the lifespan of the chain. Players can join or leave, and "
+"developers can expand these worlds by deploying features in a permissionless "
+"manner, much like how contracts are added to a chain. While there is no "
+"universally accepted definition for an Autonomous World, we believe that a "
+"game must possess at least the following two essential features to be "
+"considered as such:"
+msgstr ""
+"Los Mundos Autónomos comparten similitudes destacadas con las cadenas de "
+"bloques en su naturaleza fundamental. Una vez establecidos, persisten y "
+"mantienen su estado a lo largo de la vida útil de la cadena. Los jugadores "
+"pueden unirse o salir, y los desarrolladores pueden ampliar estos mundos "
+"desplegando características de manera sin permisos, de manera similar a cómo "
+"se añaden contratos a una cadena. Aunque no existe una definición "
+"universalmente aceptada para un Mundo Autónomo, creemos que un juego debe "
+"poseer al menos las siguientes dos características esenciales para ser "
+"considerado como tal:"
+
+#: src/theory/autonomous-worlds.md:9
+msgid ""
+"1. Decentralized data availability layer: While the state execution may "
+"reside on a centralized layer, it is crucial that the state can be "
+"reconstructed if the execution layer ceases to exist. Rollups offer a "
+"solution, providing increased capacity execution layers while ensuring data "
+"is permanently settled on Ethereum. This guarantees the world's perpetual "
+"persistence.\n"
+"\n"
+"2. Permissionless entry point for expanding the world: The World contract "
+"must be capable of accepting new systems and components without requiring "
+"permission. While this doesn't imply that every component and system will be "
+"utilized, they must adhere to this pattern, ensuring open and unrestricted "
+"access for potential enhancements."
+msgstr ""
+"1. Capa de disponibilidad de datos descentralizada: Si bien la ejecución del "
+"estado puede residir en una capa centralizada, es crucial que el estado "
+"pueda reconstruirse si la capa de ejecución deja de existir. Los Rollups "
+"ofrecen una solución al proporcionar capas de ejecución con mayor capacidad "
+"mientras aseguran que los datos se asienten permanentemente en Ethereum. "
+"Esto garantiza la persistencia perpetua del mundo.\n"
+"\n"
+"2. Punto de entrada sin permisos para expandir el mundo: El contrato del "
+"Mundo debe ser capaz de aceptar nuevos sistemas y componentes sin requerir "
+"permiso. Si bien esto no implica que cada componente y sistema se utilizará, "
+"deben adherirse a este patrón, garantizando un acceso abierto e irrestricto "
+"para posibles mejoras."
+
+#: src/theory/autonomous-worlds.md:13
+msgid ""
+"We're firm believers in the potential for Autnomous Worlds to catalize the "
+"exploration of novel forms in the medium provided by zk proofs and "
+"blockchain technology. This is not only about games, but also about new "
+"forms of artwork, coordination, fun, emerging from tinkering and radical "
+"innovation, eventually questioning the very notion of \"play\" in this brave "
+"new decentralized and trustless world."
+msgstr ""
+"Somos firmes creyentes en el potencial de los Mundos Autónomos para "
+"catalizar la exploración de nuevas formas en el medio proporcionado por las "
+"pruebas zk y la tecnología blockchain. Esto no se trata solo de juegos, sino "
+"también de nuevas formas de arte, coordinación, diversión, surgidas de "
+"experimentar e innovar radicalmente, cuestionando en última instancia la "
+"misma noción de \"jugar\" en este valiente y descentralizado mundo sin "
+"confianza."
+
+#: src/theory/autonomous-worlds.md:15
+msgid "### Homework"
+msgstr "### Tarea"
+
+#: src/theory/autonomous-worlds.md:16
+msgid ""
+"- [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-"
+"worlds-aim-to-free-online-games-from-corporate-control/)\n"
+"- [0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-"
+"worlds)\n"
+"- [Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack."
+"com/p/the-strongest-crypto-gaming-thesis)\n"
+"- [Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/"
+"mud-an-engine-for-autonomous-worlds)\n"
+"- [Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)\n"
+"- [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/"
+"composable-engineering)\n"
+"- [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-"
+"up-worlds/)\n"
+"- [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/"
+"on-chain-realities-and-autonomous-worlds)"
+msgstr ""
+
+#: src/theory/cairo.md:1
+msgid "## Cairo"
+msgstr ""
+
+#: src/theory/cairo.md:3
+msgid ""
+"Cairo is an open-source, Turing-complete smart contract language developed "
+"by Starkware, designed to power the Validity Rollup Starknet. The language "
+"enables highly expressive and verifiable computation, making it well-suited "
+"for building scalable and secure applications, including decentralized "
+"finance (DeFi) projects."
+msgstr ""
+"Cairo es un lenguaje de contratos inteligentes de código abierto y Turing "
+"completo, desarrollado por Starkware, diseñado para impulsar el Validity "
+"Rollup Starknet. El lenguaje permite una computación altamente expresiva y "
+"verificable, lo que lo hace adecuado para construir aplicaciones escalables "
+"y seguras, incluidos proyectos de finanzas descentralizadas (DeFi)"
+
+#: src/theory/cairo.md:5
+msgid ""
+"Dojo builds on Cairo to create a robust framework for developing Autonomous "
+"Worlds (AWs). By leveraging the capabilities of Cairo, Dojo aims to "
+"streamline the development process, improve maintainability, and enhance the "
+"performance of AWs."
+msgstr ""
+"Dojo se basa en Cairo al crear un framework para desarrollar Mundos "
+"Autonomos (AWs). Al aprovechar las capacidades de Cairo, Dojo tiene como "
+"objetivo agilizar el proceso de desarrollo, mejorar la mantenibilidad y "
+"mejorar el rendimiento de AWs."
+
+#: src/theory/cairo.md:7
+msgid ""
+"A key feature of the Dojo framework is its use of [commands](../framework/"
+"cairo/commands.md). Commands are a design pattern that helps to reduce "
+"boilerplate code, resulting in cleaner and more maintainable applications. "
+"They achieve this by encapsulating specific actions or operations within "
+"self-contained, reusable units."
+msgstr ""
+"Una característica clave del Dojo framework es el uso de [comandos](../"
+"framework/cairo/commands.md). Los comandos son un patrón de diseño que ayuda "
+"a reducir el código repetitivo, lo que resulta en aplicaciones más limpias y "
+"fáciles de mantener. Logran esto encapsulando acciones u operaciones "
+"específicas dentro de unidades autocontenidas y reutilizables."
+
+#: src/theory/cairo.md:9
+msgid ""
+"Developers can write commands freely within Systems, and the Cairo compiler "
+"takes care of inlining the appropriate functions. "
+msgstr ""
+"Los desarrolladores pueden escribir comandos libremente dentro de los "
+"Sistemas, y el compilador de Cairo se encarga de enlazar las funciones "
+"apropiadas. "
+
+#: src/theory/cairo.md:11
+msgid "#### Essential Reading"
+msgstr "#### Lectura Esencial"
+
+#: src/theory/cairo.md:12
+msgid ""
+"- [Cairo book](https://cairo-book.github.io/)\n"
+"- [Awesome Cairo](https://github.com/auditless/awesome-cairo)\n"
+"- [Starknet Book](https://book.starknet.io/)"
+msgstr ""
+
+#: src/theory/cairo.md:16
+msgid "### Starknet as an L2"
+msgstr "### Starknet como una L2"
+
+#: src/theory/cairo.md:18
+msgid ""
+"Starknet is a Validity Rollup Layer 2 (L2) solution designed to scale "
+"Ethereum. It operates by offering high transaction throughput and low gas "
+"costs while maintaining the same level of security as Ethereum Layer 1 (L1). "
+"The strategy it uses is akin to solving a sudoku puzzle: verifying a "
+"solution is easier than finding the solution from scratch. Similarly, "
+"Starknet replaces heavy and costly L1 computation with cheaper L1 "
+"verification through the use of STARK proofs computed off-chain."
+msgstr ""
+"Starknet es una solución de Capa 2 (L2) de Validity Rollup diseñada para "
+"escalar Ethereum. Opera ofreciendo una alta capacidad de transacciones y "
+"bajos costos de gas, manteniendo el mismo nivel de seguridad que Ethereum "
+"Capa 1 (L1). La estrategia que utiliza es similar a resolver un rompecabezas "
+"Sudoku: verificar una solución es más fácil que encontrar la solución desde "
+"cero. De manera similar, Starknet reemplaza la computación pesada y costosa "
+"en L1 con una verificación más económica en L1 mediante el uso de pruebas "
+"STARK calculadas fuera de la cadena."
+
+#: src/theory/cairo.md:20
+msgid ""
+"In more technical terms, Starknet is a permissionless Validity-Rollup (also "
+"known as a \"ZK-Rollup\") that supports general computation and currently "
+"runs as an L2 network over Ethereum. The network's L1 security is guaranteed "
+"by its utilization of the STARK cryptographic proof system, which is "
+"considered one of the safest and most scalable."
+msgstr ""
+"En términos más técnicos, Starknet es un Validity-Rollup sin permisos "
+"(también conocido como \"ZK-Rollup\") que admite computación general y "
+"actualmente funciona como una red L2 sobre Ethereum. La seguridad de la red "
+"L1 está garantizada por su utilización del sistema de prueba criptográfica "
+"STARK, que se considera uno de los más seguros y escalables."
+
+#: src/theory/cairo.md:22
+msgid "### Starknet as an Appchain"
+msgstr "### Starknet como una Appchain"
+
+#: src/theory/cairo.md:24
+msgid ""
+"Cairo is an isomorphic, general-purpose language, optimized for Zero-"
+"Knowledge (ZK) proofs. It's the driving force behind Starknet, Starkex, and "
+"appchains. Remarkably, you can also run it in WebAssembly (WASM) to generate "
+"proofs on the client-side! The Dojo team is working closely with the [Madara]"
+"(https://github.com/keep-starknet-strange/madara) team to enable Starknet "
+"appchains to seamlessly run Dojo worlds."
+msgstr ""
+"Cairo es un lenguaje isomórfico de propósito general, optimizado para "
+"pruebas de conocimiento cero (ZK). Es la fuerza impulsora detrás de "
+"Starknet, Starkex y las appchains. Sorprendentemente, también se puede "
+"ejecutar en WebAssembly (WASM) para generar pruebas en el lado del cliente! "
+"El equipo de Dojo está trabajando en estrecha colaboración con el equipo de "
+"[Madara](https://github.com/keep-starknet-strange/madara) para permitir que "
+"las appchains de Starknet ejecuten sin problemas los mundos de Dojo."
+
+#: src/getting-started/installation.md:1 src/framework/sozo/overview.md:9
+#: src/framework/katana/overview.md:9
+msgid "## Installation"
+msgstr "## Instalación"
+
+#: src/getting-started/installation.md:3
+msgid "### Precompiled binaries"
+msgstr "### Binarios precompilados"
+
+#: src/getting-started/installation.md:5
+msgid ""
+"Precompiled binaries are available from the [GitHub releases page](https://"
+"github.com/dojoengine/dojo/releases).\n"
+"These are better managed by using [Dojoup](#using-dojoup)."
+msgstr ""
+"Los binarios precompilados están disponibles en la página de [GitHub "
+"releases page](https://github.com/dojoengine/dojo/releases).\n"
+"Es recomendable utilizar [Dojoup](#using-dojoup) para gestionarlos de manera "
+"más eficiente."
+
+#: src/getting-started/installation.md:8
+msgid "### Using Dojoup"
+msgstr "### Utilizando Dojoup"
+
+#: src/getting-started/installation.md:10
+msgid ""
+"Dojoup is the Dojo toolchain installer. You can find more about it [here]"
+"(https://github.com/dojoengine/dojo/blob/master/dojoup/README.md)."
+msgstr ""
+"Dojoup es el instalador de la herramienta Dojo. Puedes encontrar más "
+"información sobre él [aquí](https://github.com/dojoengine/dojo/blob/master/"
+"dojoup/README.md)."
+
+#: src/getting-started/installation.md:12
+msgid "Open your terminal and run the following command:"
+msgstr "Abre tu terminal y ejecuta el siguiente comando:"
+
+#: src/getting-started/installation.md:14
+msgid ""
+"```sh\n"
+"curl -L https://install.dojoengine.org | bash\n"
+"```"
+msgstr ""
+
+#: src/getting-started/installation.md:18
+msgid ""
+"This will install Dojoup, then simply follow the instructions on-screen,\n"
+"which will make the `dojoup` command available in your CLI."
+msgstr ""
+"Esto instalará Dojoup, luego simplemente sigue las instrucciones que "
+"aparecen en pantalla,\n"
+"lo que hará que el comando `dojoup` esté disponible en tu línea de comandos "
+"(CLI)."
+
+#: src/getting-started/installation.md:21
+msgid ""
+"Running `dojoup` by itself will install the latest (nightly) [precompiled "
+"binaries](#precompiled-binaries): `sozo`, `katana`, and `torii`.\n"
+"See `dojoup --help` for more options, like installing from a specific "
+"version or commit."
+msgstr ""
+"Ejecutar `dojoup` por sí mismo instalará las últimas versiones (nightly) de "
+"[binarios precompilados](#precompiled-binaries): `sozo`, `katana`, and "
+"`torii`.\n"
+"Consulta `dojoup --help` para más opciones, como instalar desde una versión "
+"o commit específico."
+
+#: src/getting-started/installation.md:24
+msgid ""
+"> ℹ️ **Note**\n"
+">\n"
+"> If you're on Windows, you will need to install and use [Git BASH](https://"
+"gitforwindows.org/) or [WSL](https://learn.microsoft.com/en-us/windows/wsl/"
+"install),\n"
+"> as your terminal, since Dojoup currently does not support Powershell or "
+"Cmd."
+msgstr ""
+"> ℹ️ **nota**\n"
+">\n"
+"> Si estás en Windows, deberás instalar y utilizar [Git BASH](https://"
+"gitforwindows.org/) o [WSL](https://learn.microsoft.com/en-us/windows/wsl/"
+"install),\n"
+"> como tu terminal, ya que actualmente Dojoup no es compatible con "
+"Powershell o Cmd."
+
+#: src/getting-started/installation.md:29
+msgid "### Building from source"
+msgstr "### Compilando desde el código fuente"
+
+#: src/getting-started/installation.md:31
+msgid "#### Prerequisites"
+msgstr "#### Requisitos previos"
+
+#: src/getting-started/installation.md:33
+msgid ""
+"You will need the [Rust](https://rust-lang.org) compiler and Cargo, the Rust "
+"package manager.\n"
+"The easiest way to install both is with [`rustup.rs`](https://rustup.rs/)."
+msgstr ""
+"Necesitarás el compilador de [Rust](https://rust-lang.org) y Cargo, el "
+"gestor de paquetes de Rust.\n"
+"La forma más sencilla de instalar ambos es utilizando [`rustup.rs`](https://"
+"rustup.rs/)."
+
+#: src/getting-started/installation.md:36
+msgid ""
+"On Windows, you will also need a recent version of [Visual Studio](https://"
+"visualstudio.microsoft.com/downloads/),\n"
+"installed with the \"Desktop Development With C++\" Workloads option."
+msgstr ""
+"En Windows, también necesitarás una versión reciente de [Visual Studio]"
+"(https://visualstudio.microsoft.com/downloads/),\n"
+"instalada con la opción \"Desarrollo de escritorio con C++\" en las cargas "
+"de trabajo."
+
+#: src/getting-started/installation.md:39
+msgid "#### Building"
+msgstr "#### Compilando"
+
+#: src/getting-started/installation.md:41
+msgid "You can either use the different [Dojoup](#using-dojoup) flags:"
+msgstr "Puedes utilizar las diferentes opciones de [Dojoup](#using-dojoup):"
+
+#: src/getting-started/installation.md:43
+msgid ""
+"```sh\n"
+"dojoup --branch master\n"
+"dojoup --path path/to/dojo\n"
+"```"
+msgstr ""
+
+#: src/getting-started/installation.md:48
+msgid "Or, by using a single Cargo command:"
+msgstr "O bien, utilizando un solo comando de Cargo:"
+
+#: src/getting-started/installation.md:50
+msgid ""
+"```sh\n"
+"cargo install --git https://github.com/dojoengine/dojo --force sozo katana "
+"torii\n"
+"```"
+msgstr ""
+
+#: src/getting-started/installation.md:54
+msgid ""
+"Or, by manually building from a local copy of the [Dojo repository](https://"
+"github.com/dojoengine/dojo):"
+msgstr ""
+"O bien, construyendo manualmente desde una copia local del [repositorio de "
+"Dojo](https://github.com/dojoengine/dojo):"
+
+#: src/getting-started/installation.md:56
+msgid ""
+"```sh\n"
+"# clone the repository\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"cd dojo\n"
+"# install Sozo\n"
+"cargo install --path ./crates/sozo --force\n"
+"# install Katana\n"
+"cargo install --path ./crates/katana --force\n"
+"# install Torii\n"
+"cargo install --path ./crates/torii --force\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:1
+msgid "# Dojo Engine - Getting Started Guide"
+msgstr "# Motor de Dojo - Guía de Inicio"
+
+#: src/development/setup.md:3
+msgid ""
+"This README guides you through the process of setting up your local "
+"development environment for Dojo."
+msgstr ""
+"Este archivo README te guiará a través del proceso de configurar tu entorno "
+"de desarrollo local para Dojo."
+
+#: src/development/setup.md:5
+msgid "## Prerequisites"
+msgstr "## Requisitos previos"
+
+#: src/development/setup.md:7
+msgid ""
+"- Rust\n"
+"- Cairo"
+msgstr ""
+
+#: src/development/setup.md:10
+msgid "## Clone the Repository"
+msgstr "## Clonar el repositorio"
+
+#: src/development/setup.md:12
+msgid "First, clone the repository to your local machine:"
+msgstr "Primero, clona el repositorio en tu máquina local:"
+
+#: src/development/setup.md:14
+msgid ""
+"```bash\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:18
+msgid "## Setup Guide"
+msgstr "## Guía de configuración"
+
+#: src/development/setup.md:20
+msgid "### Linux & Mac"
+msgstr ""
+
+#: src/development/setup.md:22
+msgid "#### 1. Install Rust and Dependencies"
+msgstr "#### 1. Instalar Rust y dependencias"
+
+#: src/development/setup.md:24
+msgid ""
+"Start by installing Rust and running the test suite to confirm your setup:"
+msgstr ""
+"Comienza instalando Rust y ejecutando el conjunto de pruebas para confirmar "
+"la configuración:"
+
+#: src/development/setup.md:26
+msgid ""
+"```bash\n"
+"rustup override set stable && rustup update && cargo test\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:30
+msgid ""
+"> Note: Depending on your Linux distribution, you may need to install "
+"additional dependencies. Make sure to install any suggested or missing "
+"dependencies that arise during the setup process."
+msgstr ""
+"> Nota: Dependiendo de la distribución de Linux que estés usando, es posible "
+"que necesites instalar dependencias adicionales. Asegúrate de instalar todas "
+"las dependencias sugeridas o faltantes que surjan durante el proceso de "
+"configuración."
+
+#: src/development/setup.md:32
+msgid "#### 2. Install Scarb Package Manager"
+msgstr "#### 2. Instalar el administrador de paquetes Scarb"
+
+#: src/development/setup.md:34
+msgid ""
+"Next, install the [Scarb](https://docs.swmansion.com/scarb) package manager "
+"by running:"
+msgstr ""
+"Luego, instala el gestor de paquetes [Scarb](https://docs.swmansion.com/"
+"scarb) ejecutando el siguiente comando:"
+
+#: src/development/setup.md:36
+msgid ""
+"```bash\n"
+"curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/"
+"install.sh | sh\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:40
+msgid "#### 3. Setup Cairo VSCode Extension"
+msgstr "#### 3. Configura la extensión de Cairo para Visual Studio Code"
+
+#: src/development/setup.md:42
+msgid ""
+"For proper linting and syntax highlighting, you should install the Cairo 1.0 "
+"extension for Visual Studio Code."
+msgstr ""
+"Para obtener un correcto resaltado de sintaxis y linting, debes instalar la "
+"extensión de Cairo 1.0 para Visual Studio Code."
+
+#: src/development/setup.md:44
+msgid ""
+"- Clone the Cairo repository somewhere on your machine (make sure not to "
+"clone within the Dojo directory)."
+msgstr ""
+"- Clona el repositorio de Cairo en algún lugar de tu máquina (asegúrate de "
+"no clonarlo dentro del directorio de Dojo)."
+
+#: src/development/setup.md:46
+msgid ""
+"```bash\n"
+"git clone https://github.com/starkware-libs/cairo.git\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:50
+msgid ""
+"- Install the Cairo Language Server extension. Here's a step-by-step guide, "
+"or you can follow the [official instructions](https://github.com/starkware-"
+"libs/cairo/blob/main/vscode-cairo/README.md)."
+msgstr ""
+"- Instala la extensión Cairo Language Server. Aquí tienes una guía paso a "
+"paso, o puedes seguir las [instrucciones oficiales](https://github.com/"
+"starkware-libs/cairo/blob/main/vscode-cairo/README.md)."
+
+#: src/development/setup.md:52
+msgid "Navigate to the vscode-cairo directory:"
+msgstr "Navega al directorio vscode-cairo:"
+
+#: src/development/setup.md:54
+msgid ""
+"```bash\n"
+"cd cairo/vscode-cairo\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:58
+msgid "Install the required packages:"
+msgstr "Instala los paquetes necesarios:"
+
+#: src/development/setup.md:60
+msgid ""
+"```bash\n"
+"sudo npm install --global @vscode/vsce\n"
+"npm install\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:65
+msgid "Package the extension:"
+msgstr "Empaqueta la extensión:"
+
+#: src/development/setup.md:67
+msgid ""
+"```bash\n"
+"vsce package\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:71
+msgid "Install the extension:"
+msgstr "Instala la extensión:"
+
+#: src/development/setup.md:73
+msgid ""
+"```bash\n"
+"code --install-extension cairo1*.vsix\n"
+"```"
+msgstr ""
+
+#: src/development/setup.md:77
+msgid ""
+"> **Mac Tip:** If you don't have the `code` command, in VSCode do `Cmd+Shift"
+"+P` and type 'shell command' to find the Shell Command: Install 'code' "
+"command in PATH command."
+msgstr ""
+"> **Mac Tip:** Si no tienes el comando `code`, en VSCode presiona `Cmd+Shift"
+"+P` y escribe 'shell command' para encontrar el comando: Instale el comando "
+"'code' en el PATH."
+
+#: src/development/setup.md:79
+msgid ""
+"The Cairo language server should now be installed globally in your Visual "
+"Studio Code. If you have the server enabled, Scarb should automatically pick "
+"this up and start linting your Cairo files."
+msgstr ""
+"El servidor de lenguaje de Cairo debería estar instalado globalmente en tu "
+"Visual Studio Code ahora. Si tienes el servidor habilitado, Scarb debería "
+"detectarlo automáticamente y comenzar a realizar el análisis de estilo en "
+"tus archivos de Cairo."
+
+#: src/development/setup.md:81
+msgid "### Windows"
+msgstr ""
+
+#: src/development/setup.md:83 src/development/setup.md:87
+msgid "_Coming soon_"
+msgstr "_Próximamente_"
+
+#: src/development/setup.md:85
+msgid "### Container"
+msgstr "### Contenedor"
+
+#: src/framework.md:1
+msgid "## Framework"
+msgstr ""
+
+#: src/framework.md:3
+msgid "### Cairo"
+msgstr ""
+
+#: src/framework.md:4
+msgid ""
+"- [Overview](./framework/cairo/overview.md)\n"
+"- [World](./framework/cairo/world.md)\n"
+"- [Components](./framework/cairo/components.md)\n"
+"- [Systems](./framework/cairo/systems.md)\n"
+"- [Entities](./framework/cairo/entities.md)\n"
+"- [Commands](./framework/cairo/commands.md)\n"
+"- [Storage](./framework/cairo/storage.md)"
+msgstr ""
+"- [Visión general](./framework/cairo/overview.md)\n"
+"- [Mundo](./framework/cairo/world.md)\n"
+"- [Componentes](./framework/cairo/components.md)\n"
+"- [Sistemas](./framework/cairo/systems.md)\n"
+"- [Entidades](./framework/cairo/entities.md)\n"
+"- [Comandos](./framework/cairo/commands.md)\n"
+"- [Almacenamiento](./framework/cairo/storage.md)"
+
+#: src/framework.md:13
+msgid "### Tooling"
+msgstr "### Herramientas"
+
+#: src/framework.md:15
+msgid ""
+"Dojo comes with batteries included to power your games. There are 3 core "
+"tools which you will use to build your worlds."
+msgstr ""
+"Dojo viene con herramientas incluidas para impulsar tus juegos. Hay 3 "
+"herramientas principales que utilizarás para construir tus mundos."
+
+#: src/framework.md:17
+msgid ""
+"- [Sozo](./framework/sozo/overview.md)\n"
+"- [Katana](./framework/katana/overview.md)\n"
+"- [Torii](./framework/torii/overview.md)"
+msgstr ""
+
+#: src/framework/cairo/overview.md:1
+msgid "## Overview"
+msgstr "## Visión general"
+
+#: src/framework/cairo/overview.md:3
+msgid ""
+"Dojo employs the ECS (Entity Component System) as an architectural pattern "
+"to efficiently manage and organize the state and behavior of Autonomous "
+"Worlds (AWs). In this pattern, computation is defined as a list of systems "
+"operating on a set of entities, each of which consists of a dynamic set of "
+"pure data components. Systems select the entities to process via persistent "
+"and efficient queries over the entities' components."
+msgstr ""
+"Dojo utiliza el ECS (Sistema de Componentes de Entidades) como un patrón "
+"arquitectónico para gestionar, organizar eficientemente el estado y el "
+"comportamiento de los Mundos Autónomos (AWs). En este patrón, la computación "
+"se define como una lista de sistemas que operan sobre un conjunto de "
+"entidades, cada una de las cuales consta de un conjunto dinámico de "
+"componentes de datos puros. Los sistemas seleccionan las entidades a "
+"procesar mediante consultas persistentes y eficientes sobre los componentes "
+"de las entidades."
+
+#: src/framework/cairo/overview.md:5
+msgid ""
+"It is worth reading this excellent [FAQ](https://github.com/SanderMertens/"
+"ecs-faq) on ECS"
+msgstr ""
+"Vale la pena leer esta excelente [FAQ](https://github.com/SanderMertens/ecs-"
+"faq) sobre el ECS"
+
+#: src/framework/cairo/overview.md:7
+msgid "### Understanding the ECS in Dojo"
+msgstr "### Comprendiendo el ECS en Dojo"
+
+#: src/framework/cairo/overview.md:9
+msgid ""
+"The Entity Component System (ECS) forms the backbone of the Dojo engine. "
+"Here's an overview of its core elements:"
+msgstr ""
+"El Sistema de Componentes de Entidades (ECS) es el corazón del motor de "
+"Dojo. Aquí tienes una descripción general de sus elementos principales:"
+
+#: src/framework/cairo/overview.md:11
+msgid ""
+"1. **Entities**: Unique objects that can bear multiple components. They are "
+"identifiable through unique IDs.\n"
+"2. **Components**: Diverse attributes of an entity, such as geometry, "
+"physics, and hit points. Components are exclusively responsible for data "
+"storage.\n"
+"3. **Systems**: Segments of code that manage entities and alter components.\n"
+"4. **Queries**: Utilized by systems to select entities based on the "
+"associated components.\n"
+"5. **World**: A comprehensive container for entities, components, systems, "
+"and queries."
+msgstr ""
+"1. **Entidades**: Objetos únicos que pueden tener múltiples componentes. Se "
+"identifican mediante identificadores únicos (IDs).\n"
+"2. **Componentes**: Diversos atributos de una entidad, como geometría, "
+"física y puntos de vida. Los componentes son exclusivamente responsables del "
+"almacenamiento de datos.\n"
+"3. **Sistemas**: Segmentos de código que administran entidades y modifican "
+"componentes.\n"
+"4. **Consultas (Queries)**: Utilizadas por los sistemas para seleccionar "
+"entidades en función de los componentes asociados.\n"
+"5. **Mundo (World)**: Un contenedor completo para entidades, componentes, "
+"sistemas y consultas."
+
+#: src/framework/cairo/overview.md:19
+msgid "### Building an Autonomous World with Dojo"
+msgstr "### Construyendo un Mundo Autónomo con Dojo"
+
+#: src/framework/cairo/overview.md:21
+msgid "Follow these steps to effectively create a Dojo world:"
+msgstr "Sigue estos pasos para crear eficazmente un mundo con Dojo:"
+
+#: src/framework/cairo/overview.md:23
+msgid ""
+"1. **Conceptualize Entities**: Visualize the entities that will populate "
+"your world.\n"
+"2. **Recognize Shared Attributes**: Determine common characteristics of your "
+"entities, such as position, name, or health.\n"
+"3. **Construct Reusable Components**: Create versatile components derived "
+"from these shared attributes.\n"
+"4. **Develop Specialized Systems**: Design systems that are adept at "
+"performing a specific task."
+msgstr ""
+"1. **Conceptualiza las Entidades**: Visualiza las entidades que poblarán tu "
+"mundo.\n"
+"2. **Identifica Atributos Compartidos**: Determina las características "
+"comunes de tus entidades, como posición, nombre o salud.\n"
+"3. **Construye Componentes Reutilizables**: Crea componentes versátiles "
+"derivados de estos atributos compartidos.\n"
+"4. **Desarrolla Sistemas Especializados**: Diseña sistemas que sean hábiles "
+"para realizar tareas específicas."
+
+#: src/framework/cairo/overview.md:28
+msgid ""
+"To illustrate, here's an example of a basic design that utilizes components "
+"and systems to create four distinct entities:"
+msgstr ""
+"Para ilustrar, aquí tienes un ejemplo de un diseño básico que utiliza "
+"componentes y sistemas para crear cuatro entidades distintas:"
+
+#: src/framework/cairo/overview.md:31
+msgid "ECS"
+msgstr ""
+
+#: src/framework/cairo/world.md:1
+msgid "## World"
+msgstr "## Mundo"
+
+#: src/framework/cairo/world.md:3
+msgid ""
+"The world contract functions as a central system kernel, serving as the "
+"foundation for initiating and resolving all interactions. Within this "
+"kernel, contracts are deployed, registered, and executed, streamlining the "
+"process for downstream systems by enabling clients to engage with a single "
+"contract rather than potentially hundreds."
+msgstr ""
+"El contrato del mundo funciona como el núcleo central del sistema, sirviendo "
+"como base para iniciar y resolver todas las interacciones. Dentro de este "
+"núcleo, se despliegan, registran y ejecutan contratos, agilizando el proceso "
+"para los sistemas secundarios al permitir que los clientes interactúen con "
+"un solo contrato en lugar de potencialmente cientos."
+
+#: src/framework/cairo/world.md:6
+msgid ""
+"> **To think about:** Consider Autonomous Worlds as sovereign blockchains "
+"residing within another blockchain - a nested blockchain, so to speak. Just "
+"as you can deploy contracts onto Ethereum to enhance its functionality, you "
+"can similarly introduce systems into the World contract to enrich its "
+"features. While anyone can contribute to the World, akin to Ethereum, "
+"authorization is required to interact with component state. There is a "
+"dedicated topic to Authorisation."
+msgstr ""
+"> **Para tener en cuenta:** Considera los Mundos Autónomos como blockchains "
+"soberanas que residen dentro de otra blockchain, una blockchain anidada, por "
+"así decirlo. Así como puedes desplegar contratos en Ethereum para mejorar su "
+"funcionalidad, de manera similar puedes introducir sistemas en el contrato "
+"del Mundo para enriquecer sus características. Si bien cualquiera puede "
+"contribuir al Mundo, al igual que en Ethereum, se requiere autorización para "
+"interactuar con el estado de los componentes. Existe un tema dedicado a la "
+"Autorización."
+
+#: src/framework/cairo/world.md:9 src/framework/cairo/authorization.md:13
+msgid "### API"
+msgstr ""
+
+#: src/framework/cairo/world.md:11
+msgid ""
+"```rust,ignore\n"
+"// World interface\n"
+"#[abi]\n"
+"trait IWorld {\n"
+"    fn initialize(routes: Array<Route>);\n"
+"    fn component(name: ShortString) -> ClassHash;\n"
+"    fn register_component(class_hash: ClassHash);\n"
+"    fn system(name: ShortString) -> ClassHash;\n"
+"    fn register_system(class_hash: ClassHash);\n"
+"    fn uuid() -> usize;\n"
+"    fn execute(name: ShortString, execute_calldata: Span<felt252>) -> "
+"Span<felt252>;\n"
+"    fn entity(component: ShortString, key: Query, offset: u8, length: usize) "
+"-> Span<felt252>;\n"
+"    fn set_entity(component: ShortString, key: Query, offset: u8, value: "
+"Span<felt252>);\n"
+"    fn entities(component: ShortString, partition: u250) -> (Span<u250>, "
+"Span<Span<felt252>>);\n"
+"    fn set_executor(contract_address: ContractAddress);\n"
+"    fn is_authorized(system: ClassHash, component: ClassHash) -> bool;\n"
+"    fn is_account_admin() -> bool;\n"
+"    fn delete_entity(component: ShortString, query: Query);\n"
+"}\n"
+"```"
+msgstr ""
+
+#: src/framework/cairo/authorization.md:1
+msgid "## Authorization"
+msgstr "## Autorización"
+
+#: src/framework/cairo/authorization.md:3
+msgid ""
+"As discussed in the [World](./world.md) chapter, Autonomous Worlds (AWs) "
+"function as sovereign chains nested within a public blockchain. These Worlds "
+"are also open to the public. This structure allows anyone to enhance a World "
+"by deploying components or systems. However, this openness brings security "
+"considerations. Similar to Ethereum, interacting with a component state by a "
+"System requires appropriate authorization by the component owner."
+msgstr ""
+"Como se discutió en el capítulo [World](./world.md), los Mundos Autónomos "
+"(AWs) funcionan como cadenas soberanas anidadas dentro de una cadena pública "
+"de bloques. Estos Mundos también están abiertos al público. Esta estructura "
+"permite que cualquier persona mejore un Mundo mediante el despliegue de "
+"componentes o sistemas. Sin embargo, esta apertura también conlleva "
+"consideraciones de seguridad. Al igual que en Ethereum, interactuar con el "
+"estado de un componente mediante un Sistema requiere una autorización "
+"adecuada por parte del propietario del componente."
+
+#: src/framework/cairo/authorization.md:5
+msgid "### Architecture"
+msgstr "### Arquitectura"
+
+#: src/framework/cairo/authorization.md:7
+#: src/framework/cairo/authorization.md:11
+#: src/framework/cairo/authorization.md:15
+msgid "__todo__"
+msgstr "__Próximamente__"
+
+#: src/framework/cairo/authorization.md:9 src/framework/katana/overview.md:21
+msgid "### Usage"
+msgstr "### Uso del motor de Dojo"
+
+#: src/framework/cairo/components.md:1
+msgid "## Components"
+msgstr "## Componentes"
+
+#: src/framework/cairo/components.md:3
+msgid ""
+"Components serve as the foundation for defining the world's structure, "
+"encapsulating state for systems to mutate. For instance, a Position "
+"component can be implemented as a struct, exposing `is_zero` and `is_equal` "
+"methods. Dojo compiles these components into contracts that can be declared "
+"and installed within a world, enabling the creation of diverse and "
+"customizable environments."
+msgstr ""
+"Los componentes sirven como base para definir la estructura del mundo, "
+"encapsulando el estado para que los sistemas puedan modificarlo. Por "
+"ejemplo, un componente de Posición se puede implementar como una estructura, "
+"exponiendo métodos como `is_zero` e `is_equal`. Dojo compila estos "
+"componentes en contratos que pueden ser declarados e instalados dentro de un "
+"mundo, lo que permite la creación de entornos diversos y personalizables."
+
+#: src/framework/cairo/components.md:5
+msgid ""
+"When designing a world's components, it is crucial to carefully consider the "
+"abstractions you create, always keeping composability in mind."
+msgstr ""
+"Al diseñar los componentes de un mundo, es crucial considerar cuidadosamente "
+"las abstracciones que se crean, manteniendo siempre en mente la "
+"composabilidad."
+
+#: src/framework/cairo/components.md:7
+msgid ""
+"Suppose you plan to create two entities that move around the map and are "
+"fundamentally different from each other, except for the fact that they both "
+"exist within the world. In this case, you could create a shared Position "
+"component for both entities. This demonstrates the power of the Entity "
+"Component System (ECS) abstraction: by writing a single component, you can "
+"reuse it across multiple diverse entities, promoting modularity and "
+"flexibility within your world design."
+msgstr ""
+"Supongamos que planeas crear dos entidades que se mueven por el mapa y son "
+"fundamentalmente diferentes entre sí, excepto por el hecho de que ambas "
+"existen dentro del mundo. En este caso, podrías crear un componente de "
+"\"Posición\" compartido para ambas entidades. Esto demuestra el poder de la "
+"abstracción del Sistema de Componentes de Entidades(ECS): al escribir un "
+"solo componente, puedes reutilizarlo en múltiples entidades diversas, "
+"fomentando la modularidad y flexibilidad en el diseño de tu mundo."
+
+#: src/framework/cairo/components.md:9
+msgid ""
+"```rust,ignore\n"
+"use array::ArrayTrait;\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde)]\n"
+"#[component(indexed = true)]\n"
+"struct Moves {\n"
+"    remaining: u8,\n"
+"}\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde)]\n"
+"struct Position {\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"trait PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool;\n"
+"    fn is_equal(self: Position, b: Position) -> bool;\n"
+"}\n"
+"\n"
+"impl PositionImpl of PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool {\n"
+"        if self.x - self.y == 0 {\n"
+"            return true;\n"
+"        }\n"
+"        false\n"
+"    }\n"
+"\n"
+"    fn is_equal(self: Position, b: Position) -> bool {\n"
+"        self.x == b.x && self.y == b.y\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+
+#: src/framework/cairo/systems.md:1
+msgid "## Systems"
+msgstr "## Sistemas"
+
+#: src/framework/cairo/systems.md:3
+msgid ""
+"Systems represent functions that operate on the world state. They take input "
+"from the user, retrieve the current state from the world, compute a state "
+"transition, and apply it. Each system has a single entry point, the execute "
+"function. To streamline interaction with the world, systems can utilize\n"
+"commands."
+msgstr ""
+"Los Sistemas representan funciones que operan sobre el estado del mundo. "
+"Toman información del usuario, obtienen el estado actual del mundo, calculan "
+"una transición de estado y la aplican. Cada sistema tiene un único punto de "
+"entrada, la función `execute`. Para simplificar la interacción con el mundo, "
+"los sistemas pueden utilizar comandos."
+
+#: src/framework/cairo/systems.md:6
+msgid ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod Spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        set !(\n"
+"            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position "
+"{ x: 0, y: 0 }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+
+#: src/framework/cairo/entities.md:1
+msgid "## Entities"
+msgstr "## Entidades"
+
+#: src/framework/cairo/entities.md:3
+msgid ""
+"A common misconception for those new to ECS systems is the way entities "
+"exist within the World. Different ECS systems handle entities in various "
+"ways. In Dojo, entities are treated as a primary key value within the world, "
+"to which components can be attached. To illustrate this concept, consider a "
+"simple example of a character in a game that has a position and a health "
+"component."
+msgstr ""
+"Una idea errónea común para aquellos que son nuevos en los sistemas ECS es "
+"la forma en que las entidades existen dentro del mundo. Diferentes sistemas "
+"ECS manejan las entidades de diversas formas. En Dojo, las entidades se "
+"tratan como un valor de clave primaria dentro del mundo, a la cual se pueden "
+"adjuntar componentes. Para ilustrar este concepto, consideremos un ejemplo "
+"sencillo de un personaje en un juego que tiene un componente de posición y "
+"un componente de salud."
+
+#: src/framework/cairo/entities.md:5
+msgid ""
+"When defining the components for this entity, it is important to note that "
+"we do not reference the entity directly. Instead, we simply provide two "
+"structs that the entity will contain. This approach emphasizes the "
+"flexibility and composability of the ECS system, allowing for the easy "
+"creation and modification of entities with various combinations of "
+"components."
+msgstr ""
+"Al definir los componentes para esta entidad, es importante tener en cuenta "
+"que no hacemos referencia directa a la entidad. En su lugar, simplemente "
+"proporcionamos dos estructuras que contendrá la entidad. Este enfoque "
+"enfatiza la flexibilidad y la composabilidad del sistema ECS, lo que permite "
+"la fácil creación y modificación de entidades con diversas combinaciones de "
+"componentes."
+
+#: src/framework/cairo/entities.md:7
+msgid ""
+"```rust,ignore\n"
+"#[component]\n"
+"struct Position {\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"#[component]\n"
+"struct Health {\n"
+"    value: u32,\n"
+"}\n"
+"\n"
+"```"
+msgstr ""
+
+#: src/framework/cairo/entities.md:21
+msgid ""
+"Now, let's create a `SpawnSystem` for the character. It is important to note "
+"that we have not explicitly defined an Entity anywhere. Instead, the system "
+"will assign a primary key ID to the entity when this system is executed."
+msgstr ""
+"Ahora, creemos un `SpawnSystem` para el personaje. Es importante tener en "
+"cuenta que no hemos definido explícitamente una entidad en ningún lugar. En "
+"su lugar, el sistema asignará un ID de clave primaria a la entidad cuando se "
+"ejecute este sistema."
+
+#: src/framework/cairo/entities.md:23
+msgid ""
+"```rust,ignore\n"
+"// The most basic system that creates a new player entity with a given name "
+"and 100 health.\n"
+"\n"
+"#[system]\n"
+"mod Spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Health;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        set !(\n"
+"            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position "
+"{ x: 0, y: 0 }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+
+#: src/framework/cairo/entities.md:44
+msgid "Finally, lets move the character with the `MoveSystem`."
+msgstr "Finalmente, movamos al personaje con el `MoveSystem`."
+
+#: src/framework/cairo/entities.md:46
+msgid ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod Move {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    #[derive(Serde, Drop)]\n"
+"    enum Direction {\n"
+"        Left: (),\n"
+"        Right: (),\n"
+"        Up: (),\n"
+"        Down: (),\n"
+"    }\n"
+"\n"
+"    impl DirectionIntoFelt252 of Into<Direction, felt252> {\n"
+"        fn into(self: Direction) -> felt252 {\n"
+"            match self {\n"
+"                Direction::Left(()) => 0,\n"
+"                Direction::Right(()) => 1,\n"
+"                Direction::Up(()) => 2,\n"
+"                Direction::Down(()) => 3,\n"
+"            }\n"
+"        }\n"
+"    }\n"
+"\n"
+"    fn execute(ctx: Context, direction: Direction) {\n"
+"        let (position, moves) = get !(ctx.world, ctx.origin.into(), "
+"(Position, Moves));\n"
+"        let next = next_position(position, direction);\n"
+"        set !(\n"
+"            ctx.world,\n"
+"            ctx.origin.into(),\n"
+"            (Moves { remaining: moves.remaining - 1 }, Position { x: next.x, "
+"y: next.y }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"\n"
+"    fn next_position(position: Position, direction: Direction) -> Position "
+"{\n"
+"        match direction {\n"
+"            Direction::Left(()) => {\n"
+"                Position { x: position.x - 1, y: position.y }\n"
+"            },\n"
+"            Direction::Right(()) => {\n"
+"                Position { x: position.x + 1, y: position.y }\n"
+"            },\n"
+"            Direction::Up(()) => {\n"
+"                Position { x: position.x, y: position.y - 1 }\n"
+"            },\n"
+"            Direction::Down(()) => {\n"
+"                Position { x: position.x, y: position.y + 1 }\n"
+"            },\n"
+"        }\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+
+#: src/framework/cairo/commands.md:1
+msgid "## Commands"
+msgstr "## Comandos"
+
+#: src/framework/cairo/commands.md:3
+msgid ""
+"Commands in Dojo are generalized functions that are expanded at compile time "
+"to facilitate system execution. They provide a convenient way for systems to "
+"interact with the world state by abstracting common operations, such as "
+"retrieving or updating components, and generating unique IDs. By leveraging "
+"these commands, developers can streamline their system implementations and "
+"improve code readability."
+msgstr ""
+"Los comandos en Dojo son funciones generalizadas que se expanden en tiempo "
+"de compilación para facilitar la ejecución de sistemas. Proporcionan una "
+"forma conveniente para que los sistemas interactúen con el estado del mundo "
+"al abstraer operaciones comunes, como obtener o actualizar componentes, y "
+"generar IDs únicos. Al aprovechar estos comandos, los desarrolladores pueden "
+"simplificar sus implementaciones de sistemas y mejorar la legibilidad del "
+"código."
+
+#: src/framework/cairo/commands.md:5
+msgid ""
+"Understanding commands is key to understanding Dojo. You will leverage them "
+"heavily within the systems you design."
+msgstr ""
+"Entender los comandos es clave para comprender Dojo. Los utilizarás "
+"ampliamente en los sistemas que diseñes."
+
+#: src/framework/cairo/commands.md:7
+msgid ""
+"```rust,ignore\n"
+"// Update an existing entity by setting its components with the provided "
+"values.\n"
+"// This function takes a storage key representing the entity and a generic "
+"type T for the components to be updated.\n"
+"set!(world: IWorldDispatcher, storage_key: StorageKey, components: T);\n"
+"\n"
+"// Retrieve the components of a specific type T for an entity identified by "
+"the storage key.\n"
+"// This function returns the components as an instance of the generic type "
+"T.\n"
+"get!(world: IWorldDispatcher, storage_key: StorageKey, components: T) -> T;\n"
+"\n"
+"// Retrieve all entity IDs that have components matching the provided type "
+"T.\n"
+"// This function returns an array of entity IDs (felt252) containing the "
+"specified components.\n"
+"find!(world: IWorldDispatcher, key: StorageKey, components: T);\n"
+"```"
+msgstr ""
+
+#: src/framework/cairo/storage.md:1
+msgid "# Storage"
+msgstr "# Almacenamiento"
+
+#: src/framework/cairo/storage.md:3
+msgid ""
+"In a Dojo Autonomous World, the `World` contract serves as the central store "
+"that manages and maintains the overall state. No state is maintained at the "
+"component level, this allows a clean split in logic and state. Most "
+"developers will not need to touch the storage methods, every part of the "
+"world can just be maintained via the [commands](./commands.md)."
+msgstr ""
+"En un Mundo Autónomo de Dojo, el contrato `World` sirve como la tienda "
+"central que administra y mantiene el estado general. No se mantiene ningún "
+"estado a nivel de componente, lo que permite una división clara entre la "
+"lógica y el estado. La mayoría de los desarrolladores no necesitarán "
+"manipular los métodos de almacenamiento, ya que cada parte del mundo puede "
+"ser gestionada mediante los [comandos](./commands.md)."
+
+#: src/framework/cairo/storage.md:6
+msgid "## Detailed overview of Storage"
+msgstr "## Descripción detallada del Almacenamiento"
+
+#: src/framework/cairo/storage.md:8
+msgid ""
+"State is maintained via a generated partition when you create a component. "
+"The compiler calculates the size of the component along with the key you "
+"have used and creates a partition within the world. Think of the partition "
+"as a table which can be read from and written to."
+msgstr ""
+"El estado se mantiene mediante una partición generada al crear un "
+"componente. El compilador calcula el tamaño del componente junto con la "
+"clave que has utilizado, y crea una partición dentro del mundo. Puedes "
+"pensar en la partición como una tabla a la cual se puede leer y escribir."
+
+#: src/framework/sozo/overview.md:1
+msgid "# Sozo"
+msgstr ""
+
+#: src/framework/sozo/overview.md:3
+msgid ""
+"`sozo` is a powerful migration planning tool designed to streamline the "
+"updating and deployment of AWs. It provides a robust binary command-line "
+"interface (CLI) that simplifies World management tasks, enabling you to "
+"focus on the creative aspects of World-building. Future versions will "
+"provide a GUI."
+msgstr ""
+"`sozo` es una poderosa herramienta de planificación de migraciones diseñada "
+"para agilizar la actualización y el despliegue de los AWs (Mundos "
+"Autónomos). Proporciona una interfaz de línea de comandos (CLI) binaria "
+"sólida que simplifica las tareas de gestión del Mundo, permitiéndote "
+"centrarte en los aspectos creativos de la construcción de Mundos. En futuras "
+"versiones, se proporcionará una interfaz gráfica de usuario (GUI)."
+
+#: src/framework/sozo/overview.md:5
+msgid "## Features"
+msgstr "## Características"
+
+#: src/framework/sozo/overview.md:7
+msgid ""
+"-   **Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy "
+"management of your Worlds, whether you're updating existing ones or "
+"deploying new ones."
+msgstr ""
+"- **Binary CLI**: Sozo ofrece una intuitiva interfaz de línea de comandos "
+"(CLI), asegurando una fácil gestión de tus Mundos, ya sea que estés "
+"actualizando los existentes o desplegando nuevos."
+
+#: src/framework/sozo/overview.md:11
+msgid ""
+"The `sozo` binary can be installed via [`dojoup`](../../getting-started/"
+"installation.md#using-dojoup), our dedicated installation package manager."
+msgstr ""
+"El binario `sozo` puede ser instalado a través de [`dojoup`](../../getting-"
+"started/installation.md#using-dojoup), nuestro gestor de paquetes de "
+"instalación dedicado."
+
+#: src/framework/sozo/overview.md:13
+msgid "### Installing from Source"
+msgstr "### Instalación desde el código fuente"
+
+#: src/framework/sozo/overview.md:15
+msgid "If you prefer to install from the source code:"
+msgstr "Si prefieres instalar desde el código fuente:"
+
+#: src/framework/sozo/overview.md:17
+msgid ""
+"```sh\n"
+"cargo install --path ./crates/sozo --profile local --force\n"
+"```"
+msgstr ""
+
+#: src/framework/sozo/overview.md:21
+msgid ""
+"This will install Sozo and the required dependencies on your local system."
+msgstr "Esto instalará Sozo y las dependencias requeridas en tu sistema local."
+
+#: src/framework/sozo/overview.md:23
+msgid ""
+"> 📚 **Reference**\n"
+">\n"
+"> See the [`sozo` Reference](../../reference/sozo/) for a complete overview "
+"of all the available subcommands."
+msgstr ""
+"> 📚 **Referencia**\n"
+">\n"
+"> Consulta la referencia de [sozo](../../reference/sozo/) para obtener una "
+"visión completa de todos los subcomandos disponibles."
+
+#: src/framework/katana/overview.md:1
+msgid "## Katana"
+msgstr ""
+
+#: src/framework/katana/overview.md:3
+msgid ""
+"`katana` is a _blazingly fast_ local Starknet node, designed to support "
+"local development with Dojo."
+msgstr ""
+"`katana` es un nodo de Starknet _extremadamente rápido_, diseñado para "
+"admitir el desarrollo local con Dojo."
+
+#: src/framework/katana/overview.md:5
+msgid "### Features"
+msgstr "### Características"
+
+#: src/framework/katana/overview.md:7
+msgid ""
+"-   [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-"
+"specs/tree/v0.3.0) support"
+msgstr ""
+"- Soporte para [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/"
+"starknet-specs/tree/v0.3.0)"
+
+#: src/framework/katana/overview.md:11
+msgid ""
+"`katana` binary is available via [`dojoup`](../../getting-started/"
+"installation.md#using-dojoup)."
+msgstr ""
+"El binario `katana` está disponible a través de [`dojoup`](../../getting-"
+"started/installation.md#using-dojoup)."
+
+#: src/framework/katana/overview.md:13
+msgid "### Installing from source"
+msgstr "### Instalación desde el código fuente"
+
+#: src/framework/katana/overview.md:15
+msgid ""
+"```bash\n"
+"git clone https://github.com/dojoengine/dojo\n"
+"cd dojo\n"
+"cargo install --path ./crates/katana --locked --force\n"
+"```"
+msgstr ""
+
+#: src/framework/katana/overview.md:23
+msgid ""
+"```console\n"
+"$ katana\n"
+"\n"
+"\n"
+"\n"
+"██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗\n"
+"██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗\n"
+"█████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║\n"
+"██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║\n"
+"██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║\n"
+"╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝\n"
+"\n"
+"\n"
+"\n"
+"PREFUNDED ACCOUNTS\n"
+"==================\n"
+"\n"
+"| Account address |  "
+"0x06f62894bfd81d2e396ce266b2ad0f21e0668d604e5bb1077337b6d570a54aea\n"
+"| Private key     |  "
+"0x07230b49615d175307d580c33d6fda61fc7b9aec91df0f5c1a5ebe3b8cbfee02\n"
+"| Public key      |  "
+"0x078e6e3e4a50285be0f6e8d0b8a61044033e24023df6eb95979ae4073f159ae6\n"
+"\n"
+"| Account address |  "
+"0x04b352538f61697825af242c9c451df02a40cca99391a47054489dee82138008\n"
+"| Private key     |  "
+"0x0326b6d921c2d9c9b76bb641c433c94b030cf57d48803dc742729704ffdd0fc6\n"
+"| Public key      |  "
+"0x0564a13ba4d4cf95a60f78ca05fc04ff6845736e2f04b3c6703283cdf65e2615\n"
+"\n"
+"\n"
+"🚀 JSON-RPC server started: http://127.0.0.1:5050\n"
+"\n"
+"\n"
+"```"
+msgstr ""
+
+#: src/framework/katana/overview.md:54
+msgid ""
+"> 📚 **Reference**\n"
+">\n"
+"> See the [`katana` Reference](../../reference/katana/) for in depth "
+"information on Anvil and its capabilities."
+msgstr ""
+"> 📚 **Referencia**\n"
+">\n"
+"> Consulta la referencia de [katana](../../reference/katana/) para obtener "
+"información detallada sobre Anvil y sus capacidades."
+
+#: src/framework/torii/overview.md:1
+msgid "## Torii - Networking & Indexing"
+msgstr "## Torii - Redes e Indexación"
+
+#: src/framework/torii/overview.md:3
+msgid ""
+"Torii serves as a comprehensive indexing and networking layer for dojo "
+"worlds. It systematically organizes the state of dojo worlds, facilitating "
+"efficient querying for clients."
+msgstr ""
+"Torii actúa como una capa completa de indexación y redes para los mundos de "
+"Dojo. Organiza sistemáticamente el estado de los mundos de Dojo, facilitando "
+"consultas eficientes para los clientes."
+
+#: src/framework/torii/overview.md:5
+msgid "### Indexer"
+msgstr "### Indexación"
+
+#: src/framework/torii/overview.md:7 src/framework/torii/overview.md:11
+#: src/framework/torii/overview.md:15
+msgid "__coming soon__"
+msgstr "__Próximamente__"
+
+#: src/framework/torii/overview.md:9
+msgid "### Graphql"
+msgstr ""
+
+#: src/framework/torii/overview.md:13
+msgid "### RPC"
+msgstr ""
+
+#: src/reference/index.md:1
+msgid "## References"
+msgstr "## Referencias"
+
+#: src/reference/index.md:3
+msgid ""
+"-   [sozo Commands](./sozo/)\n"
+"-   [katana Reference](./katana/)"
+msgstr ""
+"-   [Comandos sozo](./sozo/)\n"
+"-   [Referencias katana](./katana/)"
+
+#: src/reference/sozo/index.md:1
+msgid "## sozo Commands"
+msgstr "## Comandos de sozo"
+
+#: src/reference/sozo/index.md:3
+msgid ""
+"-   [Project Commands](./project-commands.md)\n"
+"-   [World Commands](./world-commands.md)"
+msgstr ""
+"-   [Comandos de Proyecto](./project-commands.md)\n"
+"-   [Comandos de Mundo](./world-commands.md)"
+
+#: src/reference/sozo/project-commands.md:1
+msgid "## Project Commands"
+msgstr "## Comandos de Proyecto"
+
+#: src/reference/sozo/project-commands.md:3
+msgid ""
+"-   [init]()\n"
+"-   [build]()\n"
+"-   [test]()\n"
+"-   [migrate]()"
+msgstr ""
+
+#: src/reference/sozo/world-commands.md:1
+msgid "## World Commands"
+msgstr "## Comandos de Mundo"
+
+#: src/reference/sozo/world-commands.md:3
+msgid ""
+"-   [execute]()\n"
+"-   [register]()\n"
+"-   [system]()\n"
+"-   [component]()"
+msgstr ""
+
+#: src/reference/katana/index.md:1
+msgid "## katana"
+msgstr ""
+
+#: src/reference/katana/index.md:3
+msgid "### NAME"
+msgstr "### NOMBRE"
+
+#: src/reference/katana/index.md:5
+msgid ""
+"katana - Create a local testnet node for deploying and testing Starknet "
+"smart contracts."
+msgstr ""
+"katana - es una herramienta que te permite crear un nodo de testnet local para "
+"implementar y probar contratos inteligentes de Starknet."
+
+#: src/reference/katana/index.md:7
+msgid "### SYNOPSIS"
+msgstr "### SINOPSIS"
+
+#: src/reference/katana/index.md:9
+msgid "`katana` [*options*]"
+msgstr ""
+
+#: src/reference/katana/index.md:11
+msgid "### DESCRIPTION"
+msgstr "### DESCRIPCIÓN"
+
+#: src/reference/katana/index.md:13
+msgid ""
+"Create a local testnet node for deploying and testing Starknet smart "
+"contracts. Katana supports deployment and execution of version 0 and 1 of "
+"Cairo contracts."
+msgstr ""
+"Crea un nodo de testnet local para desplegar y probar contratos inteligentes "
+"de Starknet. Katana admite el despliegue y la ejecución de la versión 0 y 1 "
+"de contratos de Cairo."
+
+#: src/reference/katana/index.md:15
+msgid ""
+"This section covers an extensive list of information about Mining Modes, "
+"Supported RPC Methods, Katana flags and their usages. You can run multiple "
+"flags at the same time."
+msgstr ""
+"Esta sección cubre una extensa lista de información sobre los Modos de "
+"Minería, los Métodos de RPC Soportados, los flags de Katana y sus usos. "
+"Puedes ejecutar múltiples flags al mismo tiempo."
+
+#: src/reference/katana/index.md:17
+msgid "#### Mining Modes"
+msgstr "#### Modos de Minería"
+
+#: src/reference/katana/index.md:19
+msgid ""
+"Mining modes refer to how frequent blocks are mined using Katana. By "
+"default, it automatically generates a new block as soon as a transaction is "
+"submitted."
+msgstr ""
+"Los modos de minería se refieren a la frecuencia con la que se minan bloques "
+"utilizando Katana. Por defecto, Katana genera automáticamente un nuevo "
+"bloque tan pronto como se envía una transacción."
+
+#: src/reference/katana/index.md:21
+msgid ""
+"You can change this setting to interval mining if you will, which means that "
+"a new block will be generated in a given period of time selected by the "
+"user. If you want to go for this type of mining, you can do it by adding the "
+"`--block-time <block-time-in-seconds>` flag, like in the following example."
+msgstr ""
+"Puedes cambiar esta configuración a la minería por intervalos si así lo "
+"deseas, lo que significa que se generará un nuevo bloque en un período de "
+"tiempo específico seleccionado por el usuario. Si deseas optar por este tipo "
+"de minería, puedes hacerlo agregando la bandera `--block-time <tiempo-de-"
+"bloque-en-segundos>`, tal como se muestra en el siguiente ejemplo."
+
+#: src/reference/katana/index.md:23
+msgid ""
+"```sh\n"
+"# Produces a new block every 10 seconds\n"
+"katana --block-time 10\n"
+"```"
+msgstr ""
+
+#: src/reference/katana/index.md:28
+msgid "#### Supported Transport Layers"
+msgstr "#### Capas de Transporte Soportadas"
+
+#: src/reference/katana/index.md:30
+msgid ""
+"Only HTTP connection is supported at the moment. The server listens on port "
+"5050 by default, but it can be changed by running the following command:"
+msgstr ""
+"Actualmente, solo se admite la conexión HTTP. El servidor escucha en el "
+"puerto 5050 de forma predeterminada, pero se puede cambiar ejecutando el "
+"siguiente comando:"
+
+#: src/reference/katana/index.md:32
+msgid ""
+"```sh\n"
+"katana --port <PORT>\n"
+"```"
+msgstr ""
+
+#: src/reference/katana/index.md:36
+msgid "#### Starknet Feature Compatibility"
+msgstr "#### Compatibilidad de características de Starknet"
+
+#: src/reference/katana/index.md:38
+msgid "##### Supported Transaction Type"
+msgstr "##### Tipos de transacciones admitidas"
+
+#: src/reference/katana/index.md:40
+msgid ""
+"| Type           | Version |\n"
+"| -------------- | ------- |\n"
+"| INVOKE         | 1       |\n"
+"| DECLARE        | 1, 2    |\n"
+"| DEPLOY_ACCOUNT |         |"
+msgstr ""
+
+#: src/reference/katana/index.md:46
+msgid "#### Supported RPC Methods"
+msgstr "#### Métodos RPC Soportados"
+
+#: src/reference/katana/index.md:48
+msgid "##### Starknet Methods"
+msgstr "##### Metodos de Starknet"
+
+#: src/reference/katana/index.md:50
+msgid ""
+"Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. "
+"The standard methods are based on [this](https://github.com/starkware-libs/"
+"starknet-specs/tree/v0.3.0) reference."
+msgstr ""
+"Katana soporta la versión **v0.3.0** de las especificaciones Starknet JSON-"
+"RPC. Los métodos estándar se basan en [esta](https://github.com/starkware-"
+"libs/starknet-specs/tree/v0.3.0) referencia."
+
+#: src/reference/katana/index.md:52
+msgid ""
+"-   `starknet_blockNumber`\n"
+"-   `starknet_blockHashAndNumber`\n"
+"-   `starknet_getBlockWithTxs`\n"
+"-   `starknet_getBlockWithTxHashes`\n"
+"-   `starknet_getBlockTransactionCount`\n"
+"-   `starknet_getTransactionByHash`\n"
+"-   `starknet_getTransactionByBlockIdAndIndex`\n"
+"-   `starknet_getTransactionReceipt`\n"
+"-   `starknet_pendingTransactions`\n"
+"-   `starknet_getStateUpdate`\n"
+"\n"
+"-   `starknet_call`\n"
+"-   `starknet_estimateFee`\n"
+"\n"
+"-   `starknet_chainId`\n"
+"\n"
+"-   `starknet_getNonce`\n"
+"-   `starknet_getEvents`\n"
+"-   `starknet_getStorageAt`\n"
+"-   `starknet_getClassHashAt`\n"
+"-   `starknet_getClass`\n"
+"-   `starknet_getClassAt`\n"
+"\n"
+"-   `starknet_syncing`\n"
+"\n"
+"-   `starknet_addInvokeTransaction`\n"
+"-   `starknet_addDeclareTransaction`\n"
+"-   `starknet_addDeployAccountTransaction`"
+msgstr ""
+
+#: src/reference/katana/index.md:81
+msgid "##### Custom Methods"
+msgstr "##### Métodos Personalizados"
+
+#: src/reference/katana/index.md:83
+msgid ""
+"Katana provides a convenient set of custom RPC methods to quickly and easily "
+"configure the node to suit your testing environment."
+msgstr ""
+"Katana proporciona un conjunto conveniente de métodos RPC personalizados "
+"para configurar rápidamente y fácilmente el nodo según las necesidades de tu "
+"entorno de pruebas."
+
+#: src/reference/katana/index.md:85
+msgid ""
+"`katana_generateBlock`  \n"
+"Mine a new block which includes all currently pending transactions"
+msgstr ""
+"`katana_generateBlock`  \n"
+"Genera un nuevo bloque que incluye todas las transacciones pendientes en el "
+"momento"
+
+#: src/reference/katana/index.md:88
+msgid ""
+"`katana_nextBlockTimestamp`  \n"
+"Get the time for the next block"
+msgstr ""
+"`katana_nextBlockTimestamp`  \n"
+"Obtiene el tiempo estimado para el próximo bloque"
+
+#: src/reference/katana/index.md:91
+msgid ""
+"`katana_increaseNextBlockTimestamp`  \n"
+"Increase the time for the block by a given amount of time, in seconds"
+msgstr ""
+"`katana_increaseNextBlockTimestamp`  \n"
+"Aumenta el tiempo estimado para el próximo bloque en una cantidad específica "
+"de tiempo, en segundos"
+
+#: src/reference/katana/index.md:94
+msgid ""
+"`katana_setNextBlockTimestamp`  \n"
+"Similar to `katana_increaseNextBlockTimestamp` but takes the exact timestamp "
+"that you want in the next block"
+msgstr ""
+"`katana_setNextBlockTimestamp`  \n"
+"Similar a `katana_increaseNextBlockTimestamp`, pero permite establecer el "
+"tiempo exacto que deseas en el próximo bloque"
+
+#: src/reference/katana/index.md:97
+msgid ""
+"`katana_predeployedAccounts`  \n"
+"Get the info for all of the predeployed accounts"
+msgstr ""
+"`katana_predeployedAccounts`  \n"
+"Obtiene la información de todas las cuentas pre-implementadas (predeployed "
+"accounts)"
+
+#: src/reference/katana/index.md:100
+msgid "### OPTIONS"
+msgstr "### OPCIONES"
+
+#: src/reference/katana/index.md:102
+msgid "#### General Options"
+msgstr "#### Opciones Generales"
+
+#: src/reference/katana/index.md:104
+msgid ""
+"`--silent`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup"
+msgstr ""
+"`--silent`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; sin mostrar mensajes en la pantalla durante el "
+"inicio"
+
+#: src/reference/katana/index.md:107
+msgid ""
+"`--no-mining`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on "
+"demand instead"
+msgstr ""
+"`--no-mining`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Desactivar la minería automática e intervalos, y en "
+"su lugar minar bajo demanda"
+
+#: src/reference/katana/index.md:110
+msgid ""
+"`-b, --block-time <SECONDS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining"
+msgstr ""
+"`-b, --block-time <SEGUNDOS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Tiempo de bloque en segundos para la minería por "
+"intervalos"
+
+#: src/reference/katana/index.md:113
+msgid ""
+"`-h, --help`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h')"
+msgstr ""
+"`-h, --help`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Imprimir ayuda (ver un resumen con '-h')."
+
+#: src/reference/katana/index.md:116
+msgid ""
+"`-V, --version`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Print version information"
+msgstr ""
+"`-V, --version`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Imprimir información de la versión"
+
+#: src/reference/katana/index.md:119
+msgid "#### Server Options"
+msgstr "#### Opciones del servidor"
+
+#: src/reference/katana/index.md:121
+msgid ""
+"`-p, --port <PORT>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on [default: 5050]"
+msgstr ""
+"`-p, --port <PUERTO>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Número de puerto en el que escuchar [por defecto: "
+"5050]."
+
+#: src/reference/katana/index.md:124
+msgid ""
+"`--host <HOST>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on"
+msgstr ""
+"`--host <ANFITRIÓN>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; La dirección IP en la que el servidor escuchará"
+
+#: src/reference/katana/index.md:127
+msgid "#### Starknet Options"
+msgstr "#### Opciones de Starknet"
+
+#: src/reference/katana/index.md:129
+msgid ""
+"`--seed <SEED>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be "
+"predeployed"
+msgstr ""
+"`--seed <SEMILLA>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Especificar la semilla para la aleatoriedad de las "
+"cuentas que serán pre-implementadas (predeployed accounts)"
+
+#: src/reference/katana/index.md:132
+msgid ""
+"`--accounts <NUM>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate [default: "
+"10]"
+msgstr ""
+"`--accounts <NUM>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Número de cuentas pre-financiadas para generar [por "
+"defecto: 10]."
+
+#: src/reference/katana/index.md:135
+msgid ""
+"`--allow-zero-max-fee`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Allow transaction max fee to be zero"
+msgstr ""
+"`--allow-zero-max-fee`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Permitir que la tarifa máxima de la transacción sea "
+"cero"
+
+#: src/reference/katana/index.md:138
+msgid "#### Environment Options"
+msgstr "#### Opciones de entorno"
+
+#: src/reference/katana/index.md:140
+msgid ""
+"`--chain-id <CHAIN_ID>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; The chain ID [default: KATANA]"
+msgstr ""
+"`--chain-id <ID_CADENA>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; El ID de la cadena [por defecto: KATANA]."
+
+#: src/reference/katana/index.md:143
+msgid ""
+"`--gas-price <GAS_PRICE>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; The gas price"
+msgstr ""
+"`--gas-price <PRECIO_GAS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; El precio del gas"
+
+#: src/reference/katana/index.md:146
+msgid "### EXAMPLES"
+msgstr "### EJEMPLOS"
+
+#: src/reference/katana/index.md:148
+msgid "1. Set the number of accounts to 15 and allow zero fee transaction"
+msgstr ""
+"1. Establecer el número de cuentas en 15 y permitir transacciones sin tarifas"
+
+#: src/reference/katana/index.md:150
+msgid ""
+"```sh\n"
+"katana --accounts 15 --allow-zero-max-fee\n"
+"```"
+msgstr ""
+
+#: src/reference/katana/index.md:154
+msgid "2. Set the chain id SN_GOERLI and run the server on port 8545"
+msgstr ""
+"2. Establecer el ID de cadena en SN_GOERLI y ejecutar el servidor en el "
+"puerto 8545"
+
+#: src/reference/katana/index.md:156
+msgid ""
+"```sh\n"
+"katana --chain-id SN_GOERLI --port 8545\n"
+"```"
+msgstr ""
+
+#: src/misc/contributors.md:1
+msgid "## Contributing to Dojo Book"
+msgstr "## Contribuyendo al Libro de Dojo"
+
+#: src/misc/contributors.md:3
+msgid ""
+"As the Dojo engine progresses and develops, it is essential for the Dojo "
+"book to keep pace with these advancements. Updating and refining the book "
+"ensures that it remains a relevant and valuable resource for those "
+"interested in understanding and utilizing the latest Dojo engine features "
+"and capabilities. All help is welcome!"
+msgstr ""
+"Conforme el motor de Dojo avanza y se desarrolla, es fundamental que el Libro "
+"de Dojo se mantenga al día con estos avances. Actualizar y perfeccionar el "
+"libro garantiza que siga siendo un recurso relevante y valioso para aquellos "
+"interesados en comprender y utilizar las últimas características y "
+"capacidades del motor de Dojo. ¡Toda ayuda es bienvenida!"
+
+#: src/misc/contributors.md:5
+msgid "### The purpose of the book"
+msgstr "### El propósito del libro es"
+
+#: src/misc/contributors.md:7
+msgid ""
+"The Dojo book is designed to be a comprehensive resource that caters to "
+"users at various levels of experience. It aims to serve as both an "
+"introductory guide for those new to Dojo and its ancillary packages, as well "
+"as a reference for more experienced users seeking to deepen their "
+"understanding of the engine's features and capabilities."
+msgstr ""
+"El libro de Dojo está diseñado para ser un recurso completo que atienda a "
+"usuarios de varios niveles de experiencia. Su objetivo es servir como una "
+"guía introductoria para aquellos que son nuevos en Dojo y sus paquetes "
+"complementarios, así como una referencia para usuarios más experimentados "
+"que buscan profundizar su comprensión de las características y capacidades "
+"del motor."
+
+#: src/misc/contributors.md:9
+msgid "The book is split into some major chapters:"
+msgstr "El libro está dividido en varios capítulos principales:"
+
+#: src/misc/contributors.md:11
+msgid ""
+"- Framework Theory\n"
+"- Getting Started\n"
+"- Building a World"
+msgstr ""
+"- Teoría del Framework\n"
+"- Comenzando\n"
+"- Construyendo un Mundo"
+
+#: src/misc/contributors.md:15
+msgid "### Code of Conduct"
+msgstr "### Código de conducta"
+
+#: src/misc/contributors.md:17
+msgid ""
+"The book follows the [Rust Code of Conduct](https://www.rust-lang.org/"
+"policies/code-of-conduct)."
+msgstr ""
+"El libro sigue el [Rust Code of Conduct](https://www.rust-lang.org/policies/"
+"code-of-conduct)."
+
+#: src/misc/contributors.md:19
+msgid "### Ways to contribute"
+msgstr "### Formas de contribuir"
+
+#: src/misc/contributors.md:21
+msgid "#### Issues"
+msgstr ""
+
+#: src/misc/contributors.md:23
+msgid ""
+"If you think that some content is missing or out-of-date, feel free to open "
+"an issue. If you find multiple pieces of content lacking, please open up a "
+"separate issue for each."
+msgstr ""
+"Si consideras que falta algún contenido o que alguna información está "
+"desactualizada, no dudes en abrir un 'issue' al respecto. Si encuentras "
+"varias partes del contenido que necesitan ser complementadas, por favor, "
+"abre un 'issue' separado para cada una."
+
+#: src/misc/contributors.md:25
+msgid ""
+"The issues will then be labeled so other contributors can find chunks of "
+"work they are interested in more easily."
+msgstr ""
+"Luego, los 'issues' serán etiquetados para que otros colaboradores puedan "
+"encontrar áreas de trabajo que les interesen más fácilmente."
+
+#: src/misc/contributors.md:27
+msgid ""
+"The issue should contain what is missing, or what could be improved, in as "
+"much detail as you deem necessary."
+msgstr ""
+"El 'issue' debe contener lo que falta o lo que podría mejorar, con todos los "
+"detalles que consideres necesarios."
+
+#: src/misc/contributors.md:29
+msgid "#### Pull requests"
+msgstr ""
+
+#: src/misc/contributors.md:31
+msgid ""
+"Feel free to contribute changes to the book by opening a pull request - "
+"anything is welcome, from reformulating a sentence, fixing a typo, to adding "
+"new sections or chapters."
+msgstr ""
+"Siéntete libre de contribuir con cambios al libro abriendo un PR (pull "
+"request). Todo es bienvenido, desde reformular una oración, corregir un "
+"error tipográfico hasta agregar nuevas secciones o capítulos."
+
+#: src/misc/contributors.md:33
+msgid ""
+"When your pull request is open, other contributors will take a look and may "
+"request changes. Do not be discouraged!"
+msgstr ""
+"Cuando tu pull request esté abierto, otros colaboradores lo revisarán y "
+"podrían solicitar cambios. ¡No te desanimes!"
+
+#: src/misc/contributors.md:35
+msgid "### Writing style"
+msgstr "### Estilo de escritura"
+
+#: src/misc/contributors.md:37
+msgid ""
+"This section documents a few standards for writing used throughout the book."
+msgstr ""
+"Esta sección documenta algunos estándares de escritura utilizados a lo largo "
+"del libro."
+
+#: src/misc/contributors.md:39
+msgid "#### Chapters start with a second level heading"
+msgstr "#### Los capítulos comienzan con un encabezado de segundo nivel"
+
+#: src/misc/contributors.md:41
+msgid "We use:"
+msgstr "Nosotras usamos:"
+
+#: src/misc/contributors.md:43
+msgid ""
+"```md\n"
+"## Some Page\n"
+"```"
+msgstr ""
+
+#: src/misc/contributors.md:47
+msgid "We do not use:"
+msgstr "Nosotras no usamos:"
+
+#: src/misc/contributors.md:49
+msgid ""
+"```md\n"
+"# Some Page\n"
+"```"
+msgstr ""

@@ -30,7 +30,7 @@
 # Appendix
 
 -   [References](./reference/README.md)
-    -   [`sozo` Commands](./reference/sozo/README.md)
+    -   [sozo Commands](./reference/sozo/README.md)
         -   [Project Commands](./reference/sozo/project-commands.md)
             -   [init]()
             -   [build]()
@@ -41,7 +41,7 @@
             -   [register]()
             -   [system]()
             -   [component]()
-    -   [`katana` Reference](./reference/katana/README.md)
+    -   [katana Reference](./reference/katana/README.md)
 
 ---
 
