@@ -6,7 +6,7 @@ katana - Starknet akıllı sözleşmelerini konuşlandırmak ve test etmek için
 
 ### ÖZET
 
-`katana` [*options*]
+`katana` [*seçenekler*]
 
 ### AÇIKLAMA
 
