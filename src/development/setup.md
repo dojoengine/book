@@ -1,87 +1,87 @@
-# Dojo Engine - Getting Started Guide
+# Dojo Motoru - Başlangıç Rehberi
 
-This README guides you through the process of setting up your local development environment for Dojo.
+Bu README, Dojo için yerel geliştirme ortamınızı kurma sürecine rehberlik eder.
 
-## Prerequisites
+## Gereksinimler
 
 - Rust
 - Cairo
 
-## Clone the Repository
+## Repository'yi Klonlayın
 
-First, clone the repository to your local machine:
+Öncelikle, repository'yi yerel makinenize klonlayın:
 
 ```bash
 git clone https://github.com/dojoengine/dojo.git
 ```
 
-## Setup Guide
+## Kurulum Rehberi
 
 ### Linux & Mac
 
-#### 1. Install Rust and Dependencies
+#### 1. Rust ve Bağımlılıklarını Yükleyin
 
-Start by installing Rust and running the test suite to confirm your setup:
+Rust'ı yüklemeye ve kurulumunuzu onaylamak için test süitesini çalıştırmaya başlayın:
 
 ```bash
 rustup override set stable && rustup update && cargo test
 ```
 
-> Note: Depending on your Linux distribution, you may need to install additional dependencies. Make sure to install any suggested or missing dependencies that arise during the setup process.
+> Not: Linux dağıtımınıza bağlı olarak, ek bağımlılıkları yüklemeniz gerekebilir. Kurulum süreci sırasında ortaya çıkan önerilen veya eksik bağımlılıkları yüklediğinizden emin olun.
 
-#### 2. Install Scarb Package Manager
+#### 2. Scarb Paket Yöneticisini Yükleyin
 
-Next, install the [Scarb](https://docs.swmansion.com/scarb) package manager by running:
+Sonra, [Scarb](https://docs.swmansion.com/scarb) paket yöneticisini aşağıdaki komutu çalıştırarak yükleyin:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
 ```
 
-#### 3. Setup Cairo VSCode Extension
+#### 3. Cairo VSCode Eklentisini Ayarlayın
 
-For proper linting and syntax highlighting, you should install the Cairo 1.0 extension for Visual Studio Code.
+Düzgün bir lintleme ve sözdizimi vurgulama için, Visual Studio Code için Cairo 1.0 eklentisini yüklemeniz gerekir.
 
-- Clone the Cairo repository somewhere on your machine (make sure not to clone within the Dojo directory).
+- Cairo repository'sini makinenizde bir yere klonlayın (Dojo dizini içinde klonlamadığınızdan emin olun).
 
 ```bash
 git clone https://github.com/starkware-libs/cairo.git
 ```
 
-- Install the Cairo Language Server extension. Here's a step-by-step guide, or you can follow the [official instructions](https://github.com/starkware-libs/cairo/blob/main/vscode-cairo/README.md).
+Cairo Dil Sunucusu eklentisini yükleyin. Aşağıdaki adım adım rehberi veya [caironun kendi talimatlarını](https://github.com/starkware-libs/cairo/blob/main/vscode-cairo/README.md) takip edebilirsiniz.
 
-Navigate to the vscode-cairo directory:
+vscode-cairo dizinine gidin:
 
 ```bash
 cd cairo/vscode-cairo
 ```
 
-Install the required packages:
+Gerekli paketleri yükleyin:
 
 ```bash
 sudo npm install --global @vscode/vsce
 npm install
 ```
 
-Package the extension:
+Eklentiyi paketleyin:
 
 ```bash
 vsce package
 ```
 
-Install the extension:
+Eklentiyi yükleyin:
 
 ```bash
 code --install-extension cairo1*.vsix
 ```
 
-> **Mac Tip:** If you don't have the `code` command, in VSCode do `Cmd+Shift+P` and type 'shell command' to find the Shell Command: Install 'code' command in PATH command.
+> **Mac İpucu:** Eğer code komutuna sahip değilseniz, VSCode'da Cmd+Shift+P yapın ve 'shell command' yazın ve Shell Command: Install 'code' command in PATH komutunu bulun.
 
-The Cairo language server should now be installed globally in your Visual Studio Code. If you have the server enabled, Scarb should automatically pick this up and start linting your Cairo files.
+Cairo dil sunucusu şimdi Visual Studio Code'da global olarak yüklenmiş olmalıdır. Sunucunuz etkinse, Scarb bunu otomatik olarak algılar ve Cairo dosyalarınızı lintlemeye başlar.
 
 ### Windows
 
-_Coming soon_
+_Yakında_
 
-### Container
+### Konteyner
 
-_Coming soon_
+_Yakında_
