@@ -1,9 +1,9 @@
 ## World
 
-The world contract functions as a central system kernel, serving as the foundation for initiating and resolving all interactions. Within this kernel, contracts are deployed, registered, and executed, streamlining the process for downstream systems by enabling clients to engage with a single contract rather than potentially hundreds.
+Dünya sözleşmesi, merkezi bir sistem çekirdeği işlevi görerek tüm etkileşimlerin başlatılması ve çözülmesi için temel sağlar. Bu çekirdek içinde, sözleşmeler dağıtılır, kaydedilir ve yürütülür, istemcilerin tek bir sözleşmeyle, potansiyel olarak yüzlercesi yerine, etkileşime girmesine olanak sağlayarak akışı aşağı sistemler için düzgünleştirir.
 
 
-> **To think about:** Consider Autonomous Worlds as sovereign blockchains residing within another blockchain - a nested blockchain, so to speak. Just as you can deploy contracts onto Ethereum to enhance its functionality, you can similarly introduce systems into the World contract to enrich its features. While anyone can contribute to the World, akin to Ethereum, authorization is required to interact with component state. There is a dedicated topic to Authorisation.
+> **Düşünün:** Autonomous Worlds'ü başka bir blockchain içinde bulunan egemen blockchainler olarak düşünün - bir nevi iç içe geçmiş blockchain. Ethereum'a sözleşmeleri dağıtarak onun işlevselliğini artırabileceğiniz gibi, sistemleri Dünya sözleşmesine tanıtarak da özelliklerini zenginleştirebilirsiniz. Ethereum'a benzer şekilde, herkes Dünya'ya katkıda bulunabilir, ancak bileşen durumuyla etkileşime geçmek için yetkilendirme gereklidir. Yetkilendirmeye adanmış bir konu vardır.
 
 
 ### API
