@@ -1,6 +1,6 @@
 ## Components
 
-Bileşenler, dünya yapısını tanımlamak için temel hizmet verir, sistemlerin değiştirebileceği durumu kapsular. Örneğin, Bir Pozisyon bileşeni, is_zero ve is_equal metodlarını ortaya çıkaracak şekilde bir yapı olarak uygulanabilir. Dojo, bu bileşenleri, çeşitli ve özelleştirilebilir ortamların oluşturulmasını sağlayacak şekilde dünyada ilan edilebilecek ve yüklenebilecek sözleşmeler haline getirir.
+Bileşenler, dünya yapısını tanımlamak için temel hizmet verir, sistemlerin değiştirebileceği durumu kapsüller. Örneğin, Bir Pozisyon bileşeni, is_zero ve is_equal metodlarını ortaya çıkaracak şekilde bir yapı olarak uygulanabilir. Dojo, bu bileşenleri, çeşitli ve özelleştirilebilir ortamların oluşturulmasını sağlayacak şekilde dünyada ilan edilebilecek ve yüklenebilecek sözleşmeler haline getirir.
 
 Bir dünyanın bileşenlerini tasarlarken, oluşturduğunuz soyutlamaları dikkatlice düşünmek hayati öneme sahiptir, her zaman bir araya getirilebilirliği aklınızda bulundurmalısınız.
 
