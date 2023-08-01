@@ -1,8 +1,8 @@
 ## Entities
 
-A common misconception for those new to ECS systems is the way entities exist within the World. Different ECS systems handle entities in various ways. In Dojo, entities are treated as a primary key value within the world, to which components can be attached. To illustrate this concept, consider a simple example of a character in a game that has a position and a health component.
+ECS sistemlerine yeni başlayanlar için yaygın bir yanılgı, varlıkların Dünya içindeki var oluş biçimidir. Farklı ECS sistemleri, varlıkları çeşitli şekillerde ele alır. Dojo'da, varlıklar dünya içinde birincil anahtar değeri olarak ele alınır ve bunlara bileşenler eklenir. Bu kavramı anlamak için, bir konuma ve bir sağlık bileşenine sahip bir oyun karakterinin basit bir örneğini düşünün.
 
-When defining the components for this entity, it is important to note that we do not reference the entity directly. Instead, we simply provide two structs that the entity will contain. This approach emphasizes the flexibility and composability of the ECS system, allowing for the easy creation and modification of entities with various combinations of components.
+Bu varlık için bileşenleri tanımlarken, varlığa doğrudan atıfta bulunmadığımızı belirtmek önemlidir. Bunun yerine, sadece varlığın içereceği iki yapı sağlarız. Bu yaklaşım, ECS sisteminin esnekliğini ve bir araya getirilebilirliğini vurgular, çeşitli bileşen kombinasyonlarıyla varlıkların kolay oluşturulmasına ve modifiye edilmesine olanak sağlar.
 
 ```rust,ignore
 #[component]
@@ -18,10 +18,10 @@ struct Health {
 
 ```
 
-Now, let's create a `SpawnSystem` for the character. It is important to note that we have not explicitly defined an Entity anywhere. Instead, the system will assign a primary key ID to the entity when this system is executed.
+Şimdi, karakter için bir `SpawnSystem` oluşturalım. Herhangi bir yerde açıkça bir Varlık tanımlamadığımızı belirtmek önemlidir. Bunun yerine, sistem bu sistemi çalıştırdığında varlığa birincil anahtar ID atayacaktır.
 
 ```rust,ignore
-// The most basic system that creates a new player entity with a given name and 100 health.
+// Verilen bir isme ve 100 sağlık puanına sahip yeni bir oyuncu varlığı oluşturan en temel sistem.
 
 #[system]
 mod Spawn {
@@ -41,7 +41,7 @@ mod Spawn {
 }
 ```
 
-Finally, lets move the character with the `MoveSystem`.
+Son olarak, karakteri `MoveSystem` ile hareket ettirelim.
 
 ```rust,ignore
 #[system]
