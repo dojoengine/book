@@ -1,4 +1,4 @@
-## Entities
+## Varlıklar
 
 ECS sistemlerine yeni başlayanlar için yaygın bir yanılgı, varlıkların Dünya içindeki var oluş biçimidir. Farklı ECS sistemleri, varlıkları çeşitli şekillerde ele alır. Dojo'da, varlıklar dünya içinde birincil anahtar değeri olarak ele alınır ve bunlara bileşenler eklenir. Bu kavramı anlamak için, bir konuma ve bir sağlık bileşenine sahip bir oyun karakterinin basit bir örneğini düşünün.
 
