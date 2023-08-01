@@ -1,8 +1,8 @@
 # Storage
 
-In a Dojo Autonomous World, the `World` contract serves as the central store that manages and maintains the overall state. No state is maintained at the component level, this allows a clean split in logic and state. Most developers will not need to touch the storage methods, every part of the world can just be maintained via the [commands](./commands.md).
+Bir Dojo Otonom Dünyasında, Dünya sözleşmesi genel durumu yöneten ve sürdüren merkezi bir mağaza görevi görür. Hiçbir durum bileşen düzeyinde korunmamaktadır, bu mantık ve durumda temiz bir ayrım sağlar. Çoğu geliştiricinin depolama yöntemlerine dokunmasına gerek kalmaz, dünyanın her parçası sadece [komutlar](./commands.md). aracılığıyla sürdürülebilir.
 
 
-## Detailed overview of Storage
+## Depolama Hakkında Detaylı Genel Bakış
 
-State is maintained via a generated partition when you create a component. The compiler calculates the size of the component along with the key you have used and creates a partition within the world. Think of the partition as a table which can be read from and written to.
+Durum, bir bileşen oluşturduğunuzda oluşturulan bir bölüm aracılığıyla sürdürülür. Derleyici, kullandığınız anahtarla birlikte bileşenin boyutunu hesaplar ve dünyada bir bölüm oluşturur. Bölümü, okunabilir ve yazılabilir bir tablo olarak düşünün.
