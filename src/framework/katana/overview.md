@@ -1,16 +1,16 @@
 ## Katana
 
-`katana` is a _blazingly fast_ local Starknet node, designed to support local development with Dojo.
+`katana`, Dojo ile yerel geliştirmeyi desteklemek üzere tasarlanmış aşırı hızlı bir yerel Starknet düğümüdür.
 
-### Features
+### Özellikler
 
--   [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) support
+-   [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) desteği
 
-## Installation
+## Kurulum
 
-`katana` binary is available via [`dojoup`](../../getting-started/installation.md#using-dojoup).
+`katana` binary [`dojoup`](../../getting-started/installation.md#using-dojoup). aracılığıyla mevcuttur.
 
-### Installing from source
+### Kaynaktan Kurulum
 
 ```bash
 git clone https://github.com/dojoengine/dojo
@@ -18,7 +18,7 @@ cd dojo
 cargo install --path ./crates/katana --locked --force
 ```
 
-### Usage
+### Kullanım
 
 ```console
 $ katana
@@ -53,4 +53,4 @@ PREFUNDED ACCOUNTS
 
 > 📚 **Reference**
 >
-> See the [`katana` Reference](../../reference/katana/) for in depth information on Anvil and its capabilities.
+> Anvil ve yetenekleri hakkında detaylı bilgi için [`katana`](../../reference/katana/) referansına bakın.
