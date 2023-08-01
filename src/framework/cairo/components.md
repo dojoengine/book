@@ -1,10 +1,10 @@
 ## Components
 
-Components serve as the foundation for defining the world's structure, encapsulating state for systems to mutate. For instance, a Position component can be implemented as a struct, exposing `is_zero` and `is_equal` methods. Dojo compiles these components into contracts that can be declared and installed within a world, enabling the creation of diverse and customizable environments.
+Bileşenler, dünya yapısını tanımlamak için temel hizmet verir, sistemlerin değiştirebileceği durumu kapsular. Örneğin, Bir Pozisyon bileşeni, is_zero ve is_equal metodlarını ortaya çıkaracak şekilde bir yapı olarak uygulanabilir. Dojo, bu bileşenleri, çeşitli ve özelleştirilebilir ortamların oluşturulmasını sağlayacak şekilde dünyada ilan edilebilecek ve yüklenebilecek sözleşmeler haline getirir.
 
-When designing a world's components, it is crucial to carefully consider the abstractions you create, always keeping composability in mind.
+Bir dünyanın bileşenlerini tasarlarken, oluşturduğunuz soyutlamaları dikkatlice düşünmek hayati öneme sahiptir, her zaman bir araya getirilebilirliği aklınızda bulundurmalısınız.
 
-Suppose you plan to create two entities that move around the map and are fundamentally different from each other, except for the fact that they both exist within the world. In this case, you could create a shared Position component for both entities. This demonstrates the power of the Entity Component System (ECS) abstraction: by writing a single component, you can reuse it across multiple diverse entities, promoting modularity and flexibility within your world design.
+Diyelim ki, harita etrafında hareket eden ve birbirinden temelde farklı olan iki varlık yaratmayı planlıyorsunuz, tek ortak noktaları her ikisinin de dünya içinde var olması. Bu durumda, her iki varlık için ortak bir Pozisyon bileşeni oluşturabilirsiniz. Bu, Entity Component System (ECS) soyutlamanın gücünü gösterir: tek bir bileşen yazarak, onu birden çok çeşitli varlıkta yeniden kullanabilir, dünya tasarımınızda modülerlik ve esnekliği teşvik edersiniz.
 
 ```rust,ignore
 use array::ArrayTrait;
