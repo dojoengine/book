@@ -1,6 +1,7 @@
 # Summary
 
 -   [Introduction](./README.md)
+    -   [What is Dojo?](./theory/what-is-dojo.md)
     -   [AW Theory](./theory/autonomous-worlds.md)
     -   [Cairo Ecosystem](./theory/cairo.md)
 
@@ -16,7 +17,7 @@
 # Dojo Engine
 
 -   [Overview](./framework.md)
-    -   [Cairo ECS](./framework/cairo/overview.md)
+    -   [Dojo ECS](./framework/cairo/overview.md)
         -   [World](./framework/cairo/world.md)
         -   [Authorization](./framework/cairo/authorization.md)
         -   [Components](./framework/cairo/components.md)
