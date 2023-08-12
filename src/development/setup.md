@@ -1,21 +1,21 @@
-# Dojo Engine - Getting Started Guide
+# Development Setup
 
-This README guides you through the process of setting up your local development environment for Dojo.
+> This article is a guide to setting up a development environment for Dojo. It is not suggested to follow this guide if you are just wanting to play with the toolchain. We strongly suggest following the [Quick Start](../getting-started/quick-start.md) guide.
 
-## Prerequisites
+### Prerequisites
 
 - Rust
 - Cairo
 
-## Clone the Repository
 
-First, clone the repository to your local machine:
 
-```bash
+## Guide
+
+### Clone
+
+```sh
 git clone https://github.com/dojoengine/dojo.git
 ```
-
-## Setup Guide
 
 ### Linux & Mac
 
@@ -23,7 +23,7 @@ git clone https://github.com/dojoengine/dojo.git
 
 Start by installing Rust and running the test suite to confirm your setup:
 
-```bash
+```sh
 rustup override set stable && rustup update && cargo test
 ```
 
@@ -33,50 +33,14 @@ rustup override set stable && rustup update && cargo test
 
 Next, install the [Scarb](https://docs.swmansion.com/scarb) package manager by running:
 
-```bash
+```sh
 curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
 ```
 
-#### 3. Setup Cairo VSCode Extension
+#### 3. Add the Cairo 1.0 VSCode Extension
 
-For proper linting and syntax highlighting, you should install the Cairo 1.0 extension for Visual Studio Code.
+Install the [Cairo 1.0](https://marketplace.visualstudio.com/items?itemName=starkware.cairo1) extension for Visual Studio Code.
 
-- Clone the Cairo repository somewhere on your machine (make sure not to clone within the Dojo directory).
-
-```bash
-git clone https://github.com/starkware-libs/cairo.git
-```
-
-- Install the Cairo Language Server extension. Here's a step-by-step guide, or you can follow the [official instructions](https://github.com/starkware-libs/cairo/blob/main/vscode-cairo/README.md).
-
-Navigate to the vscode-cairo directory:
-
-```bash
-cd cairo/vscode-cairo
-```
-
-Install the required packages:
-
-```bash
-sudo npm install --global @vscode/vsce
-npm install
-```
-
-Package the extension:
-
-```bash
-vsce package
-```
-
-Install the extension:
-
-```bash
-code --install-extension cairo1*.vsix
-```
-
-> **Mac Tip:** If you don't have the `code` command, in VSCode do `Cmd+Shift+P` and type 'shell command' to find the Shell Command: Install 'code' command in PATH command.
-
-The Cairo language server should now be installed globally in your Visual Studio Code. If you have the server enabled, Scarb should automatically pick this up and start linting your Cairo files.
 
 ### Windows
 

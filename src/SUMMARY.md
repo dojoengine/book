@@ -6,7 +6,8 @@
 
 # Getting Started
 
--   [Installation](./getting-started/installation.md)
+-   [Quick Start](./getting-started/quick-start.md)
+-   [Manual Install](./getting-started/from-source.md)
 
 # Development
 

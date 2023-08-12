@@ -10,7 +10,7 @@ Autonomous Worlds share notable similarities with blockchains in their fundament
 
 2. Permissionless entry point for expanding the world: The World contract must be capable of accepting new systems and components without requiring permission. While this doesn't imply that every component and system will be utilized, they must adhere to this pattern, ensuring open and unrestricted access for potential enhancements.
 
-We're firm believers in the potential for Autnomous Worlds to catalize the exploration of novel forms in the medium provided by zk proofs and blockchain technology. This is not only about games, but also about new forms of artwork, coordination, fun, emerging from tinkering and radical innovation, eventually questioning the very notion of "play" in this brave new decentralized and trustless world.
+We're firm believers in the potential for Autonomous Worlds to catalize the exploration of novel forms in the medium provided by zk proofs and blockchain technology. This is not only about games, but also about new forms of artwork, coordination, fun, emerging from tinkering and radical innovation, eventually questioning the very notion of "play" in this brave new decentralized and trustless world.
 
 ### Homework
 - [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-worlds-aim-to-free-online-games-from-corporate-control/)
