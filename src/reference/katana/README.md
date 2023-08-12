@@ -148,7 +148,7 @@ Get the info for all of the predeployed accounts
 1. Set the number of accounts to 15 and allow zero fee transaction
 
 ```sh
-katana --accounts 15 --allow-zero-max-fee
+katana --accounts 15 --disable-fee
 ```
 
 2. Set the chain id SN_GOERLI and run the server on port 8545
