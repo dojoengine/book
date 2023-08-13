@@ -18,4 +18,4 @@ no-section-label = true
 
 [output.html.fold]
 enable = true
-level = 1
+level = 0

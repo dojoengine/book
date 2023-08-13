@@ -1,3 +1,5 @@
+![Dojo](images/dojo-mark-full-dark.svg)
+
 ## Dojo: The Provable Game Engine
 
 > Dojo is an open-source project, currently in its early development phase, and warmly welcomes contributors. For additional resources, find the book on [Github](https://github.com/dojoengine/book).
