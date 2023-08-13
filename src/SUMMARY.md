@@ -23,10 +23,12 @@
 -   [Storage](./cairo/storage.md)
 
 # Toolchain
--   [Sozo](./framework/sozo/overview.md)
--   [Katana](./framework/katana/overview.md)
--   [Torii](./framework/torii/overview.md)
-
+-   [Sozo](./toolchain/sozo/overview.md)
+    - [Reference](./toolchain/sozo/reference.md)
+-   [Katana](./toolchain/katana/overview.md)
+    - [Reference](./toolchain/katana/reference.md)
+-   [Torii](./toolchain/torii/overview.md)
+    - [Reference](./toolchain/torii/reference.md)
 # Deploying
 -   [Considerations](./deployment/considerations.md)
 -   [Locally](./deployment/locally.md)

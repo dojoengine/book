@@ -8,7 +8,7 @@
 
 ## Installation
 
-The `sozo` binary can be installed via [`dojoup`](../../getting-started/installation.md#using-dojoup), our dedicated installation package manager.
+The `sozo` binary can be installed via [`dojoup`](../../getting-started/quick-start.md), our dedicated installation package manager.
 
 ### Installing from Source
 

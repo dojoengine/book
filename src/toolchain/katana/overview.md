@@ -8,7 +8,7 @@
 
 ## Installation
 
-`katana` binary is available via [`dojoup`](../../getting-started/installation.md#using-dojoup).
+`katana` binary is available via [`dojoup`](../../getting-started/quick-start.md).
 
 ### Installing from source
 
