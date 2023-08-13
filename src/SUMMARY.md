@@ -27,6 +27,11 @@
 -   [Katana](./framework/katana/overview.md)
 -   [Torii](./framework/torii/overview.md)
 
+# Deploying
+-   [Considerations](./deployment/considerations.md)
+-   [Locally](./deployment/locally.md)
+-   [Remote](./deployment/remote.md)
+
 # Tutorial
 -   [Tutorial](./tutorial/README.md)
     -   [Part 1: Hello World](./tutorial/part-1.md)
