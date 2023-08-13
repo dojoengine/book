@@ -1,22 +1,17 @@
 ![Dojo](images/dojo-mark-full-dark.svg)
 
+> Dojo is an open-source project, currently in its early development phase, and warmly welcomes contributors. For additional resources, join the community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the [contribution guide](./misc/contributors.md).
+
+---
+
 ## Dojo: The Provable Game Engine
 
-> Dojo is an open-source project, currently in its early development phase, and warmly welcomes contributors. For additional resources, find the book on [Github](https://github.com/dojoengine/book).
-
-Dojo is a provable game engine with an integrated toolchain, designed for creating onchain games and autonomous worlds using [Cairo 1.0](https://github.com/starkware-libs/cairo). 
-
-Dojo employs an Cairo based [entity component system](https://en.wikipedia.org/wiki/Entity_component_system) and a [diamond pattern](https://eips.ethereum.org/EIPS/eip-2535), facilitating a modular, scalable world. Onchain Worlds grow via the addition of Components (state) and Systems (logic). Our architectural design is greatly influenced by the brilliant [Bevy](https://bevyengine.org/) engine.
+Dojo employs [Cairo](https://github.com/starkware-libs/cairo) to deliver a robust architecture and toolset for designing autonomous worlds and onchain games. It features an integrated entity component system (ECS) and includes a native indexer, RPC testnet, and a comprehensive CLI management toolkit.
 
 This book is dedicated to familiarizing you with the Dojo engine and the potential of Provable games. A special section on the [Theory](./theory/autonomous-worlds.md) elucidates this emergent concept of autonomous worlds and Provable games.
 
-### Key Features
 
-1. **Entity Component System (ECS)**: Crafted in [Cairo](https://github.com/starkware-libs/cairo), it provides a solid foundation to structure your game.
-2. **[Torii Indexer](/crates/torii/README.md)**: Say goodbye to manually creating indexers. Torii does it automatically for you!
-3. **[Katana Network](/crates/katana/README.md)**: An RPC development network to streamline and expedite your game's iterative processes.
-4. **[Sozo CLI](/crates/sozo/README.md)**: Your trusty CLI tool to oversee and upkeep your worlds.
-5. **Typed SDKs**: For a smoother, error-free coding experience.
+### Explainer
 
 Here's a video of [Cartridge](https://cartridge.gg/)'s [Tarrence](https://twitter.com/tarrenceva) explaining how Dojo works at the 2023 [Autonomous Anonymous Summit](https://twitter.com/pet3rpan_/status/1666764726427353091):
 

@@ -4,15 +4,28 @@ Dojo is the culmination of lessons learned from attempts at building [on-chain g
 
 Dojo aspires to be the go-to tool for building provable games. It is radically open-source, and all contributions are welcome.
 
-### Stop building infrastructure; start building games
+---
+
+## Stop building infrastructure; start building games
 
 Dojo's suite of tools takes the infrastructure complexity out of building on-chain games. It includes:
 
-1. **Entity Component System (ECS)**: Crafted in [Cairo](https://github.com/starkware-libs/cairo), it provides a solid foundation to structure your game.
-2. **[Torii Indexer](/crates/torii/README.md)**: Say goodbye to manually creating indexers. Torii does it automatically for you!
-3. **[Katana Network](/crates/katana/README.md)**: An RPC development network to streamline and expedite your game's iterative processes.
-4. **[Sozo CLI](/crates/sozo/README.md)**: Your trusty CLI tool to oversee and maintain your worlds.
-5. **Typed SDKs**: For clients.
+### Entity Component System (ECS) 
+An ECS architecture crafted in [Cairo](https://github.com/starkware-libs/cairo), it provides a solid foundation to structure your game.
+
+### [Torii](/crates/torii/README.md) - Starknet Indexer
+Say goodbye to manually creating indexers. Torii is a Starknet indexer built on rust to be blazingly fast and exceptionally scalable.
+
+### [Katana](/crates/katana/README.md) - RPC testnet
+An RPC development network to streamline and expedite your game's iterative processes.
+
+### [Sozo CLI](/crates/sozo/README.md) - CLI Management Tool
+Your trusty CLI tool to oversee and upkeep your worlds.
+
+### Typed SDKs
+For easy syncing of state (coming soon)
+
+---
 
 ## Key concepts to understand
 

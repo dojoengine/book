@@ -1,9 +1,10 @@
 # Summary
 
--   [Introduction](./README.md)
+-   [Foreward](./README.md)
     -   [What is Dojo?](./theory/what-is-dojo.md)
     -   [AW Theory](./theory/autonomous-worlds.md)
     -   [Cairo Ecosystem](./theory/cairo.md)
+    -   [FAQs](./theory/faqs.md)
 
 # Getting Started
 
@@ -11,7 +12,7 @@
     -   [Manual Install](./getting-started/from-source.md)
     -   [Development Setup](./getting-started/setup.md)
     -   [Contributing](./getting-started/contributing.md)
-    -   [FAQs](./getting-started/faqs.md)
+
 
 # Community
 -   [Get Started](./community/get-started.md)
