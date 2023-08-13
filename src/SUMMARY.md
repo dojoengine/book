@@ -9,9 +9,25 @@
 
 -   [Quick Start](./getting-started/quick-start.md)
 -   [Manual Install](./getting-started/from-source.md)
+-   [Development Setup](./getting-started/setup.md)
+-   [Contributing](./getting-started/contributing.md)
+
+# Cairo Contracts
+-   [Hello Dojo](./cairo/hello-dojo.md)
+-   [World](./cairo/world.md)
+-   [Authorization](./cairo/authorization.md)
+-   [Components](./cairo/components.md)
+-   [Systems](./cairo/systems.md)
+-   [Entities](./cairo/entities.md)
+-   [Commands](./cairo/commands.md)
+-   [Storage](./cairo/storage.md)
+
+# Toolchain
+-   [Sozo](./framework/sozo/overview.md)
+-   [Katana](./framework/katana/overview.md)
+-   [Torii](./framework/torii/overview.md)
 
 # Tutorial
-
 -   [Tutorial](./tutorial/README.md)
     -   [Part 1: Hello World](./tutorial/part-1.md)
     -   [Part 2: Components](./tutorial/part-2.md)
@@ -21,26 +37,6 @@
     -   [Part 6: Testing](./tutorial/part-6.md)
     -   [Part 7: Building](./tutorial/part-7.md)
     -   [Part 8: Deploying](./tutorial/part-8.md)
-
-# Development
-
--   [Setup](./development/setup.md)
--   [Contributing](./development/contributing.md)
-
-# Dojo Framework
-
--   [Overview](./framework.md)
--   [Dojo ECS](./framework/cairo/overview.md)
-    -   [World](./framework/cairo/world.md)
-    -   [Authorization](./framework/cairo/authorization.md)
-    -   [Components](./framework/cairo/components.md)
-    -   [Systems](./framework/cairo/systems.md)
-    -   [Entities](./framework/cairo/entities.md)
-    -   [Commands](./framework/cairo/commands.md)
-    -   [Storage](./framework/cairo/storage.md)
--   [Sozo](./framework/sozo/overview.md)
--   [Katana](./framework/katana/overview.md)
--   [Torii](./framework/torii/overview.md)
 
 # Appendix
 
