@@ -1,15 +1,30 @@
 ## Torii - Networking & Indexing
 
-Torii serves as a comprehensive indexing and networking layer for dojo worlds. It systematically organizes the state of dojo worlds, facilitating efficient querying for clients.
+Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly fast and exceptionally scalable.
 
-### Indexer
+### Dojo indexer
 
-__coming soon__
+Torii indexes your dojo worlds and exposes a GraphQL API to query them. Simply run:
 
-### Graphql
+```sh
+torii
+```
+and you'll have a GraphQL API running on `http://localhost:8080`!
 
-__coming soon__
+## Installation
 
-### RPC
+The `torii` binary can be installed via [`dojoup`](../../getting-started/quick-start.md), our dedicated installation package manager.
 
-__coming soon__
+### Installing from Source
+
+If you prefer to install from the source code:
+
+```sh
+cargo install --path ./crates/torii --profile local --force
+```
+
+This will install Torii and the required dependencies on your local system.
+
+> 📚 **Reference**
+>
+> See the [`torii` Reference](./reference.md) for a complete reference.

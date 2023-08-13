@@ -22,4 +22,4 @@ This will install Sozo and the required dependencies on your local system.
 
 > 📚 **Reference**
 >
-> See the [`sozo` Reference](../../reference/sozo/) for a complete overview of all the available subcommands.
+> See the [`sozo` Reference](./reference.md) for a complete overview of all the available subcommands.

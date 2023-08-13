@@ -25,10 +25,12 @@
 # Toolchain
 -   [Sozo](./toolchain/sozo/overview.md)
     - [Reference](./toolchain/sozo/reference.md)
+    - [Development](./toolchain/sozo/development.md)
 -   [Katana](./toolchain/katana/overview.md)
     - [Reference](./toolchain/katana/reference.md)
+    - [Development](./toolchain/katana/development.md)
 -   [Torii](./toolchain/torii/overview.md)
-    - [Reference](./toolchain/torii/reference.md)
+    - [Development](./toolchain/torii/development.md)
 # Deploying
 -   [Considerations](./deployment/considerations.md)
 -   [Locally](./deployment/locally.md)
@@ -44,22 +46,6 @@
     -   [Part 6: Testing](./tutorial/part-6.md)
     -   [Part 7: Building](./tutorial/part-7.md)
     -   [Part 8: Deploying](./tutorial/part-8.md)
-
-# Appendix
-
--   [References](./reference/README.md)
-    -   [Sozo Commands](./reference/sozo/README.md)
-        -   [Project Commands](./reference/sozo/project-commands.md)
-            -   [init]()
-            -   [build]()
-            -   [test]()
-            -   [migrate]()
-        -   [World Commands](./reference/sozo/world-commands.md)
-            -   [execute]()
-            -   [register]()
-            -   [system]()
-            -   [component]()
-    -   [Katana Reference](./reference/katana/README.md)
 
 ---
 

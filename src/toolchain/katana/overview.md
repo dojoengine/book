@@ -53,4 +53,4 @@ PREFUNDED ACCOUNTS
 
 > 📚 **Reference**
 >
-> See the [`katana` Reference](../../reference/katana/) for in depth information on Anvil and its capabilities.
+> See the [`katana` Reference](./reference.md) for in full reference.
