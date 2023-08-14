@@ -1,7 +1,8 @@
 ## Systems
 
-Systems represent functions that operate on the world state. They take input from the user, retrieve the current state from the world, compute a state transition, and apply it. Each system has a single entry point, the execute function. To streamline interaction with the world, systems can utilize
-commands.
+Systems are the logic in your world. They are stateless that mutate the state of components. They contain a single execute which is called when interacting with the world.
+
+Let's look at the simplest possible system which mutates the state of the Moves component.
 
 ```rust,ignore
 #[system]
@@ -15,9 +16,32 @@ mod Spawn {
 
     fn execute(ctx: Context) {
         set !(
-            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position { x: 0, y: 0 }, )
+            ctx.world, ctx.origin, (
+                Moves { player: ctx.origin, remaining: 10 }
+            )
         );
         return ();
     }
 }
 ```
+
+
+### The Execute function
+
+The `execute` function is mandatory in a system and runs when called, taking `Context` as its first parameter. See more in [Context](./world.md).
+
+### Other functions in a System
+
+You are free to add other functions to your system, but they will not be callable from the world. This is useful for breaking up your logic into smaller chunks.
+
+### System Authentication
+
+Systems must be given permission to write to components. By default they have no permissions. With `sozo` we can however give them permissions to write to components.
+
+```console
+sozo auth writer Moves Spawn 
+```
+
+Here we have authorised the `Spawn` system to write to the `Moves` component. 
+
+Read more in the [sozo](../toolchain/sozo/overview.md) docs.
