@@ -72,12 +72,10 @@
 
 - [Building Onchain Chess Game](./tutorial/onchain-chess/README.md)
   - [0. Setup](./tutorial/onchain-chess/0-setup.md)
-  - [1. Create Piece](./tutorial/onchain-chess/1-component.md)
-  - [2. Move Your Piece](./tutorial/onchain-chess/start.md)
-  - [3. Kill Enemy Piece](./tutorial/onchain-chess/start.md)
-  - [4. Is Move Eligible?](./tutorial/onchain-chess/start.md)
-  - [5. Games; Game Component](./tutorial/onchain-chess/start.md)
-  - [6. Test Your Game Contract](./tutorial/onchain-chess/start.md)
+  - [1. Initiate](./tutorial/onchain-chess/1-initiate.md)
+  - [2. Move](./tutorial/onchain-chess/2-move.md)
+  - [3. Occupy](./tutorial/onchain-chess/3-occupy.md)
+  - [4. Test Chess](./tutorial/onchain-chess/4-test.md)
 ---
 
 [Contributors](misc/contributors.md)

@@ -10,12 +10,11 @@ If you haven't read Dojo Book yet, I highly encourage you to do so before attemp
 
 ## What are we making?
 
-We're making an on-chain chess game that lets you start a new game and play chess. Your game will have 5 features:
+We're making an on-chain chess game that lets you start a new game and play chess. Your game will have 3 systems:
 
-1. Spawn all the chess pieces
-2. Make pieces to move
-3. Make pieces to take other pieces
-4. Make sure the pieces move is a legal move
-5. Play chess ♟♙ - integration test!
+1. Spawn all the chess pieces [initiate.system]
+2. Make pieces to move [move.system]
+3. Make pieces to take other pieces [occupy.system]
+4. Play chess ♟♙ - integration test!
 
 If that sounds scary and beyond your ability then this guide is definitely for you. If you know how to write Cairo and you know your Dojo basics, you can totally do this. We're not going to implement any sort of checkmate or full chess rules. The part of the Chess implementation we're tackling is surprisingly simple.
