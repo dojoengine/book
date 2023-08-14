@@ -32,6 +32,7 @@
     -   [Commands](./cairo/commands.md)
     -   [Storage](./cairo/storage.md)
     -   [Events](./cairo/events.md)
+    -   [Testing](./cairo/events.md)    
 
 # Toolchain
 -   [Dojoup](./toolchain/dojoup.md)
@@ -40,6 +41,7 @@
 -   [Katana](./toolchain/katana/overview.md)
     - [Reference](./toolchain/katana/reference.md)
 -   [Torii](./toolchain/torii/overview.md)
+
 # Deploying
 -   [Considerations](./deployment/considerations.md)
     -   [Locally](./deployment/locally.md)
