@@ -32,6 +32,7 @@
     -   [Events](./cairo/events.md)
 
 # Toolchain
+-   [Dojoup](./toolchain/dojoup.md)
 -   [Sozo](./toolchain/sozo/overview.md)
     - [Reference](./toolchain/sozo/reference.md)
 -   [Katana](./toolchain/katana/overview.md)
