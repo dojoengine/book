@@ -71,7 +71,7 @@
 # Tutorial
 
 - [Building Onchain Chess Game](./tutorial/onchain-chess/README.md)
-  - [0. Initial Setting](./tutorial/onchain-chess/0-setting.md)
+  - [0. Setup](./tutorial/onchain-chess/0-setup.md)
   - [1. Create Piece](./tutorial/onchain-chess/1-component.md)
   - [2. Move Your Piece](./tutorial/onchain-chess/start.md)
   - [3. Kill Enemy Piece](./tutorial/onchain-chess/start.md)
