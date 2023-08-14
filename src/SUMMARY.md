@@ -71,6 +71,16 @@
     -   [Part 7: Building](./tutorial/part-7.md)
     -   [Part 8: Deploying](./tutorial/part-8.md)
 
+# Tutorial
+
+- [Building Onchain Chess Game](./tutorial/onchain-chess/README.md)
+  - [0. Initial Setting](./tutorial/onchain-chess/0-setting.md)
+  - [1. Create Piece](./tutorial/onchain-chess/start.md)
+  - [2. Move Your Piece](./tutorial/onchain-chess/start.md)
+  - [3. Kill Enemy Piece](./tutorial/onchain-chess/start.md)
+  - [4. Is Move Eligible?](./tutorial/onchain-chess/start.md)
+  - [5. Games; Game Component](./tutorial/onchain-chess/start.md)
+  - [6. Test Your Game Contract](./tutorial/onchain-chess/start.md)
 ---
 
 [Contributors](misc/contributors.md)
