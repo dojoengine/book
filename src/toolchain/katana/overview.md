@@ -5,6 +5,7 @@
 ### Features
 
 -   [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) support
+-   Custom methods for manipulating the blockchain states
 
 ## Installation
 
@@ -12,7 +13,7 @@
 
 ### Installing from source
 
-```bash
+```sh
 git clone https://github.com/dojoengine/dojo
 cd dojo
 cargo install --path ./crates/katana --locked --force
@@ -37,13 +38,18 @@ $ katana
 PREFUNDED ACCOUNTS
 ==================
 
-| Account address |  0x06f62894bfd81d2e396ce266b2ad0f21e0668d604e5bb1077337b6d570a54aea
-| Private key     |  0x07230b49615d175307d580c33d6fda61fc7b9aec91df0f5c1a5ebe3b8cbfee02
-| Public key      |  0x078e6e3e4a50285be0f6e8d0b8a61044033e24023df6eb95979ae4073f159ae6
+| Account address |  0x3ee9e18edc71a6df30ac3aca2e0b02a198fbce19b7480a63a0d71cbd76652e0
+| Private key     |  0x300001800000000300000180000000000030000000000003006001800006600
+| Public key      |  0x1b7b37a580d91bc3ad4f9933ed61f3a395e0e51c9dd5553323b8ca3942bb44e
 
-| Account address |  0x04b352538f61697825af242c9c451df02a40cca99391a47054489dee82138008
-| Private key     |  0x0326b6d921c2d9c9b76bb641c433c94b030cf57d48803dc742729704ffdd0fc6
-| Public key      |  0x0564a13ba4d4cf95a60f78ca05fc04ff6845736e2f04b3c6703283cdf65e2615
+| Account address |  0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c
+| Private key     |  0x333803103001800039980190300d206608b0070db0012135bd1fb5f6282170b
+| Public key      |  0x4486e2308ef3513531042acb8ead377b887af16bd4cdd8149812dfef1ba924d
+
+
+ACCOUNTS SEED
+=============
+0
 
 
 🚀 JSON-RPC server started: http://127.0.0.1:5050
@@ -53,4 +59,4 @@ PREFUNDED ACCOUNTS
 
 > 📚 **Reference**
 >
-> See the [`katana` Reference](./reference.md) for in full reference.
+> See the [`katana` Reference](./reference.md) for an in depth reference and documentation on Katana.
