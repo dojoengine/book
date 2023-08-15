@@ -1,103 +1,58 @@
 ## Entities
 
-A common misconception for those new to ECS systems is the way entities exist within the World. Different ECS systems handle entities in various ways. In Dojo, entities are treated as a primary key value within the world, to which components can be attached. To illustrate this concept, consider a simple example of a character in a game that has a position and a health component.
+> Entities are the primary key value within the world, to which components can be attached.
 
-When defining the components for this entity, it is important to note that we do not reference the entity directly. Instead, we simply provide two structs that the entity will contain. This approach emphasizes the flexibility and composability of the ECS system, allowing for the easy creation and modification of entities with various combinations of components.
+Different ECS systems handle entities in various ways. In Dojo, entities are treated as a primary key value within the world, to which components can be attached. To illustrate this concept, consider a simple example of a character in a game that has a `Moves` and a `Position` component.
+
+When defining the components for this entity, it is important to note that we do not reference the entity directly. Instead, we simply provide two structs that the entity will contain. 
 
 ```rust,ignore
-#[component]
-struct Position {
+#[derive(Component, Copy, Drop, Serde, SerdeLen)]
+struct Moves {
+    #[key]
+    player: ContractAddress,
+    remaining: u8,
+}
+
+#[derive(Component, Copy, Drop, Serde, SerdeLen)]
+struct Health {
+    #[key]
+    player: ContractAddress,
     x: u32,
     y: u32
 }
-
-#[component]
-struct Health {
-    value: u32,
-}
-
 ```
 
-Now, let's create a `SpawnSystem` for the character. It is important to note that we have not explicitly defined an Entity anywhere. Instead, the system will assign a primary key ID to the entity when this system is executed.
+Now, let's create a `Spawn` for the character. It is important to note that we have not explicitly defined an Entity anywhere. Instead, we use the `ctx.origin` to reference the current entity.
 
-```rust,ignore
-// The most basic system that creates a new player entity with a given name and 100 health.
-
-#[system]
-mod Spawn {
-    use array::ArrayTrait;
-    use traits::Into;
-
-    use dojo::world::Context;
-    use dojo_examples::components::Position;
-    use dojo_examples::components::Health;
-
-    fn execute(ctx: Context) {
-        set !(
-            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position { x: 0, y: 0 }, )
-        );
-        return ();
-    }
-}
-```
-
-Finally, lets move the character with the `MoveSystem`.
+In this example we are using the `ctx.origin` to reference the current entity.
 
 ```rust,ignore
 #[system]
-mod Move {
+mod spawn {
     use array::ArrayTrait;
+    use box::BoxTrait;
     use traits::Into;
-
     use dojo::world::Context;
+
     use dojo_examples::components::Position;
     use dojo_examples::components::Moves;
 
-    #[derive(Serde, Drop)]
-    enum Direction {
-        Left: (),
-        Right: (),
-        Up: (),
-        Down: (),
-    }
-
-    impl DirectionIntoFelt252 of Into<Direction, felt252> {
-        fn into(self: Direction) -> felt252 {
-            match self {
-                Direction::Left(()) => 0,
-                Direction::Right(()) => 1,
-                Direction::Up(()) => 2,
-                Direction::Down(()) => 3,
-            }
-        }
-    }
-
-    fn execute(ctx: Context, direction: Direction) {
-        let (position, moves) = get !(ctx.world, ctx.origin.into(), (Position, Moves));
-        let next = next_position(position, direction);
-        set !(
+    fn execute(ctx: Context) {
+        let position = get!(ctx.world, ctx.origin, (Position));
+        set!(
             ctx.world,
-            ctx.origin.into(),
-            (Moves { remaining: moves.remaining - 1 }, Position { x: next.x, y: next.y }, )
+            (
+                Moves {
+                    player: ctx.origin, remaining: 10
+                    }, Position {
+                    player: ctx.origin, x: position.x + 10, y: position.y + 10
+                },
+            )
         );
         return ();
     }
-
-    fn next_position(position: Position, direction: Direction) -> Position {
-        match direction {
-            Direction::Left(()) => {
-                Position { x: position.x - 1, y: position.y }
-            },
-            Direction::Right(()) => {
-                Position { x: position.x + 1, y: position.y }
-            },
-            Direction::Up(()) => {
-                Position { x: position.x, y: position.y - 1 }
-            },
-            Direction::Down(()) => {
-                Position { x: position.x, y: position.y + 1 }
-            },
-        }
-    }
 }
 ```
+
+> ECS Theory: Plenty has been written on ECS systems, to go deeper read [ECS-FAQ](https://github.com/SanderMertens/ecs-faq)

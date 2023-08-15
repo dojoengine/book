@@ -35,11 +35,11 @@ Dojo offers a standardized approach to building games on smart contracts. Recogn
 
 Utilizing the ECS (Entity Component System) as its core architecture, Dojo effectively manages the state and behavior of Autonomous Worlds (AWs). This model revolves around systems acting on entities, which are collections of pure data components. Systems efficiently determine which entities to process based on persistent queries over these components.
 
-Read detailed information about the [Dojo ECS](../framework/cairo/overview.md).
+Read detailed information about the [Dojo ECS](../cairo/overview.md).
 
 ### Torii - Automatic indexing of the game state
 
-Building on-chain games often involves grappling with the challenge of indexing on-chain state. However, Dojo standardizes contract states to mirror traditional relational databases. This setup enables the [Torii Indexer](../framework/torii/overview.md) to auto-index all contract states, ensuring efficient and streamlined queries. Torii then exposes these states via a GraphQL API or gRPC (coming soon), allowing developers to easily query and retrieve data.
+Building on-chain games often involves grappling with the challenge of indexing on-chain state. However, Dojo standardizes contract states to mirror traditional relational databases. This setup enables the [Torii Indexer](../toolchain/torii/overview.md) to auto-index all contract states, ensuring efficient and streamlined queries. Torii then exposes these states via a GraphQL API or gRPC (coming soon), allowing developers to easily query and retrieve data.
 
 Using Torii drastically reduces the time and effort required to build on-chain games. It also eliminates the need to manually create indexers, which can be a tedious and error-prone process.
 
