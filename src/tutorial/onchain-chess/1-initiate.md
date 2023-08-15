@@ -16,7 +16,7 @@ _Copy the unit tests below and paste them at the bottom of your `systems/initiat
 4. Do the same with other Entities for different piece types and colors ( recommend using AI )
 5. run `sozo test` and pass all the test
 
-_Test flow_
+## Test Flow
 
 - Spawn the test world that imports components and systems that are used in testing.
 - Execute `initiate_system` by getting white/black address as calldata input
@@ -59,7 +59,7 @@ mod tests {
         let mut calldata = array::ArrayTrait::<core::felt252>::new();
         calldata.append(white.into());
         calldata.append(black.into());
-        world.execute('initiate_system'.into(), calldata.span());
+         world.execute('initiate_system'.into(), calldata);
 
         let game_id = pedersen(white.into(), black.into());
 
@@ -81,3 +81,9 @@ mod tests {
 }
 
 ```
+
+## Need help?
+
+If you are stuck? don't hesitate to ask questions at [Dojo community](https://discord.gg/akd2yfuRS3)!
+
+Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoral/src/systems/initiate.cairo) for chapter 1.
