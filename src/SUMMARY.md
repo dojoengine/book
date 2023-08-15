@@ -13,7 +13,6 @@
     -   [Development Setup](./getting-started/setup.md)
     -   [Contributing](./getting-started/contributing.md)
 
-
 # Community
 -   [Get Started](./community/get-started.md)
 
@@ -43,9 +42,8 @@
 -   [Torii](./toolchain/torii/overview.md)
 
 # Deploying
--   [Considerations](./deployment/considerations.md)
-    -   [Locally](./deployment/locally.md)
-    -   [Remote](./deployment/remote.md)
+-   [Locally](./deployment/locally.md)
+-   [Remote](./deployment/remote.md)
 
 # Tutorial
 -   [Onchain Chess](./tutorial/README.md)
