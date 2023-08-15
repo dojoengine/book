@@ -315,4 +315,30 @@ impl PieceColorSerdeLen of dojo::SerdeLen<PieceColor> {
 
 First, add Drop trait for components and all the following enums. Second, implement `PrintTrait` for enums that have not been automatically implemented yet.
 
-Congrats You now finished your all basic setup for building an on-chain chess game.
+## Before we move on...
+
+This time you need to add two more Components `Game` and `GameTurn` that compose `Game` Entity.
+
+```rust,ignore
+struct Game {
+    /// game id, computed as follows pedersen_hash(player1_address, player2_address)
+    #[key]
+    game_id: felt252,
+    status: bool,
+    winner: Option<PieceColor>,
+    white: ContractAddress,
+    Black: ContractAddress
+}
+
+struct GameTurn {
+    #[key]
+    game_id: felt252,
+    turn: PieceColor,
+}
+```
+
+You need to run `sozo build` and `sozo test` and fix the errors by implementing the right traits. This time I will not give you the answer, try to fix your own!
+
+After finishing that, Let's update the original components `Piece` and `Position` by adding an additional field called `game_id` as a key. Each Position should be identified as an independent game and also an independent piece.
+
+Congrats! You now finished your all basic setup for building an on-chain chess game🎉
