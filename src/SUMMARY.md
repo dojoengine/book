@@ -30,7 +30,6 @@
     -   [Entities](./cairo/entities.md)
     -   [Authorization](./cairo/authorization.md)
     -   [Commands](./cairo/commands.md)
-    -   [Storage](./cairo/storage.md)
     -   [Events](./cairo/events.md)
     -   [Testing](./cairo/testing.md)    
 - [Dojo Modules](./cairo/modules.md)
