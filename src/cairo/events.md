@@ -30,6 +30,47 @@ struct StoreSetRecord {
 
 This will then be captured by [Torii](../toolchain/torii/overview.md) and indexed for querying. This will allow you to then reconstruct the state of your world.
 
+Similarly, when a component is deleted, the `World` contract will emit an event with the following structure:
+
+```rust,ignore
+#[derive(Drop, starknet::Event)]
+struct StoreDelRecord {
+    table: felt252,
+    keys: Span<felt252>,
+}
+```
+
+### World Events
+
+The `World` contract also emits events when it's initialized and when new components and systems are registered. These events are emitted with the following structures:
+
+```rust,ignore
+#[derive(Drop, starknet::Event)]
+struct WorldSpawned {
+    address: ContractAddress,
+    caller: ContractAddress
+}
+```
+
+```rust,ignore
+#[derive(Drop, starknet::Event)]
+struct ComponentRegistered {
+    name: felt252,
+    class_hash: ClassHash
+}
+```
+
+```rust,ignore
+#[derive(Drop, starknet::Event)]
+struct SystemRegistered {
+    name: felt252,
+    class_hash: ClassHash
+}
+```
+
+These events are also captured by [Torii](../toolchain/torii/overview.md) and indexed for querying.
+
+
 ### Custom Events
 
 Within your systems, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` macro that lets you release events directly from your world. Use it like so:
