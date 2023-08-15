@@ -34,9 +34,9 @@
     -   [Testing](./cairo/testing.md)    
 - [Dojo Modules](./cairo/modules.md)
     - [ERC20](./cairo/modules/erc20.md)
-    - [ERC721](./cairo/modules/erc721.md)
-    - [ERC1155](./cairo/modules/erc1155.md)
-    - [DeFi](./cairo/modules/defi.md)
+    - [ERC721]()
+    - [ERC1155]()
+    - [DeFi]()
 
 # Toolchain
 -   [Dojoup](./toolchain/dojoup.md)
