@@ -1,14 +1,36 @@
 # Hello Dojo
 
-> This section assumes you have already installed the Dojo toolchain and have a familiarity with Cairo. If you haven't, please refer to the [Getting Started](../getting-started/quick-start.md) section.
+> This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](../getting-started/quick-start.md) section.
 
-## Dojo in 15 minutes
+## Dojo in 15 Minutes
 
-Think of Dojo as an abstraction on top of Cairo (similar to how React is to JS). It allows you to write shorthand commands which expand out at compile time to complex queries. Dojo is built around the well-known architecture called Entity Component System (ECS).
+Think of Dojo as an abstraction over Cairo, similar to how React is to JavaScript. It enables you to write shorthand commands that expand into complex queries during compile time. Dojo is grounded in the well-known architecture known as the Entity Component System (ECS).
 
-You design your Dojo worlds with Systems and Components. Systems define the logic of your world, while components represent the state. This is a potent pattern that facilitates writing your logic in a highly modular manner.
+In Dojo, you design your worlds using Systems and Components. Systems outline the logic of your world, while components signify the state. This powerful pattern allows you to structure your logic in a highly modular way. If you don't understand this yet, don't fret; we'll delve into it in detail below.
 
-With this in mind, let's delve into the simplest possible Dojo world; comprising 1 system and 2 components. We'll start by creating the components.
+To start, let's set up a project to run locally on your machine. From an empty directory, execute:
+
+```console
+sozo init
+```
+
+Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory. It's the ideal starting point for a new project and equips you with everything you need to begin.
+
+#### Anatomy of a Dojo Project
+
+Inspect the contents of the `dojo-starter` project, and you'll notice the following structure (excluding the non-cairo files):
+
+```bash
+src
+  - components.cairo
+  - systems.cairo
+  - lib.cairo
+Scarb.toml
+```
+
+Dojo projects largely resemble standard Cairo projects, with the distinction being some special attribute tags you use when creating `Components` and `Systems`. Let's explore this next.
+
+Open the `src/components.cairo` file to continue.
 
 ```rust,ignore
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
@@ -25,13 +47,17 @@ struct Position {
     x: u32,
     y: u32
 }
+
+...rest of code
 ```
 
-Here, we have a `Moves` component that stores a `remaining` value in its state. The `#[key]` attribute indicates to Dojo that this component is indexed by the `player` field. If you're uncertain about this, we'll cover its significance later in the chapter. Essentially, this means we can query this component using the `player` field.
+Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we *must* include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
 
-Similarly, we have a `Position` component that stores an `x` and `y` value. Again, we've indexed this component by the `player` field.
+Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this component is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
 
-Next, let's design a `spawn` system for the character. 
+In a similar vein, we possess a `Position` component that holds `x` and `y` values. Once again, this component is indexed by the `player` field.
+
+Now, let's examine the `src/systems.cairo` file:
 
 ```rust,ignore
 #[system]
@@ -64,13 +90,18 @@ mod spawn {
 Let us break this down:
 
 ```rust,ignore
+#[system]
+```
+
+Just as we use the `#[derive(Component)]` attribute, the `#[system]` attribute informs the Dojo compiler that this struct is a system, instructing it to compile accordingly.
+
+```rust,ignore
 fn execute(ctx: Context)
 ```
 
-You will notice that the system has an `execute` function - this is important to remember, all Dojo systems require an `execute` function. The `execute` function takes a `Context` as an argument. The `Context` is a special struct that contains information about the world and the caller.
+You'll observe that the system features an `execute` function. It's crucial to note that all Dojo systems necessitate an `execute` function. This function accepts a `Context` as its parameter. The `Context` is a distinct struct that provides information about the world and the caller.
 
-Note - you can have more than just the execute function in a system. You can have as many functions as you like, but you must have an `execute` function as this is what is called when you system is executed.
-
+It's worth mentioning that a system can contain more than just the `execute` function. You're free to include numerous functions as needed. However, the `execute` function is mandatory since it's invoked when your system is executed.
 
 Now lets look at the next line:
 
@@ -78,7 +109,7 @@ Now lets look at the next line:
 let position = get!(ctx.world, ctx.origin, (Position));
 ```
 
-Here we use `get!` command to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` is the address of the caller. It will return:
+Here we use `get!` [command](./commands.md) to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` is the address of the caller. It will return:
 
 ```rust,ignore
 Moves { remaining: 10 }
@@ -99,47 +130,40 @@ set!(
 );
 ```
 
-Here we use the `set!` command to set the `Moves` and `Position` components for the `ctx.origin` entity.
+Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` components for the `ctx.origin` entity.
 
 We covered a lot here in a short time. Let's recap:
 
--   We created 2 components: `Moves` and `Position`.
--   We created a `spawn` system that sets the `Moves` and `Position` components for the `ctx.origin` entity.
+-   Explained the anatomy of a Dojo project
+-   Explained the importace of the `#[derive(Component)]` and `#[system]` attribute
+-   Explained the `execute` function
+-   Explained the `Context` struct
+-   Touched on the `get!` and `set!` commands
 
 
 ### Run it locally!
 
-Now that we have some theory out of the way, lets get this locally on your machine! Luckily we have a `dojo-starter` project that can be installed all from the `sozo` cli!
-
-Navigate to an **empty** directory on your machine and:
-
-```bash
-sozo init
-```
-
-This will create a `dojo-starter` project in your current directory. You will notice it contains the same systems and components we just created.
-
-Now lets build the project:
+Now that we have some theory out of the way, lets build the Dojo project!
 
 ```bash
 sozo build
 ```
 
-That compiled the components and system into an artifact that can be deployed to Katana! Simply as that.
+That compiled the components and system into an artifact that can be deployed! Simple as that!
 
-Now lets deploy it to Katana! First we need to get Katana running:
+Now lets deploy it to [Katana](../toolchain/katana/overview.md)! First we need to get Katana running:
 
 ```bash
 katana --disable-fee
 ```
 
-Success! Katana should now be running locally on your machine. Now lets deploy!
+Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now lets deploy!
 
 ```bash
 sozo migrate --name test
 ```
 
-This will deploy the artifact to Katana. You should see terminal output similar to this:
+This will deploy the artifact to [Katana](../toolchain/katana/overview.md). You should see terminal output similar to this:
 
 ```bash
 Migration account: 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c
@@ -201,11 +225,10 @@ Executing the above activates a local torii server using SQLite as its database,
 
 We've covered quite a bit! Here's a recap:
 
--   Created a `dojo-starter` project.
--   Built the project.
--   Deployed the project to Katana.
--   Ran the spawn system locally.
--   Indexed the world with Torii.
+-   Built a Dojo world
+-   Deployed the project to Katana
+-   Ran the spawn system locally
+-   Indexed the world with Torii
 
 ### Next Steps
 
