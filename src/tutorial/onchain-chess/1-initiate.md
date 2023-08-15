@@ -10,14 +10,14 @@ To play chess, you need to spawn pieces first. `initiate_system` will spawn ever
 
 _Copy the unit tests below and paste them at the bottom of your `systems/initiate.cairo` file._
 
-1. Write a `execute` function in the system that gets context as input
+1. Write a `execute` function in the system that gets world context as input
 2. Implement Entity that gets 'white_pawn_1' as a key(piece_id) using `set!`
 3. Do the same with other Entities for different piece types and colors ( recommend using AI )
 4. run `sozo test` and pass all the test
 
 ## Unit Tests
 
-```rust
+```rust,ignore
 #[cfg(test)]
 mod tests {
     use starknet::ContractAddress;

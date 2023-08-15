@@ -18,7 +18,7 @@ There are lots of boilerplate codes. We don't need it, so remove all the codes f
 
 Keep `lib.cairo` only the following codes:
 
-```rust
+```rust,ignore
 mod components;
 mod systems;
 ```
@@ -31,7 +31,7 @@ Based on ECS design, we need `Piece` Entity. In this project, we will design `Pi
 
 First, add basic components to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../framework/cairo/components.md).
 
-```rust
+```rust,ignore
 #[derive(Component)]
 struct Piece {
     #[key]
@@ -77,7 +77,7 @@ enum `PieceColor` and `PieceKind` are used as a Component struct's field. Need t
 
 Update both enums as follows:
 
-```rust
+```rust,ignore
 #[derive(Serde)]
 enum PieceColor {
     White,
@@ -193,4 +193,126 @@ use move::move_system;
 use occupy::occupy_system;
 ```
 
-Now try `sozo build` again! Congrats You now finished your all basic setup for building an on-chain chess game.
+Now try `sozo build` again to finish the basic system setup!
+
+## sozo test
+
+Wait, before you move on to the next chapter you always have to remember that `sozo build` and then `sozo test` are must-do steps to make sure your code is all fine.
+
+try `sozo test`. Faced errors?
+
+```sh
+error: Trait has no implementation in context: core::debug::PrintTrait::<dojo_chess::components::PieceKind>
+ --> Piece:37:54
+debug::PrintTrait::print('kind'); debug::PrintTrait::print(self.kind);
+                                                     ^***^
+
+error: Variable not dropped. Trait has no implementation in context: core::traits::Drop::<dojo_chess::components::Position>. Trait has no implementation in context: core::traits::Destruct::<dojo_chess::components::Position>.
+ --> Position:34:26
+                fn print(self: Position) {
+                         ^**^
+
+error: failed to compile
+```
+
+To do the test, we need additional traits to debug. Try to fix the error message without looking at the answer below.
+
+Are you all done?
+
+You can update your `component.cairo` into this:
+
+```rust,ignore
+use debug::PrintTrait;
+
+#[derive(Component, Drop, SerdeLen)]
+struct Piece {
+    #[key]
+    piece_id: felt252,
+    kind: PieceKind,
+    color: PieceColor,
+    is_alive: bool,
+}
+
+#[derive(Component, Drop, SerdeLen)]
+struct Position {
+    #[key]
+    piece_id: felt252,
+    x: u32,
+    y: u32
+}
+
+#[derive(Serde, Drop)]
+enum PieceColor {
+    White,
+    Black,
+}
+
+#[derive(Serde, Drop)]
+enum PieceKind {
+    Pawn,
+    Knight,
+    Bishop,
+    Rook,
+    Queen,
+    King
+}
+
+impl PieceKindSerdeLen of dojo::SerdeLen<PieceKind> {
+    #[inline(always)]
+    fn len() -> usize {
+        1
+    }
+}
+
+impl PieceColorPrintTrait of PrintTrait<PieceColor> {
+    #[inline(always)]
+    fn print(self: PieceColor) {
+        match self {
+            PieceColor::White(_) => {
+                'White'.print();
+            },
+            PieceColor::Black(_) => {
+                'Black'.print();
+            },
+        }
+    }
+}
+
+impl PieceKindPrintTrait of PrintTrait<PieceKind> {
+    #[inline(always)]
+    fn print(self: PieceKind) {
+        match self {
+            PieceKind::Pawn(_) => {
+                'Pawn'.print();
+            },
+            PieceKind::Knight(_) => {
+                'Knight'.print();
+            },
+            PieceKind::Bishop(_) => {
+                'Bishop'.print();
+            },
+            PieceKind::Rook(_) => {
+                'Rook'.print();
+            },
+            PieceKind::Queen(_) => {
+                'Queen'.print();
+            },
+            PieceKind::King(_) => {
+                'King'.print();
+            },
+        }
+    }
+}
+
+impl PieceColorSerdeLen of dojo::SerdeLen<PieceColor> {
+    #[inline(always)]
+    fn len() -> usize {
+        1
+    }
+}
+
+```
+
+First, add Drop trait for components and all the following enums. Second, implement `PrintTrait` for enums that have not been automatically implemented yet.
+
+Congrats You now finished your all basic setup for building an on-chain chess game.
