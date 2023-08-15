@@ -32,7 +32,7 @@
     -   [Commands](./cairo/commands.md)
     -   [Storage](./cairo/storage.md)
     -   [Events](./cairo/events.md)
-    -   [Testing](./cairo/events.md)    
+    -   [Testing](./cairo/testing.md)    
 
 # Toolchain
 -   [Dojoup](./toolchain/dojoup.md)

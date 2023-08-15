@@ -1,8 +1,10 @@
 ## Systems
 
-Systems are the logic in your world. They are stateless that mutate the state of components. They contain a single execute which is called when interacting with the world.
+> Systems = Logic
 
-Let's look at the simplest possible system which mutates the state of the Moves component.
+Systems underpin the logic of your world. While systems are inherently stateless, their primary role is to modify the state of components. Every system features an 'execute' function that's called upon during interactions within the world.
+
+Let's look at the simplest possible system which mutates the state of the `Moves` component.
 
 ```rust,ignore
 #[system]

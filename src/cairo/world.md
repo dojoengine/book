@@ -22,6 +22,17 @@ struct Context {
 }
 ```
 
+### The `uuid()` command
+
+It is often useful to generate unique IDs for entities. The `uuid()` fn can be used to generate a unique ID.
+
+Use it like this:
+
+```rust,ignore
+let game_id = ctx.world.uuid();
+```
+
+
 ### Full World API
 
 The world exposes an interface which can be interacted with by any client.
