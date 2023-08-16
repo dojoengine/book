@@ -12,9 +12,8 @@ _Copy the unit tests below and paste them at the bottom of your `systems/initiat
 
 1. Write a `execute` function in the system that gets world context and white address and black address as a input.
 2. Implement `Game` Entity, composed with `Game` Component and `GameTurn` component that we created in previous step
-3. Implement `Piece` Entity, composed with `Piece` Component and `Position` component that gets 'white_pawn_1' as a key(piece_id)
-4. Do the same with other Entities for different piece types and colors ( recommend using AI )
-5. run `sozo test` and pass all the test
+3. Implement `Square` Entities from a1 to h8 contain right `PieceType`
+4. run `sozo test` and pass all the test
 
 ## Test Flow
 
@@ -22,7 +21,7 @@ _Copy the unit tests below and paste them at the bottom of your `systems/initiat
 - Execute `initiate_system` by getting white/black address as calldata input
 - Get the game entity and piece entity created during initiate_system.
 - Check if the game is created correctly
-- Check if the game has pieces located correctly
+- Check if the Piece has pieces located in correct Square.
 
 ## Unit Tests
 
@@ -31,7 +30,7 @@ _Copy the unit tests below and paste them at the bottom of your `systems/initiat
 mod tests {
     use starknet::ContractAddress;
     use dojo::test_utils::spawn_test_world;
-    use dojo_chess::components::{Piece, piece, Game, game, GameTurn, game_turn};
+    use dojo_chess::components::{Game, game, GameTurn, game_turn, Square, square, PieceType};
 
     use dojo_chess::systems::initiate_system;
     use array::ArrayTrait;
@@ -47,9 +46,9 @@ mod tests {
 
         // components
         let mut components = array::ArrayTrait::new();
-        components.append(piece::TEST_CLASS_HASH);
         components.append(game::TEST_CLASS_HASH);
         components.append(game_turn::TEST_CLASS_HASH);
+        components.append(square::TEST_CLASS_HASH);
 
         //systems
         let mut systems = array::ArrayTrait::new();
@@ -59,27 +58,25 @@ mod tests {
         let mut calldata = array::ArrayTrait::<core::felt252>::new();
         calldata.append(white.into());
         calldata.append(black.into());
-         world.execute('initiate_system'.into(), calldata);
+        world.execute('initiate_system'.into(), calldata);
 
         let game_id = pedersen(white.into(), black.into());
 
-        let mut keys_game = array::ArrayTrait::new();
-        keys_game.append(game_id);
+        //get game
+        let game = get!(world, (game_id), (Game));
+        assert(game.white == white, 'white address is incorrect');
+        assert(game.black == black, 'black address is incorrect');
 
-        let mut keys_piece = array::ArrayTrait::new();
-        keys_piece.append(game_id);
-        keys_piece.append('white_pawn_1'.into());
-
-        let game = world
-            .entity('Game'.into(), keys_game.span(), 0_u8, dojo::SerdeLen::<Game>::len());
-        let white_pawn_1 = world
-            .entity('Piece'.into(), keys_piece.span(), 0_u8, dojo::SerdeLen::<Piece>::len());
-
-        assert(*game.at(0_usize) == 1_felt252, 'status is not true');
-        assert(*white_pawn_1.at(0_usize) == 0_felt252, 'piece kind is not pawn');
+        //get a1 square
+        let a1 = get!(world, (game_id, 0, 0), (Square));
+        match a1.piece {
+            Option::Some(piece) => {
+                assert(piece == PieceType::WhiteRook, 'should be White Rook');
+            },
+            Option::None(_) => assert(false, 'should have piece'),
+        };
     }
 }
-
 ```
 
 ## Need help?
