@@ -17,6 +17,8 @@ We're making an on-chain chess game that lets you start a new game and play ches
 3. Check more conditions to make a legal move
 4. Play chess ♟♙ - integration test!
 
+The full code of tutorial is based on [this repo](https://github.com/rkdud007/chess-dojo/tree/tutorialv2).
+
 If that sounds scary and beyond your ability then this guide is definitely for you. If you know how to write Cairo and you know your Dojo basics, you can do this. We're not going to implement any sort of checkmate or full chess rules. The part of the Chess implementation we're tackling is surprisingly simple.
 
 ## After finishing this tutorial?
