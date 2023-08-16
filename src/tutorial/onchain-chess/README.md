@@ -14,7 +14,7 @@ We're making an on-chain chess game that lets you start a new game and play ches
 
 1. Spawn all the chess pieces [initiate.system]
 2. Make pieces to move [move.system]
-3. Make pieces to take other pieces [occupy.system]
+3. Check more conditions to make legal move
 4. Play chess ♟♙ - integration test!
 
 If that sounds scary and beyond your ability then this guide is definitely for you. If you know how to write Cairo and you know your Dojo basics, you can totally do this. We're not going to implement any sort of checkmate or full chess rules. The part of the Chess implementation we're tackling is surprisingly simple.

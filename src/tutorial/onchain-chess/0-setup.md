@@ -1,6 +1,6 @@
 # 0. Setup
 
-_Before you start, I recommend you to follow `hello-dojo` chaper to get a brief understanding of dojo game._
+_Before you start, I recommend you to follow `hello-dojo` chaper to get a brief understanding of Dojo game._
 
 ## sozo init
 
@@ -14,9 +14,9 @@ sozo init
 
 ## setup
 
-There are lots of boilerplate codes. We don't need it, so remove all the codes for now. Make `components.cairo` and `systmems.cairo` files blank.
+The project comes with a lot of boilerplate codes. Clear them all. Make sure both `components.cairo` and `systems.cairo` files are empty.
 
-Keep `lib.cairo` only the following codes:
+In `lib.cairo`, retain only:
 
 ```rust,ignore
 mod components;
@@ -27,142 +27,43 @@ Build your initial setup project using `sozo build`.
 
 ## Basic components
 
-Based on ECS design, we need `Piece` Entity. In this project, we will design `Piece` Entity composed of `Piece` Component and `Position` Component. If you are not familiar with ECS yet, go back to this [chapter](../../framework/cairo/overview.md).
-
-First, add basic components to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../framework/cairo/components.md).
+While there are many ways to design a chess game using the ECS model, we'll follow this approach: every board square (e.g., A1) will be treated as an entity. If a piece exists on a square, the square entity will hold that piece.
 
 ```rust,ignore
 #[derive(Component)]
-struct Piece {
+struct Square {
     #[key]
-    piece_id: felt252,
-    kind: PieceKind,
-    color: PieceColor,
-    is_alive: bool,
-}
-
-#[derive(Component)]
-struct Position {
+    game_id: felt252,
     #[key]
-    piece_id: felt252,
     x: u32,
-    y: u32
-}
-
-enum PieceColor {
-    White,
-    Black,
-}
-
-enum PieceKind {
-    Pawn,
-    Knight,
-    Bishop,
-    Rook,
-    Queen,
-    King
-}
-```
-
-Then try `sozo build` to build. Faced some errors?
-
-```sh
-error: Trait has no implementation in context: core::serde::Serde::<dojo_chess::components::PieceKind>
- --> Piece:28:35
-                    serde::Serde::serialize(self.kind, ref serialized);serde::Serde::serialize(self.color, ref serialized);serde::Serde::serialize(self.is_alive, ref serialized);
-                                  ^*******^
-```
-
-enum `PieceColor` and `PieceKind` are used as a Component struct's field. Need to implement `Serde` to be built.
-
-Update both enums as follows:
-
-```rust,ignore
-#[derive(Serde)]
-enum PieceColor {
-    White,
-    Black,
-}
-
-#[derive(Serde)]
-enum PieceKind {
-    Pawn,
-    Knight,
-    Bishop,
-    Rook,
-    Queen,
-    King
-}
-```
-
-Great! then let's solve this error.
-
-```sh
-error: Trait has no implementation in context: dojo::serde::SerdeLen::<dojo_chess::components::Piece>
- --> Piece:62:46
-                    dojo::SerdeLen::<Piece>::len()
-```
-
-Basically, we need to also implement `SerdeLen` with `len()` method in Component. And if we implement it in a struct, we also need to implement the same with the enum that is used in that struct.
-
-Update the code to the following:
-
-```rust
-#[derive(Component, SerdeLen)]
-struct Piece {
     #[key]
-    piece_id: felt252,
-    kind: PieceKind,
-    color: PieceColor,
-    is_alive: bool,
+    y: u32,
+    piece: Option<PieceType>,
 }
 
-#[derive(Component, SerdeLen)]
-struct Position {
-    #[key]
-    piece_id: felt252,
-    x: u32,
-    y: u32
-}
-
-#[derive(Serde)]
-enum PieceColor {
-    White,
-    Black,
-}
-
-#[derive(Serde)]
-enum PieceKind {
-    Pawn,
-    Knight,
-    Bishop,
-    Rook,
-    Queen,
-    King
-}
-
-impl PieceKindSerdeLen of dojo::SerdeLen<PieceKind> {
-    #[inline(always)]
-    fn len() -> usize {
-        1
-    }
-}
-
-impl PieceColorSerdeLen of dojo::SerdeLen<PieceColor> {
-    #[inline(always)]
-    fn len() -> usize {
-        1
-    }
+enum PieceType {
+    WhitePawn,
+    WhiteKnight,
+    WhiteBishop,
+    WhiteRook,
+    WhiteQueen,
+    WhiteKing,
+    BlackPawn,
+    BlackKnight,
+    BlackBishop,
+    BlackRook,
+    BlackQueen,
+    BlackKing,
 }
 ```
 
-Now try `sozo build` again to finish the basic component setup!
+First, add this basic component to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../framework/cairo/components.md).
 
 ## Basic systems
 
-Starting from the next chapter, you will implement `initiate`, `move`, and `occupy` systems one by each chapter. Let's make each system per file so that it can be more modularized.
+Starting from the next chapter, you will implement `initiate` and `move` systems one by each chapter. Let's make each system per file so that it can be more modularized.
 
-Create `systems` folder at `src`. Create `initiate.cairo`, `move.cairo`, `occupy.cairo` three files inside the folder. Each file should contain a basic system structure.
+Create `systems` folder at `src`. Create `initiate.cairo`and `move.cairo` two files inside the folder. Each file should contain a basic system structure.
 
 For example, `initiate.cairo` would be looks like this:
 
@@ -186,125 +87,291 @@ Do the same with the other three systems. And make update `systems.cairo` like :
 ```rust
 mod initiate;
 mod move;
-mod occupy;
 
 use initiate::initiate_system;
 use move::move_system;
-use occupy::occupy_system;
 ```
 
-Now try `sozo build` again to finish the basic system setup!
+## sozo build
+
+Now try `sozo build` to build. Faced some errors?
+
+```sh
+error: Trait has no implementation in context:
+```
+
+You would probably faced some trait implementation errors, which you can implement as a derive like this:
+
+```rust,ignore
+
+#[derive(Component, Drop, SerdeLen, Serde)]
+struct Square {
+    #[key]
+    game_id: felt252,
+    #[key]
+    x: u32,
+    #[key]
+    y: u32,
+    piece: Option<PieceType>,
+}
+
+#[derive(Serde, Drop, Copy, PartialEq)]
+enum PieceType {
+    WhitePawn,
+    WhiteKnight,
+    WhiteBishop,
+    WhiteRook,
+    WhiteQueen,
+    WhiteKing,
+    BlackPawn,
+    BlackKnight,
+    BlackBishop,
+    BlackRook,
+    BlackQueen,
+    BlackKing,
+}
+```
+
+Great! then let's solve this error.
+
+```sh
+error: Trait has no implementation in context: dojo::serde::SerdeLen::<core::option::Option::<dojo_chess::components::PieceType>>
+ --> Square:80:54
+                dojo::SerdeLen::<Option<PieceType>>::len()
+                                                     ^*^
+```
+
+One thing you have to make sure is, that `<Option<PieceType>>` is the type that we created. So this type does not implement basic traits like SerdeLen. You need to define the implementation you own.
+
+```rust,ignore
+impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {
+    #[inline(always)]
+    fn len() -> usize {
+        2
+    }
+}
+```
+
+Try to fix everything so that `sozo build` command can run successfully.
 
 ## sozo test
 
-Wait, before you move on to the next chapter you always have to remember that `sozo build` and then `sozo test` are must-do steps to make sure your code is all fine.
+Before you move on to the next chapter you always have to remember that `sozo build` and then `sozo test` are must-do steps to make sure your code is all fine.
 
 try `sozo test`. Faced errors?
 
 ```sh
-error: Trait has no implementation in context: core::debug::PrintTrait::<dojo_chess::components::PieceKind>
- --> Piece:37:54
-debug::PrintTrait::print('kind'); debug::PrintTrait::print(self.kind);
-                                                     ^***^
-
-error: Variable not dropped. Trait has no implementation in context: core::traits::Drop::<dojo_chess::components::Position>. Trait has no implementation in context: core::traits::Destruct::<dojo_chess::components::Position>.
- --> Position:34:26
-                fn print(self: Position) {
-                         ^**^
-
-error: failed to compile
+error: Trait has no implementation in context:
 ```
 
-To do the test, we need additional traits to debug. Try to fix the error message without looking at the answer below.
+```sh
+error: Variable not dropped. Trait has no implementation in context:
+```
 
-Are you all done?
+As `no implementation` error, you can implement `PrintTrait` for running sozo test successfully.
 
-You can update your `component.cairo` into this:
+And for not dropped error, you need to add `Drop` trait. Fix other errors as well by trying to add on derive or implement on your own per case by case.
+
+## Before you move on
+
+Add more components so that we can use them from the next chapter while creating systems.
+
+### Requirements
+
+- `Color` enum have White and Black
+- `Game` component :
+
+```
+    game_id: felt252,
+    winner: Option<Color>,
+    white: ContractAddress,
+    black: ContractAddress
+```
+
+- `GameTurn` component :
+
+```
+    game_id: felt252,
+    turn: Color
+```
+
+- we will later set `Game` entity composed of `Game` and `GameTurn` component
+- Run `sozo build` and `sozo test` and pass everything.
+
+Try to solve on your own, and before you move on check the answer below.
+
+<details>
+<summary>Click to see full `components.cairo`code</summary>
 
 ```rust,ignore
 use debug::PrintTrait;
+use starknet::ContractAddress;
 
-#[derive(Component, Drop, SerdeLen)]
-struct Piece {
+#[derive(Component, Drop, SerdeLen, Serde)]
+struct Square {
     #[key]
-    piece_id: felt252,
-    kind: PieceKind,
-    color: PieceColor,
-    is_alive: bool,
-}
-
-#[derive(Component, Drop, SerdeLen)]
-struct Position {
+    game_id: felt252,
     #[key]
-    piece_id: felt252,
     x: u32,
-    y: u32
+    #[key]
+    y: u32,
+    piece: Option<PieceType>,
 }
 
-#[derive(Serde, Drop)]
-enum PieceColor {
+#[derive(Serde, Drop, Copy, PartialEq)]
+enum PieceType {
+    WhitePawn,
+    WhiteKnight,
+    WhiteBishop,
+    WhiteRook,
+    WhiteQueen,
+    WhiteKing,
+    BlackPawn,
+    BlackKnight,
+    BlackBishop,
+    BlackRook,
+    BlackQueen,
+    BlackKing,
+}
+
+#[derive(Serde, Drop, Copy, PartialEq)]
+enum Color {
     White,
     Black,
 }
 
-#[derive(Serde, Drop)]
-enum PieceKind {
-    Pawn,
-    Knight,
-    Bishop,
-    Rook,
-    Queen,
-    King
-}
 
-impl PieceKindSerdeLen of dojo::SerdeLen<PieceKind> {
+impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {
     #[inline(always)]
     fn len() -> usize {
-        1
+        2
     }
 }
 
-impl PieceColorPrintTrait of PrintTrait<PieceColor> {
+impl ColorPrintTrait of PrintTrait<Color> {
     #[inline(always)]
-    fn print(self: PieceColor) {
+    fn print(self: Color) {
         match self {
-            PieceColor::White(_) => {
+            Color::White(_) => {
                 'White'.print();
             },
-            PieceColor::Black(_) => {
+            Color::Black(_) => {
                 'Black'.print();
             },
         }
     }
 }
 
-impl PieceKindPrintTrait of PrintTrait<PieceKind> {
+impl ColorOptionPrintTrait of PrintTrait<Option<Color>> {
     #[inline(always)]
-    fn print(self: PieceKind) {
+    fn print(self: Option<Color>) {
         match self {
-            PieceKind::Pawn(_) => {
-                'Pawn'.print();
+            Option::Some(color) => {
+                color.print();
             },
-            PieceKind::Knight(_) => {
-                'Knight'.print();
+            Option::None(_) => {
+                'None'.print();
+            }
+        }
+    }
+}
+
+
+impl BoardPrintTrait of PrintTrait<(u32, u32)> {
+    #[inline(always)]
+    fn print(self: (u32, u32)) {
+        let (x, y): (u32, u32) = self;
+        x.print();
+        y.print();
+    }
+}
+
+
+impl PieceTypeOptionPrintTrait of PrintTrait<Option<PieceType>> {
+    #[inline(always)]
+    fn print(self: Option<PieceType>) {
+        match self {
+            Option::Some(piece_type) => {
+                piece_type.print();
             },
-            PieceKind::Bishop(_) => {
-                'Bishop'.print();
+            Option::None(_) => {
+                'None'.print();
+            }
+        }
+    }
+}
+
+
+impl PieceTypePrintTrait of PrintTrait<PieceType> {
+    #[inline(always)]
+    fn print(self: PieceType) {
+        match self {
+            PieceType::WhitePawn(_) => {
+                'WhitePawn'.print();
             },
-            PieceKind::Rook(_) => {
-                'Rook'.print();
+            PieceType::WhiteKnight(_) => {
+                'WhiteKnight'.print();
             },
-            PieceKind::Queen(_) => {
-                'Queen'.print();
+            PieceType::WhiteBishop(_) => {
+                'WhiteBishop'.print();
             },
-            PieceKind::King(_) => {
-                'King'.print();
+            PieceType::WhiteRook(_) => {
+                'WhiteRook'.print();
+            },
+            PieceType::WhiteQueen(_) => {
+                'WhiteQueen'.print();
+            },
+            PieceType::WhiteKing(_) => {
+                'WhiteKing'.print();
+            },
+            PieceType::BlackPawn(_) => {
+                'BlackPawn'.print();
+            },
+            PieceType::BlackKnight(_) => {
+                'BlackKnight'.print();
+            },
+            PieceType::BlackBishop(_) => {
+                'BlackBishop'.print();
+            },
+            PieceType::BlackRook(_) => {
+                'BlackRook'.print();
+            },
+            PieceType::BlackQueen(_) => {
+                'BlackQueen'.print();
+            },
+            PieceType::BlackKing(_) => {
+                'BlackKing'.print();
             },
         }
     }
 }
 
-impl PieceColorSerdeLen of dojo::SerdeLen<PieceColor> {
+impl ColorSerdeLen of dojo::SerdeLen<Color> {
+    #[inline(always)]
+    fn len() -> usize {
+        1
+    }
+}
+
+#[derive(Component, Drop, SerdeLen, Serde)]
+struct Game {
+    /// game id, computed as follows pedersen_hash(player1_address, player2_address)
+    #[key]
+    game_id: felt252,
+    winner: Option<Color>,
+    white: ContractAddress,
+    black: ContractAddress
+}
+
+
+#[derive(Component, Drop, SerdeLen, Serde)]
+struct GameTurn {
+    #[key]
+    game_id: felt252,
+    turn: Color,
+}
+
+impl OptionPieceColorSerdeLen of dojo::SerdeLen<Option<Color>> {
     #[inline(always)]
     fn len() -> usize {
         1
@@ -313,32 +380,6 @@ impl PieceColorSerdeLen of dojo::SerdeLen<PieceColor> {
 
 ```
 
-First, add Drop trait for components and all the following enums. Second, implement `PrintTrait` for enums that have not been automatically implemented yet.
+</details>
 
-## Before we move on...
-
-This time you need to add two more Components `Game` and `GameTurn` that compose `Game` Entity.
-
-```rust,ignore
-struct Game {
-    /// game id, computed as follows pedersen_hash(player1_address, player2_address)
-    #[key]
-    game_id: felt252,
-    status: bool,
-    winner: Option<PieceColor>,
-    white: ContractAddress,
-    Black: ContractAddress
-}
-
-struct GameTurn {
-    #[key]
-    game_id: felt252,
-    turn: PieceColor,
-}
-```
-
-You need to run `sozo build` and `sozo test` and fix the errors by implementing the right traits. This time I will not give you the answer, try to fix your own!
-
-After finishing that, Let's update the original components `Piece` and `Position` by adding an additional field called `game_id` as a key. Each Position should be identified as an independent game and also an independent piece.
-
-Congrats! You now finished your all basic setup for building an on-chain chess game🎉
+Congrats! Finished all basic setup for building an on-chain chess game🎉
