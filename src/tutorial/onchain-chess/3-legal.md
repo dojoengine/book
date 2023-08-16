@@ -2,17 +2,17 @@
 
 This chapter will handle implementing additional functions to check
 
-- Is next move is out of board?
-- Is there is piece need to occupy?
-- Is next move is legal (base on piece type)?
-- Is caller can execute next move (base on color)?
+- Is the next move out of board?
+- Is there is piece that needs to be occupied?
+- Is the next move legal (based on piece type)?
+- Is caller can execute the next move (based on color)?
 - ... And you can add your custom checker functions
 
 ## Add check helper functions
 
-You need to make multiple check functions in move_system. And assert that the next move is actually correct move that be execute.
+You need to make multiple check functions in move_system. And assert that the next move is the correct move that be executed.
 
-1. Check next position is legal based on piece type
+1. Check next position is legal based on the piece type
 
 ```rust,ignore
   fn is_right_piece_move(
@@ -20,21 +20,21 @@ You need to make multiple check functions in move_system. And assert that the ne
     ) -> bool {}
 ```
 
-2. Check next position is out of board or not
+2. Check next position is out of the board or not
 
 ```rust,ignore
   fn is_out_of_board(next_position: (u32, u32)) -> bool{}
 ```
 
-3. Check the caller is in correct turn, and are moving correct piece that they own
+3. Check the caller is in the correct turn and is moving the correct piece that they own
 
 ```rust,ignore
  fn is_correct_turn(maybe_piece: PieceType, caller: ContractAddress, game_id: felt252) -> bool{}
 ```
 
-4. You can add your own check functions to make sure this next position is really legal move.
+4. You can add your check functions to make sure this next position is a legal move.
 
-Then let's modify original move_system function using this helper function. It's pretty flexable how you would want to align the check functions and how you would check in logic gate, here is the example :
+Then let's modify the original move_system function using this helper function. It's pretty flexable on how you would want to align the check functions and how you would check in the logic gate, here is the example :
 
 ```rust,ignore
     fn execute(
@@ -44,11 +44,11 @@ Then let's modify original move_system function using this helper function. It's
         caller: ContractAddress,
         game_id: felt252
     ) {
-        //... upper code is same
-        // check if next_position is out of board or not
+        //... upper code is the same
+        //Check if next_position is out of board or not
         assert(is_out_of_board(next_position), 'Should be inside board');
 
-        // check if this is the right piece type move
+        //Check if this is the right piece type move
 
         assert(
             is_right_piece_move(current_square.piece, curr_position, next_position),
@@ -61,14 +61,14 @@ Then let's modify original move_system function using this helper function. It's
         current_square.piece = Option::None(());
         let mut next_square = get!(ctx.world, (game_id, next_x, next_y), (Square));
 
-        // check the piece already in next_suqare
+        //Check the piece already in next_suqare
         let maybe_next_square_piece = next_square.piece;
         match maybe_next_square_piece {
             Option::Some(maybe_piece) => {
                 if is_piece_is_mine(maybe_piece) {
                     panic(array!['Already same color piece exist'])
                 } else {
-                    // occupy the piece
+                    //Occupy the piece
                     next_square.piece = target_piece;
                 }
             },
@@ -77,16 +77,16 @@ Then let's modify original move_system function using this helper function. It's
                 next_square.piece = target_piece;
             },
         };
-        // ... below code is same
+        // ... below code is the same
 
     }
 ```
 
-## Unit Tests per each functions
+## Unit Tests per each function
 
-Because we need several test functions to check each checker functions are working fine, we need to modulize common part like init world.
+Because we need several test functions to check each checker function are working fine, we need to modulize common part like init world.
 
-First let's make helper function call `init_world_test` that return `IWorldDispatcher` that can use in multiple tests in move system.
+First, let's make a helper function call `init_world_test` that returns `IWorldDispatcher` that can be used in multiple tests in the move system.
 
 ```rust,ignore
     #[test]
@@ -129,7 +129,7 @@ Then our original test_move function can be simply implemented as this.
     }
 ```
 
-Great! then we can able to make each tests that expected to be fail if we pass non legal moves. As an example, let's try to make `test_piecetype_ilegal` test function that check the function `is_right_piece_move` function in move system is working as expected.
+Great! then we can able to make each test that is expected to fail if we pass nonlegal moves. As an example, let's try to make `test_piecetype_ilegal` test function that checks the function `is_right_piece_move` function in the move system is working as expected.
 
 ```rust,ignore
     #[test]
@@ -160,10 +160,10 @@ Great! then we can able to make each tests that expected to be fail if we pass n
     }
 ```
 
-Now implement own test functions that checks invalid move can be able to return error.
+Now implement your test functions that check invalid moves and can be able to return errors.
 
 ## Need help?
 
 If you are stuck? don't hesitate to ask questions at [Dojo community](https://discord.gg/akd2yfuRS3)!
 
-Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoral/src/systems/occupy.cairo) for chapter 2.
+Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoralv2/src/systems/move.cairo) for chapter 3.

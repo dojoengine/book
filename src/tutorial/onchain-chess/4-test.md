@@ -12,9 +12,9 @@ Now let's run a full integration test. In this example, will test flow as follow
 6. Move `white_pawn_1` to (1,5)
 7. Occupy `black_pawn_2`
 
-To spawn the piece, use `initiate_system` that we created. To move the piece, use `move_system` that we created. Need to check while running `move_system`, if we can able to occupy the right piece if chance.
+To spawn the piece, use the `initiate_system` that we created. To move the piece, use `move_system` that we created. Need to check while running `move_system`, if we can able to occupy the right piece if chance.
 
-Before you jump on the code, Do this as followings to make integration test as seperate from original unit tests :
+Before you jump on the code, Do the as followings to make the integration test separate from original unit tests :
 
 - Copy the tests below and paste them at the bottom of your `src/tests.cairo` file.
 - Create `test.cairo` at your src and update `lib.cairo` while adding `mod tests;` line.
@@ -140,14 +140,16 @@ mod tests {
 }
 ```
 
-We first define the players addresses and assigned the color.
+## Deep dive into code
+
+We first defined the players' addresses and assigned the color.
 
 ```rust
    let white = starknet::contract_address_const::<0x01>();
    let black = starknet::contract_address_const::<0x02>();
 ```
 
-Components and Systems both should be define as array that contains all the CLASS_HASH as a elements.
+Components and Systems both should be defined as array that contains all the CLASS_HASH as an element.
 
 ```rust
 // components
@@ -168,7 +170,7 @@ Then we define the world.
      let world = spawn_test_world(components, systems);
 ```
 
-First to spawn the Square pieces before we make a move, we execute `initiate_system` that spawn all the `Square` entity that contains Piece. System's execute function gets input and this input will be deliver as a calldata which datatype is array.
+First, to spawn the Square pieces before we make a move, we execute `initiate_system` that spawn all the `Square` entity that contains Piece. The system's execute function gets input and this input will be delivered as a calldata which datatype is array.
 
 ```rust
         // initiate
@@ -178,7 +180,7 @@ First to spawn the Square pieces before we make a move, we execute `initiate_sys
         world.execute('initiate_system'.into(), calldata);
 ```
 
-We check if there is White pawn exist in (0,1). First get the entity by keys or components. quick reminder, Square component's keys are `game_id` and `x` and `y`. We do it same with Black pawn.
+We check if there is a White pawn existing in (0,1). First, get the entity by keys or components. quick reminder, Square component's keys are `game_id` and `x` and `y`. We do the same with Black Pawn.
 
 ```rust
         //White pawn is now in (0,1)
@@ -191,7 +193,7 @@ We check if there is White pawn exist in (0,1). First get the entity by keys or 
         };
 ```
 
-As we call our initiate_system, we also calling move_system while generating inputs as a calldata. First two (0,1) is current position, (0,3) is next position , then caller address and game id that will be use in move_system to check if it's valid move.
+As we call our initiate_system, we also call move_system while generating inputs as a calldata. The first two (0,1) is the current position, (0,3) is the next position, then the caller address and game id that will be used in move_system to check if it's a valid move.
 
 ```rust
  //Move White Pawn to (0,3)
@@ -205,11 +207,15 @@ As we call our initiate_system, we also calling move_system while generating inp
         world.execute('move_system'.into(), move_calldata);
 ```
 
-And then we repeating moving and checking that is correct. :)
-Base on that you can able to create your own play scenario!
+Then we repeat moving and checking that is correct. :)
 
-## Need help?
+## Congratulations!
 
-If you are stuck? don't hesitate to ask questions at [Dojo community](https://discord.gg/akd2yfuRS3)!
+You finished basic contracts of an onchain chess game built with Dojo engine. As a mentioned start, this tutorial does not handle full features or may not be the ideal way. There are many parts that you can optimize, add legal checks, and add edge cases. If you want to build this chess project more solid here are some challenges that would suggest.
 
-Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoral/src/systems/occupy.cairo) for chapter 2.
+- Try to build initiate_system that can handle lazy init. If you don't know what is lazy init, read [this](https://en.wikipedia.org/wiki/Lazy_initialization). It would enable us to generate onchain action more optimized way.
+- Try to add the checkmate feature. Right now we didn't add when the game is ending. To check if the situation is checkmate, you need to calculate based on whole squares.
+- Try to add additional edge cases. Like castling, En Passant Capture, Pawn Promotion, etc..
+- Make your own chess rule! ... You can make your own [immortal game](https://immortal.game/)
+
+And share that you finished our project in [Dojo community](https://discord.gg/akd2yfuRS3)!

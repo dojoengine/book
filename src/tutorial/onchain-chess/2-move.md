@@ -1,10 +1,10 @@
 # 2. Move System
 
-This chapter will handle implementing `move_system`.
+This chapter will handle implementing `move_system`, which moves the piece location in the board.
 
 ## What is move_system?
 
-To Play chess, you need to move your pieces on the board. `move_system` will move pieces in a certain position that you input. You need to make sure the `Position` of the Piece has changed correctly to the one that you wanted. To make sure this movement is correct, you need to check additional stuff, but we will handle it in the next chapter.
+To Play chess, you need to move your pieces on the board. Because we are handling piece location as a Square entity, `move_system` will get a current position as (x,y) and also get the next position as (x,y) and consider the piece exist in the current position square as the target piece to move square about next position.
 
 ## Requirements
 
@@ -28,7 +28,7 @@ _Copy the unit tests below and paste them at the bottom of your `systems/move.ca
 ## Test Flow
 
 - Same logic as `test_initiate` in the previous chapter.
-- Execute `move_system` with piece_id and new position.
+- Move White Knight (1,0) -> (2,2) using move_system.
 - Get the updated Position again and check the position has been updated to a new position.
 
 ## Unit Tests
@@ -107,5 +107,3 @@ mod tests {
 ## Need help?
 
 If you are stuck? don't hesitate to ask questions at [Dojo community](https://discord.gg/akd2yfuRS3)!
-
-Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoral/src/systems/move.cairo) for chapter 2.

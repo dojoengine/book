@@ -1,18 +1,18 @@
 # 1. Initiate System
 
-This chapter will handle implementing `initiate_system`.
+This chapter will handle implementing `initiate_system`, that spawn game and squares that contain pieces
 
 ## What is initiate_system?
 
-To play chess, you need to start the game, and then spawn pieces. `initiate_system` will spawn the game entity and then spawn every piece in the right position. You need to make sure the game status is correct and right piece type and the right piece color are in the right position on the board.
+To play chess, you need to start the game, and then spawn pieces. `initiate_system` will spawn the game entity and then spawn every piece in the right position. You need to make sure the game status is the correct piece type and the right piece color is in the right position on the board.
 
 ## Requirements
 
 _Copy the unit tests below and paste them at the bottom of your `systems/initiate.cairo` file._
 
-1. Write a `execute` function in the system that gets world context and white address and black address as a input.
-2. Implement `Game` Entity, composed with `Game` Component and `GameTurn` component that we created in previous step
-3. Implement `Square` Entities from a1 to h8 contain right `PieceType`
+1. Write an `execute` function in the system that gets world context and white address and black address as input.
+2. Implement `Game` Entity, composed of `Game` Component and `GameTurn` component that we created in the previous step
+3. Implement `Square` Entities from a1 to h8 containing right `PieceType`
 4. run `sozo test` and pass all the test
 
 ## Test Flow
@@ -21,7 +21,7 @@ _Copy the unit tests below and paste them at the bottom of your `systems/initiat
 - Execute `initiate_system` by getting white/black address as calldata input
 - Get the game entity and piece entity created during initiate_system.
 - Check if the game is created correctly
-- Check if the Piece has pieces located in correct Square.
+- Check if the Piece has pieces located in the correct Square.
 
 ## Unit Tests
 
@@ -83,4 +83,4 @@ mod tests {
 
 If you are stuck? don't hesitate to ask questions at [Dojo community](https://discord.gg/akd2yfuRS3)!
 
-Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoral/src/systems/initiate.cairo) for chapter 1.
+Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutorialv2/src/systems/initiate.cairo) for chapter 1.
