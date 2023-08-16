@@ -1,11 +1,11 @@
-## register
+## sozo register
 
-`register` is used to register new systems and components. 
+`register` is used to register new systems and components.
 
 ```sh
 sozo register [OPTIONS] <COMMAND>
 ```
-    
+
 ```sh
 Commands:
   component  Register a component to a world.

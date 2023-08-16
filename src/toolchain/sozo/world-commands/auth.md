@@ -1,6 +1,6 @@
-## auth
+## sozo auth
 
-`auth` is used to manage world authorization. 
+`auth` is used to manage world authorization.
 
 ```sh
 sozo auth [OPTIONS] <COMMAND>
