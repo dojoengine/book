@@ -1,8 +1,8 @@
 # 4. Test Contract
 
-This chapter will recap the lessons from previous chapters by running one chess play scenario.
+In this chapter, we'll use everything we've learned to run a full chess game scenario.
 
-Now let's run a full integration test. In this example, will test flow as follows:
+Here's what we'll do in our test:
 
 1. Spawn `white_pawn_1` to (0,1)
 2. Move `white_pawn_1` to (0,3)
@@ -10,14 +10,14 @@ Now let's run a full integration test. In this example, will test flow as follow
 4. Move `white_pawn_1` to (0,4)
 5. Move `black_pawn_2` to (1,5)
 6. Move `white_pawn_1` to (1,5)
-7. Occupy `black_pawn_2`
+7. Capture `black_pawn_2`
 
-To spawn the piece, use the `initiate_system` that we created. To move the piece, use `move_system` that we created. Need to check while running `move_system`, if we can able to occupy the right piece if chance.
+To place the pieces, use our `initiate_system`. For moving them, use the `move_system`. Remember to check if a piece can be captured when using `move_system`.
 
-Before you jump on the code, Do the as followings to make the integration test separate from original unit tests :
+Before we get to the code, set up your integration test like this:
 
-- Copy the tests below and paste them at the bottom of your `src/tests.cairo` file.
-- Create `test.cairo` at your src and update `lib.cairo` while adding `mod tests;` line.
+- Copy the test below and add it to your `src/tests.cairo` file.
+- Make a `test.cairo` in your src and update `lib.cairo` by adding the `mod tests;` line.
 
 ## Full Code
 
@@ -140,16 +140,16 @@ mod tests {
 }
 ```
 
-## Deep dive into code
+## Diving into the Code
 
-We first defined the players' addresses and assigned the color.
+First, we'll set up the players and their colors.
 
 ```rust
    let white = starknet::contract_address_const::<0x01>();
    let black = starknet::contract_address_const::<0x02>();
 ```
 
-Components and Systems both should be defined as array that contains all the CLASS_HASH as an element.
+We should list both Components and Systems in arrays, with each having CLASS_HASH as elements.
 
 ```rust
 // components
@@ -164,13 +164,13 @@ systems.append(initiate_system::TEST_CLASS_HASH);
 systems.append(move_system::TEST_CLASS_HASH);
 ```
 
-Then we define the world.
+Next, we'll create our game world.
 
 ```rust
      let world = spawn_test_world(components, systems);
 ```
 
-First, to spawn the Square pieces before we make a move, we execute `initiate_system` that spawn all the `Square` entity that contains Piece. The system's execute function gets input and this input will be delivered as a calldata which datatype is array.
+We use `initiate_system` to put our Square pieces on the board. Each Square holds a piece. The system's execute function needs some input, which we give it as calldata.
 
 ```rust
         // initiate
@@ -180,7 +180,7 @@ First, to spawn the Square pieces before we make a move, we execute `initiate_sy
         world.execute('initiate_system'.into(), calldata);
 ```
 
-We check if there is a White pawn existing in (0,1). First, get the entity by keys or components. quick reminder, Square component's keys are `game_id` and `x` and `y`. We do the same with Black Pawn.
+Let's check if a White pawn is at (0,1). Remember, to get a Square piece, you use `game_id`, `x`, and `y`. Do the same check for the Black Pawn.
 
 ```rust
         //White pawn is now in (0,1)
@@ -193,7 +193,7 @@ We check if there is a White pawn existing in (0,1). First, get the entity by ke
         };
 ```
 
-As we call our initiate_system, we also call move_system while generating inputs as a calldata. The first two (0,1) is the current position, (0,3) is the next position, then the caller address and game id that will be used in move_system to check if it's a valid move.
+After setting up the board, use `move_system` to make moves. Provide the current position, the next position, the player's address, and the game id.
 
 ```rust
  //Move White Pawn to (0,3)
@@ -207,15 +207,15 @@ As we call our initiate_system, we also call move_system while generating inputs
         world.execute('move_system'.into(), move_calldata);
 ```
 
-Then we repeat moving and checking that is correct. :)
+Keep moving pieces and checking if they're in the right places.
 
 ## Congratulations!
 
-You finished basic contracts of an onchain chess game built with Dojo engine. As a mentioned start, this tutorial does not handle full features or may not be the ideal way. There are many parts that you can optimize, add legal checks, and add edge cases. If you want to build this chess project more solid here are some challenges that would suggest.
+You've made the basic contracts for a chess game using the Dojo engine! This tutorial was just the beginning. There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases. If you want to do more with this chess game, try these challenges:
 
-- Try to build initiate_system that can handle lazy init. If you don't know what is lazy init, read [this](https://en.wikipedia.org/wiki/Lazy_initialization). It would enable us to generate onchain action more optimized way.
-- Try to add the checkmate feature. Right now we didn't add when the game is ending. To check if the situation is checkmate, you need to calculate based on whole squares.
-- Try to add additional edge cases. Like castling, En Passant Capture, Pawn Promotion, etc..
-- Make your own chess rule! ... You can make your own [immortal game](https://immortal.game/)
+- Make an initiate_system that uses lazy init. If you're unsure about lazy init, [read up on it](https://en.wikipedia.org/wiki/Lazy_initialization). This can help make your game actions more efficient.
+- Add a checkmate feature. Our game doesn't end now, so decide when it should!
+- Include special moves like castling, En Passant Capture, or Pawn Promotion.
+- Make your own chess rules! You could even create your own version of the [immortal game](https://immortal.game/)
 
-And share that you finished our project in [Dojo community](https://discord.gg/akd2yfuRS3)!
+Lastly, share your project with others in the [Dojo community](https://discord.gg/akd2yfuRS3)!

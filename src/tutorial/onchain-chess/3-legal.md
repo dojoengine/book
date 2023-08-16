@@ -1,18 +1,18 @@
 # 3. Check Legal Move
 
-This chapter will handle implementing additional functions to check
+In this chapter, we'll make functions to check:
 
-- Is the next move out of board?
-- Is there is piece that needs to be occupied?
-- Is the next move legal (based on piece type)?
-- Is caller can execute the next move (based on color)?
-- ... And you can add your custom checker functions
+- If the next move goes outside the board.
+- If there's a piece that can be captured.
+- If the next move is allowed for the type of piece.
+- If the person trying the move can do it (based on the piece's color).
+- ... You can also add other custom check functions.
 
-## Add check helper functions
+## Make Check Functions
 
-You need to make multiple check functions in move_system. And assert that the next move is the correct move that be executed.
+We need to add some check functions in `move_system`. These will help make sure the next move is okay.
 
-1. Check next position is legal based on the piece type
+1. See if the next spot is okay for the type of piece moving.
 
 ```rust,ignore
   fn is_right_piece_move(
@@ -20,21 +20,21 @@ You need to make multiple check functions in move_system. And assert that the ne
     ) -> bool {}
 ```
 
-2. Check next position is out of the board or not
+2. See if the next spot is still on the board.
 
 ```rust,ignore
   fn is_out_of_board(next_position: (u32, u32)) -> bool{}
 ```
 
-3. Check the caller is in the correct turn and is moving the correct piece that they own
+3. See if the person trying the move is doing it at the right time and with their piece.
 
 ```rust,ignore
  fn is_correct_turn(maybe_piece: PieceType, caller: ContractAddress, game_id: felt252) -> bool{}
 ```
 
-4. You can add your check functions to make sure this next position is a legal move.
+4. You can also add other check functions to be extra sure the move is okay.
 
-Then let's modify the original move_system function using this helper function. It's pretty flexable on how you would want to align the check functions and how you would check in the logic gate, here is the example :
+Once you've made these check functions, you can use them in the main `move_system` function. You can decide how to set them up and which ones to use. We'll give an example to help:
 
 ```rust,ignore
     fn execute(
@@ -82,11 +82,11 @@ Then let's modify the original move_system function using this helper function. 
     }
 ```
 
-## Unit Tests per each function
+## Testing Each Function
 
-Because we need several test functions to check each checker function are working fine, we need to modulize common part like init world.
+Since we have different check functions, we need to test each one. To make this easier, let's use parts that are the same for many tests.
 
-First, let's make a helper function call `init_world_test` that returns `IWorldDispatcher` that can be used in multiple tests in the move system.
+First, make a helper function called `init_world_test`. This will give back an `IWorldDispatcher` that we can use many times in the move system tests.
 
 ```rust,ignore
     #[test]
@@ -115,7 +115,7 @@ First, let's make a helper function call `init_world_test` that returns `IWorldD
     }
 ```
 
-Then our original test_move function can be simply implemented as this.
+Then, our main `test_move` function will be simpler.
 
 ```rust,ignore
     #[test]
@@ -129,7 +129,7 @@ Then our original test_move function can be simply implemented as this.
     }
 ```
 
-Great! then we can able to make each test that is expected to fail if we pass nonlegal moves. As an example, let's try to make `test_piecetype_ilegal` test function that checks the function `is_right_piece_move` function in the move system is working as expected.
+Now we can make tests that show errors if we try moves that aren't allowed. For a start, let's make a `test_piecetype_illegal` function. This will check if the `is_right_piece_move` function in the move system works right.
 
 ```rust,ignore
     #[test]
@@ -160,10 +160,10 @@ Great! then we can able to make each test that is expected to fail if we pass no
     }
 ```
 
-Now implement your test functions that check invalid moves and can be able to return errors.
+Finish by making your tests. These should find wrong moves and give back errors.
 
 ## Need help?
 
-If you are stuck? don't hesitate to ask questions at [Dojo community](https://discord.gg/akd2yfuRS3)!
+If you're stuck, don't hesitate to ask questions at the [Dojo community](https://discord.gg/akd2yfuRS3)!
 
-Here is the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoralv2/src/systems/move.cairo) for chapter 3.
+You can find the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoralv2/src/systems/move.cairo) for chapter 3 here.

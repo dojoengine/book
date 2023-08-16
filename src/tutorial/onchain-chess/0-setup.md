@@ -1,20 +1,20 @@
 # 0. Setup
 
-_Before you start, I recommend you to follow `hello-dojo` chaper to get a brief understanding of Dojo game._
+_Before starting, I recommend following the [`hello-dojo`](../../cairo/hello-dojo.md) chapter to gain a basic understanding of the Dojo game._
 
-## sozo init
+## Initializing the Project
 
-Create a new Dojo project using `sozo init`. Check if you already installed `sozo`. (If not, check out installation [page](../../getting-started/installation.md) )
+Create a new Dojo project using sozo init. Ensure you have sozo installed. (If not, refer to the installation [page](../../getting-started/installation.md)).
 
-Open your empty game folder and open the terminal.
+Navigate to your game folder and open the terminal:
 
 ```sh
 sozo init
 ```
 
-## setup
+## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear them all. Make sure both `components.cairo` and `systems.cairo` files are empty.
+The project comes with a lot of boilerplate codes. Clear it all. Make sure both `components.cairo` and `systems.cairo` files are empty.
 
 In `lib.cairo`, retain only:
 
@@ -23,11 +23,19 @@ mod components;
 mod systems;
 ```
 
-Build your initial setup project using `sozo build`.
+Compile your project with:
+
+```sh
+sozo build
+```
 
 ## Basic components
 
-While there are many ways to design a chess game using the ECS model, we'll follow this approach: every board square (e.g., A1) will be treated as an entity. If a piece exists on a square, the square entity will hold that piece.
+While there are many ways to design a chess game using the ECS model, we'll follow this approach:
+
+> every board square (e.g., A1) will be treated as an entity. If a piece exists on a square, the square entity will hold that piece.
+
+First, add this basic component to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../framework/cairo/components.md).
 
 ```rust,ignore
 #[derive(Component)]
@@ -57,15 +65,13 @@ enum PieceType {
 }
 ```
 
-First, add this basic component to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../framework/cairo/components.md).
-
 ## Basic systems
 
-Starting from the next chapter, you will implement `initiate` and `move` systems one by each chapter. Let's make each system per file so that it can be more modularized.
+Starting from the next chapter, you will implement `initiate` and `move` systems one in each chapter. Let's create each system in its own file for better modularity.
 
-Create `systems` folder at `src`. Create `initiate.cairo`and `move.cairo` two files inside the folder. Each file should contain a basic system structure.
+Create a `systems` folder at `src`. Create `initiate.cairo`and `move.cairo` two files inside the folder. Each file should contain a basic system structure.
 
-For example, `initiate.cairo` would be looks like this:
+For example, `initiate.cairo` look like this:
 
 ```rust
 #[system]
@@ -74,7 +80,7 @@ mod initiate_system {
 }
 ```
 
-and in `systems.cairo` we will use initiate_system like this:
+and in `systems.cairo` we will use `initiate_system` like this:
 
 ```rust
 mod initiate;
@@ -82,7 +88,7 @@ mod initiate;
 use initiate::initiate_system;
 ```
 
-Do the same with the other three systems. And make update `systems.cairo` like :
+Do the same with the other systems. Update `systems.cairo` to:
 
 ```rust
 mod initiate;
@@ -100,7 +106,7 @@ Now try `sozo build` to build. Faced some errors?
 error: Trait has no implementation in context:
 ```
 
-You would probably faced some trait implementation errors, which you can implement as a derive like this:
+You would probably faced some trait implementation errors, which you can implement as a derive like:
 
 ```rust,ignore
 
@@ -152,13 +158,13 @@ impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {
 }
 ```
 
-Try to fix everything so that `sozo build` command can run successfully.
+Address any remaining issues so the sozo build command runs successfully.
 
 ## sozo test
 
-Before you move on to the next chapter you always have to remember that `sozo build` and then `sozo test` are must-do steps to make sure your code is all fine.
+Before proceeding to the next chapter, remember that `sozo build` and `sozo test` are important steps to ensure your code is correct.
 
-try `sozo test`. Faced errors?
+Run sozo test. Did you face any errors?
 
 ```sh
 error: Trait has no implementation in context:
@@ -168,18 +174,16 @@ error: Trait has no implementation in context:
 error: Variable not dropped. Trait has no implementation in context:
 ```
 
-As `no implementation` error, you can implement `PrintTrait` for running sozo test successfully.
-
-And for not dropped error, you need to add `Drop` trait. Fix other errors as well by trying to add on derive or implement on your own per case by case.
+For the no implementation error, implement the PrintTrait to run sozo test successfully. For the not dropped error, add the Drop trait. Address other errors by adding derives or implementing them on a case-by-case basis.
 
 ## Before you move on
 
-Add more components so that we can use them from the next chapter while creating systems.
+Add more components so we can use them in the next chapter when creating systems.
 
 ### Requirements
 
-- `Color` enum have White and Black
-- `Game` component :
+- `Color` enum enum with values White and Black
+- `Game` component:
 
 ```
     game_id: felt252,
@@ -188,15 +192,15 @@ Add more components so that we can use them from the next chapter while creating
     black: ContractAddress
 ```
 
-- `GameTurn` component :
+- `GameTurn` component:
 
 ```
     game_id: felt252,
     turn: Color
 ```
 
-- we will later set `Game` entity composed of `Game` and `GameTurn` component
-- Run `sozo build` and `sozo test` and pass everything.
+- We will later set `Game` entity composed of the `Game` and `GameTurn` components.
+- Run `sozo build` and `sozo test` and ensure all tests pass.
 
 Try to solve on your own, and before you move on check the answer below.
 
@@ -382,4 +386,4 @@ impl OptionPieceColorSerdeLen of dojo::SerdeLen<Option<Color>> {
 
 </details>
 
-Congrats! Finished all basic setup for building an on-chain chess game🎉
+Congratulations! You've completed the basic setup for building an on-chain chess game 🎉

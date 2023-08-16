@@ -1,16 +1,16 @@
 # 2. Move System
 
-This chapter will handle implementing `move_system`, which moves the piece location in the board.
+This chapter will address the implementation of `move_system`, which relocates a piece on the board.
 
 ## What is move_system?
 
-To Play chess, you need to move your pieces on the board. Because we are handling piece location as a Square entity, `move_system` will get a current position as (x,y) and also get the next position as (x,y) and consider the piece exist in the current position square as the target piece to move square about next position.
+To play chess, one must move the pieces on the board. Since we represent piece locations with a Square entity, the `move_system` retrieves the current position as (x,y). It also fetches the next position as (x,y), treating the piece in the current position square as the target to be moved to the next position.
 
 ## Requirements
 
 _Copy the unit tests below and paste them at the bottom of your `systems/move.cairo` file._
 
-1. Write a `execute` function in the system that gets inputs as follows:
+1. Write an `execute` function in the system with the following inputs:
 
 ```rust,ignore
  fn execute(
@@ -22,14 +22,15 @@ _Copy the unit tests below and paste them at the bottom of your `systems/move.ca
     )
 ```
 
-2. Update Square with next_position with the new piece, and update square with curr_position with no piece.
-3. run `sozo test` and pass all the test
+2. Update the Square with the `next_position` to contain the new piece and ensure the Square with the `curr_position` no longer holds a piece.
+
+3. Run `sozo test` and ensure all tests pass.
 
 ## Test Flow
 
-- Same logic as `test_initiate` in the previous chapter.
-- Move White Knight (1,0) -> (2,2) using move_system.
-- Get the updated Position again and check the position has been updated to a new position.
+- Follow the same logic as `test_initiate` from the previous chapter.
+- Move the White Knight from (1,0) to (2,2) using the `move_system`.
+- Retrieve the updated position and verify that the piece has successfully moved to its new location.
 
 ## Unit Tests
 
@@ -106,4 +107,4 @@ mod tests {
 
 ## Need help?
 
-If you are stuck? don't hesitate to ask questions at [Dojo community](https://discord.gg/akd2yfuRS3)!
+If you're stuck, don't hesitate to ask questions at the [Dojo community](https://discord.gg/akd2yfuRS3)!
