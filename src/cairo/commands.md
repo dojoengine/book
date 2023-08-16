@@ -10,7 +10,7 @@ Commands in Dojo are generalized functions that are expanded at compile time to 
 Commands are used within systems to interact with the world state. They are called using the following syntax:
 
 ```rust,ignore
-let (mut position, mut moves) = get !(ctx.world, ctx.origin, (Position, Moves));
+let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));
 ```
 
 ### The `get!` command
