@@ -1,6 +1,6 @@
-# Sozo
+## Sozo
 
-`sozo` is a powerful migration planning tool designed to streamline the updating and deployment of AWs. It provides a robust binary command-line interface (CLI) that simplifies World management tasks, enabling you to focus on the creative aspects of World-building. Future versions will provide a GUI.
+`sozo` is a powerful all-in-one tool for managing your Dojo projects. It helps with everything from scaffolding a new project, all the way to deploying and interacting with your Dojo Worlds. It includes a migration planning tool, designed to streamline the updating and deployment of AWs. It provides a robust command-line interface (CLI) that simplifies World management tasks, enabling you to focus on the creative aspects of World-building. In the future, it may include a GUI.
 
 ## Features
 
@@ -8,14 +8,14 @@
 
 ## Installation
 
-The `sozo` binary can be installed via [`dojoup`](../../getting-started/quick-start.md), our dedicated installation package manager.
+`sozo` binary can be installed via [`dojoup`](../../getting-started/quick-start.md), our dedicated installation package manager.
 
 ### Installing from Source
 
-If you prefer to install from the source code:
-
 ```sh
-cargo install --path ./crates/sozo --profile local --force
+git clone https://github.com/dojoengine/dojo
+cd dojo
+cargo install --path ./crates/sozo --locked --force
 ```
 
 This will install Sozo and the required dependencies on your local system.
