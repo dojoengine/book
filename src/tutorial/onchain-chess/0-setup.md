@@ -1,12 +1,22 @@
 # 0. Setup
 
-_Before starting, I recommend following the [`hello-dojo`](../../cairo/hello-dojo.md) chapter to gain a basic understanding of the Dojo game._
+_Before starting recommend following the [`hello-dojo`](../../cairo/hello-dojo.md) chapter to gain a basic understanding of the Dojo game._
 
 ## Initializing the Project
 
-Create a new Dojo project using sozo init. Ensure you have sozo installed. (If not, refer to the installation [page](../../getting-started/installation.md)).
+Create a new Dojo project folder. You can name your project what you want.
 
-Navigate to your game folder and open the terminal:
+```sh
+mkdir dojo-chess
+```
+
+Open the project folder.
+
+```sh
+cd dojo-chess
+```
+
+And initialize the project using sozo init.
 
 ```sh
 sozo init
@@ -33,7 +43,7 @@ sozo build
 
 While there are many ways to design a chess game using the ECS model, we'll follow this approach:
 
-> every board square (e.g., A1) will be treated as an entity. If a piece exists on a square, the square entity will hold that piece.
+> Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square, the square entity will hold that piece.
 
 First, add this basic component to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../framework/cairo/components.md).
 
@@ -98,7 +108,7 @@ use initiate::initiate_system;
 use move::move_system;
 ```
 
-## sozo build
+## Compile your project
 
 Now try `sozo build` to build. Faced some errors?
 
@@ -147,7 +157,7 @@ error: Trait has no implementation in context: dojo::serde::SerdeLen::<core::opt
                                                      ^*^
 ```
 
-One thing you have to make sure is, that `<Option<PieceType>>` is the type that we created. So this type does not implement basic traits like SerdeLen. You need to define the implementation you own.
+One thing you have to make sure is, that `<Option<PieceType>>` is the type that we created. So this type does not implement basic traits like SerdeLen. You need to define the implementation by your own.
 
 ```rust,ignore
 impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {
@@ -158,9 +168,9 @@ impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {
 }
 ```
 
-Address any remaining issues so the sozo build command runs successfully.
+Fix other issues as above, so that you can run the `sozo build` command runs successfully.
 
-## sozo test
+## Run test
 
 Before proceeding to the next chapter, remember that `sozo build` and `sozo test` are important steps to ensure your code is correct.
 
@@ -176,9 +186,9 @@ error: Variable not dropped. Trait has no implementation in context:
 
 For the no implementation error, implement the PrintTrait to run sozo test successfully. For the not dropped error, add the Drop trait. Address other errors by adding derives or implementing them on a case-by-case basis.
 
-## Before you move on
+## Add more components
 
-Add more components so we can use them in the next chapter when creating systems.
+Before you move on, add more components so we can use them in the next chapter when creating systems.
 
 ### Requirements
 
@@ -199,13 +209,13 @@ Add more components so we can use them in the next chapter when creating systems
     turn: Color
 ```
 
-- We will later set `Game` entity composed of the `Game` and `GameTurn` components.
+- We will later set game entity composed of the `Game` and `GameTurn` components.
 - Run `sozo build` and `sozo test` and ensure all tests pass.
 
 Try to solve on your own, and before you move on check the answer below.
 
 <details>
-<summary>Click to see full `components.cairo`code</summary>
+<summary>Click to see full `components.cairo` code</summary>
 
 ```rust,ignore
 use debug::PrintTrait;

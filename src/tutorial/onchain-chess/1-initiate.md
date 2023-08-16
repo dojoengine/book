@@ -2,7 +2,7 @@
 
 This chapter will address implementing `initiate_system`, which spawns the game and squares containing pieces.
 
-## What is initiate_system?
+## What is `initiate_system`?
 
 To play chess, you need to start the game and spawn the pieces. `initiate_system` will spawn the game entity and then place each piece in its proper position. Ensure the game status matches the correct piece type, and the right piece color is in its designated position on the board.
 
@@ -14,17 +14,17 @@ To play chess, you need to start the game and spawn the pieces. `initiate_system
 _Copy the unit tests below and paste them at the bottom of your `systems/initiate.cairo` file._
 
 1. Write an `execute` function in the system that accepts the world context, white address, and black address as input.
-2. Implement the `Game` Entity, comprised of the `Game` Component and `GameTurn` component we created in the previous step.
-3. Implement `Square` Entities from a1 to h8 containing the correct `PieceType`.
+2. Implement the game entity, comprised of the `Game` component and `GameTurn` component we created in the previous step.
+3. Implement square entities by `Square` component, from a1 to h8 containing the correct `PieceType`.
 4. Run `sozo test` and pass all the tests.
 
 ## Test Flow
 
 - Spawn the test world that imports the components and systems used in testing.
-- Execute `initiate_system` by providing white/black addresses as calldata input.
+- Execute `initiate_system` by providing white and black player's wallet addresses as inputs.
 - Retrieve the game entity and piece entity created during `initiate_system`.
 - Ensure the game has been correctly created.
-- Verify that each Piece is located in the correct Square.
+- Verify that each `Piece` is located in the correct `Square`.
 
 ## Unit Tests
 

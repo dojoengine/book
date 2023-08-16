@@ -5,14 +5,14 @@ In this chapter, we'll make functions to check:
 - If the next move goes outside the board.
 - If there's a piece that can be captured.
 - If the next move is allowed for the type of piece.
-- If the person trying the move can do it (based on the piece's color).
+- If the user can allow to make a action (based on the piece's color).
 - ... You can also add other custom check functions.
 
 ## Make Check Functions
 
-We need to add some check functions in `move_system`. These will help make sure the next move is okay.
+We need to add some check functions in `move_system`. These will help make sure the next move is allowed.
 
-1. See if the next spot is okay for the type of piece moving.
+1. See if the next spot is allowed for the type of piece moving.
 
 ```rust,ignore
   fn is_right_piece_move(
@@ -26,13 +26,13 @@ We need to add some check functions in `move_system`. These will help make sure 
   fn is_out_of_board(next_position: (u32, u32)) -> bool{}
 ```
 
-3. See if the person trying the move is doing it at the right time and with their piece.
+3. See if the person trying the move is doing it at the right time and with their piece color.
 
 ```rust,ignore
  fn is_correct_turn(maybe_piece: PieceType, caller: ContractAddress, game_id: felt252) -> bool{}
 ```
 
-4. You can also add other check functions to be extra sure the move is okay.
+4. You can also add other check functions to be extra sure the move is allowed.
 
 Once you've made these check functions, you can use them in the main `move_system` function. You can decide how to set them up and which ones to use. We'll give an example to help:
 
@@ -129,7 +129,7 @@ Then, our main `test_move` function will be simpler.
     }
 ```
 
-Now we can make tests that show errors if we try moves that aren't allowed. For a start, let's make a `test_piecetype_illegal` function. This will check if the `is_right_piece_move` function in the move system works right.
+Now we can make tests that show errors if we try moves that aren't allowed. Let's make a `test_piecetype_illegal` function. This will check if the `is_right_piece_move` function, that you implemented in the move system, works right.
 
 ```rust,ignore
     #[test]

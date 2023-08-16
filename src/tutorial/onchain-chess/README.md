@@ -6,23 +6,23 @@ The answers to this question are always "Make something!", sometimes followed by
 
 This guide is intended to fill the gap between heavily directed beginner tutorials and working on your projects. The primary goal here is to get you to write code. The secondary goal is to get you reading documentation.
 
-If you haven't read Dojo Book yet, I highly encourage you to do so before attempting this project. This guide does not cover every feature.
+If you haven't read the Dojo Book yet, it is highly encouraged for you to do so before starting this project.
 
-## What are we making?
+## What are we building?
 
-We're making an on-chain chess game that lets you start a new game and play chess. Your game will have 3 systems:
+We're building an on-chain chess game contract that lets you start a new game and play chess. This guide does not cover every rules of the chess game. You will build step by step as follows:
 
-1. Spawn all the chess pieces [initiate_system]
-2. Make pieces to move [move_system]
-3. Check more conditions to make a legal move
+1. A system to spawn all the chess pieces
+2. A system to make pieces move
+3. Add some functions to check a legal move
 4. Play chess ♟♙ - integration test!
 
 The full code of tutorial is based on [this repo](https://github.com/rkdud007/chess-dojo/tree/tutorialv2).
 
-If that sounds scary and beyond your ability then this guide is definitely for you. If you know how to write Cairo and you know your Dojo basics, you can do this. We're not going to implement any sort of checkmate or full chess rules. The part of the Chess implementation we're tackling is surprisingly simple.
+If this seems too hard, don't worry! This guide is for beginners. If you know some basics about Cairo and Dojo, you're good. We won't make a full chess game with all the rules. We're keeping it simple.
 
-## What's next after this tutorial?
+## What after this guide?
 
-We're currently developing a client (frontend) tutorial. This will link our existing contract to create a fully functional project.
+We're making another guide to help design the frontend. This will make our chess game complete.
 
-Once you wrap up these five contract tutorial chapters, you can delve into the client tutorial.
+After you finish all the five chapters, we can move on to the frontend guide.

@@ -180,7 +180,7 @@ We use `initiate_system` to put our Square pieces on the board. Each Square hold
         world.execute('initiate_system'.into(), calldata);
 ```
 
-Let's check if a White pawn is at (0,1). Remember, to get a Square piece, you use `game_id`, `x`, and `y`. Do the same check for the Black Pawn.
+Let's check if a White pawn is at (0,1). Remember, to get a piece that exists on the square, you need to use the keys of the `Square` component, which are `game_id`, `x`, and `y`. Do the same check for the Black Pawn.
 
 ```rust
         //White pawn is now in (0,1)
@@ -213,7 +213,7 @@ Keep moving pieces and checking if they're in the right places.
 
 You've made the basic contracts for a chess game using the Dojo engine! This tutorial was just the beginning. There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases. If you want to do more with this chess game, try these challenges:
 
-- Make an initiate_system that uses lazy init. If you're unsure about lazy init, [read up on it](https://en.wikipedia.org/wiki/Lazy_initialization). This can help make your game actions more efficient.
+- Make an `initiate_system` that uses lazy init. If you're unsure about lazy init, [read up on it](https://en.wikipedia.org/wiki/Lazy_initialization). This can help make your game actions more efficient.
 - Add a checkmate feature. Our game doesn't end now, so decide when it should!
 - Include special moves like castling, En Passant Capture, or Pawn Promotion.
 - Make your own chess rules! You could even create your own version of the [immortal game](https://immortal.game/)

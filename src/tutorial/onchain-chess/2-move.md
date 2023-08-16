@@ -2,7 +2,7 @@
 
 This chapter will address the implementation of `move_system`, which relocates a piece on the board.
 
-## What is move_system?
+## What is `move_system`?
 
 To play chess, one must move the pieces on the board. Since we represent piece locations with a Square entity, the `move_system` retrieves the current position as (x,y). It also fetches the next position as (x,y), treating the piece in the current position square as the target to be moved to the next position.
 
