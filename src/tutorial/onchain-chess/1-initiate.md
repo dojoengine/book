@@ -6,6 +6,8 @@ This chapter will handle implementing `initiate_system`, that spawn game and squ
 
 To play chess, you need to start the game, and then spawn pieces. `initiate_system` will spawn the game entity and then spawn every piece in the right position. You need to make sure the game status is the correct piece type and the right piece color is in the right position on the board.
 
+![Board](../../images/board.png)
+
 ## Requirements
 
 _Copy the unit tests below and paste them at the bottom of your `systems/initiate.cairo` file._

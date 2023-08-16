@@ -61,19 +61,7 @@
 
 # Tutorial
 
--   [Onchain Chess](./tutorial/README.md)
-    -   [Part 1: Hello World](./tutorial/part-1.md)
-    -   [Part 2: Components](./tutorial/part-2.md)
-    -   [Part 3: Systems](./tutorial/part-3.md)
-    -   [Part 4: Commands](./tutorial/part-4.md)
-    -   [Part 5: Storage](./tutorial/part-5.md)
-    -   [Part 6: Testing](./tutorial/part-6.md)
-    -   [Part 7: Building](./tutorial/part-7.md)
-    -   [Part 8: Deploying](./tutorial/part-8.md)
-
-# Tutorial
-
-- [Building Onchain Chess Game](./tutorial/onchain-chess/README.md)
+- [Build Onchain Chess Contract](./tutorial/onchain-chess/README.md)
   - [0. Setup](./tutorial/onchain-chess/0-setup.md)
   - [1. Initiate](./tutorial/onchain-chess/1-initiate.md)
   - [2. Move](./tutorial/onchain-chess/2-move.md)
