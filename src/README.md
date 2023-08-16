@@ -10,6 +10,10 @@ Dojo employs [Cairo](https://github.com/starkware-libs/cairo) to deliver a robus
 
 This book is dedicated to familiarizing you with the Dojo engine and the potential of Provable games. A special section on the [Theory](./theory/autonomous-worlds.md) elucidates this emergent concept of autonomous worlds and Provable games.
 
+- [Quickstart](./getting-started/quick-start.md)
+- [What is Dojo? ](./theory/what-is-dojo.md)
+- [Explore the Architecture](./cairo/hello-dojo.md)
+
 
 ### Explainer
 
