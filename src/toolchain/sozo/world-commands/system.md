@@ -22,6 +22,11 @@ Get the class hash of a system
 sozo system get <NAME>
 ```
 
+##### Arguments
+
+_`NAME`_  
+&nbsp;&nbsp;&nbsp;&nbsp;The name of the system
+
 #### `dependency`
 
 Retrieve the component dependencies of a system
