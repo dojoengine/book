@@ -12,7 +12,7 @@ Every time a `set!` is called in a `System`, the world checks if the `System` ha
 
 ### Providing Authorization
 
-> It is essential to remember that the deployer of the Component is its owner, and only they can authorize Systems to update the Component.
+> The deployer of the Component is its initial owner. A Component owner is able to grant the `owner` and `writer` roles. Only owners can grant a System the `writer` role which allows it to update the Component.
 
 `sozo` offers a convenient tool to authorize systems.
 
