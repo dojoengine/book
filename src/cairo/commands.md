@@ -20,7 +20,7 @@ The `get!` command is used to retrieve components from the world state.
 Use it like this:
 
 ```rust,ignore
-let (mut position, mut moves) = get !(ctx.world, ctx.origin, (Position, Moves));
+let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));
 ```
 
 Here we are retrieving the `Position` and `Moves` components from the world state. We are also using the `ctx.origin` to retrieve the components for the current entity.
