@@ -60,6 +60,6 @@ sozo system get spawn
 
 2. Get the component dependencies of the _spawn_ system
 
-```
+```sh
 sozo system dependency spawn
 ```

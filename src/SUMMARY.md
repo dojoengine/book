@@ -62,14 +62,14 @@
 # Tutorial
 
 -   [Onchain Chess](./tutorial/README.md)
-    -   [Part 1: Hello World](./tutorial/part-1.md)
+    <!-- -   [Part 1: Hello World](./tutorial/part-1.md)
     -   [Part 2: Components](./tutorial/part-2.md)
     -   [Part 3: Systems](./tutorial/part-3.md)
     -   [Part 4: Commands](./tutorial/part-4.md)
     -   [Part 5: Storage](./tutorial/part-5.md)
     -   [Part 6: Testing](./tutorial/part-6.md)
     -   [Part 7: Building](./tutorial/part-7.md)
-    -   [Part 8: Deploying](./tutorial/part-8.md)
+    -   [Part 8: Deploying](./tutorial/part-8.md) -->
 
 ---
 
