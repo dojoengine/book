@@ -1,9 +1,9 @@
 [book]
-authors = ["Tarrence van As", "Pondering Democritus", "Sylve Chevet"]
+authors = ["Tarrence van As", "Loaf", "Sylve Chevet"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Building Autonomous Worlds with Dojo"
+title = "Dojo: The Provable Game Engine"
 
 [build]
 extra-watch-dirs = ["po"]
@@ -18,4 +18,4 @@ no-section-label = true
 
 [output.html.fold]
 enable = true
-level = 1
+level = 0
