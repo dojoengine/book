@@ -44,7 +44,7 @@ set !(ctx.world, (
 ));
 
 // If the structs are already defined it can also be written as:
-set !(ctx.world, (moves, position));
+set!(ctx.world, (moves, position));
 ```
 
 Here we are updating the `Moves` and `Position` components in the world state using the `ctx.origin` as the entity id.
