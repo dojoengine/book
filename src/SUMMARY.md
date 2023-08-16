@@ -1,6 +1,6 @@
 # Summary
 
--   [Foreward](./README.md)
+-   [Foreword](./README.md)
     -   [What is Dojo?](./theory/what-is-dojo.md)
     -   [AW Theory](./theory/autonomous-worlds.md)
     -   [Cairo Ecosystem](./theory/cairo.md)
