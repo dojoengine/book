@@ -109,10 +109,14 @@ Now lets look at the next line:
 let position = get!(ctx.world, ctx.origin, (Position));
 ```
 
-Here we use `get!` [command](./commands.md) to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` is the address of the caller. It will return:
+Here we use `get!` [command](./commands.md) to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` is the address of the caller. When called for the first time, it will return:
 
 ```rust,ignore
-Moves { remaining: 10 }
+Position {
+  player: 0x0, // zero address
+  x: 0,
+  y: 0
+}
 ```
 
 Now the next line:
