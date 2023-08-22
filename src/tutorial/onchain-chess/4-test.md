@@ -187,9 +187,9 @@ Let's check if a White pawn is at (0,1). Remember, to get a piece that exists on
         let a2 = get!(world, (game_id, 0, 1), (Square));
         match a2.piece {
             Option::Some(piece) => {
-                assert(piece == PieceType::WhitePawn, 'should be White Pawn in (0,1)');
+                assert(piece == PieceType::WhitePawn, 'should be White Pawn in (0,1));
             },
-            Option::None(_) => assert(false, 'should have piece in (0,1)'),
+            Option::None(_) => assert(false, 'should have piece in (0,1)),
         };
 ```
 
