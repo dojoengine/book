@@ -10,7 +10,8 @@ Dojo aspires to be the go-to tool for building provable games. It is radically o
 
 Dojo's suite of tools takes the infrastructure complexity out of building on-chain games. It includes:
 
-### Entity Component System (ECS) 
+### Entity Component System (ECS)
+
 Dojo offers a standardized approach to building games on smart contracts. Recognizing the intricacies of game design, Dojo simplifies the development process, allowing creators to focus on gameplay logic. This standardization paves the way for an interconnected network of worlds, streamlining developer expertise and promoting game integration.
 
 Utilizing the ECS (Entity Component System) as its core architecture, Dojo effectively manages the state and behavior of Autonomous Worlds (AWs). This model revolves around systems acting on entities, which are collections of pure data components. Systems efficiently determine which entities to process based on persistent queries over these components.
@@ -24,12 +25,21 @@ Building on-chain games often involves grappling with the challenge of indexing 
 Using Torii drastically reduces the time and effort required to build on-chain games. It also eliminates the need to manually create indexers, which can be a tedious and error-prone process.
 
 ### [Katana](/crates/katana/README.md) - Blazingly fast development network
-Katana is a customizable StarkNet development network. It is blazingly fast and allows you to iterate on your game logic swiftly. 
+
+Katana is a customizable StarkNet development network. It is blazingly fast and allows you to iterate on your game logic swiftly.
 
 ### [Sozo CLI](/crates/sozo/README.md) - CLI Management Tool
-Dojo worlds are poised to become some of the largest contracts. Sozo is a CLI tool that assists you in managing your worlds. It enables you to create, build, test, and deploy your worlds. Additionally, you can craft new components and systems and register them with your world.
 
+Dojo worlds are poised to become some of the largest contracts. Sozo is a CLI tool that assists you in managing your worlds. It enables you to create, build, test, and deploy your worlds. Additionally, you can craft new components and systems and register them with your world.
 
 ### What Dojo doesn't give you
 
-1. Visual graphics - While Dojo provides networking and contracts, it doesn't offer graphical engines. You can bring your graphics of choice! Integrate your Dojo world with Unreal, Godot, or Unity. 
+1. Visual graphics - While Dojo provides networking and contracts, it doesn't offer graphical engines. You can bring your graphics of choice! Integrate your Dojo world with Unreal, Godot, or Unity.
+
+## Understanding the Dojo Workflow: A Visual Guide
+
+To help you understand how `Sozo` works, we've created a visual guide that outlines the flow of execution using the powerful sozo tool and the katana development network.
+
+This visual representation will help you grasp the fundamental steps of working with Dojo, guiding you through the process of creating and managing your on-chain games.
+
+![Dojo Sozo Workflow](../images/dojo-sozo-workflow.jpg)
