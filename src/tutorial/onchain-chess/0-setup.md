@@ -195,7 +195,7 @@ Before you move on, add more components so we can use them in the next chapter w
 - `Color` enum enum with values White and Black
 - `Game` component:
 
-```
+```rust,ignore
     game_id: felt252,
     winner: Option<Color>,
     white: ContractAddress,
@@ -204,7 +204,7 @@ Before you move on, add more components so we can use them in the next chapter w
 
 - `GameTurn` component:
 
-```
+```rust,ignore
     game_id: felt252,
     turn: Color
 ```
