@@ -21,7 +21,7 @@ Before we get to the code, set up your integration test like this:
 
 ## Full Code
 
-```rust
+```rust,ignore
 #[cfg(test)]
 mod tests {
     use starknet::ContractAddress;
@@ -144,14 +144,14 @@ mod tests {
 
 First, we'll set up the players and their colors.
 
-```rust
+```rust,ignore
    let white = starknet::contract_address_const::<0x01>();
    let black = starknet::contract_address_const::<0x02>();
 ```
 
 We should list both Components and Systems in arrays, with each having CLASS_HASH as elements.
 
-```rust
+```rust,ignore
 // components
 let mut components = array::ArrayTrait::new();
 components.append(game::TEST_CLASS_HASH);
@@ -166,13 +166,13 @@ systems.append(move_system::TEST_CLASS_HASH);
 
 Next, we'll create our game world.
 
-```rust
+```rust,ignore
      let world = spawn_test_world(components, systems);
 ```
 
 We use `initiate_system` to put our Square pieces on the board. Each Square holds a piece. The system's execute function needs some input, which we give it as calldata.
 
-```rust
+```rust,ignore
         // initiate
         let mut calldata = array::ArrayTrait::<core::felt252>::new();
         calldata.append(white.into());
@@ -195,7 +195,7 @@ Let's check if a White pawn is at (0,1). Remember, to get a piece that exists on
 
 After setting up the board, use `move_system` to make moves. Provide the current position, the next position, the player's address, and the game id.
 
-```rust
+```rust,ignore
  //Move White Pawn to (0,3)
         let mut move_calldata = array::ArrayTrait::<core::felt252>::new();
         move_calldata.append(0);

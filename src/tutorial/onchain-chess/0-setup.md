@@ -83,7 +83,7 @@ Create a `systems` folder at `src`. Create `initiate.cairo`and `move.cairo` two 
 
 For example, `initiate.cairo` look like this:
 
-```rust
+```rust,ignore
 #[system]
 mod initiate_system {
 
@@ -92,7 +92,7 @@ mod initiate_system {
 
 and in `systems.cairo` we will use `initiate_system` like this:
 
-```rust
+```rust,ignore
 mod initiate;
 
 use initiate::initiate_system;
@@ -100,7 +100,7 @@ use initiate::initiate_system;
 
 Do the same with the other systems. Update `systems.cairo` to:
 
-```rust
+```rust,ignore
 mod initiate;
 mod move;
 
