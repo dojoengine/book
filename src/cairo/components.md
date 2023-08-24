@@ -143,7 +143,7 @@ struct Counter {
 }
 ```
 
-So the Human will have a `Potions`, `Health` and `Potions` component, and the Goblin will have a `Health` and `Position` component. By doing we save having to create Health and Position components for each entity type.
+So the Human will have a `Potions`, `Health` and `Position` component, and the Goblin will have a `Health` and `Position` component. By doing we save having to create Health and Position components for each entity type.
 
 So then a system would look like this:
 
