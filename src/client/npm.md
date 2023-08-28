@@ -13,7 +13,7 @@ This is the lowest level library, and is used by all other downstream libraries.
 
 [Documentation](./npm/core.md)
 
-```
+```console
 yarn add @dojoengine/core
 ```
 
@@ -25,7 +25,7 @@ This library contains a set of React components that can be used when building R
 
 [Documentation](./npm/react.md)
 
-```
+```console
 yarn add @dojoengine/react
 ```
 
@@ -36,7 +36,7 @@ Create burner is a simply way to incorporate burner wallets into your Dojo app.
 
 [Reopsitory](https://github.com/dojoengine/create-burner)
 
-```
+```console
 yarn add @dojoengine/create-burner
 ```
 
