@@ -35,6 +35,12 @@
     -   [ERC1155]()
     -   [DeFi]()
 
+# Client SDKs
+
+-   [Overview](./client/overview.md)
+-   [JS](./client/npm.md)
+    - [Core](./client/npm/core.md)
+
 # Toolchain
 
 -   [Dojoup](./toolchain/dojoup.md)
