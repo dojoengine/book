@@ -59,6 +59,7 @@
 -   [Katana](./toolchain/katana/overview.md)
     -   [Reference](./toolchain/katana/reference.md)
 -   [Torii](./toolchain/torii/overview.md)
+    -   [Reference](./toolchain/torii/reference.md)
 
 # Deploying
 
