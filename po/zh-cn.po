@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Building Autonomous Worlds with Dojo\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-15 14:40+0900\n"
+"PO-Revision-Date: 2023-09-15 22:41+0900\n"
 "Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
 "Language-Team: Language zh-cn\n"
 "Language: zh_CN\n"
@@ -3965,7 +3965,6 @@ msgid "### Examples using these:"
 msgstr "### 使用的例子："
 
 #: src/client/npm.md:7
-#, fuzzy
 msgid ""
 "- [Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-"
 "app)\n"
@@ -3976,12 +3975,10 @@ msgstr ""
 "- [Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
 
 #: src/client/npm.md:10
-#, fuzzy
 msgid "### @dojoengine/core"
-msgstr "### 容器"
+msgstr "### @dojoengine/core"
 
 #: src/client/npm.md:12
-#, fuzzy
 msgid ""
 "This is the lowest level library, and is used by all other downstream "
 "libraries. It contains the core functionality of Dojo and exposes the "
@@ -3992,28 +3989,24 @@ msgstr ""
 "口。如果您想在 Dojo 的基础上构建自己的库，请使用它。"
 
 #: src/client/npm.md:14
-#, fuzzy
 msgid "[Documentation](./npm/core.md)"
 msgstr "[文档](./npm/core.md)"
 
 #: src/client/npm.md:16 src/client/npm/core.md:12
-#, fuzzy
 msgid ""
 "```console\n"
 "yarn add @dojoengine/core\n"
 "```"
 msgstr ""
-"控制台\n"
+"```console\n"
 "yarn add @dojoengine/core\n"
 "```"
 
 #: src/client/npm.md:20
-#, fuzzy
 msgid "### @dojoengine/react"
 msgstr "### @dojoengine/react"
 
 #: src/client/npm.md:22
-#, fuzzy
 msgid ""
 "This is a direct fork of [Mud React](https://github.com/latticexyz/mud/tree/"
 "main/packages)"
@@ -4022,63 +4015,54 @@ msgstr ""
 "接分叉"
 
 #: src/client/npm.md:24
-#, fuzzy
 msgid ""
 "This library contains a set of React components that can be used when "
 "building React apps using Dojo."
 msgstr "该库包含一组 React 组件，可用于使用 Dojo 构建 React 应用程序。"
 
 #: src/client/npm.md:26
-#, fuzzy
 msgid "[Documentation](./npm/react.md)"
 msgstr "[文档](./npm/react.md)"
 
 #: src/client/npm.md:28
-#, fuzzy
 msgid ""
 "```console\n"
 "yarn add @dojoengine/react\n"
 "```"
 msgstr ""
-"控制台\n"
+"```console\n"
 "yarn add @dojoengine/react\n"
 "```"
 
 #: src/client/npm.md:33
-#, fuzzy
 msgid "### @dojoengine/create-burner"
 msgstr "### @dojoengine/create-burner"
 
 #: src/client/npm.md:35
-#, fuzzy
 msgid ""
 "Create burner is a simply way to incorporate burner wallets into your Dojo "
 "app."
-msgstr "创建刻录机是将刻录机钱包集成到 Dojo 应用程序中的简单方法。"
+msgstr "Create burner 是将burner钱包集成到 Dojo 应用程序中的简单方法。"
 
 #: src/client/npm.md:37
-#, fuzzy
 msgid "[Reopsitory](https://github.com/dojoengine/create-burner)"
 msgstr "[Reopsitory](https://github.com/dojoengine/create-burner)"
 
 #: src/client/npm.md:39
-#, fuzzy
 msgid ""
 "```console\n"
 "yarn add @dojoengine/create-burner\n"
 "```"
 msgstr ""
-"控制台\n"
+"```console\n"
 "yarn add @dojoengine/create-burner\n"
 "```"
 
 #: src/client/npm/core.md:1
-#, fuzzy
 msgid "## @dojoengine/core"
 msgstr "## @dojoengine/core"
 
 #: src/client/npm/core.md:3
-#, fuzzy
 msgid ""
 "This library abstracts away the world interface and provides a set of helper "
 "functions to interact with the world. It is preferred to use this library "
@@ -4088,7 +4072,6 @@ msgstr ""
 "我们更倾向于使用该库。"
 
 #: src/client/npm/core.md:5
-#, fuzzy
 msgid ""
 "- World explorers\n"
 "- World deployers\n"
@@ -4098,20 +4081,17 @@ msgstr ""
 "- 世界探索者\n"
 "- 世界部署者\n"
 "- 游戏\n"
-"- 文学"
+"- 分析"
 
 #: src/client/npm/core.md:10
-#, fuzzy
 msgid "### Getting Started"
-msgstr "# 入门"
+msgstr "### 开始"
 
 #: src/client/npm/core.md:16
-#, fuzzy
 msgid "### Example Usage"
-msgstr "### 使用方法"
+msgstr "### 使用示例"
 
 #: src/client/npm/core.md:18
-#, fuzzy
 msgid ""
 "This is an example from [Dojo React App](https://github.com/dojoengine/dojo-"
 "starter-react-app)"
@@ -4120,7 +4100,6 @@ msgstr ""
 "app)。"
 
 #: src/client/npm/core.md:20
-#, fuzzy
 msgid ""
 "```javascript\n"
 "import { defineContractComponents } from \"./contractComponents\";\n"
@@ -4156,66 +4135,59 @@ msgid ""
 "```"
 msgstr ""
 "```javascript\n"
-"导入 { defineContractComponents }从 \"./contractComponents\"；\n"
-"import { world } from \"./world\"；\n"
-"import { RPCProvider, Query, } from \"@dojoengine/core\"；\n"
-"import { Account, num } from \"starknet\"；\n"
-"import { GraphQLClient } from \"graphql-request\"；\n"
-"import { getSdk } from '../generated/graphql'；\n"
+"import { defineContractComponents } from \"./contractComponents\";\n"
+"import { world } from \"./world\";\n"
+"import { RPCProvider, Query, } from \"@dojoengine/core\";\n"
+"import { Account, num } from \"starknet\";\n"
+"import { GraphQLClient } from 'graphql-request';\n"
+"import { getSdk } from '../generated/graphql';\n"
 "\n"
-"export type SetupNetworkResult = Awaited&lt;ReturnType<typeof "
-"setupNetwork>&gt;；\n"
+"export type SetupNetworkResult = Awaited<ReturnType<typeof setupNetwork>>;\n"
 "\n"
 "export async function setupNetwork() {\n"
 "\n"
 "    const provider = new RPCProvider(import.meta.env."
-"VITE_PUBLIC_WORLD_ADDRESS, import.meta.env.VITE_PUBLIC_NODE_URL)；\n"
+"VITE_PUBLIC_WORLD_ADDRESS, import.meta.env.VITE_PUBLIC_NODE_URL);\n"
 "\n"
-"    返回 {\n"
-"        contractComponents: defineContractComponents(world)、\n"
-"        提供者、\n"
+"    return {\n"
+"        contractComponents: defineContractComponents(world),\n"
+"        provider,\n"
 "        execute: async (signer: Account, system: string, call_data: num."
-"BigNumberish[]) =&gt; provider.execute(signer, system, call_data)、\n"
-"        entity: async (component: string, query: Query) =&gt; provider."
-"entity(component, query)、\n"
-"        entities: async (component: string, partition: number) =&gt; "
-"provider.entities(component, partition)、\n"
-"        世界、\n"
+"BigNumberish[]) => provider.execute(signer, system, call_data),\n"
+"        entity: async (component: string, query: Query) => provider."
+"entity(component, query),\n"
+"        entities: async (component: string, partition: number) => provider."
+"entities(component, partition),\n"
+"        world,\n"
 "        graphSdk: getSdk(new GraphQLClient(import.meta.env."
-"VITE_PUBLIC_TORII))、\n"
-"        call: async (selector: string, call_data: num.BigNumberish[]) =&gt; "
-"provider.call(selector, call_data)、\n"
+"VITE_PUBLIC_TORII)),\n"
+"        call: async (selector: string, call_data: num.BigNumberish[]) => "
+"provider.call(selector, call_data),\n"
 "    };\n"
 "}\n"
 "```"
 
 #: src/toolchain/dojoup.md:1
-#, fuzzy
 msgid "# `dojoup`"
-msgstr "### 使用 Dojoup"
+msgstr "# `dojoup`"
 
 #: src/toolchain/dojoup.md:3
-#, fuzzy
 msgid "Update or revert to a specific Dojo branch with ease."
 msgstr "轻松更新或还原到特定的 Dojo 分支。"
 
 #: src/toolchain/dojoup.md:5
-#, fuzzy
 msgid "## Installing"
-msgstr "# 附录 F：安装Cairo二进制文件"
+msgstr "## 安装"
 
 #: src/toolchain/dojoup.md:11
-#, fuzzy
 msgid "## Usage"
-msgstr "### 使用方法"
+msgstr "## 使用方法"
 
 #: src/toolchain/dojoup.md:13
-#, fuzzy
 msgid "To install latest **stable** version:"
 msgstr "安装最新的**稳定**版本："
 
 #: src/toolchain/dojoup.md:18
-#, fuzzy
 msgid ""
 "> Note: You may have to install `jq` to use `dojoup`. You can do so with the "
 "following commands:"
@@ -4223,7 +4195,6 @@ msgstr ""
 "> 注意：您可能需要安装 `jq` 才能使用 `dojoup`。您可以使用以下命令进行安装："
 
 #: src/toolchain/dojoup.md:20
-#, fuzzy
 msgid ""
 "```sh   \n"
 "# Debian\n"
@@ -4233,7 +4204,7 @@ msgid ""
 "brew install jq\n"
 "```"
 msgstr ""
-"```sh\n"
+"```sh   \n"
 "# Debian\n"
 "sudo apt-get install jq\n"
 "\n"
@@ -4242,12 +4213,10 @@ msgstr ""
 "```"
 
 #: src/toolchain/dojoup.md:28
-#, fuzzy
 msgid "To install a specific **version** (in this case the `nightly` version):"
 msgstr "安装特定**版本**（此处为 \"nightly \"版本）："
 
 #: src/toolchain/dojoup.md:30
-#, fuzzy
 msgid ""
 "```sh\n"
 "dojoup --version nightly\n"
@@ -4258,71 +4227,60 @@ msgstr ""
 "```"
 
 #: src/toolchain/dojoup.md:34
-#, fuzzy
 msgid ""
 "To install a specific **branch** (in this case the `release/0.1.0` branch's "
 "latest commit):"
 msgstr "安装特定的**分支**（在本例中为 `release/0.1.0` 分支的最新提交）："
 
 #: src/toolchain/dojoup.md:36
-#, fuzzy
 msgid ""
 "```sh\n"
 "dojoup --branch release/0.1.0\n"
 "```"
 msgstr ""
 "```sh\n"
-"dojoup --branch master\n"
-"dojoup --path path/to/dojo\n"
+"dojoup --branch release/0.1.0\n"
 "```"
 
 #: src/toolchain/dojoup.md:40
-#, fuzzy
 msgid ""
 "To install a **fork's main branch** (in this case `tarrencev/dojo`'s main "
 "branch):"
 msgstr "安装**分叉的主分支**（本例中为 `tarrencev/dojo` 的主分支）："
 
 #: src/toolchain/dojoup.md:42
-#, fuzzy
 msgid ""
 "```sh\n"
 "dojoup --repo tarrencev/dojo\n"
 "```"
 msgstr ""
 "```sh\n"
-"dojoup --branch master\n"
-"dojoup --path path/to/dojo\n"
+"dojoup --repo tarrencev/dojo\n"
 "```"
 
 #: src/toolchain/dojoup.md:46
-#, fuzzy
 msgid ""
 "To install a **specific branch in a fork** (in this case the `patch-10` "
 "branch's latest commit in `tarrencev/dojo`):"
 msgstr ""
-"安装分叉中的**个特定分支**（在本例中，安装`tarrencev/dojo`中`patch-10`分支的"
-"最新提交）："
+"安装分叉中的**特定分支**（在本例中，安装`tarrencev/dojo`中`patch-10`分支的最"
+"新提交）："
 
 #: src/toolchain/dojoup.md:48
-#, fuzzy
 msgid ""
 "```sh\n"
 "dojoup --repo tarrencev/dojo --branch patch-10\n"
 "```"
 msgstr ""
 "```sh\n"
-"dojoup --branch master\n"
-"dojoup --path path/to/dojo\n"
+"dojoup --repo tarrencev/dojo --branch patch-10\n"
 "```"
 
 #: src/toolchain/dojoup.md:52
-#, fuzzy
 msgid "To install from a **specific Pull Request**:"
-msgstr "从**特定的拉取请求**进行安装："
+msgstr "从**特定的Pull Request**进行安装："
 
 #: src/toolchain/dojoup.md:54
-#, fuzzy
 msgid ""
 "```sh\n"
 "dojoup --pr 1071\n"
@@ -4333,12 +4291,10 @@ msgstr ""
 "```"
 
 #: src/toolchain/dojoup.md:58
-#, fuzzy
 msgid "To install from a **specific commit**:"
 msgstr "从**特定提交**进行安装："
 
 #: src/toolchain/dojoup.md:60
-#, fuzzy
 msgid ""
 "```sh\n"
 "dojoup -C 94bfdb2\n"
@@ -4349,7 +4305,6 @@ msgstr ""
 "```"
 
 #: src/toolchain/dojoup.md:64
-#, fuzzy
 msgid ""
 "To install a local directory or repository (e.g. one located at `~/git/"
 "dojo`, assuming you're in the home directory)"
@@ -4357,31 +4312,28 @@ msgstr ""
 "安装本地目录或版本库（例如位于 `~/git/dojo` 的版本库，假设您在主目录下）"
 
 #: src/toolchain/dojoup.md:66
-#, fuzzy
 msgid ""
 "##### Note: --branch, --repo, and --version flags are ignored during local "
 "installations."
-msgstr "##### 注意：本地安装时，--branch、--repo 和--version 标志将被忽略。"
+msgstr "##### 注意：本地安装时，--branch、--repo 和--version 标识符将被忽略。"
 
 #: src/toolchain/dojoup.md:68
-#, fuzzy
 msgid ""
 "```sh\n"
 "dojoup --path ./git/dojo\n"
 "```"
 msgstr ""
 "```sh\n"
-"dojoup --branch master\n"
-"dojoup --path path/to/dojo\n"
+"dojoup --path ./git/dojo\n"
 "```"
 
 #: src/toolchain/dojoup.md:74
-#, fuzzy
 msgid ""
 "**Tip**: All flags have a single character shorthand equivalent! You can use "
 "`-v` instead of `--version`, etc."
 msgstr ""
-"**提示**：所有标志都有对应的单字符速记！您可以使用 `-v` 代替 `--version` 等。"
+"**提示**：所有标识符都有对应的单字符缩写！您可以使用 `-v` 代替 `--version` "
+"等。"
 
 #: src/toolchain/dojoup.md:78
 msgid "### Precompiled binaries"
@@ -4415,12 +4367,10 @@ msgstr ""
 "> 因为 Dojoup 目前不支持 Powershell 或 Cmd。"
 
 #: src/toolchain/sozo/overview.md:1
-#, fuzzy
 msgid "## Sozo"
-msgstr "# Sozo"
+msgstr "## Sozo"
 
 #: src/toolchain/sozo/overview.md:3
-#, fuzzy
 msgid ""
 "`sozo` is a powerful all-in-one tool for managing your Dojo projects. It "
 "helps with everything from scaffolding a new project, all the way to "
@@ -4430,9 +4380,11 @@ msgid ""
 "management tasks, enabling you to focus on the creative aspects of World-"
 "building. In the future, it may include a GUI."
 msgstr ""
-"`sozo`（译者注：sozo是日文“創造”的罗马字） 是一款功能强大的迁移规划工具，旨在"
-"简化 AW 的更新和部署。它提供了一个强大的二进制命令行界面（CLI），可简化世界管"
-"理任务，使您能够专注于世界构建的创意方面。未来版本将提供图形用户界面。"
+"`sozo`（译者注：sozo是日文“創造”的罗马字） 是一款功能强大的多合一工具，用于管"
+"理 Dojo 项目。从搭建新项目的脚手架，一直到部署和与 Dojo Worlds 交互，它都能提"
+"供帮助。它包括一个迁移规划工具，旨在简化 AW 的更新和部署。它提供了一个强大的"
+"命令行界面（CLI），可简化世界管理任务，让您专注于世界构建的创意方面。将来，它"
+"还可能包括图形用户界面。"
 
 #: src/toolchain/sozo/overview.md:5
 msgid "## Features"
@@ -4453,20 +4405,18 @@ msgid "## Installation"
 msgstr "## 安装"
 
 #: src/toolchain/sozo/overview.md:11
-#, fuzzy
 msgid ""
 "`sozo` binary can be installed via [`dojoup`](../../getting-started/quick-"
 "start.md), our dedicated installation package manager."
 msgstr ""
-"你可以通过我们专用的安装包管理器 [`dojoup`]（.../.../getting-started/"
-"installation.md#using-dojoup）安装 `sozo` 二进制文件。"
+"`sozo` 二进制文件可通过 [`dojoup`]（../../getting-started/quick-start.md）安"
+"装，这是我们专用的安装包管理器。"
 
 #: src/toolchain/sozo/overview.md:13 src/toolchain/torii/overview.md:18
 msgid "### Installing from Source"
 msgstr "### 从源码安装"
 
 #: src/toolchain/sozo/overview.md:15
-#, fuzzy
 msgid ""
 "```sh\n"
 "git clone https://github.com/dojoengine/dojo\n"
@@ -4474,10 +4424,10 @@ msgid ""
 "cargo install --path ./crates/sozo --locked --force\n"
 "```"
 msgstr ""
-"```bash\n"
+"```sh\n"
 "git clone https://github.com/dojoengine/dojo\n"
 "cd dojo\n"
-"cargo install --path ./crates/katana --locked --force\n"
+"cargo install --path ./crates/sozo --locked --force\n"
 "```"
 
 #: src/toolchain/sozo/overview.md:21
@@ -4486,7 +4436,6 @@ msgid ""
 msgstr "这将在本地系统中安装 Sozo 和所需的依赖项。"
 
 #: src/toolchain/sozo/overview.md:23
-#, fuzzy
 msgid ""
 "> 📚 **Reference**\n"
 ">\n"
@@ -4495,21 +4444,17 @@ msgid ""
 msgstr ""
 "> 📚 **参考资料**\n"
 ">\n"
-"> 请参阅 [`sozo`参考资料]（../../reference/sozo/），了解所有可用子命令的完整"
-"概览。"
+"> 关于所有可用子命令的完整概述，请参阅 [`sozo`参考资料](./reference.md)。"
 
 #: src/toolchain/sozo/reference.md:1
-#, fuzzy
 msgid "## sozo reference"
-msgstr "## 参考文献"
+msgstr "## sozo 参考资料"
 
 #: src/toolchain/sozo/reference.md:3
-#, fuzzy
 msgid "### Project Commands"
-msgstr "## 项目命令"
+msgstr "### 项目命令"
 
 #: src/toolchain/sozo/reference.md:5
-#, fuzzy
 msgid ""
 "-   [init](./project-commands/init.md)\n"
 "-   [build](./project-commands/build.md)\n"
@@ -4518,16 +4463,14 @@ msgid ""
 msgstr ""
 "-   [init](./project-commands/init.md)\n"
 "-   [build](./project-commands/build.md)\n"
-"-   [测试](./project-commands/test.md)\n"
-"-   [迁移](./project-commands/migrate.md)"
+"-   [test](./project-commands/test.md)\n"
+"-   [migrate](./project-commands/migrate.md)"
 
 #: src/toolchain/sozo/reference.md:10
-#, fuzzy
 msgid "### World Commands"
-msgstr "## 世界命令"
+msgstr "#### 世界命令"
 
 #: src/toolchain/sozo/reference.md:12
-#, fuzzy
 msgid ""
 "-   [execute](./world-commands/execute.md)\n"
 "-   [register](./world-commands/register.md)\n"
@@ -4538,18 +4481,16 @@ msgid ""
 msgstr ""
 "-   [execute](./world-commands/execute.md)\n"
 "-   [register](./world-commands/register.md)\n"
-"-   [系统](./world-commands/system.md)\n"
-"-   [组件](./world-commands/component.md)\n"
+"-   [system](./world-commands/system.md)\n"
+"-   [component](./world-commands/component.md)\n"
 "-   [events](./world-commands/events.md)\n"
 "-   [auth](./world-commands/auth.md)"
 
 #: src/toolchain/sozo/project-commands/init.md:1
-#, fuzzy
 msgid "## sozo init"
-msgstr "## sozo中的命令"
+msgstr "## sozo init"
 
 #: src/toolchain/sozo/project-commands/init.md:3
-#, fuzzy
 msgid ""
 "`init` is used to initialize a new project. It will initialize a new project "
 "in the current directory by cloning the [dojo-starter](https://github.com/"
@@ -4560,7 +4501,6 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/init.md:5
 #: src/tutorial/onchain-chess/0-setup.md:21
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo init\n"
@@ -4571,67 +4511,58 @@ msgstr ""
 "```"
 
 #: src/toolchain/sozo/project-commands/build.md:1
-#, fuzzy
 msgid "## sozo build"
-msgstr "## sozo中的命令"
+msgstr "## sozo build"
 
 #: src/toolchain/sozo/project-commands/build.md:3
-#, fuzzy
 msgid ""
 "`build` is used to compile the cairo contracts, generating the necessary "
 "artifacts for deployment."
-msgstr "build \"用于编译 cairo 合约，生成部署所需的工件。"
+msgstr "`build` 用于编译 cairo 合约，生成部署所需的构件。"
 
 #: src/toolchain/sozo/project-commands/build.md:5
 #: src/tutorial/onchain-chess/0-setup.md:38
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo build\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo构建\n"
+"```sh\n"
+"sozo build\n"
 "```"
 
 #: src/toolchain/sozo/project-commands/test.md:1
-#, fuzzy
 msgid "## sozo test"
-msgstr "## sozo中的命令"
+msgstr "## sozo test"
 
 #: src/toolchain/sozo/project-commands/test.md:3
-#, fuzzy
 msgid ""
 "`test` is used to test the project's cairo contracts. It will run all tests "
 "found within the project."
-msgstr "test \"用于测试项目的开罗合同。它将运行项目中的所有测试。"
+msgstr "`test`用于测试项目的Cairo合约。它将运行项目中的所有测试。"
 
 #: src/toolchain/sozo/project-commands/test.md:5
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo test\n"
 "```"
 msgstr ""
-"```bash\n"
-"vsce package\n"
+"```sh\n"
+"sozo test\n"
 "```"
 
 #: src/toolchain/sozo/project-commands/migrate.md:1
-#, fuzzy
 msgid "## sozo migrate"
-msgstr "## sozo中的命令"
+msgstr "## sozo migrate"
 
 #: src/toolchain/sozo/project-commands/migrate.md:3
-#, fuzzy
 msgid ""
 "`migrate` is used to perform the migration (deployment) process, declaring "
 "and deploying contracts as necessary to deploy or update the World."
 msgstr ""
-"migrate \"用于执行迁移（部署）流程，根据部署或更新世界的需要声明和部署合约。"
+"`migrate`用于执行迁移（部署）流程，根据部署或更新世界的需要声明和部署合约。"
 
 #: src/toolchain/sozo/project-commands/migrate.md:5
-#, fuzzy
 msgid ""
 "Changes made to the local World after the initial deployment, can easily be "
 "pushed to the remote counterpart by running `sozo migrate --world "
@@ -4650,19 +4581,17 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/system.md:5
 #: src/toolchain/sozo/world-commands/component.md:5
 #: src/toolchain/katana/reference.md:7 src/toolchain/torii/reference.md:7
-#, fuzzy
 msgid "### USAGE"
-msgstr "### 使用方法"
+msgstr "### 用例"
 
 #: src/toolchain/sozo/project-commands/migrate.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo migrate [OPTIONS]\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo migrate [OPTIONS］\n"
+"```sh\n"
+"sozo migrate [OPTIONS]\n"
 "```"
 
 #: src/toolchain/sozo/project-commands/migrate.md:13
@@ -4680,7 +4609,6 @@ msgid "#### General Options"
 msgstr "#### 常规选项"
 
 #: src/toolchain/sozo/project-commands/migrate.md:17
-#, fuzzy
 msgid ""
 "`--name` _NAME_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;Name of the World. At the moment, the only usage for "
@@ -4688,31 +4616,30 @@ msgid ""
 "avoid address conflicts. This option is **required** when performing the "
 "initial migration of the World."
 msgstr ""
-"`--name` _NAME_\n"
-"    世界的名称。目前，该选项的唯一用途是在部署 \"世界 \"合约时用作 \"盐\"，以"
-"避免地址冲突。在执行 \"世界 \"的初始迁移时，该选项是**必需的**。"
+"`--name` _NAME_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;世界的名称。目前，该选项的唯一用途是在部署 \"世界 "
+"\"合约时用作 \"盐\"，以避免地址冲突。在执行 \"世界 \"的初始迁移时，该选项是**"
+"必需的**。"
 
 #: src/toolchain/sozo/project-commands/migrate.md:20
 #: src/toolchain/sozo/world-commands/execute.md:21
 #: src/toolchain/sozo/world-commands/system.md:45
 #: src/toolchain/sozo/world-commands/component.md:63
-#, fuzzy
 msgid "#### World Options"
-msgstr "#### 常规选项"
+msgstr "#### 世界选项"
 
 #: src/toolchain/sozo/project-commands/migrate.md:22
 #: src/toolchain/sozo/world-commands/execute.md:23
 #: src/toolchain/sozo/world-commands/system.md:47
 #: src/toolchain/sozo/world-commands/component.md:65
-#, fuzzy
 msgid ""
 "`--world` _WORLD_ADDRESS_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The address of the World contract.  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_WORLD_ADDRESS`"
 msgstr ""
-"`--world` _WORLD_ADDRESS_\n"
-"    世界合约的地址。  \n"
-"    env: `dojoo_world_address `"
+"`--world` _WORLD_ADDRESS_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;世界合约的地址。  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_WORLD_ADDRESS`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:26
 #: src/toolchain/sozo/world-commands/execute.md:27
@@ -4726,81 +4653,73 @@ msgstr "#### Starknet选项"
 #: src/toolchain/sozo/world-commands/execute.md:29
 #: src/toolchain/sozo/world-commands/system.md:53
 #: src/toolchain/sozo/world-commands/component.md:71
-#, fuzzy
 msgid ""
 "`--rpc-url` _URL_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The Starknet RPC endpoint. [default: http://"
 "localhost:5050]  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `STARKNET_RPC_URL`"
 msgstr ""
-"`--rpc-url` _URL_\n"
-"    星网 RPC 端点。[默认值: http://localhost:5050]\n"
-"    env: `starknet_rpc_url`."
+"`--rpc-url` _URL_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;Starknet RPC 端点。[默认值: http://localhost:5050] \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `STARKNET_RPC_URL`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:32
 #: src/toolchain/sozo/world-commands/execute.md:33
-#, fuzzy
 msgid "#### Account Options"
-msgstr "#### Starknet选项"
+msgstr "#### 账户选项"
 
 #: src/toolchain/sozo/project-commands/migrate.md:34
 #: src/toolchain/sozo/world-commands/execute.md:35
-#, fuzzy
 msgid ""
 "`--account-address` _ACCOUNT_ADDRESS_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The Starknet account address.  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_ACCOUNT_ADDRESS`"
 msgstr ""
-"帐户地址 _ACCOUNT_ADDRESS_\n"
-"    星际网络账户地址。  \n"
-"    env: `dojo_account_address` 帳戶地址"
+"`--account-address` _ACCOUNT_ADDRESS_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;Starknet账户地址。  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_ACCOUNT_ADDRESS`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:38
 #: src/toolchain/sozo/world-commands/execute.md:39
-#, fuzzy
 msgid "#### Signer Options - Raw"
-msgstr "#### 服务器选项"
+msgstr "#### 签名者选项 - Raw"
 
 #: src/toolchain/sozo/project-commands/migrate.md:40
 #: src/toolchain/sozo/world-commands/execute.md:41
-#, fuzzy
 msgid ""
 "`--private-key` _PRIVATE_KEY_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The raw private key associated with the account "
 "contract.  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_PRIVATE_KEY`"
 msgstr ""
-"私钥 _PRIVATE_KEY_\n"
-"    与账户合同相关的原始私钥。  \n"
-"    env: `dojo_private_key`"
+"`--private-key` _PRIVATE_KEY_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;与账户合同相关的Raw私钥。  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_PRIVATE_KEY`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:44
 #: src/toolchain/sozo/world-commands/execute.md:45
-#, fuzzy
 msgid "#### Signer Options - Keystore"
-msgstr "#### 服务器选项"
+msgstr "#### 签名者选项 - Keystore"
 
 #: src/toolchain/sozo/project-commands/migrate.md:46
 #: src/toolchain/sozo/world-commands/execute.md:47
-#, fuzzy
 msgid ""
 "`--keystore` _PATH_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;Use the keystore in the given folder or file."
 msgstr ""
-"`-V, --version`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 打印版本信息"
+"`--keystore` _PATH_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;使用指定文件夹或文件中的keystore。"
 
 #: src/toolchain/sozo/project-commands/migrate.md:49
 #: src/toolchain/sozo/world-commands/execute.md:50
-#, fuzzy
 msgid ""
 "`--password` _PASSWORD_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The keystore password. Used with --keystore.  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_KEYSTORE_PASSWORD`"
 msgstr ""
-"`--password` _PASSWORD_\n"
-"    密钥存储密码。与 --keystore 一起使用。  \n"
-"    env: `dojoo_keystore_password` 钥存储密码"
+"`--password` _PASSWORD_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;keystore的密码. 需要与 --keystore 参数一起使用.  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_KEYSTORE_PASSWORD`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:53
 #: src/toolchain/sozo/world-commands/execute.md:54
@@ -4810,12 +4729,10 @@ msgid "### EXAMPLES"
 msgstr "#### 示例"
 
 #: src/toolchain/sozo/project-commands/migrate.md:55
-#, fuzzy
 msgid "1. Deploying your World for the first time to a local Katana node"
 msgstr "1.首次在本地 Katana 节点上部署你的世界"
 
 #: src/toolchain/sozo/project-commands/migrate.md:57
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo migrate --name ohayo --rpc-url http://localhost:5050\n"
@@ -4826,12 +4743,10 @@ msgstr ""
 "```"
 
 #: src/toolchain/sozo/project-commands/migrate.md:61
-#, fuzzy
 msgid "2. Updating a remote World after making some changes"
 msgstr "2.更改后更新远程世界"
 
 #: src/toolchain/sozo/project-commands/migrate.md:63
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo migrate --world 0x123456\n"
@@ -4842,89 +4757,78 @@ msgstr ""
 "```"
 
 #: src/toolchain/sozo/world-commands/execute.md:1
-#, fuzzy
 msgid "## sozo execute"
-msgstr "执行"
+msgstr "## sozo execute"
 
 #: src/toolchain/sozo/world-commands/execute.md:3
-#, fuzzy
 msgid "`execute` is used to execute a World's system."
-msgstr "执行 \"用于执行一个世界的系统。"
+msgstr "`execute` 用于执行一个世界的系统。"
 
 #: src/toolchain/sozo/world-commands/execute.md:5
-#, fuzzy
 msgid ""
 "Performing a system execution requires sending a transaction, therefore, "
 "`execute` expects an account address as well as its respective private key "
 "in order to sign the transaction before sending it."
 msgstr ""
-"执行系统需要发送事务，因此，\"执行 \"需要一个账户地址及其各自的私钥，以便在发"
-"送事务之前对其进行签名。"
+"执行系统需要发送事务，因此，`execute`需要一个账户地址及其私钥，以便在发送事务"
+"之前对其进行签名。"
 
 #: src/toolchain/sozo/world-commands/execute.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo execute <SYSTEM> [OPTIONS]\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo execute<SYSTEM> [OPTIONS]\n"
+"```sh\n"
+"sozo execute <SYSTEM> [OPTIONS]\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/execute.md:17
-#, fuzzy
 msgid ""
 "`--calldata` _CALLDATA_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The calldata to be passed to the system that you "
 "want to execute.  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;Comma seperated values e.g., 0x12345,0x69420."
 msgstr ""
-"`--calldata` _CALLDATA_\n"
-"    要传给系统执行的 calldata。  \n"
-"    以逗号分隔的值，例如 0x12345,0x69420。"
+"`--calldata` _CALLDATA_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;要传给系统执行的 calldata。  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;以逗号分隔的值，例如 0x12345,0x69420。"
 
 #: src/toolchain/sozo/world-commands/execute.md:56
-#, fuzzy
 msgid ""
 "1. Executing the _position_ system which takes two values (_x_: 0x77 and "
 "_y_: 0x44)"
-msgstr "1.执行_position_系统，该系统取两个值（_x_: 0x77 和 _y_: 0x44）"
+msgstr "1.执行 _position_ 系统，该系统取两个值（ _x_ : 0x77 和 _y_ : 0x44）"
 
 #: src/toolchain/sozo/world-commands/execute.md:58
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo execute position --calldata 0x77,0x44\n"
 "```"
 msgstr ""
-"``sh\n"
+"```sh\n"
 "sozo execute position --calldata 0x77,0x44\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/register.md:1
-#, fuzzy
 msgid "## sozo register"
-msgstr "注册"
+msgstr "## sozo register"
 
 #: src/toolchain/sozo/world-commands/register.md:3
-#, fuzzy
 msgid "`register` is used to register new systems and components."
-msgstr "注册 \"用于注册新系统和组件。"
+msgstr "`register` 用于注册新系统和组件。"
 
 #: src/toolchain/sozo/world-commands/register.md:5
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo register [OPTIONS] <COMMAND>\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo 注册 [OPTIONS]<COMMAND>\n"
+"```sh\n"
+"sozo register [OPTIONS] <COMMAND>\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/register.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "Commands:\n"
@@ -4934,14 +4838,13 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"命令：\n"
-"  component 向一个世界注册一个组件。\n"
-"  system 向一个世界注册一个系统。\n"
-"  help 打印此信息或给定子命令的帮助信息\n"
+"Commands:\n"
+"  component  Register a component to a world.\n"
+"  system     Register a system to a world.\n"
+"  help       Print this message or the help of the given subcommand(s)\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/register.md:16
-#, fuzzy
 msgid ""
 "```sh\n"
 "# example: component - register a component to a world\n"
@@ -4954,29 +4857,26 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"# 示例：组件 - 将一个组件注册到一个世界中\n"
-"# 这将向世界注册 Moves 组件\n"
-"sozo 注册组件 Moves\n"
+"# example: component - register a component to a world\n"
+"# this will register the Moves component to the world\n"
+"sozo register component Moves\n"
 "\n"
-"# 示例： system - 将一个系统注册到一个世界中\n"
-"# 这将在世界中注册生成系统\n"
+"# example: system - register a system to a world\n"
+"# this will register the spawn system to the world\n"
 "sozo register system spawn\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/system.md:1
-#, fuzzy
 msgid "## sozo system"
-msgstr "## 系统"
+msgstr "## sozo system"
 
 #: src/toolchain/sozo/world-commands/system.md:3
-#, fuzzy
 msgid ""
 "`system` is used to interact with a World's systems. It is useful for "
 "querying about a system's information."
-msgstr "系统 \"用于与世界的系统进行交互。它有助于查询系统信息。"
+msgstr "`system`用于与世界的系统进行交互。它有助于查询系统信息。"
 
 #: src/toolchain/sozo/world-commands/system.md:7
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo system <COMMAND>\n"
@@ -4987,41 +4887,35 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"sozo系统<COMMAND>\n"
+"sozo system <COMMAND>\n"
 "\n"
-"命令：\n"
-"  get 获取系统的类散列。\n"
-"  dependency 读取系统的组件依赖关系。\n"
+"Commands:\n"
+"  get         Get the class hash of a system.\n"
+"  dependency  Retrieve the component dependencies of a system.\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/system.md:15
 #: src/toolchain/sozo/world-commands/component.md:16
-#, fuzzy
 msgid "### SUBCOMMANDS"
-msgstr "#### 子命令"
+msgstr "### 子命令"
 
 #: src/toolchain/sozo/world-commands/system.md:17
 #: src/toolchain/sozo/world-commands/component.md:18
-#, fuzzy
 msgid "#### `get`"
-msgstr ""
-"`katana_predeployedAccounts`  \n"
-"获取所有预部署账户的信息"
+msgstr "#### `get`"
 
 #: src/toolchain/sozo/world-commands/system.md:19
-#, fuzzy
 msgid "Get the class hash of a system"
-msgstr "获取系统的类别哈希值"
+msgstr "获取系统的Class Hash"
 
 #: src/toolchain/sozo/world-commands/system.md:21
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo system get <NAME>\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo 系统获取<NAME>\n"
+"```sh\n"
+"sozo system get <NAME>\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/system.md:25
@@ -5029,93 +4923,76 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:26
 #: src/toolchain/sozo/world-commands/component.md:39
 #: src/toolchain/sozo/world-commands/component.md:52
-#, fuzzy
 msgid "##### Arguments"
-msgstr ""
-"以下命令将部署投票合约，并将 voter_0、voter_1 和 voter_2 注册为合格投票人。这"
-"些是构造函数参数，因此请添加一个以后可以用来投票的选民账户。"
+msgstr "##### 参数"
 
 #: src/toolchain/sozo/world-commands/system.md:27
 #: src/toolchain/sozo/world-commands/system.md:40
-#, fuzzy
 msgid ""
 "_`NAME`_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The name of the system"
 msgstr ""
-"`--host <HOST>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 服务器监听的 IP 地址"
+"_`NAME`_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;系统名称"
 
 #: src/toolchain/sozo/world-commands/system.md:30
-#, fuzzy
 msgid "#### `dependency`"
-msgstr ""
-"Scarb 支持Starknet的智能合约开发。要启用此功能，你需要在你的 `Scarb.toml` 文"
-"件中进行一些配置。\n"
-"你必须添加 `starknet`依赖关系，并添加 `[[target.starknet-contract]]` 部分以启"
-"用合约编译。"
+msgstr "#### `dependency`"
 
 #: src/toolchain/sozo/world-commands/system.md:32
-#, fuzzy
 msgid "Retrieve the component dependencies of a system"
 msgstr "检索系统的组件依赖关系"
 
 #: src/toolchain/sozo/world-commands/system.md:34
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo system dependency <NAME>\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo系统依赖<NAME>\n"
+"```sh\n"
+"sozo system dependency <NAME>\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/system.md:59
-#, fuzzy
 msgid "1. Get the class hash of the _spawn_ system"
-msgstr "1.获取_spawn_系统的类别哈希值"
+msgstr "1.获取 _spawn_ 系统的Class Hash"
 
 #: src/toolchain/sozo/world-commands/system.md:61
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo system get spawn\n"
 "```"
 msgstr ""
-"``sh\n"
+"```sh\n"
 "sozo system get spawn\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/system.md:65
-#, fuzzy
 msgid "2. Get the component dependencies of the _spawn_ system"
-msgstr "2.获取_spawn_系统的组件依赖关系"
+msgstr "2.获取 _spawn_ 系统的组件依赖关系"
 
 #: src/toolchain/sozo/world-commands/system.md:67
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo system dependency spawn\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo 系统依赖产卵\n"
+"```sh\n"
+"sozo system dependency spawn\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/component.md:1
-#, fuzzy
 msgid "## sozo component"
-msgstr "## 组件"
+msgstr "## sozo component"
 
 #: src/toolchain/sozo/world-commands/component.md:3
-#, fuzzy
 msgid ""
 "`component` is used to interact with a World's components. It is useful for "
 "querying about a component's information, or a component value of an entity."
-msgstr "组件 \"用于与世界的组件进行交互。它可用于查询组件信息或实体的组件值。"
+msgstr ""
+"`component`用于与世界的组件进行交互。它可用于查询组件信息或实体的组件值。"
 
 #: src/toolchain/sozo/world-commands/component.md:7
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo component <COMMAND>\n"
@@ -5127,148 +5004,128 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"SOZO 组件<COMMAND>\n"
+"sozo component <COMMAND>\n"
 "\n"
-"命令：\n"
-"  get 获取组件的类散列\n"
-"  schema 读取组件的 schema\n"
-"  entity 获取实体的组件值\n"
+"Commands:\n"
+"  get     Get the class hash of a component\n"
+"  schema  Retrieve the schema for a component\n"
+"  entity  Get the component value for an entity\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/component.md:20
-#, fuzzy
 msgid "Get the class hash of a component"
-msgstr "获取组件的类别哈希值"
+msgstr "获取组件的Class Hash"
 
 #: src/toolchain/sozo/world-commands/component.md:22
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo component get <NAME>\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo 组件获取<NAME>\n"
+"```sh\n"
+"sozo component get <NAME>\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/component.md:28
 #: src/toolchain/sozo/world-commands/component.md:41
-#, fuzzy
 msgid ""
 "_`NAME`_  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;The name of the component"
 msgstr ""
-"`--gas-price <GAS_PRICE>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Gas价格"
+"_`NAME`_  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;组件名称"
 
 #: src/toolchain/sozo/world-commands/component.md:31
-#, fuzzy
 msgid "#### `schema`"
 msgstr "#### `schema`"
 
 #: src/toolchain/sozo/world-commands/component.md:33
-#, fuzzy
 msgid "Retrieve the schema for a component"
-msgstr "读取组件的模式"
+msgstr "获取组件的scbema"
 
 #: src/toolchain/sozo/world-commands/component.md:35
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo component schema <NAME>\n"
 "```"
 msgstr ""
-"``sh\n"
-"sozo组件模式<NAME>\n"
+"```sh\n"
+"sozo component schema <NAME>\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/component.md:44
-#, fuzzy
 msgid "#### `entity`"
-msgstr ""
-"现在，让我们为角色创建一个 `SpawnSystem`（再生系统）。需要注意的是，我们没有"
-"在任何地方明确定义实体。相反，系统会在执行该系统时为实体分配一个主键 ID。"
+msgstr "#### `entity`"
 
 #: src/toolchain/sozo/world-commands/component.md:46
-#, fuzzy
 msgid "Get the component value for an entity"
 msgstr "获取实体的组件值"
 
 #: src/toolchain/sozo/world-commands/component.md:48
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo component entity <NAME> [KEYS]...\n"
 "```"
 msgstr ""
 "```sh\n"
-"sozo component entity<NAME> [KEYS]...\n"
+"sozo component entity <NAME> [KEYS]...\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/component.md:54
-#, fuzzy
 msgid ""
 "_`NAME`_  \n"
 " &nbsp;&nbsp;&nbsp;&nbsp;The name of the component"
 msgstr ""
-"`--gas-price <GAS_PRICE>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Gas价格"
+"_`NAME`_  \n"
+" &nbsp;&nbsp;&nbsp;&nbsp;组件名称"
 
 #: src/toolchain/sozo/world-commands/component.md:57
-#, fuzzy
 msgid ""
 "_`KEYS`_  \n"
 " &nbsp;&nbsp;&nbsp;&nbsp;The keys of the entity that you want to query.  \n"
 " &nbsp;&nbsp;&nbsp;&nbsp;Comma seperated values e.g., 0x12345,0x69420,..."
 msgstr ""
-"_`KEYS`_\n"
-"     要查询的实体的键值。  \n"
-"     以逗号分隔的值，例如：0x12345,0x69420,..."
+"_`KEYS`_  \n"
+" &nbsp;&nbsp;&nbsp;&nbsp;要查询的实体的键值。  \n"
+" &nbsp;&nbsp;&nbsp;&nbsp;以逗号分隔的值，例如：0x12345,0x69420,..."
 
 #: src/toolchain/sozo/world-commands/events.md:1
-#, fuzzy
 msgid "## sozo events"
-msgstr "## sozo中的命令"
+msgstr "## sozo events"
 
 #: src/toolchain/sozo/world-commands/events.md:3
-#, fuzzy
 msgid "`events` is used to queries world events."
-msgstr "事件 \"用于查询世界事件。"
+msgstr "`events`用于查询世界事件。"
 
 #: src/toolchain/sozo/world-commands/events.md:5
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo events\n"
 "```"
 msgstr ""
 "```sh\n"
-"事件\n"
+"sozo events\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/auth.md:1
-#, fuzzy
 msgid "## sozo auth"
-msgstr "## sozo中的命令"
+msgstr "## sozo auth"
 
 #: src/toolchain/sozo/world-commands/auth.md:3
-#, fuzzy
 msgid "`auth` is used to manage world authorization."
 msgstr "`auth` 用于管理世界授权。"
 
 #: src/toolchain/sozo/world-commands/auth.md:5
-#, fuzzy
 msgid ""
 "```sh\n"
 "sozo auth [OPTIONS] <COMMAND>\n"
 "```"
 msgstr ""
 "```sh\n"
-"sozo auth [OPTIONS］<COMMAND>\n"
+"sozo auth [OPTIONS] <COMMAND>\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/auth.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "Commands:\n"
@@ -5277,13 +5134,12 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"命令：\n"
-"  writer 使用给定的 calldata 验证系统。\n"
-"  help 打印此信息或给定子命令的帮助信息\n"
+"Commands:\n"
+"  writer  Auth a system with the given calldata.\n"
+"  help    Print this message or the help of the given subcommand(s)\n"
 "```"
 
 #: src/toolchain/sozo/world-commands/auth.md:15
-#, fuzzy
 msgid ""
 "```sh\n"
 "# example: writer - auth a system with the given calldata\n"
@@ -5293,8 +5149,9 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"# 示例：writer - 使用给定的 calldata 授权一个系统\n"
-"# 这将以 Position 组件的 writer 角色对 spawn 系统进行授权\n"
+"# example: writer - auth a system with the given calldata\n"
+"# This will auth the spawn system with the writer role for Position "
+"component\n"
 "sozo auth writer Position spawn\n"
 "```"
 
@@ -5315,17 +5172,16 @@ msgid "### Features"
 msgstr "### 功能"
 
 #: src/toolchain/katana/overview.md:7
-#, fuzzy
 msgid ""
 "-   [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-"
 "specs/tree/v0.3.0) support\n"
 "-   Custom methods for manipulating the blockchain states"
 msgstr ""
-"-   支持[Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/"
-"starknet-specs/tree/v0.3.0)"
+"-   支持 [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/"
+"starknet-specs/tree/v0.3.0)\n"
+"-   用于操作区块链状态的自定义方法"
 
 #: src/toolchain/katana/overview.md:12
-#, fuzzy
 msgid ""
 "`katana` binary is available via [`dojoup`](../../getting-started/quick-"
 "start.md)."
