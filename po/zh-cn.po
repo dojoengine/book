@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Building Autonomous Worlds with Dojo\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-15 23:12+0900\n"
+"PO-Revision-Date: 2023-09-15 23:40+0900\n"
 "Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
 "Language-Team: Language zh-cn\n"
 "Language: zh_CN\n"
@@ -186,15 +186,15 @@ msgstr "系统"
 
 #: src/SUMMARY.md:56
 msgid "component"
-msgstr "部件"
+msgstr "组件"
 
 #: src/SUMMARY.md:57
 msgid "events"
-msgstr "活动"
+msgstr "事件"
 
 #: src/SUMMARY.md:58
 msgid "auth"
-msgstr "认证"
+msgstr "授权"
 
 #: src/SUMMARY.md:59
 msgid "Katana"
@@ -210,7 +210,7 @@ msgstr "部署"
 
 #: src/SUMMARY.md:66
 msgid "Locally"
-msgstr "本地支付"
+msgstr "本地"
 
 #: src/SUMMARY.md:67
 msgid "Remote"
@@ -259,8 +259,9 @@ msgid ""
 "community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the "
 "[contribution guide](./misc/contributors.md)."
 msgstr ""
-"> Dojo 是一个开源项目，目前处于早期开发阶段并热忱的欢迎贡献者们。更多有关资"
-"源，请在 [Github](https://github.com/dojoengine/book) 上查找。"
+"> Dojo 是一个开源项目，目前处于早期开发阶段，并热忱的欢迎贡献者们。更多相关资"
+"源，请在 [Discord](https://discord.gg/vUN4Xq9Qv6)上加入我们的社区，并查看我们"
+"的[Github](https://github.com/dojoengine/book) 。"
 
 #: src/index.md:7
 msgid "## Dojo: The Provable Game Engine"
@@ -273,9 +274,9 @@ msgid ""
 "games. It features an integrated entity component system (ECS) and includes "
 "a native indexer, RPC testnet, and a comprehensive CLI management toolkit."
 msgstr ""
-"Dojo 采用 [Cairo](https://github.com/starkware-libs/cairo)，为设计自主世界和"
-"链上游戏提供了强大的架构和工具集。它拥有一个集成的实体组件系统（ECS），包括一"
-"个本地索引器、RPC 测试网和一个全面的 CLI 管理工具包。"
+"Dojo 采用 [Cairo语言](https://github.com/starkware-libs/cairo)，为设计自主世"
+"界和链上游戏提供了强大的架构和工具集。它拥有一个集成的实体组件系统（ECS），包"
+"括一个本地索引器、RPC 测试网和一个全面的 CLI 管理工具包。"
 
 #: src/index.md:11
 msgid ""
@@ -299,7 +300,7 @@ msgstr ""
 
 #: src/index.md:18
 msgid "### Explainer"
-msgstr "### 解释器"
+msgstr "### 说明者"
 
 #: src/index.md:20
 msgid ""
@@ -309,7 +310,7 @@ msgid ""
 msgstr ""
 "以下是[Cartridge](https://cartridge.gg/) 的[Tarrence](https://twitter.com/"
 "tarrenceva) 在 2023 年[Autonomous Anonymous Summit](https://twitter.com/"
-"pet3rpan_/status/1666764726427353091) 上解释 Dojo 如何工作的视频："
+"pet3rpan_/status/1666764726427353091) 上说明 Dojo 如何工作的视频："
 
 #: src/index.md:22
 msgid ""
@@ -346,7 +347,11 @@ msgstr ""
 "Dojo 是一项开源计划，采用 MIT 许可，致力于推广和推进自主世界 (AW) 概念。它由"
 "[Cartridge](https://cartridge.gg/)、[Realms & BibliothecaDAO](https://"
 "bibliothecadao.xyz/)、[briq](https://briq.construction/)和更多[贡献者们]"
-"(https://github.com/orgs/dojoengine/people)牵头。"
+"(https://github.com/orgs/dojoengine/people)牵头。\n"
+"\n"
+"\n"
+"中文版由[Starknet Astro](https://twitter.com/StarkNetAstroCN)与[AW Research]"
+"(https://twitter.com/AW_Research)共同翻译。"
 
 #: src/index.md:33
 msgid "### How do I get involved?"
@@ -360,7 +365,7 @@ msgid ""
 msgstr ""
 "查看我们的 [Github](https://github.com/dojoengine)、[Twitter](https://"
 "twitter.com/dojostarknet)、[Discord](https://discord.gg/vUN4Xq9Qv6) 和 [贡献"
-"指南](https://book.dojoengine.org/misc/contributors.html!)"
+"指南](https://book.dojoengine.org/misc/contributors.html)"
 
 #: src/theory/what-is-dojo.md:1
 msgid "# What is Dojo?"
@@ -1283,7 +1288,7 @@ msgstr ""
 
 #: src/cairo/hello-dojo.md:5
 msgid "## Dojo in 15 Minutes"
-msgstr "## 十五分钟进dojo"
+msgstr "## 十五分钟进道场(dojo)"
 
 #: src/cairo/hello-dojo.md:7
 msgid ""
@@ -1423,8 +1428,8 @@ msgid ""
 "component."
 msgstr ""
 "请注意 `#[derive(Component, Copy, Drop, Serde, SerdeLen)]`属性。要识别组件，"
-"我们*必须*包含 `Component`。这将向 Dojo 编译器发出信号，表明此结构应被视为组"
-"件。"
+"我们*必须*包含 `Component`。这将向 Dojo 编译器发出信号，表明此结构体应被视为"
+"组件。"
 
 #: src/cairo/hello-dojo.md:56
 msgid ""
@@ -1930,8 +1935,9 @@ msgid ""
 "and components, Dojo is equipped for expansive creativity. So, what will you "
 "craft next?"
 msgstr ""
-"本概述提供了对 Dojo 端到端的快速了解。然而，这些世界的潜力是巨大的！Dojo 设计"
-"用于管理数百个系统和组件，可发挥无限的创造力。那么，您下一步将制作什么呢？"
+"本概述仅仅提供了一个对 Dojo 端到端的快速了解。然而，这些世界的潜力是巨大的！"
+"Dojo 被设计为用于管理数百个系统和组件，可发挥无限的创造力。那么，您下一步将制"
+"作什么呢？"
 
 #: src/cairo/config.md:1
 msgid "# Config"
@@ -2277,9 +2283,9 @@ msgid ""
 "how you query the component. However, you can create composite keys by "
 "defining multiple fields as keys. "
 msgstr ""
-"#[key]`属性向 Dojo 表明，该组件是由 `player` 字段索引的。您需要为每个组件定义"
-"一个键，因为这是您查询组件的方式。不过，您可以通过将多个字段定义为键来创建复"
-"合键。 "
+"`#[key]` 属性向 Dojo 表明，该组件是由 `player` 字段索引的。您需要为每个组件定"
+"义一个键，因为这是您查询组件的方式。不过，您可以通过将多个字段定义为键来创建"
+"复合键。 "
 
 #: src/cairo/components.md:27
 msgid ""
@@ -2352,7 +2358,7 @@ msgid ""
 "when accessing the component."
 msgstr ""
 "组件可以实现trait。这对于定义跨组件的通用功能非常有用。例如，您可能想定义一个"
-"实现了 `PositionTrait` traits的 `Position` 组件。该traits可定义 `is_zero` 和 "
+"实现了 `PositionTrait` trait的 `Position` 组件。该trait可定义 `is_zero` 和 "
 "`is_equal` 等函数，这些函数可在访问组件时使用。"
 
 #: src/cairo/components.md:57
@@ -2490,9 +2496,10 @@ msgid ""
 "introduce a Counter component, a distinct feature that tallies the numbers "
 "of humans and goblins."
 msgstr ""
-"打个具体的比方：人类和哥布林。虽然它们有着本质上的区别，但却有着共同的特征，"
-"例如拥有位置和健康。不过，人类拥有一个额外的组件。此外，我们还引入了 \"计数器"
-"\"（Counter）组件，它是用以统计人类和哥布林数量的独特机能。"
+"下面是个具体的例子：人类和哥布林。虽然它们有着本质上的区别，但却有着共同的"
+"trait，比如都会拥有位置（position）和健康（health）。不过，人类拥有一个额外的"
+"组件。此外，我们还引入了 \"计数器\"（Counter）组件，它是用以统计人类和哥布林"
+"数量的独特机能。"
 
 #: src/cairo/components.md:113
 msgid ""
@@ -2941,7 +2948,7 @@ msgid ""
 "- **For Rust Users**: The [Starkli](https://book.starkli.rs/) library "
 "provides a handy method to invoke view functions in Rust."
 msgstr ""
-"- ** 使用 Dojo Core**：如果您在 [Dojo Core](../client/npm/core.md) 中开发，请"
+"- **使用 Dojo Core**：如果您在 [Dojo Core](../client/npm/core.md) 中开发，请"
 "使用 `call` 函数。\n"
 "  \n"
 "- **适用于 Rust 用户**：[Starkli](https://book.starkli.rs/) 库提供了在 Rust "
@@ -3257,7 +3264,7 @@ msgstr ""
 
 #: src/cairo/commands.md:16
 msgid "### The `get!` command"
-msgstr "###`get!` 命令"
+msgstr "### `get!` 命令"
 
 #: src/cairo/commands.md:18
 msgid "The `get!` command is used to retrieve components from the world state."
@@ -3879,7 +3886,7 @@ msgstr ""
 
 #: src/cairo/modules.md:1
 msgid "## Dojo Modules"
-msgstr "## Dojo 模块"
+msgstr "## Dojo 的模块"
 
 #: src/cairo/modules.md:3
 msgid ""
@@ -8825,7 +8832,7 @@ msgid ""
 "new sections or chapters."
 msgstr ""
 "欢迎随时通过提交PR请求对本书进行修改--从改写一个句子、修正一个错别字到添加新"
-"的章节或章节，我们都欢迎。"
+"的段落或章节，我们都欢迎。"
 
 #: src/misc/contributors.md:33
 msgid ""
@@ -8844,7 +8851,7 @@ msgstr "本节记录了一些贯穿全书的写作标准。"
 
 #: src/misc/contributors.md:39
 msgid "#### Chapters start with a second level heading"
-msgstr "#### 章节以二级标题开始"
+msgstr "#### 章节从二级标题开始（译者注：请参考markdown语法）"
 
 #: src/misc/contributors.md:41
 msgid "We use:"
@@ -8862,7 +8869,9 @@ msgstr ""
 
 #: src/misc/contributors.md:47
 msgid "We do not use:"
-msgstr "我们不使用："
+msgstr ""
+"我们不使用（译者注：此为一级大标题语法，只应该作为页面标题存在而不应该作为页"
+"面内的内容标题而存在）："
 
 #: src/misc/contributors.md:49
 msgid ""
