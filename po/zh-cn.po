@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Building Autonomous Worlds with Dojo\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-15 22:41+0900\n"
+"PO-Revision-Date: 2023-09-15 23:12+0900\n"
 "Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
 "Language-Team: Language zh-cn\n"
 "Language: zh_CN\n"
@@ -58,7 +58,7 @@ msgstr "社区"
 
 #: src/SUMMARY.md:18
 msgid "Get Started"
-msgstr "开始使用"
+msgstr "开始加入社区"
 
 #: src/SUMMARY.md:20
 msgid "Architecture"
@@ -154,7 +154,7 @@ msgstr "Sozo"
 
 #: src/SUMMARY.md:48 src/SUMMARY.md:60 src/SUMMARY.md:62
 msgid "Reference"
-msgstr "参考"
+msgstr "参考资料"
 
 #: src/SUMMARY.md:49
 msgid "init"
@@ -1252,7 +1252,7 @@ msgstr ""
 
 #: src/community/get-started.md:1
 msgid "## Get Started"
-msgstr "## 开始"
+msgstr "## 开始加入社区"
 
 #: src/community/get-started.md:3
 msgid ""
@@ -5186,15 +5186,14 @@ msgid ""
 "`katana` binary is available via [`dojoup`](../../getting-started/quick-"
 "start.md)."
 msgstr ""
-"`katana`二进制文件可通过 [`dojoup`]（../../getting-started/installation."
-"md#using-dojoup）获取。"
+"`katana`二进制文件可通过 [`dojoup`](../../getting-started/quick-start.md) 获"
+"取。"
 
 #: src/toolchain/katana/overview.md:14
 msgid "### Installing from source"
 msgstr "### 从源码安装"
 
 #: src/toolchain/katana/overview.md:16
-#, fuzzy
 msgid ""
 "```sh\n"
 "git clone https://github.com/dojoengine/dojo\n"
@@ -5202,7 +5201,7 @@ msgid ""
 "cargo install --path ./crates/katana --locked --force\n"
 "```"
 msgstr ""
-"```bash\n"
+"```sh\n"
 "git clone https://github.com/dojoengine/dojo\n"
 "cd dojo\n"
 "cargo install --path ./crates/katana --locked --force\n"
@@ -5213,7 +5212,6 @@ msgid "### Usage"
 msgstr "### 使用方法"
 
 #: src/toolchain/katana/overview.md:24
-#, fuzzy
 msgid ""
 "```console\n"
 "$ katana\n"
@@ -5275,18 +5273,23 @@ msgstr ""
 "==================\n"
 "\n"
 "| Account address |  "
-"0x06f62894bfd81d2e396ce266b2ad0f21e0668d604e5bb1077337b6d570a54aea\n"
+"0x3ee9e18edc71a6df30ac3aca2e0b02a198fbce19b7480a63a0d71cbd76652e0\n"
 "| Private key     |  "
-"0x07230b49615d175307d580c33d6fda61fc7b9aec91df0f5c1a5ebe3b8cbfee02\n"
+"0x300001800000000300000180000000000030000000000003006001800006600\n"
 "| Public key      |  "
-"0x078e6e3e4a50285be0f6e8d0b8a61044033e24023df6eb95979ae4073f159ae6\n"
+"0x1b7b37a580d91bc3ad4f9933ed61f3a395e0e51c9dd5553323b8ca3942bb44e\n"
 "\n"
 "| Account address |  "
-"0x04b352538f61697825af242c9c451df02a40cca99391a47054489dee82138008\n"
+"0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c\n"
 "| Private key     |  "
-"0x0326b6d921c2d9c9b76bb641c433c94b030cf57d48803dc742729704ffdd0fc6\n"
+"0x333803103001800039980190300d206608b0070db0012135bd1fb5f6282170b\n"
 "| Public key      |  "
-"0x0564a13ba4d4cf95a60f78ca05fc04ff6845736e2f04b3c6703283cdf65e2615\n"
+"0x4486e2308ef3513531042acb8ead377b887af16bd4cdd8149812dfef1ba924d\n"
+"\n"
+"\n"
+"ACCOUNTS SEED\n"
+"=============\n"
+"0\n"
 "\n"
 "\n"
 "🚀 JSON-RPC server started: http://127.0.0.1:5050\n"
@@ -5295,7 +5298,6 @@ msgstr ""
 "```"
 
 #: src/toolchain/katana/overview.md:60
-#, fuzzy
 msgid ""
 "> 📚 **Reference**\n"
 ">\n"
@@ -5304,13 +5306,12 @@ msgid ""
 msgstr ""
 "> 📚 **参考资料**\n"
 ">\n"
-"> 有关 Anvil 及其功能的详细信息，请参阅  [`katana`参考资料](../../reference/"
-"katana/)。"
+"> 请参阅 [`katana`参考资料](./reference.md)，了解有关 Katana 的深度参考资料和"
+"文档。"
 
 #: src/toolchain/katana/reference.md:1
-#, fuzzy
 msgid "## katana reference"
-msgstr "katana参考资料"
+msgstr "## katana参考资料"
 
 #: src/toolchain/katana/reference.md:3
 msgid "### NAME"
@@ -5323,14 +5324,13 @@ msgid ""
 msgstr "katana - 创建本地测试网节点，用于部署和测试Starknet智能合约。"
 
 #: src/toolchain/katana/reference.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "katana [OPTIONS]\n"
 "```"
 msgstr ""
 "```sh\n"
-"katana --port <PORT>\n"
+"katana [OPTIONS]\n"
 "```"
 
 #: src/toolchain/katana/reference.md:13 src/toolchain/torii/reference.md:13
@@ -5338,14 +5338,13 @@ msgid "### DESCRIPTION"
 msgstr "### 描述"
 
 #: src/toolchain/katana/reference.md:15
-#, fuzzy
 msgid ""
 "Create a local testnet node for deploying and testing Starknet smart "
 "contracts. Katana supports deployment and execution of the **new** as well "
 "as the **legacy** (Cairo 0) Cairo contracts."
 msgstr ""
-"创建本地测试网节点，用于部署和测试Starknet智能合约。Katana 支持部署和执行"
-"Cairo 0 和 Cairo 1 版合约。"
+"创建本地测试网节点，用于部署和测试Starknet智能合约。Katana 支持部署和执行 **"
+"新** 以及 **旧**（Cairo 0）Cairo合约。"
 
 #: src/toolchain/katana/reference.md:17
 msgid ""
@@ -5361,25 +5360,22 @@ msgid "#### Mining Modes"
 msgstr "#### 挖矿模式"
 
 #: src/toolchain/katana/reference.md:21
-#, fuzzy
 msgid ""
 "In Katana, mining modes determine how frequent blocks are mined. By default, "
 "a new block is automatically mined as soon as a transaction is submitted."
 msgstr ""
-"挖矿模式是指使用 Katana 挖出区块的频率。默认情况下，一旦有交易提交，它就会自"
-"动生成一个新区块。"
+"在 Katana 中，挖矿模式决定了区块的挖矿频率。默认情况下，一旦有交易提交，就会"
+"自动挖出一个新区块。"
 
 #: src/toolchain/katana/reference.md:23
-#, fuzzy
 msgid ""
 "You can switch from the default mining behaviour to interval mining, where a "
 "new block is created at a fixed time interval selected by the user. To "
 "enable this mode of mining, use the `--block-time <SECONDS>` flag, as "
 "demonstrated in the following example."
 msgstr ""
-"如果你愿意，可以将此设置改为间隔挖矿，这意味着在用户选择的给定时间段内将生成"
-"一个新区块。如果你想采用这种挖矿方式，可以添加 `--block-time <block-time-in-"
-"seconds>`标志符，如下例所示。"
+"您可以将默认的挖矿行为切换为间隔挖矿，即按照用户选择的固定时间间隔创建新区"
+"块。要启用这种挖矿模式，请使用`--block-time <SECONDS>` 标识符，如下例所示。"
 
 #: src/toolchain/katana/reference.md:25
 msgid ""
@@ -5527,34 +5523,30 @@ msgstr ""
 "境。"
 
 #: src/toolchain/katana/reference.md:87
-#, fuzzy
 msgid ""
 "`katana_generateBlock`  \n"
 "Mine a new block which includes all currently pending transactions."
 msgstr ""
 "`katana_generateBlock`  \n"
-"挖掘一个新区块，其中包括当前所有待处理的交易"
+"挖掘一个新区块，其中包括当前所有待处理的交易。"
 
 #: src/toolchain/katana/reference.md:90
-#, fuzzy
 msgid ""
 "`katana_nextBlockTimestamp`  \n"
 "Get the time for the next block."
 msgstr ""
 "`katana_nextBlockTimestamp`  \n"
-"获取下一个区块的时间"
+"获取下一个区块的时间。"
 
 #: src/toolchain/katana/reference.md:93
-#, fuzzy
 msgid ""
 "`katana_increaseNextBlockTimestamp`  \n"
 "Increase the time for the block by a given amount of time, in seconds."
 msgstr ""
 "`katana_increaseNextBlockTimestamp`  \n"
-"将区块的时间增加给定的时间量，以秒为单位"
+"将区块的时间增加给定的时间量，以秒为单位。"
 
 #: src/toolchain/katana/reference.md:96
-#, fuzzy
 msgid ""
 "`katana_setNextBlockTimestamp`  \n"
 "Similar to `katana_increaseNextBlockTimestamp` but takes the exact timestamp "
@@ -5562,56 +5554,50 @@ msgid ""
 msgstr ""
 "`katana_setNextBlockTimestamp`  \n"
 "与 `katana_increaseNextBlockTimestamp` 类似，但会在下一个区块中使用你想要的确"
-"切时间戳"
+"切时间戳。"
 
 #: src/toolchain/katana/reference.md:99
-#, fuzzy
 msgid ""
 "`katana_predeployedAccounts`  \n"
 "Get the info for all of the predeployed accounts."
 msgstr ""
 "`katana_predeployedAccounts`  \n"
-"获取所有预部署账户的信息"
+"获取所有预部署账户的信息。"
 
 #: src/toolchain/katana/reference.md:102
-#, fuzzy
 msgid ""
 "`katana_setStorageAt`  \n"
 "Set an exact value of a contract's storage slot."
 msgstr ""
-"`katana_setStorageAt`.\n"
-"设置合约存储位置的精确值。"
+"`katana_setStorageAt`\n"
+"设置合约存储槽中的精确值。"
 
 #: src/toolchain/katana/reference.md:109
-#, fuzzy
 msgid ""
 "`--silent`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup."
 msgstr ""
 "`--silent`  \n"
-" &nbsp;&nbsp;&nbsp;&nbsp; 启动时不打印任何内容"
+" &nbsp;&nbsp;&nbsp;&nbsp; 启动时不打印任何内容。"
 
 #: src/toolchain/katana/reference.md:112
-#, fuzzy
 msgid ""
 "`--no-mining`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on "
 "demand instead."
 msgstr ""
 "`--no-mining`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 禁用自动采矿和间隔采矿，改为按需采矿"
+"&nbsp;&nbsp;&nbsp;&nbsp; 禁用自动采矿和间隔采矿，改为按需采矿。"
 
 #: src/toolchain/katana/reference.md:115
-#, fuzzy
 msgid ""
 "`-b, --block-time <SECONDS>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining."
 msgstr ""
 "`-b, --block-time <SECONDS>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 以秒为单位的区间挖掘时间"
+"&nbsp;&nbsp;&nbsp;&nbsp; 以秒为单位的区间挖掘时间。"
 
 #: src/toolchain/katana/reference.md:118
-#, fuzzy
 msgid ""
 "`--dump-state <PATH>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Dump the state of chain on exit to the given "
@@ -5619,153 +5605,136 @@ msgid ""
 "&nbsp;&nbsp;&nbsp;&nbsp; If the value is a directory, the state will be "
 "written to `<PATH>/state.bin`."
 msgstr ""
-"`--dump-state<PATH>` \n"
-"     将退出时链的状态转存到给定文件。  \n"
-"     如果值是目录，状态将被写入 `<PATH>/state.bin`。"
+"`--dump-state <PATH>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 将退出时链的状态转存到给定文件。  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 如果值是目录，状态将被写入 `<PATH>/state.bin`。"
 
 #: src/toolchain/katana/reference.md:122
-#, fuzzy
 msgid ""
 "`--load-state <PATH>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Initialize the chain from a previously saved state "
 "snapshot."
 msgstr ""
-"`--load-state<PATH>` \n"
-"     从先前保存的状态快照初始化链。"
+"`--load-state <PATH>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;从先前保存的状态快照初始化链。"
 
 #: src/toolchain/katana/reference.md:125
-#, fuzzy
 msgid ""
 "`-h, --help`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h')."
 msgstr ""
 "`-h, --help`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 打印帮助（用\"-h \"查看摘要）"
+"&nbsp;&nbsp;&nbsp;&nbsp; 打印帮助（用\"-h \"查看摘要）。"
 
 #: src/toolchain/katana/reference.md:128
-#, fuzzy
 msgid ""
 "`-V, --version`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Print version information."
 msgstr ""
 "`-V, --version`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 打印版本信息"
+"&nbsp;&nbsp;&nbsp;&nbsp; 打印版本信息。"
 
 #: src/toolchain/katana/reference.md:131
 msgid "#### Server Options"
 msgstr "#### 服务器选项"
 
 #: src/toolchain/katana/reference.md:133
-#, fuzzy
 msgid ""
 "`-p, --port <PORT>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on. [default: 5050]"
 msgstr ""
 "`-p, --port <PORT>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 要监听的端口号[默认：5050］"
+"&nbsp;&nbsp;&nbsp;&nbsp; 要监听的端口号[默认：5050］。"
 
 #: src/toolchain/katana/reference.md:136
-#, fuzzy
 msgid ""
 "`--host <HOST>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on."
 msgstr ""
 "`--host <HOST>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 服务器监听的 IP 地址"
+"&nbsp;&nbsp;&nbsp;&nbsp; 服务器监听的 IP 地址。"
 
 #: src/toolchain/katana/reference.md:141
-#, fuzzy
 msgid ""
 "`--seed <SEED>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be "
 "predeployed."
 msgstr ""
 "`--seed <SEED>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 指定要预先部署的账户随机性种子"
+"&nbsp;&nbsp;&nbsp;&nbsp; 指定要预先部署的账户随机性种子。"
 
 #: src/toolchain/katana/reference.md:144
-#, fuzzy
 msgid ""
 "`--accounts <NUM>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate. "
 "[default: 10]"
 msgstr ""
 "`--accounts <NUM>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 要生成的预注资账户数 [默认值：10]"
+"&nbsp;&nbsp;&nbsp;&nbsp; 要生成的预注资账户数 [默认值：10]。"
 
 #: src/toolchain/katana/reference.md:147
-#, fuzzy
 msgid ""
 "`--disable-fee`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Disable charging fee for transactions."
 msgstr ""
-"`-V, --version`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 打印版本信息"
+"`--disable-fee`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;禁用交易收gas费。"
 
 #: src/toolchain/katana/reference.md:150
 msgid "#### Environment Options"
 msgstr "#### 环境选项"
 
 #: src/toolchain/katana/reference.md:152
-#, fuzzy
 msgid ""
 "`--chain-id <CHAIN_ID>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; The chain ID. [default: KATANA]"
 msgstr ""
 "`--chain-id <CHAIN_ID>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 链 ID [默认值：KATANA］"
+"&nbsp;&nbsp;&nbsp;&nbsp; 链 ID [默认值：KATANA］。"
 
 #: src/toolchain/katana/reference.md:155
-#, fuzzy
 msgid ""
 "`--gas-price <GAS_PRICE>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; The gas price."
 msgstr ""
 "`--gas-price <GAS_PRICE>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Gas价格"
+"&nbsp;&nbsp;&nbsp;&nbsp; Gas价格。"
 
 #: src/toolchain/katana/reference.md:158
-#, fuzzy
 msgid ""
 "`--validate-max-steps <VALIDATE_MAX_STEPS>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the "
 "account validation logic."
 msgstr ""
-"`--validate-max-steps <VALIDATE_MAX_STEPS>` 账户验证逻辑的最大步骤数。\n"
-"     账户验证逻辑的最大步骤数。"
+"`--validate-max-steps <VALIDATE_MAX_STEPS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 账户验证逻辑的最大步骤数。"
 
 #: src/toolchain/katana/reference.md:161
-#, fuzzy
 msgid ""
 "`--invoke-max-steps <INVOKE_MAX_STEPS>`  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the "
 "account execution logic."
 msgstr ""
-"Invoke-max-steps <INVOKE_MAX_STEPS> `--invoke-max-steps\n"
-"     账户执行逻辑的最大步数。"
+"`--invoke-max-steps <INVOKE_MAX_STEPS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 账户执行逻辑的最大步数。"
 
 #: src/toolchain/katana/reference.md:164
-#, fuzzy
 msgid "### Shell Completions"
-msgstr "#### 服务器选项"
+msgstr "### Shell 补完"
 
 #: src/toolchain/katana/reference.md:166
-#, fuzzy
 msgid "`katana` completions shell"
-msgstr "`katana` [*options*]"
+msgstr "`katana` completions shell"
 
 #: src/toolchain/katana/reference.md:168
-#, fuzzy
 msgid "Generates a shell completions script for the given shell."
-msgstr "为给定的 shell 生成 shell 补充脚本。"
+msgstr "为给定的 shell 生成 shell 补完脚本。"
 
 #: src/toolchain/katana/reference.md:170
-#, fuzzy
 msgid "Supported shells are:"
-msgstr "支持的外壳有"
+msgstr "支持的shell有："
 
 #: src/toolchain/katana/reference.md:172
-#, fuzzy
 msgid ""
 "-   bash\n"
 "-   elvish\n"
@@ -5773,26 +5742,23 @@ msgid ""
 "-   powershell\n"
 "-   zsh"
 msgstr ""
-"-   砸\n"
-"-   精灵语\n"
-"-   鱼\n"
-"-   powerhell\n"
+"-   bash\n"
+"-   elvish\n"
+"-   fish\n"
+"-   powershell\n"
 "-   zsh"
 
 #: src/toolchain/katana/reference.md:178
-#, fuzzy
 msgid "#### EXAMPLES"
-msgstr "其他例子"
+msgstr "#### 示例"
 
 #: src/toolchain/katana/reference.md:180
-#, fuzzy
 msgid ""
 "Generate shell completions script for `bash` and appends it to a `.bashrc` "
 "file:"
-msgstr "为 `bash` 生成 shell 完成脚本，并将其添加到 `.bashrc` 文件中："
+msgstr "为 `bash` 生成 shell 补完脚本，并将其添加到 `.bashrc` 文件中："
 
 #: src/toolchain/katana/reference.md:182
-#, fuzzy
 msgid ""
 "```bash\n"
 "katana completions bash >> ~/.bashrc\n"
@@ -5803,25 +5769,22 @@ msgstr ""
 "```"
 
 #: src/toolchain/katana/reference.md:188
-#, fuzzy
 msgid "1. Create 15 dev accounts and disable transaction fee mechanism"
-msgstr "1.创建 15 个开发人员账户并禁用交易费机制"
+msgstr "1.创建 15 个开发用账户并禁用交易费机制"
 
 #: src/toolchain/katana/reference.md:190
-#, fuzzy
 msgid ""
 "```sh\n"
 "katana --accounts 15 --disable-fee\n"
 "```"
 msgstr ""
 "```sh\n"
-"katana --accounts 15 --allow-zero-max-fee\n"
+"katana --accounts 15 --disable-fee\n"
 "```"
 
 #: src/toolchain/katana/reference.md:194
-#, fuzzy
 msgid "2. Set the chain id to `SN_GOERLI` and run the server on port 8545"
-msgstr "2. 设置链 id SN_GOERLI，并在 8545 端口运行服务器"
+msgstr "2.将链 id 设置为 `SN_GOERLI`，并在 8545 端口运行服务器"
 
 #: src/toolchain/katana/reference.md:196
 msgid ""
@@ -5834,14 +5797,12 @@ msgstr ""
 "```"
 
 #: src/toolchain/katana/reference.md:200
-#, fuzzy
 msgid ""
 "3. Load previously stored state and dump the state of this session to a file "
 "on shutdown"
-msgstr "3.加载先前存储的状态，并在关机时将此会话的状态转储到文件中"
+msgstr "3.加载先前存储的状态，并在网络关闭时将此会话的状态转储到文件中"
 
 #: src/toolchain/katana/reference.md:202
-#, fuzzy
 msgid ""
 "```sh\n"
 "katana --load-state ./dump-state.bin --dump-state ./dump-state.bin\n"
@@ -5856,74 +5817,66 @@ msgid "## Torii - Networking & Indexing"
 msgstr "## Torii - 网络和索引"
 
 #: src/toolchain/torii/overview.md:3
-#, fuzzy
 msgid ""
 "Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly "
 "fast and exceptionally scalable."
 msgstr ""
-"Torii 是 dojo 世界的自动索引器。采用 rust 技术构建，速度极快，可扩展性极强。"
+"Torii（译者注：torii是日文“鳥居”的罗马字） 是 dojo 世界的自动索引器。采用 "
+"rust 构建，速度极快，可扩展性极强。"
 
 #: src/toolchain/torii/overview.md:5
-#, fuzzy
 msgid "### Dojo indexer"
-msgstr "### 索引器"
+msgstr "### Dojo 索引器"
 
 #: src/toolchain/torii/overview.md:7
-#, fuzzy
 msgid ""
 "Torii indexes your dojo worlds and exposes a GraphQL API to query them. "
 "Simply run:"
 msgstr ""
-"Torii 可为你的 dojo 世界建立索引，并提供 GraphQL API 以进行查询。只需运行"
+"Torii 可为你的 dojo 世界建立索引，并提供 GraphQL API 以进行查询。只需运行："
 
 #: src/toolchain/torii/overview.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "torii\n"
 "```"
 msgstr ""
-"``书\n"
-"鸟居\n"
+"```sh\n"
+"torii\n"
 "```"
 
 #: src/toolchain/torii/overview.md:12
-#, fuzzy
 msgid "and you'll have a GraphQL API running on `http://localhost:8080`!"
 msgstr "就可以在 `http://localhost:8080` 上运行 GraphQL API 了！"
 
 #: src/toolchain/torii/overview.md:16
-#, fuzzy
 msgid ""
 "The `torii` binary can be installed via [`dojoup`](../../getting-started/"
 "quick-start.md), our dedicated installation package manager."
 msgstr ""
-"你可以通过我们专用的安装包管理器 [`dojoup`]（.../.../getting-started/"
-"installation.md#using-dojoup）安装 `sozo` 二进制文件。"
+"你可以通过我们专用的安装包管理器 [`dojoup`](../../getting-started/quick-"
+"start.md)安装 `torii` 二进制文件。"
 
 #: src/toolchain/torii/overview.md:20
 msgid "If you prefer to install from the source code:"
 msgstr "如果您更喜欢从源代码中安装请："
 
 #: src/toolchain/torii/overview.md:22
-#, fuzzy
 msgid ""
 "```sh\n"
 "cargo install --path ./crates/torii --profile local --force\n"
 "```"
 msgstr ""
 "```sh\n"
-"cargo install --path ./crates/sozo --profile local --force\n"
+"cargo install --path ./crates/torii --profile local --force\n"
 "```"
 
 #: src/toolchain/torii/overview.md:26
-#, fuzzy
 msgid ""
 "This will install Torii and the required dependencies on your local system."
-msgstr "这将在本地系统中安装 Sozo 和所需的依赖项。"
+msgstr "这将在本地系统中安装 Torii 和所需的依赖项。"
 
 #: src/toolchain/torii/overview.md:28
-#, fuzzy
 msgid ""
 "> 📚 **Reference**\n"
 ">\n"
@@ -5931,37 +5884,31 @@ msgid ""
 msgstr ""
 "> 📚 **参考资料**\n"
 ">\n"
-"> 请参阅 [`sozo`参考资料]（../../reference/sozo/），了解所有可用子命令的完整"
-"概览。"
+"> 请参阅 [`torii`参考](./reference.md) 获取完整参考。"
 
 #: src/toolchain/torii/reference.md:1
-#, fuzzy
 msgid "## torii reference"
-msgstr "## 参考文献"
+msgstr "## torii 参考资料"
 
 #: src/toolchain/torii/reference.md:3
-#, fuzzy
 msgid "### Name"
 msgstr "### 名称"
 
 #: src/toolchain/torii/reference.md:5
-#, fuzzy
 msgid "torii - An automatic indexer and networking layer for a world contract."
 msgstr "torii - 世界合约的自动索引器和网络层。"
 
 #: src/toolchain/torii/reference.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "torii [OPTIONS]\n"
 "```"
 msgstr ""
-"``sh\n"
-"torii [OPTIONS］\n"
+"```sh\n"
+"torii [OPTIONS]\n"
 "```"
 
 #: src/toolchain/torii/reference.md:15
-#, fuzzy
 msgid ""
 "`torii` starts the indexer and exposes GraphQL/gRPC API endpoints. The "
 "indexer queries the specified Starknet RPC endpoint for transaction blocks "
@@ -5970,12 +5917,11 @@ msgid ""
 "updates, system calls, and events. The parsed data is then stored in a local "
 "SQLite database."
 msgstr ""
-"torii \"启动索引器，并公开 GraphQL/gRPC API 端点。索引器会向指定的 Starknet "
+"`torii`会启动索引器，并公开 GraphQL/gRPC API 端点。索引器会向指定的 Starknet "
 "RPC 端点查询事务块，并监听与世界契约相关的事务。这些事务包括组件/系统注册、实"
 "体状态更新、系统调用和事件。解析后的数据将存储在本地 SQLite 数据库中。"
 
 #: src/toolchain/torii/reference.md:17
-#, fuzzy
 msgid ""
 "The GraphQL and gRPC API endpoints run in tandem with the indexer, providing "
 "custom queries specific to the world contract for client applications."
@@ -5984,21 +5930,18 @@ msgstr ""
 "的自定义查询。"
 
 #: src/toolchain/torii/reference.md:19
-#, fuzzy
 msgid "#### Database URL"
 msgstr "#### 数据库 URL"
 
 #: src/toolchain/torii/reference.md:21
-#, fuzzy
 msgid ""
 "`torii` uses a sqlite database to store indexed data. The database can be "
 "stored either in-memory or persistently on the filesystem."
 msgstr ""
-"torii`使用sqlite数据库存储索引数据。数据库既可以存储在内存中，也可以持久地存"
-"储在文件系统中。"
+"`torii` 使用sqlite数据库存储索引数据。数据库既可以存储在内存中，也可以持久地"
+"存储在文件系统中。"
 
 #: src/toolchain/torii/reference.md:23
-#, fuzzy
 msgid ""
 "- The in-memory database is ephermal and only lasts as long as the indexer "
 "is running. This is a fast and simple option to start the indexer for "
@@ -6006,12 +5949,11 @@ msgid ""
 "- Presistent storage should be used in production. It relies on the local "
 "filesystem for storage."
 msgstr ""
-"- 内存数据库是恒温的，只有索引器运行时才会持续。这是在开发/测试中启动索引器的"
-"快速而简单的选择。\n"
-"- 生产中应使用持久存储。它依赖本地文件系统进行存储。"
+"- 内存数据库是非持久存在的，只有索引器运行时才会存在。这是在开发/测试中启动索"
+"引器的快速而简单的选择。\n"
+"- 生产环境中应使用持久存储。它依赖本地文件系统进行存储。"
 
 #: src/toolchain/torii/reference.md:26
-#, fuzzy
 msgid ""
 "Note: If using in-memory db, the memory will be garbage collected after a "
 "period of inactivity, causing queries to result in errors. A workaround is "
@@ -6022,7 +5964,6 @@ msgstr ""
 "解决方法是使用 `--block-time` 选项启动 `katana` 或使用持久数据库。"
 
 #: src/toolchain/torii/reference.md:28
-#, fuzzy
 msgid ""
 "```sh\n"
 "# Persistent database storage using file indexer.db\n"
@@ -6030,83 +5971,77 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"# 使用 indexer.db 文件存储持久数据库\n"
+"# Persistent database storage using file indexer.db\n"
 "torii --database-url sqlite:indexer.db\n"
 "```"
 
 #: src/toolchain/torii/reference.md:37
-#, fuzzy
 msgid ""
 "`-w, --world`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Address of the world contract to index"
 msgstr ""
-"`-V, --version`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 打印版本信息"
+"`-w, --world`\n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 要索引的世界合同的地址"
 
 #: src/toolchain/torii/reference.md:40
-#, fuzzy
 msgid ""
 "`--rpc`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Starknet RPC endpoing to use [default: http//"
 "localhost:5050]"
 msgstr ""
-"`-p, --port <PORT>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 要监听的端口号[默认：5050］"
+"`--rpc`\n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 要使用的Starknet RPC 终端 [默认：http//"
+"localhost:5050]"
 
 #: src/toolchain/torii/reference.md:43
-#, fuzzy
 msgid ""
 "`-m, --manifest <MANIFEST>`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Specify a local manifest to initialize from"
 msgstr ""
-"`-b, --block-time <SECONDS>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 以秒为单位的区间挖掘时间"
+"`-m, --manifest <MANIFEST>`\n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 指定要初始化的本地清单"
 
 #: src/toolchain/torii/reference.md:46
-#, fuzzy
 msgid ""
 "`-d, --database-url <DATABASE_URL>`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Database URL (read more above) [default: sqlite::"
 "memory:]"
 msgstr ""
-"`-d，--database-url <DATABASE_URL>`\n"
-"     数据库 URL（更多信息请阅读上文） [默认：sqlite::memory:]"
+"`-d, --database-url <DATABASE_URL>`\n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 数据库 URL（更多信息请阅读上文） [默认：sqlite::"
+"memory:]"
 
 #: src/toolchain/torii/reference.md:49
-#, fuzzy
 msgid ""
 "`-s, --start-block <START_BLOCK>`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Specify a block to start indexing from, ignored if "
 "stored head exists [default: 0]"
 msgstr ""
-"`-s, --start-block <START_BLOCK>``\n"
-"     指定要从哪个块开始建立索引，如果存在存储头，则忽略 [默认：0]"
+"`-s, --start-block <START_BLOCK>`\n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 指定要从哪个块开始建立索引，如果存在存储头，则忽略 "
+"[默认：0]"
 
 #: src/toolchain/torii/reference.md:52
-#, fuzzy
 msgid ""
 "`-h, --help`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Print help"
 msgstr ""
-"`-h, --help`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 打印帮助（用\"-h \"查看摘要）"
+"`-h, --help`\n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 打印帮助"
 
 #: src/toolchain/torii/reference.md:55
-#, fuzzy
 msgid ""
 "`-V, --version`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; Print version"
 msgstr ""
-"`-V, --version`  \n"
+"`-V, --version`\n"
 "&nbsp;&nbsp;&nbsp;&nbsp; 打印版本信息"
 
 #: src/deployment/locally.md:1
-#, fuzzy
 msgid "## Deploying Locally"
 msgstr "## 本地部署"
 
 #: src/deployment/locally.md:3
-#, fuzzy
 msgid ""
 "Dojo is engineered for rapid development, boasting a lightning-fast local "
 "development environment named [Katana](./toolchain/katana/overview.md). "
@@ -6114,80 +6049,67 @@ msgid ""
 "rigorously test your smart contracts before transitioning them to the a "
 "remote testnet."
 msgstr ""
-"Dojo 专为快速开发而设计，拥有一个名为 [Katana] （./toolchain/katana/overview."
-"md）的快如闪电的本地开发环境。Katana 可作为设备上的星网区块链，允许您在将智能"
-"合约过渡到远程测试网络之前对其进行严格测试。"
+"Dojo 专为快速开发而设计，拥有一个名为 [Katana](./toolchain/katana/overview."
+"md)的快如闪电的本地开发环境。Katana 可作为设备上的Starknet区块链，允许您在将"
+"智能合约迁移到远程测试网络之前对其进行严格测试。"
 
 #: src/deployment/locally.md:5
-#, fuzzy
 msgid "### Katana Deployments"
-msgstr "#### 卡塔纳部署"
+msgstr "#### Katana 部署"
 
 #: src/deployment/locally.md:7
-#, fuzzy
 msgid "Deploying to Katana could not be easier."
-msgstr "部署到 Katana 再简单不过了。"
+msgstr "部署合约到 Katana 再简单不过了。"
 
 #: src/deployment/locally.md:9
-#, fuzzy
 msgid ""
 "> This assumes you have followed the [Quick Start](./getting-started/quick-"
 "start.md) guide and have a project initialized."
 msgstr ""
-"> 假设您已按照 [快速入门](./getting-started/quick-start.md) 指南进行了操作，"
-"并已初始化了一个项目。"
+"> 这里假设您已按照 [快速入门](./getting-started/quick-start.md) 指南进行了操"
+"作，并已初始化了一个项目。"
 
 #: src/deployment/locally.md:11
-#, fuzzy
 msgid "From your project directory, run:"
-msgstr "在项目目录下运行"
+msgstr "在项目目录下运行："
 
 #: src/deployment/locally.md:17
-#, fuzzy
 msgid "This has started a local Katana which you can now deploy on!"
 msgstr "这样就启动了一个本地卡塔纳，您现在可以在上面进行部署！"
 
 #: src/deployment/locally.md:19
-#, fuzzy
 msgid "### Deploying to Katana"
-msgstr "### 部署到卡塔纳"
+msgstr "### 部署到Katana"
 
 #: src/deployment/locally.md:21
-#, fuzzy
 msgid "To deploy your project to Katana, run:"
-msgstr "要将项目部署到 Katana，请运行"
+msgstr "要将项目部署到 Katana，请运行："
 
 #: src/deployment/locally.md:27
-#, fuzzy
 msgid ""
 "Note - this will only work if you have compiled your contracts. If you have "
 "not, run:"
-msgstr "注意--只有在编译过合同的情况下才能运行。如果没有，请运行"
+msgstr "注意 - 只有在你的合约已经编译过的情况下才能运行。如果没有，请运行："
 
 #: src/deployment/remote.md:1
-#, fuzzy
 msgid "## Deployment to Remote Network"
 msgstr "## 部署到远程网络"
 
 #: src/deployment/remote.md:3
-#, fuzzy
 msgid "> *IMPORTANT: Dojo is unaudited. Use at your own risk.*"
-msgstr "> *重要提示：Dojo 未经审计。使用风险自负。"
+msgstr "> *重要提示：Dojo 未经审计。使用风险自负。*"
 
 #: src/deployment/remote.md:5
-#, fuzzy
 msgid ""
 "Dojo makes it easy to deploy to remote networks, you just need to have a "
 "valid account and network endpoint."
 msgstr "Dojo 可让您轻松部署到远程网络，您只需拥有一个有效账户和网络端点。"
 
 #: src/deployment/remote.md:7
-#, fuzzy
 msgid "Scarb.toml"
-msgstr "以下是 Starknet 合约最低所需的 Scarb.toml 配置文件："
+msgstr "Scarb.toml"
 
 #: src/deployment/remote.md:9
-#, fuzzy
 msgid ""
 "```toml\n"
 "[package]\n"
@@ -6217,24 +6139,24 @@ msgid ""
 "\"0x5b328933afdbbfd44901fd69a2764a254edbb6e992ae87cf958c70493f2d201\"\n"
 "```"
 msgstr ""
-"``toml\n"
-"[软件包]\n"
+"```toml\n"
+"[package]\n"
 "name = \"ohayoo\"\n"
-"版本 = \"0.1.0\"\n"
+"version = \"0.1.0\"\n"
 "cairo-version = \"2.1.1\"\n"
 "\n"
 "[cairo]\n"
 "sierra-replace-ids = true\n"
 "\n"
-"[依赖项] DOJO = { git = \"\" }\n"
+"[dependencies]\n"
 "dojo = { git = \"https://github.com/dojoengine/dojo.git\" }\n"
 "\n"
-"# # 卡塔纳\n"
+"# # Katana\n"
 "# rpc_url = \"http://localhost:5050\"\n"
 "# account_address = "
 "\"0x03ee9e18edc71a6df30ac3aca2e0b02a198fbce19b7480a63a0d71cbd76652e0\"\n"
 "# private_key = "
-"\"0x030000180000000030000018000000000003000000003006001800006600\"\n"
+"\"0x0300001800000000300000180000000000030000000000003006001800006600\"\n"
 "\n"
 "#Madara\n"
 "rpc_url = \"https://api.cartridge.gg/x/shinai/madara\"\n"
@@ -6246,56 +6168,48 @@ msgstr ""
 "```"
 
 #: src/deployment/remote.md:33
-#, fuzzy
 msgid "### Remote Katana"
-msgstr "## Katana"
+msgstr "### 远程 Katana"
 
 #: src/deployment/remote.md:35
-#, fuzzy
 msgid ""
 "Katanas are able to be hosted and run as remote testnets, however this is "
 "not recommended for production use."
 msgstr "Katanas 可以作为远程测试网托管和运行，但不建议用于生产。"
 
 #: src/deployment/remote.md:37
-#, fuzzy
 msgid "__todo__: add instructions for deploying to remote katana"
 msgstr "__todo__：添加部署到远程 katana 的说明"
 
 #: src/deployment/remote.md:40
-#, fuzzy
 msgid "### Madara "
-msgstr "## Cairo"
+msgstr "### Madara "
 
 #: src/deployment/remote.md:42
-#, fuzzy
 msgid ""
 "[Madara](https://github.com/keep-starknet-strange/madara) is a blazinly fast "
 "Starknet sequencer. Built on the robust Substrate framework and fast, thanks "
 "to Rust 🦀, Madara delivers unmatched performance and scalability to power "
 "your Starknet-based Validity Rollup chain."
 msgstr ""
-"[Madara](https://github.com/keep-starknet-strange/madara)是一款速度极快的星网"
-"排序器。Madara 基于强大的 Substrate 框架构建，由于采用了 Rust 🦀，因此速度极"
-"快，可提供无与伦比的性能和可扩展性，为您基于星网的有效性卷积链提供动力。"
+"[Madara](https://github.com/keep-starknet-strange/madara)是一款高速Starknet排"
+"序器。Madara 基于强大的 Substrate 框架构建，由于采用了 Rust 🦀，因此速度极"
+"快，可提供无与伦比的性能和可扩展性，为您的基于Starknet的Validity Rollup链（译"
+"者注：如通常意义上的appchain）提供动力。"
 
 #: src/deployment/remote.md:44
-#, fuzzy
 msgid "A public Madara testnet is available for deployment:"
-msgstr "公共 Madara 测试网可供部署："
+msgstr "已有公共的 Madara 测试网可供部署："
 
 #: src/deployment/remote.md:46
-#, fuzzy
 msgid "**Testnet RPC:** https://api.cartridge.gg/x/shinai/madara"
 msgstr "**Testnet RPC:** https://api.cartridge.gg/x/shinai/madara"
 
 #: src/deployment/remote.md:48
-#, fuzzy
 msgid "You can use the following account to deploy:"
 msgstr "您可以使用以下账户进行部署："
 
 #: src/deployment/remote.md:50
-#, fuzzy
 msgid ""
 "```toml\n"
 "# ...rest of Scarb.toml\n"
@@ -6307,7 +6221,7 @@ msgid ""
 "```"
 msgstr ""
 "```toml\n"
-"# ...Scarb.toml的其余部分\n"
+"# ...rest of Scarb.toml\n"
 "\n"
 "rpc_url = \"https://api.cartridge.gg/x/shinai/madara\"\n"
 "account_address = \"0x2\"\n"
@@ -6316,14 +6230,12 @@ msgstr ""
 "```"
 
 #: src/deployment/remote.md:59
-#, fuzzy
 msgid "### Starknet "
-msgstr "## Starknet合约的属性"
+msgstr "### Starknet "
 
 #: src/deployment/remote.md:61
-#, fuzzy
 msgid "__todo__: add instructions for deploying to remote Starknet"
-msgstr "__todo__：添加部署到远程星网的说明"
+msgstr "__todo__：添加部署到远程Starknet的说明"
 
 #: src/tutorial/onchain-chess/index.md:1
 #, fuzzy
