@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Building Autonomous Worlds with Dojo\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-16 01:26+0900\n"
+"PO-Revision-Date: 2023-09-16 05:31+0900\n"
 "Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
 "Language-Team: Language zh-cn\n"
 "Language: zh_CN\n"
@@ -18,7 +18,7 @@ msgstr "前言"
 
 #: src/SUMMARY.md:4
 msgid "What is Dojo?"
-msgstr "## Dojo 是什么？"
+msgstr "Dojo 是什么？"
 
 #: src/SUMMARY.md:5
 msgid "AW Theory"
@@ -592,8 +592,8 @@ msgid ""
 "access for potential enhancements."
 msgstr ""
 "1. 分散数据可用层：虽然状态执行可能位于中心化层，但如果执行层不复存在，状态能"
-"否重建至关重要。卷积提供了一种解决方案，在确保数据永久沉淀在以太坊上的同时，"
-"提供了容量更大的执行层。这保证了世界的永久持久性。\n"
+"否重建至关重要。Rollup提供了一种解决方案，在确保数据永久沉淀在以太坊上的同"
+"时，提供了容量更大的执行层。这保证了世界的永久持久性。\n"
 "\n"
 "2. 用于扩展世界的无需权限入口：世界合约必须能够接受新的系统和组件，而无需获得"
 "许可。虽然这并不意味着每个组件和系统都会被利用，但它们必须遵守这一模式，确保"
@@ -615,7 +615,7 @@ msgstr ""
 
 #: src/theory/autonomous-worlds.md:15
 msgid "### Homework"
-msgstr "### 作业"
+msgstr "### 阅读作业"
 
 #: src/theory/autonomous-worlds.md:16
 msgid ""
@@ -791,7 +791,7 @@ msgstr ""
 
 #: src/theory/cairo.md:32
 msgid "### Starknet as an Appchain"
-msgstr "### 作为应用程序链的Starknet"
+msgstr "### 作为应用链的Starknet"
 
 #: src/theory/cairo.md:34
 msgid ""
@@ -803,10 +803,10 @@ msgid ""
 "appchains to seamlessly run Dojo worlds."
 msgstr ""
 "Cairo语言是一种同构的通用语言，针对零知识（ZK）证明进行了优化。它是 "
-"Starknet、Starkex 和 appchains 的驱动力。值得注意的是，你还可以在 "
+"Starknet、Starkex 和 应用链 背后的驱动力。值得注意的是，你还可以在 "
 "WebAssembly (WASM) 中运行它，在客户端生成证明！Dojo 团队正在与 [Madara]"
 "(https://github.com/keep-starknet-strange/madara) 团队紧密合作，使 Starknet "
-"应用程序链能够无缝运行 Dojo 世界。"
+"应用链能够无缝运行 Dojo 世界。"
 
 #: src/theory/faqs.md:1
 msgid "# FAQs"
@@ -814,7 +814,7 @@ msgstr "# 常见问题"
 
 #: src/theory/faqs.md:3
 msgid "#### Who owns Dojo?"
-msgstr "#### Dojo 的所有者是谁？"
+msgstr "#### 谁拥有Dojo？"
 
 #: src/theory/faqs.md:5
 msgid ""
@@ -937,8 +937,9 @@ msgid ""
 "familiarize yourself with the concept of Autonomous Worlds (AWs) and the "
 "[Cairo ecosystem](../theory/cairo.md) before diving into the code."
 msgstr ""
-"> 在深入研究代码之前，值得你阅读的一下 [理论](../theory/autonomous-worlds."
-"md) 来熟悉自主世界（AWs）的概念和[Cairo生态系统](../theory/cairo.md) 。"
+"> 在深入研究代码之前，这里有值得你阅读一下的 [理论](../theory/autonomous-"
+"worlds.md) 用以来熟悉自主世界（AW）的概念，以及[Cairo生态系统](../theory/"
+"cairo.md) 。"
 
 #: src/getting-started/quick-start.md:6
 msgid "### Install Dojoup"
@@ -1275,7 +1276,7 @@ msgstr ""
 
 #: src/cairo/hello-dojo.md:1
 msgid "# Hello Dojo"
-msgstr "# 你好，Dojo"
+msgstr "# Hello Dojo"
 
 #: src/cairo/hello-dojo.md:3
 msgid ""
@@ -1283,8 +1284,8 @@ msgid ""
 "and are familiar with Cairo. If not, please refer to the [Getting Started]"
 "(../getting-started/quick-start.md) section."
 msgstr ""
-"> 本节假定您已安装 Dojo 工具链并熟悉 Cairo。如果没有，请参阅 [快速入门]（.../"
-"getting-started/quick-start.md）部分。"
+"> 本节假定您已安装 Dojo 工具链并熟悉 Cairo。如果没有，请参阅 [快速入门](../"
+"getting-started/quick-start.md)部分。"
 
 #: src/cairo/hello-dojo.md:5
 msgid "## Dojo in 15 Minutes"
@@ -2576,7 +2577,7 @@ msgid ""
 "having to create Health and Position components for each entity type."
 msgstr ""
 "因此，\"人类 \"将拥有 `Potions`, `Health`  和 `Position` 组件，而 \"哥布林 "
-"\"将拥有 `Health` 和 `Position` \"组件。这样，我们就不必为每种实体类型创建 "
+"\"将拥有 `Health` 和 `Position` 组件。这样，我们就不必为每种实体类型创建 "
 "`Health`和 `Position`组件了。"
 
 #: src/cairo/components.md:148
