@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Building Autonomous Worlds with Dojo\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-15 23:40+0900\n"
+"PO-Revision-Date: 2023-09-16 01:26+0900\n"
 "Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
 "Language-Team: Language zh-cn\n"
 "Language: zh_CN\n"
@@ -1118,7 +1118,7 @@ msgid ""
 "getting-started/quick-start.md) guide."
 msgstr ""
 "> 本文是为 Dojo 设置开发环境的指南。如果您只是想试试工具链，则不建议遵循本指"
-"南。我们强烈建议您阅读 [快速入门]（.../getting-started/quick-start.md）指南。"
+"南。我们强烈建议您阅读 [快速入门](../getting-started/quick-start.md)指南。"
 
 #: src/getting-started/setup.md:5
 msgid "### Prerequisites"
@@ -1220,7 +1220,7 @@ msgstr ""
 
 #: src/getting-started/setup.md:45
 msgid "### Windows"
-msgstr "### 窗口"
+msgstr "### Windows"
 
 #: src/getting-started/setup.md:47 src/getting-started/setup.md:51
 msgid "_Coming soon_"
@@ -3542,7 +3542,7 @@ msgid ""
 "directly from your world. Use it like so:"
 msgstr ""
 "在您的系统中，发射自定义事件是非常有益的。幸运的是，有一个方便的 `emit!`宏可"
-"以让您直接从您的世界中发布事件。使用方法如下："
+"以让您直接从您的世界中发射事件。使用方法如下："
 
 #: src/cairo/events.md:82
 msgid ""
@@ -3605,7 +3605,7 @@ msgstr ""
 #: src/cairo/events.md:107
 msgid ""
 "> Note: Read about the `get!` and `set!` macros in [Commands](./commands.md)."
-msgstr "> 注意：请阅读 [Commands](./commands.md) 中的 `get!` 和 `set!` 宏。"
+msgstr "> 注意：请阅读 [命令](./commands.md) 中的 `get!` 和 `set!` 宏。"
 
 #: src/cairo/testing.md:1
 msgid "## Testing"
@@ -4352,7 +4352,7 @@ msgid ""
 "github.com/dojoengine/dojo/releases).\n"
 "These are better managed by using [Dojoup](#using-dojoup)."
 msgstr ""
-"预编译的二进制文件可从[GitHub上的发行页面](https://github.com/dojoengine/"
+"预编译的Dojo二进制文件可从[GitHub上的发行页面](https://github.com/dojoengine/"
 "dojo/releases)获取。\n"
 "使用[Dojoup](#using-dojoup)可以更好地管理这些二进制文件。"
 
@@ -4403,8 +4403,8 @@ msgid ""
 "management of your Worlds, whether you're updating existing ones or "
 "deploying new ones."
 msgstr ""
-"-   **二进制包 CLI**：Sozo 提供直观的二进制包 CLI，确保能轻松管理世界，无论是"
-"更新现有世界还是部署新世界。"
+"-   **二进制包 CLI**：Sozo 提供直观的二进制包 CLI，确保了用户能轻松管理世界，"
+"无论是更新现有世界还是部署新世界。"
 
 #: src/toolchain/sozo/overview.md:9 src/toolchain/katana/overview.md:10
 #: src/toolchain/torii/overview.md:14
@@ -4416,8 +4416,8 @@ msgid ""
 "`sozo` binary can be installed via [`dojoup`](../../getting-started/quick-"
 "start.md), our dedicated installation package manager."
 msgstr ""
-"`sozo` 二进制文件可通过 [`dojoup`]（../../getting-started/quick-start.md）安"
-"装，这是我们专用的安装包管理器。"
+"`sozo` 二进制文件可通过[`dojoup`](../../getting-started/quick-start.md)安装，"
+"这是我们专用的安装包管理器。"
 
 #: src/toolchain/sozo/overview.md:13 src/toolchain/torii/overview.md:18
 msgid "### Installing from Source"
@@ -4667,7 +4667,7 @@ msgid ""
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `STARKNET_RPC_URL`"
 msgstr ""
 "`--rpc-url` _URL_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;Starknet RPC 端点。[默认值: http://localhost:5050] \n"
+"&nbsp;&nbsp;&nbsp;&nbsp;Starknet RPC 端点。[默认: http://localhost:5050]  \n"
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `STARKNET_RPC_URL`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:32
@@ -6082,7 +6082,7 @@ msgstr "在项目目录下运行："
 
 #: src/deployment/locally.md:17
 msgid "This has started a local Katana which you can now deploy on!"
-msgstr "这样就启动了一个本地卡塔纳，您现在可以在上面进行部署！"
+msgstr "这样就启动了一个本地Katana，您现在可以在上面进行部署！"
 
 #: src/deployment/locally.md:19
 msgid "### Deploying to Katana"
