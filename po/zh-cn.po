@@ -1,0 +1,2613 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Building Autonomous Worlds with Dojo\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-09-15 09:30+0800\n"
+"Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
+"Language-Team: Language zh-cn\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: src/SUMMARY.md:3
+msgid "Introduction"
+msgstr "介绍"
+
+#: src/SUMMARY.md:4
+msgid "AW Theory"
+msgstr "AW 理论"
+
+#: src/SUMMARY.md:5
+msgid "Cairo Ecosystem"
+msgstr "Cairo生态系统"
+
+#: src/SUMMARY.md:7
+msgid "Getting Started"
+msgstr "入门"
+
+#: src/SUMMARY.md:9
+msgid "Installation"
+msgstr "安装"
+
+#: src/SUMMARY.md:11
+msgid "Development"
+msgstr "开发"
+
+#: src/SUMMARY.md:13
+msgid "Setup"
+msgstr "设置"
+
+#: src/SUMMARY.md:15
+msgid "Dojo Engine"
+msgstr "Dojo引擎"
+
+#: src/SUMMARY.md:17
+msgid "Overview"
+msgstr "概述"
+
+#: src/SUMMARY.md:18
+msgid "Cairo ECS"
+msgstr "Cairo ECS"
+
+#: src/SUMMARY.md:19
+msgid "World"
+msgstr "世界"
+
+#: src/SUMMARY.md:20
+msgid "Authorization"
+msgstr "授权"
+
+#: src/SUMMARY.md:21
+msgid "Components"
+msgstr "组件"
+
+#: src/SUMMARY.md:22
+msgid "Systems"
+msgstr "系统"
+
+#: src/SUMMARY.md:23
+msgid "Entities"
+msgstr "实体"
+
+#: src/SUMMARY.md:24
+msgid "Commands"
+msgstr "命令"
+
+#: src/SUMMARY.md:25
+msgid "Storage"
+msgstr "存储"
+
+#: src/SUMMARY.md:26
+msgid "Sozo"
+msgstr "Sozo"
+
+#: src/SUMMARY.md:27
+msgid "Katana"
+msgstr "Katana"
+
+#: src/SUMMARY.md:28
+msgid "Torii"
+msgstr "Torii"
+
+#: src/SUMMARY.md:30
+msgid "Appendix"
+msgstr "附录"
+
+#: src/SUMMARY.md:32
+msgid "References"
+msgstr "参考"
+
+#: src/SUMMARY.md:33
+msgid "sozo Commands"
+msgstr "sozo中的命令"
+
+#: src/SUMMARY.md:34
+msgid "Project Commands"
+msgstr "项目命令"
+
+#: src/SUMMARY.md:35
+msgid "init"
+msgstr "初始化"
+
+#: src/SUMMARY.md:36
+msgid "build"
+msgstr "编译"
+
+#: src/SUMMARY.md:37
+msgid "test"
+msgstr "测试"
+
+#: src/SUMMARY.md:38
+msgid "migrate"
+msgstr "迁移"
+
+#: src/SUMMARY.md:39
+msgid "World Commands"
+msgstr "世界命令"
+
+#: src/SUMMARY.md:40
+msgid "execute"
+msgstr "执行"
+
+#: src/SUMMARY.md:41
+msgid "register"
+msgstr "注册"
+
+#: src/SUMMARY.md:42
+msgid "system"
+msgstr "系统"
+
+#: src/SUMMARY.md:43
+msgid "component"
+msgstr "部件"
+
+#: src/SUMMARY.md:44
+msgid "katana Reference"
+msgstr "katana参考资料"
+
+#: src/SUMMARY.md:48
+msgid "Contributors"
+msgstr "贡献者"
+
+#: src/index.md:1
+msgid "## Dojo: The provable games engine"
+msgstr "## Dojo：可证明游戏引擎"
+
+#: src/index.md:3
+msgid ""
+"This guide is dedicated to familiarizing you with the Dojo engine and the "
+"transformative potential of Provable games. A special section on the [Theory]"
+"(./theory/autonomous-worlds.md) elucidates this emergent concept of "
+"autonomous worlds and Provable games."
+msgstr ""
+"本指南旨在让您熟悉 Dojo 引擎和 可证明（Provable） 游戏的变革潜力。 [理论](./"
+"theory/autonomous-worlds.md)专节阐明了自主世界和 可证明游戏这一新兴概念。"
+
+#: src/index.md:5
+msgid "## What is Dojo?"
+msgstr "## Dojo 是什么？"
+
+#: src/index.md:6
+msgid ""
+"Dojo is a provable game engine with an integrated toolchain, designed for "
+"creating onchain games and autonomous worlds using [Cairo 1.0](https://"
+"github.com/starkware-libs/cairo). It employs an [entity component system]"
+"(https://en.wikipedia.org/wiki/Entity_component_system) and a [diamond "
+"pattern](https://eips.ethereum.org/EIPS/eip-2535), facilitating a modular, "
+"scalable world. Worlds grow via the addition of Components (state) and "
+"Systems (logic). Our architectural design is greatly influenced by the "
+"brilliant [Bevy](https://bevyengine.org/) engine."
+msgstr ""
+"Dojo（译者注：dojo为日文“道場”的罗马字）是一个带有集成工具链的可证明游戏引"
+"擎，设计用于使用[Cairo 1.0](https://github.com/starkware-libs/cairo)创建链上"
+"游戏和自主世界。它采用了[实体组件系统](https://en.wikipedia.org/wiki/"
+"Entity_component_system) 和[钻石模式](https://eips.ethereum.org/EIPS/"
+"eip-2535)，促进了一个模块化、可扩展的世界。世界通过添加组件（状态）和系统（逻"
+"辑）而成长。我们的架构设计深受出色的[Bevy](https://bevyengine.org/)引擎的影"
+"响。"
+
+#: src/index.md:8
+msgid ""
+"Here's a video of [Cartridge](https://cartridge.gg/)'s [Tarrence](https://"
+"twitter.com/tarrenceva) explaining how Dojo works at the 2023 [Autonomous "
+"Anonymous Summit](https://twitter.com/pet3rpan_/status/1666764726427353091):"
+msgstr ""
+"以下是[Cartridge](https://cartridge.gg/) 的[Tarrence](https://twitter.com/"
+"tarrenceva) 在 2023 年[Autonomous Anonymous Summit](https://twitter.com/"
+"pet3rpan_/status/1666764726427353091) 上解释 Dojo 如何工作的视频："
+
+#: src/index.md:10
+msgid ""
+"<video controls poster=\"https://"
+"gf326cjag4w6pdpc42qp22enfhxsywmq6sgs7mkxbn6el7aioyxa.arweave.net/"
+"MXevCSA3LeeN4uag_WiNKe8sWZD0jS-xVwt8RfwIdi4\">\n"
+"  <source src=\"https://sfx25btazqz62pajxecorlp4exskwgokakub44rxmpnsosep5iqa."
+"arweave.net/kW-uhmDMM-08CbkE6K38JeSrGcoCqB5yN2PbJ0iP6iA\" type=\"video/"
+"mp4\">\n"
+"  Your browser does not support the video tag.\n"
+"</video>"
+msgstr ""
+"<video controls poster=\"https://"
+"gf326cjag4w6pdpc42qp22enfhxsywmq6sgs7mkxbn6el7aioyxa.arweave.net/"
+"MXevCSA3LeeN4uag_WiNKe8sWZD0jS-xVwt8RfwIdi4\">\n"
+"  <source src=\"https://sfx25btazqz62pajxecorlp4exskwgokakub44rxmpnsosep5iqa."
+"arweave.net/kW-uhmDMM-08CbkE6K38JeSrGcoCqB5yN2PbJ0iP6iA\" type=\"video/"
+"mp4\">\n"
+"  您的浏览器不支持视频标记。\n"
+"</video>"
+
+#: src/index.md:17
+msgid "#### Key Features"
+msgstr "#### 主要功能"
+
+#: src/index.md:18
+msgid ""
+"- Entity Component System (ECS) built on [Cairo 1.0](https://github.com/"
+"starkware-libs/cairo)\n"
+"- [Sozo](./framework/sozo/overview.md) world migration planner\n"
+"- [Torii](./framework/torii/overview.md) networking and indexing stack\n"
+"- [Katana](./framework/katana/overview.md) RPC development network\n"
+"- Typed SDKs"
+msgstr ""
+"- 基于 [Cairo 1.0](https://github.com/starkware-libs/cairo) 的实体组件系统 "
+"(ECS)\n"
+"- [Sozo](./framework/sozo/overview.md) 世界迁移规划器\n"
+"- [Torii](./framework/torii/overview.md) 网络和索引堆栈\n"
+"- [Katana](./framework/katana/overview.md) RPC 开发用网络\n"
+"- 类型化 SDK"
+
+#: src/index.md:24
+msgid ""
+"> Dojo is an open-source project, currently in its early development phase, "
+"and warmly welcomes contributors. For additional resources, find the book on "
+"[Github](https://github.com/dojoengine/book)."
+msgstr ""
+"> Dojo 是一个开源项目，目前处于早期开发阶段并热忱的欢迎贡献者们。更多有关资"
+"源，请在 [Github](https://github.com/dojoengine/book) 上查找。"
+
+#: src/index.md:27
+msgid "### Why Dojo?"
+msgstr "### 为何选择Dojo？"
+
+#: src/index.md:29
+msgid ""
+"Dojo is the culmination of lessons learned from attempts at building "
+"[onchain games](https://naavik.co/digest/primer-fully-on-chain-gaming), an "
+"emerging sector in the gaming industry. Any developer who has endeavored to "
+"build an onchain game appreciates the inherent engineering hurdles - a "
+"realization that drove us to create Dojo. Just as you wouldn't recreate "
+"Unity every time you develop a new game, the same principle applies here. "
+"Dojo is designed to handle the complex infrastructure, allowing developers "
+"to focus on the unique aspects of their games."
+msgstr ""
+"Dojo 是在游戏行业的新兴领域--[链上游戏](https://naavik.co/digest/primer-"
+"fully-on-chain-gaming) 的尝试中吸取的经验教训的结晶。任何尝试过开发链上游戏的"
+"开发者都会明白其中固有的工程障碍--这种认识促使我们创建了 Dojo。正如您不会在每"
+"次开发新游戏时都重新创建 Unity 一样，同样的原则也适用于此。Dojo 旨在处理复杂"
+"的基础架构，让开发人员能够专注于其游戏的独特方面。"
+
+#: src/index.md:32
+msgid "### Why Cairo & Starknet?"
+msgstr "### 为什么选择Cairo & Starknet？"
+
+#: src/index.md:34
+msgid ""
+"Provable games demand [zero-knowledge](https://ethereum.org/en/zero-"
+"knowledge-proofs/) properties for efficient scaling and verification of "
+"computations. [Cairo](https://book.starknet.io/chapter_1/what_is_cairo.html) "
+"addresses this need by providing a generalized language, eliminating the "
+"complexity of creating circuits to incorporate [SNARKs](https://consensys."
+"net/blog/developers/introduction-to-zk-snarks/). "
+msgstr ""
+"可证明博弈需要[零知识](https://ethereum.org/en/zero-knowledge-proofs/)特性，"
+"以便高效地扩展和验证计算。[Cairo](https://book.starknet.io/chapter_1/"
+"what_is_cairo.html)通过提供一种通用语言来满足这一需求，消除了需要创建电路以纳"
+"入[SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/)"
+"的复杂性。 "
+
+#: src/index.md:36
+msgid ""
+"**You can simply program in Cairo and your applications become automatically "
+"provable**. "
+msgstr "**您只需用Cairo语言编程，您的应用程序就自动成为可证明的**。 "
+
+#: src/index.md:38
+msgid ""
+"Moreover, you can deploy your programs on the [Cairo Virtual Machine]"
+"(https://medium.com/starkware/cairo-welcome-on-board-1cf3487554f) (CVM), "
+"which is compatible with Starknet's Layer 2, Starknet appchains, and even in-"
+"browser through WebAssembly (WASM)! Dojo aims to supply straightforward ZK "
+"primitives to fuel your game development."
+msgstr ""
+"此外，您还可以在[Cairo虚拟机](https://medium.com/starkware/cairo-welcome-on-"
+"board-1cf3487554f) (CVM)上部署您的程序，该虚拟机与Starknet Layer2、Starknet应"
+"用链兼容，甚至可以通过 WebAssembly (WASM) 在浏览器中部署！Dojo 的目标是为您的"
+"游戏开发提供直接的 ZK 基元。"
+
+#: src/index.md:40
+msgid ""
+"For more information about Starknet, Cairo and its tech stack, check out the "
+"[Starknet & Cairo book](https://book.starknet.io/)."
+msgstr ""
+"有关Starknet、Cairo及其技术栈的更多信息，请查阅 [Starknet & Cairo book]"
+"(https://book.starknet.io/)。"
+
+#: src/index.md:44
+msgid "### Vision"
+msgstr "### 愿景"
+
+#: src/index.md:45
+msgid ""
+"Dojo is a bold work in progress, aimed at empowering developers to construct "
+"onchain games and Autonomous Worlds (AWs) within hours, not weeks."
+msgstr ""
+"Dojo 是一项正在进行中的大胆工程，旨在帮助开发人员在数小时而不是数周内构建链上"
+"游戏和自主世界（AW）。"
+
+#: src/index.md:47
+msgid "### Organizational Structure"
+msgstr "### 组织结构"
+
+#: src/index.md:48
+msgid ""
+"Dojo is an open-source initiative, licensed under MIT, dedicated to "
+"promoting and advancing the concept of Autonomous Worlds (AWs). It is "
+"spearheaded by [Cartridge](https://cartridge.gg/), [Realms & BibliothecaDAO]"
+"(https://bibliothecadao.xyz/), [briq](https://briq.construction/) and many "
+"more [contributors](https://github.com/orgs/dojoengine/people)."
+msgstr ""
+"Dojo 是一项开源计划，采用 MIT 许可，致力于推广和推进自主世界 (AW) 概念。它由"
+"[Cartridge](https://cartridge.gg/)、[Realms & BibliothecaDAO](https://"
+"bibliothecadao.xyz/)、[briq](https://briq.construction/)和更多[贡献者们]"
+"(https://github.com/orgs/dojoengine/people)牵头。"
+
+#: src/index.md:50
+msgid "### How do I get involved?"
+msgstr "### 我该如何参与？"
+
+#: src/index.md:52
+msgid ""
+"Check out our [Github](https://github.com/dojoengine), our [Twitter](https://"
+"twitter.com/dojostarknet), [Discord](https://discord.gg/vUN4Xq9Qv6) and "
+"[contribution guide](https://book.dojoengine.org/misc/contributors.html!)"
+msgstr ""
+"查看我们的 [Github](https://github.com/dojoengine)、[Twitter](https://"
+"twitter.com/dojostarknet)、[Discord](https://discord.gg/vUN4Xq9Qv6) 和 [贡献"
+"指南](https://book.dojoengine.org/misc/contributors.html!)"
+
+#: src/theory/autonomous-worlds.md:1
+msgid "## Autonomous Worlds"
+msgstr "## 自主世界"
+
+#: src/theory/autonomous-worlds.md:3
+msgid ""
+"> \"Autonomous worlds represent persistent, permissionless, and "
+"decentralized open environments that users can freely interact with and "
+"contribute to.\""
+msgstr ""
+"> \"自主世界代表着持久、无许可和分散的开放环境，用户可以自由地与之互动并做出"
+"贡献\"。"
+
+#: src/theory/autonomous-worlds.md:5
+msgid ""
+"The precise definition of Autonomous Worlds (AWs) remains somewhat elusive, "
+"as it is more of an abstract concept that has yet to be fully crystallized. "
+"Lattice first [introduced](https://0xparc.org/blog/autonomous-worlds) the "
+"terminology in 2022, but the notion of open worlds operating on the "
+"blockchain has been around for a while. The abstraction introduced by MUD "
+"served as a catalyst for the market to recognize the potential of these "
+"worlds."
+msgstr ""
+"自主世界（AW）的确切定义仍然有些难以捉摸，因为它更像是一个抽象概念，尚未完全"
+"具体化。Lattice 在 2022 年首次[介绍](https://0xparc.org/blog/autonomous-"
+"worlds) 了这一术语，但在区块链上运行的开放世界这一概念已经存在了一段时间。"
+"MUD 引入的抽象概念是让市场认识到这些世界潜力的催化剂。"
+
+#: src/theory/autonomous-worlds.md:7
+msgid ""
+"Autonomous Worlds share notable similarities with blockchains in their "
+"fundamental nature. Once established, they persist, maintaining their state "
+"throughout the lifespan of the chain. Players can join or leave, and "
+"developers can expand these worlds by deploying features in a permissionless "
+"manner, much like how contracts are added to a chain. While there is no "
+"universally accepted definition for an Autonomous World, we believe that a "
+"game must possess at least the following two essential features to be "
+"considered as such:"
+msgstr ""
+"自主世界在基本性质上与区块链有显著的相似之处。一旦建立，它们就会持续存在，在"
+"链的整个生命周期内保持状态。玩家可以加入或退出，开发者可以部署功能来扩展这些"
+"世界--这一切都无需权限，就像将合约添加到链上一样。虽然自主世界并没有公认的定"
+"义，但我们认为游戏必须至少具备以下两个基本特征才能被视为自主世界："
+
+#: src/theory/autonomous-worlds.md:9
+msgid ""
+"1. Decentralized data availability layer: While the state execution may "
+"reside on a centralized layer, it is crucial that the state can be "
+"reconstructed if the execution layer ceases to exist. Rollups offer a "
+"solution, providing increased capacity execution layers while ensuring data "
+"is permanently settled on Ethereum. This guarantees the world's perpetual "
+"persistence.\n"
+"\n"
+"2. Permissionless entry point for expanding the world: The World contract "
+"must be capable of accepting new systems and components without requiring "
+"permission. While this doesn't imply that every component and system will be "
+"utilized, they must adhere to this pattern, ensuring open and unrestricted "
+"access for potential enhancements."
+msgstr ""
+"1. 分散数据可用层：虽然状态执行可能位于中心化层，但如果执行层不复存在，状态能"
+"否重建至关重要。卷积提供了一种解决方案，在确保数据永久沉淀在以太坊上的同时，"
+"提供了容量更大的执行层。这保证了世界的永久持久性。\n"
+"\n"
+"2. 用于扩展世界的无需权限入口：世界合约必须能够接受新的系统和组件，而无需获得"
+"许可。虽然这并不意味着每个组件和系统都会被利用，但它们必须遵守这一模式，确保"
+"开放和不受限制地访问潜在的增强功能。"
+
+#: src/theory/autonomous-worlds.md:13
+msgid ""
+"We're firm believers in the potential for Autnomous Worlds to catalize the "
+"exploration of novel forms in the medium provided by zk proofs and "
+"blockchain technology. This is not only about games, but also about new "
+"forms of artwork, coordination, fun, emerging from tinkering and radical "
+"innovation, eventually questioning the very notion of \"play\" in this brave "
+"new decentralized and trustless world."
+msgstr ""
+"我们坚信，自主世界有潜力在 zk 证明和区块链技术提供的媒介中催化对新形式的探"
+"索。这不仅关系到游戏，还关系到新形式的艺术作品、协调、乐趣，它们都来自修补和"
+"激进创新，最终在这个勇敢的去中心化和无信任的新世界中对 \"游玩\" 的概念提出质"
+"疑。"
+
+#: src/theory/autonomous-worlds.md:15
+msgid "### Homework"
+msgstr "### 作业"
+
+#: src/theory/autonomous-worlds.md:16
+msgid ""
+"- [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-"
+"worlds-aim-to-free-online-games-from-corporate-control/)\n"
+"- [0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-"
+"worlds)\n"
+"- [Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack."
+"com/p/the-strongest-crypto-gaming-thesis)\n"
+"- [Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/"
+"mud-an-engine-for-autonomous-worlds)\n"
+"- [Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)\n"
+"- [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/"
+"composable-engineering)\n"
+"- [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-"
+"up-worlds/)\n"
+"- [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/"
+"on-chain-realities-and-autonomous-worlds)"
+msgstr ""
+"- [Wired - 自主世界入门](https://www.wired.com/story/autonomous-worlds-aim-"
+"to-free-online-games-from-corporate-control/)\n"
+"- [0xParc - 自主世界（第一部分）](https://0xparc.org/blog/autonomous-"
+"worlds)\n"
+"- [Gubsheep - 最强大的加密游戏论文](https://gubsheep.substack.com/p/the-"
+"strongest-crypto-gaming-thesis)\n"
+"- [Lattice - MUD：自主世界的引擎](https://lattice.xyz/blog/mud-an-engine-for-"
+"autonomous-worlds)\n"
+"- [Guiltygyoza - 游戏 2.0](https://www.guiltygyoza.xyz/2022/07/game2)\n"
+"- [Guiltygyoza - 可组合工程](https://www.guiltygyoza.xyz/2023/05/composable-"
+"engineering)\n"
+"- [Jay Springett - 发条世界](https://www.thejaymo.net/2022/05/06/wind-up-"
+"worlds/)\n"
+"- [Are.na 自主世界文集](https://www.are.na/sylve-chevet/on-chain-realities-"
+"and-autonomous-worlds)"
+
+#: src/theory/cairo.md:1
+msgid "## Cairo"
+msgstr "## Cairo"
+
+#: src/theory/cairo.md:3
+msgid ""
+"Cairo is an open-source, Turing-complete smart contract language developed "
+"by Starkware, designed to power the Validity Rollup Starknet. The language "
+"enables highly expressive and verifiable computation, making it well-suited "
+"for building scalable and secure applications, including decentralized "
+"finance (DeFi) projects."
+msgstr ""
+"Cairo 是由 Starkware 开发的一种开源、图灵完备的智能合约语言，旨在为有效性卷"
+"积 Starknet提供支持。该语言可实现高表达性和可验证的计算，非常适合构建可扩展的"
+"安全应用，包括去中心化金融（DeFi）项目。"
+
+#: src/theory/cairo.md:5
+msgid ""
+"Dojo builds on Cairo to create a robust framework for developing Autonomous "
+"Worlds (AWs). By leveraging the capabilities of Cairo, Dojo aims to "
+"streamline the development process, improve maintainability, and enhance the "
+"performance of AWs."
+msgstr ""
+"Dojo 以 Cairo 为基础，为开发自主世界（AW）创建了一个强大的框架。通过利用 "
+"Cairo 的功能，Dojo 旨在简化开发流程，提高可维护性，并增强自主世界的性能。"
+
+#: src/theory/cairo.md:7
+msgid ""
+"A key feature of the Dojo framework is its use of [commands](../framework/"
+"cairo/commands.md). Commands are a design pattern that helps to reduce "
+"boilerplate code, resulting in cleaner and more maintainable applications. "
+"They achieve this by encapsulating specific actions or operations within "
+"self-contained, reusable units."
+msgstr ""
+"Dojo 框架的一个主要特点是使用 [命令]（.../framework/cairo/commands.md）。命令"
+"是一种设计模式，有助于减少模板代码，使应用程序更简洁、更易维护。它们通过将特"
+"定的操作或运行封装在自足的、可重用的单元中来实现这一目标。"
+
+#: src/theory/cairo.md:9
+msgid ""
+"Developers can write commands freely within Systems, and the Cairo compiler "
+"takes care of inlining the appropriate functions. "
+msgstr ""
+"开发人员可以在系统中自由编写命令，而 Cairo 编译器则负责内嵌相应的函数。 "
+
+#: src/theory/cairo.md:11
+msgid "#### Essential Reading"
+msgstr "#### 必读"
+
+#: src/theory/cairo.md:12
+msgid ""
+"- [Cairo book](https://cairo-book.github.io/)\n"
+"- [Awesome Cairo](https://github.com/auditless/awesome-cairo)\n"
+"- [Starknet Book](https://book.starknet.io/)"
+msgstr ""
+"- [Cairo book](https://cairo-book.github.io/)\n"
+"- [Awesome Cairo](https://github.com/auditless/awesome-cairo)\n"
+"- [Starknet Book](https://book.starknet.io/)"
+
+#: src/theory/cairo.md:16
+msgid "### Starknet as an L2"
+msgstr "### 作为 L2的Starknet"
+
+#: src/theory/cairo.md:18
+msgid ""
+"Starknet is a Validity Rollup Layer 2 (L2) solution designed to scale "
+"Ethereum. It operates by offering high transaction throughput and low gas "
+"costs while maintaining the same level of security as Ethereum Layer 1 (L1). "
+"The strategy it uses is akin to solving a sudoku puzzle: verifying a "
+"solution is easier than finding the solution from scratch. Similarly, "
+"Starknet replaces heavy and costly L1 computation with cheaper L1 "
+"verification through the use of STARK proofs computed off-chain."
+msgstr ""
+"Starknet 是一个有效性卷积第二层（L2）解决方案，旨在扩展以太坊。它的运行方式是"
+"提供高交易吞吐量和低气体成本，同时保持与以太坊第一层（L1）相同的安全级别。它"
+"采用的策略类似于解决数独难题：验证一个解决方案比从头开始寻找解决方案更容易。"
+"同样，Starknet 通过使用链外计算的 STARK 证明，以更便宜的 L1 验证取代了繁重而"
+"昂贵的 L1 计算。"
+
+#: src/theory/cairo.md:20
+msgid ""
+"In more technical terms, Starknet is a permissionless Validity-Rollup (also "
+"known as a \"ZK-Rollup\") that supports general computation and currently "
+"runs as an L2 network over Ethereum. The network's L1 security is guaranteed "
+"by its utilization of the STARK cryptographic proof system, which is "
+"considered one of the safest and most scalable."
+msgstr ""
+"用更专业的术语来说，Starknet 是一种无权限的 Validity-Rollup（也称为 \"ZK-"
+"Rollup\"），支持一般计算，目前作为以太坊上的二级网络运行。该网络的一级安全性"
+"由其使用的 STARK 加密证明系统提供保障，该系统被认为是最安全、最可扩展的系统之"
+"一。"
+
+#: src/theory/cairo.md:22
+msgid "### Starknet as an Appchain"
+msgstr "### 作为应用程序链的Starknet"
+
+#: src/theory/cairo.md:24
+msgid ""
+"Cairo is an isomorphic, general-purpose language, optimized for Zero-"
+"Knowledge (ZK) proofs. It's the driving force behind Starknet, Starkex, and "
+"appchains. Remarkably, you can also run it in WebAssembly (WASM) to generate "
+"proofs on the client-side! The Dojo team is working closely with the [Madara]"
+"(https://github.com/keep-starknet-strange/madara) team to enable Starknet "
+"appchains to seamlessly run Dojo worlds."
+msgstr ""
+"Cairo语言是一种同构的通用语言，针对零知识（ZK）证明进行了优化。它是 "
+"Starknet、Starkex 和 appchains 的驱动力。值得注意的是，你还可以在 "
+"WebAssembly (WASM) 中运行它，在客户端生成证明！Dojo 团队正在与 [Madara]"
+"(https://github.com/keep-starknet-strange/madara) 团队紧密合作，使 Starknet "
+"应用程序链能够无缝运行 Dojo 世界。"
+
+#: src/getting-started/installation.md:1 src/framework/sozo/overview.md:9
+#: src/framework/katana/overview.md:9
+msgid "## Installation"
+msgstr "## 安装"
+
+#: src/getting-started/installation.md:3
+msgid "### Precompiled binaries"
+msgstr "### 预编译的二进制文件"
+
+#: src/getting-started/installation.md:5
+msgid ""
+"Precompiled binaries are available from the [GitHub releases page](https://"
+"github.com/dojoengine/dojo/releases).\n"
+"These are better managed by using [Dojoup](#using-dojoup)."
+msgstr ""
+"预编译的二进制文件可从[GitHub上的发行页面](https://github.com/dojoengine/"
+"dojo/releases)获取。\n"
+"使用[Dojoup](#using-dojoup)可以更好地管理这些二进制文件。"
+
+#: src/getting-started/installation.md:8
+msgid "### Using Dojoup"
+msgstr "### 使用 Dojoup"
+
+#: src/getting-started/installation.md:10
+msgid ""
+"Dojoup is the Dojo toolchain installer. You can find more about it [here]"
+"(https://github.com/dojoengine/dojo/blob/master/dojoup/README.md)."
+msgstr ""
+"Dojoup 是 Dojo 工具链安装程序。您可以在 [此处](https://github.com/dojoengine/"
+"dojo/blob/master/dojoup/README.md) 找到更多关于它的信息。"
+
+#: src/getting-started/installation.md:12
+msgid "Open your terminal and run the following command:"
+msgstr "打开终端，运行以下命令："
+
+#: src/getting-started/installation.md:14
+msgid ""
+"```sh\n"
+"curl -L https://install.dojoengine.org | bash\n"
+"```"
+msgstr ""
+"```sh\n"
+"curl -L https://install.dojoengine.org | bash\n"
+"```"
+
+#: src/getting-started/installation.md:18
+msgid ""
+"This will install Dojoup, then simply follow the instructions on-screen,\n"
+"which will make the `dojoup` command available in your CLI."
+msgstr ""
+"这将安装 Dojoup，然后只需按照屏幕上的说明操作、\n"
+"即可在 CLI 中使用 `dojoup` 命令。"
+
+#: src/getting-started/installation.md:21
+msgid ""
+"Running `dojoup` by itself will install the latest (nightly) [precompiled "
+"binaries](#precompiled-binaries): `sozo`, `katana`, and `torii`.\n"
+"See `dojoup --help` for more options, like installing from a specific "
+"version or commit."
+msgstr ""
+"运行 `dojoup` 本身将安装最新的（nightly版的）[预编译的二进制文件]"
+"(#precompiled-binaries)：`sozo`、`katana` 和 `torii`。\n"
+"参见 `dojoup --help` 获取更多选项，例如从特定版本或提交来安装。"
+
+#: src/getting-started/installation.md:24
+msgid ""
+"> ℹ️ **Note**\n"
+">\n"
+"> If you're on Windows, you will need to install and use [Git BASH](https://"
+"gitforwindows.org/) or [WSL](https://learn.microsoft.com/en-us/windows/wsl/"
+"install),\n"
+"> as your terminal, since Dojoup currently does not support Powershell or "
+"Cmd."
+msgstr ""
+"> ℹ️ **注**\n"
+">\n"
+"> 如果您使用的是 Windows 系统，则需要安装并使用 [Git BASH](https://"
+"gitforwindows.org/) 或 [WSL](https://learn.microsoft.com/en-us/windows/wsl/"
+"install)、\n"
+"> 因为 Dojoup 目前不支持 Powershell 或 Cmd。"
+
+#: src/getting-started/installation.md:29
+msgid "### Building from source"
+msgstr "#### 从源码构建"
+
+#: src/getting-started/installation.md:31
+msgid "#### Prerequisites"
+msgstr "#### 先决条件"
+
+#: src/getting-started/installation.md:33
+msgid ""
+"You will need the [Rust](https://rust-lang.org) compiler and Cargo, the Rust "
+"package manager.\n"
+"The easiest way to install both is with [`rustup.rs`](https://rustup.rs/)."
+msgstr ""
+"您需要 [Rust](https://rust-lang.org) 编译器和 Rust 软件包管理器 Cargo。\n"
+"安装这两种工具的最简单方法是使用 [`rustup.rs`](https://rustup.rs/)。"
+
+#: src/getting-started/installation.md:36
+msgid ""
+"On Windows, you will also need a recent version of [Visual Studio](https://"
+"visualstudio.microsoft.com/downloads/),\n"
+"installed with the \"Desktop Development With C++\" Workloads option."
+msgstr ""
+"在 Windows 系统中，您还需要已经安装了 \"使用 C++ 进行桌面开发 \"工作负载选项"
+"的、\n"
+"最新版本的 [Visual Studio](https://visualstudio.microsoft.com/downloads/)"
+
+#: src/getting-started/installation.md:39
+msgid "#### Building"
+msgstr "#### 构建"
+
+#: src/getting-started/installation.md:41
+msgid "You can either use the different [Dojoup](#using-dojoup) flags:"
+msgstr "您可以使用不同的 [Dojoup]（#using-dojoup）标记："
+
+#: src/getting-started/installation.md:43
+msgid ""
+"```sh\n"
+"dojoup --branch master\n"
+"dojoup --path path/to/dojo\n"
+"```"
+msgstr ""
+"```sh\n"
+"dojoup --branch master\n"
+"dojoup --path path/to/dojo\n"
+"```"
+
+#: src/getting-started/installation.md:48
+msgid "Or, by using a single Cargo command:"
+msgstr "或者，使用一条Cargo命令："
+
+#: src/getting-started/installation.md:50
+msgid ""
+"```sh\n"
+"cargo install --git https://github.com/dojoengine/dojo --force sozo katana "
+"torii\n"
+"```"
+msgstr ""
+"```sh\n"
+"cargo install --git https://github.com/dojoengine/dojo --force sozo katana "
+"torii\n"
+"```"
+
+#: src/getting-started/installation.md:54
+msgid ""
+"Or, by manually building from a local copy of the [Dojo repository](https://"
+"github.com/dojoengine/dojo):"
+msgstr ""
+"或者从本地的 [Dojo repository](https://github.com/dojoengine/dojo) 拷贝中手动"
+"构建："
+
+#: src/getting-started/installation.md:56
+msgid ""
+"```sh\n"
+"# clone the repository\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"cd dojo\n"
+"# install Sozo\n"
+"cargo install --path ./crates/sozo --force\n"
+"# install Katana\n"
+"cargo install --path ./crates/katana --force\n"
+"# install Torii\n"
+"cargo install --path ./crates/torii --force\n"
+"```"
+msgstr ""
+"```sh\n"
+"# clone the repository\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"cd dojo\n"
+"# install Sozo\n"
+"cargo install --path ./crates/sozo --force\n"
+"# install Katana\n"
+"cargo install --path ./crates/katana --force\n"
+"# install Torii\n"
+"cargo install --path ./crates/torii --force\n"
+"```"
+
+#: src/development/setup.md:1
+msgid "# Dojo Engine - Getting Started Guide"
+msgstr "# Dojo 引擎 - 入门指南"
+
+#: src/development/setup.md:3
+msgid ""
+"This README guides you through the process of setting up your local "
+"development environment for Dojo."
+msgstr "本 README 将指导您为 Dojo 设置本地开发环境。"
+
+#: src/development/setup.md:5
+msgid "## Prerequisites"
+msgstr "## 先决条件"
+
+#: src/development/setup.md:7
+msgid ""
+"- Rust\n"
+"- Cairo"
+msgstr ""
+"- Rust\n"
+"- Cairo"
+
+#: src/development/setup.md:10
+msgid "## Clone the Repository"
+msgstr "## 克隆Repository"
+
+#: src/development/setup.md:12
+msgid "First, clone the repository to your local machine:"
+msgstr "首先，将Repository克隆到本地计算机上："
+
+#: src/development/setup.md:14
+msgid ""
+"```bash\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"```"
+msgstr ""
+"```bash\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"```"
+
+#: src/development/setup.md:18
+msgid "## Setup Guide"
+msgstr "## 安装指南"
+
+#: src/development/setup.md:20
+msgid "### Linux & Mac"
+msgstr "### Linux & Mac"
+
+#: src/development/setup.md:22
+msgid "#### 1. Install Rust and Dependencies"
+msgstr "#### 1.安装 Rust 和依赖"
+
+#: src/development/setup.md:24
+msgid ""
+"Start by installing Rust and running the test suite to confirm your setup:"
+msgstr "首先安装 Rust 并运行测试套件来确认你的安装是否成功："
+
+#: src/development/setup.md:26
+msgid ""
+"```bash\n"
+"rustup override set stable && rustup update && cargo test\n"
+"```"
+msgstr ""
+"```bash\n"
+"rustup override set stable && rustup update && cargo test\n"
+"```"
+
+#: src/development/setup.md:30
+msgid ""
+"> Note: Depending on your Linux distribution, you may need to install "
+"additional dependencies. Make sure to install any suggested or missing "
+"dependencies that arise during the setup process."
+msgstr ""
+"> 注意：根据您的 Linux 发行版，您可能需要安装其他依赖项。请确保你安装了在设置"
+"过程中出现的任何建议的或缺失的依赖项。"
+
+#: src/development/setup.md:32
+msgid "#### 2. Install Scarb Package Manager"
+msgstr "#### 2.安装 Scarb 软件包管理器"
+
+#: src/development/setup.md:34
+msgid ""
+"Next, install the [Scarb](https://docs.swmansion.com/scarb) package manager "
+"by running:"
+msgstr ""
+"接下来，通过运行如下命令来进行 [Scarb](https://docs.swmansion.com/scarb) 软件"
+"包管理器的安装："
+
+#: src/development/setup.md:36
+msgid ""
+"```bash\n"
+"curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/"
+"install.sh | sh\n"
+"```"
+msgstr ""
+"```bash\n"
+"curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/"
+"install.sh | sh\n"
+"```"
+
+#: src/development/setup.md:40
+msgid "#### 3. Setup Cairo VSCode Extension"
+msgstr "#### 3.设置Cairo VSCode 扩展"
+
+#: src/development/setup.md:42
+msgid ""
+"For proper linting and syntax highlighting, you should install the Cairo 1.0 "
+"extension for Visual Studio Code."
+msgstr ""
+"要获得适当的语法提示和语法高亮，你需要安装 Visual Studio Code 的 Cairo 1.0 扩"
+"展。"
+
+#: src/development/setup.md:44
+msgid ""
+"- Clone the Cairo repository somewhere on your machine (make sure not to "
+"clone within the Dojo directory)."
+msgstr "- 在你的电脑上克隆 Cairo 仓库（注意确保不要克隆到 Dojo 目录中）。"
+
+#: src/development/setup.md:46
+msgid ""
+"```bash\n"
+"git clone https://github.com/starkware-libs/cairo.git\n"
+"```"
+msgstr ""
+"```bash\n"
+"git clone https://github.com/starkware-libs/cairo.git\n"
+"```"
+
+#: src/development/setup.md:50
+msgid ""
+"- Install the Cairo Language Server extension. Here's a step-by-step guide, "
+"or you can follow the [official instructions](https://github.com/starkware-"
+"libs/cairo/blob/main/vscode-cairo/README.md)."
+msgstr ""
+"- 安装Cairo语言服务器扩展。这里有一个分步指南，你也可以参照 [官方说明]"
+"(https://github.com/starkware-libs/cairo/blob/main/vscode-cairo/README.md)进"
+"行安装。"
+
+#: src/development/setup.md:52
+msgid "Navigate to the vscode-cairo directory:"
+msgstr "在终端中导航至 vscode-cairo 目录："
+
+#: src/development/setup.md:54
+msgid ""
+"```bash\n"
+"cd cairo/vscode-cairo\n"
+"```"
+msgstr ""
+"```bash\n"
+"cd cairo/vscode-cairo\n"
+"```"
+
+#: src/development/setup.md:58
+msgid "Install the required packages:"
+msgstr "安装所需的包："
+
+#: src/development/setup.md:60
+msgid ""
+"```bash\n"
+"sudo npm install --global @vscode/vsce\n"
+"npm install\n"
+"```"
+msgstr ""
+"```bash\n"
+"sudo npm install --global @vscode/vsce\n"
+"npm install\n"
+"```"
+
+#: src/development/setup.md:65
+msgid "Package the extension:"
+msgstr "打包扩展："
+
+#: src/development/setup.md:67
+msgid ""
+"```bash\n"
+"vsce package\n"
+"```"
+msgstr ""
+"```bash\n"
+"vsce package\n"
+"```"
+
+#: src/development/setup.md:71
+msgid "Install the extension:"
+msgstr "安装扩展："
+
+#: src/development/setup.md:73
+msgid ""
+"```bash\n"
+"code --install-extension cairo1*.vsix\n"
+"```"
+msgstr ""
+"```bash\n"
+"code --install-extension cairo1*.vsix\n"
+"```"
+
+#: src/development/setup.md:77
+msgid ""
+"> **Mac Tip:** If you don't have the `code` command, in VSCode do "
+"`Cmd+Shift+P` and type 'shell command' to find the Shell Command: Install "
+"'code' command in PATH command."
+msgstr ""
+"> **Mac提示：** 如果没有 \"code \"命令，请在 VSCode 中执行 \"Cmd+Shift+P \"并"
+"输入 \"shell command \"以查找需要的Shell命令：Install 'code' command in PATH "
+"command."
+
+#: src/development/setup.md:79
+msgid ""
+"The Cairo language server should now be installed globally in your Visual "
+"Studio Code. If you have the server enabled, Scarb should automatically pick "
+"this up and start linting your Cairo files."
+msgstr ""
+"现在，Visual Studio 代码中应该已全局安装了 Cairo 语言服务器。如果已启用服务"
+"器，Scarb 会自动识别并开始对 Cairo 文件进行校验。"
+
+#: src/development/setup.md:81
+msgid "### Windows"
+msgstr "### 窗口"
+
+#: src/development/setup.md:83 src/development/setup.md:87
+msgid "_Coming soon_"
+msgstr "即将推出"
+
+#: src/development/setup.md:85
+msgid "### Container"
+msgstr "### 容器"
+
+#: src/framework.md:1
+msgid "## Framework"
+msgstr "## 框架"
+
+#: src/framework.md:3
+msgid "### Cairo"
+msgstr "## Cairo"
+
+#: src/framework.md:4
+msgid ""
+"- [Overview](./framework/cairo/overview.md)\n"
+"- [World](./framework/cairo/world.md)\n"
+"- [Components](./framework/cairo/components.md)\n"
+"- [Systems](./framework/cairo/systems.md)\n"
+"- [Entities](./framework/cairo/entities.md)\n"
+"- [Commands](./framework/cairo/commands.md)\n"
+"- [Storage](./framework/cairo/storage.md)"
+msgstr ""
+"- [概览](./framework/cairo/overview.md)\n"
+"- [世界](./framework/cairo/world.md)\n"
+"- [组件](./framework/cairo/components.md)\n"
+"- [系统](./framework/cairo/systems.md)\n"
+"- [实体](./framework/cairo/entities.md)\n"
+"- [命令](./framework/cairo/commands.md)\n"
+"- [存储](./framework/cairo/storage.md)"
+
+#: src/framework.md:13
+msgid "### Tooling"
+msgstr "### 工具"
+
+#: src/framework.md:15
+msgid ""
+"Dojo comes with batteries included to power your games. There are 3 core "
+"tools which you will use to build your worlds."
+msgstr ""
+"Dojo 随附好用的工具，为您的游戏赋能。您将使用 3 种核心工具来构建自己的世界。"
+
+#: src/framework.md:17
+msgid ""
+"- [Sozo](./framework/sozo/overview.md)\n"
+"- [Katana](./framework/katana/overview.md)\n"
+"- [Torii](./framework/torii/overview.md)"
+msgstr ""
+"- [Sozo](./framework/sozo/overview.md)\n"
+"- [Katana](./framework/katana/overview.md)\n"
+"- [Torii](./framework/torii/overview.md)"
+
+#: src/framework/cairo/overview.md:1
+msgid "## Overview"
+msgstr "## 概览"
+
+#: src/framework/cairo/overview.md:3
+msgid ""
+"Dojo employs the ECS (Entity Component System) as an architectural pattern "
+"to efficiently manage and organize the state and behavior of Autonomous "
+"Worlds (AWs). In this pattern, computation is defined as a list of systems "
+"operating on a set of entities, each of which consists of a dynamic set of "
+"pure data components. Systems select the entities to process via persistent "
+"and efficient queries over the entities' components."
+msgstr ""
+"Dojo 采用 ECS（实体组件系统）作为架构模式，以有效管理和组织自主世界（AW）的状"
+"态和行为。在这种模式中，计算被定义为在一组实体上运行的系统列表，每个实体都由"
+"一组动态的纯数据组件组成。各系统通过对实体组件进行持久、高效的查询，选择要处"
+"理的实体。"
+
+#: src/framework/cairo/overview.md:5
+msgid ""
+"It is worth reading this excellent [FAQ](https://github.com/SanderMertens/"
+"ecs-faq) on ECS"
+msgstr ""
+"值得一读的是这篇关于 ECS 的精彩 [常见问题](https://github.com/SanderMertens/"
+"ecs-faq)文章"
+
+#: src/framework/cairo/overview.md:7
+msgid "### Understanding the ECS in Dojo"
+msgstr "### 了解 Dojo 中的 ECS"
+
+#: src/framework/cairo/overview.md:9
+msgid ""
+"The Entity Component System (ECS) forms the backbone of the Dojo engine. "
+"Here's an overview of its core elements:"
+msgstr "实体组件系统（ECS）是 Dojo 引擎的支柱。以下是其核心元素的概述："
+
+#: src/framework/cairo/overview.md:11
+msgid ""
+"1. **Entities**: Unique objects that can bear multiple components. They are "
+"identifiable through unique IDs.\n"
+"2. **Components**: Diverse attributes of an entity, such as geometry, "
+"physics, and hit points. Components are exclusively responsible for data "
+"storage.\n"
+"3. **Systems**: Segments of code that manage entities and alter components.\n"
+"4. **Queries**: Utilized by systems to select entities based on the "
+"associated components.\n"
+"5. **World**: A comprehensive container for entities, components, systems, "
+"and queries."
+msgstr ""
+"1. **实体**：可包含多个组件的唯一对象。它们可通过唯一 ID 进行识别。\n"
+"2. **组件**：实体的各种属性，如几何、物理和命中点。组件专门负责数据存储。\n"
+"3. **系统**：管理实体和更改组件的代码段。\n"
+"4. **查询**：系统根据相关组件选择实体。\n"
+"5. **世界**：实体、组件、系统和查询的综合容器。"
+
+#: src/framework/cairo/overview.md:19
+msgid "### Building an Autonomous World with Dojo"
+msgstr "### 利用 Dojo 构建自主世界"
+
+#: src/framework/cairo/overview.md:21
+msgid "Follow these steps to effectively create a Dojo world:"
+msgstr "按照以下步骤可高效的创建 Dojo 世界："
+
+#: src/framework/cairo/overview.md:23
+msgid ""
+"1. **Conceptualize Entities**: Visualize the entities that will populate "
+"your world.\n"
+"2. **Recognize Shared Attributes**: Determine common characteristics of your "
+"entities, such as position, name, or health.\n"
+"3. **Construct Reusable Components**: Create versatile components derived "
+"from these shared attributes.\n"
+"4. **Develop Specialized Systems**: Design systems that are adept at "
+"performing a specific task."
+msgstr ""
+"1. **构想实体**：想象你的世界中将出现的实体。\n"
+"2. **识别共同属性**：确定实体的共同特征，如位置、名称或健康值。\n"
+"3. **构建可重复使用的组件**：根据这些共享属性创建通用组件。\n"
+"4. **开发专用系统**：设计擅长执行特定任务的系统。"
+
+#: src/framework/cairo/overview.md:28
+msgid ""
+"To illustrate, here's an example of a basic design that utilizes components "
+"and systems to create four distinct entities:"
+msgstr "下面是一个利用组件和系统创建四个不同实体的基本设计示例："
+
+#: src/framework/cairo/overview.md:31
+msgid "ECS"
+msgstr "ECS"
+
+#: src/framework/cairo/world.md:1
+msgid "## World"
+msgstr "## 世界"
+
+#: src/framework/cairo/world.md:3
+msgid ""
+"The world contract functions as a central system kernel, serving as the "
+"foundation for initiating and resolving all interactions. Within this "
+"kernel, contracts are deployed, registered, and executed, streamlining the "
+"process for downstream systems by enabling clients to engage with a single "
+"contract rather than potentially hundreds."
+msgstr ""
+"世界合约是一个中央系统内核，是启动和解决所有交互的基础。在这个内核中，合约被"
+"部署、注册和执行，简化了下游系统的流程，使得客户只需与一个合约而不是潜在的数"
+"百个合约打交道。"
+
+#: src/framework/cairo/world.md:6
+msgid ""
+"> **To think about:** Consider Autonomous Worlds as sovereign blockchains "
+"residing within another blockchain - a nested blockchain, so to speak. Just "
+"as you can deploy contracts onto Ethereum to enhance its functionality, you "
+"can similarly introduce systems into the World contract to enrich its "
+"features. While anyone can contribute to the World, akin to Ethereum, "
+"authorization is required to interact with component state. There is a "
+"dedicated topic to Authorisation."
+msgstr ""
+"> **思考：** 将自治世界视为驻留在另一个区块链中的主权区块链--可以说是嵌套区块"
+"链。正如你可以在以太坊上部署合约来增强其功能一样，你也可以在世界合约中引入系"
+"统来丰富其功能。与以太坊类似，任何人都可以为 \"世界 \"做出贡献，但与组件状态"
+"交互需要授权。有一个专门的主题会讨论授权。"
+
+#: src/framework/cairo/world.md:9 src/framework/cairo/authorization.md:13
+msgid "### API"
+msgstr "### API"
+
+#: src/framework/cairo/world.md:11
+msgid ""
+"```rust,ignore\n"
+"// World interface\n"
+"#[abi]\n"
+"trait IWorld {\n"
+"    fn initialize(routes: Array<Route>);\n"
+"    fn component(name: ShortString) -> ClassHash;\n"
+"    fn register_component(class_hash: ClassHash);\n"
+"    fn system(name: ShortString) -> ClassHash;\n"
+"    fn register_system(class_hash: ClassHash);\n"
+"    fn uuid() -> usize;\n"
+"    fn execute(name: ShortString, execute_calldata: Span<felt252>) -> "
+"Span<felt252>;\n"
+"    fn entity(component: ShortString, key: Query, offset: u8, length: usize) "
+"-> Span<felt252>;\n"
+"    fn set_entity(component: ShortString, key: Query, offset: u8, value: "
+"Span<felt252>);\n"
+"    fn entities(component: ShortString, partition: u250) -> (Span<u250>, "
+"Span<Span<felt252>>);\n"
+"    fn set_executor(contract_address: ContractAddress);\n"
+"    fn is_authorized(system: ClassHash, component: ClassHash) -> bool;\n"
+"    fn is_account_admin() -> bool;\n"
+"    fn delete_entity(component: ShortString, query: Query);\n"
+"}\n"
+"```"
+msgstr ""
+"```rust,ignore\n"
+"// World interface\n"
+"#[abi]\n"
+"trait IWorld {\n"
+"    fn initialize(routes: Array<Route>);\n"
+"    fn component(name: ShortString) -> ClassHash;\n"
+"    fn register_component(class_hash: ClassHash);\n"
+"    fn system(name: ShortString) -> ClassHash;\n"
+"    fn register_system(class_hash: ClassHash);\n"
+"    fn uuid() -> usize;\n"
+"    fn execute(name: ShortString, execute_calldata: Span<felt252>) -> "
+"Span<felt252>;\n"
+"    fn entity(component: ShortString, key: Query, offset: u8, length: usize) "
+"-> Span<felt252>;\n"
+"    fn set_entity(component: ShortString, key: Query, offset: u8, value: "
+"Span<felt252>);\n"
+"    fn entities(component: ShortString, partition: u250) -> (Span<u250>, "
+"Span<Span<felt252>>);\n"
+"    fn set_executor(contract_address: ContractAddress);\n"
+"    fn is_authorized(system: ClassHash, component: ClassHash) -> bool;\n"
+"    fn is_account_admin() -> bool;\n"
+"    fn delete_entity(component: ShortString, query: Query);\n"
+"}\n"
+"```"
+
+#: src/framework/cairo/authorization.md:1
+msgid "## Authorization"
+msgstr "## 授权"
+
+#: src/framework/cairo/authorization.md:3
+msgid ""
+"As discussed in the [World](./world.md) chapter, Autonomous Worlds (AWs) "
+"function as sovereign chains nested within a public blockchain. These Worlds "
+"are also open to the public. This structure allows anyone to enhance a World "
+"by deploying components or systems. However, this openness brings security "
+"considerations. Similar to Ethereum, interacting with a component state by a "
+"System requires appropriate authorization by the component owner."
+msgstr ""
+"正如[World](./world.md)一章所讨论的，自治世界（AW）的功能是嵌套在公共区块链中"
+"的主权链。这些世界也对公众开放。这种结构允许任何人通过部署组件或系统来增强世"
+"界。不过，这种开放性也带来了安全方面的考虑。与以太坊类似，系统与组件状态的交"
+"互需要组件所有者的适当授权。"
+
+#: src/framework/cairo/authorization.md:5
+msgid "### Architecture"
+msgstr "### 架构"
+
+#: src/framework/cairo/authorization.md:7
+#: src/framework/cairo/authorization.md:11
+#: src/framework/cairo/authorization.md:15
+msgid "__todo__"
+msgstr "__todo__"
+
+#: src/framework/cairo/authorization.md:9 src/framework/katana/overview.md:21
+msgid "### Usage"
+msgstr "### 使用方法"
+
+#: src/framework/cairo/components.md:1
+msgid "## Components"
+msgstr "## 组件"
+
+#: src/framework/cairo/components.md:3
+msgid ""
+"Components serve as the foundation for defining the world's structure, "
+"encapsulating state for systems to mutate. For instance, a Position "
+"component can be implemented as a struct, exposing `is_zero` and `is_equal` "
+"methods. Dojo compiles these components into contracts that can be declared "
+"and installed within a world, enabling the creation of diverse and "
+"customizable environments."
+msgstr ""
+"组件是定义世界结构的基础，封装了系统可变的状态。例如，一个 \"位置"
+"\"（Position）组件可以作为结构体实现，并向外暴露自己的 `is_zero` 和 "
+"`is_equal`方法。Dojo 将这些组件编译成合约，可以在世界中声明和安装，从而创建多"
+"样化和可定制的环境。"
+
+#: src/framework/cairo/components.md:5
+msgid ""
+"When designing a world's components, it is crucial to carefully consider the "
+"abstractions you create, always keeping composability in mind."
+msgstr ""
+"在设计一个世界中的组件时，必须仔细考虑所创建的抽象概念，并始终牢记可组合性。"
+
+#: src/framework/cairo/components.md:7
+msgid ""
+"Suppose you plan to create two entities that move around the map and are "
+"fundamentally different from each other, except for the fact that they both "
+"exist within the world. In this case, you could create a shared Position "
+"component for both entities. This demonstrates the power of the Entity "
+"Component System (ECS) abstraction: by writing a single component, you can "
+"reuse it across multiple diverse entities, promoting modularity and "
+"flexibility within your world design."
+msgstr ""
+"假如您计划创建两个在地图上移动的实体，那么除了它们都存在于世界中这一事实外，"
+"它们彼此从根本上是完全不同的。在这种情况下，您可以为这两个实体创建一个共享的"
+"位置组件。这展示了实体组件系统（ECS）抽象的强大功能：通过编写一个组件，您可以"
+"在多个不同的实体中重复使用它，从而提高世界设计的模块性和灵活性。"
+
+#: src/framework/cairo/components.md:9
+msgid ""
+"```rust,ignore\n"
+"use array::ArrayTrait;\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde)]\n"
+"#[component(indexed = true)]\n"
+"struct Moves {\n"
+"    remaining: u8,\n"
+"}\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde)]\n"
+"struct Position {\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"trait PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool;\n"
+"    fn is_equal(self: Position, b: Position) -> bool;\n"
+"}\n"
+"\n"
+"impl PositionImpl of PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool {\n"
+"        if self.x - self.y == 0 {\n"
+"            return true;\n"
+"        }\n"
+"        false\n"
+"    }\n"
+"\n"
+"    fn is_equal(self: Position, b: Position) -> bool {\n"
+"        self.x == b.x && self.y == b.y\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+"```rust,ignore\n"
+"use array::ArrayTrait;\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde)]\n"
+"#[component(indexed = true)]\n"
+"struct Moves {\n"
+"    remaining: u8,\n"
+"}\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde)]\n"
+"struct Position {\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"trait PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool;\n"
+"    fn is_equal(self: Position, b: Position) -> bool;\n"
+"}\n"
+"\n"
+"impl PositionImpl of PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool {\n"
+"        if self.x - self.y == 0 {\n"
+"            return true;\n"
+"        }\n"
+"        false\n"
+"    }\n"
+"\n"
+"    fn is_equal(self: Position, b: Position) -> bool {\n"
+"        self.x == b.x && self.y == b.y\n"
+"    }\n"
+"}\n"
+"```"
+
+#: src/framework/cairo/systems.md:1
+msgid "## Systems"
+msgstr "## 系统"
+
+#: src/framework/cairo/systems.md:3
+msgid ""
+"Systems represent functions that operate on the world state. They take input "
+"from the user, retrieve the current state from the world, compute a state "
+"transition, and apply it. Each system has a single entry point, the execute "
+"function. To streamline interaction with the world, systems can utilize\n"
+"commands."
+msgstr ""
+"系统代表对世界状态进行操作的功能。它们接受用户的输入，从世界中检索当前状态，"
+"计算状态转换并加以应用。每个系统都有一个入口点，即执行功能。为了简化与世界的"
+"交互，系统可以使用命令。"
+
+#: src/framework/cairo/systems.md:6
+msgid ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod Spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        set !(\n"
+"            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position "
+"{ x: 0, y: 0 }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod Spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        set !(\n"
+"            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position "
+"{ x: 0, y: 0 }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
+
+#: src/framework/cairo/entities.md:1
+msgid "## Entities"
+msgstr "## 实体"
+
+#: src/framework/cairo/entities.md:3
+msgid ""
+"A common misconception for those new to ECS systems is the way entities "
+"exist within the World. Different ECS systems handle entities in various "
+"ways. In Dojo, entities are treated as a primary key value within the world, "
+"to which components can be attached. To illustrate this concept, consider a "
+"simple example of a character in a game that has a position and a health "
+"component."
+msgstr ""
+"对于刚接触 ECS 系统的人来说，一个常见的误解是实体在世界中的存在方式。不同的 "
+"ECS 系统处理实体的方式各不相同。在 Dojo 中，实体被视为世界中的可以附加组件的"
+"主键值。为了说明这一概念，请看一个简单的例子：游戏中的角色有一个位置和一个健"
+"康值组件。"
+
+#: src/framework/cairo/entities.md:5
+msgid ""
+"When defining the components for this entity, it is important to note that "
+"we do not reference the entity directly. Instead, we simply provide two "
+"structs that the entity will contain. This approach emphasizes the "
+"flexibility and composability of the ECS system, allowing for the easy "
+"creation and modification of entities with various combinations of "
+"components."
+msgstr ""
+"在定义该实体的组件时，需要注意的是，我们并不直接引用该实体。相反，我们只是提"
+"供了实体将包含的两个结构。这种方法强调了 ECS 系统的灵活性和可组合性，允许轻松"
+"创建和修改具有各种组件组合的实体。"
+
+#: src/framework/cairo/entities.md:7
+msgid ""
+"```rust,ignore\n"
+"#[component]\n"
+"struct Position {\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"#[component]\n"
+"struct Health {\n"
+"    value: u32,\n"
+"}\n"
+"\n"
+"```"
+msgstr ""
+"```rust,ignore\n"
+"#[component]\n"
+"struct Position {\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"#[component]\n"
+"struct Health {\n"
+"    value: u32,\n"
+"}\n"
+"\n"
+"```"
+
+#: src/framework/cairo/entities.md:21
+msgid ""
+"Now, let's create a `SpawnSystem` for the character. It is important to note "
+"that we have not explicitly defined an Entity anywhere. Instead, the system "
+"will assign a primary key ID to the entity when this system is executed."
+msgstr ""
+"现在，让我们为角色创建一个 `SpawnSystem`（再生系统）。需要注意的是，我们没有"
+"在任何地方明确定义实体。相反，系统会在执行该系统时为实体分配一个主键 ID。"
+
+#: src/framework/cairo/entities.md:23
+msgid ""
+"```rust,ignore\n"
+"// The most basic system that creates a new player entity with a given name "
+"and 100 health.\n"
+"\n"
+"#[system]\n"
+"mod Spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Health;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        set !(\n"
+"            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position "
+"{ x: 0, y: 0 }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+"```rust,ignore\n"
+"// The most basic system that creates a new player entity with a given name "
+"and 100 health.\n"
+"\n"
+"#[system]\n"
+"mod Spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Health;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        set !(\n"
+"            ctx.world, ctx.origin.into(), (Moves { remaining: 10 }, Position "
+"{ x: 0, y: 0 }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
+
+#: src/framework/cairo/entities.md:44
+msgid "Finally, lets move the character with the `MoveSystem`."
+msgstr "最后，让我们使用 `MoveSystem` 移动角色。"
+
+#: src/framework/cairo/entities.md:46
+msgid ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod Move {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    #[derive(Serde, Drop)]\n"
+"    enum Direction {\n"
+"        Left: (),\n"
+"        Right: (),\n"
+"        Up: (),\n"
+"        Down: (),\n"
+"    }\n"
+"\n"
+"    impl DirectionIntoFelt252 of Into<Direction, felt252> {\n"
+"        fn into(self: Direction) -> felt252 {\n"
+"            match self {\n"
+"                Direction::Left(()) => 0,\n"
+"                Direction::Right(()) => 1,\n"
+"                Direction::Up(()) => 2,\n"
+"                Direction::Down(()) => 3,\n"
+"            }\n"
+"        }\n"
+"    }\n"
+"\n"
+"    fn execute(ctx: Context, direction: Direction) {\n"
+"        let (position, moves) = get !(ctx.world, ctx.origin.into(), "
+"(Position, Moves));\n"
+"        let next = next_position(position, direction);\n"
+"        set !(\n"
+"            ctx.world,\n"
+"            ctx.origin.into(),\n"
+"            (Moves { remaining: moves.remaining - 1 }, Position { x: next.x, "
+"y: next.y }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"\n"
+"    fn next_position(position: Position, direction: Direction) -> Position "
+"{\n"
+"        match direction {\n"
+"            Direction::Left(()) => {\n"
+"                Position { x: position.x - 1, y: position.y }\n"
+"            },\n"
+"            Direction::Right(()) => {\n"
+"                Position { x: position.x + 1, y: position.y }\n"
+"            },\n"
+"            Direction::Up(()) => {\n"
+"                Position { x: position.x, y: position.y - 1 }\n"
+"            },\n"
+"            Direction::Down(()) => {\n"
+"                Position { x: position.x, y: position.y + 1 }\n"
+"            },\n"
+"        }\n"
+"    }\n"
+"}\n"
+"```"
+msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod Move {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    #[derive(Serde, Drop)]\n"
+"    enum Direction {\n"
+"        Left: (),\n"
+"        Right: (),\n"
+"        Up: (),\n"
+"        Down: (),\n"
+"    }\n"
+"\n"
+"    impl DirectionIntoFelt252 of Into<Direction, felt252> {\n"
+"        fn into(self: Direction) -> felt252 {\n"
+"            match self {\n"
+"                Direction::Left(()) => 0,\n"
+"                Direction::Right(()) => 1,\n"
+"                Direction::Up(()) => 2,\n"
+"                Direction::Down(()) => 3,\n"
+"            }\n"
+"        }\n"
+"    }\n"
+"\n"
+"    fn execute(ctx: Context, direction: Direction) {\n"
+"        let (position, moves) = get !(ctx.world, ctx.origin.into(), "
+"(Position, Moves));\n"
+"        let next = next_position(position, direction);\n"
+"        set !(\n"
+"            ctx.world,\n"
+"            ctx.origin.into(),\n"
+"            (Moves { remaining: moves.remaining - 1 }, Position { x: next.x, "
+"y: next.y }, )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"\n"
+"    fn next_position(position: Position, direction: Direction) -> Position "
+"{\n"
+"        match direction {\n"
+"            Direction::Left(()) => {\n"
+"                Position { x: position.x - 1, y: position.y }\n"
+"            },\n"
+"            Direction::Right(()) => {\n"
+"                Position { x: position.x + 1, y: position.y }\n"
+"            },\n"
+"            Direction::Up(()) => {\n"
+"                Position { x: position.x, y: position.y - 1 }\n"
+"            },\n"
+"            Direction::Down(()) => {\n"
+"                Position { x: position.x, y: position.y + 1 }\n"
+"            },\n"
+"        }\n"
+"    }\n"
+"}\n"
+"```"
+
+#: src/framework/cairo/commands.md:1
+msgid "## Commands"
+msgstr "## 命令"
+
+#: src/framework/cairo/commands.md:3
+msgid ""
+"Commands in Dojo are generalized functions that are expanded at compile time "
+"to facilitate system execution. They provide a convenient way for systems to "
+"interact with the world state by abstracting common operations, such as "
+"retrieving or updating components, and generating unique IDs. By leveraging "
+"these commands, developers can streamline their system implementations and "
+"improve code readability."
+msgstr ""
+"Dojo 中的命令是在编译时扩展的通用函数，便于系统执行。它们通过抽象常见操作（如"
+"检索或更新组件以及生成唯一 ID），为系统提供了一种与世界状态交互的便捷方式。通"
+"过利用这些命令，开发人员可以简化系统实现并提高代码的可读性。"
+
+#: src/framework/cairo/commands.md:5
+msgid ""
+"Understanding commands is key to understanding Dojo. You will leverage them "
+"heavily within the systems you design."
+msgstr "理解命令是理解 Dojo 的关键。您将在设计系统时大量使用它们。"
+
+#: src/framework/cairo/commands.md:7
+msgid ""
+"```rust,ignore\n"
+"// Update an existing entity by setting its components with the provided "
+"values.\n"
+"// This function takes a storage key representing the entity and a generic "
+"type T for the components to be updated.\n"
+"set!(world: IWorldDispatcher, storage_key: StorageKey, components: T);\n"
+"\n"
+"// Retrieve the components of a specific type T for an entity identified by "
+"the storage key.\n"
+"// This function returns the components as an instance of the generic type "
+"T.\n"
+"get!(world: IWorldDispatcher, storage_key: StorageKey, components: T) -> T;\n"
+"\n"
+"// Retrieve all entity IDs that have components matching the provided type "
+"T.\n"
+"// This function returns an array of entity IDs (felt252) containing the "
+"specified components.\n"
+"find!(world: IWorldDispatcher, key: StorageKey, components: T);\n"
+"```"
+msgstr ""
+"```rust,ignore\n"
+"// Update an existing entity by setting its components with the provided "
+"values.\n"
+"// This function takes a storage key representing the entity and a generic "
+"type T for the components to be updated.\n"
+"set!(world: IWorldDispatcher, storage_key: StorageKey, components: T);\n"
+"\n"
+"// Retrieve the components of a specific type T for an entity identified by "
+"the storage key.\n"
+"// This function returns the components as an instance of the generic type "
+"T.\n"
+"get!(world: IWorldDispatcher, storage_key: StorageKey, components: T) -> T;\n"
+"\n"
+"// Retrieve all entity IDs that have components matching the provided type "
+"T.\n"
+"// This function returns an array of entity IDs (felt252) containing the "
+"specified components.\n"
+"find!(world: IWorldDispatcher, key: StorageKey, components: T);\n"
+"```"
+
+#: src/framework/cairo/storage.md:1
+msgid "# Storage"
+msgstr "# 存储"
+
+#: src/framework/cairo/storage.md:3
+msgid ""
+"In a Dojo Autonomous World, the `World` contract serves as the central store "
+"that manages and maintains the overall state. No state is maintained at the "
+"component level, this allows a clean split in logic and state. Most "
+"developers will not need to touch the storage methods, every part of the "
+"world can just be maintained via the [commands](./commands.md)."
+msgstr ""
+"在 Dojo 自主世界中，`World` 合约是管理和维护整体状态的中心存储。组件级不维护"
+"任何状态，这样就可以将逻辑和状态完全分开。大多数开发人员无需接触存储方法，只"
+"需通过 [命令](./commands.md)维护世界的每个部分即可。"
+
+#: src/framework/cairo/storage.md:6
+msgid "## Detailed overview of Storage"
+msgstr "## 存储的详细概述"
+
+#: src/framework/cairo/storage.md:8
+msgid ""
+"State is maintained via a generated partition when you create a component. "
+"The compiler calculates the size of the component along with the key you "
+"have used and creates a partition within the world. Think of the partition "
+"as a table which can be read from and written to."
+msgstr ""
+"当你创建一个组件时，会通过生成的分区来维护状态。编译器会计算组件的大小和你使"
+"用的键，并在世界中创建一个分区。可以把分区想象成一个可以读取和写入的表格。"
+
+#: src/framework/sozo/overview.md:1
+msgid "# Sozo"
+msgstr "# Sozo"
+
+#: src/framework/sozo/overview.md:3
+msgid ""
+"`sozo` is a powerful migration planning tool designed to streamline the "
+"updating and deployment of AWs. It provides a robust binary command-line "
+"interface (CLI) that simplifies World management tasks, enabling you to "
+"focus on the creative aspects of World-building. Future versions will "
+"provide a GUI."
+msgstr ""
+"`sozo`（译者注：sozo是日文“創造”的罗马字） 是一款功能强大的迁移规划工具，旨在"
+"简化 AW 的更新和部署。它提供了一个强大的二进制命令行界面（CLI），可简化世界管"
+"理任务，使您能够专注于世界构建的创意方面。未来版本将提供图形用户界面。"
+
+#: src/framework/sozo/overview.md:5
+msgid "## Features"
+msgstr "## 功能"
+
+#: src/framework/sozo/overview.md:7
+msgid ""
+"-   **Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy "
+"management of your Worlds, whether you're updating existing ones or "
+"deploying new ones."
+msgstr ""
+"-   **二进制包 CLI**：Sozo 提供直观的二进制包 CLI，确保能轻松管理世界，无论是"
+"更新现有世界还是部署新世界。"
+
+#: src/framework/sozo/overview.md:11
+msgid ""
+"The `sozo` binary can be installed via [`dojoup`](../../getting-started/"
+"installation.md#using-dojoup), our dedicated installation package manager."
+msgstr ""
+"你可以通过我们专用的安装包管理器 [`dojoup`]（.../.../getting-started/"
+"installation.md#using-dojoup）安装 `sozo` 二进制文件。"
+
+#: src/framework/sozo/overview.md:13
+msgid "### Installing from Source"
+msgstr "### 从源码安装"
+
+#: src/framework/sozo/overview.md:15
+msgid "If you prefer to install from the source code:"
+msgstr "如果您更喜欢从源代码中安装请："
+
+#: src/framework/sozo/overview.md:17
+msgid ""
+"```sh\n"
+"cargo install --path ./crates/sozo --profile local --force\n"
+"```"
+msgstr ""
+"```sh\n"
+"cargo install --path ./crates/sozo --profile local --force\n"
+"```"
+
+#: src/framework/sozo/overview.md:21
+msgid ""
+"This will install Sozo and the required dependencies on your local system."
+msgstr "这将在本地系统中安装 Sozo 和所需的依赖项。"
+
+#: src/framework/sozo/overview.md:23
+msgid ""
+"> 📚 **Reference**\n"
+">\n"
+"> See the [`sozo` Reference](../../reference/sozo/) for a complete overview "
+"of all the available subcommands."
+msgstr ""
+"> 📚 **参考资料**\n"
+">\n"
+"> 请参阅 [`sozo`参考资料]（../../reference/sozo/），了解所有可用子命令的完整"
+"概览。"
+
+#: src/framework/katana/overview.md:1
+msgid "## Katana"
+msgstr "## Katana"
+
+#: src/framework/katana/overview.md:3
+msgid ""
+"`katana` is a _blazingly fast_ local Starknet node, designed to support "
+"local development with Dojo."
+msgstr ""
+"`katana` （译者注：katana是日文“刀”的罗马字）是一个速度惊人的本地星网节点，旨"
+"在支持使用 Dojo 进行本地开发。"
+
+#: src/framework/katana/overview.md:5
+msgid "### Features"
+msgstr "### 功能"
+
+#: src/framework/katana/overview.md:7
+msgid ""
+"-   [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-"
+"specs/tree/v0.3.0) support"
+msgstr ""
+"-   支持[Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/"
+"starknet-specs/tree/v0.3.0)"
+
+#: src/framework/katana/overview.md:11
+msgid ""
+"`katana` binary is available via [`dojoup`](../../getting-started/"
+"installation.md#using-dojoup)."
+msgstr ""
+"`katana`二进制文件可通过 [`dojoup`]（../../getting-started/installation."
+"md#using-dojoup）获取。"
+
+#: src/framework/katana/overview.md:13
+msgid "### Installing from source"
+msgstr "### 从源码安装"
+
+#: src/framework/katana/overview.md:15
+msgid ""
+"```bash\n"
+"git clone https://github.com/dojoengine/dojo\n"
+"cd dojo\n"
+"cargo install --path ./crates/katana --locked --force\n"
+"```"
+msgstr ""
+"```bash\n"
+"git clone https://github.com/dojoengine/dojo\n"
+"cd dojo\n"
+"cargo install --path ./crates/katana --locked --force\n"
+"```"
+
+#: src/framework/katana/overview.md:23
+msgid ""
+"```console\n"
+"$ katana\n"
+"\n"
+"\n"
+"\n"
+"██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗\n"
+"██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗\n"
+"█████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║\n"
+"██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║\n"
+"██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║\n"
+"╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝\n"
+"\n"
+"\n"
+"\n"
+"PREFUNDED ACCOUNTS\n"
+"==================\n"
+"\n"
+"| Account address |  "
+"0x06f62894bfd81d2e396ce266b2ad0f21e0668d604e5bb1077337b6d570a54aea\n"
+"| Private key     |  "
+"0x07230b49615d175307d580c33d6fda61fc7b9aec91df0f5c1a5ebe3b8cbfee02\n"
+"| Public key      |  "
+"0x078e6e3e4a50285be0f6e8d0b8a61044033e24023df6eb95979ae4073f159ae6\n"
+"\n"
+"| Account address |  "
+"0x04b352538f61697825af242c9c451df02a40cca99391a47054489dee82138008\n"
+"| Private key     |  "
+"0x0326b6d921c2d9c9b76bb641c433c94b030cf57d48803dc742729704ffdd0fc6\n"
+"| Public key      |  "
+"0x0564a13ba4d4cf95a60f78ca05fc04ff6845736e2f04b3c6703283cdf65e2615\n"
+"\n"
+"\n"
+"🚀 JSON-RPC server started: http://127.0.0.1:5050\n"
+"\n"
+"\n"
+"```"
+msgstr ""
+"```console\n"
+"$ katana\n"
+"\n"
+"\n"
+"\n"
+"██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗\n"
+"██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗\n"
+"█████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║\n"
+"██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║\n"
+"██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║\n"
+"╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝\n"
+"\n"
+"\n"
+"\n"
+"PREFUNDED ACCOUNTS\n"
+"==================\n"
+"\n"
+"| Account address |  "
+"0x06f62894bfd81d2e396ce266b2ad0f21e0668d604e5bb1077337b6d570a54aea\n"
+"| Private key     |  "
+"0x07230b49615d175307d580c33d6fda61fc7b9aec91df0f5c1a5ebe3b8cbfee02\n"
+"| Public key      |  "
+"0x078e6e3e4a50285be0f6e8d0b8a61044033e24023df6eb95979ae4073f159ae6\n"
+"\n"
+"| Account address |  "
+"0x04b352538f61697825af242c9c451df02a40cca99391a47054489dee82138008\n"
+"| Private key     |  "
+"0x0326b6d921c2d9c9b76bb641c433c94b030cf57d48803dc742729704ffdd0fc6\n"
+"| Public key      |  "
+"0x0564a13ba4d4cf95a60f78ca05fc04ff6845736e2f04b3c6703283cdf65e2615\n"
+"\n"
+"\n"
+"🚀 JSON-RPC server started: http://127.0.0.1:5050\n"
+"\n"
+"\n"
+"```"
+
+#: src/framework/katana/overview.md:54
+msgid ""
+"> 📚 **Reference**\n"
+">\n"
+"> See the [`katana` Reference](../../reference/katana/) for in depth "
+"information on Anvil and its capabilities."
+msgstr ""
+"> 📚 **参考资料**\n"
+">\n"
+"> 有关 Anvil 及其功能的详细信息，请参阅  [`katana`参考资料](../../reference/"
+"katana/)。"
+
+#: src/framework/torii/overview.md:1
+msgid "## Torii - Networking & Indexing"
+msgstr "## Torii - 网络和索引"
+
+#: src/framework/torii/overview.md:3
+msgid ""
+"Torii serves as a comprehensive indexing and networking layer for dojo "
+"worlds. It systematically organizes the state of dojo worlds, facilitating "
+"efficient querying for clients."
+msgstr ""
+"Torii （译者注：torii是日文“鳥居”的罗马字）是 dojo 世界的综合索引和网络层。它"
+"系统地组织了 dojo 世界的状态，为客户端的高效查询提供了便利。"
+
+#: src/framework/torii/overview.md:5
+msgid "### Indexer"
+msgstr "### 索引器"
+
+#: src/framework/torii/overview.md:7 src/framework/torii/overview.md:11
+#: src/framework/torii/overview.md:15
+msgid "__coming soon__"
+msgstr "__即将推出__"
+
+#: src/framework/torii/overview.md:9
+msgid "### Graphql"
+msgstr "### Graphql"
+
+#: src/framework/torii/overview.md:13
+msgid "### RPC"
+msgstr "### RPC"
+
+#: src/reference/index.md:1
+msgid "## References"
+msgstr "## 参考文献"
+
+#: src/reference/index.md:3
+msgid ""
+"-   [sozo Commands](./sozo/)\n"
+"-   [katana Reference](./katana/)"
+msgstr ""
+"-   [sozo中的命令](./sozo/)\n"
+"-   [katana参考资料](./katana/)"
+
+#: src/reference/sozo/index.md:1
+msgid "## sozo Commands"
+msgstr "## sozo中的命令"
+
+#: src/reference/sozo/index.md:3
+msgid ""
+"-   [Project Commands](./project-commands.md)\n"
+"-   [World Commands](./world-commands.md)"
+msgstr ""
+"-   [项目命令](./project-commands.md)\n"
+"-   [世界命令](./world-commands.md)"
+
+#: src/reference/sozo/project-commands.md:1
+msgid "## Project Commands"
+msgstr "## 项目命令"
+
+#: src/reference/sozo/project-commands.md:3
+msgid ""
+"-   [init]()\n"
+"-   [build]()\n"
+"-   [test]()\n"
+"-   [migrate]()"
+msgstr ""
+"-   [init]()\n"
+"-   [build]()\n"
+"-   [test]()\n"
+"-   [migrate]()"
+
+#: src/reference/sozo/world-commands.md:1
+msgid "## World Commands"
+msgstr "## 世界命令"
+
+#: src/reference/sozo/world-commands.md:3
+msgid ""
+"-   [execute]()\n"
+"-   [register]()\n"
+"-   [system]()\n"
+"-   [component]()"
+msgstr ""
+"-   [execute]()\n"
+"-   [register]()\n"
+"-   [system]()\n"
+"-   [component]()"
+
+#: src/reference/katana/index.md:1
+msgid "## katana"
+msgstr "## katana"
+
+#: src/reference/katana/index.md:3
+msgid "### NAME"
+msgstr "### 名称"
+
+#: src/reference/katana/index.md:5
+msgid ""
+"katana - Create a local testnet node for deploying and testing Starknet "
+"smart contracts."
+msgstr "katana - 创建本地测试网节点，用于部署和测试Starknet智能合约。"
+
+#: src/reference/katana/index.md:7
+msgid "### SYNOPSIS"
+msgstr "### 概要"
+
+#: src/reference/katana/index.md:9
+msgid "`katana` [*options*]"
+msgstr "`katana` [*options*]"
+
+#: src/reference/katana/index.md:11
+msgid "### DESCRIPTION"
+msgstr "### 描述"
+
+#: src/reference/katana/index.md:13
+msgid ""
+"Create a local testnet node for deploying and testing Starknet smart "
+"contracts. Katana supports deployment and execution of version 0 and 1 of "
+"Cairo contracts."
+msgstr ""
+"创建本地测试网节点，用于部署和测试Starknet智能合约。Katana 支持部署和执行"
+"Cairo 0 和 Cairo 1 版合约。"
+
+#: src/reference/katana/index.md:15
+msgid ""
+"This section covers an extensive list of information about Mining Modes, "
+"Supported RPC Methods, Katana flags and their usages. You can run multiple "
+"flags at the same time."
+msgstr ""
+"本节包含有关挖矿模式、支持的 RPC 方法、Katana 标志符及其用法的大量信息。您可"
+"以同时运行多个标志符。"
+
+#: src/reference/katana/index.md:17
+msgid "#### Mining Modes"
+msgstr "#### 挖矿模式"
+
+#: src/reference/katana/index.md:19
+msgid ""
+"Mining modes refer to how frequent blocks are mined using Katana. By "
+"default, it automatically generates a new block as soon as a transaction is "
+"submitted."
+msgstr ""
+"挖矿模式是指使用 Katana 挖出区块的频率。默认情况下，一旦有交易提交，它就会自"
+"动生成一个新区块。"
+
+#: src/reference/katana/index.md:21
+msgid ""
+"You can change this setting to interval mining if you will, which means that "
+"a new block will be generated in a given period of time selected by the "
+"user. If you want to go for this type of mining, you can do it by adding the "
+"`--block-time <block-time-in-seconds>` flag, like in the following example."
+msgstr ""
+"如果你愿意，可以将此设置改为间隔挖矿，这意味着在用户选择的给定时间段内将生成"
+"一个新区块。如果你想采用这种挖矿方式，可以添加 `--block-time <block-time-in-"
+"seconds>`标志符，如下例所示。"
+
+#: src/reference/katana/index.md:23
+msgid ""
+"```sh\n"
+"# Produces a new block every 10 seconds\n"
+"katana --block-time 10\n"
+"```"
+msgstr ""
+"```sh\n"
+"# Produces a new block every 10 seconds\n"
+"katana --block-time 10\n"
+"```"
+
+#: src/reference/katana/index.md:28
+msgid "#### Supported Transport Layers"
+msgstr "#### 支持的传输层"
+
+#: src/reference/katana/index.md:30
+msgid ""
+"Only HTTP connection is supported at the moment. The server listens on port "
+"5050 by default, but it can be changed by running the following command:"
+msgstr ""
+"目前只支持 HTTP 连接。服务器默认监听 5050 端口，但可以通过运行以下命令进行更"
+"改："
+
+#: src/reference/katana/index.md:32
+msgid ""
+"```sh\n"
+"katana --port <PORT>\n"
+"```"
+msgstr ""
+"```sh\n"
+"katana --port <PORT>\n"
+"```"
+
+#: src/reference/katana/index.md:36
+msgid "#### Starknet Feature Compatibility"
+msgstr "#### Starknet功能兼容性"
+
+#: src/reference/katana/index.md:38
+msgid "##### Supported Transaction Type"
+msgstr "##### 支持的交易类型"
+
+#: src/reference/katana/index.md:40
+msgid ""
+"| Type           | Version |\n"
+"| -------------- | ------- |\n"
+"| INVOKE         | 1       |\n"
+"| DECLARE        | 1, 2    |\n"
+"| DEPLOY_ACCOUNT |         |"
+msgstr ""
+"| Type           | Version |\n"
+"| -------------- | ------- |\n"
+"| INVOKE         | 1       |\n"
+"| DECLARE        | 1, 2    |\n"
+"| DEPLOY_ACCOUNT |         |"
+
+#: src/reference/katana/index.md:46
+msgid "#### Supported RPC Methods"
+msgstr "#### 支持的 RPC 方法"
+
+#: src/reference/katana/index.md:48
+msgid "##### Starknet Methods"
+msgstr "##### Starknet方法"
+
+#: src/reference/katana/index.md:50
+msgid ""
+"Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. "
+"The standard methods are based on [this](https://github.com/starkware-libs/"
+"starknet-specs/tree/v0.3.0) reference."
+msgstr ""
+"Katana 支持版本**v0.3.0**的星网 JSON-RPC 规范。标准方法基于 [此处](https://"
+"github.com/starkware-libs/starknet-specs/tree/v0.3.0) 的参考文献。"
+
+#: src/reference/katana/index.md:52
+msgid ""
+"-   `starknet_blockNumber`\n"
+"-   `starknet_blockHashAndNumber`\n"
+"-   `starknet_getBlockWithTxs`\n"
+"-   `starknet_getBlockWithTxHashes`\n"
+"-   `starknet_getBlockTransactionCount`\n"
+"-   `starknet_getTransactionByHash`\n"
+"-   `starknet_getTransactionByBlockIdAndIndex`\n"
+"-   `starknet_getTransactionReceipt`\n"
+"-   `starknet_pendingTransactions`\n"
+"-   `starknet_getStateUpdate`\n"
+"\n"
+"-   `starknet_call`\n"
+"-   `starknet_estimateFee`\n"
+"\n"
+"-   `starknet_chainId`\n"
+"\n"
+"-   `starknet_getNonce`\n"
+"-   `starknet_getEvents`\n"
+"-   `starknet_getStorageAt`\n"
+"-   `starknet_getClassHashAt`\n"
+"-   `starknet_getClass`\n"
+"-   `starknet_getClassAt`\n"
+"\n"
+"-   `starknet_syncing`\n"
+"\n"
+"-   `starknet_addInvokeTransaction`\n"
+"-   `starknet_addDeclareTransaction`\n"
+"-   `starknet_addDeployAccountTransaction`"
+msgstr ""
+"-   `starknet_blockNumber`\n"
+"-   `starknet_blockHashAndNumber`\n"
+"-   `starknet_getBlockWithTxs`\n"
+"-   `starknet_getBlockWithTxHashes`\n"
+"-   `starknet_getBlockTransactionCount`\n"
+"-   `starknet_getTransactionByHash`\n"
+"-   `starknet_getTransactionByBlockIdAndIndex`\n"
+"-   `starknet_getTransactionReceipt`\n"
+"-   `starknet_pendingTransactions`\n"
+"-   `starknet_getStateUpdate`\n"
+"\n"
+"-   `starknet_call`\n"
+"-   `starknet_estimateFee`\n"
+"\n"
+"-   `starknet_chainId`\n"
+"\n"
+"-   `starknet_getNonce`\n"
+"-   `starknet_getEvents`\n"
+"-   `starknet_getStorageAt`\n"
+"-   `starknet_getClassHashAt`\n"
+"-   `starknet_getClass`\n"
+"-   `starknet_getClassAt`\n"
+"\n"
+"-   `starknet_syncing`\n"
+"\n"
+"-   `starknet_addInvokeTransaction`\n"
+"-   `starknet_addDeclareTransaction`\n"
+"-   `starknet_addDeployAccountTransaction`"
+
+#: src/reference/katana/index.md:81
+msgid "##### Custom Methods"
+msgstr "##### 自定义方法"
+
+#: src/reference/katana/index.md:83
+msgid ""
+"Katana provides a convenient set of custom RPC methods to quickly and easily "
+"configure the node to suit your testing environment."
+msgstr ""
+"Katana 提供了一套方便的自定义 RPC 方法，可快速、轻松地配置节点，以适应测试环"
+"境。"
+
+#: src/reference/katana/index.md:85
+msgid ""
+"`katana_generateBlock`  \n"
+"Mine a new block which includes all currently pending transactions"
+msgstr ""
+"`katana_generateBlock`  \n"
+"挖掘一个新区块，其中包括当前所有待处理的交易"
+
+#: src/reference/katana/index.md:88
+msgid ""
+"`katana_nextBlockTimestamp`  \n"
+"Get the time for the next block"
+msgstr ""
+"`katana_nextBlockTimestamp`  \n"
+"获取下一个区块的时间"
+
+#: src/reference/katana/index.md:91
+msgid ""
+"`katana_increaseNextBlockTimestamp`  \n"
+"Increase the time for the block by a given amount of time, in seconds"
+msgstr ""
+"`katana_increaseNextBlockTimestamp`  \n"
+"将区块的时间增加给定的时间量，以秒为单位"
+
+#: src/reference/katana/index.md:94
+msgid ""
+"`katana_setNextBlockTimestamp`  \n"
+"Similar to `katana_increaseNextBlockTimestamp` but takes the exact timestamp "
+"that you want in the next block"
+msgstr ""
+"`katana_setNextBlockTimestamp`  \n"
+"与 `katana_increaseNextBlockTimestamp` 类似，但会在下一个区块中使用你想要的确"
+"切时间戳"
+
+#: src/reference/katana/index.md:97
+msgid ""
+"`katana_predeployedAccounts`  \n"
+"Get the info for all of the predeployed accounts"
+msgstr ""
+"`katana_predeployedAccounts`  \n"
+"获取所有预部署账户的信息"
+
+#: src/reference/katana/index.md:100
+msgid "### OPTIONS"
+msgstr "### 选项"
+
+#: src/reference/katana/index.md:102
+msgid "#### General Options"
+msgstr "#### 常规选项"
+
+#: src/reference/katana/index.md:104
+msgid ""
+"`--silent`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup"
+msgstr ""
+"`--silent`  \n"
+" &nbsp;&nbsp;&nbsp;&nbsp; 启动时不打印任何内容"
+
+#: src/reference/katana/index.md:107
+msgid ""
+"`--no-mining`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on "
+"demand instead"
+msgstr ""
+"`--no-mining`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 禁用自动采矿和间隔采矿，改为按需采矿"
+
+#: src/reference/katana/index.md:110
+msgid ""
+"`-b, --block-time <SECONDS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining"
+msgstr ""
+"`-b, --block-time <SECONDS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 以秒为单位的区间挖掘时间"
+
+#: src/reference/katana/index.md:113
+msgid ""
+"`-h, --help`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h')"
+msgstr ""
+"`-h, --help`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 打印帮助（用\"-h \"查看摘要）"
+
+#: src/reference/katana/index.md:116
+msgid ""
+"`-V, --version`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Print version information"
+msgstr ""
+"`-V, --version`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 打印版本信息"
+
+#: src/reference/katana/index.md:119
+msgid "#### Server Options"
+msgstr "#### 服务器选项"
+
+#: src/reference/katana/index.md:121
+msgid ""
+"`-p, --port <PORT>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on [default: 5050]"
+msgstr ""
+"`-p, --port <PORT>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 要监听的端口号[默认：5050］"
+
+#: src/reference/katana/index.md:124
+msgid ""
+"`--host <HOST>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on"
+msgstr ""
+"`--host <HOST>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 服务器监听的 IP 地址"
+
+#: src/reference/katana/index.md:127
+msgid "#### Starknet Options"
+msgstr "#### Starknet选项"
+
+#: src/reference/katana/index.md:129
+msgid ""
+"`--seed <SEED>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be "
+"predeployed"
+msgstr ""
+"`--seed <SEED>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 指定要预先部署的账户随机性种子"
+
+#: src/reference/katana/index.md:132
+msgid ""
+"`--accounts <NUM>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate [default: "
+"10]"
+msgstr ""
+"`--accounts <NUM>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 要生成的预注资账户数 [默认值：10]"
+
+#: src/reference/katana/index.md:135
+msgid ""
+"`--allow-zero-max-fee`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Allow transaction max fee to be zero"
+msgstr ""
+"`--allow-zero-max-fee`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 允许交易最高费用为零"
+
+#: src/reference/katana/index.md:138
+msgid "#### Environment Options"
+msgstr "#### 环境选项"
+
+#: src/reference/katana/index.md:140
+msgid ""
+"`--chain-id <CHAIN_ID>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; The chain ID [default: KATANA]"
+msgstr ""
+"`--chain-id <CHAIN_ID>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 链 ID [默认值：KATANA］"
+
+#: src/reference/katana/index.md:143
+msgid ""
+"`--gas-price <GAS_PRICE>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; The gas price"
+msgstr ""
+"`--gas-price <GAS_PRICE>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; Gas价格"
+
+#: src/reference/katana/index.md:146
+msgid "### EXAMPLES"
+msgstr "#### 示例"
+
+#: src/reference/katana/index.md:148
+msgid "1. Set the number of accounts to 15 and allow zero fee transaction"
+msgstr "1. 将账户数量设为 15 个，并允许零费用交易"
+
+#: src/reference/katana/index.md:150
+msgid ""
+"```sh\n"
+"katana --accounts 15 --allow-zero-max-fee\n"
+"```"
+msgstr ""
+"```sh\n"
+"katana --accounts 15 --allow-zero-max-fee\n"
+"```"
+
+#: src/reference/katana/index.md:154
+msgid "2. Set the chain id SN_GOERLI and run the server on port 8545"
+msgstr "2. 设置链 id SN_GOERLI，并在 8545 端口运行服务器"
+
+#: src/reference/katana/index.md:156
+msgid ""
+"```sh\n"
+"katana --chain-id SN_GOERLI --port 8545\n"
+"```"
+msgstr ""
+"```sh\n"
+"katana --chain-id SN_GOERLI --port 8545\n"
+"```"
+
+#: src/misc/contributors.md:1
+msgid "## Contributing to Dojo Book"
+msgstr "## 为《Dojo Book》做贡献"
+
+#: src/misc/contributors.md:3
+msgid ""
+"As the Dojo engine progresses and develops, it is essential for the Dojo "
+"book to keep pace with these advancements. Updating and refining the book "
+"ensures that it remains a relevant and valuable resource for those "
+"interested in understanding and utilizing the latest Dojo engine features "
+"and capabilities. All help is welcome!"
+msgstr ""
+"随着 Dojo 引擎的进步和发展，Dojo 书籍需要跟上这些进展的步伐。对本书进行更新和"
+"完善，可以确保它对于那些有兴趣了解和使用最新 Dojo 引擎特性和功能的人来说，本"
+"书仍然是一个相关和有价值的资源。欢迎大家提供帮助！"
+
+#: src/misc/contributors.md:5
+msgid "### The purpose of the book"
+msgstr "### 本书的目的"
+
+#: src/misc/contributors.md:7
+msgid ""
+"The Dojo book is designed to be a comprehensive resource that caters to "
+"users at various levels of experience. It aims to serve as both an "
+"introductory guide for those new to Dojo and its ancillary packages, as well "
+"as a reference for more experienced users seeking to deepen their "
+"understanding of the engine's features and capabilities."
+msgstr ""
+"Dojo 一书旨在为不同经验水平的用户提供全面的资源。它既可作为 Dojo 及其辅助软件"
+"包新手的入门指南，也可作为经验丰富的用户加深对引擎特性和功能的理解的参考资"
+"料。"
+
+#: src/misc/contributors.md:9
+msgid "The book is split into some major chapters:"
+msgstr "本书分为几个主要章节："
+
+#: src/misc/contributors.md:11
+msgid ""
+"- Framework Theory\n"
+"- Getting Started\n"
+"- Building a World"
+msgstr ""
+"- 框架理论\n"
+"- 入门\n"
+"- 构建世界"
+
+#: src/misc/contributors.md:15
+msgid "### Code of Conduct"
+msgstr "### 代码标准"
+
+#: src/misc/contributors.md:17
+msgid ""
+"The book follows the [Rust Code of Conduct](https://www.rust-lang.org/"
+"policies/code-of-conduct)."
+msgstr ""
+"本书遵循 [Rust Code of Conduct](https://www.rust-lang.org/policies/code-of-"
+"conduct)。"
+
+#: src/misc/contributors.md:19
+msgid "### Ways to contribute"
+msgstr "### 贡献方式"
+
+#: src/misc/contributors.md:21
+msgid "#### Issues"
+msgstr "#### Issues"
+
+#: src/misc/contributors.md:23
+msgid ""
+"If you think that some content is missing or out-of-date, feel free to open "
+"an issue. If you find multiple pieces of content lacking, please open up a "
+"separate issue for each."
+msgstr ""
+"如果您认为某些内容缺失或过时，请随时在git上提出issue。如果您发现有多个内容缺"
+"失，请为每个内容单独开立一个issue。"
+
+#: src/misc/contributors.md:25
+msgid ""
+"The issues will then be labeled so other contributors can find chunks of "
+"work they are interested in more easily."
+msgstr ""
+"你提出issue在之后将被贴上相关的标签，以便其他贡献者更容易找到他们感兴趣的任"
+"务。"
+
+#: src/misc/contributors.md:27
+msgid ""
+"The issue should contain what is missing, or what could be improved, in as "
+"much detail as you deem necessary."
+msgstr ""
+"Issue应包含哪些地方缺失了，或哪些地方可以改进，只要你认为有必要，都可以详细说"
+"明。"
+
+#: src/misc/contributors.md:29
+msgid "#### Pull requests"
+msgstr "#### Pull requests"
+
+#: src/misc/contributors.md:31
+msgid ""
+"Feel free to contribute changes to the book by opening a pull request - "
+"anything is welcome, from reformulating a sentence, fixing a typo, to adding "
+"new sections or chapters."
+msgstr ""
+"欢迎随时通过提交PR请求对本书进行修改--从改写一个句子、修正一个错别字到添加新"
+"的章节或章节，我们都欢迎。"
+
+#: src/misc/contributors.md:33
+msgid ""
+"When your pull request is open, other contributors will take a look and may "
+"request changes. Do not be discouraged!"
+msgstr "当您的PR开放时，其他贡献者会查看并可能要求你进行一些修正。请不要气馁！"
+
+#: src/misc/contributors.md:35
+msgid "### Writing style"
+msgstr "### 写作风格"
+
+#: src/misc/contributors.md:37
+msgid ""
+"This section documents a few standards for writing used throughout the book."
+msgstr "本节记录了一些贯穿全书的写作标准。"
+
+#: src/misc/contributors.md:39
+msgid "#### Chapters start with a second level heading"
+msgstr "#### 章节以二级标题开始"
+
+#: src/misc/contributors.md:41
+msgid "We use:"
+msgstr "我们使用："
+
+#: src/misc/contributors.md:43
+msgid ""
+"```md\n"
+"## Some Page\n"
+"```"
+msgstr ""
+"```md\n"
+"## Some Page\n"
+"```"
+
+#: src/misc/contributors.md:47
+msgid "We do not use:"
+msgstr "我们不使用："
+
+#: src/misc/contributors.md:49
+msgid ""
+"```md\n"
+"# Some Page\n"
+"```"
+msgstr ""
+"```md\n"
+"# Some Page\n"
+"```"
