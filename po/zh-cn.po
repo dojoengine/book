@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Building Autonomous Worlds with Dojo\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-16 22:04+0800\n"
+"PO-Revision-Date: 2023-09-17 09:41+0900\n"
 "Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
 "Language-Team: Language zh-cn\n"
 "Language: zh_CN\n"
@@ -226,23 +226,23 @@ msgstr "链上国际象棋"
 
 #: src/SUMMARY.md:72
 msgid "0. Setup"
-msgstr "0.设置"
+msgstr "0. 设置"
 
 #: src/SUMMARY.md:73
 msgid "1. Initiate"
-msgstr "1.启动"
+msgstr "1. 初始化"
 
 #: src/SUMMARY.md:74
 msgid "2. Move"
-msgstr "2.移动"
+msgstr "2. 移动"
 
 #: src/SUMMARY.md:75
 msgid "3. Check Legal Move"
-msgstr "3.检查合法移动"
+msgstr "3. 检查合法移动"
 
 #: src/SUMMARY.md:76
 msgid "4. Test Chess"
-msgstr "4.国际象棋测试"
+msgstr "4. 测试国际象棋"
 
 #: src/SUMMARY.md:79
 msgid "Contributors"
@@ -1157,7 +1157,7 @@ msgstr "### Linux & Mac"
 
 #: src/getting-started/setup.md:22
 msgid "#### 1. Install Rust and Dependencies"
-msgstr "#### 1.安装 Rust 和依赖"
+msgstr "#### 1. 安装 Rust 和依赖"
 
 #: src/getting-started/setup.md:24
 msgid ""
@@ -1185,7 +1185,7 @@ msgstr ""
 
 #: src/getting-started/setup.md:32
 msgid "#### 2. Install Scarb Package Manager"
-msgstr "#### 2.安装 Scarb 软件包管理器"
+msgstr "#### 2. 安装 Scarb 软件包管理器"
 
 #: src/getting-started/setup.md:34
 msgid ""
@@ -1209,7 +1209,7 @@ msgstr ""
 
 #: src/getting-started/setup.md:40
 msgid "#### 3. Add the Cairo 1.0 VSCode Extension"
-msgstr "#### 3.添加 Cairo 1.0 VSCode 扩展"
+msgstr "#### 3. 添加 Cairo 1.0 VSCode 扩展"
 
 #: src/getting-started/setup.md:42
 msgid ""
@@ -4738,7 +4738,7 @@ msgstr "#### 示例"
 
 #: src/toolchain/sozo/project-commands/migrate.md:55
 msgid "1. Deploying your World for the first time to a local Katana node"
-msgstr "1.首次在本地 Katana 节点上部署你的世界"
+msgstr "1. 首次在本地 Katana 节点上部署你的世界"
 
 #: src/toolchain/sozo/project-commands/migrate.md:57
 msgid ""
@@ -4752,7 +4752,7 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:61
 msgid "2. Updating a remote World after making some changes"
-msgstr "2.更改后更新远程世界"
+msgstr "2. 更改后更新远程世界"
 
 #: src/toolchain/sozo/project-commands/migrate.md:63
 msgid ""
@@ -4806,7 +4806,7 @@ msgstr ""
 msgid ""
 "1. Executing the _position_ system which takes two values (_x_: 0x77 and "
 "_y_: 0x44)"
-msgstr "1.执行 _position_ 系统，该系统取两个值（ _x_ : 0x77 和 _y_ : 0x44）"
+msgstr "1. 执行 _position_ 系统，该系统取两个值（ _x_ : 0x77 和 _y_ : 0x44）"
 
 #: src/toolchain/sozo/world-commands/execute.md:58
 msgid ""
@@ -4963,7 +4963,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:59
 msgid "1. Get the class hash of the _spawn_ system"
-msgstr "1.获取 _spawn_ 系统的Class Hash"
+msgstr "1. 获取 _spawn_ 系统的Class Hash"
 
 #: src/toolchain/sozo/world-commands/system.md:61
 msgid ""
@@ -4977,7 +4977,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:65
 msgid "2. Get the component dependencies of the _spawn_ system"
-msgstr "2.获取 _spawn_ 系统的组件依赖关系"
+msgstr "2. 获取 _spawn_ 系统的组件依赖关系"
 
 #: src/toolchain/sozo/world-commands/system.md:67
 msgid ""
@@ -5778,7 +5778,7 @@ msgstr ""
 
 #: src/toolchain/katana/reference.md:188
 msgid "1. Create 15 dev accounts and disable transaction fee mechanism"
-msgstr "1.创建 15 个开发用账户并禁用交易费机制"
+msgstr "1. 创建 15 个开发用账户并禁用交易费机制"
 
 #: src/toolchain/katana/reference.md:190
 msgid ""
@@ -5792,7 +5792,7 @@ msgstr ""
 
 #: src/toolchain/katana/reference.md:194
 msgid "2. Set the chain id to `SN_GOERLI` and run the server on port 8545"
-msgstr "2.将链 id 设置为 `SN_GOERLI`，并在 8545 端口运行服务器"
+msgstr "2. 将链 id 设置为 `SN_GOERLI`，并在 8545 端口运行服务器"
 
 #: src/toolchain/katana/reference.md:196
 msgid ""
@@ -5808,7 +5808,7 @@ msgstr ""
 msgid ""
 "3. Load previously stored state and dump the state of this session to a file "
 "on shutdown"
-msgstr "3.加载先前存储的状态，并在网络关闭时将此会话的状态转储到文件中"
+msgstr "3. 加载先前存储的状态，并在网络关闭时将此会话的状态转储到文件中"
 
 #: src/toolchain/katana/reference.md:202
 msgid ""
@@ -6246,17 +6246,14 @@ msgid "__todo__: add instructions for deploying to remote Starknet"
 msgstr "__todo__：添加部署到远程Starknet的说明"
 
 #: src/tutorial/onchain-chess/index.md:1
-#, fuzzy
 msgid "# Building a Chess Game"
 msgstr "# 构建国际象棋游戏"
 
 #: src/tutorial/onchain-chess/index.md:3
-#, fuzzy
 msgid "_\"I just finished reading The Dojo Book. What should I do next?\"_"
-msgstr "_\"我刚刚读完《道场书》。接下来我该怎么做？"
+msgstr "_“我刚刚读完Dojo Book。接下来我该做什么？”_"
 
 #: src/tutorial/onchain-chess/index.md:5
-#, fuzzy
 msgid ""
 "The answers to this question are always \"Make something!\", sometimes "
 "followed by a list of cool projects. This is a great answer for some people, "
@@ -6266,7 +6263,6 @@ msgstr ""
 "来说是个不错的答案，但有些人可能需要更多的指导。"
 
 #: src/tutorial/onchain-chess/index.md:7
-#, fuzzy
 msgid ""
 "This guide is intended to fill the gap between heavily directed beginner "
 "tutorials and working on your projects. The primary goal here is to get you "
@@ -6276,104 +6272,90 @@ msgstr ""
 "你编写代码。次要目标是让你阅读文档。"
 
 #: src/tutorial/onchain-chess/index.md:9
-#, fuzzy
 msgid ""
 "If you haven't read the Dojo Book yet, it is highly encouraged for you to do "
 "so before starting this project."
-msgstr "如果您还没有阅读过《道场手册》，强烈建议您在开始此项目之前先阅读一下。"
+msgstr "如果您还没有阅读过Dojo Book，强烈建议您在开始此项目之前先阅读一下。"
 
 #: src/tutorial/onchain-chess/index.md:11
-#, fuzzy
 msgid "## What are we building?"
-msgstr "## 我们在建造什么？"
+msgstr "## 我们在创造什么？"
 
 #: src/tutorial/onchain-chess/index.md:13
-#, fuzzy
 msgid ""
 "We're building an on-chain chess game contract that lets you start a new "
 "game and play chess. This guide does not cover every rules of the chess "
 "game. You will build step by step as follows:"
 msgstr ""
-"我们正在构建一个链上国际象棋游戏合约，让您可以开始新游戏并进行国际象棋游戏。"
-"本指南并不涵盖国际象棋游戏的所有规则。您将按照以下步骤逐步构建："
+"我们正在构建一个链上国际象棋游戏合约，让您可以开始新游戏并下棋。本指南并不涵"
+"盖国际象棋游戏的所有规则。您将按照以下步骤逐步构建："
 
 #: src/tutorial/onchain-chess/index.md:15
-#, fuzzy
 msgid ""
 "1. A system to spawn all the chess pieces\n"
 "2. A system to make pieces move\n"
 "3. Add some functions to check a legal move\n"
 "4. Play chess ♟♙ - integration test!"
 msgstr ""
-"1.催生所有棋子的系统\n"
-"2.让棋子移动的系统\n"
-"3.添加一些检查合法棋步的功能\n"
-"4.下棋 ♟♙ - 集成测试！"
+"1. 生成所有棋子的系统\n"
+"2. 让棋子移动的系统\n"
+"3. 加入检查移动合法性的函数\n"
+"4. 下棋 ♟♙ - 集成测试！"
 
 #: src/tutorial/onchain-chess/index.md:20
-#, fuzzy
 msgid ""
 "The full code of tutorial is based on [this repo](https://github.com/"
 "rkdud007/chess-dojo/tree/tutorialv2)."
 msgstr ""
-"教程的完整代码基于 [this repo](https://github.com/rkdud007/chess-dojo/tree/"
+"教程的完整代码基于 [这个仓库](https://github.com/rkdud007/chess-dojo/tree/"
 "tutorialv2)。"
 
 #: src/tutorial/onchain-chess/index.md:22
-#, fuzzy
 msgid ""
 "If this seems too hard, don't worry! This guide is for beginners. If you "
 "know some basics about Cairo and Dojo, you're good. We won't make a full "
 "chess game with all the rules. We're keeping it simple."
 msgstr ""
-"如果这看起来太难，不用担心！本指南适合初学者。如果你了解开罗和斗城的一些基本"
-"知识，那就没问题了。我们不会制作包含所有规则的完整棋谱。我们将保持简单。"
+"如果这看起来太难，不用担心！本指南适合初学者。如果你了解Cairo和Dojo的一些基本"
+"知识，那就没问题了。我们不会制作包含所有规则的完整游戏。我们将保持简单。"
 
 #: src/tutorial/onchain-chess/index.md:24
-#, fuzzy
 msgid "## What after this guide?"
-msgstr "## 本指南之后是什么？"
+msgstr "## 这个教程之后是什么？"
 
 #: src/tutorial/onchain-chess/index.md:26
-#, fuzzy
 msgid ""
 "We're making another guide to help design the frontend. This will make our "
 "chess game complete."
-msgstr "我们正在制作另一份指南，以帮助设计前端。这将使我们的棋局更加完整。"
+msgstr "我们正在制作另一份教程，以帮助设计前端。这将使我们的棋局更加完整。"
 
 #: src/tutorial/onchain-chess/index.md:28
-#, fuzzy
 msgid ""
 "After you finish all the five chapters, we can move on to the frontend guide."
 msgstr "完成全部五章后，我们就可以继续学习前端指南了。"
 
 #: src/tutorial/onchain-chess/0-setup.md:1
-#, fuzzy
 msgid "# 0. Setup"
-msgstr "设置"
+msgstr "# 0.设置"
 
 #: src/tutorial/onchain-chess/0-setup.md:3
-#, fuzzy
 msgid ""
 "_Before starting recommend following the [`hello-dojo`](../../cairo/hello-"
 "dojo.md) chapter to gain a basic understanding of the Dojo game._"
 msgstr ""
-"在开始之前，建议阅读 [`hello-dojo`](../../cairo/hello-dojo.md) 一章，以获得"
-"对 Dojo 游戏的基本了解。"
+"_在开始之前，建议阅读 [`hello-dojo`](../../cairo/hello-dojo.md)一章，以获得"
+"对 Dojo 游戏的基本了解。_"
 
 #: src/tutorial/onchain-chess/0-setup.md:5
-#, fuzzy
 msgid "## Initializing the Project"
 msgstr "## 初始化项目"
 
 #: src/tutorial/onchain-chess/0-setup.md:7
-#, fuzzy
 msgid ""
 "Create a new Dojo project folder. You can name your project what you want."
 msgstr "创建一个新的 Dojo 项目文件夹。您可以随心所欲地为项目命名。"
 
 #: src/tutorial/onchain-chess/0-setup.md:9
-#, fuzzy
 msgid ""
 "```sh\n"
 "mkdir dojo-chess\n"
@@ -6384,77 +6366,66 @@ msgstr ""
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:13
-#, fuzzy
 msgid "Open the project folder."
 msgstr "打开项目文件夹。"
 
 #: src/tutorial/onchain-chess/0-setup.md:15
-#, fuzzy
 msgid ""
 "```sh\n"
 "cd dojo-chess\n"
 "```"
 msgstr ""
-"```bash\n"
-"cd cairo/vscode-cairo\n"
+"```sh\n"
+"cd dojo-chess\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:19
-#, fuzzy
 msgid "And initialize the project using sozo init."
 msgstr "然后使用 sozo init 初始化项目。"
 
 #: src/tutorial/onchain-chess/0-setup.md:25
-#, fuzzy
 msgid "## Cleaning Up the Boilerplate"
 msgstr "## 清理模板"
 
 #: src/tutorial/onchain-chess/0-setup.md:27
-#, fuzzy
 msgid ""
 "The project comes with a lot of boilerplate codes. Clear it all. Make sure "
 "both `components.cairo` and `systems.cairo` files are empty."
 msgstr ""
-"该项目带有大量模板代码。全部清除。确保 `components.cairo` 和 `systems.cairo` "
-"文件为空。"
+"该项目带有大量模板代码。请全部清除。确保 `components.cairo` 和 `systems."
+"cairo` 文件为空。"
 
 #: src/tutorial/onchain-chess/0-setup.md:29
-#, fuzzy
 msgid "In `lib.cairo`, retain only:"
 msgstr "在`lib.cairo`中，仅保留："
 
 #: src/tutorial/onchain-chess/0-setup.md:31
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "mod components;\n"
 "mod systems;\n"
 "```"
 msgstr ""
-"```防锈，忽略\n"
-"mod 组件；\n"
-"mod 系统；\n"
+"```rust,ignore\n"
+"mod components;\n"
+"mod systems;\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:36
-#, fuzzy
 msgid "Compile your project with:"
-msgstr "用"
+msgstr "用以下命令编译项目："
 
 #: src/tutorial/onchain-chess/0-setup.md:42
-#, fuzzy
 msgid "## Basic components"
-msgstr "## 组件"
+msgstr "## 基本组件"
 
 #: src/tutorial/onchain-chess/0-setup.md:44
-#, fuzzy
 msgid ""
 "While there are many ways to design a chess game using the ECS model, we'll "
 "follow this approach:"
-msgstr "虽然使用 ECS 模型设计棋局有很多种方法，但我们将采用这种方法："
+msgstr "虽然有很多种方法使用 ECS 模型设计象棋游戏，但我们将采用这种方法："
 
 #: src/tutorial/onchain-chess/0-setup.md:46
-#, fuzzy
 msgid ""
 "> Every square of the chess board (e.g., A1) will be treated as an entity. "
 "If a piece exists on a square, the square entity will hold that piece."
@@ -6463,17 +6434,15 @@ msgstr ""
 "格实体将包含该棋子。"
 
 #: src/tutorial/onchain-chess/0-setup.md:48
-#, fuzzy
 msgid ""
 "First, add this basic component to `components.cairo` file. If you are not "
 "familar with component syntax in Dojo engine, go back to this [chapter]"
 "(../../cairo/components.md)."
 msgstr ""
 "首先，将这个基本组件添加到`components.cairo`文件中。如果你不熟悉 Dojo 引擎中"
-"的组件语法，请回到本[章节]（.../.../cairo/components.md）。"
+"的组件语法，请回顾这个 [章节](../../cairo/components.md).。"
 
 #: src/tutorial/onchain-chess/0-setup.md:50
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "#[derive(Component)]\n"
@@ -6503,51 +6472,48 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
-"``rust,ignore\n"
-"#[派生（组件）]\n"
+"```rust,ignore\n"
+"#[derive(Component)]\n"
 "struct Square {\n"
-"    #[key］\n"
-"    game_id: felt252、\n"
-"    #[key］\n"
-"    x: u32、\n"
-"    #[key］\n"
-"    y: u32、\n"
-"    piece：Option<PieceType> 、\n"
+"    #[key]\n"
+"    game_id: felt252,\n"
+"    #[key]\n"
+"    x: u32,\n"
+"    #[key]\n"
+"    y: u32,\n"
+"    piece: Option<PieceType>,\n"
 "}\n"
 "\n"
-"枚举 PieceType {\n"
-"    白卒\n"
-"    白马\n"
-"    白象\n"
-"    白车\n"
-"    白皇后\n"
-"    白王\n"
-"    黑卒\n"
-"    黑马\n"
-"    黑象\n"
-"    黑车\n"
-"    黑皇后\n"
-"    黑王\n"
+"enum PieceType {\n"
+"    WhitePawn,\n"
+"    WhiteKnight,\n"
+"    WhiteBishop,\n"
+"    WhiteRook,\n"
+"    WhiteQueen,\n"
+"    WhiteKing,\n"
+"    BlackPawn,\n"
+"    BlackKnight,\n"
+"    BlackBishop,\n"
+"    BlackRook,\n"
+"    BlackQueen,\n"
+"    BlackKing,\n"
 "}\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:78
-#, fuzzy
 msgid "## Basic systems"
-msgstr "## 系统"
+msgstr "## 基本系统"
 
 #: src/tutorial/onchain-chess/0-setup.md:80
-#, fuzzy
 msgid ""
 "Starting from the next chapter, you will implement `initiate` and `move` "
 "systems one in each chapter. Let's create each system in its own file for "
 "better modularity."
 msgstr ""
-"从下一章节开始，您将在每一章节中实现一个 `initiate` 和 `move` 系统。为了更好"
-"地实现模块化，让我们在自己的文件中创建每个系统。"
+"从下一章节开始，您将在每一章节中依次实现 `initiate` 和 `move` 系统。为了更好"
+"地实现模块化，我们会在单独的文件中创建每个系统。"
 
 #: src/tutorial/onchain-chess/0-setup.md:82
-#, fuzzy
 msgid ""
 "Create a `systems` folder at `src`. Create `initiate.cairo`and `move.cairo` "
 "two files inside the folder. Each file should contain a basic system "
@@ -6557,12 +6523,10 @@ msgstr ""
 "cairo` 两个文件。每个文件都应包含一个基本的系统结构。"
 
 #: src/tutorial/onchain-chess/0-setup.md:84
-#, fuzzy
 msgid "For example, `initiate.cairo` look like this:"
 msgstr "例如，`initiate.cairo` 看起来像这样："
 
 #: src/tutorial/onchain-chess/0-setup.md:86
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "#[system]\n"
@@ -6572,19 +6536,17 @@ msgid ""
 "```"
 msgstr ""
 "```rust,ignore\n"
-"#[系统]\n"
+"#[system]\n"
 "mod initiate_system {\n"
 "\n"
 "}\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:93
-#, fuzzy
 msgid "and in `systems.cairo` we will use `initiate_system` like this:"
 msgstr "在 `systems.cairo` 中，我们将这样使用 `initiate_system`："
 
 #: src/tutorial/onchain-chess/0-setup.md:95
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "mod initiate;\n"
@@ -6593,18 +6555,16 @@ msgid ""
 "```"
 msgstr ""
 "```rust,ignore\n"
-"MOD 启动；\n"
+"mod initiate;\n"
 "\n"
-"使用 initiate::initiate_system；\n"
+"use initiate::initiate_system;\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:101
-#, fuzzy
 msgid "Do the same with the other systems. Update `systems.cairo` to:"
 msgstr "对其他系统执行同样操作。更新 `systems.cairo` 为："
 
 #: src/tutorial/onchain-chess/0-setup.md:103
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "mod initiate;\n"
@@ -6615,44 +6575,39 @@ msgid ""
 "```"
 msgstr ""
 "```rust,ignore\n"
-"mod initiate；\n"
-"模式移动；\n"
+"mod initiate;\n"
+"mod move;\n"
 "\n"
-"使用 initiate::initiate_system；\n"
-"使用 move::move_system；\n"
+"use initiate::initiate_system;\n"
+"use move::move_system;\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:111
-#, fuzzy
 msgid "## Compile your project"
 msgstr "## 编译项目"
 
 #: src/tutorial/onchain-chess/0-setup.md:113
-#, fuzzy
 msgid "Now try `sozo build` to build. Faced some errors?"
-msgstr "现在尝试 `sozo build` 进行构建。遇到错误了吗？"
+msgstr "现在尝试 `sozo build` 进行构建。是不是遇到了错误？"
 
 #: src/tutorial/onchain-chess/0-setup.md:115
 #: src/tutorial/onchain-chess/0-setup.md:179
-#, fuzzy
 msgid ""
 "```sh\n"
 "error: Trait has no implementation in context:\n"
 "```"
 msgstr ""
-"``sh\n"
-"错误：Trait 在上下文中没有实现：\n"
+"```sh\n"
+"error: Trait has no implementation in context:\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:119
-#, fuzzy
 msgid ""
 "You would probably faced some trait implementation errors, which you can "
 "implement as a derive like:"
-msgstr "您可能会面临一些特质实现上的错误，您可以通过派生来实现这些错误："
+msgstr "您可能会遇到一些trait实现上的错误，您可以像这样通过派生来实现："
 
 #: src/tutorial/onchain-chess/0-setup.md:121
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "\n"
@@ -6684,44 +6639,41 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
-"```防锈，忽略\n"
+"```rust,ignore\n"
 "\n"
-"#[派生（Component、Drop、SerdeLen、Serde）]\n"
+"#[derive(Component, Drop, SerdeLen, Serde)]\n"
 "struct Square {\n"
-"    #[键］\n"
-"    game_id: felt252、\n"
-"    #[键］\n"
-"    x: u32、\n"
-"    #[key］\n"
-"    y: u32、\n"
-"    piece：Option<PieceType> 、\n"
+"    #[key]\n"
+"    game_id: felt252,\n"
+"    #[key]\n"
+"    x: u32,\n"
+"    #[key]\n"
+"    y: u32,\n"
+"    piece: Option<PieceType>,\n"
 "}\n"
 "\n"
-"#[derive(Serde, Drop, Copy, PartialEq)] [派生（Serde、Drop、Copy、"
-"PartialEq)\n"
-"枚举棋子类型 {\n"
-"    白卒\n"
-"    白马\n"
-"    白象\n"
-"    白车\n"
-"    白皇后\n"
-"    白王\n"
-"    黑卒\n"
-"    黑马\n"
-"    黑象\n"
-"    黑车\n"
-"    黑皇后\n"
-"    黑王\n"
+"#[derive(Serde, Drop, Copy, PartialEq)]\n"
+"enum PieceType {\n"
+"    WhitePawn,\n"
+"    WhiteKnight,\n"
+"    WhiteBishop,\n"
+"    WhiteRook,\n"
+"    WhiteQueen,\n"
+"    WhiteKing,\n"
+"    BlackPawn,\n"
+"    BlackKnight,\n"
+"    BlackBishop,\n"
+"    BlackRook,\n"
+"    BlackQueen,\n"
+"    BlackKing,\n"
 "}\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:151
-#, fuzzy
 msgid "Great! then let's solve this error."
 msgstr "很好！那就让我们来解决这个错误吧。"
 
 #: src/tutorial/onchain-chess/0-setup.md:153
-#, fuzzy
 msgid ""
 "```sh\n"
 "error: Trait has no implementation in context: dojo::serde::SerdeLen::<core::"
@@ -6731,26 +6683,24 @@ msgid ""
 "                                                     ^*^\n"
 "```"
 msgstr ""
-"``sh\n"
-"错误：Trait has no implementation in context: dojo::serde::SerdeLen::&lt;"
-"core::option::<dojo_chess::components::PieceType>&gt;\n"
-" --&gt; Square:80:54\n"
-"                dojo::SerdeLen::&lt;Option<PieceType>&gt;::len()\n"
+"```sh\n"
+"error: Trait has no implementation in context: dojo::serde::SerdeLen::<core::"
+"option::Option::<dojo_chess::components::PieceType>>\n"
+" --> Square:80:54\n"
+"                dojo::SerdeLen::<Option<PieceType>>::len()\n"
 "                                                     ^*^\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:160
-#, fuzzy
 msgid ""
 "One thing you have to make sure is, that `<Option<PieceType>>` is the type "
 "that we created. So this type does not implement basic traits like SerdeLen. "
 "You need to define the implementation by your own."
 msgstr ""
-"你必须确定的一点是，`&lt;Option<PieceType>&gt;` 是我们创建的类型。因此，该类"
-"型无法实现 SerdeLen 等基本特性。你需要自己定义实现。"
+"必须明确的一点是，`<Option<PieceType>>` 是我们创建的类型。因此，该类型没有实"
+"现 SerdeLen 等基本traits。你需要自己定义实现。"
 
 #: src/tutorial/onchain-chess/0-setup.md:162
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {\n"
@@ -6761,69 +6711,61 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
-"``rust,ignore\n"
-"impl PieceOptionSerdeLen of dojo::SerdeLen&lt;Option<PieceType>&gt; {\n"
-"    #[inline(always)\n"
-"    fn len() -&gt; usize {\n"
+"```rust,ignore\n"
+"impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {\n"
+"    #[inline(always)]\n"
+"    fn len() -> usize {\n"
 "        2\n"
 "    }\n"
 "}\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:171
-#, fuzzy
 msgid ""
 "Fix other issues as above, so that you can run the `sozo build` command runs "
 "successfully."
 msgstr "修复上述其他问题，以便成功运行 `sozo build` 命令。"
 
 #: src/tutorial/onchain-chess/0-setup.md:173
-#, fuzzy
 msgid "## Run test"
 msgstr "## 运行测试"
 
 #: src/tutorial/onchain-chess/0-setup.md:175
-#, fuzzy
 msgid ""
 "Before proceeding to the next chapter, remember that `sozo build` and `sozo "
 "test` are important steps to ensure your code is correct."
 msgstr ""
-"在进入下一章之前，请记住 \"sozo build \"和 \"sozo test \"是确保代码正确的重要"
-"步骤。"
+"在进入下一章之前，请记住`sozo build` 与 `sozo test`是确保代码正确的重要步骤。"
 
 #: src/tutorial/onchain-chess/0-setup.md:177
-#, fuzzy
 msgid "Run sozo test. Did you face any errors?"
 msgstr "运行 sozo 测试。出现错误了吗？"
 
 #: src/tutorial/onchain-chess/0-setup.md:183
-#, fuzzy
 msgid ""
 "```sh\n"
 "error: Variable not dropped. Trait has no implementation in context:\n"
 "```"
 msgstr ""
-"``sh\n"
-"错误：变量未删除。属性在上下文中没有执行：\n"
+"```sh\n"
+"error: Variable not dropped. Trait has no implementation in context:\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:187
-#, fuzzy
 msgid ""
 "For the no implementation error, implement the PrintTrait to run sozo test "
 "successfully. For the not dropped error, add the Drop trait. Address other "
 "errors by adding derives or implementing them on a case-by-case basis."
 msgstr ""
-"对于未执行错误，请执行 PrintTrait 以成功运行 sozo 测试。对于未丢弃错误，添加 "
-"Drop 特质。其他错误可通过添加派生或逐一实现来解决。"
+"对于`no implementation`错误，请实现 `PrintTrait` 以成功运行 `sozo test`。对于"
+"`not dropped`错误，添加 `Drop` trait。其他错误可通过添加派生或实现来逐一解"
+"决。"
 
 #: src/tutorial/onchain-chess/0-setup.md:189
-#, fuzzy
 msgid "## Add more components"
-msgstr "## 组件"
+msgstr "## 添加更多组件"
 
 #: src/tutorial/onchain-chess/0-setup.md:191
-#, fuzzy
 msgid ""
 "Before you move on, add more components so we can use them in the next "
 "chapter when creating systems."
@@ -6834,16 +6776,14 @@ msgid "### Requirements"
 msgstr "### 要求"
 
 #: src/tutorial/onchain-chess/0-setup.md:195
-#, fuzzy
 msgid ""
 "- `Color` enum enum with values White and Black\n"
 "- `Game` component:"
 msgstr ""
 "- 具有白色和黑色值的 `Color` 枚举\n"
-"- 游戏 \"组件："
+"- `Game`组件："
 
 #: src/tutorial/onchain-chess/0-setup.md:198
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "    game_id: felt252,\n"
@@ -6852,33 +6792,30 @@ msgid ""
 "    black: ContractAddress\n"
 "```"
 msgstr ""
-"```不信任，忽略\n"
-"    game_id: felt252、\n"
-"    获胜者选项<Color> 、\n"
-"    white：ContractAddress、\n"
-"    黑棋合同地址\n"
+"```rust,ignore\n"
+"    game_id: felt252,\n"
+"    winner: Option<Color>,\n"
+"    white: ContractAddress,\n"
+"    black: ContractAddress\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:205
-#, fuzzy
 msgid "- `GameTurn` component:"
-msgstr "- GameTurn \"组件："
+msgstr "- `GameTurn`组件："
 
 #: src/tutorial/onchain-chess/0-setup.md:207
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "    game_id: felt252,\n"
 "    turn: Color\n"
 "```"
 msgstr ""
-"```不信任，忽略\n"
-"    game_id: felt252、\n"
-"    转颜色\n"
+"```rust,ignore\n"
+"    game_id: felt252,\n"
+"    turn: Color\n"
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:212
-#, fuzzy
 msgid ""
 "- We will later set game entity composed of the `Game` and `GameTurn` "
 "components.\n"
@@ -6888,13 +6825,11 @@ msgstr ""
 "- 运行 `sozo build` 和 `sozo test` 并确保所有测试通过。"
 
 #: src/tutorial/onchain-chess/0-setup.md:215
-#, fuzzy
 msgid ""
 "Try to solve on your own, and before you move on check the answer below."
-msgstr "试着自己解题，在继续解题之前，请查看下面的答案。"
+msgstr "在进行下一步之前，请试着自己解题并对照下面的答案。"
 
 #: src/tutorial/onchain-chess/0-setup.md:217
-#, fuzzy
 msgid ""
 "<details>\n"
 "<summary>Click to see full `components.cairo` code</summary>"
@@ -6903,7 +6838,6 @@ msgstr ""
 "<summary>点击查看完整的 `components.cairo` 代码</summary>"
 
 #: src/tutorial/onchain-chess/0-setup.md:220
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "use debug::PrintTrait;\n"
@@ -7084,47 +7018,46 @@ msgid ""
 "```"
 msgstr ""
 "```rust,ignore\n"
-"使用 debug::PrintTrait；\n"
-"使用 starknet::ContractAddress；\n"
+"use debug::PrintTrait;\n"
+"use starknet::ContractAddress;\n"
 "\n"
-"#[派生（Component, Drop, SerdeLen, Serde)\n"
+"#[derive(Component, Drop, SerdeLen, Serde)]\n"
 "struct Square {\n"
-"    #[key］\n"
-"    game_id: felt252、\n"
-"    #[键］\n"
-"    x: u32、\n"
-"    #[key］\n"
-"    y: u32、\n"
-"    piece：Option<PieceType> 、\n"
+"    #[key]\n"
+"    game_id: felt252,\n"
+"    #[key]\n"
+"    x: u32,\n"
+"    #[key]\n"
+"    y: u32,\n"
+"    piece: Option<PieceType>,\n"
 "}\n"
 "\n"
-"#[derive(Serde, Drop, Copy, PartialEq)] [派生（Serde、Drop、Copy、"
-"PartialEq)\n"
-"枚举棋子类型 {\n"
-"    白卒\n"
-"    白马\n"
-"    白象\n"
-"    白车\n"
-"    白皇后\n"
-"    白王\n"
-"    黑卒\n"
-"    黑马\n"
-"    黑象\n"
-"    黑车\n"
-"    黑皇后\n"
-"    黑王\n"
+"#[derive(Serde, Drop, Copy, PartialEq)]\n"
+"enum PieceType {\n"
+"    WhitePawn,\n"
+"    WhiteKnight,\n"
+"    WhiteBishop,\n"
+"    WhiteRook,\n"
+"    WhiteQueen,\n"
+"    WhiteKing,\n"
+"    BlackPawn,\n"
+"    BlackKnight,\n"
+"    BlackBishop,\n"
+"    BlackRook,\n"
+"    BlackQueen,\n"
+"    BlackKing,\n"
 "}\n"
 "\n"
-"#[派生（Serde、Drop、Copy、PartialEq）]\n"
-"枚举颜色 {\n"
-"    白色\n"
-"    黑色\n"
+"#[derive(Serde, Drop, Copy, PartialEq)]\n"
+"enum Color {\n"
+"    White,\n"
+"    Black,\n"
 "}\n"
 "\n"
 "\n"
-"impl PieceOptionSerdeLen of dojo::SerdeLen&lt;Option<PieceType>&gt; {\n"
-"    #[内联（始终）]\n"
-"    fn len() -&gt; usize {\n"
+"impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {\n"
+"    #[inline(always)]\n"
+"    fn len() -> usize {\n"
 "        2\n"
 "    }\n"
 "}\n"
@@ -7132,26 +7065,26 @@ msgstr ""
 "impl ColorPrintTrait of PrintTrait<Color> {\n"
 "    #[inline(always)]\n"
 "    fn print(self: Color) {\n"
-"        匹配 self {\n"
-"            Color::White(_) =&gt; {\n"
-"                'White'.print()；\n"
+"        match self {\n"
+"            Color::White(_) => {\n"
+"                'White'.print();\n"
 "            },\n"
-"            颜色::黑色(_) =&gt; {\n"
-"                'Black'.print()；\n"
+"            Color::Black(_) => {\n"
+"                'Black'.print();\n"
 "            },\n"
 "        }\n"
 "    }\n"
 "}\n"
 "\n"
-"impl ColorOptionPrintTrait of PrintTrait&lt;Option<Color>&gt; {\n"
+"impl ColorOptionPrintTrait of PrintTrait<Option<Color>> {\n"
 "    #[inline(always)]\n"
 "    fn print(self: Option<Color>) {\n"
-"        匹配 self {\n"
-"            Option::Some(color) =&gt; {\n"
-"                color.print()；\n"
+"        match self {\n"
+"            Option::Some(color) => {\n"
+"                color.print();\n"
 "            },\n"
-"            Option::None(_) =&gt; {\n"
-"                None'.print()；\n"
+"            Option::None(_) => {\n"
+"                'None'.print();\n"
 "            }\n"
 "        }\n"
 "    }\n"
@@ -7161,22 +7094,22 @@ msgstr ""
 "impl BoardPrintTrait of PrintTrait<(u32, u32)> {\n"
 "    #[inline(always)]\n"
 "    fn print(self: (u32, u32)) {\n"
-"        让 (x, y)：(u32, u32) = self；\n"
-"        x.print()；\n"
-"        y.print()；\n"
+"        let (x, y): (u32, u32) = self;\n"
+"        x.print();\n"
+"        y.print();\n"
 "    }\n"
 "}\n"
 "\n"
 "\n"
-"impl PieceTypeOptionPrintTrait of PrintTrait&lt;Option<PieceType>&gt; {\n"
-"    #[内联（始终）]\n"
+"impl PieceTypeOptionPrintTrait of PrintTrait<Option<PieceType>> {\n"
+"    #[inline(always)]\n"
 "    fn print(self: Option<PieceType>) {\n"
-"        匹配 self {\n"
-"            Option::Some(piece_type) =&gt; {\n"
-"                piece_type.print()；\n"
+"        match self {\n"
+"            Option::Some(piece_type) => {\n"
+"                piece_type.print();\n"
 "            },\n"
-"            Option::None(_) =&gt; {\n"
-"                None'.print()；\n"
+"            Option::None(_) => {\n"
+"                'None'.print();\n"
 "            }\n"
 "        }\n"
 "    }\n"
@@ -7184,47 +7117,44 @@ msgstr ""
 "\n"
 "\n"
 "impl PieceTypePrintTrait of PrintTrait<PieceType> {\n"
-"    #[内联（始终）]\n"
+"    #[inline(always)]\n"
 "    fn print(self: PieceType) {\n"
-"        匹配 self {\n"
-"            PieceType::WhitePawn(_) =&gt; {\n"
-"                'WhitePawn'.print()；\n"
+"        match self {\n"
+"            PieceType::WhitePawn(_) => {\n"
+"                'WhitePawn'.print();\n"
 "            },\n"
-"            PieceType::WhiteKnight(_) =&gt; {\n"
-"                'WhiteKnight'.print()；\n"
+"            PieceType::WhiteKnight(_) => {\n"
+"                'WhiteKnight'.print();\n"
 "            },\n"
-"            PieceType::WhiteBishop(_) =&gt; {\n"
-"                }, PieceType::WhiteBishop(_) =&gt; { 'WhiteBishop'."
-"print()；\n"
+"            PieceType::WhiteBishop(_) => {\n"
+"                'WhiteBishop'.print();\n"
 "            },\n"
-"            PieceType::WhiteRook(_) =&gt; { 'WhiteRook'.print().\n"
-"                }, PieceType::WhiteRook(_) =&gt; { 'WhiteRook'.print()；\n"
+"            PieceType::WhiteRook(_) => {\n"
+"                'WhiteRook'.print();\n"
 "            },\n"
-"            PieceType::WhiteQueen(_) =&gt; {\n"
-"                }, PieceType::WhiteQueen(_) =&gt; { 'WhiteQueen'.print()；\n"
+"            PieceType::WhiteQueen(_) => {\n"
+"                'WhiteQueen'.print();\n"
 "            },\n"
-"            PieceType::WhiteKing(_) =&gt; {\n"
-"                }, PieceType::WhiteKing(_) =&gt; { 'WhiteKing'.print()；\n"
+"            PieceType::WhiteKing(_) => {\n"
+"                'WhiteKing'.print();\n"
 "            },\n"
-"            PieceType::BlackPawn(_) =&gt; {\n"
-"                }, PieceType::BlackPawn(_) =&gt; { 'BlackPawn'.print()；\n"
+"            PieceType::BlackPawn(_) => {\n"
+"                'BlackPawn'.print();\n"
 "            },\n"
-"            PieceType::BlackKnight(_) =&gt; {\n"
-"                }, PieceType::BlackKnight(_) =&gt; { 'BlackKnight'."
-"print()；\n"
+"            PieceType::BlackKnight(_) => {\n"
+"                'BlackKnight'.print();\n"
 "            },\n"
-"            PieceType::BlackBishop(_) =&gt; {\n"
-"                }, PieceType::BlackBishop(_) =&gt; { 'BlackBishop'."
-"print()；\n"
+"            PieceType::BlackBishop(_) => {\n"
+"                'BlackBishop'.print();\n"
 "            },\n"
-"            PieceType::BlackRook(_) =&gt; {\n"
-"                }, PieceType::BlackRook(_) =&gt; { 'BlackRook'.print()；\n"
+"            PieceType::BlackRook(_) => {\n"
+"                'BlackRook'.print();\n"
 "            },\n"
-"            PieceType::BlackQueen(_) =&gt; {\n"
-"                }, PieceType::BlackQueen(_) =&gt; { 'BlackQueen'.print()；\n"
+"            PieceType::BlackQueen(_) => {\n"
+"                'BlackQueen'.print();\n"
 "            },\n"
-"            PieceType::BlackKing(_) =&gt; {\n"
-"                }, PieceType::BlackKing(_) =&gt; { 'BlackKing'.print()；\n"
+"            PieceType::BlackKing(_) => {\n"
+"                'BlackKing'.print();\n"
 "            },\n"
 "        }\n"
 "    }\n"
@@ -7232,33 +7162,33 @@ msgstr ""
 "\n"
 "impl ColorSerdeLen of dojo::SerdeLen<Color> {\n"
 "    #[inline(always)]\n"
-"    fn len() -&gt; usize {\n"
+"    fn len() -> usize {\n"
 "        1\n"
 "    }\n"
 "}\n"
 "\n"
-"#[derive(Component, Drop, SerdeLen, Serde))\n"
+"#[derive(Component, Drop, SerdeLen, Serde)]\n"
 "struct Game {\n"
-"    /// 游戏 ID，计算方法如下 pedersen_hash(player1_address, "
+"    /// game id, computed as follows pedersen_hash(player1_address, "
 "player2_address)\n"
-"    #[key］\n"
-"    game_id: felt252、\n"
-"    winner：Option<Color> 、\n"
-"    White：ContractAddress、\n"
-"    黑棋合同地址\n"
+"    #[key]\n"
+"    game_id: felt252,\n"
+"    winner: Option<Color>,\n"
+"    white: ContractAddress,\n"
+"    black: ContractAddress\n"
 "}\n"
 "\n"
 "\n"
-"#[派生（Component、Drop、SerdeLen、Serde）]\n"
+"#[derive(Component, Drop, SerdeLen, Serde)]\n"
 "struct GameTurn {\n"
-"    #[关键字］\n"
-"    game_id: felt252、\n"
-"    turn：颜色\n"
+"    #[key]\n"
+"    game_id: felt252,\n"
+"    turn: Color,\n"
 "}\n"
 "\n"
-"impl OptionPieceColorSerdeLen of dojo::SerdeLen&lt;Option<Color>&gt; {\n"
-"    #[内联（始终）]\n"
-"    fn len() -&gt; usize {\n"
+"impl OptionPieceColorSerdeLen of dojo::SerdeLen<Option<Color>> {\n"
+"    #[inline(always)]\n"
+"    fn len() -> usize {\n"
 "        1\n"
 "    }\n"
 "}\n"
@@ -7266,50 +7196,41 @@ msgstr ""
 "```"
 
 #: src/tutorial/onchain-chess/0-setup.md:397
-#, fuzzy
 msgid "</details>"
-msgstr ""
-"这一行完成了这个小程序的所有工作：将文本打印到屏幕上。这里有四个重要的细节需"
-"要注意。"
+msgstr "</details>"
 
 #: src/tutorial/onchain-chess/0-setup.md:399
-#, fuzzy
 msgid ""
 "Congratulations! You've completed the basic setup for building an on-chain "
 "chess game 🎉"
 msgstr "恭喜您！您已经完成了构建链上国际象棋游戏的基本设置 🎉"
 
 #: src/tutorial/onchain-chess/1-initiate.md:1
-#, fuzzy
 msgid "# 1. Initiate System"
-msgstr "# 1.启动系统"
+msgstr "# 1. 初始化系统"
 
 #: src/tutorial/onchain-chess/1-initiate.md:3
-#, fuzzy
 msgid ""
 "This chapter will address implementing `initiate_system`, which spawns the "
 "game and squares containing pieces."
-msgstr "本章将讨论 \"启动系统 \"的实现，它将生成游戏和包含棋子的方格。"
+msgstr "本章将讨论 `initiate_system` 的实现，它将生成游戏和包含棋子的方格。"
 
 #: src/tutorial/onchain-chess/1-initiate.md:5
-#, fuzzy
 msgid "## What is `initiate_system`?"
 msgstr "## 什么是`initiate_system`？"
 
 #: src/tutorial/onchain-chess/1-initiate.md:7
-#, fuzzy
 msgid ""
 "To play chess, you need to start the game and spawn the pieces. "
 "`initiate_system` will spawn the game entity and then place each piece in "
 "its proper position. Ensure the game status matches the correct piece type, "
 "and the right piece color is in its designated position on the board."
 msgstr ""
-"要下棋，您需要启动游戏并生成棋子。`initiate_system` 会生成游戏实体，然后将每"
+"要下棋，您需要开始游戏并生成棋子。`initiate_system` 会生成游戏实体，然后将每"
 "个棋子放置在适当的位置。确保游戏状态与正确的棋子类型相匹配，并且正确颜色的棋"
 "子位于棋盘上的指定位置。"
 
 #: src/tutorial/onchain-chess/1-initiate.md:9
-#, fuzzy
 msgid ""
 "<p align=\"center\">\n"
 "<img src=\"../../images/board.png\" alt=\"image\" width=\"300\" "
@@ -7321,20 +7242,16 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:12
 #: src/tutorial/onchain-chess/2-move.md:9
-#, fuzzy
 msgid "## Requirements"
-msgstr "### 要求"
+msgstr "## 需求"
 
 #: src/tutorial/onchain-chess/1-initiate.md:14
-#, fuzzy
 msgid ""
 "_Copy the unit tests below and paste them at the bottom of your `systems/"
 "initiate.cairo` file._"
-msgstr ""
-"复制下面的单元测试，并将其粘贴到 \"systems/initiate.cairo \"文件的底部。"
+msgstr "_复制下面的单元测试，并将其粘贴到 `systems/initiate.cairo`文件的底部_"
 
 #: src/tutorial/onchain-chess/1-initiate.md:16
-#, fuzzy
 msgid ""
 "1. Write an `execute` function in the system that accepts the world context, "
 "white address, and black address as input.\n"
@@ -7344,19 +7261,18 @@ msgid ""
 "the correct `PieceType`.\n"
 "4. Run `sozo test` and pass all the tests."
 msgstr ""
-"1.在系统中编写一个 \"执行 \"函数，接受世界背景、白地址和黑地址作为输入。\n"
-"2.实现游戏实体，由上一步创建的 `Game` 组件和 `GameTurn` 组件组成。\n"
-"3.通过包含正确 \"棋子类型 \"的 a1 至 h8 的 \"Square \"组件实现正方形实体。\n"
-"4.运行 `sozo test` 并通过所有测试。"
+"1. 在系统中编写一个 `execute`函数接受world context， white address， 以及 "
+"black address 作为输入。\n"
+"2. 实现由我们上一步骤里创建的 `Game` 和 `GameTurn` 组件组成的游戏实体。\n"
+"3. 在`Square`组件中实现方格实体，从a1到a8并包含正确的`PieceType`。\n"
+"4. 运行 `sozo test` 并通过所有测试。"
 
 #: src/tutorial/onchain-chess/1-initiate.md:21
 #: src/tutorial/onchain-chess/2-move.md:29
-#, fuzzy
 msgid "## Test Flow"
 msgstr "## 测试流程"
 
 #: src/tutorial/onchain-chess/1-initiate.md:23
-#, fuzzy
 msgid ""
 "- Spawn the test world that imports the components and systems used in "
 "testing.\n"
@@ -7367,11 +7283,11 @@ msgid ""
 "- Ensure the game has been correctly created.\n"
 "- Verify that each `Piece` is located in the correct `Square`."
 msgstr ""
-"- 生成测试世界，导入测试中使用的组件和系统。\n"
-"- 提供白方和黑方棋手的钱包地址作为输入，执行 `initiate_system`。\n"
-"- 读取在 `initiate_system` 中创建的游戏实体和棋子实体。\n"
+"- 生成测试世界并导入测试中使用的组件和系统。\n"
+"- 提供黑白玩家的钱包地址作为输入来执行`initiate_system`。\n"
+"- 获取`initiate_system`过程中创建的游戏实体以及棋子实体。\n"
 "- 确保游戏已正确创建。\n"
-"- 验证每个 \"棋子 \"是否位于正确的 \"方格 \"中。"
+"- 确认每个`Piece` 都放在正确的`Square`上。"
 
 #: src/tutorial/onchain-chess/1-initiate.md:29
 #: src/tutorial/onchain-chess/2-move.md:35
@@ -7379,7 +7295,6 @@ msgid "## Unit Tests"
 msgstr "## 单元测试"
 
 #: src/tutorial/onchain-chess/1-initiate.md:31
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "#[cfg(test)]\n"
@@ -7437,57 +7352,57 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
-"``rust,ignore\n"
+"```rust,ignore\n"
 "#[cfg(test)]\n"
-"mod 测试 {\n"
-"    使用 starknet::ContractAddress；\n"
-"    使用 dojo::test_utils::spawn_test_world；\n"
-"    使用 dojoo_chess::components::{Game, game, GameTurn, game_turn, Square, "
-"square, PieceType}；\n"
+"mod tests {\n"
+"    use starknet::ContractAddress;\n"
+"    use dojo::test_utils::spawn_test_world;\n"
+"    use dojo_chess::components::{Game, game, GameTurn, game_turn, Square, "
+"square, PieceType};\n"
 "\n"
-"    使用 dojoo_chess::systems::initiate_system；\n"
-"    使用 array::ArrayTrait；\n"
-"    使用 core::traits::Into；\n"
-"    使用 dojo::world::IWorldDispatcherTrait；\n"
-"    使用 core::array::SpanTrait；\n"
+"    use dojo_chess::systems::initiate_system;\n"
+"    use array::ArrayTrait;\n"
+"    use core::traits::Into;\n"
+"    use dojo::world::IWorldDispatcherTrait;\n"
+"    use core::array::SpanTrait;\n"
 "\n"
-"    #[测试］\n"
+"    #[test]\n"
 "    #[available_gas(3000000000000000)]\n"
 "    fn test_initiate() {\n"
-"        let white = starknet::contract_address_const::<0x01>()；\n"
-"        let black = starknet::contract_address_const::<0x02>()；\n"
+"        let white = starknet::contract_address_const::<0x01>();\n"
+"        let black = starknet::contract_address_const::<0x02>();\n"
 "\n"
-"        // 组件\n"
-"        let mut components = array::ArrayTrait::new()；\n"
-"        components.append(game::TEST_CLASS_HASH)；\n"
-"        components.append(game_turn::TEST_CLASS_HASH)；\n"
-"        components.append(square::TEST_CLASS_HASH)；\n"
+"        // components\n"
+"        let mut components = array::ArrayTrait::new();\n"
+"        components.append(game::TEST_CLASS_HASH);\n"
+"        components.append(game_turn::TEST_CLASS_HASH);\n"
+"        components.append(square::TEST_CLASS_HASH);\n"
 "\n"
-"        //系统\n"
-"        let mut systems = array::ArrayTrait::new()；\n"
-"        systems.append(inititi_system::TEST_CLASS_HASH)；\n"
-"        让 world = spawn_test_world(组件, 系统)；\n"
+"        //systems\n"
+"        let mut systems = array::ArrayTrait::new();\n"
+"        systems.append(initiate_system::TEST_CLASS_HASH);\n"
+"        let world = spawn_test_world(components, systems);\n"
 "\n"
-"        let mut calldata = array::ArrayTrait::<core::felt252>::new()；\n"
-"        calldata.append(white.into())；\n"
-"        calldata.append(black.into())；\n"
-"        world.execute('initial_system'.into(), calldata)；\n"
+"        let mut calldata = array::ArrayTrait::<core::felt252>::new();\n"
+"        calldata.append(white.into());\n"
+"        calldata.append(black.into());\n"
+"        world.execute('initiate_system'.into(), calldata);\n"
 "\n"
-"        let game_id = pedersen(white.into(), black.into())；\n"
+"        let game_id = pedersen(white.into(), black.into());\n"
 "\n"
-"        //获取游戏\n"
-"        let game = get!(world, (game_id), (Game))；\n"
-"        assert(game.white == white, 'white address is incorrect')；\n"
-"        assert(game.black == black, 'black address is incorrect')；\n"
+"        //get game\n"
+"        let game = get!(world, (game_id), (Game));\n"
+"        assert(game.white == white, 'white address is incorrect');\n"
+"        assert(game.black == black, 'black address is incorrect');\n"
 "\n"
 "        //get a1 square\n"
-"        let a1 = get!(world, (game_id, 0, 0), (Square))；\n"
-"        匹配 a1.piece {\n"
-"            Option::Some(piece) =&gt; {\n"
+"        let a1 = get!(world, (game_id, 0, 0), (Square));\n"
+"        match a1.piece {\n"
+"            Option::Some(piece) => {\n"
 "                assert(piece == PieceType::WhiteRook, 'should be White "
-"Rook')；\n"
+"Rook');\n"
 "            },\n"
-"            Option::None(_) =&gt; assert(false, 'should have piece')、\n"
+"            Option::None(_) => assert(false, 'should have piece'),\n"
 "        };\n"
 "    }\n"
 "}\n"
@@ -7496,14 +7411,12 @@ msgstr ""
 #: src/tutorial/onchain-chess/1-initiate.md:85
 #: src/tutorial/onchain-chess/2-move.md:108
 #: src/tutorial/onchain-chess/3-legal.md:165
-#, fuzzy
 msgid "## Need help?"
 msgstr "## 需要帮助？"
 
 #: src/tutorial/onchain-chess/1-initiate.md:87
 #: src/tutorial/onchain-chess/2-move.md:110
 #: src/tutorial/onchain-chess/3-legal.md:167
-#, fuzzy
 msgid ""
 "If you're stuck, don't hesitate to ask questions at the [Dojo community]"
 "(https://discord.gg/akd2yfuRS3)!"
@@ -7511,7 +7424,6 @@ msgstr ""
 "如果您遇到困难，请随时到 [Dojo 社区](https://discord.gg/akd2yfuRS3) 提问！"
 
 #: src/tutorial/onchain-chess/1-initiate.md:89
-#, fuzzy
 msgid ""
 "You can find the [answer](https://github.com/rkdud007/chess-dojo/blob/"
 "tutorialv2/src/systems/initiate.cairo) for chapter 1 here."
@@ -7520,24 +7432,20 @@ msgstr ""
 "tutorialv2/src/systems/initiate.cairo)。"
 
 #: src/tutorial/onchain-chess/2-move.md:1
-#, fuzzy
 msgid "# 2. Move System"
-msgstr "## 系统"
+msgstr "# Move系统"
 
 #: src/tutorial/onchain-chess/2-move.md:3
-#, fuzzy
 msgid ""
 "This chapter will address the implementation of `move_system`, which "
 "relocates a piece on the board."
-msgstr "本章将讨论 \"move_system \"的实现，它用于在棋盘上重新定位棋子。"
+msgstr "本章将讨论`move_system`的实现，它用于在棋盘上重新定位棋子。"
 
 #: src/tutorial/onchain-chess/2-move.md:5
-#, fuzzy
 msgid "## What is `move_system`?"
-msgstr "## Dojo 是什么？"
+msgstr "## `move_system` 是什么？"
 
 #: src/tutorial/onchain-chess/2-move.md:7
-#, fuzzy
 msgid ""
 "To play chess, one must move the pieces on the board. Since we represent "
 "piece locations with a Square entity, the `move_system` retrieves the "
@@ -7545,24 +7453,21 @@ msgid ""
 "treating the piece in the current position square as the target to be moved "
 "to the next position."
 msgstr ""
-"下棋时，必须移动棋盘上的棋子。由于我们用正方形实体来表示棋子的位置，因此 "
+"下棋时，玩家必须移动棋盘上的棋子。由于我们用Square实体来表示棋子的位置，因此 "
 "`move_system` 会以 (x,y) 的形式获取当前位置。它还会以 (x,y) 的形式获取下一个"
 "位置，并将当前位置方格中的棋子视为要移动到下一个位置的目标。"
 
 #: src/tutorial/onchain-chess/2-move.md:11
-#, fuzzy
 msgid ""
 "_Copy the unit tests below and paste them at the bottom of your `systems/"
 "move.cairo` file._"
-msgstr "复制下面的单元测试，并将其粘贴到 \"systems/move.cairo \"文件的底部。"
+msgstr "_复制下面的单元测试，并将其粘贴到`systems/move.cairo`文件的底部。_"
 
 #: src/tutorial/onchain-chess/2-move.md:13
-#, fuzzy
 msgid "1. Write an `execute` function in the system with the following inputs:"
-msgstr "1.在系统中编写一个 \"执行 \"函数，输入如下内容："
+msgstr "1. 在系统中编写一个`execute`函数，输入如下内容："
 
 #: src/tutorial/onchain-chess/2-move.md:15
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 " fn execute(\n"
@@ -7574,43 +7479,40 @@ msgid ""
 "    )\n"
 "```"
 msgstr ""
-"``rust,ignore\n"
+"```rust,ignore\n"
 " fn execute(\n"
-"        ctx：上下文、\n"
-"        curr_position: (u32, u32)、\n"
-"        next_position: (u32, u32)、\n"
-"        调用者：ContractAddress、\n"
+"        ctx: Context,\n"
+"        curr_position: (u32, u32),\n"
+"        next_position: (u32, u32),\n"
+"        caller: ContractAddress,\n"
 "        game_id: felt252\n"
 "    )\n"
 "```"
 
 #: src/tutorial/onchain-chess/2-move.md:25
-#, fuzzy
 msgid ""
 "2. Update the Square with the `next_position` to contain the new piece and "
 "ensure the Square with the `curr_position` no longer holds a piece.\n"
 "\n"
 "3. Run `sozo test` and ensure all tests pass."
 msgstr ""
-"2.更新带有 `next_position` 的方格，使其包含新棋子，并确保带有 "
+"2. 更新带有 `next_position` 的方格，使其包含新棋子，并确保带有 "
 "`curr_position` 的方格不再包含棋子。\n"
 "\n"
-"3.运行 `zo test` 并确保所有测试通过。"
+"3. 运行 `sozo test` 并确保所有测试通过。"
 
 #: src/tutorial/onchain-chess/2-move.md:31
-#, fuzzy
 msgid ""
 "- Follow the same logic as `test_initiate` from the previous chapter.\n"
 "- Move the White Knight from (1,0) to (2,2) using the `move_system`.\n"
 "- Retrieve the updated position and verify that the piece has successfully "
 "moved to its new location."
 msgstr ""
-"- 与上一章的 `test_initiate` 逻辑相同。\n"
-"- 使用 `move_system` 将白马从 (1,0) 移到 (2,2)。\n"
-"- 读取更新后的位置并验证棋子是否已成功移动到新位置。"
+"- 跟随上一章中`test_initiate`的逻辑。\n"
+"- 通过`move_system`把White Knight从(1,0) 移动到 (2,2)\n"
+"- 获取更新之后的位置并且验证棋子成功移动到了新位置。"
 
 #: src/tutorial/onchain-chess/2-move.md:37
-#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "#[cfg(test)]\n"
@@ -7686,77 +7588,75 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
-"``rust,ignore\n"
+"```rust,ignore\n"
 "#[cfg(test)]\n"
-"mod 测试 {\n"
-"    使用 starknet::ContractAddress；\n"
-"    使用 dojo::test_utils::spawn_test_world；\n"
-"    使用 dojoo_chess::components::{Game, game, GameTurn, game_turn, Square, "
-"square, PieceType}；\n"
+"mod tests {\n"
+"    use starknet::ContractAddress;\n"
+"    use dojo::test_utils::spawn_test_world;\n"
+"    use dojo_chess::components::{Game, game, GameTurn, game_turn, Square, "
+"square, PieceType};\n"
 "\n"
-"    使用 dojoo_chess::systems::init_system；\n"
-"    使用 dojo_chess::system::move_system；\n"
-"    使用 array::ArrayTrait；\n"
-"    使用 core::traits::Into；\n"
-"    use dojo::world::IWorldDispatcherTrait；\n"
-"    使用 core::array::SpanTrait；\n"
+"    use dojo_chess::systems::initiate_system;\n"
+"    use dojo_chess::systems::move_system;\n"
+"    use array::ArrayTrait;\n"
+"    use core::traits::Into;\n"
+"    use dojo::world::IWorldDispatcherTrait;\n"
+"    use core::array::SpanTrait;\n"
 "\n"
-"    #[测试］\n"
+"    #[test]\n"
 "    #[available_gas(3000000000000000)]\n"
 "    fn test_move() {\n"
-"        let white = starknet::contract_address_const::<0x01>()；\n"
-"        let black = starknet::contract_address_const::<0x02>()；\n"
+"        let white = starknet::contract_address_const::<0x01>();\n"
+"        let black = starknet::contract_address_const::<0x02>();\n"
 "\n"
-"        // 组件\n"
-"        let mut components = array::ArrayTrait::new()；\n"
-"        components.append(game::TEST_CLASS_HASH)；\n"
-"        components.append(game_turn::TEST_CLASS_HASH)；\n"
-"        components.append(square::TEST_CLASS_HASH)；\n"
+"        // components\n"
+"        let mut components = array::ArrayTrait::new();\n"
+"        components.append(game::TEST_CLASS_HASH);\n"
+"        components.append(game_turn::TEST_CLASS_HASH);\n"
+"        components.append(square::TEST_CLASS_HASH);\n"
 "\n"
-"        //系统\n"
-"        let mut systems = array::ArrayTrait::new()；\n"
-"        systems.append(initiate_system::TEST_CLASS_HASH)；\n"
-"        systems.append(move_system::TEST_CLASS_HASH)；\n"
-"        让 world = spawn_test_world(组件, 系统)；\n"
+"        //systems\n"
+"        let mut systems = array::ArrayTrait::new();\n"
+"        systems.append(initiate_system::TEST_CLASS_HASH);\n"
+"        systems.append(move_system::TEST_CLASS_HASH);\n"
+"        let world = spawn_test_world(components, systems);\n"
 "\n"
-"        // 启动\n"
-"        let mut calldata = array::ArrayTrait::<core::felt252>::new()；\n"
-"        calldata.append(white.into())；\n"
-"        calldata.append(black.into())；\n"
-"        world.execute('initial_system'.into(), calldata)；\n"
+"        // initiate\n"
+"        let mut calldata = array::ArrayTrait::<core::felt252>::new();\n"
+"        calldata.append(white.into());\n"
+"        calldata.append(black.into());\n"
+"        world.execute('initiate_system'.into(), calldata);\n"
 "\n"
-"        let game_id = pedersen(white.into(), black.into())；\n"
+"        let game_id = pedersen(white.into(), black.into());\n"
 "\n"
-"         //白骑士位于 (1,0)\n"
-"        let b1 = get!(world, (game_id, 1, 0), (Square))；\n"
-"        匹配 b1.piece {\n"
-"            Option::Some(piece) =&gt; {\n"
+"         //White Knight is in (1,0)\n"
+"        let b1 = get!(world, (game_id, 1, 0), (Square));\n"
+"        match b1.piece {\n"
+"            Option::Some(piece) => {\n"
 "                assert(piece == PieceType::WhiteKnight, 'should be White "
-"Knight in (1,0)')；\n"
+"Knight in (1,0)');\n"
 "            },\n"
-"            Option::None(_) =&gt; assert(false, 'should have piece in "
-"(1,0)')、\n"
+"            Option::None(_) => assert(false, 'should have piece in (1,0)'),\n"
 "        };\n"
 "\n"
-"        // 移动白马 (1,0) -&gt; (2,2)\n"
-"        let mut move_calldata = array::ArrayTrait::<core::felt252>::new()；\n"
-"        move_calldata.append(1)；\n"
-"        move_calldata.append(0)；\n"
-"        move_calldata.append(2)；\n"
-"        move_calldata.append(2)；\n"
-"        move_calldata.append(white.into())；\n"
-"        move_calldata.append(game_id)；\n"
-"        world.execute('move_system'.into(), move_calldata)；\n"
+"        // Move White Knight (1,0) -> (2,2)\n"
+"        let mut move_calldata = array::ArrayTrait::<core::felt252>::new();\n"
+"        move_calldata.append(1);\n"
+"        move_calldata.append(0);\n"
+"        move_calldata.append(2);\n"
+"        move_calldata.append(2);\n"
+"        move_calldata.append(white.into());\n"
+"        move_calldata.append(game_id);\n"
+"        world.execute('move_system'.into(), move_calldata);\n"
 "\n"
-"        //白骑士在（2,2）\n"
-"        let c3 = get!(world, (game_id, 2, 2), (Square))；\n"
-"        匹配 c3.piece {\n"
-"            Option::Some(piece) =&gt; {\n"
+"        //White Knight is in (2,2)\n"
+"        let c3 = get!(world, (game_id, 2, 2), (Square));\n"
+"        match c3.piece {\n"
+"            Option::Some(piece) => {\n"
 "                assert(piece == PieceType::WhiteKnight, 'should be White "
-"Knight in (2,2)')；\n"
+"Knight in (2,2)');\n"
 "            },\n"
-"            Option::None(_) =&gt; assert(false, 'should have piece in "
-"(2,2)')、\n"
+"            Option::None(_) => assert(false, 'should have piece in (2,2)'),\n"
 "        };\n"
 "    }\n"
 "}\n"
@@ -7798,7 +7698,7 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:15
 msgid "1. See if the next spot is allowed for the type of piece moving."
-msgstr "1.查看下一个位置该类型的棋子是否可以移动。"
+msgstr "1. 查看下一个位置该类型的棋子是否可以移动。"
 
 #: src/tutorial/onchain-chess/3-legal.md:17
 msgid ""
@@ -7818,7 +7718,7 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:23
 msgid "2. See if the next spot is still on the board."
-msgstr "2.看看下一个位置是否还在棋盘上。"
+msgstr "2. 看看下一个位置是否还在棋盘上。"
 
 #: src/tutorial/onchain-chess/3-legal.md:25
 msgid ""
@@ -7834,7 +7734,7 @@ msgstr ""
 msgid ""
 "3. See if the person trying the move is doing it at the right time and with "
 "their piece color."
-msgstr "3.看看尝试这个动作的人是否在正确的时间且以正确的阵营移动棋子。"
+msgstr "3. 看看尝试这个动作的人是否在正确的时间且以正确的阵营移动棋子。"
 
 #: src/tutorial/onchain-chess/3-legal.md:31
 msgid ""
@@ -7852,7 +7752,7 @@ msgstr ""
 msgid ""
 "4. You can also add other check functions to be extra sure the move is "
 "allowed."
-msgstr "4.您还可以添加其他检查功能，以额外确保移动是允许的。"
+msgstr "4. 您还可以添加其他检查功能，以额外确保移动是允许的。"
 
 #: src/tutorial/onchain-chess/3-legal.md:37
 msgid ""
