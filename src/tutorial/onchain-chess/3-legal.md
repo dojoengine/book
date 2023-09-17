@@ -166,4 +166,3 @@ Finish by making your tests. These should find wrong moves and give back errors.
 
 If you're stuck, don't hesitate to ask questions at the [Dojo community](https://discord.gg/akd2yfuRS3)!
 
-You can find the [answer](https://github.com/rkdud007/chess-dojo/blob/tutoralv2/src/systems/move.cairo) for chapter 3 here.
