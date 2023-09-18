@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-18 12:51+0800\n"
+"PO-Revision-Date: 2023-09-18 13:21+0800\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -3871,16 +3871,20 @@ msgid ""
 "integration tests for your world by creating a `tests` directory in your "
 "project root. Then create a file for each integration test you want to write."
 msgstr ""
+"統合テストはシステム全体をテストする e2e テストです。プロジェクトルートに "
+"`tests` ディレクトリを作成することで、自分の世界の統合テストを書くことができ"
+"る。それから、書きたい統合テストごとにファイルを作成する。"
 
 #: src/cairo/testing.md:56
 msgid ""
 "This is the example from the [dojo-starter](https://github.com/dojoengine/"
 "dojo-starter):"
 msgstr ""
+"これは[dojo-starter](https://github.com/dojoengine/dojo-starter)の例です:"
 
 #: src/cairo/testing.md:58
 msgid "`systems.cairo`"
-msgstr ""
+msgstr "`systems.cairo`"
 
 #: src/cairo/testing.md:59
 msgid ""
@@ -3940,10 +3944,65 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[cfg(test)]\n"
+"mod tests {\n"
+"    use core::traits::Into;\n"
+"    use array::ArrayTrait;\n"
+"\n"
+"    use dojo::world::IWorldDispatcherTrait;\n"
+"\n"
+"    use dojo::test_utils::spawn_test_world;\n"
+"\n"
+"    use dojo_examples::components::position;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::moves;\n"
+"    use dojo_examples::components::Moves;\n"
+"    use dojo_examples::systems::spawn;\n"
+"    use dojo_examples::systems::move;\n"
+"\n"
+"    #[test]\n"
+"    #[available_gas(30000000)]\n"
+"    fn test_move() {\n"
+"        let caller = starknet::contract_address_const::<0x0>();\n"
+"\n"
+"        // components\n"
+"        let mut components = array::ArrayTrait::new();\n"
+"        components.append(position::TEST_CLASS_HASH);\n"
+"        components.append(moves::TEST_CLASS_HASH);\n"
+"\n"
+"        // systems\n"
+"        let mut systems = array::ArrayTrait::new();\n"
+"        systems.append(spawn::TEST_CLASS_HASH);\n"
+"        systems.append(move::TEST_CLASS_HASH);\n"
+"\n"
+"        // deploy executor, world and register components/systems\n"
+"        let world = spawn_test_world(components, systems);\n"
+"\n"
+"        let spawn_call_data = array::ArrayTrait::new();\n"
+"        world.execute('spawn', spawn_call_data);\n"
+"\n"
+"        let mut move_calldata = array::ArrayTrait::new();\n"
+"        move_calldata.append(move::Direction::Right(()).into());\n"
+"        world.execute('move', move_calldata);\n"
+"        let mut keys = array::ArrayTrait::new();\n"
+"        keys.append(caller.into());\n"
+"\n"
+"        let moves = world.entity(‘Moves’, keys.span(), 0, dojo::SerdeLen::"
+"<Moves>::len());\n"
+"        assert(*moves[0] == 9, ‘moves is wrong’);\n"
+"        let new_position = world\n"
+"            .entity(‘Position’, keys.span(), 0, dojo::SerdeLen::<Position>::"
+"len());\n"
+"        assert(*new_position[0] == 11, ‘position x is wrong’);\n"
+"        assert(*new_position[1] == 10, ‘position y is wrong’);\n"
+"    }\n"
+"}\n"
+"```"
 
 #: src/cairo/testing.md:113
 msgid "Useful Dojo Test Functions"
-msgstr ""
+msgstr "便利なDojoテスト関数"
 
 #: src/cairo/testing.md:115
 msgid ""
@@ -3951,6 +4010,9 @@ msgid ""
 "world with the components and systems you pass in. It will also deploy the "
 "world and register the components and systems."
 msgstr ""
+"`spawn_test_world(components, systems)` - この関数は、あなたが渡したコンポー"
+"ネントとシステムでテストワールドを作成します。また、ワールドをデプロイし、コ"
+"ンポーネントとシステムを登録します。"
 
 #: src/cairo/modules.md:3
 msgid ""
@@ -3958,10 +4020,13 @@ msgid ""
 "architecture for Dojo. This allows us to create reusable modules that can be "
 "used in any Dojo world."
 msgstr ""
+"システムとコンポーネントの標準化により、Dojo のモジュールアーキテクチャを作成"
+"できます。これにより、どの Dojo worldでも使用できる再利用可能なモジュールを作"
+"成できます。"
 
 #: src/cairo/modules.md:5
 msgid "Module Architecture"
-msgstr ""
+msgstr "Module Architecture"
 
 #: src/cairo/modules.md:7
 msgid ""
@@ -3970,6 +4035,10 @@ msgid ""
 "can be imported into a Dojo world. Dojo is following the ERC patterns and "
 "has modules already defined for ERC20, ERC721, and ERC1155."
 msgstr ""
+"モジュールはDojoのERCだと考えてください。機能を作成し、共有するための標準的な"
+"方法です。モジュールは Dojo の世界にインポートできる システムとコンポーネント"
+"の集まりです。Dojo は ERC パターンに従っており、ERC20、ERC721、ERC1155 用のモ"
+"ジュールがすでに定義されています。"
 
 #: src/cairo/modules/erc20.md:3
 msgid ""
@@ -3978,10 +4047,13 @@ msgid ""
 "leverage the excellent properties of the ERC20 standard and use it natively "
 "within the Dojo environment."
 msgstr ""
+"DojoのERC20モジュールはERC20トークン標準の実装ですが、Dojoシステムとコンポー"
+"ネントを利用しています。これにより、ERC20 標準の優れた特性を活用し、Dojo 環境"
+"でネイティブに使用することができます。"
 
 #: src/cairo/modules/erc20.md:5
 msgid "Integration into Your World"
-msgstr ""
+msgstr "あなたのWorldへの統合"
 
 #: src/cairo/modules/erc20.md:7
 msgid ""
@@ -3989,48 +4061,58 @@ msgid ""
 "ERC20 Dojo contract. Subsequently, install the systems and components into "
 "your world."
 msgstr ""
+"ERC20モジュールをワールドに統合するには、まずERC20 Dojoコントラクトをデプロイ"
+"する必要があります。その後、システムとコンポーネントをワールドにインストール"
+"します。"
 
 #: src/client/overview.md:3
 msgid ""
 "Dojo is BYO client, meaning that you can use any client you want to connect "
 "to the Dojo network."
 msgstr ""
+"DojoはBYOクライアントです。つまり、Dojoネットワークに接続するのに好きなクライ"
+"アントを使うことができます。"
 
 #: src/client/overview.md:5
 msgid "Reference clients are available for the following platforms:"
 msgstr ""
+"リファレンス・クライアントは以下のプラットフォームでご利用いただけます:"
 
 #: src/client/overview.md:7
 msgid "[npm](./npm.md)"
-msgstr ""
+msgstr "[npm](./npm.md)"
 
 #: src/client/npm.md:1
 msgid "Javascript Libraries"
-msgstr ""
+msgstr "Javascript Libraries"
 
 #: src/client/npm.md:3
 msgid ""
 "Javascript is a great way to get started with Dojo. It's easy to use, and "
 "you can get started in minutes."
 msgstr ""
+"Dojoを始めるには、Javascriptが最適です。使い方は簡単で、数分で始めることがで"
+"きる。"
 
 #: src/client/npm.md:5
 msgid "Examples using these:"
-msgstr ""
+msgstr "これらを使った例:"
 
 #: src/client/npm.md:7
 msgid ""
 "[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)"
 msgstr ""
+"[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)"
 
 #: src/client/npm.md:8
 msgid ""
 "[Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
 msgstr ""
+"[Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
 
 #: src/client/npm.md:10 src/client/npm/core.md:1
 msgid "@dojoengine/core"
-msgstr ""
+msgstr "@dojoengine/core"
 
 #: src/client/npm.md:12
 msgid ""
@@ -4039,10 +4121,13 @@ msgid ""
 "contract interfaces. Use it if you want to build your own library on top of "
 "Dojo."
 msgstr ""
+"これは最下層のライブラリで、他のすべての下流ライブラリで使用されます。Dojo の"
+"コア機能を含み、コントラクトインターフェースを公開しています。Dojo の上に独自"
+"のライブラリを構築したい場合に使用します。"
 
 #: src/client/npm.md:14
 msgid "[Documentation](./npm/core.md)"
-msgstr ""
+msgstr "[Documentation](./npm/core.md)"
 
 #: src/client/npm.md:16 src/client/npm/core.md:12
 msgid ""
@@ -4050,26 +4135,33 @@ msgid ""
 "yarn add @dojoengine/core\n"
 "```"
 msgstr ""
+"```console\n"
+"yarn add @dojoengine/core\n"
+"```"
 
 #: src/client/npm.md:20
 msgid "@dojoengine/react"
-msgstr ""
+msgstr "@dojoengine/react"
 
 #: src/client/npm.md:22
 msgid ""
 "This is a direct fork of [Mud React](https://github.com/latticexyz/mud/tree/"
 "main/packages)"
 msgstr ""
+"これは[Mud React](https://github.com/latticexyz/mud/tree/main/packages)の直接"
+"のフォークです。"
 
 #: src/client/npm.md:24
 msgid ""
 "This library contains a set of React components that can be used when "
 "building React apps using Dojo."
 msgstr ""
+"このライブラリには、Dojoを使用してReactアプリを構築する際に使用できるReactコ"
+"ンポーネントのセットが含まれています。"
 
 #: src/client/npm.md:26
 msgid "[Documentation](./npm/react.md)"
-msgstr ""
+msgstr "[Documentation](./npm/react.md)"
 
 #: src/client/npm.md:28
 msgid ""
@@ -4077,20 +4169,24 @@ msgid ""
 "yarn add @dojoengine/react\n"
 "```"
 msgstr ""
+"```console\n"
+"yarn add @dojoengine/react\n"
+"```"
 
 #: src/client/npm.md:33
 msgid "@dojoengine/create-burner"
-msgstr ""
+msgstr "@dojoengine/create-burner"
 
 #: src/client/npm.md:35
 msgid ""
 "Create burner is a simply way to incorporate burner wallets into your Dojo "
 "app."
 msgstr ""
+"Create burner は、Dojo アプリにバーナーウォレットを組み込む簡単な方法です。"
 
 #: src/client/npm.md:37
 msgid "[Reopsitory](https://github.com/dojoengine/create-burner)"
-msgstr ""
+msgstr "[Reopsitory](https://github.com/dojoengine/create-burner)"
 
 #: src/client/npm.md:39
 msgid ""
@@ -4098,6 +4194,9 @@ msgid ""
 "yarn add @dojoengine/create-burner\n"
 "```"
 msgstr ""
+"```console\n"
+"yarn add @dojoengine/create-burner\n"
+"```"
 
 #: src/client/npm/core.md:3
 msgid ""
@@ -4105,32 +4204,37 @@ msgid ""
 "functions to interact with the world. It is preferred to use this library "
 "over interacting with the world directly."
 msgstr ""
+"このライブラリーはワールドのインターフェースを抽象化し、ワールドと対話するた"
+"めのヘルパー関数のセットを提供する。ワールドと直接対話するよりも、このライブ"
+"ラリを使うことが望ましい。"
 
 #: src/client/npm/core.md:5
 msgid "World explorers"
-msgstr ""
+msgstr "World explorers"
 
 #: src/client/npm/core.md:6
 msgid "World deployers"
-msgstr ""
+msgstr "World deployers"
 
 #: src/client/npm/core.md:7
 msgid "Games"
-msgstr ""
+msgstr "Games"
 
 #: src/client/npm/core.md:8
 msgid "Anaylitics"
-msgstr ""
+msgstr "Anaylitics"
 
 #: src/client/npm/core.md:16
 msgid "Example Usage"
-msgstr ""
+msgstr "Example Usage"
 
 #: src/client/npm/core.md:18
 msgid ""
 "This is an example from [Dojo React App](https://github.com/dojoengine/dojo-"
 "starter-react-app)"
 msgstr ""
+"これは[Dojo React App](https://github.com/dojoengine/dojo-starter-react-app)"
+"の例です。"
 
 #: src/client/npm/core.md:20
 msgid ""
@@ -4167,32 +4271,66 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```javascript\n"
+"import { defineContractComponents } from \"./contractComponents\";\n"
+"import { world } from \"./world\";\n"
+"import { RPCProvider, Query, } from \"@dojoengine/core\";\n"
+"import { Account, num } from \"starknet\";\n"
+"import { GraphQLClient } from 'graphql-request';\n"
+"import { getSdk } from '../generated/graphql';\n"
+"\n"
+"export type SetupNetworkResult = Awaited<ReturnType<typeof setupNetwork>>;\n"
+"\n"
+"export async function setupNetwork() {\n"
+"\n"
+"    const provider = new RPCProvider(import.meta.env."
+"VITE_PUBLIC_WORLD_ADDRESS, import.meta.env.VITE_PUBLIC_NODE_URL);\n"
+"\n"
+"    return {\n"
+"        contractComponents: defineContractComponents(world),\n"
+"        provider,\n"
+"        execute: async (signer: Account, system: string, call_data: num."
+"BigNumberish[]) => provider.execute(signer, system, call_data),\n"
+"        entity: async (component: string, query: Query) => provider."
+"entity(component, query),\n"
+"        entities: async (component: string, partition: number) => provider."
+"entities(component, partition),\n"
+"        world,\n"
+"        graphSdk: getSdk(new GraphQLClient(import.meta.env."
+"VITE_PUBLIC_TORII)),\n"
+"        call: async (selector: string, call_data: num.BigNumberish[]) => "
+"provider.call(selector, call_data),\n"
+"    };\n"
+"}\n"
+"```"
 
 #: src/toolchain/dojoup.md:1
 msgid "`dojoup`"
-msgstr ""
+msgstr "`dojoup`"
 
 #: src/toolchain/dojoup.md:3
 msgid "Update or revert to a specific Dojo branch with ease."
-msgstr ""
+msgstr "特定の Dojo ブランチを簡単に更新したり、戻したりできます。"
 
 #: src/toolchain/dojoup.md:5
 msgid "Installing"
-msgstr ""
+msgstr "Installing"
 
 #: src/toolchain/dojoup.md:11 src/toolchain/katana/overview.md:22
 msgid "Usage"
-msgstr ""
+msgstr "使用方法"
 
 #: src/toolchain/dojoup.md:13
 msgid "To install latest **stable** version:"
-msgstr ""
+msgstr "最新の**stable**バージョンをインストールする:"
 
 #: src/toolchain/dojoup.md:18
 msgid ""
 "Note: You may have to install `jq` to use `dojoup`. You can do so with the "
 "following commands:"
 msgstr ""
+"注: `dojoup` を使うには `jq` をインストールする必要があるかもしれない。以下の"
+"コマンドでインストールできる:"
 
 #: src/toolchain/dojoup.md:20
 msgid ""
@@ -4204,10 +4342,17 @@ msgid ""
 "brew install jq\n"
 "```"
 msgstr ""
+"```sh\n"
+"# Debian\n"
+"sudo apt-get install jq\n"
+"\n"
+"# Mac\n"
+"brew install jq\n"
+"```"
 
 #: src/toolchain/dojoup.md:28
 msgid "To install a specific **version** (in this case the `nightly` version):"
-msgstr ""
+msgstr "特定の**version**（この場合は`nightly`バージョン）をインストールする:"
 
 #: src/toolchain/dojoup.md:30
 msgid ""
@@ -4215,12 +4360,17 @@ msgid ""
 "dojoup --version nightly\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup —version nightly\n"
+"```"
 
 #: src/toolchain/dojoup.md:34
 msgid ""
 "To install a specific **branch** (in this case the `release/0.1.0` branch's "
 "latest commit):"
 msgstr ""
+"特定の**branch**（この場合は`release/0.1.0`ブランチの最新コミット）をインス"
+"トールする:"
 
 #: src/toolchain/dojoup.md:36
 msgid ""
@@ -4228,12 +4378,17 @@ msgid ""
 "dojoup --branch release/0.1.0\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup —branch release/0.1.0\n"
+"```"
 
 #: src/toolchain/dojoup.md:40
 msgid ""
 "To install a **fork's main branch** (in this case `tarrencev/dojo`'s main "
 "branch):"
 msgstr ""
+"**フォークのメインブランチ**（この場合は `tarrencev/dojo` のメインブランチ）"
+"をインストールする:"
 
 #: src/toolchain/dojoup.md:42
 msgid ""
@@ -4241,12 +4396,17 @@ msgid ""
 "dojoup --repo tarrencev/dojo\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup —repo tarrencev/dojo\n"
+"```"
 
 #: src/toolchain/dojoup.md:46
 msgid ""
 "To install a **specific branch in a fork** (in this case the `patch-10` "
 "branch's latest commit in `tarrencev/dojo`):"
 msgstr ""
+"**フォークの特定のブランチをインストールする** (この場合は `tarrencev/dojo` "
+"にある `patch-10` ブランチの最新コミット)："
 
 #: src/toolchain/dojoup.md:48
 msgid ""
@@ -4254,10 +4414,13 @@ msgid ""
 "dojoup --repo tarrencev/dojo --branch patch-10\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup —repo tarrencev/dojo —branch patch-10\n"
+"```"
 
 #: src/toolchain/dojoup.md:52
 msgid "To install from a **specific Pull Request**:"
-msgstr ""
+msgstr "**特定のPull Request**からインストールする："
 
 #: src/toolchain/dojoup.md:54
 msgid ""
@@ -4265,10 +4428,13 @@ msgid ""
 "dojoup --pr 1071\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup —pr 1071\n"
+"```"
 
 #: src/toolchain/dojoup.md:58
 msgid "To install from a **specific commit**:"
-msgstr ""
+msgstr "**特定のコミット**からインストールする:"
 
 #: src/toolchain/dojoup.md:60
 msgid ""
@@ -4276,18 +4442,24 @@ msgid ""
 "dojoup -C 94bfdb2\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup -C 94bfdb2\n"
+"```"
 
 #: src/toolchain/dojoup.md:64
 msgid ""
 "To install a local directory or repository (e.g. one located at `~/git/"
 "dojo`, assuming you're in the home directory)"
 msgstr ""
+"ローカルディレクトリやリポジトリにインストールするには（ホームディレクトリに"
+"いると仮定して、`~/git/dojo`にあるものなど）。"
 
 #: src/toolchain/dojoup.md:66
 msgid ""
 "Note: --branch, --repo, and --version flags are ignored during local "
 "installations."
 msgstr ""
+"注: -branch、—repo、—versionフラグは、ローカル・インストールでは無視される。"
 
 #: src/toolchain/dojoup.md:68
 msgid ""
@@ -4295,16 +4467,21 @@ msgid ""
 "dojoup --path ./git/dojo\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup —path ./git/dojo\n"
+"```"
 
 #: src/toolchain/dojoup.md:74
 msgid ""
 "**Tip**: All flags have a single character shorthand equivalent! You can use "
 "`-v` instead of `--version`, etc."
 msgstr ""
+"**ヒント**： すべてのフラグには1文字の短縮形があります！バージョン`の代わりに"
+"`-v`を使うことができる。"
 
 #: src/toolchain/dojoup.md:78
 msgid "Precompiled binaries"
-msgstr ""
+msgstr "コンパイル済みバイナリ"
 
 #: src/toolchain/dojoup.md:80
 msgid ""
@@ -4312,10 +4489,13 @@ msgid ""
 "github.com/dojoengine/dojo/releases). These are better managed by using "
 "[Dojoup](#using-dojoup)."
 msgstr ""
+"プリコンパイルされたバイナリは[GitHub releases page](https://github.com/"
+"dojoengine/dojo/releases)から入手できます。これらは[Dojoup](#using-dojoup)を"
+"使って管理するのが良いでしょう。"
 
 #: src/toolchain/dojoup.md:84
 msgid "ℹ️ **Note**"
-msgstr ""
+msgstr "ℹ️ **注意**"
 
 #: src/toolchain/dojoup.md:86
 msgid ""
@@ -4324,6 +4504,10 @@ msgid ""
 "install), as your terminal, since Dojoup currently does not support "
 "Powershell or Cmd."
 msgstr ""
+"Windowsの場合、Dojoupは現在PowershellやCmdをサポートしていないため、ターミナ"
+"ルとして[Git BASH](https://gitforwindows.org/)または[WSL](https://learn."
+"microsoft.com/en-us/windows/wsl/install)をインストールして使用する必要があり"
+"ます。"
 
 #: src/toolchain/sozo/overview.md:3
 msgid ""
@@ -4335,10 +4519,16 @@ msgid ""
 "management tasks, enabling you to focus on the creative aspects of World-"
 "building. In the future, it may include a GUI."
 msgstr ""
+"`sozo`はDojoプロジェクトを管理するための強力なオールインワンツールです。新し"
+"いプロジェクトの足場作りから、Dojo Worlds のデプロイやインタラクションに至る"
+"まで、すべてを支援します。移行計画ツールも含まれており、AW の更新と展開を効率"
+"化するように設計されています。堅牢なコマンドラインインターフェイス (CLI) を提"
+"供し、World の管理タスクを簡素化することで、World 構築の創造的な側面に集中す"
+"ることができます。将来的には、GUIも含まれるかもしれません。"
 
 #: src/toolchain/sozo/overview.md:5 src/toolchain/katana/overview.md:5
 msgid "Features"
-msgstr ""
+msgstr "特徴"
 
 #: src/toolchain/sozo/overview.md:7
 msgid ""
@@ -4346,21 +4536,25 @@ msgid ""
 "management of your Worlds, whether you're updating existing ones or "
 "deploying new ones."
 msgstr ""
+"**バイナリCLI**: Sozoは直感的なバイナリCLIを提供し、既存のWorldの更新や新しい"
+"Worldのデプロイなど、Worldを簡単に管理できます。"
 
 #: src/toolchain/sozo/overview.md:9 src/toolchain/katana/overview.md:10
 #: src/toolchain/torii/overview.md:14
 msgid "Installation"
-msgstr ""
+msgstr "インストール"
 
 #: src/toolchain/sozo/overview.md:11
 msgid ""
 "`sozo` binary can be installed via [`dojoup`](../../getting-started/quick-"
 "start.md), our dedicated installation package manager."
 msgstr ""
+"`sozo`バイナリは、専用のインストールパッケージマネージャである[`dojoup`]"
+"(../../getting-started/quick-start.md)からインストールすることができます。"
 
 #: src/toolchain/sozo/overview.md:13 src/toolchain/torii/overview.md:18
 msgid "Installing from Source"
-msgstr ""
+msgstr "ソースからのインストール"
 
 #: src/toolchain/sozo/overview.md:15
 msgid ""
@@ -4370,78 +4564,86 @@ msgid ""
 "cargo install --path ./crates/sozo --locked --force\n"
 "```"
 msgstr ""
+"```sh\n"
+"git clone https://github.com/dojoengine/dojo\n"
+"cd dojo\n"
+"cargo install —path ./crates/sozo —locked —force\n"
+"```"
 
 #: src/toolchain/sozo/overview.md:21
 msgid ""
 "This will install Sozo and the required dependencies on your local system."
 msgstr ""
+"これにより、Sozoと必要な依存関係がローカルシステムにインストールされます。"
 
 #: src/toolchain/sozo/overview.md:23 src/toolchain/katana/overview.md:60
 #: src/toolchain/torii/overview.md:28
 msgid "📚 **Reference**"
-msgstr ""
+msgstr "📚 **参考**"
 
 #: src/toolchain/sozo/overview.md:25
 msgid ""
 "See the [`sozo` Reference](./reference.md) for a complete overview of all "
 "the available subcommands."
 msgstr ""
+"利用可能なすべてのサブコマンドの完全な概要については、[`sozo` Reference](./"
+"reference.md)を参照してください。"
 
 #: src/toolchain/sozo/reference.md:1
 msgid "sozo reference"
-msgstr ""
+msgstr "sozoリファレンス"
 
 #: src/toolchain/sozo/reference.md:3
 msgid "Project Commands"
-msgstr ""
+msgstr "Project Commands"
 
 #: src/toolchain/sozo/reference.md:5
 msgid "[init](./project-commands/init.md)"
-msgstr ""
+msgstr "[init](./project-commands/init.md)"
 
 #: src/toolchain/sozo/reference.md:6
 msgid "[build](./project-commands/build.md)"
-msgstr ""
+msgstr "[build](./project-commands/build.md)"
 
 #: src/toolchain/sozo/reference.md:7
 msgid "[test](./project-commands/test.md)"
-msgstr ""
+msgstr "[test](./project-commands/test.md)"
 
 #: src/toolchain/sozo/reference.md:8
 msgid "[migrate](./project-commands/migrate.md)"
-msgstr ""
+msgstr "[migrate](./project-commands/migrate.md)"
 
 #: src/toolchain/sozo/reference.md:10
 msgid "World Commands"
-msgstr ""
+msgstr "World Commands"
 
 #: src/toolchain/sozo/reference.md:12
 msgid "[execute](./world-commands/execute.md)"
-msgstr ""
+msgstr "[execute](./world-commands/execute.md)"
 
 #: src/toolchain/sozo/reference.md:13
 msgid "[register](./world-commands/register.md)"
-msgstr ""
+msgstr "[register](./world-commands/register.md)"
 
 #: src/toolchain/sozo/reference.md:14
 msgid "[system](./world-commands/system.md)"
-msgstr ""
+msgstr "[system](./world-commands/system.md)"
 
 #: src/toolchain/sozo/reference.md:15
 msgid "[component](./world-commands/component.md)"
-msgstr ""
+msgstr "[component](./world-commands/component.md)"
 
 #: src/toolchain/sozo/reference.md:16
 msgid "[events](./world-commands/events.md)"
-msgstr ""
+msgstr "[events](./world-commands/events.md)"
 
 #: src/toolchain/sozo/reference.md:17
 msgid "[auth](./world-commands/auth.md)"
-msgstr ""
+msgstr "[auth](./world-commands/auth.md)"
 
 #: src/toolchain/sozo/project-commands/init.md:1
 msgid "sozo init"
-msgstr ""
+msgstr "sozo init"
 
 #: src/toolchain/sozo/project-commands/init.md:3
 msgid ""
@@ -4449,6 +4651,9 @@ msgid ""
 "in the current directory by cloning the [dojo-starter](https://github.com/"
 "dojoengine/dojo-starter)."
 msgstr ""
+"`init`は新しいプロジェクトを初期化するために使用します。dojo-starter]"
+"(https://github.com/dojoengine/dojo-starter)をクローンすることで、カレント"
+"ディレクトリに新しいプロジェクトを初期化します。"
 
 #: src/toolchain/sozo/project-commands/init.md:5
 #: src/tutorial/onchain-chess/0-setup.md:21
@@ -4457,16 +4662,21 @@ msgid ""
 "sozo init\n"
 "```"
 msgstr ""
+"```sh\n"
+"sozo init\n"
+"```"
 
 #: src/toolchain/sozo/project-commands/build.md:1
 msgid "sozo build"
-msgstr ""
+msgstr "sozo build"
 
 #: src/toolchain/sozo/project-commands/build.md:3
 msgid ""
 "`build` is used to compile the cairo contracts, generating the necessary "
 "artifacts for deployment."
 msgstr ""
+"`build` は cairo のコントラクトをコンパイルするために使われ、デプロイに必要な"
+"成果物を生成する。"
 
 #: src/toolchain/sozo/project-commands/build.md:5
 #: src/tutorial/onchain-chess/0-setup.md:38
@@ -4475,16 +4685,21 @@ msgid ""
 "sozo build\n"
 "```"
 msgstr ""
+"```sh\n"
+"sozo build\n"
+"```"
 
 #: src/toolchain/sozo/project-commands/test.md:1
 msgid "sozo test"
-msgstr ""
+msgstr "sozo test"
 
 #: src/toolchain/sozo/project-commands/test.md:3
 msgid ""
 "`test` is used to test the project's cairo contracts. It will run all tests "
 "found within the project."
 msgstr ""
+"`test` はプロジェクトの cairo 契約をテストするために使われる。プロジェクト内"
+"で見つかったすべてのテストを実行する。"
 
 #: src/toolchain/sozo/project-commands/test.md:5
 msgid ""
@@ -4492,16 +4707,22 @@ msgid ""
 "sozo test\n"
 "```"
 msgstr ""
+"```sh\n"
+"sozo test\n"
+"```"
 
 #: src/toolchain/sozo/project-commands/migrate.md:1
 msgid "sozo migrate"
-msgstr ""
+msgstr "sozo migrate"
 
 #: src/toolchain/sozo/project-commands/migrate.md:3
 msgid ""
 "`migrate` is used to perform the migration (deployment) process, declaring "
 "and deploying contracts as necessary to deploy or update the World."
 msgstr ""
+"`migrate`はマイグレーション（デプロイメント）プロセスを実行するために使用さ"
+"れ、ワールドをデプロイまたはアップデートするために必要なコントラクトを宣言"
+"し、デプロイする。"
 
 #: src/toolchain/sozo/project-commands/migrate.md:5
 msgid ""
@@ -4512,6 +4733,12 @@ msgid ""
 "World, then, start constructing a migration strategy to determine, if any, "
 "which part of the local World needs to be pushed upstream."
 msgstr ""
+"最初のデプロイ後にローカルワールドに加えた変更は、`sozo migrate —world "
+"<WORLD_ADDRESS>`（`WORLD_ADDRESS`はリモートワールドのアドレス）を実行すること"
+"で、簡単にリモートワールドにプッシュすることができます。バックグラウンドで "
+"`migrate` はローカルワールドとリモートワールドの差分を計算し、ローカルワール"
+"ドのどの部分を上流にプッシュする必要があるかを判断するために、マイグレーショ"
+"ン戦略の構築を開始します。"
 
 #: src/toolchain/sozo/project-commands/migrate.md:7
 #: src/toolchain/sozo/world-commands/execute.md:7
@@ -4519,7 +4746,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:5
 #: src/toolchain/katana/reference.md:7 src/toolchain/torii/reference.md:7
 msgid "USAGE"
-msgstr ""
+msgstr "USAGE"
 
 #: src/toolchain/sozo/project-commands/migrate.md:9
 msgid ""
@@ -4527,6 +4754,9 @@ msgid ""
 "sozo migrate [OPTIONS]\n"
 "```"
 msgstr ""
+"```sh\n"
+"sozo migrate [OPTIONS]\n"
+"```"
 
 #: src/toolchain/sozo/project-commands/migrate.md:13
 #: src/toolchain/sozo/world-commands/execute.md:13
@@ -4540,7 +4770,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/execute.md:15
 #: src/toolchain/katana/reference.md:107 src/toolchain/torii/reference.md:35
 msgid "General Options"
-msgstr ""
+msgstr "General Options"
 
 #: src/toolchain/sozo/project-commands/migrate.md:17
 msgid ""
@@ -4550,13 +4780,18 @@ msgid ""
 "conflicts. This option is **required** when performing the initial migration "
 "of the World."
 msgstr ""
+"`—name` _NAME_  \n"
+"    Name of the World. At the moment, the only usage for this option is to "
+"be used as a salt when deploying the World contract to avoid address "
+"conflicts. This option is **required** when performing the initial migration "
+"of the World."
 
 #: src/toolchain/sozo/project-commands/migrate.md:20
 #: src/toolchain/sozo/world-commands/execute.md:21
 #: src/toolchain/sozo/world-commands/system.md:45
 #: src/toolchain/sozo/world-commands/component.md:63
 msgid "World Options"
-msgstr ""
+msgstr "World Options"
 
 #: src/toolchain/sozo/project-commands/migrate.md:22
 #: src/toolchain/sozo/world-commands/execute.md:23
@@ -4567,6 +4802,9 @@ msgid ""
 "    The address of the World contract.  \n"
 "    ENV: `DOJO_WORLD_ADDRESS`"
 msgstr ""
+"`—world` _WORLD_ADDRESS_  \n"
+"    The address of the World contract.  \n"
+"    ENV: `DOJO_WORLD_ADDRESS`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:26
 #: src/toolchain/sozo/world-commands/execute.md:27
@@ -4574,7 +4812,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:69
 #: src/toolchain/katana/reference.md:139
 msgid "Starknet Options"
-msgstr ""
+msgstr "Starknet Options"
 
 #: src/toolchain/sozo/project-commands/migrate.md:28
 #: src/toolchain/sozo/world-commands/execute.md:29
@@ -4585,11 +4823,14 @@ msgid ""
 "    The Starknet RPC endpoint. \\[default: http://localhost:5050\\]  \n"
 "    ENV: `STARKNET_RPC_URL`"
 msgstr ""
+"`—rpc-url` _URL_  \n"
+"    The Starknet RPC endpoint. \\[default: http://localhost:5050\\]  \n"
+"    ENV: `STARKNET_RPC_URL`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:32
 #: src/toolchain/sozo/world-commands/execute.md:33
 msgid "Account Options"
-msgstr ""
+msgstr "Account Options"
 
 #: src/toolchain/sozo/project-commands/migrate.md:34
 #: src/toolchain/sozo/world-commands/execute.md:35
@@ -4598,11 +4839,14 @@ msgid ""
 "    The Starknet account address.  \n"
 "    ENV: `DOJO_ACCOUNT_ADDRESS`"
 msgstr ""
+"`—account-address` _ACCOUNT_ADDRESS_  \n"
+"    The Starknet account address.  \n"
+"    ENV: `DOJO_ACCOUNT_ADDRESS`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:38
 #: src/toolchain/sozo/world-commands/execute.md:39
 msgid "Signer Options - Raw"
-msgstr ""
+msgstr "Signer Options - Raw"
 
 #: src/toolchain/sozo/project-commands/migrate.md:40
 #: src/toolchain/sozo/world-commands/execute.md:41
@@ -4611,11 +4855,14 @@ msgid ""
 "    The raw private key associated with the account contract.  \n"
 "    ENV: `DOJO_PRIVATE_KEY`"
 msgstr ""
+"`—private-key` _PRIVATE_KEY_  \n"
+"    The raw private key associated with the account contract.  \n"
+"    ENV: `DOJO_PRIVATE_KEY`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:44
 #: src/toolchain/sozo/world-commands/execute.md:45
 msgid "Signer Options - Keystore"
-msgstr ""
+msgstr "Signer Options - Keystore"
 
 #: src/toolchain/sozo/project-commands/migrate.md:46
 #: src/toolchain/sozo/world-commands/execute.md:47
@@ -4623,6 +4870,8 @@ msgid ""
 "`--keystore` _PATH_  \n"
 "    Use the keystore in the given folder or file."
 msgstr ""
+"`—keystore` _PATH_  \n"
+"    Use the keystore in the given folder or file."
 
 #: src/toolchain/sozo/project-commands/migrate.md:49
 #: src/toolchain/sozo/world-commands/execute.md:50
@@ -5061,6 +5310,8 @@ msgid ""
 "katana - Create a local testnet node for deploying and testing Starknet "
 "smart contracts."
 msgstr ""
+"katana - Starknetスマートコントラクトをデプロイしてテストするためのローカルテ"
+"ストネットノードを作成する。"
 
 #: src/toolchain/katana/reference.md:9
 msgid ""
@@ -5079,6 +5330,9 @@ msgid ""
 "contracts. Katana supports deployment and execution of the **new** as well "
 "as the **legacy** (Cairo 0) Cairo contracts."
 msgstr ""
+"Starknetスマートコントラクトをデプロイしてテストするためのローカルテストネッ"
+"トノードを作成する。Katanaは**新しい**だけでなく、**レガシー**（Cairo 0）"
+"Cairoコントラクトのデプロイと実行もサポートしている。"
 
 #: src/toolchain/katana/reference.md:17
 msgid ""
@@ -5086,6 +5340,9 @@ msgid ""
 "Supported RPC Methods, Katana flags and their usages. You can run multiple "
 "flags at the same time."
 msgstr ""
+"このセクションでは、採掘モード、サポートされるRPCメソッド、Katanaフラグとその"
+"使用方法に関する情報を幅広く紹介します。複数のフラグを同時に実行することがで"
+"きます。"
 
 #: src/toolchain/katana/reference.md:19
 msgid "Mining Modes"
@@ -5096,6 +5353,8 @@ msgid ""
 "In Katana, mining modes determine how frequent blocks are mined. By default, "
 "a new block is automatically mined as soon as a transaction is submitted."
 msgstr ""
+"Katanaでは、採掘モードがブロックの採掘頻度を決定する。デフォルトでは、トラン"
+"ザクションが送信されるとすぐに新しいブロックが自動的に採掘される。"
 
 #: src/toolchain/katana/reference.md:23
 msgid ""
@@ -5104,6 +5363,10 @@ msgid ""
 "enable this mode of mining, use the `--block-time <SECONDS>` flag, as "
 "demonstrated in the following example."
 msgstr ""
+"デフォルトのマイニング動作から、ユーザーが選択した一定の時間間隔で新しいブ"
+"ロックを作成するインターバルマイニングに切り替えることができます。このマイニ"
+"ングモードを有効にするには、次の例のように `—block-time <SECONDS>` フラグを使"
+"用します。"
 
 #: src/toolchain/katana/reference.md:25
 msgid ""
@@ -5122,6 +5385,8 @@ msgid ""
 "Only HTTP connection is supported at the moment. The server listens on port "
 "5050 by default, but it can be changed by running the following command:"
 msgstr ""
+"現在のところ、HTTP接続のみがサポートされている。サーバーはデフォルトでポート"
+"5050でリッスンするが、以下のコマンドを実行することで変更できる:"
 
 #: src/toolchain/katana/reference.md:34
 msgid ""
@@ -5180,6 +5445,9 @@ msgid ""
 "The standard methods are based on [this](https://github.com/starkware-libs/"
 "starknet-specs/tree/v0.3.0) reference."
 msgstr ""
+"Katanaは、Starknet JSON-RPC仕様のバージョン**v0.3.0**をサポートしています。標"
+"準メソッドは、[this](https://github.com/starkware-libs/starknet-specs/tree/"
+"v0.3.0) リファレンスに基づいています。"
 
 #: src/toolchain/katana/reference.md:54
 msgid "`starknet_blockNumber`"
@@ -5282,24 +5550,32 @@ msgid ""
 "Katana provides a convenient set of custom RPC methods to quickly and easily "
 "configure the node to suit your testing environment."
 msgstr ""
+"Katanaは、テスト環境に合わせてノードを迅速かつ簡単に設定するための便利なカス"
+"タムRPCメソッドセットを提供します。"
 
 #: src/toolchain/katana/reference.md:87
 msgid ""
 "`katana_generateBlock`  \n"
 "Mine a new block which includes all currently pending transactions."
 msgstr ""
+"`katana_generateBlock`  \n"
+"現在保留中のすべてのトランザクションを含む新しいブロックを生成する。"
 
 #: src/toolchain/katana/reference.md:90
 msgid ""
 "`katana_nextBlockTimestamp`  \n"
 "Get the time for the next block."
 msgstr ""
+"`katana_nextBlockTimestamp`\n"
+"次のブロックの時間を取得する。"
 
 #: src/toolchain/katana/reference.md:93
 msgid ""
 "`katana_increaseNextBlockTimestamp`  \n"
 "Increase the time for the block by a given amount of time, in seconds."
 msgstr ""
+"`katana_increaseNextBlockTimestamp`  \n"
+"秒単位で指定された時間だけブロックの時間を増やす。"
 
 #: src/toolchain/katana/reference.md:96
 msgid ""
@@ -5307,36 +5583,49 @@ msgid ""
 "Similar to `katana_increaseNextBlockTimestamp` but takes the exact timestamp "
 "that you want in the next block."
 msgstr ""
+"` katana_setNextBlockTimestamp`\n"
+"` katana_increaseNextBlockTimestamp` と似ているが、次のブロックに欲しい正確な"
+"タイムスタンプを取る。"
 
 #: src/toolchain/katana/reference.md:99
 msgid ""
 "`katana_predeployedAccounts`  \n"
 "Get the info for all of the predeployed accounts."
 msgstr ""
+"katana_predeployedAccounts`  \n"
+"すべてのプレデプロイアカウントの情報を取得します。"
 
 #: src/toolchain/katana/reference.md:102
 msgid ""
 "`katana_setStorageAt`  \n"
 "Set an exact value of a contract's storage slot."
 msgstr ""
+"`katana_setStorageAt`  \n"
+"コントラクトのストレージスロットの正確な値を設定する。"
 
 #: src/toolchain/katana/reference.md:109
 msgid ""
 "`--silent`  \n"
 "     Don't print anything on startup."
 msgstr ""
+"`—silent`  \n"
+"     起動時に何も表示しない。"
 
 #: src/toolchain/katana/reference.md:112
 msgid ""
 "`--no-mining`  \n"
 "     Disable auto and interval mining, and mine on demand instead."
 msgstr ""
+"`—no-mining`  \n"
+"     自動採掘とインターバル採掘を無効にし、代わりにオンデマンド採掘を行う。"
 
 #: src/toolchain/katana/reference.md:115
 msgid ""
 "`-b, --block-time <SECONDS>`  \n"
 "     Block time in seconds for interval mining."
 msgstr ""
+"`-b, —block-time <SECONDS>`  \n"
+"     インターバルマイニングのブロック時間（秒）。"
 
 #: src/toolchain/katana/reference.md:118
 msgid ""
@@ -5345,24 +5634,33 @@ msgid ""
 "     If the value is a directory, the state will be written to `<PATH>/state."
 "bin`."
 msgstr ""
+"`—dump-state <PATH>`  \n"
+"     終了時のチェーンの状態を指定されたファイルにダンプする。 \n"
+"     値がディレクトリの場合、状態は `<PATH>/state.bin` に書き込まれます。"
 
 #: src/toolchain/katana/reference.md:122
 msgid ""
 "`--load-state <PATH>`  \n"
 "     Initialize the chain from a previously saved state snapshot."
 msgstr ""
+"`—load-state <PATH>`  \n"
+"      以前に保存した状態のスナップショットからチェーンを初期化する。"
 
 #: src/toolchain/katana/reference.md:125
 msgid ""
 "`-h, --help`  \n"
 "     Print help (see a summary with '-h')."
 msgstr ""
+"`-h, —help`  \n"
+"     ヘルプを表示する（’-h’ で概要を見る）。"
 
 #: src/toolchain/katana/reference.md:128
 msgid ""
 "`-V, --version`  \n"
 "     Print version information."
 msgstr ""
+"`-V, —version`  \n"
+"     プリントバージョン情報。"
 
 #: src/toolchain/katana/reference.md:131
 msgid "Server Options"
@@ -5373,74 +5671,92 @@ msgid ""
 "`-p, --port <PORT>`  \n"
 "     Port number to listen on. \\[default: 5050\\]"
 msgstr ""
+"`-p, —port <PORT>`  \n"
+"     Port number to listen on. \\[default: 5050\\]"
 
 #: src/toolchain/katana/reference.md:136
 msgid ""
 "`--host <HOST>`  \n"
 "     The IP address the server will listen on."
 msgstr ""
+"`—host <HOST>`  \n"
+"     サーバーがリッスンするIPアドレス。"
 
 #: src/toolchain/katana/reference.md:141
 msgid ""
 "`--seed <SEED>`  \n"
 "     Specify the seed for randomness of accounts to be predeployed."
 msgstr ""
+"`—seed <SEED>`  \n"
+"     事前に配置するアカウントのランダム性のシードを指定する。"
 
 #: src/toolchain/katana/reference.md:144
 msgid ""
 "`--accounts <NUM>`  \n"
 "     Number of pre-funded accounts to generate. \\[default: 10\\]"
 msgstr ""
+"`—accounts <NUM>`  \n"
+"     生成する事前資金アカウント数。 \\[default: 10\\]"
 
 #: src/toolchain/katana/reference.md:147
 msgid ""
 "`--disable-fee`  \n"
 "     Disable charging fee for transactions."
 msgstr ""
+"`—disable-fee`  \n"
+"     取引に手数料を課さない"
 
 #: src/toolchain/katana/reference.md:150
 msgid "Environment Options"
-msgstr ""
+msgstr "Environment Options"
 
 #: src/toolchain/katana/reference.md:152
 msgid ""
 "`--chain-id <CHAIN_ID>`  \n"
 "     The chain ID. \\[default: KATANA\\]"
 msgstr ""
+"`—chain-id <CHAIN_ID>`  \n"
+"     The chain ID. \\[default: KATANA\\]"
 
 #: src/toolchain/katana/reference.md:155
 msgid ""
 "`--gas-price <GAS_PRICE>`  \n"
 "     The gas price."
 msgstr ""
+"`—gas-price <GAS_PRICE>`  \n"
+"     ガス代。"
 
 #: src/toolchain/katana/reference.md:158
 msgid ""
 "`--validate-max-steps <VALIDATE_MAX_STEPS>`  \n"
 "     The maximum number of steps available for the account validation logic."
 msgstr ""
+"`—validate-max-steps <VALIDATE_MAX_STEPS>`  \n"
+"     アカウント検証ロジックで使用可能な最大ステップ数。"
 
 #: src/toolchain/katana/reference.md:161
 msgid ""
 "`--invoke-max-steps <INVOKE_MAX_STEPS>`  \n"
 "     The maximum number of steps available for the account execution logic."
 msgstr ""
+"`—invoke-max-steps <INVOKE_MAX_STEPS>`  \n"
+"     アカウント実行ロジックで使用可能な最大ステップ数。"
 
 #: src/toolchain/katana/reference.md:164
 msgid "Shell Completions"
-msgstr ""
+msgstr "Shell Completions"
 
 #: src/toolchain/katana/reference.md:166
 msgid "`katana` completions shell"
-msgstr ""
+msgstr "` katana` 完了シェル"
 
 #: src/toolchain/katana/reference.md:168
 msgid "Generates a shell completions script for the given shell."
-msgstr ""
+msgstr "指定されたシェルの補完スクリプトを生成します。"
 
 #: src/toolchain/katana/reference.md:170
 msgid "Supported shells are:"
-msgstr ""
+msgstr "対応シェルは以下の通りです:"
 
 #: src/toolchain/katana/reference.md:172
 msgid "bash"
@@ -5466,7 +5782,7 @@ msgstr ""
 msgid ""
 "Generate shell completions script for `bash` and appends it to a `.bashrc` "
 "file:"
-msgstr ""
+msgstr "`bash` 用のシェル補完スクリプトを生成し、`.bashrc` ファイルに追加する:"
 
 #: src/toolchain/katana/reference.md:182
 msgid ""
@@ -5477,7 +5793,7 @@ msgstr ""
 
 #: src/toolchain/katana/reference.md:188
 msgid "Create 15 dev accounts and disable transaction fee mechanism"
-msgstr ""
+msgstr "15個の開発者アカウントを作成し、取引手数料の仕組みを無効にする。"
 
 #: src/toolchain/katana/reference.md:190
 msgid ""
@@ -5485,10 +5801,13 @@ msgid ""
 "katana --accounts 15 --disable-fee\n"
 "```"
 msgstr ""
+"```sh\n"
+"katana —accounts 15 —disable-fee\n"
+"```"
 
 #: src/toolchain/katana/reference.md:194
 msgid "Set the chain id to `SN_GOERLI` and run the server on port 8545"
-msgstr ""
+msgstr "チェーンIDを`SN_GOERLI`に設定し、ポート8545でサーバーを実行する。"
 
 #: src/toolchain/katana/reference.md:196
 msgid ""
@@ -5502,6 +5821,8 @@ msgid ""
 "Load previously stored state and dump the state of this session to a file on "
 "shutdown"
 msgstr ""
+"シャットダウン時に、以前に保存した状態をロードし、このセッションの状態をファ"
+"イルにダンプする。"
 
 #: src/toolchain/katana/reference.md:202
 msgid ""
@@ -5519,16 +5840,20 @@ msgid ""
 "Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly "
 "fast and exceptionally scalable."
 msgstr ""
+"Toriiは、Dojoワールドのための自動インデクサーです。驚異的な速さと卓越したス"
+"ケーラビリティを実現するために、Rustで構築されています。"
 
 #: src/toolchain/torii/overview.md:5
 msgid "Dojo indexer"
-msgstr ""
+msgstr "Dojo indexer"
 
 #: src/toolchain/torii/overview.md:7
 msgid ""
 "Torii indexes your dojo worlds and exposes a GraphQL API to query them. "
 "Simply run:"
 msgstr ""
+"Torii はあなたの dojo ワールドにインデックスを作成し、それらをクエリするため"
+"の GraphQL API を公開します。実行するだけです："
 
 #: src/toolchain/torii/overview.md:9
 msgid ""
@@ -5539,17 +5864,19 @@ msgstr ""
 
 #: src/toolchain/torii/overview.md:12
 msgid "and you'll have a GraphQL API running on `http://localhost:8080`!"
-msgstr ""
+msgstr "で、GraphQL APIが `http://localhost:8080` で実行されていることになる！"
 
 #: src/toolchain/torii/overview.md:16
 msgid ""
 "The `torii` binary can be installed via [`dojoup`](../../getting-started/"
 "quick-start.md), our dedicated installation package manager."
 msgstr ""
+"バイナリ `torii` は専用のインストールパッケージマネージャである [`dojoup`]"
+"(../../getting-started/quick-start.md) からインストールすることができます。"
 
 #: src/toolchain/torii/overview.md:20
 msgid "If you prefer to install from the source code:"
-msgstr ""
+msgstr "ソースコードからインストールしたい場合:"
 
 #: src/toolchain/torii/overview.md:22
 msgid ""
@@ -5562,14 +5889,16 @@ msgstr ""
 msgid ""
 "This will install Torii and the required dependencies on your local system."
 msgstr ""
+"これにより、Toriiと必要な依存関係がローカルシステムにインストールされます。"
 
 #: src/toolchain/torii/overview.md:30
 msgid "See the [`torii` Reference](./reference.md) for a complete reference."
 msgstr ""
+"完全なリファレンスは[`torii` Reference](./reference.md)を参照してください。"
 
 #: src/toolchain/torii/reference.md:1
 msgid "torii reference"
-msgstr ""
+msgstr "torii リファレンス"
 
 #: src/toolchain/torii/reference.md:3
 msgid "Name"
@@ -5578,6 +5907,7 @@ msgstr ""
 #: src/toolchain/torii/reference.md:5
 msgid "torii - An automatic indexer and networking layer for a world contract."
 msgstr ""
+"torii - Worldコントラクトのための自動インデクサーとネットワーキングレイヤー。"
 
 #: src/toolchain/torii/reference.md:9
 msgid ""
@@ -5595,12 +5925,21 @@ msgid ""
 "updates, system calls, and events. The parsed data is then stored in a local "
 "SQLite database."
 msgstr ""
+"`torii`はインデクサーを起動し、GraphQL/gRPC APIエンドポイントを公開する。イン"
+"デクサーは指定されたStarknet RPCエンドポイントにトランザクションブロックを問"
+"い合わせ、Worldコントラクトに関連するトランザクションをリッスンする。これらの"
+"トランザクションには、コンポーネント/システムの登録、エンティティの状態更新、"
+"システムコール、イベントなどが含まれる。解析されたデータは、ローカルのSQLite"
+"データベースに格納されます。"
 
 #: src/toolchain/torii/reference.md:17
 msgid ""
 "The GraphQL and gRPC API endpoints run in tandem with the indexer, providing "
 "custom queries specific to the world contract for client applications."
 msgstr ""
+"GraphQL および gRPC API エンドポイントは、インデクサーと連動して実行され、ク"
+"ライアントアプリケーションにワールドコントラクトに特化したカスタムクエリを提"
+"供する。"
 
 #: src/toolchain/torii/reference.md:19
 msgid "Database URL"
@@ -5611,6 +5950,9 @@ msgid ""
 "`torii` uses a sqlite database to store indexed data. The database can be "
 "stored either in-memory or persistently on the filesystem."
 msgstr ""
+"`torii` はインデックス付きデータを格納するために sqlite データベースを使用す"
+"る。データベースはインメモリまたはファイルシステムに永続的に保存することがで"
+"きる。"
 
 #: src/toolchain/torii/reference.md:23
 msgid ""
