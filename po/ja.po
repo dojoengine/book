@@ -253,6 +253,7 @@ msgid "![Dojo](images/dojo-mark-full-dark.svg)"
 msgstr "![Dojo](images/dojo-mark-full-dark.svg)"
 
 #: src/index.md:3
+#, fuzzy
 msgid ""
 "Dojo is an open-source project, currently in its early development phase, "
 "and warmly welcomes contributors. For additional resources, join the "
@@ -265,6 +266,7 @@ msgstr ""
 "を確認してください。"
 
 #: src/index.md:7
+#, fuzzy
 msgid "Dojo: The Provable Game Engine"
 msgstr "Dojo: 証明可能なゲームエンジン"
 
@@ -305,6 +307,7 @@ msgid "[Explore the Architecture](./cairo/hello-dojo.md)"
 msgstr "[設計を知る](./cairo/hello-dojo.md)"
 
 #: src/index.md:18
+#, fuzzy
 msgid "Explainer"
 msgstr "解説者"
 
@@ -320,6 +323,7 @@ msgstr ""
 "だ:"
 
 #: src/index.md:30
+#, fuzzy
 msgid "Organizational Structure"
 msgstr "アーキテクチャー"
 
@@ -338,6 +342,7 @@ msgstr ""
 "たち](https://github.com/orgs/dojoengine/people)によって先導されています。"
 
 #: src/index.md:33
+#, fuzzy
 msgid "How do I get involved?"
 msgstr "どうすれば関わることができるか？"
 
@@ -379,6 +384,7 @@ msgstr ""
 "Dojoは基本的にオープンソースであり、あらゆる貢献を歓迎する。"
 
 #: src/theory/what-is-dojo.md:9
+#, fuzzy
 msgid "Stop building infrastructure; start building games"
 msgstr "インフラ整備をやめ、ゲーム作りを始めよう"
 
@@ -391,6 +397,7 @@ msgstr ""
 "これには以下が含まれます:"
 
 #: src/theory/what-is-dojo.md:13
+#, fuzzy
 msgid "Entity Component System (ECS)"
 msgstr "Entity Component System (ECS)"
 
@@ -427,6 +434,7 @@ msgid "Read detailed information about the [Dojo ECS](../cairo/overview.md)."
 msgstr "[Dojo ECS](../cairo/overview.md)の詳細情報を読む。"
 
 #: src/theory/what-is-dojo.md:21
+#, fuzzy
 msgid "[Torii](/crates/torii/README.md) - Starknet Indexer"
 msgstr "[Torii](/crates/torii/README.md) - Starknetインデクサー"
 
@@ -459,6 +467,7 @@ msgstr ""
 "ます。"
 
 #: src/theory/what-is-dojo.md:27
+#, fuzzy
 msgid "[Katana](/crates/katana/README.md) - Blazingly fast development network"
 msgstr "[Katana](/crates/katana/README.md) - 驚異的な速さの開発ネットワーク"
 
@@ -471,6 +480,7 @@ msgstr ""
 "ムロジックを素早く反復することができます。"
 
 #: src/theory/what-is-dojo.md:31
+#, fuzzy
 msgid "[Sozo CLI](/crates/sozo/README.md) - CLI Management Tool"
 msgstr "[Sozo CLI](/crates/sozo/README.md) - CLI管理ツール"
 
@@ -487,10 +497,12 @@ msgstr ""
 "す。"
 
 #: src/theory/what-is-dojo.md:35
+#, fuzzy
 msgid "What Dojo doesn't give you"
 msgstr "Dojoではできないこと"
 
 #: src/theory/what-is-dojo.md:37
+#, fuzzy
 msgid ""
 "Visual graphics - While Dojo provides networking and contracts, it doesn't "
 "offer graphical engines. You can bring your graphics of choice! Integrate "
@@ -501,6 +513,7 @@ msgstr ""
 "世界をUnreal、Godot、またはUnityと統合できます。"
 
 #: src/theory/what-is-dojo.md:39
+#, fuzzy
 msgid "Understanding the Dojo Workflow: A Visual Guide"
 msgstr "Dojoワークフローを理解する:  ビジュアルガイド"
 
@@ -527,10 +540,12 @@ msgid "![Dojo Sozo Workflow](../images/dojo-sozo-workflow.jpg)"
 msgstr "![Dojo Sozo Workflow](../images/dojo-sozo-workflow.jpg)"
 
 #: src/theory/autonomous-worlds.md:1
+#, fuzzy
 msgid "Autonomous Worlds"
 msgstr "Autonomous Worlds"
 
 #: src/theory/autonomous-worlds.md:3
+#, fuzzy
 msgid ""
 "\"Autonomous worlds represent persistent, permissionless, and decentralized "
 "open environments that users can freely interact with and contribute to.\""
@@ -575,6 +590,7 @@ msgstr ""
 "備えていなければならないと考えている："
 
 #: src/theory/autonomous-worlds.md:9
+#, fuzzy
 msgid ""
 "Decentralized data availability layer: While the state execution may reside "
 "on a centralized layer, it is crucial that the state can be reconstructed if "
@@ -619,6 +635,7 @@ msgstr ""
 "かけることになるのです。"
 
 #: src/theory/autonomous-worlds.md:15
+#, fuzzy
 msgid "Homework"
 msgstr "もっと詳しく知りたい方は以下の外部リンクも参照ください"
 
@@ -683,6 +700,7 @@ msgstr ""
 "chain-realities-and-autonomous-worlds)"
 
 #: src/theory/cairo.md:1
+#, fuzzy
 msgid "Provable games"
 msgstr "証明可能なゲーム"
 
@@ -733,6 +751,7 @@ msgstr ""
 "(https://book.starknet.io/)をご覧ください。"
 
 #: src/theory/cairo.md:11 src/getting-started/setup.md:8
+#, fuzzy
 msgid "Cairo"
 msgstr "Cairo"
 
@@ -783,6 +802,7 @@ msgstr ""
 "数のインライン化を行います. "
 
 #: src/theory/cairo.md:21
+#, fuzzy
 msgid "Essential Reading"
 msgstr "必読書"
 
@@ -799,6 +819,7 @@ msgid "[Starknet Book](https://book.starknet.io/)"
 msgstr "[Starknet Book](https://book.starknet.io/)"
 
 #: src/theory/cairo.md:26
+#, fuzzy
 msgid "Starknet as an L2"
 msgstr "L2としてのStarknet"
 
@@ -834,6 +855,7 @@ msgstr ""
 "る。"
 
 #: src/theory/cairo.md:32
+#, fuzzy
 msgid "Starknet as an Appchain"
 msgstr "AppchainとしてのStarknet"
 
@@ -853,6 +875,7 @@ msgstr ""
 "し、Starknet appchainsでDojoの世界をシームレスに実行できるようにしています。"
 
 #: src/theory/faqs.md:3
+#, fuzzy
 msgid "Who owns Dojo?"
 msgstr "Dojoの所有権は誰か？"
 
@@ -866,6 +889,7 @@ msgstr ""
 "す。"
 
 #: src/theory/faqs.md:7
+#, fuzzy
 msgid "Why Dojo?"
 msgstr "なぜDojoなのか？"
 
@@ -880,6 +904,7 @@ msgstr ""
 "易にする一連のツールを提供する。"
 
 #: src/theory/faqs.md:11
+#, fuzzy
 msgid "What is the Dojo roadmap?"
 msgstr "Dojoのロードマップはありますか？"
 
@@ -896,6 +921,7 @@ msgstr ""
 "ば、課題を開いてください。"
 
 #: src/theory/faqs.md:15
+#, fuzzy
 msgid "What is an onchain game?"
 msgstr "オンチェーンゲームとは？"
 
@@ -912,6 +938,7 @@ msgstr ""
 "と対話し解釈するためだけに存在する。"
 
 #: src/theory/faqs.md:19
+#, fuzzy
 msgid "What is an autonomous world?"
 msgstr "Autonomous Worldとは何か？"
 
@@ -928,6 +955,7 @@ msgstr ""
 "[Autonomous Worlds](../theory/autonomous-worlds.md)。"
 
 #: src/theory/faqs.md:23
+#, fuzzy
 msgid "What is Cairo?"
 msgstr "Cairoとは？"
 
@@ -944,6 +972,7 @@ msgstr ""
 "md)。"
 
 #: src/theory/faqs.md:27
+#, fuzzy
 msgid "What is a provable game?"
 msgstr "証明可能なゲームとは？"
 
@@ -977,6 +1006,7 @@ msgstr ""
 "能なゲームを構成する。"
 
 #: src/getting-started/quick-start.md:3
+#, fuzzy
 msgid ""
 "It is worth reading [theory](../theory/autonomous-worlds.md) to familiarize "
 "yourself with the concept of Autonomous Worlds (AWs) and the [Cairo "
@@ -986,6 +1016,7 @@ msgstr ""
 "(AW)の概念と[cairo ecosystem](../theory/cairo.md)に慣れる価値がある。"
 
 #: src/getting-started/quick-start.md:6
+#, fuzzy
 msgid "Install Dojoup"
 msgstr "Dojoのインストール"
 
@@ -1012,6 +1043,7 @@ msgstr ""
 "```"
 
 #: src/getting-started/quick-start.md:14
+#, fuzzy
 msgid ""
 "This will install Dojoup, then simply follow the instructions on-screen, "
 "which will make the `dojoup` command available in your CLI."
@@ -1038,10 +1070,12 @@ msgstr ""
 "dojoup.md)を参照してください。"
 
 #: src/getting-started/quick-start.md:23
+#, fuzzy
 msgid "Next steps"
 msgstr "次のステップ"
 
 #: src/getting-started/quick-start.md:25
+#, fuzzy
 msgid ""
 "Head to [Hello Dojo](../cairo/hello-dojo.md) to get create your first Dojo "
 "world."
@@ -1050,10 +1084,12 @@ msgstr ""
 "してください。"
 
 #: src/getting-started/from-source.md:1
+#, fuzzy
 msgid "Building from source"
 msgstr "ソースからの構築"
 
 #: src/getting-started/from-source.md:3
+#, fuzzy
 msgid ""
 "If you are just wanting to play with the toolchain, we strongly suggest "
 "following the [Quick Start](./quick-start.md) guide."
@@ -1062,10 +1098,12 @@ msgstr ""
 "md)ガイドに従うことを強くお勧めします。"
 
 #: src/getting-started/from-source.md:5 src/getting-started/setup.md:5
+#, fuzzy
 msgid "Prerequisites"
 msgstr "前提条件"
 
 #: src/getting-started/from-source.md:7
+#, fuzzy
 msgid ""
 "You will need the [Rust](https://rust-lang.org) compiler and Cargo, the Rust "
 "package manager. The easiest way to install both is with [`rustup.rs`]"
@@ -1076,6 +1114,7 @@ msgstr ""
 "rs/)を使うことです。"
 
 #: src/getting-started/from-source.md:10
+#, fuzzy
 msgid ""
 "On Windows, you will also need a recent version of [Visual Studio](https://"
 "visualstudio.microsoft.com/downloads/), installed with the \"Desktop "
@@ -1087,6 +1126,7 @@ msgstr ""
 "ンが必要です。"
 
 #: src/getting-started/from-source.md:13
+#, fuzzy
 msgid "Building"
 msgstr "構築"
 
@@ -1157,6 +1197,7 @@ msgstr ""
 "```"
 
 #: src/getting-started/setup.md:3
+#, fuzzy
 msgid ""
 "This article is a guide to setting up a development environment for Dojo. It "
 "is not suggested to follow this guide if you are just wanting to play with "
@@ -1172,10 +1213,12 @@ msgid "Rust"
 msgstr "Rust"
 
 #: src/getting-started/setup.md:12
+#, fuzzy
 msgid "Guide"
 msgstr "Guide"
 
 #: src/getting-started/setup.md:14
+#, fuzzy
 msgid "Clone"
 msgstr "Clone"
 
@@ -1190,10 +1233,12 @@ msgstr ""
 "```"
 
 #: src/getting-started/setup.md:20
+#, fuzzy
 msgid "Linux & Mac"
 msgstr "Linux & Mac"
 
 #: src/getting-started/setup.md:22
+#, fuzzy
 msgid "1. Install Rust and Dependencies"
 msgstr "1. Rustと依存関係のインストール"
 
@@ -1214,6 +1259,7 @@ msgstr ""
 "```"
 
 #: src/getting-started/setup.md:30
+#, fuzzy
 msgid ""
 "Note: Depending on your Linux distribution, you may need to install "
 "additional dependencies. Make sure to install any suggested or missing "
@@ -1224,6 +1270,7 @@ msgstr ""
 "や不足している依存関係があれば、必ずインストールしてください。"
 
 #: src/getting-started/setup.md:32
+#, fuzzy
 msgid "2. Install Scarb Package Manager"
 msgstr "2. Scarbパッケージマネージャをインストールする"
 
@@ -1248,6 +1295,7 @@ msgstr ""
 "```"
 
 #: src/getting-started/setup.md:40
+#, fuzzy
 msgid "3. Add the Cairo 1.0 VSCode Extension"
 msgstr "3. Cairo 1.0 VSCode Extensionを追加します"
 
@@ -1260,6 +1308,7 @@ msgstr ""
 "items?itemName=starkware.cairo1)をインストールします。"
 
 #: src/getting-started/setup.md:45
+#, fuzzy
 msgid "Windows"
 msgstr "Windows"
 
@@ -1272,6 +1321,7 @@ msgid "Container"
 msgstr ""
 
 #: src/getting-started/contributing.md:1
+#, fuzzy
 msgid "Contributing to the Core"
 msgstr "コアへの貢献"
 
@@ -1284,6 +1334,7 @@ msgstr ""
 "歓迎します。"
 
 #: src/getting-started/contributing.md:5
+#, fuzzy
 msgid "How to Contribute"
 msgstr "貢献の仕方"
 
@@ -1300,6 +1351,7 @@ msgstr ""
 "を作成してください。"
 
 #: src/community/get-started.md:3
+#, fuzzy
 msgid ""
 "[Community Hub](https://dojoengine.notion.site/Dojo-Engine-Community-Hub-"
 "d316194b998941c48ddf771a4dd5ff08#bcd6a32db1b2406cb6c325f3b700d45a)"
@@ -1320,6 +1372,7 @@ msgid "[Awesome Dojo](https://github.com/dojoengine/awesome-dojo)"
 msgstr "[Awesome Dojo](https://github.com/dojoengine/awesome-dojo)"
 
 #: src/cairo/hello-dojo.md:3
+#, fuzzy
 msgid ""
 "This section assumes that you have already installed the Dojo toolchain and "
 "are familiar with Cairo. If not, please refer to the [Getting Started](../"
@@ -1330,6 +1383,7 @@ msgstr ""
 "start.md) セクションを参照ください。"
 
 #: src/cairo/hello-dojo.md:5
+#, fuzzy
 msgid "Dojo in 15 Minutes"
 msgstr "15分でできるDojo"
 
@@ -1388,6 +1442,7 @@ msgstr ""
 "えています。"
 
 #: src/cairo/hello-dojo.md:19
+#, fuzzy
 msgid "Anatomy of a Dojo Project"
 msgstr "Dojoプロジェクトの解剖"
 
@@ -1472,6 +1527,7 @@ msgstr ""
 "```"
 
 #: src/cairo/hello-dojo.md:54
+#, fuzzy
 msgid ""
 "Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. "
 "For a component to be recognized, we _must_ include `Component`. This "
@@ -1737,6 +1793,7 @@ msgid "Touched on the `get!` and `set!` commands"
 msgstr "`get!`コマンドと`set!`コマンドについて触れた"
 
 #: src/cairo/hello-dojo.md:149
+#, fuzzy
 msgid "Run it locally!"
 msgstr "ローカルで実行する！"
 
@@ -1950,6 +2007,7 @@ msgstr ""
 "カルワールドができたことになります。"
 
 #: src/cairo/hello-dojo.md:221
+#, fuzzy
 msgid "Indexing"
 msgstr "インデックス作成"
 
@@ -2003,6 +2061,7 @@ msgid "Indexed the world with Torii"
 msgstr "ToriiでWorldをインデックス化"
 
 #: src/cairo/hello-dojo.md:238
+#, fuzzy
 msgid "Next Steps"
 msgstr "次のステップ"
 
@@ -2101,6 +2160,7 @@ msgstr ""
 "```"
 
 #: src/cairo/world.md:1
+#, fuzzy
 msgid "World Contract"
 msgstr "World Contract"
 
@@ -2131,6 +2191,7 @@ msgstr ""
 "ことは重要です。"
 
 #: src/cairo/world.md:8
+#, fuzzy
 msgid ""
 "**To think about:** Consider Autonomous Worlds as sovereign blockchains "
 "residing within another blockchain - a nested blockchain, so to speak. Just "
@@ -2148,6 +2209,7 @@ msgstr ""
 "トの状態と対話するには認可が必要だ。認可については専用のトピックがあります。"
 
 #: src/cairo/world.md:11
+#, fuzzy
 msgid "Context"
 msgstr "Context"
 
@@ -2183,6 +2245,7 @@ msgstr ""
 "```"
 
 #: src/cairo/world.md:25
+#, fuzzy
 msgid "The `uuid()` command"
 msgstr "`uuid()` コマンド"
 
@@ -2302,6 +2365,7 @@ msgstr ""
 "```"
 
 #: src/cairo/components.md:3
+#, fuzzy
 msgid "Components = Data"
 msgstr "Components = Data"
 
@@ -2322,6 +2386,7 @@ msgstr ""
 "置きながら、作成する抽象化を慎重に検討することが極めて重要です。"
 
 #: src/cairo/components.md:10
+#, fuzzy
 msgid "Components are Structs"
 msgstr "コンポーネントは構造体"
 
@@ -2358,6 +2423,7 @@ msgstr ""
 "```"
 
 #: src/cairo/components.md:23
+#, fuzzy
 msgid "The #\\[key\\] attribute"
 msgstr "The #\\[key\\] attribute"
 
@@ -2434,6 +2500,7 @@ msgstr ""
 "```"
 
 #: src/cairo/components.md:53
+#, fuzzy
 msgid "Implementing Traits"
 msgstr "Traitsの実装"
 
@@ -2493,6 +2560,7 @@ msgstr ""
 "```"
 
 #: src/cairo/components.md:77
+#, fuzzy
 msgid "Custom Setting Components"
 msgstr "Custom Setting Components"
 
@@ -2521,6 +2589,7 @@ msgstr ""
 "るときは、GAME_SETTINGS_IDのような定数識別子を使用する。"
 
 #: src/cairo/components.md:83
+#, fuzzy
 msgid ""
 "```rust,ignore\n"
 "const GAME_SETTINGS_ID: u32 = 9999999999999;\n"
@@ -2545,6 +2614,7 @@ msgstr ""
 "```"
 
 #: src/cairo/components.md:94
+#, fuzzy
 msgid "Types"
 msgstr "Types"
 
@@ -2585,6 +2655,7 @@ msgid "It is currently not possible to use Arrays."
 msgstr "現在、配列を使用することはできません。"
 
 #: src/cairo/components.md:109
+#, fuzzy
 msgid "In practice with modularity in mind"
 msgstr "モジュール化を念頭に置いた実践"
 
@@ -2831,6 +2902,7 @@ msgstr ""
 "```"
 
 #: src/cairo/components.md:218
+#, fuzzy
 msgid ""
 "A complete example can be found in the [Dojo Starter](https://github.com/"
 "dojoengine/dojo-starter)"
@@ -2838,6 +2910,7 @@ msgstr ""
 "完全な例は[Dojo Starter](https://github.com/dojoengine/dojo-starter)にある。"
 
 #: src/cairo/systems.md:3
+#, fuzzy
 msgid "Systems = Logic"
 msgstr "Systems = Logic"
 
@@ -2905,6 +2978,7 @@ msgstr ""
 "```"
 
 #: src/cairo/systems.md:31
+#, fuzzy
 msgid "The Execute function"
 msgstr "Execute 関数"
 
@@ -2917,6 +2991,7 @@ msgstr ""
 "メータとして実行される。詳しくは[Context](./world.md)を参照。"
 
 #: src/cairo/systems.md:35
+#, fuzzy
 msgid "Other functions in a System"
 msgstr "システムのその他の機能"
 
@@ -2930,6 +3005,7 @@ msgstr ""
 "れはロジックをより小さな塊に分割するのに便利です。"
 
 #: src/cairo/systems.md:39
+#, fuzzy
 msgid "Using View Functions"
 msgstr "View関数の使用"
 
@@ -3054,6 +3130,7 @@ msgstr ""
 "る場合は、 `call` 関数を使用します。 "
 
 #: src/cairo/systems.md:82
+#, fuzzy
 msgid ""
 "**For Rust Users**: The [Starkli](https://book.starkli.rs/) library provides "
 "a handy method to invoke view functions in Rust."
@@ -3070,6 +3147,7 @@ msgstr ""
 "いる！"
 
 #: src/cairo/systems.md:86
+#, fuzzy
 msgid "System Authentication"
 msgstr "システム認証"
 
@@ -3107,6 +3185,7 @@ msgstr ""
 "詳しくは[sozo](../toolchain/sozo/overview.md)のドキュメントをご覧ください。"
 
 #: src/cairo/entities.md:3
+#, fuzzy
 msgid ""
 "Entities are the primary key value within the world, to which components can "
 "be attached."
@@ -3249,6 +3328,7 @@ msgstr ""
 "```"
 
 #: src/cairo/entities.md:58
+#, fuzzy
 msgid ""
 "ECS Theory: Plenty has been written on ECS systems, to go deeper read [ECS-"
 "FAQ](https://github.com/SanderMertens/ecs-faq)"
@@ -3257,6 +3337,7 @@ msgstr ""
 "ら[ECS-FAQ](https://github.com/SanderMertens/ecs-faq)を読んでほしい。"
 
 #: src/cairo/authorization.md:3
+#, fuzzy
 msgid ""
 "Authorization is crucial to a world, just like how authorization is crucial "
 "to any smart contract."
@@ -3282,6 +3363,7 @@ msgstr ""
 "の状態と相互作用するには、コンポーネントの所有者からの適切な承認が必要です。"
 
 #: src/cairo/authorization.md:7
+#, fuzzy
 msgid "Auth Architecture"
 msgstr "認証アーキテクチャ"
 
@@ -3302,10 +3384,12 @@ msgid "![Authorization Architecture](../images/dojo-auth.png)"
 msgstr "![認証アーキテクチャ](../images/dojo-auth.png)"
 
 #: src/cairo/authorization.md:13
+#, fuzzy
 msgid "Providing Authorization"
 msgstr "認可の提供"
 
 #: src/cairo/authorization.md:15
+#, fuzzy
 msgid ""
 "The deployer of the Component is its initial owner. A Component owner is "
 "able to grant the `owner` and `writer` roles. Only owners can grant a System "
@@ -3362,6 +3446,7 @@ msgstr ""
 "コードの可読性を向上させることができる。"
 
 #: src/cairo/commands.md:8
+#, fuzzy
 msgid "Using commands"
 msgstr "コマンドの使用"
 
@@ -3384,6 +3469,7 @@ msgstr ""
 "```"
 
 #: src/cairo/commands.md:16
+#, fuzzy
 msgid "The `get!` command"
 msgstr "`get!`コマンド"
 
@@ -3410,6 +3496,7 @@ msgstr ""
 "あとは他のカイロ構造体と同じように `position` や `moves` を使えば良いです。"
 
 #: src/cairo/commands.md:30
+#, fuzzy
 msgid "The `set!` command"
 msgstr "`set!`コマンド"
 
@@ -3456,6 +3543,7 @@ msgstr ""
 "ポーネントと`Position`コンポーネントを更新している。"
 
 #: src/cairo/commands.md:52
+#, fuzzy
 msgid "The `emit!` command"
 msgstr "`emit!`コマンド"
 
@@ -3490,6 +3578,7 @@ msgstr ""
 "エリを保証します。"
 
 #: src/cairo/events.md:6
+#, fuzzy
 msgid "Component Events"
 msgstr "Component Events"
 
@@ -3583,6 +3672,7 @@ msgstr ""
 "```"
 
 #: src/cairo/events.md:43
+#, fuzzy
 msgid "World Events"
 msgstr "World Events"
 
@@ -3659,6 +3749,7 @@ msgstr ""
 "され、クエリのためにインデックス化される。"
 
 #: src/cairo/events.md:74
+#, fuzzy
 msgid "Custom Events"
 msgstr "Custom Events"
 
@@ -3731,6 +3822,7 @@ msgstr ""
 "```"
 
 #: src/cairo/events.md:107
+#, fuzzy
 msgid ""
 "Note: Read about the `get!` and `set!` macros in [Commands](./commands.md)."
 msgstr ""
@@ -3767,6 +3859,7 @@ msgid "This will search for all tests within your project and run them."
 msgstr "これにより、プロジェクト内のすべてのテストが検索され、実行される。"
 
 #: src/cairo/testing.md:14
+#, fuzzy
 msgid "Writing Unit Tests"
 msgstr "ユニットテストを書く"
 
@@ -3862,6 +3955,7 @@ msgstr ""
 "トする。コンポーネントのすべての関数をテストするのは良い習慣です。"
 
 #: src/cairo/testing.md:52
+#, fuzzy
 msgid "Writing Integration Tests"
 msgstr "統合テストを書く"
 
@@ -4001,6 +4095,7 @@ msgstr ""
 "```"
 
 #: src/cairo/testing.md:113
+#, fuzzy
 msgid "Useful Dojo Test Functions"
 msgstr "便利なDojoテスト関数"
 
@@ -4025,6 +4120,7 @@ msgstr ""
 "成できます。"
 
 #: src/cairo/modules.md:5
+#, fuzzy
 msgid "Module Architecture"
 msgstr "Module Architecture"
 
@@ -4052,6 +4148,7 @@ msgstr ""
 "でネイティブに使用することができます。"
 
 #: src/cairo/modules/erc20.md:5
+#, fuzzy
 msgid "Integration into Your World"
 msgstr "あなたのWorldへの統合"
 
@@ -4079,14 +4176,17 @@ msgstr ""
 "リファレンス・クライアントは以下のプラットフォームでご利用いただけます:"
 
 #: src/client/overview.md:7
+#, fuzzy
 msgid "[npm](./npm.md)"
 msgstr "[npm](./npm.md)"
 
 #: src/client/npm.md:1
+#, fuzzy
 msgid "Javascript Libraries"
 msgstr "Javascript Libraries"
 
 #: src/client/npm.md:3
+#, fuzzy
 msgid ""
 "Javascript is a great way to get started with Dojo. It's easy to use, and "
 "you can get started in minutes."
@@ -4095,14 +4195,16 @@ msgstr ""
 "きる。"
 
 #: src/client/npm.md:5
+#, fuzzy
 msgid "Examples using these:"
 msgstr "これらを使った例:"
 
 #: src/client/npm.md:7
+#, fuzzy
 msgid ""
 "[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)"
 msgstr ""
-"[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)"
+"[Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
 
 #: src/client/npm.md:8
 msgid ""
@@ -4111,6 +4213,7 @@ msgstr ""
 "[Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
 
 #: src/client/npm.md:10 src/client/npm/core.md:1
+#, fuzzy
 msgid "@dojoengine/core"
 msgstr "@dojoengine/core"
 
@@ -4140,6 +4243,7 @@ msgstr ""
 "```"
 
 #: src/client/npm.md:20
+#, fuzzy
 msgid "@dojoengine/react"
 msgstr "@dojoengine/react"
 
@@ -4174,6 +4278,7 @@ msgstr ""
 "```"
 
 #: src/client/npm.md:33
+#, fuzzy
 msgid "@dojoengine/create-burner"
 msgstr "@dojoengine/create-burner"
 
@@ -4225,6 +4330,7 @@ msgid "Anaylitics"
 msgstr "Anaylitics"
 
 #: src/client/npm/core.md:16
+#, fuzzy
 msgid "Example Usage"
 msgstr "Example Usage"
 
@@ -4305,6 +4411,7 @@ msgstr ""
 "```"
 
 #: src/toolchain/dojoup.md:1
+#, fuzzy
 msgid "`dojoup`"
 msgstr "`dojoup`"
 
@@ -4313,10 +4420,12 @@ msgid "Update or revert to a specific Dojo branch with ease."
 msgstr "特定の Dojo ブランチを簡単に更新したり、戻したりできます。"
 
 #: src/toolchain/dojoup.md:5
+#, fuzzy
 msgid "Installing"
 msgstr "Installing"
 
 #: src/toolchain/dojoup.md:11 src/toolchain/katana/overview.md:22
+#, fuzzy
 msgid "Usage"
 msgstr "使用方法"
 
@@ -4325,6 +4434,7 @@ msgid "To install latest **stable** version:"
 msgstr "最新の**stable**バージョンをインストールする:"
 
 #: src/toolchain/dojoup.md:18
+#, fuzzy
 msgid ""
 "Note: You may have to install `jq` to use `dojoup`. You can do so with the "
 "following commands:"
@@ -4333,6 +4443,7 @@ msgstr ""
 "コマンドでインストールできる:"
 
 #: src/toolchain/dojoup.md:20
+#, fuzzy
 msgid ""
 "```sh\n"
 "# Debian\n"
@@ -4455,6 +4566,7 @@ msgstr ""
 "いると仮定して、`~/git/dojo`にあるものなど）。"
 
 #: src/toolchain/dojoup.md:66
+#, fuzzy
 msgid ""
 "Note: --branch, --repo, and --version flags are ignored during local "
 "installations."
@@ -4480,10 +4592,12 @@ msgstr ""
 "`-v` を使うことができる。"
 
 #: src/toolchain/dojoup.md:78
+#, fuzzy
 msgid "Precompiled binaries"
 msgstr "コンパイル済みバイナリ"
 
 #: src/toolchain/dojoup.md:80
+#, fuzzy
 msgid ""
 "Precompiled binaries are available from the [GitHub releases page](https://"
 "github.com/dojoengine/dojo/releases). These are better managed by using "
@@ -4498,6 +4612,7 @@ msgid "ℹ️ **Note**"
 msgstr "ℹ️ **注意**"
 
 #: src/toolchain/dojoup.md:86
+#, fuzzy
 msgid ""
 "If you're on Windows, you will need to install and use [Git BASH](https://"
 "gitforwindows.org/) or [WSL](https://learn.microsoft.com/en-us/windows/wsl/"
@@ -4527,10 +4642,12 @@ msgstr ""
 "ることができます。将来的には、GUIも含まれるかもしれません。"
 
 #: src/toolchain/sozo/overview.md:5 src/toolchain/katana/overview.md:5
+#, fuzzy
 msgid "Features"
 msgstr "特徴"
 
 #: src/toolchain/sozo/overview.md:7
+#, fuzzy
 msgid ""
 "**Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy "
 "management of your Worlds, whether you're updating existing ones or "
@@ -4541,6 +4658,7 @@ msgstr ""
 
 #: src/toolchain/sozo/overview.md:9 src/toolchain/katana/overview.md:10
 #: src/toolchain/torii/overview.md:14
+#, fuzzy
 msgid "Installation"
 msgstr "インストール"
 
@@ -4553,6 +4671,7 @@ msgstr ""
 "(../../getting-started/quick-start.md)からインストールすることができます。"
 
 #: src/toolchain/sozo/overview.md:13 src/toolchain/torii/overview.md:18
+#, fuzzy
 msgid "Installing from Source"
 msgstr "ソースからのインストール"
 
@@ -4582,6 +4701,7 @@ msgid "📚 **Reference**"
 msgstr "📚 **参考**"
 
 #: src/toolchain/sozo/overview.md:25
+#, fuzzy
 msgid ""
 "See the [`sozo` Reference](./reference.md) for a complete overview of all "
 "the available subcommands."
@@ -4590,10 +4710,12 @@ msgstr ""
 "reference.md)を参照してください。"
 
 #: src/toolchain/sozo/reference.md:1
+#, fuzzy
 msgid "sozo reference"
 msgstr "sozoリファレンス"
 
 #: src/toolchain/sozo/reference.md:3
+#, fuzzy
 msgid "Project Commands"
 msgstr "Project Commands"
 
@@ -4614,6 +4736,7 @@ msgid "[migrate](./project-commands/migrate.md)"
 msgstr "[migrate](./project-commands/migrate.md)"
 
 #: src/toolchain/sozo/reference.md:10
+#, fuzzy
 msgid "World Commands"
 msgstr "World Commands"
 
@@ -4642,6 +4765,7 @@ msgid "[auth](./world-commands/auth.md)"
 msgstr "[auth](./world-commands/auth.md)"
 
 #: src/toolchain/sozo/project-commands/init.md:1
+#, fuzzy
 msgid "sozo init"
 msgstr "sozo init"
 
@@ -4667,6 +4791,7 @@ msgstr ""
 "```"
 
 #: src/toolchain/sozo/project-commands/build.md:1
+#, fuzzy
 msgid "sozo build"
 msgstr "sozo build"
 
@@ -4690,6 +4815,7 @@ msgstr ""
 "```"
 
 #: src/toolchain/sozo/project-commands/test.md:1
+#, fuzzy
 msgid "sozo test"
 msgstr "sozo test"
 
@@ -4712,6 +4838,7 @@ msgstr ""
 "```"
 
 #: src/toolchain/sozo/project-commands/migrate.md:1
+#, fuzzy
 msgid "sozo migrate"
 msgstr "sozo migrate"
 
@@ -4745,6 +4872,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/system.md:5
 #: src/toolchain/sozo/world-commands/component.md:5
 #: src/toolchain/katana/reference.md:7 src/toolchain/torii/reference.md:7
+#, fuzzy
 msgid "USAGE"
 msgstr "USAGE"
 
@@ -4769,10 +4897,12 @@ msgstr ""
 #: src/toolchain/sozo/project-commands/migrate.md:15
 #: src/toolchain/sozo/world-commands/execute.md:15
 #: src/toolchain/katana/reference.md:107 src/toolchain/torii/reference.md:35
+#, fuzzy
 msgid "General Options"
 msgstr "General Options"
 
 #: src/toolchain/sozo/project-commands/migrate.md:17
+#, fuzzy
 msgid ""
 "`--name` _NAME_  \n"
 "    Name of the World. At the moment, the only usage for this option is to "
@@ -4790,6 +4920,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/execute.md:21
 #: src/toolchain/sozo/world-commands/system.md:45
 #: src/toolchain/sozo/world-commands/component.md:63
+#, fuzzy
 msgid "World Options"
 msgstr "World Options"
 
@@ -4797,6 +4928,7 @@ msgstr "World Options"
 #: src/toolchain/sozo/world-commands/execute.md:23
 #: src/toolchain/sozo/world-commands/system.md:47
 #: src/toolchain/sozo/world-commands/component.md:65
+#, fuzzy
 msgid ""
 "`--world` _WORLD_ADDRESS_  \n"
 "    The address of the World contract.  \n"
@@ -4811,6 +4943,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/system.md:51
 #: src/toolchain/sozo/world-commands/component.md:69
 #: src/toolchain/katana/reference.md:139
+#, fuzzy
 msgid "Starknet Options"
 msgstr "Starknet Options"
 
@@ -4818,6 +4951,7 @@ msgstr "Starknet Options"
 #: src/toolchain/sozo/world-commands/execute.md:29
 #: src/toolchain/sozo/world-commands/system.md:53
 #: src/toolchain/sozo/world-commands/component.md:71
+#, fuzzy
 msgid ""
 "`--rpc-url` _URL_  \n"
 "    The Starknet RPC endpoint. \\[default: http://localhost:5050\\]  \n"
@@ -4829,11 +4963,13 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:32
 #: src/toolchain/sozo/world-commands/execute.md:33
+#, fuzzy
 msgid "Account Options"
 msgstr "Account Options"
 
 #: src/toolchain/sozo/project-commands/migrate.md:34
 #: src/toolchain/sozo/world-commands/execute.md:35
+#, fuzzy
 msgid ""
 "`--account-address` _ACCOUNT_ADDRESS_  \n"
 "    The Starknet account address.  \n"
@@ -4845,11 +4981,13 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:38
 #: src/toolchain/sozo/world-commands/execute.md:39
+#, fuzzy
 msgid "Signer Options - Raw"
 msgstr "Signer Options - Raw"
 
 #: src/toolchain/sozo/project-commands/migrate.md:40
 #: src/toolchain/sozo/world-commands/execute.md:41
+#, fuzzy
 msgid ""
 "`--private-key` _PRIVATE_KEY_  \n"
 "    The raw private key associated with the account contract.  \n"
@@ -4861,11 +4999,13 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:44
 #: src/toolchain/sozo/world-commands/execute.md:45
+#, fuzzy
 msgid "Signer Options - Keystore"
 msgstr "Signer Options - Keystore"
 
 #: src/toolchain/sozo/project-commands/migrate.md:46
 #: src/toolchain/sozo/world-commands/execute.md:47
+#, fuzzy
 msgid ""
 "`--keystore` _PATH_  \n"
 "    Use the keystore in the given folder or file."
@@ -4889,6 +5029,7 @@ msgid "EXAMPLES"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:55
+#, fuzzy
 msgid "Deploying your World for the first time to a local Katana node"
 msgstr "ローカルKatanaノードに初めてWorldをデプロイする"
 
@@ -4900,6 +5041,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:61
+#, fuzzy
 msgid "Updating a remote World after making some changes"
 msgstr "変更後のリモートワールドの更新"
 
@@ -4911,6 +5053,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/execute.md:1
+#, fuzzy
 msgid "sozo execute"
 msgstr "sozo execute"
 
@@ -4942,6 +5085,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/execute.md:56
+#, fuzzy
 msgid ""
 "Executing the _position_ system which takes two values (_x_: 0x77 and _y_: "
 "0x44)"
@@ -4955,8 +5099,9 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/register.md:1
+#, fuzzy
 msgid "sozo register"
-msgstr ""
+msgstr "sozo test"
 
 #: src/toolchain/sozo/world-commands/register.md:3
 msgid "`register` is used to register new systems and components."
@@ -4993,8 +5138,9 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:1
+#, fuzzy
 msgid "sozo system"
-msgstr ""
+msgstr "sozo test"
 
 #: src/toolchain/sozo/world-commands/system.md:3
 msgid ""
@@ -5067,6 +5213,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:59
+#, fuzzy
 msgid "Get the class hash of the _spawn_ system"
 msgstr "_spawn_システムのクラスハッシュを取得する。"
 
@@ -5078,6 +5225,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:65
+#, fuzzy
 msgid "Get the component dependencies of the _spawn_ system"
 msgstr "_spawn_システムのコンポーネントの依存関係を取得します"
 
@@ -5089,8 +5237,9 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:1
+#, fuzzy
 msgid "sozo component"
-msgstr ""
+msgstr "コンポーネントの追加"
 
 #: src/toolchain/sozo/world-commands/component.md:3
 msgid ""
@@ -5126,6 +5275,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:28
 #: src/toolchain/sozo/world-commands/component.md:41
 #: src/toolchain/sozo/world-commands/component.md:54
+#, fuzzy
 msgid ""
 "_`NAME`_  \n"
 "    The name of the component"
@@ -5171,8 +5321,9 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/events.md:1
+#, fuzzy
 msgid "sozo events"
-msgstr ""
+msgstr "sozo execute"
 
 #: src/toolchain/sozo/world-commands/events.md:3
 msgid "`events` is used to queries world events."
@@ -5242,6 +5393,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/overview.md:14
+#, fuzzy
 msgid "Installing from source"
 msgstr "ソースからのインストール"
 
@@ -5300,6 +5452,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/overview.md:62
+#, fuzzy
 msgid ""
 "See the [`katana` Reference](./reference.md) for an in depth reference and "
 "documentation on Katana."
@@ -5308,8 +5461,9 @@ msgstr ""
 "reference.md)を参照してください。"
 
 #: src/toolchain/katana/reference.md:1
+#, fuzzy
 msgid "katana reference"
-msgstr ""
+msgstr "torii リファレンス"
 
 #: src/toolchain/katana/reference.md:3
 msgid "NAME"
@@ -5387,8 +5541,9 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/reference.md:30
+#, fuzzy
 msgid "Supported Transport Layers"
-msgstr ""
+msgstr "Support Component types:"
 
 #: src/toolchain/katana/reference.md:32
 msgid ""
@@ -5446,8 +5601,9 @@ msgid "Supported RPC Methods"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:50
+#, fuzzy
 msgid "Starknet Methods"
-msgstr ""
+msgstr "Starknet Options"
 
 #: src/toolchain/katana/reference.md:52
 msgid ""
@@ -5552,8 +5708,9 @@ msgid "`starknet_addDeployAccountTransaction`"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:83
+#, fuzzy
 msgid "Custom Methods"
-msgstr ""
+msgstr "Custom Events"
 
 #: src/toolchain/katana/reference.md:85
 msgid ""
@@ -5614,6 +5771,7 @@ msgstr ""
 "コントラクトのストレージスロットの正確な値を設定する。"
 
 #: src/toolchain/katana/reference.md:109
+#, fuzzy
 msgid ""
 "`--silent`  \n"
 "     Don't print anything on startup."
@@ -5622,6 +5780,7 @@ msgstr ""
 "     起動時に何も表示しない。"
 
 #: src/toolchain/katana/reference.md:112
+#, fuzzy
 msgid ""
 "`--no-mining`  \n"
 "     Disable auto and interval mining, and mine on demand instead."
@@ -5630,6 +5789,7 @@ msgstr ""
 "     自動採掘とインターバル採掘を無効にし、代わりにオンデマンド採掘を行う。"
 
 #: src/toolchain/katana/reference.md:115
+#, fuzzy
 msgid ""
 "`-b, --block-time <SECONDS>`  \n"
 "     Block time in seconds for interval mining."
@@ -5638,6 +5798,7 @@ msgstr ""
 "     インターバルマイニングのブロック時間（秒）。"
 
 #: src/toolchain/katana/reference.md:118
+#, fuzzy
 msgid ""
 "`--dump-state <PATH>`  \n"
 "     Dump the state of chain on exit to the given file.  \n"
@@ -5649,6 +5810,7 @@ msgstr ""
 "     値がディレクトリの場合、状態は `<PATH>/state.bin` に書き込まれます。"
 
 #: src/toolchain/katana/reference.md:122
+#, fuzzy
 msgid ""
 "`--load-state <PATH>`  \n"
 "     Initialize the chain from a previously saved state snapshot."
@@ -5657,6 +5819,7 @@ msgstr ""
 "      以前に保存した状態のスナップショットからチェーンを初期化する。"
 
 #: src/toolchain/katana/reference.md:125
+#, fuzzy
 msgid ""
 "`-h, --help`  \n"
 "     Print help (see a summary with '-h')."
@@ -5665,6 +5828,7 @@ msgstr ""
 "     ヘルプを表示する（’-h’ で概要を見る）。"
 
 #: src/toolchain/katana/reference.md:128
+#, fuzzy
 msgid ""
 "`-V, --version`  \n"
 "     Print version information."
@@ -5673,10 +5837,12 @@ msgstr ""
 "     プリントバージョン情報。"
 
 #: src/toolchain/katana/reference.md:131
+#, fuzzy
 msgid "Server Options"
-msgstr ""
+msgstr "General Options"
 
 #: src/toolchain/katana/reference.md:133
+#, fuzzy
 msgid ""
 "`-p, --port <PORT>`  \n"
 "     Port number to listen on. \\[default: 5050\\]"
@@ -5685,6 +5851,7 @@ msgstr ""
 "     Port number to listen on. \\[default: 5050\\]"
 
 #: src/toolchain/katana/reference.md:136
+#, fuzzy
 msgid ""
 "`--host <HOST>`  \n"
 "     The IP address the server will listen on."
@@ -5693,6 +5860,7 @@ msgstr ""
 "     サーバーがリッスンするIPアドレス。"
 
 #: src/toolchain/katana/reference.md:141
+#, fuzzy
 msgid ""
 "`--seed <SEED>`  \n"
 "     Specify the seed for randomness of accounts to be predeployed."
@@ -5701,6 +5869,7 @@ msgstr ""
 "     事前に配置するアカウントのランダム性のシードを指定する。"
 
 #: src/toolchain/katana/reference.md:144
+#, fuzzy
 msgid ""
 "`--accounts <NUM>`  \n"
 "     Number of pre-funded accounts to generate. \\[default: 10\\]"
@@ -5709,6 +5878,7 @@ msgstr ""
 "     生成する事前資金アカウント数。 \\[default: 10\\]"
 
 #: src/toolchain/katana/reference.md:147
+#, fuzzy
 msgid ""
 "`--disable-fee`  \n"
 "     Disable charging fee for transactions."
@@ -5717,10 +5887,12 @@ msgstr ""
 "     取引に手数料を課さない."
 
 #: src/toolchain/katana/reference.md:150
+#, fuzzy
 msgid "Environment Options"
 msgstr "Environment Options"
 
 #: src/toolchain/katana/reference.md:152
+#, fuzzy
 msgid ""
 "`--chain-id <CHAIN_ID>`  \n"
 "     The chain ID. \\[default: KATANA\\]"
@@ -5729,6 +5901,7 @@ msgstr ""
 "     The chain ID. \\[default: KATANA\\]"
 
 #: src/toolchain/katana/reference.md:155
+#, fuzzy
 msgid ""
 "`--gas-price <GAS_PRICE>`  \n"
 "     The gas price."
@@ -5737,6 +5910,7 @@ msgstr ""
 "     ガス代。"
 
 #: src/toolchain/katana/reference.md:158
+#, fuzzy
 msgid ""
 "`--validate-max-steps <VALIDATE_MAX_STEPS>`  \n"
 "     The maximum number of steps available for the account validation logic."
@@ -5745,6 +5919,7 @@ msgstr ""
 "     アカウント検証ロジックで使用可能な最大ステップ数。"
 
 #: src/toolchain/katana/reference.md:161
+#, fuzzy
 msgid ""
 "`--invoke-max-steps <INVOKE_MAX_STEPS>`  \n"
 "     The maximum number of steps available for the account execution logic."
@@ -5753,6 +5928,7 @@ msgstr ""
 "     アカウント実行ロジックで使用可能な最大ステップ数。"
 
 #: src/toolchain/katana/reference.md:164
+#, fuzzy
 msgid "Shell Completions"
 msgstr "Shell Completions"
 
@@ -5802,6 +5978,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/reference.md:188
+#, fuzzy
 msgid "Create 15 dev accounts and disable transaction fee mechanism"
 msgstr "15個の開発者アカウントを作成し、取引手数料の仕組みを無効にします"
 
@@ -5816,6 +5993,7 @@ msgstr ""
 "```"
 
 #: src/toolchain/katana/reference.md:194
+#, fuzzy
 msgid "Set the chain id to `SN_GOERLI` and run the server on port 8545"
 msgstr "チェーンIDを`SN_GOERLI`に設定し、ポート8545でサーバーを実行します"
 
@@ -5827,6 +6005,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/reference.md:200
+#, fuzzy
 msgid ""
 "Load previously stored state and dump the state of this session to a file on "
 "shutdown"
@@ -5854,6 +6033,7 @@ msgstr ""
 "ケーラビリティを実現するために、Rustで構築されています。"
 
 #: src/toolchain/torii/overview.md:5
+#, fuzzy
 msgid "Dojo indexer"
 msgstr "Dojo indexer"
 
@@ -5902,11 +6082,13 @@ msgstr ""
 "これにより、Toriiと必要な依存関係がローカルシステムにインストールされます。"
 
 #: src/toolchain/torii/overview.md:30
+#, fuzzy
 msgid "See the [`torii` Reference](./reference.md) for a complete reference."
 msgstr ""
 "完全なリファレンスは[`torii` Reference](./reference.md)を参照してください。"
 
 #: src/toolchain/torii/reference.md:1
+#, fuzzy
 msgid "torii reference"
 msgstr "torii リファレンス"
 
@@ -5965,6 +6147,7 @@ msgstr ""
 "きる。"
 
 #: src/toolchain/torii/reference.md:23
+#, fuzzy
 msgid ""
 "The in-memory database is ephermal and only lasts as long as the indexer is "
 "running. This is a fast and simple option to start the indexer for "
@@ -6003,22 +6186,26 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/torii/reference.md:37
+#, fuzzy
 msgid "`-w, --world`      Address of the world contract to index"
 msgstr "`-w, —world`      インデックスを作成するWorldコントラクトのアドレス"
 
 #: src/toolchain/torii/reference.md:40
+#, fuzzy
 msgid ""
 "`--rpc`      Starknet RPC endpoing to use \\[default: http//localhost:5050\\]"
 msgstr ""
 "`—rpc`      Starknet RPC endpoing to use \\[default: http//localhost:5050\\]"
 
 #: src/toolchain/torii/reference.md:43
+#, fuzzy
 msgid ""
 "`-m, --manifest <MANIFEST>`      Specify a local manifest to initialize from"
 msgstr ""
 "`-m, —manifest <MANIFEST>`      初期化するローカル・マニフェストを指定します"
 
 #: src/toolchain/torii/reference.md:46
+#, fuzzy
 msgid ""
 "`-d, --database-url <DATABASE_URL>`      Database URL (read more above) "
 "\\[default: sqlite::memory:\\]"
@@ -6027,6 +6214,7 @@ msgstr ""
 "照） \\[default: sqlite::memory:\\]"
 
 #: src/toolchain/torii/reference.md:49
+#, fuzzy
 msgid ""
 "`-s, --start-block <START_BLOCK>`      Specify a block to start indexing "
 "from, ignored if stored head exists \\[default: 0\\]"
@@ -6039,10 +6227,12 @@ msgid "`-h, --help`      Print help"
 msgstr "`-h, —help`      Printの表示"
 
 #: src/toolchain/torii/reference.md:55
+#, fuzzy
 msgid "`-V, --version`      Print version"
-msgstr "V, —version` Printバージョン"
+msgstr "`-h, —help`      Printの表示"
 
 #: src/deployment/locally.md:1
+#, fuzzy
 msgid "Deploying Locally"
 msgstr "ローカルでのデプロイ"
 
@@ -6060,6 +6250,7 @@ msgstr ""
 "トを厳密にテストすることができます。"
 
 #: src/deployment/locally.md:5
+#, fuzzy
 msgid "Katana Deployments"
 msgstr "Katanaのデプロイ"
 
@@ -6068,6 +6259,7 @@ msgid "Deploying to Katana could not be easier."
 msgstr "Katanaへのデプロイはこれ以上ないほど簡単です。"
 
 #: src/deployment/locally.md:9
+#, fuzzy
 msgid ""
 "This assumes you have followed the [Quick Start](./getting-started/quick-"
 "start.md) guide and have a project initialized."
@@ -6084,6 +6276,7 @@ msgid "This has started a local Katana which you can now deploy on!"
 msgstr "これでローカルのKatanaが開始され、デプロイできるようになりました!"
 
 #: src/deployment/locally.md:19
+#, fuzzy
 msgid "Deploying to Katana"
 msgstr "Katanaへのデプロイ"
 
@@ -6100,10 +6293,12 @@ msgstr ""
 "ルしていない場合は:"
 
 #: src/deployment/remote.md:1
+#, fuzzy
 msgid "Deployment to Remote Network"
 msgstr "リモートネットワークへのデプロイ"
 
 #: src/deployment/remote.md:3
+#, fuzzy
 msgid "_IMPORTANT: Dojo is unaudited. Use at your own risk._"
 msgstr ""
 "_重要：Dojoはソースコードがまだ未監査です。自己責任で使用してください._"
@@ -6191,6 +6386,7 @@ msgstr ""
 "が、本番環境での使用はお勧めできません。"
 
 #: src/deployment/remote.md:37
+#, fuzzy
 msgid "**todo**: add instructions for deploying to remote katana"
 msgstr "**todo**: リモートのKatanaにデプロイする手順を追加"
 
@@ -6243,14 +6439,17 @@ msgstr ""
 "```"
 
 #: src/deployment/remote.md:59
+#, fuzzy
 msgid "Starknet"
-msgstr ""
+msgstr "Starknet Options"
 
 #: src/deployment/remote.md:61
+#, fuzzy
 msgid "**todo**: add instructions for deploying to remote Starknet"
 msgstr "**todo**: リモートのStarknetへのデプロイ方法を追加"
 
 #: src/tutorial/onchain-chess/index.md:1
+#, fuzzy
 msgid "Building a Chess Game"
 msgstr "チェスゲームを作る"
 
@@ -6287,6 +6486,7 @@ msgstr ""
 "おくことを強くお勧めします。"
 
 #: src/tutorial/onchain-chess/index.md:11
+#, fuzzy
 msgid "What are we building?"
 msgstr "何を作るのか？"
 
@@ -6336,6 +6536,7 @@ msgstr ""
 "チェスゲームは作りません。シンプルにします。"
 
 #: src/tutorial/onchain-chess/index.md:24
+#, fuzzy
 msgid "What after this guide?"
 msgstr "このガイドの後は？"
 
@@ -6361,6 +6562,7 @@ msgstr ""
 "ムの基本を理解することをお勧めします。_"
 
 #: src/tutorial/onchain-chess/0-setup.md:5
+#, fuzzy
 msgid "Initializing the Project"
 msgstr "プロジェクトの初期化"
 
@@ -6394,6 +6596,7 @@ msgid "And initialize the project using sozo init."
 msgstr "そしてsozo initを使ってプロジェクトを初期化します。"
 
 #: src/tutorial/onchain-chess/0-setup.md:25
+#, fuzzy
 msgid "Cleaning Up the Boilerplate"
 msgstr "定型文の整理"
 
@@ -6423,8 +6626,9 @@ msgid "Compile your project with:"
 msgstr "プロジェクトをコンパイルする:"
 
 #: src/tutorial/onchain-chess/0-setup.md:42
+#, fuzzy
 msgid "Basic components"
-msgstr ""
+msgstr "コンポーネントの追加"
 
 #: src/tutorial/onchain-chess/0-setup.md:44
 msgid ""
@@ -6435,6 +6639,7 @@ msgstr ""
 "方法に従うことにする:"
 
 #: src/tutorial/onchain-chess/0-setup.md:46
+#, fuzzy
 msgid ""
 "Every square of the chess board (e.g., A1) will be treated as an entity. If "
 "a piece exists on a square, the square entity will hold that piece."
@@ -6484,8 +6689,9 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:78
+#, fuzzy
 msgid "Basic systems"
-msgstr ""
+msgstr "Cairo"
 
 #: src/tutorial/onchain-chess/0-setup.md:80
 msgid ""
@@ -6550,6 +6756,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:111
+#, fuzzy
 msgid "Compile your project"
 msgstr "プロジェクトをコンパイルする"
 
@@ -6683,6 +6890,7 @@ msgstr ""
 "のエラーについては、deriveを追加するか、ケースバイケースで実装してください。"
 
 #: src/tutorial/onchain-chess/0-setup.md:189
+#, fuzzy
 msgid "Add more components"
 msgstr "コンポーネントの追加"
 
@@ -6697,16 +6905,19 @@ msgstr ""
 #: src/tutorial/onchain-chess/0-setup.md:193
 #: src/tutorial/onchain-chess/1-initiate.md:12
 #: src/tutorial/onchain-chess/2-move.md:9
+#, fuzzy
 msgid "Requirements"
 msgstr "必要条件"
 
 #: src/tutorial/onchain-chess/0-setup.md:195
+#, fuzzy
 msgid "`Color` enum enum with values White and Black"
 msgstr "白と黒の値を持つ `Color` 列挙型 enum"
 
 #: src/tutorial/onchain-chess/0-setup.md:196
+#, fuzzy
 msgid "`Game` component:"
-msgstr ""
+msgstr "`GameTurn`コンポーネント:"
 
 #: src/tutorial/onchain-chess/0-setup.md:198
 msgid ""
@@ -6719,6 +6930,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:205
+#, fuzzy
 msgid "`GameTurn` component:"
 msgstr "`GameTurn`コンポーネント:"
 
@@ -6731,6 +6943,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:212
+#, fuzzy
 msgid ""
 "We will later set game entity composed of the `Game` and `GameTurn` "
 "components."
@@ -6935,12 +7148,13 @@ msgid ""
 "Congratulations! You've completed the basic setup for building an on-chain "
 "chess game 🎉"
 msgstr ""
-"おめでとうございます！オン・チェイン・チェスゲームを構築するための基本的な"
+"おめでとうございます！オンチェ-ンチェスゲームを構築するための基本的な"
 "セットアップが完了しました🎉"
 
 #: src/tutorial/onchain-chess/1-initiate.md:1
+#, fuzzy
 msgid "1. Initiate System"
-msgstr ""
+msgstr "`initiate_system`とは何か？"
 
 #: src/tutorial/onchain-chess/1-initiate.md:3
 msgid ""
@@ -6951,6 +7165,7 @@ msgstr ""
 "と駒を含むマスを生成します。"
 
 #: src/tutorial/onchain-chess/1-initiate.md:5
+#, fuzzy
 msgid "What is `initiate_system`?"
 msgstr "`initiate_system`とは何か？"
 
@@ -7038,8 +7253,9 @@ msgstr "それぞれの`Piece`が正しい`Square`に配置されていること
 
 #: src/tutorial/onchain-chess/1-initiate.md:29
 #: src/tutorial/onchain-chess/2-move.md:35
+#, fuzzy
 msgid "Unit Tests"
-msgstr ""
+msgstr "ユニットテストを書く"
 
 #: src/tutorial/onchain-chess/1-initiate.md:31
 msgid ""
@@ -7103,6 +7319,7 @@ msgstr ""
 #: src/tutorial/onchain-chess/1-initiate.md:85
 #: src/tutorial/onchain-chess/2-move.md:108
 #: src/tutorial/onchain-chess/3-legal.md:165
+#, fuzzy
 msgid "Need help?"
 msgstr "お困りですか？"
 
@@ -7135,6 +7352,7 @@ msgid ""
 msgstr "この章では、盤上の駒を再配置する `move_system` の実装を取り上げる。"
 
 #: src/tutorial/onchain-chess/2-move.md:5
+#, fuzzy
 msgid "What is `move_system`?"
 msgstr "`move_system`とは何か？"
 
@@ -7160,6 +7378,7 @@ msgstr ""
 "り付ける。_"
 
 #: src/tutorial/onchain-chess/2-move.md:13
+#, fuzzy
 msgid "Write an `execute` function in the system with the following inputs:"
 msgstr "以下の入力を持つ `execute` 関数をシステムに書いてください:"
 
@@ -7177,6 +7396,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:25
+#, fuzzy
 msgid ""
 "Update the Square with the `next_position` to contain the new piece and "
 "ensure the Square with the `curr_position` no longer holds a piece."
@@ -7306,6 +7526,7 @@ msgid "... You can also add other custom check functions."
 msgstr "… その他のカスタムチェック機能を追加することもできます。"
 
 #: src/tutorial/onchain-chess/3-legal.md:11
+#, fuzzy
 msgid "Make Check Functions"
 msgstr "チェック機能の作成"
 
@@ -7318,6 +7539,7 @@ msgstr ""
 "可されていることを確認するのに役立つ。"
 
 #: src/tutorial/onchain-chess/3-legal.md:15
+#, fuzzy
 msgid "See if the next spot is allowed for the type of piece moving."
 msgstr "移動する駒の種類によって、次の場所が許可されているかどうかを確認する。"
 
@@ -7332,6 +7554,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:23
+#, fuzzy
 msgid "See if the next spot is still on the board."
 msgstr "次のスポットがまだあるかどうかを確認する。"
 
@@ -7343,6 +7566,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:29
+#, fuzzy
 msgid ""
 "See if the person trying the move is doing it at the right time and with "
 "their piece color."
@@ -7359,6 +7583,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:35
+#, fuzzy
 msgid ""
 "You can also add other check functions to be extra sure the move is allowed."
 msgstr ""
@@ -7427,6 +7652,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:85
+#, fuzzy
 msgid "Testing Each Function"
 msgstr "各機能のテスト"
 
@@ -7548,8 +7774,9 @@ msgstr ""
 "だ。"
 
 #: src/tutorial/onchain-chess/4-test.md:1
+#, fuzzy
 msgid "4. Test Contract"
-msgstr ""
+msgstr "World Contract"
 
 #: src/tutorial/onchain-chess/4-test.md:3
 msgid ""
@@ -7610,6 +7837,7 @@ msgid "Copy the test below and add it to your `src/tests.cairo` file."
 msgstr "以下のテストをコピーして `src/tests.cairo` ファイルに追加する。"
 
 #: src/tutorial/onchain-chess/4-test.md:20
+#, fuzzy
 msgid ""
 "Make a `test.cairo` in your src and update `lib.cairo` by adding the `mod "
 "tests;` line."
@@ -7750,6 +7978,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:143
+#, fuzzy
 msgid "Diving into the Code"
 msgstr "Diving into the Code"
 
@@ -7874,6 +8103,7 @@ msgid "Keep moving pieces and checking if they're in the right places."
 msgstr "駒を動かして、正しい位置にあるかどうかをチェックし続ける。"
 
 #: src/tutorial/onchain-chess/4-test.md:212
+#, fuzzy
 msgid "Congratulations!"
 msgstr "おめでとうございます！"
 
@@ -7930,6 +8160,7 @@ msgstr ""
 "akd2yfuRS3)の他の人たちと共有しましょう！"
 
 #: src/misc/contributors.md:1
+#, fuzzy
 msgid "Contributing to Dojo Book"
 msgstr "Dojo bookへの貢献について"
 
@@ -7947,6 +8178,7 @@ msgstr ""
 "できます。どのような協力も歓迎します！"
 
 #: src/misc/contributors.md:5
+#, fuzzy
 msgid "The purpose of the book"
 msgstr "このBookの目的"
 
@@ -7976,6 +8208,7 @@ msgid "Building a World"
 msgstr "Worldの構築"
 
 #: src/misc/contributors.md:15
+#, fuzzy
 msgid "Code of Conduct"
 msgstr "コード規範"
 
@@ -7988,6 +8221,7 @@ msgstr ""
 "conduct)に従っている。"
 
 #: src/misc/contributors.md:19
+#, fuzzy
 msgid "Ways to contribute"
 msgstr "貢献する方法"
 
@@ -8052,6 +8286,7 @@ msgstr ""
 "ます。"
 
 #: src/misc/contributors.md:39
+#, fuzzy
 msgid "Chapters start with a second level heading"
 msgstr "章は第2レベルの見出しで始まる"
 
@@ -8076,3 +8311,110 @@ msgid ""
 "# Some Page\n"
 "```"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Dojo"
+#~ msgstr "なぜDojoなのか？"
+
+#, fuzzy
+#~ msgid "# What is Dojo?"
+#~ msgstr "Dojoとは？"
+
+#, fuzzy
+#~ msgid "# FAQs"
+#~ msgstr "よくあるご質問"
+
+#, fuzzy
+#~ msgid "## Quick Start"
+#~ msgstr "クイックスタート"
+
+#, fuzzy
+#~ msgid "#### Prerequisites"
+#~ msgstr "前提条件"
+
+#, fuzzy
+#~ msgid "# Development Setup"
+#~ msgstr "開発セットアップ"
+
+#, fuzzy
+#~ msgid "## Get Started"
+#~ msgstr "始めましょう"
+
+#, fuzzy
+#~ msgid "# Hello Dojo"
+#~ msgstr "Hello Dojo"
+
+#, fuzzy
+#~ msgid "# Config"
+#~ msgstr "Config"
+
+#, fuzzy
+#~ msgid "## Components"
+#~ msgstr "Component Events"
+
+#, fuzzy
+#~ msgid "## Authorization"
+#~ msgstr "認可の提供"
+
+#, fuzzy
+#~ msgid "Authorization Architecture"
+#~ msgstr "認証アーキテクチャ"
+
+#, fuzzy
+#~ msgid "## Commands"
+#~ msgstr "World Commands"
+
+#, fuzzy
+#~ msgid "## Events"
+#~ msgstr "World Events"
+
+#, fuzzy
+#~ msgid ""
+#~ "- [Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-"
+#~ "react-app)\n"
+#~ "- [Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
+#~ msgstr ""
+#~ "[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-"
+#~ "app)"
+
+#, fuzzy
+#~ msgid "### @dojoengine/core"
+#~ msgstr "@dojoengine/core"
+
+#, fuzzy
+#~ msgid "### Getting Started"
+#~ msgstr "はじめに"
+
+#, fuzzy
+#~ msgid ""
+#~ "_`NAME`_  \n"
+#~ " &nbsp;&nbsp;&nbsp;&nbsp;The name of the component"
+#~ msgstr ""
+#~ "_`NAME`_  \n"
+#~ "    コンポーネントの名前"
+
+#, fuzzy
+#~ msgid "### Features"
+#~ msgstr "特徴"
+
+#, fuzzy
+#~ msgid "### Usage"
+#~ msgstr "使用方法"
+
+#, fuzzy
+#~ msgid ""
+#~ "`-V, --version`\n"
+#~ "&nbsp;&nbsp;&nbsp;&nbsp; Print version"
+#~ msgstr "V, —version` Printバージョン"
+
+#, fuzzy
+#~ msgid "### Requirements"
+#~ msgstr "必要条件"
+
+#, fuzzy
+#~ msgid ""
+#~ "You can find the [answer](https://github.com/rkdud007/chess-dojo/blob/"
+#~ "tutoralv2/src/systems/move.cairo) for chapter 3 here."
+#~ msgstr ""
+#~ "第1章の[答え](https://github.com/rkdud007/chess-dojo/blob/tutorialv2/src/"
+#~ "systems/initiate.cairo)はこちら。"
