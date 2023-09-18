@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-18 10:34+0800\n"
+"PO-Revision-Date: 2023-09-18 12:38+0800\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -58,7 +58,7 @@ msgstr "コミュニティ"
 
 #: src/SUMMARY.md:18 src/community/get-started.md:1
 msgid "Get Started"
-msgstr "始める"
+msgstr "始めましょう"
 
 #: src/SUMMARY.md:20
 msgid "Architecture"
@@ -66,11 +66,11 @@ msgstr "設計"
 
 #: src/SUMMARY.md:22 src/cairo/hello-dojo.md:1
 msgid "Hello Dojo"
-msgstr "ハロー道場"
+msgstr "Hello Dojo"
 
 #: src/SUMMARY.md:23 src/cairo/config.md:1
 msgid "Config"
-msgstr "コンフィグ"
+msgstr "Config"
 
 #: src/SUMMARY.md:24
 msgid "World"
@@ -454,20 +454,25 @@ msgid ""
 "chain games. It also eliminates the need to manually create indexers, which "
 "can be a tedious and error-prone process."
 msgstr ""
+"Toriiを使用することで、オンチェーンゲームを構築するのに必要な時間と労力を大幅"
+"に削減することができます。また、手作業でインデクサーを作成する必要もなくなり"
+"ます。"
 
 #: src/theory/what-is-dojo.md:27
 msgid "[Katana](/crates/katana/README.md) - Blazingly fast development network"
-msgstr ""
+msgstr "[Katana](/crates/katana/README.md) - 驚異的な速さの開発ネットワーク"
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
 "Katana is a customizable StarkNet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
 msgstr ""
+"Katanaはカスタマイズ可能なStarkNet開発ネットワークです。驚くほど高速で、ゲー"
+"ムロジックを素早く反復することができます。"
 
 #: src/theory/what-is-dojo.md:31
 msgid "[Sozo CLI](/crates/sozo/README.md) - CLI Management Tool"
-msgstr ""
+msgstr "[Sozo CLI](/crates/sozo/README.md) - CLI管理ツール"
 
 #: src/theory/what-is-dojo.md:33
 msgid ""
@@ -476,10 +481,14 @@ msgid ""
 "build, test, and deploy your worlds. Additionally, you can craft new "
 "components and systems and register them with your world."
 msgstr ""
+"Dojo ワールドは最大規模のコントラクトとなりそうです。Sozoはワールドの管理を支"
+"援するCLIツールです。worldsの作成、ビルド、テスト、デプロイが可能です。さら"
+"に、新しいコンポーネントやシステムを作成し、ワールドに登録することもできま"
+"す。"
 
 #: src/theory/what-is-dojo.md:35
 msgid "What Dojo doesn't give you"
-msgstr ""
+msgstr "Dojoではできないこと"
 
 #: src/theory/what-is-dojo.md:37
 msgid ""
@@ -487,10 +496,13 @@ msgid ""
 "offer graphical engines. You can bring your graphics of choice! Integrate "
 "your Dojo world with Unreal, Godot, or Unity."
 msgstr ""
+"ビジュアルグラフィックス - Dojoはネットワークと契約を提供しますが、グラフィカ"
+"ルエンジンは提供しません。好きなグラフィックを持ち込むことができます！Dojoの"
+"世界をUnreal、Godot、またはUnityと統合できます。"
 
 #: src/theory/what-is-dojo.md:39
 msgid "Understanding the Dojo Workflow: A Visual Guide"
-msgstr ""
+msgstr "Dojoワークフローを理解する:  ビジュアルガイド"
 
 #: src/theory/what-is-dojo.md:41
 msgid ""
@@ -498,6 +510,8 @@ msgid ""
 "outlines the flow of execution using the powerful sozo tool and the katana "
 "development network."
 msgstr ""
+"`sozo`の仕組みを理解していただくために、強力なsozoツールとカタナ開発ネット"
+"ワークを使用した実行の流れを概説したビジュアルガイドを作成しました。"
 
 #: src/theory/what-is-dojo.md:43
 msgid ""
@@ -505,20 +519,24 @@ msgid ""
 "working with Dojo, guiding you through the process of creating and managing "
 "your on-chain games."
 msgstr ""
+"この視覚的な表現は、Dojoを使用する基本的なステップを把握するのに役立ち、オン"
+"チェーンゲームの作成と管理のプロセスをガイドします。"
 
 #: src/theory/what-is-dojo.md:45
 msgid "![Dojo Sozo Workflow](../images/dojo-sozo-workflow.jpg)"
-msgstr ""
+msgstr "![Dojo Sozo Workflow](../images/dojo-sozo-workflow.jpg)"
 
 #: src/theory/autonomous-worlds.md:1
 msgid "Autonomous Worlds"
-msgstr ""
+msgstr "Autonomous Worlds"
 
 #: src/theory/autonomous-worlds.md:3
 msgid ""
 "\"Autonomous worlds represent persistent, permissionless, and decentralized "
 "open environments that users can freely interact with and contribute to.\""
 msgstr ""
+"“Autonomous worldは、永続的で、無許可で、分散化されたオープンな環境であり、"
+"ユーザーは自由に交流し、貢献することができる。”"
 
 #: src/theory/autonomous-worlds.md:5
 msgid ""
@@ -530,6 +548,12 @@ msgid ""
 "served as a catalyst for the market to recognize the potential of these "
 "worlds."
 msgstr ""
+"自律型世界（Autonomous Worlds：AWs）の正確な定義は、まだ完全に結晶化されてい"
+"ない抽象的な概念であるため、ややとらえどころがない。ラティスがこの用語を最初"
+"に[導入](https://0xparc.org/blog/autonomous-worlds)したのは2022年のことだが、"
+"ブロックチェーン上で動作するオープンワールドという概念は以前から存在してい"
+"た。MUDによって導入された抽象化は、市場がこうした世界の可能性を認識するきっか"
+"けとなった。"
 
 #: src/theory/autonomous-worlds.md:7
 msgid ""
@@ -542,6 +566,13 @@ msgid ""
 "game must possess at least the following two essential features to be "
 "considered as such:"
 msgstr ""
+"Autonomous Worldsは、その基本的な性質においてブロックチェーンと顕著な共通点が"
+"ある。自律型ワールドは一度構築されると持続し、チェーンの寿命を通じてその状態"
+"を維持する。プレイヤーは参加したり離脱したりすることができ、開発者は、コント"
+"ラクトがチェーンに追加される方法と同じように、無許可で機能を展開することに"
+"よって、このワールドを拡張することができる。自律型ワールドに普遍的な定義はな"
+"いが、自律型ワールドとみなされるためには、少なくとも以下の2つの本質的な特徴を"
+"備えていなければならないと考えている："
 
 #: src/theory/autonomous-worlds.md:9
 msgid ""
@@ -551,6 +582,11 @@ msgid ""
 "increased capacity execution layers while ensuring data is permanently "
 "settled on Ethereum. This guarantees the world's perpetual persistence."
 msgstr ""
+"分散型データ可用性レイヤー: 状態の実行は中央集権レイヤーに存在するかもしれな"
+"いが、実行レイヤーが存在しなくなった場合に状態を再構築できることが極めて重要"
+"である。ロールアップは解決策を提供し、イーサリアム上にデータが永続的に定住す"
+"ることを保証しながら、容量の大きい実行レイヤーを提供する。これにより、世界の"
+"永続性が保証される。"
 
 #: src/theory/autonomous-worlds.md:11
 msgid ""
@@ -560,6 +596,11 @@ msgid ""
 "utilized, they must adhere to this pattern, ensuring open and unrestricted "
 "access for potential enhancements."
 msgstr ""
+"ワールドを拡張するためのパーミッションレス・エントリーポイント： ワールドの契"
+"約は、許可を必要とせずに新しいシステムやコンポーネントを受け入れることができ"
+"なければならない。これは、すべてのコンポーネントやシステムが利用されることを"
+"意味するものではないが、潜在的な拡張のためのオープンで無制限のアクセスを保証"
+"するために、このパターンに従わなければならない。"
 
 #: src/theory/autonomous-worlds.md:13
 msgid ""
@@ -570,60 +611,80 @@ msgid ""
 "innovation, eventually questioning the very notion of \"play\" in this brave "
 "new decentralized and trustless world."
 msgstr ""
+"私たちは、ゼロ知識証明とブロックチェーン技術によって提供されるメディアにおい"
+"て、新しい形の探求の触媒となるAutonomous Worldsの可能性を固く信じています。こ"
+"れはゲームに限ったことではなく、アートワーク、コーディネーション、楽しさと"
+"いった新しい形が、いじりや急進的なイノベーションから生まれ、やがてはこの勇敢"
+"で新しい分散化された信頼のない世界における「遊び」の概念そのものに疑問を投げ"
+"かけることになるのです。"
 
 #: src/theory/autonomous-worlds.md:15
 msgid "Homework"
-msgstr ""
+msgstr "もっと詳しく知りたい方は以下の外部リンクも参照ください"
 
 #: src/theory/autonomous-worlds.md:16
 msgid ""
 "[Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-"
 "worlds-aim-to-free-online-games-from-corporate-control/)"
 msgstr ""
+"[Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-"
+"worlds-aim-to-free-online-games-from-corporate-control/)"
 
 #: src/theory/autonomous-worlds.md:17
 msgid ""
 "[0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-"
 "worlds)"
 msgstr ""
+"[0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-"
+"worlds)"
 
 #: src/theory/autonomous-worlds.md:18
 msgid ""
 "[Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack."
 "com/p/the-strongest-crypto-gaming-thesis)"
 msgstr ""
+"[Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack."
+"com/p/the-strongest-crypto-gaming-thesis)"
 
 #: src/theory/autonomous-worlds.md:19
 msgid ""
 "[Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/"
 "mud-an-engine-for-autonomous-worlds)"
 msgstr ""
+"[Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/"
+"mud-an-engine-for-autonomous-worlds)"
 
 #: src/theory/autonomous-worlds.md:20
 msgid "[Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)"
-msgstr ""
+msgstr "[Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)"
 
 #: src/theory/autonomous-worlds.md:21
 msgid ""
 "[Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/"
 "composable-engineering)"
 msgstr ""
+"[Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/"
+"composable-engineering)"
 
 #: src/theory/autonomous-worlds.md:22
 msgid ""
 "[Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-up-"
 "worlds/)"
 msgstr ""
+"[Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-up-"
+"worlds/)"
 
 #: src/theory/autonomous-worlds.md:23
 msgid ""
 "[Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/on-"
 "chain-realities-and-autonomous-worlds)"
 msgstr ""
+"[Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/on-"
+"chain-realities-and-autonomous-worlds)"
 
 #: src/theory/cairo.md:1
 msgid "Provable games"
-msgstr ""
+msgstr "証明可能なゲーム"
 
 #: src/theory/cairo.md:3
 msgid ""
@@ -634,12 +695,19 @@ msgid ""
 "complexity of creating circuits to incorporate [SNARKs](https://consensys."
 "net/blog/developers/introduction-to-zk-snarks/). "
 msgstr ""
+"証明可能なゲームは、計算の効率的なスケーリングと検証のために、[ゼロ知識]"
+"(https://ethereum.org/en/zero-knowledge-proofs/)の特性を要求する。[Cairo]"
+"(https://book. Standards Track)[Cairo](https://book.starknet.io/chapter_1/"
+"what_is_cairo.html)は、[SNARKs](https://consensys.net/blog/developers/"
+"introduction-to-zk-snarks/)を組み込むための回路を作る複雑さをなくし、一般化さ"
+"れた言語を提供することによって、この必要性に対処している。 "
 
 #: src/theory/cairo.md:5
 msgid ""
 "**You can simply program in Cairo and your applications become automatically "
 "provable**. "
 msgstr ""
+"**Cairoでプログラムを組むだけで、アプリケーションは自動的に証明可能になる**. "
 
 #: src/theory/cairo.md:7
 msgid ""
@@ -649,16 +717,24 @@ msgid ""
 "browser through WebAssembly (WASM)! Dojo aims to supply straightforward ZK "
 "primitives to fuel your game development."
 msgstr ""
+"さらに、プログラムを [Cairo Virtual Machine](https://medium.com/starkware/"
+"cairo-welcome-on-board-1cf3487554f) (CVM) 上にデプロイすることができます。"
+"CVM は Starknet の Layer 2 や Starknet appchains と互換性があり、WebAssembly "
+"(WASM) を使ってブラウザ内でデプロイすることもできます！Dojoは、あなたのゲーム"
+"開発を促進するために、わかりやすいZKプリミティブを提供することを目指していま"
+"す。"
 
 #: src/theory/cairo.md:9
 msgid ""
 "For more information about Starknet, Cairo and its tech stack, check out the "
 "[Starknet & Cairo book](https://book.starknet.io/)."
 msgstr ""
+"Starknet、Cairo、その技術スタックについての詳細は、[Starknet & Cairo book]"
+"(https://book.starknet.io/)をご覧ください。"
 
 #: src/theory/cairo.md:11 src/getting-started/setup.md:8
 msgid "Cairo"
-msgstr ""
+msgstr "Cairo"
 
 #: src/theory/cairo.md:13
 msgid ""
@@ -668,6 +744,10 @@ msgid ""
 "for building scalable and secure applications, including decentralized "
 "finance (DeFi) projects."
 msgstr ""
+"CairoはStarkwareが開発したオープンソースのチューリング完全スマートコントラク"
+"ト言語で、Validity Rollup Starknetを動かすために設計された。この言語は非常に"
+"表現力が豊かで検証可能な計算を可能にするため、分散型金融（DeFi）プロジェクト"
+"など、スケーラブルで安全なアプリケーションの構築に適している。"
 
 #: src/theory/cairo.md:15
 msgid ""
@@ -676,6 +756,9 @@ msgid ""
 "streamline the development process, improve maintainability, and enhance the "
 "performance of AWs."
 msgstr ""
+"DojoはCairoをベースにして、自律型ワールド（AW）を開発するための堅牢なフレーム"
+"ワークを作ります。Cairoの機能を活用することで、Dojoは開発プロセスを効率化し、"
+"保守性を向上させ、AWの性能を高めることを目指しています。"
 
 #: src/theory/cairo.md:17
 msgid ""
@@ -685,32 +768,39 @@ msgid ""
 "this by encapsulating specific actions or operations within self-contained, "
 "reusable units."
 msgstr ""
+"Dojo フレームワークの主な特徴は、[commands](../cairo/commands.md) の使用で"
+"す。コマンドはデザインパターンのひとつで、 定型化されたコードを減らすことで、"
+"よりクリーンで保守性の高いアプリケーションを実現します。特定のアクションや操"
+"作を、自己完結的で再利用可能なユニット内にカプセル化することでこれを実現しま"
+"す。"
 
 #: src/theory/cairo.md:19
 msgid ""
 "Developers can write commands freely within Systems, and the Cairo compiler "
 "takes care of inlining the appropriate functions. "
 msgstr ""
+"開発者はSystems内で自由にコマンドを書くことができ、Cairoコンパイラが適切な関"
+"数のインライン化を行います. "
 
 #: src/theory/cairo.md:21
 msgid "Essential Reading"
-msgstr ""
+msgstr "必読書"
 
 #: src/theory/cairo.md:22
 msgid "[Cairo book](https://cairo-book.github.io/)"
-msgstr ""
+msgstr "[Cairo book](https://cairo-book.github.io/)"
 
 #: src/theory/cairo.md:23
 msgid "[Awesome Cairo](https://github.com/auditless/awesome-cairo)"
-msgstr ""
+msgstr "[Awesome Cairo](https://github.com/auditless/awesome-cairo)"
 
 #: src/theory/cairo.md:24
 msgid "[Starknet Book](https://book.starknet.io/)"
-msgstr ""
+msgstr "[Starknet Book](https://book.starknet.io/)"
 
 #: src/theory/cairo.md:26
 msgid "Starknet as an L2"
-msgstr ""
+msgstr "L2としてのStarknet"
 
 #: src/theory/cairo.md:28
 msgid ""
@@ -722,6 +812,12 @@ msgid ""
 "Starknet replaces heavy and costly L1 computation with cheaper L1 "
 "verification through the use of STARK proofs computed off-chain."
 msgstr ""
+"Starknetは、イーサリアムをスケールさせるために設計されたValidity Rollup "
+"Layer 2（L2）ソリューションです。イーサリアムのレイヤー1（L1）と同レベルのセ"
+"キュリティを維持しながら、高いトランザクションスループットと低いガスコストを"
+"提供することで運用されている。Starknetの戦略は、数独のパズルを解くのに似てい"
+"る。同様に、Starknetは重くコストのかかるL1計算を、オフチェーンで計算される"
+"STARK証明の使用により、より安価なL1検証で置き換えます。"
 
 #: src/theory/cairo.md:30
 msgid ""
@@ -731,10 +827,15 @@ msgid ""
 "by its utilization of the STARK cryptographic proof system, which is "
 "considered one of the safest and most scalable."
 msgstr ""
+"より専門的な用語で言えば、Starknetは一般的な計算をサポートするパーミッション"
+"レスのValidity-Rollup（「ZK-Rollup」とも呼ばれる）であり、現在はイーサリアム"
+"上のL2ネットワークとして稼働している。このネットワークのL1セキュリティは、最"
+"も安全でスケーラブルとされるSTARK暗号証明システムの利用によって保証されてい"
+"る。"
 
 #: src/theory/cairo.md:32
 msgid "Starknet as an Appchain"
-msgstr ""
+msgstr "AppchainとしてのStarknet"
 
 #: src/theory/cairo.md:34
 msgid ""
@@ -745,20 +846,28 @@ msgid ""
 "(https://github.com/keep-starknet-strange/madara) team to enable Starknet "
 "appchains to seamlessly run Dojo worlds."
 msgstr ""
+"Cairoは同型の汎用言語で、ゼロ知識（ZK）証明に最適化されている。Starknetや"
+"Starkex、appchainsの原動力となっています。驚くべきことに、WebAssembly（WASM）"
+"で実行し、クライアントサイドで証明を生成することもできる！Dojoチームは"
+"[Madara](https://github.com/keep-starknet-strange/madara)チームと密接に協力"
+"し、Starknet appchainsでDojoの世界をシームレスに実行できるようにしています。"
 
 #: src/theory/faqs.md:3
 msgid "Who owns Dojo?"
-msgstr ""
+msgstr "Dojoの所有権は誰か？"
 
 #: src/theory/faqs.md:5
 msgid ""
 "Dojo is strictly open-source and uses the Apache 2.0 license. Anyone can use "
 "Dojo for free, and anyone can contribute to the project."
 msgstr ""
+"Dojoは厳密にオープンソースであり、Apache 2.0ライセンスを使用しています。誰で"
+"も無料でDojoを使用することができ、誰でもプロジェクトに貢献することができま"
+"す。"
 
 #: src/theory/faqs.md:7
 msgid "Why Dojo?"
-msgstr ""
+msgstr "なぜDojoなのか？"
 
 #: src/theory/faqs.md:9
 msgid ""
@@ -766,10 +875,13 @@ msgid ""
 "games. It standardizes the process of building such games and provides a "
 "suite of tools to make it easier."
 msgstr ""
+"Dojoは、創業者たちがオンチェーンゲームを構築する際に直面した問題を解決するた"
+"めに作られた。Dojoは、そのようなゲームを構築するプロセスを標準化し、それを容"
+"易にする一連のツールを提供する。"
 
 #: src/theory/faqs.md:11
 msgid "What is the Dojo roadmap?"
-msgstr ""
+msgstr "Dojoのロードマップはありますか？"
 
 #: src/theory/faqs.md:13
 msgid ""
@@ -778,10 +890,14 @@ msgid ""
 "discord.gg/vUN4Xq9Qv6) to get involved. If you have ideas for the project, "
 "please open an issue."
 msgstr ""
+"Dojo は急速に進化しています。[Dojo Github](https://github.com/dojoengine/"
+"dojo/issues)で公開されている課題を見つけたり、[Discord](https://discord.gg/"
+"vUN4Xq9Qv6)に参加して参加することができます。プロジェクトへのアイデアがあれ"
+"ば、課題を開いてください。"
 
 #: src/theory/faqs.md:15
 msgid "What is an onchain game?"
-msgstr ""
+msgstr "オンチェーンゲームとは？"
 
 #: src/theory/faqs.md:17
 msgid ""
@@ -790,10 +906,14 @@ msgid ""
 "on the chain but exist purely to interact with and interpret the onchain "
 "state."
 msgstr ""
+"オンチェーンゲームとは、パブリックブロックチェーンネットワーク上に完全に存在"
+"するゲームのことで、すべてのステートとロジックがオンチェーンである。クライア"
+"ント（ウェブブラウザなど）はチェーン上には存在せず、純粋にオンチェーンの状態"
+"と対話し解釈するためだけに存在する。"
 
 #: src/theory/faqs.md:19
 msgid "What is an autonomous world?"
-msgstr ""
+msgstr "Autonomous Worldとは何か？"
 
 #: src/theory/faqs.md:21
 msgid ""
@@ -802,10 +922,14 @@ msgid ""
 "world. Dive deeper into the topic here: [Autonomous Worlds](../theory/"
 "autonomous-worlds.md)."
 msgstr ""
+"Autonomous Worldとは、完全にオンチェーンで存在する世界のことです。単一のエン"
+"ティティによって制御されるのではなく、その世界の中で設定されたルールによって"
+"支配される。このトピックをさらに深く掘り下げるには、こちらをご覧ください： "
+"[Autonomous Worlds](../theory/autonomous-worlds.md)。"
 
 #: src/theory/faqs.md:23
 msgid "What is Cairo?"
-msgstr ""
+msgstr "Cairoとは？"
 
 #: src/theory/faqs.md:25
 msgid ""
@@ -814,10 +938,14 @@ msgid ""
 "level language designed to compile to the Cairo Virtual Machine. Learn more "
 "about it here: [Cairo](../theory/cairo.md)."
 msgstr ""
+"CairoはStarkwareが開発したオープンソースのプログラミング言語です。チューリン"
+"グ完全言語であり、汎用計算を目的としている。Cairo 仮想マシンにコンパイルする"
+"ように設計された低レベル言語です。詳しくはこちら： [Cairo](../theory/cairo."
+"md)。"
 
 #: src/theory/faqs.md:27
 msgid "What is a provable game?"
-msgstr ""
+msgstr "証明可能なゲームとは？"
 
 #: src/theory/faqs.md:29
 msgid ""
@@ -829,6 +957,12 @@ msgid ""
 "transaction on the blockchain. This is costly. We just want to know the "
 "winner, not every move."
 msgstr ""
+"ゼロ知識証明の魔法のおかげで、オフチェーンで作成されたzk証明を検証すること"
+"で、ゲームが公正であることを保証することができる。しかし、それは何を意味する"
+"のだろうか？チェスのゲームを考えてみよう。私たちは、プレーヤーが互いの手を信"
+"頼し合えるようなゲームを目指している。もしこれがブロックチェーン環境であれ"
+"ば、すべての手がブロックチェーン上で取引されることになる。これにはコストがか"
+"かる。私たちは勝者を知りたいだけで、すべての手を知りたいわけではない。"
 
 #: src/theory/faqs.md:31
 msgid ""
@@ -837,6 +971,10 @@ msgid ""
 "zk proof can be submitted to the blockchain to confirm the game's fairness. "
 "This constitutes a provable game."
 msgstr ""
+"ゼロ知識証明とクライアント通信により、プレイヤーはステートチャネルを確立し、"
+"オフチェーンで手を共有し、その有効性を保証することができる。最後に、zk証明を"
+"ブロックチェーンに提出し、ゲームの公平性を確認することができる。これは証明可"
+"能なゲームを構成する。"
 
 #: src/getting-started/quick-start.md:3
 msgid ""
@@ -844,10 +982,12 @@ msgid ""
 "yourself with the concept of Autonomous Worlds (AWs) and the [Cairo "
 "ecosystem](../theory/cairo.md) before diving into the code."
 msgstr ""
+"コードに入る前に、[theory](../theory/autonomous-worlds.md)を読んで自律世界"
+"(AW)の概念と[cairo ecosystem](../theory/cairo.md)に慣れる価値がある。"
 
 #: src/getting-started/quick-start.md:6
 msgid "Install Dojoup"
-msgstr ""
+msgstr "Dojoのインストール"
 
 #: src/getting-started/quick-start.md:8
 msgid ""
@@ -856,6 +996,10 @@ msgid ""
 "Dojoup [here](https://github.com/dojoengine/dojo/blob/master/dojoup/README."
 "md)."
 msgstr ""
+"Dojoは、Katana、Torii、Sozoといった一連の開発ツールを中心に構築されています。"
+"Dojoupを使えば、これらすべてを簡単にインストールできます。Dojoupについての詳"
+"しい情報は[こちら](https://github.com/dojoengine/dojo/blob/master/dojoup/"
+"README.md)をご覧ください。"
 
 #: src/getting-started/quick-start.md:10 src/toolchain/dojoup.md:7
 msgid ""
@@ -863,12 +1007,17 @@ msgid ""
 "curl -L https://install.dojoengine.org | bash\n"
 "```"
 msgstr ""
+"```sh\n"
+"curl -L https://install.dojoengine.org | bash\n"
+"```"
 
 #: src/getting-started/quick-start.md:14
 msgid ""
 "This will install Dojoup, then simply follow the instructions on-screen, "
 "which will make the `dojoup` command available in your CLI."
 msgstr ""
+"これでDojoupがインストールされ、画面の指示に従うだけで、CLIで`dojoup`コマンド"
+"が使えるようになる。"
 
 #: src/getting-started/quick-start.md:17 src/toolchain/dojoup.md:15
 msgid ""
@@ -876,36 +1025,45 @@ msgid ""
 "dojoup\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup\n"
+"```"
 
 #: src/getting-started/quick-start.md:21
 msgid ""
 "For full `dojoup` reference and debugging see [Dojoup](../toolchain/dojoup."
 "md)."
 msgstr ""
+"`dojoup`の完全なリファレンスとデバッグについては、[Dojoup](../toolchain/"
+"dojoup.md)を参照してください。"
 
 #: src/getting-started/quick-start.md:23
 msgid "Next steps"
-msgstr ""
+msgstr "次のステップ"
 
 #: src/getting-started/quick-start.md:25
 msgid ""
 "Head to [Hello Dojo](../cairo/hello-dojo.md) to get create your first Dojo "
 "world."
 msgstr ""
+"[Hello Dojo](../cairo/hello-dojo.md)にアクセスして、最初のDojoワールドを作成"
+"してください。"
 
 #: src/getting-started/from-source.md:1
 msgid "Building from source"
-msgstr ""
+msgstr "ソースからの構築"
 
 #: src/getting-started/from-source.md:3
 msgid ""
 "If you are just wanting to play with the toolchain, we strongly suggest "
 "following the [Quick Start](./quick-start.md) guide."
 msgstr ""
+"もし、ツールチェーンで遊びたいだけなら、[クイック・スタート](./quick-start."
+"md)ガイドに従うことを強くお勧めします。"
 
 #: src/getting-started/from-source.md:5 src/getting-started/setup.md:5
 msgid "Prerequisites"
-msgstr ""
+msgstr "前提条件"
 
 #: src/getting-started/from-source.md:7
 msgid ""
@@ -913,6 +1071,9 @@ msgid ""
 "package manager. The easiest way to install both is with [`rustup.rs`]"
 "(https://rustup.rs/)."
 msgstr ""
+"[Rust](https://rust-lang.org)コンパイラとRustパッケージマネージャのCargoが必"
+"要です。両方をインストールする最も簡単な方法は、[`rustup.rs`](https://rustup."
+"rs/)を使うことです。"
 
 #: src/getting-started/from-source.md:10
 msgid ""
@@ -920,14 +1081,18 @@ msgid ""
 "visualstudio.microsoft.com/downloads/), installed with the \"Desktop "
 "Development With C++\" Workloads option."
 msgstr ""
+"Windowsの場合、”Visual Studio”(https://visualstudio.microsoft.com/downloads/)"
+"の最新バージョンと、”Desktop Development With C++”（C++によるデスクトップ開"
+"発）オプションがインストールされている必要があります。ワークロード・オプショ"
+"ンが必要です。"
 
 #: src/getting-started/from-source.md:13
 msgid "Building"
-msgstr ""
+msgstr "構築"
 
 #: src/getting-started/from-source.md:15
 msgid "You can either use the different [Dojoup](#using-dojoup) flags:"
-msgstr ""
+msgstr "異なる[Dojoup](#using-dojoup)フラグを使うこともできる："
 
 #: src/getting-started/from-source.md:17
 msgid ""
@@ -936,10 +1101,14 @@ msgid ""
 "dojoup --path path/to/dojo\n"
 "```"
 msgstr ""
+"```sh\n"
+"dojoup —branch master\n"
+"dojoup —path path/to/dojo\n"
+"```"
 
 #: src/getting-started/from-source.md:22
 msgid "Or, by using a single Cargo command:"
-msgstr ""
+msgstr "あるいは、Cargoのコマンドを1つ使う："
 
 #: src/getting-started/from-source.md:24
 msgid ""
@@ -948,12 +1117,18 @@ msgid ""
 "torii\n"
 "```"
 msgstr ""
+"```sh\n"
+"cargo install —git https://github.com/dojoengine/dojo —force sozo katana "
+"torii\n"
+"```"
 
 #: src/getting-started/from-source.md:28
 msgid ""
 "Or, by manually building from a local copy of the [Dojo repository](https://"
 "github.com/dojoengine/dojo):"
 msgstr ""
+"または、[Dojo リポジトリ](https://github.com/dojoengine/dojo) のローカルコ"
+"ピーから手動でビルドします："
 
 #: src/getting-started/from-source.md:30
 msgid ""
@@ -969,6 +1144,17 @@ msgid ""
 "cargo install --path ./crates/torii --force\n"
 "```"
 msgstr ""
+"```sh\n"
+"# clone the repository\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"cd dojo\n"
+"# install Sozo\n"
+"cargo install —path ./crates/sozo —force\n"
+"# install Katana\n"
+"cargo install —path ./crates/katana —force\n"
+"# install Torii\n"
+"cargo install —path ./crates/torii —force\n"
+"```"
 
 #: src/getting-started/setup.md:3
 msgid ""
@@ -977,18 +1163,21 @@ msgid ""
 "the toolchain. We strongly suggest following the [Quick Start](../getting-"
 "started/quick-start.md) guide."
 msgstr ""
+"この記事は Dojo の開発環境をセットアップするためのガイドです。ツールチェイン"
+"で遊びたいだけなら、このガイドに従うことはお勧めしません。クイックスタート]"
+"(../getting-started/quick-start.md) ガイドに従うことを強くお勧めします。"
 
 #: src/getting-started/setup.md:7
 msgid "Rust"
-msgstr ""
+msgstr "Rust"
 
 #: src/getting-started/setup.md:12
 msgid "Guide"
-msgstr ""
+msgstr "Guide"
 
 #: src/getting-started/setup.md:14
 msgid "Clone"
-msgstr ""
+msgstr "Clone"
 
 #: src/getting-started/setup.md:16
 msgid ""
@@ -996,19 +1185,23 @@ msgid ""
 "git clone https://github.com/dojoengine/dojo.git\n"
 "```"
 msgstr ""
+"```sh\n"
+"git clone https://github.com/dojoengine/dojo.git\n"
+"```"
 
 #: src/getting-started/setup.md:20
 msgid "Linux & Mac"
-msgstr ""
+msgstr "Linux & Mac"
 
 #: src/getting-started/setup.md:22
 msgid "1. Install Rust and Dependencies"
-msgstr ""
+msgstr "1. Rustと依存関係のインストール"
 
 #: src/getting-started/setup.md:24
 msgid ""
 "Start by installing Rust and running the test suite to confirm your setup:"
 msgstr ""
+"まずRustをインストールし、テスト・スイートを実行してセットアップを確認する:"
 
 #: src/getting-started/setup.md:26
 msgid ""
@@ -1016,6 +1209,9 @@ msgid ""
 "rustup override set stable && rustup update && cargo test\n"
 "```"
 msgstr ""
+"```sh\n"
+"rustup override set stable && rustup update && cargo test\n"
+"```"
 
 #: src/getting-started/setup.md:30
 msgid ""
@@ -1023,16 +1219,21 @@ msgid ""
 "additional dependencies. Make sure to install any suggested or missing "
 "dependencies that arise during the setup process."
 msgstr ""
+"注意: お使いのLinuxディストリビューションによっては、追加の依存関係をインス"
+"トールする必要がある場合があります。セットアップの過程で、推奨される依存関係"
+"や不足している依存関係があれば、必ずインストールしてください。"
 
 #: src/getting-started/setup.md:32
 msgid "2. Install Scarb Package Manager"
-msgstr ""
+msgstr "2. Scarbパッケージマネージャをインストールする"
 
 #: src/getting-started/setup.md:34
 msgid ""
 "Next, install the [Scarb](https://docs.swmansion.com/scarb) package manager "
 "by running:"
 msgstr ""
+"次に、[Scarb](https://docs.swmansion.com/scarb) パッケージマネージャをインス"
+"トールしてください："
 
 #: src/getting-started/setup.md:36
 msgid ""
@@ -1041,24 +1242,30 @@ msgid ""
 "install.sh | sh\n"
 "```"
 msgstr ""
+"```sh\n"
+"curl —proto ‘=https’ —tlsv1.2 -sSf https://docs.swmansion.com/scarb/install."
+"sh | sh\n"
+"```"
 
 #: src/getting-started/setup.md:40
 msgid "3. Add the Cairo 1.0 VSCode Extension"
-msgstr ""
+msgstr "3. Cairo 1.0 VSCode Extensionを追加します"
 
 #: src/getting-started/setup.md:42
 msgid ""
 "Install the [Cairo 1.0](https://marketplace.visualstudio.com/items?"
 "itemName=starkware.cairo1) extension for Visual Studio Code."
 msgstr ""
+"Visual Studio Codeの拡張機能[Cairo 1.0](https://marketplace.visualstudio.com/"
+"items?itemName=starkware.cairo1)をインストールします。"
 
 #: src/getting-started/setup.md:45
 msgid "Windows"
-msgstr ""
+msgstr "Windows"
 
 #: src/getting-started/setup.md:47 src/getting-started/setup.md:51
 msgid "_Coming soon_"
-msgstr ""
+msgstr "_Coming soon_"
 
 #: src/getting-started/setup.md:49
 msgid "Container"
@@ -1066,17 +1273,19 @@ msgstr ""
 
 #: src/getting-started/contributing.md:1
 msgid "Contributing to the Core"
-msgstr ""
+msgstr "コアへの貢献"
 
 #: src/getting-started/contributing.md:3
 msgid ""
 "Dojo is an open-source project, currently in its early development phase, "
 "and warmly welcomes contributors."
 msgstr ""
+"Dojoはオープンソースのプロジェクトで、現在開発初期段階にあり、貢献者を温かく"
+"歓迎します。"
 
 #: src/getting-started/contributing.md:5
 msgid "How to Contribute"
-msgstr ""
+msgstr "貢献の仕方"
 
 #: src/getting-started/contributing.md:7
 msgid ""
@@ -1085,24 +1294,30 @@ msgid ""
 "comments to be assigned to it. If you have an idea for a new feature, please "
 "create an issue with the `enhancement` tag."
 msgstr ""
+"[Github](https://github.com/dojoengine/dojo/issues)のOpen Issueにアクセスして"
+"ください。もし未割り当てのイシューを見つけたら、コメントで割り当てをリクエス"
+"トしてください。新機能のアイデアがある場合は、`enhancement`タグを付けてissue"
+"を作成してください。"
 
 #: src/community/get-started.md:3
 msgid ""
 "[Community Hub](https://dojoengine.notion.site/Dojo-Engine-Community-Hub-"
 "d316194b998941c48ddf771a4dd5ff08#bcd6a32db1b2406cb6c325f3b700d45a)"
 msgstr ""
+"[Community Hub](https://dojoengine.notion.site/Dojo-Engine-Community-Hub-"
+"d316194b998941c48ddf771a4dd5ff08#bcd6a32db1b2406cb6c325f3b700d45a)"
 
 #: src/community/get-started.md:4
 msgid "[Discord](https://discord.gg/KG9w9BmDrV)"
-msgstr ""
+msgstr "[Discord](https://discord.gg/KG9w9BmDrV)"
 
 #: src/community/get-started.md:5
 msgid "[Twitter](https://twitter.com/dojostarknet)"
-msgstr ""
+msgstr "[Twitter](https://twitter.com/dojostarknet)"
 
 #: src/community/get-started.md:6
 msgid "[Awesome Dojo](https://github.com/dojoengine/awesome-dojo)"
-msgstr ""
+msgstr "[Awesome Dojo](https://github.com/dojoengine/awesome-dojo)"
 
 #: src/cairo/hello-dojo.md:3
 msgid ""
@@ -1110,10 +1325,13 @@ msgid ""
 "are familiar with Cairo. If not, please refer to the [Getting Started](../"
 "getting-started/quick-start.md) section."
 msgstr ""
+"この節では、Dojo ツールチェインをインストール済みで Cairo に慣れていることを"
+"前提とします。そうでない場合は [Getting Started](../getting-started/quick-"
+"start.md) セクションを参照ください。"
 
 #: src/cairo/hello-dojo.md:5
 msgid "Dojo in 15 Minutes"
-msgstr ""
+msgstr "15分でできるDojo"
 
 #: src/cairo/hello-dojo.md:7
 msgid ""
@@ -1122,6 +1340,10 @@ msgid ""
 "complex queries during compile time. Dojo is grounded in the well-known "
 "architecture known as the Entity Component System (ECS)."
 msgstr ""
+"DojoはCairoを抽象化したもので、JavaScriptにおけるReactのようなものだと考えて"
+"ください。コンパイル時に複雑なクエリに展開する省略記法のコマンドを書くことが"
+"できます。Dojo はエンティティ・コンポーネント・システム (ECS) というよく知ら"
+"れたアーキテクチャに基づいています。"
 
 #: src/cairo/hello-dojo.md:9
 msgid ""
@@ -1131,12 +1353,18 @@ msgid ""
 "If you don't understand this yet, don't fret; we'll delve into it in detail "
 "below."
 msgstr ""
+"Dojoでは、システムとコンポーネントを使用して世界を設計します。システムは世界"
+"のロジックの概要を示し、コンポーネントは状態を示します。この強力なパターンに"
+"よって、ロジックを高度にモジュール化することができます。まだ理解できていなく"
+"ても心配しないでください。"
 
 #: src/cairo/hello-dojo.md:11
 msgid ""
 "To start, let's set up a project to run locally on your machine. From an "
 "empty directory, execute:"
 msgstr ""
+"まず始めに、あなたのマシン上でローカルに実行するプロジェクトをセットアップし"
+"てみましょう。空のディレクトリから:"
 
 #: src/cairo/hello-dojo.md:13
 msgid ""
@@ -1144,6 +1372,9 @@ msgid ""
 "sozo init\n"
 "```"
 msgstr ""
+"```console\n"
+"sozo init\n"
+"```"
 
 #: src/cairo/hello-dojo.md:17
 msgid ""
@@ -1151,16 +1382,22 @@ msgid ""
 "`dojo-starter` project in your current directory. It's the ideal starting "
 "point for a new project and equips you with everything you need to begin."
 msgstr ""
+"おめでとうございます！これでローカルに Dojo プロジェクトができました。このコ"
+"マンドはカレントディレクトリに `dojo-starter` プロジェクトを作成します。これ"
+"は新しいプロジェクトの理想的な出発点であり、始めるために必要なものをすべて備"
+"えています。"
 
 #: src/cairo/hello-dojo.md:19
 msgid "Anatomy of a Dojo Project"
-msgstr ""
+msgstr "Dojoプロジェクトの解剖"
 
 #: src/cairo/hello-dojo.md:21
 msgid ""
 "Inspect the contents of the `dojo-starter` project, and you'll notice the "
 "following structure (excluding the non-cairo files):"
 msgstr ""
+"`dojo-starter`プロジェクトの中身を調べると、次のような構造になっていることに"
+"気づくだろう（cairo以外のファイルは除く）:"
 
 #: src/cairo/hello-dojo.md:23
 msgid ""
@@ -1172,6 +1409,13 @@ msgid ""
 "Scarb.toml\n"
 "```"
 msgstr ""
+"```bash\n"
+"src\n"
+"  - components.cairo\n"
+"  - systems.cairo\n"
+"  - lib.cairo\n"
+"Scarb.toml\n"
+"```"
 
 #: src/cairo/hello-dojo.md:31
 msgid ""
@@ -1179,10 +1423,13 @@ msgid ""
 "being some special attribute tags you use when creating `Components` and "
 "`Systems`. Let's explore this next."
 msgstr ""
+"Dojo プロジェクトは標準的な Cairo プロジェクトとほぼ同じですが、`Components` "
+"や `Systems` を作るときに使う特別な属性タグがあります。次はこれを調べてみま"
+"しょう。"
 
 #: src/cairo/hello-dojo.md:33
 msgid "Open the `src/components.cairo` file to continue."
-msgstr ""
+msgstr "`src/components.cairo`ファイルを開いて続ける。"
 
 #: src/cairo/hello-dojo.md:35
 msgid ""
@@ -1205,6 +1452,24 @@ msgid ""
 "...rest of code\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Moves {\n"
+"    #[key]\n"
+"    player: ContractAddress,\n"
+"    remaining: u8,\n"
+"}\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Position {\n"
+"    #[key]\n"
+"    player: ContractAddress,\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"…rest of code\n"
+"```"
 
 #: src/cairo/hello-dojo.md:54
 msgid ""
@@ -1213,6 +1478,9 @@ msgid ""
 "signals to the Dojo compiler that this struct should be treated as a "
 "component."
 msgstr ""
+"`#[derive(Component,Copy,Drop,Serde,SerdeLen)]`属性に注目。コンポーネントを認"
+"識するためには、 `Component` を含める必要があります。これはDojoコンパイラに、"
+"この構造体はコンポーネントとして扱われるべきであるというシグナルを送ります。"
 
 #: src/cairo/hello-dojo.md:56
 msgid ""
@@ -1222,16 +1490,23 @@ msgid ""
 "chapter. Essentially, it implies that you can query this component using the "
 "`player` field."
 msgstr ""
+"我々の `Moves` コンポーネントは、その状態に `remaining` 値を保持する。key]` "
+"属性は、このコンポーネントが `player` フィールドによってインデックス化されて"
+"いることを Dojo に知らせます。もし、これが馴染みのないものであれば、この章の"
+"後半でその重要性を明らかにします。基本的には、`player` フィールドを使用してこ"
+"のコンポーネントに問い合わせることができることを意味します。"
 
 #: src/cairo/hello-dojo.md:58
 msgid ""
 "In a similar vein, we possess a `Position` component that holds `x` and `y` "
 "values. Once again, this component is indexed by the `player` field."
 msgstr ""
+"同様に、`x` と `y` の値を保持する `Position` コンポーネントを持つ。ここでも、"
+"このコンポーネントは `player` フィールドによってインデックスされる。"
 
 #: src/cairo/hello-dojo.md:60
 msgid "Now, let's examine the `src/systems.cairo` file:"
-msgstr ""
+msgstr "では、`src/systems.cairo`ファイルを調べてみましょう:"
 
 #: src/cairo/hello-dojo.md:62
 msgid ""
@@ -1265,10 +1540,39 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use box::BoxTrait;\n"
+"    use traits::Into;\n"
+"    use dojo::world::Context;\n"
+"\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        let position = get!(ctx.world, ctx.origin, (Position));\n"
+"        set!(\n"
+"            ctx.world,\n"
+"            (\n"
+"                Moves {\n"
+"                    player: ctx.origin, remaining: 10\n"
+"                },\n"
+"                Position {\n"
+"                    player: ctx.origin, x: position.x + 10, y: position.y + "
+"10\n"
+"                },\n"
+"            )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
 
 #: src/cairo/hello-dojo.md:91
 msgid "Let us break this down:"
-msgstr ""
+msgstr "これを分解してみましょう:"
 
 #: src/cairo/hello-dojo.md:93
 msgid ""
@@ -1276,6 +1580,9 @@ msgid ""
 "#[system]\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"```"
 
 #: src/cairo/hello-dojo.md:97
 msgid ""
@@ -1283,6 +1590,9 @@ msgid ""
 "attribute informs the Dojo compiler that this struct is a system, "
 "instructing it to compile accordingly."
 msgstr ""
+"`#[derive(Component)]`属性を使用するのと同様に、`#[system]`属性はDojoコンパイ"
+"ラにこの構造体がシステムであることを通知し、それに応じてコンパイルするように"
+"指示します。"
 
 #: src/cairo/hello-dojo.md:99
 msgid ""
@@ -1290,6 +1600,9 @@ msgid ""
 "fn execute(ctx: Context)\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"fn execute(ctx: Context)\n"
+"```"
 
 #: src/cairo/hello-dojo.md:103
 msgid ""
@@ -1298,6 +1611,10 @@ msgid ""
 "function accepts a `Context` as its parameter. The `Context` is a distinct "
 "struct that provides information about the world and the caller."
 msgstr ""
+"このシステムには `execute` 関数があります。すべての Dojo システムには "
+"`execute` 関数が必要であることに注意してください。この関数は `Context` をパラ"
+"メータとして受け取る。Context` は世界と呼び出し元の情報を提供する個別の構造体"
+"である。"
 
 #: src/cairo/hello-dojo.md:105
 msgid ""
@@ -1306,10 +1623,13 @@ msgid ""
 "`execute` function is mandatory since it's invoked when your system is "
 "executed."
 msgstr ""
+"システムには `execute` 関数以外も含めることができるということは言っておく価値"
+"がある。必要に応じて多くの関数を自由に含めることができます。しかし、`execute`"
+"関数はシステムが実行されるときに呼び出されるので、必須です。"
 
 #: src/cairo/hello-dojo.md:107
 msgid "Now lets look at the next line:"
-msgstr ""
+msgstr "次の行を見てみましょう:"
 
 #: src/cairo/hello-dojo.md:109
 msgid ""
@@ -1317,6 +1637,9 @@ msgid ""
 "let position = get!(ctx.world, ctx.origin, (Position));\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"let position = get!(ctx.world, ctx.origin, (Position));\n"
+"```"
 
 #: src/cairo/hello-dojo.md:113
 msgid ""
@@ -1324,6 +1647,9 @@ msgid ""
 "component for the `ctx.origin` entity. `ctx.origin` is the address of the "
 "caller. When called for the first time, it will return:"
 msgstr ""
+"ここでは、`get!` [command](./commands.md) を使用して、`ctx.origin` エンティ"
+"ティの `Position` コンポーネントを取得します。ctx.origin`は呼び出し元のアドレ"
+"スである。初めて呼び出されたときは、この関数が返される："
 
 #: src/cairo/hello-dojo.md:115
 msgid ""
@@ -1335,10 +1661,17 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"Position {\n"
+"  player: 0x0, // zero address\n"
+"  x: 0,\n"
+"  y: 0\n"
+"}\n"
+"```"
 
 #: src/cairo/hello-dojo.md:123
 msgid "Now the next line:"
-msgstr ""
+msgstr "さて、次の行です:"
 
 #: src/cairo/hello-dojo.md:125
 msgid ""
@@ -1355,47 +1688,63 @@ msgid ""
 ");\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"set!(\n"
+"    ctx.world,\n"
+"    (\n"
+"        Moves {\n"
+"            player: ctx.origin, remaining: 10\n"
+"            }, Position {\n"
+"            player: ctx.origin, x: position.x + 10, y: position.y + 10\n"
+"        },\n"
+"    )\n"
+");\n"
+"```"
 
 #: src/cairo/hello-dojo.md:138
 msgid ""
 "Here we use the `set!` [command](./commands.md) to set the `Moves` and "
 "`Position` components for the `ctx.origin` entity."
 msgstr ""
+"ここでは、`set!` [command](./commands.md) を使用して、`ctx.origin` エンティ"
+"ティの `Moves` と `Position` コンポーネントを設定します。"
 
 #: src/cairo/hello-dojo.md:140
 msgid "We covered a lot here in a short time. Let's recap:"
-msgstr ""
+msgstr "短時間で多くをカバーしました。おさらいしましょう:"
 
 #: src/cairo/hello-dojo.md:142
 msgid "Explained the anatomy of a Dojo project"
-msgstr ""
+msgstr "Dojoプロジェクトの構造について説明しました"
 
 #: src/cairo/hello-dojo.md:143
 msgid ""
 "Explained the importace of the `#[derive(Component)]` and `#[system]` "
 "attribute"
 msgstr ""
+"`#[derive(Component)]`属性と`#[[system]`属性の重要性について説明しました"
 
 #: src/cairo/hello-dojo.md:144
 msgid "Explained the `execute` function"
-msgstr ""
+msgstr "`execute`関数の説明"
 
 #: src/cairo/hello-dojo.md:145
 msgid "Explained the `Context` struct"
-msgstr ""
+msgstr "`Context` 構造体についての説明"
 
 #: src/cairo/hello-dojo.md:146
 msgid "Touched on the `get!` and `set!` commands"
-msgstr ""
+msgstr "`get!`コマンドと`set!`コマンドについて触れた"
 
 #: src/cairo/hello-dojo.md:149
 msgid "Run it locally!"
-msgstr ""
+msgstr "ローカルで実行する！"
 
 #: src/cairo/hello-dojo.md:151
 msgid ""
 "Now that we have some theory out of the way, lets build the Dojo project!"
 msgstr ""
+"さて、理論がある程度わかったところで、Dojoプロジェクトを構築してみよう！"
 
 #: src/cairo/hello-dojo.md:153 src/deployment/locally.md:29
 msgid ""
@@ -1403,18 +1752,25 @@ msgid ""
 "sozo build\n"
 "```"
 msgstr ""
+"```bash\n"
+"sozo build\n"
+"```"
 
 #: src/cairo/hello-dojo.md:157
 msgid ""
 "That compiled the components and system into an artifact that can be "
 "deployed! Simple as that!"
 msgstr ""
+"これでコンポーネントとシステムがデプロイ可能な成果物にコンパイルされた！単純"
+"なことだ！"
 
 #: src/cairo/hello-dojo.md:159
 msgid ""
 "Now lets deploy it to [Katana](../toolchain/katana/overview.md)! First we "
 "need to get Katana running:"
 msgstr ""
+"では、これを[Katana](../toolchain/katana/overview.md)にデプロイしてみましょ"
+"う！まずはKatanaを動かす必要がある："
 
 #: src/cairo/hello-dojo.md:161 src/deployment/locally.md:13
 msgid ""
@@ -1422,12 +1778,17 @@ msgid ""
 "katana --disable-fee\n"
 "```"
 msgstr ""
+"```bash\n"
+"katana —disable-fee\n"
+"```"
 
 #: src/cairo/hello-dojo.md:165
 msgid ""
 "Success! [Katana](../toolchain/katana/overview.md) should now be running "
 "locally on your machine. Now lets deploy!"
 msgstr ""
+"成功しました！[Katana](../toolchain/katana/overview.md)があなたのマシン上で"
+"ローカルに実行されているはずです。それではデプロイしてみましょう！"
 
 #: src/cairo/hello-dojo.md:167 src/deployment/locally.md:23
 msgid ""
@@ -1435,12 +1796,17 @@ msgid ""
 "sozo migrate --name test\n"
 "```"
 msgstr ""
+"```bash\n"
+"sozo migrate —name test\n"
+"```"
 
 #: src/cairo/hello-dojo.md:171
 msgid ""
 "This will deploy the artifact to [Katana](../toolchain/katana/overview.md). "
 "You should see terminal output similar to this:"
 msgstr ""
+"これでアーティファクトが[Katana](../toolchain/katana/overview.md)にデプロイさ"
+"れます。このようなターミナル出力が表示されるはずです:"
 
 #: src/cairo/hello-dojo.md:173
 msgid ""
@@ -1483,12 +1849,53 @@ msgid ""
 "0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16\n"
 "```"
 msgstr ""
+"```bash\n"
+"Migration account: "
+"0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c\n"
+"\n"
+"[1] 🌎 Building World state....\n"
+"  > No remote World found\n"
+"[2] 🧰 Evaluating Worlds diff....\n"
+"  > Total diffs found: 7\n"
+"[3] 📦 Preparing for migration....\n"
+"  > Total items to be migrated (7): New 7 Update 0\n"
+"  \n"
+"# Executor\n"
+"  > Contract address: "
+"0x1a8cc7a653543337be184d21ceeb5cfc7e97af5ab7da5e4be77f373124d7e48\n"
+"# World\n"
+"  > Contract address: "
+"0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16\n"
+"# Components (2)\n"
+"Moves\n"
+"  > class hash: "
+"0x3240ca67c41c5ae5557f87f44cca2b590f40407082dd390d893a514cfb2b8cd\n"
+"Position\n"
+"  > class hash: "
+"0x4caa1806451739b6fb470652b8066a11f80e847d49003b43cca75a2fd7647b6\n"
+"# Systems (3)\n"
+"spawn\n"
+"  > class hash: "
+"0x1b949b00d5776c8ba13c2fdada38d4b196f3717c93c5c254c4909ed0eb249f7\n"
+"move\n"
+"  > class hash: "
+"0x2534c514efeab524f24cd4b03add904eb540391e9966ebc96f8ce98453a4e1e\n"
+"library_call\n"
+"  > class hash: "
+"0xabfd55d9bb6552aac17d78b33a6e18b06b1b95d4f684637e661dd83053fd45\n"
+"\n"
+"🎉 Successfully migrated World on block #4 at address "
+"0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16\n"
+"```"
 
 #: src/cairo/hello-dojo.md:203
 msgid ""
 "Your 🌎 is now deployed at "
 "`0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16`!"
 msgstr ""
+"あなたの🌎は "
+"`0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16` に配置さ"
+"れました！"
 
 #: src/cairo/hello-dojo.md:205
 msgid ""
@@ -1496,10 +1903,13 @@ msgid ""
 "environment variables that make running CLI commands in your project a "
 "breeze. (Read more about it [here](./config.md))."
 msgstr ""
+"プロジェクトの`Scarb.toml`ファイルについて説明しよう。このファイルには、プロ"
+"ジェクト内でCLIコマンドを簡単に実行できるようにするための環境変数が含まれてい"
+"ます。(詳しくは[こちら](./config.md))。"
 
 #: src/cairo/hello-dojo.md:207
 msgid "Add the world address to the bottom of the file:"
-msgstr ""
+msgstr "ワールドアドレスをファイルの一番下に追加する："
 
 #: src/cairo/hello-dojo.md:209
 msgid ""
@@ -1508,12 +1918,18 @@ msgid ""
 "\"0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16\"\n"
 "```"
 msgstr ""
+"```toml\n"
+"world_address = "
+"“0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16”\n"
+"```"
 
 #: src/cairo/hello-dojo.md:213
 msgid ""
 "This establishes the world address for your project. You can then run "
 "commands like:"
 msgstr ""
+"これでプロジェクトのワールドアドレスが確立されます。その後、次のようなコマン"
+"ドを実行できる:"
 
 #: src/cairo/hello-dojo.md:215
 msgid ""
@@ -1521,22 +1937,29 @@ msgid ""
 "sozo execute spawn\n"
 "```"
 msgstr ""
+"```bash\n"
+"sozo execute spawn\n"
+"```"
 
 #: src/cairo/hello-dojo.md:219
 msgid ""
 "By doing so, you've just activated the spawn system. You now have a local "
 "world that you can interact with."
 msgstr ""
+"そうすることで、spawn system.が有効になります。これで、あなたが交流できるロー"
+"カルワールドができたことになります。"
 
 #: src/cairo/hello-dojo.md:221
 msgid "Indexing"
-msgstr ""
+msgstr "インデックス作成"
 
 #: src/cairo/hello-dojo.md:223
 msgid ""
 "With your local world set up, let's delve into indexing. You can index the "
 "entire world with this simple command:"
 msgstr ""
+"ローカル・ワールドのセットアップが終わったところで、インデックスの作成に取り"
+"かかろう。この簡単なコマンドでワールド全体のインデックスを作ることができます:"
 
 #: src/cairo/hello-dojo.md:225
 msgid ""
@@ -1544,6 +1967,9 @@ msgid ""
 "torii\n"
 "```"
 msgstr ""
+"```bash\n"
+"torii\n"
+"```"
 
 #: src/cairo/hello-dojo.md:229
 msgid ""
@@ -1551,30 +1977,34 @@ msgid ""
 "database, which is exposed at `http://0.0.0.0:8080`. It will automatically "
 "index your world into tables, allowing you to query them using GraphQL."
 msgstr ""
+"上記を実行すると、SQLiteをデータベースとして使用するローカルのtoriiサーバーが"
+"アクティブになり、`http://0.0.0.0:8080`で公開されます。このサーバーは自動的に"
+"あなたの世界をテーブルに索引付けし、GraphQL を使ってクエリーできるようにしま"
+"す。"
 
 #: src/cairo/hello-dojo.md:231
 msgid "We've covered quite a bit! Here's a recap:"
-msgstr ""
+msgstr "我々はかなりの部分をカバーしてきました！以下はそのまとめです:"
 
 #: src/cairo/hello-dojo.md:233
 msgid "Built a Dojo world"
-msgstr ""
+msgstr "Dojo worldを構築"
 
 #: src/cairo/hello-dojo.md:234
 msgid "Deployed the project to Katana"
-msgstr ""
+msgstr "Katanaにプロジェクトを展開"
 
 #: src/cairo/hello-dojo.md:235
 msgid "Ran the spawn system locally"
-msgstr ""
+msgstr "spawn systemをローカルで実行"
 
 #: src/cairo/hello-dojo.md:236
 msgid "Indexed the world with Torii"
-msgstr ""
+msgstr "ToriiでWorldをインデックス化"
 
 #: src/cairo/hello-dojo.md:238
 msgid "Next Steps"
-msgstr ""
+msgstr "次のステップ"
 
 #: src/cairo/hello-dojo.md:240
 msgid ""
@@ -1583,6 +2013,10 @@ msgid ""
 "and components, Dojo is equipped for expansive creativity. So, what will you "
 "craft next?"
 msgstr ""
+"この概要では、Dojoをエンドツーエンドで素早く垣間見ることができます。しかし、"
+"これらの世界の可能性は広大です！何百ものシステムやコンポーネントを管理できる"
+"ように設計されているため、Dojo には幅広い創造性が備わっています。さて、次は何"
+"を作るのでしょうか？"
 
 #: src/cairo/config.md:3
 msgid ""
@@ -1590,10 +2024,13 @@ msgid ""
 "(https://docs.swmansion.com/scarb/) file which is an excellent Cairo package "
 "manager and project manager."
 msgstr ""
+"Dojo の世界は Scarb.toml ファイルで定義されています。これは単なる[Scarb]"
+"(https://docs.swmansion.com/scarb/)ファイルで、優れたCairoパッケージマネー"
+"ジャであり、プロジェクトマネージャです。"
 
 #: src/cairo/config.md:5
 msgid "Full example of a Scarb.toml file:"
-msgstr ""
+msgstr "Scarb.tomlファイルの完全な例:"
 
 #: src/cairo/config.md:7
 msgid ""
@@ -1630,10 +2067,42 @@ msgid ""
 "\"0x789c94ef39aeebc7f8c4c4633030faefb8bee454e358ae53d06ced36136d7d6\"\n"
 "```"
 msgstr ""
+"```toml\n"
+"[package]\n"
+"cairo-version = \"2.1.0-rc4\"\n"
+"name = \"dojo_examples\"\n"
+"version = \"0.1.0\"\n"
+"\n"
+"[cairo]\n"
+"sierra-replace-ids = true\n"
+"\n"
+"[dependencies]\n"
+"dojo = { git = \"https://github.com/dojoengine/dojo\" }\n"
+"\n"
+"[[target.dojo]]\n"
+"\n"
+"[tool.dojo]\n"
+"initializer_class_hash = \"0xbeef\"\n"
+"\n"
+"[tool.dojo.env]\n"
+"rpc_url = \"http://localhost:5050/\"\n"
+"\n"
+"# account address of world deployer\n"
+"account_address = "
+"“0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c”\n"
+"\n"
+"# private key of world deployer\n"
+"private_key = "
+"“0x333803103001800039980190300d206608b0070db0012135bd1fb5f6282170b”\n"
+"\n"
+"# world contract address\n"
+"world_address = "
+"“0x789c94ef39aeebc7f8c4c4633030faefb8bee454e358ae53d06ced36136d7d6”\n"
+"```"
 
 #: src/cairo/world.md:1
 msgid "World Contract"
-msgstr ""
+msgstr "World Contract"
 
 #: src/cairo/world.md:3
 msgid ""
@@ -1643,6 +2112,11 @@ msgid ""
 "process for downstream systems by enabling clients to engage with a single "
 "contract rather than potentially hundreds."
 msgstr ""
+"World Contractは中央システムカーネルとして機能し、すべてのインタラクションを"
+"開始し解決するための基盤として機能する。このカーネルの中で、コントラクトはデ"
+"プロイ、登録、実行され、クライアントが潜在的に何百ものコントラクトと関わるの"
+"ではなく、単一のコントラクトと関わることを可能にすることで、下流のシステムの"
+"プロセスを合理化します。"
 
 #: src/cairo/world.md:5
 msgid ""
@@ -1651,6 +2125,10 @@ msgid ""
 "However, it's important to understand how it works and how it interacts with "
 "the rest of the system."
 msgstr ""
+"Dojo core はこの契約を開発者から抽象化しています。開発者はこの契約を書くこと"
+"はありませんし、ワールドを構築するときに変更することもありません。しかし、こ"
+"れがどのように動作し、システムの他の部分とどのように相互作用するかを理解する"
+"ことは重要です。"
 
 #: src/cairo/world.md:8
 msgid ""
@@ -1662,10 +2140,16 @@ msgid ""
 "authorization is required to interact with component state. There is a "
 "dedicated topic to Authorisation."
 msgstr ""
+"**To think about:** Autonomous Worldsは、別のブロックチェーンの中に存在する主"
+"権ブロックチェーン、いわば入れ子のブロックチェーンだと考えてほしい。イーサリ"
+"アムの機能を強化するためにコントラクトをイーサリアム上にデプロイできるよう"
+"に、同様にワールドのコントラクトにシステムを導入してその機能を強化することが"
+"できる。Ethereumのように誰でもWorldに貢献することができる一方で、コンポーネン"
+"トの状態と対話するには認可が必要だ。認可については専用のトピックがあります。"
 
 #: src/cairo/world.md:11
 msgid "Context"
-msgstr ""
+msgstr "Context"
 
 #: src/cairo/world.md:13
 msgid ""
@@ -1673,6 +2157,8 @@ msgid ""
 "parameter. This is a special struct that contains information about the "
 "world and the caller."
 msgstr ""
+"どのSystemも最初のパラメータとして `Context` 構造体を受け取ることに気づくだろ"
+"う。これは特別な構造体で、世界と呼び出し元の情報を含んでいる。"
 
 #: src/cairo/world.md:15
 msgid ""
@@ -1686,21 +2172,32 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Copy, Drop, Serde)]\n"
+"struct Context {\n"
+"    world: IWorldDispatcher, // Dispatcher to the world contract\n"
+"    origin: ContractAddress, // Address of the origin\n"
+"    system: felt252, // Name of the calling system\n"
+"    system_class_hash: ClassHash, // Class hash of the calling system\n"
+"}\n"
+"```"
 
 #: src/cairo/world.md:25
 msgid "The `uuid()` command"
-msgstr ""
+msgstr "`uuid()` コマンド"
 
 #: src/cairo/world.md:27
 msgid ""
 "It is often useful to generate unique IDs for entities. The `uuid()` fn can "
 "be used to generate a unique ID."
 msgstr ""
+"エンティティの一意なIDを生成することはしばしば有用である。一意なIDを生成する"
+"には `uuid()` fn を使うことができる。"
 
 #: src/cairo/world.md:29 src/cairo/commands.md:20 src/cairo/commands.md:34
 #: src/cairo/commands.md:56
 msgid "Use it like this:"
-msgstr ""
+msgstr "このように使います:"
 
 #: src/cairo/world.md:31
 msgid ""
@@ -1708,6 +2205,9 @@ msgid ""
 "let game_id = ctx.world.uuid();\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"let game_id = ctx.world.uuid();\n"
+"```"
 
 #: src/cairo/world.md:36
 msgid "Full World API"
@@ -1717,6 +2217,7 @@ msgstr ""
 msgid ""
 "The world exposes an interface which can be interacted with by any client."
 msgstr ""
+"Worldは、どんなクライアントでも相互作用できるインターフェイスを公開している。"
 
 #: src/cairo/world.md:40
 msgid ""
@@ -1760,26 +2261,69 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"// World interface\n"
+"#[starknet::interface]\n"
+"trait IWorld<T> {\n"
+"    fn component(self: @T, name: felt252) -> ClassHash;\n"
+"    fn register_component(ref self: T, class_hash: ClassHash);\n"
+"    fn system(self: @T, name: felt252) -> ClassHash;\n"
+"    fn register_system(ref self: T, class_hash: ClassHash);\n"
+"    fn uuid(ref self: T) -> usize;\n"
+"    fn emit(self: @T, keys: Array<felt252>, values: Span<felt252>);\n"
+"    fn execute(ref self: T, system: felt252, calldata: Array<felt252>) -> "
+"Span<felt252>;\n"
+"    fn entity(\n"
+"        self: @T, component: felt252, keys: Span<felt252>, offset: u8, "
+"length: usize\n"
+"    ) -> Span<felt252>;\n"
+"    fn set_entity(\n"
+"        ref self: T, component: felt252, keys: Span<felt252>, offset: u8, "
+"value: Span<felt252>\n"
+"    );\n"
+"    fn entities(\n"
+"        self: @T, component: felt252, index: felt252, length: usize\n"
+"    ) -> (Span<felt252>, Span<Span<felt252>>);\n"
+"    fn set_executor(ref self: T, contract_address: ContractAddress);\n"
+"    fn executor(self: @T) -> ContractAddress;\n"
+"    fn delete_entity(ref self: T, component: felt252, keys: Span<felt252>);\n"
+"    fn origin(self: @T) -> ContractAddress;\n"
+"\n"
+"    fn is_owner(self: @T, account: ContractAddress, target: felt252) -> "
+"bool;\n"
+"    fn grant_owner(ref self: T, account: ContractAddress, target: felt252);\n"
+"    fn revoke_owner(ref self: T, account: ContractAddress, target: "
+"felt252);\n"
+"\n"
+"    fn is_writer(self: @T, component: felt252, system: felt252) -> bool;\n"
+"    fn grant_writer(ref self: T, component: felt252, system: felt252);\n"
+"    fn revoke_writer(ref self: T, component: felt252, system: felt252);\n"
+"}\n"
+"```"
 
 #: src/cairo/components.md:3
 msgid "Components = Data"
-msgstr ""
+msgstr "Components = Data"
 
 #: src/cairo/components.md:5
 msgid ""
 "Components serve as the foundation for defining the world's structure, "
 "encapsulating state for systems to mutate. "
 msgstr ""
+"コンポーネントは、世界の構造を定義する基盤として機能し、システムが変異するた"
+"めの状態をカプセル化します"
 
 #: src/cairo/components.md:7
 msgid ""
 "When designing a world's components, it is crucial to carefully consider the "
 "abstractions you create, always keeping composability in mind."
 msgstr ""
+"ワールドのコンポーネントをデザインする際には、コンポーザビリティを常に念頭に"
+"置きながら、作成する抽象化を慎重に検討することが極めて重要です。"
 
 #: src/cairo/components.md:10
 msgid "Components are Structs"
-msgstr ""
+msgstr "コンポーネントは構造体"
 
 #: src/cairo/components.md:12
 msgid ""
@@ -1788,6 +2332,10 @@ msgid ""
 "components. This promotes modularity and composability, allowing you to "
 "reuse components across multiple entity types."
 msgstr ""
+"コンポーネントは Cairo では構造体として定義されます。いくつでもフィールドを持"
+"つことができますが、 ECS では孤立した小さなコンポーネントを持つのがベストプラ"
+"クティスです。そうすることで、モジュール化やコンポーザビリティが促進され、 複"
+"数のエンティティ型でコンポーネントを再利用できるようになります。"
 
 #: src/cairo/components.md:14
 msgid ""
@@ -1800,10 +2348,18 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Moves {\n"
+"    #[key]\n"
+"    player: ContractAddress,\n"
+"    remaining: u8,\n"
+"}\n"
+"```"
 
 #: src/cairo/components.md:23
 msgid "The #\\[key\\] attribute"
-msgstr ""
+msgstr "The #\\[key\\] attribute"
 
 #: src/cairo/components.md:25
 msgid ""
@@ -1812,6 +2368,10 @@ msgid ""
 "how you query the component. However, you can create composite keys by "
 "defining multiple fields as keys. "
 msgstr ""
+"`#[key]` 属性は、このコンポーネントが `player` フィールドによってインデックス"
+"化されていることを Dojo に示します。各コンポーネントに対してキーを定義する必"
+"要があります。しかし、複数のフィールドをキーとして定義することで、複合キーを"
+"作成することができます。"
 
 #: src/cairo/components.md:27
 msgid ""
@@ -1826,12 +2386,24 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Resource {\n"
+"    #[key]\n"
+"    player: ContractAddress,\n"
+"    #[key]\n"
+"    location: ContractAddress,\n"
+"    balance: u8,\n"
+"}\n"
+"```"
 
 #: src/cairo/components.md:38
 msgid ""
 "In this case you then would set the component with both the player and "
 "location fields:"
 msgstr ""
+"この場合、プレーヤーフィールドとロケーションフィールドの両方をコンポーネント"
+"に設定することになる:"
 
 #: src/cairo/components.md:40
 msgid ""
@@ -1848,10 +2420,22 @@ msgid ""
 ");\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"set!(\n"
+"    ctx.world,\n"
+"    (\n"
+"        Resource {\n"
+"            player: ctx.origin,\n"
+"            location: 12,\n"
+"            balance: 10\n"
+"        },\n"
+"    )\n"
+");\n"
+"```"
 
 #: src/cairo/components.md:53
 msgid "Implementing Traits"
-msgstr ""
+msgstr "Traitsの実装"
 
 #: src/cairo/components.md:55
 msgid ""
@@ -1861,6 +2445,10 @@ msgid ""
 "could define functions such as `is_zero` and `is_equal` which could be used "
 "when accessing the component."
 msgstr ""
+"コンポーネントはtraitを実装できる。これはコンポーネント間で共通の機能を定義す"
+"るのに便利です。例えば、 `Position` コンポーネントに `PositionTrait` 特性を実"
+"装したいとします。この trait には `is_zero` や `is_equal` といった関数を定義"
+"することができ、コンポーネントにアクセスするときに使用することができます。"
 
 #: src/cairo/components.md:57
 msgid ""
@@ -1884,10 +2472,29 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"trait PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool;\n"
+"    fn is_equal(self: Position, b: Position) -> bool;\n"
+"}\n"
+"\n"
+"impl PositionImpl of PositionTrait {\n"
+"    fn is_zero(self: Position) -> bool {\n"
+"        if self.x - self.y == 0 {\n"
+"            return true;\n"
+"        }\n"
+"        false\n"
+"    }\n"
+"\n"
+"    fn is_equal(self: Position, b: Position) -> bool {\n"
+"        self.x == b.x && self.y == b.y\n"
+"    }\n"
+"}\n"
+"```"
 
 #: src/cairo/components.md:77
 msgid "Custom Setting Components"
-msgstr ""
+msgstr "Custom Setting Components"
 
 #: src/cairo/components.md:79
 msgid ""
@@ -1898,6 +2505,11 @@ msgid ""
 "storing this value, while also allowing for its modification via a "
 "decentralized governance model."
 msgstr ""
+"将来的に柔軟に変更できるグローバルな値を保持する場所が必要だとします。例え"
+"ば、エンティティが次の攻撃に備えるために必要な時間を定義するグローバルな"
+"combat_cool_downパラメータを考えてみよう。これを実現するには、この値を保存す"
+"る専用のコンポーネントを作り、同時に分散型ガバナンス・モデルによってその値を"
+"変更できるようにすればよい。"
 
 #: src/cairo/components.md:81
 msgid ""
@@ -1905,6 +2517,8 @@ msgid ""
 "However, when initializing them, employ a constant identifier, such as "
 "GAME_SETTINGS_ID."
 msgstr ""
+"これらのコンポーネントを確立するには、通常の作成方法に従う。ただし、初期化す"
+"るときは、GAME_SETTINGS_IDのような定数識別子を使用する。"
 
 #: src/cairo/components.md:83
 msgid ""
@@ -1919,22 +2533,32 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"const GAME_SETTINGS_ID: u32 = 9999999999999;\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct GameSettings {\n"
+"    #[key]\n"
+"    game_settings_id: u32,\n"
+"    combat_cool_down: u32,\n"
+"}\n"
+"```"
 
 #: src/cairo/components.md:94
 msgid "Types"
-msgstr ""
+msgstr "Types"
 
 #: src/cairo/components.md:96
 msgid "Support Component types:"
-msgstr ""
+msgstr "Support Component types:"
 
 #: src/cairo/components.md:98
 msgid "`u8`"
-msgstr ""
+msgstr "`u8`"
 
 #: src/cairo/components.md:99
 msgid "`u16`"
-msgstr ""
+msgstr "`u16`"
 
 #: src/cairo/components.md:100
 msgid "`u32`"
@@ -1954,15 +2578,15 @@ msgstr ""
 
 #: src/cairo/components.md:104
 msgid "`ContractAddress`"
-msgstr ""
+msgstr "`ContractAddress`"
 
 #: src/cairo/components.md:106
 msgid "It is currently not possible to use Arrays."
-msgstr ""
+msgstr "現在、配列を使用することはできません。"
 
 #: src/cairo/components.md:109
 msgid "In practice with modularity in mind"
-msgstr ""
+msgstr "モジュール化を念頭に置いた実践"
 
 #: src/cairo/components.md:111
 msgid ""
@@ -1972,6 +2596,10 @@ msgid ""
 "introduce a Counter component, a distinct feature that tallies the numbers "
 "of humans and goblins."
 msgstr ""
+"人間とゴブリンという具体的な例えを考えてみよう。両者には本質的な違いはある"
+"が、地位や健康といった共通の特徴がある。しかし、人間には追加のコンポーネント"
+"がある。さらに、人間とゴブリンの数を集計する明確な特徴であるカウンター・コン"
+"ポーネントを導入する。"
 
 #: src/cairo/components.md:113
 msgid ""
@@ -2008,6 +2636,38 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Potions {\n"
+"    #[key]\n"
+"    entity_id: u32,\n"
+"    quantity: u8,\n"
+"}\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Health {\n"
+"    #[key]\n"
+"    entity_id: u32,\n"
+"    health: u8,\n"
+"}\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Position {\n"
+"    #[key]\n"
+"    entity_id: u32,\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"\n"
+"// Special counter component\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Counter {\n"
+"    #[key]\n"
+"    counter: u32,\n"
+"    goblin_count: u32,\n"
+"    human_count: u32,\n"
+"}\n"
+"```"
 
 #: src/cairo/components.md:146
 msgid ""
@@ -2015,10 +2675,14 @@ msgid ""
 "the Goblin will have a `Health` and `Position` component. By doing we save "
 "having to create Health and Position components for each entity type."
 msgstr ""
+"つまり、Humanは`Potions`、`Health`、`Position`コンポーネントを持ち、Goblinは"
+"`Health`と`Position`コンポーネントを持つことになります。こうすることで、各エ"
+"ンティティタイプごとにHealthとPositionのコンポーネントを作成する手間を省くこ"
+"とができます。"
 
 #: src/cairo/components.md:148
 msgid "So then a system would look like this:"
-msgstr ""
+msgstr "そうなると、システムは次のようになる:"
 
 #: src/cairo/components.md:150
 msgid ""
@@ -2094,16 +2758,88 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod spawnHuman {\n"
+"    use array::ArrayTrait;\n"
+"    use box::BoxTrait;\n"
+"    use traits::Into;\n"
+"    use dojo::world::Context;\n"
+"\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Health;\n"
+"    use dojo_examples::components::Potions;\n"
+"    use dojo_examples::components::Counter;\n"
+"\n"
+"    // we can set the counter value as a const, then query it easily! This "
+"pattern is useful for settins.\n"
+"    const COUNTER_ID: u32 = 9999999999999;\n"
+"\n"
+"    fn execute(ctx: Context, entity_id: u32) {\n"
+"\n"
+"        let counter = get!(ctx.world, COUNTER_ID, (Counter));\n"
+"\n"
+"        let human_count = counter.human_count + 1;\n"
+"        let goblin_count = counter.goblin_count + 1;\n"
+"\n"
+"        // spawn a human\n"
+"        set!(\n"
+"            ctx.world,\n"
+"            (\n"
+"                Health {\n"
+"                    entity_id: human_count, health: 100\n"
+"                    }, \n"
+"                Position {\n"
+"                    entity_id: human_count, x: position.x + 10, y: position."
+"y + 10,\n"
+"                    }, \n"
+"                Potions {\n"
+"                    entity_id: human_count, quantity: 10\n"
+"                    \n"
+"                },\n"
+"            )\n"
+"        );\n"
+"\n"
+"        // spawn a goblin\n"
+"        set!(\n"
+"            ctx.world,\n"
+"            (\n"
+"                Health {\n"
+"                    entity_id: goblin_count, health: 100\n"
+"                    }, \n"
+"                Position {\n"
+"                    entity_id: goblin_count, x: position.x + 10, y: position."
+"y + 10,\n"
+"                    },\n"
+"            )\n"
+"        );\n"
+"\n"
+"        // increment the counter\n"
+"        set!(\n"
+"            ctx.world,\n"
+"            (\n"
+"                Counter {\n"
+"                    counter: COUNTER_ID, human_count: human_count, "
+"goblin_count: goblin_count\n"
+"                },\n"
+"            )\n"
+"        );\n"
+"        \n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
 
 #: src/cairo/components.md:218
 msgid ""
 "A complete example can be found in the [Dojo Starter](https://github.com/"
 "dojoengine/dojo-starter)"
 msgstr ""
+"完全な例は[Dojo Starter](https://github.com/dojoengine/dojo-starter)にある。"
 
 #: src/cairo/systems.md:3
 msgid "Systems = Logic"
-msgstr ""
+msgstr "Systems = Logic"
 
 #: src/cairo/systems.md:5
 msgid ""
@@ -2112,12 +2848,17 @@ msgid ""
 "system features an 'execute' function that's called upon during interactions "
 "within the world."
 msgstr ""
+"システムはあなたの世界のロジックを支える。システムは本質的にステートレスです"
+"が、その主な役割はコンポーネントのステートを変更することです。すべてのシステ"
+"ムは、ワールド内でのインタラクション中に呼び出される’execute’関数を備えていま"
+"す。"
 
 #: src/cairo/systems.md:7
 msgid ""
 "Let's look at the simplest possible system which mutates the state of the "
 "`Moves` component."
 msgstr ""
+"`Moves`コンポーネントの状態を変化させる最も単純なシステムを見てみよう。"
 
 #: src/cairo/systems.md:9
 msgid ""
@@ -2142,20 +2883,42 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod Spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use traits::Into;\n"
+"\n"
+"    use dojo::world::Context;\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        set !(\n"
+"            ctx.world, ctx.origin, (\n"
+"                Moves { player: ctx.origin, remaining: 10 }\n"
+"            )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
 
 #: src/cairo/systems.md:31
 msgid "The Execute function"
-msgstr ""
+msgstr "Execute 関数"
 
 #: src/cairo/systems.md:33
 msgid ""
 "The `execute` function is mandatory in a system and runs when called, taking "
 "`Context` as its first parameter. See more in [Context](./world.md)."
 msgstr ""
+"`execute`関数はシステムで必須であり、呼び出されると `Context` を最初のパラ"
+"メータとして実行される。詳しくは[Context](./world.md)を参照。"
 
 #: src/cairo/systems.md:35
 msgid "Other functions in a System"
-msgstr ""
+msgstr "システムのその他の機能"
 
 #: src/cairo/systems.md:37
 msgid ""
@@ -2163,10 +2926,12 @@ msgid ""
 "callable from the world. This is useful for breaking up your logic into "
 "smaller chunks."
 msgstr ""
+"他の関数を追加することは自由ですが、ワールドから呼び出すことはできません。こ"
+"れはロジックをより小さな塊に分割するのに便利です。"
 
 #: src/cairo/systems.md:39
 msgid "Using View Functions"
-msgstr ""
+msgstr "View関数の使用"
 
 #: src/cairo/systems.md:41
 msgid ""
@@ -2176,14 +2941,19 @@ msgid ""
 "querying the component state won't suffice. Instead, you'd need to compute "
 "the price based on certain parameters and the current state."
 msgstr ""
+"コンポーネントの静的な状態を取得するのではなく、動的にコンポーネントの値を計"
+"算する必要がある場合があります。例えば、VRGDAのコンテキストで、現在の価格を確"
+"認したい場合、単にコンポーネントの状態を問い合わせるだけでは十分ではありませ"
+"ん。その代わりに、特定のパラメータと現在の状態に基づいて価格を計算する必要が"
+"あります。"
 
 #: src/cairo/systems.md:43
 msgid "This is where view functions come into play."
-msgstr ""
+msgstr "そこで活躍するのがView関数です。"
 
 #: src/cairo/systems.md:45
 msgid "**What are View Functions?**"
-msgstr ""
+msgstr "**View関数とは何ですか？**"
 
 #: src/cairo/systems.md:47
 msgid ""
@@ -2192,10 +2962,13 @@ msgid ""
 "of the component as an argument. Subsequently, these functions return a "
 "computed value based on this state."
 msgstr ""
+"View関数は、コンポーネントの既存の状態から値を導出または計算する方法です。こ"
+"れらはワールドによって呼び出され、引数としてコンポーネントの現在の状態を受け"
+"取る。その後、これらの関数はこの状態に基づいて計算された値を返します。"
 
 #: src/cairo/systems.md:49
 msgid "**Example from VRGDA**:"
-msgstr ""
+msgstr "**VRGDAの例**："
 
 #: src/cairo/systems.md:51
 msgid ""
@@ -2203,6 +2976,8 @@ msgid ""
 "(https://github.com/dojoengine/dojo-examples), illustrates how to implement "
 "a view function:"
 msgstr ""
+"[このリンク](https://github.com/dojoengine/dojo-examples)にあるVRGDAの例か"
+"ら、ビュー関数の実装方法を示します:"
 
 #: src/cairo/systems.md:53
 msgid ""
@@ -2232,28 +3007,59 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod view_price {\n"
+"    //... other code ...\n"
+"\n"
+"    fn execute(ctx: Context, game_id: u64, item_id: u128, amount: u128) -> "
+"Fixed {\n"
+"        let mut auction = get!(ctx.world, (game_id, item_id), Auction);\n"
+"\n"
+"        // Convert auction to VRGDA\n"
+"        let VRGDA = auction.to_LogisticVRGDA();\n"
+"\n"
+"        // Calculate time since the auction began\n"
+"        let time_since_start: u128 = get_block_timestamp().into() - auction."
+"start_time.into();\n"
+"\n"
+"        // Compute the current price\n"
+"        VRGDA.get_vrgda_price(\n"
+"            FixedTrait::new(time_since_start, false), // Time elapsed since "
+"auction start\n"
+"            FixedTrait::new(auction.sold, false)      // Quantity sold\n"
+"        )\n"
+"    }\n"
+"}\n"
+"```"
 
 #: src/cairo/systems.md:76
 msgid ""
 "In this example, the function computes and returns the current price of the "
 "VRGDA based on the ongoing state of the auction."
 msgstr ""
+"この例では、オークションの進行状況に基づいて、VRGDAの現在価格を計算し、返しま"
+"す。"
 
 #: src/cairo/systems.md:78
 msgid "**How to Invoke View Functions?**"
-msgstr ""
+msgstr "**View関数を呼び出すには？**"
 
 #: src/cairo/systems.md:80
 msgid ""
 "**Using Dojo Core**: If you are working within the [Dojo Core](../client/npm/"
 "core.md), utilize the `call` function. "
 msgstr ""
+"**Dojo Core を使用します**:  Dojo Core](../client/npm/core.md) 内で作業してい"
+"る場合は、 `call` 関数を使用します。"
 
 #: src/cairo/systems.md:82
 msgid ""
 "**For Rust Users**: The [Starkli](https://book.starkli.rs/) library provides "
 "a handy method to invoke view functions in Rust."
 msgstr ""
+"**Rustユーザーの皆様へ**： Starkli](https://book.starkli.rs/)ライブラリは、"
+"Rustでビュー関数を呼び出す便利なメソッドを提供しています。"
 
 #: src/cairo/systems.md:84
 msgid ""
