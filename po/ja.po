@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-18 14:22+0800\n"
-"Last-Translator: \n"
-"Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2023-09-18 14:38+0800\n"
+"Last-Translator: LIB <libcreatesweb3@gmail.com>\n"
+"Language-Team: Language ja\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4476,8 +4476,8 @@ msgid ""
 "**Tip**: All flags have a single character shorthand equivalent! You can use "
 "`-v` instead of `--version`, etc."
 msgstr ""
-"**ヒント**： すべてのフラグには1文字の短縮形があります！バージョン`の代わりに"
-"`-v`を使うことができる。"
+"**ヒント**： すべてのフラグには1文字の短縮形があります！バージョンの代わりに "
+"`-v` を使うことができる。"
 
 #: src/toolchain/dojoup.md:78
 msgid "Precompiled binaries"
@@ -4890,7 +4890,7 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:55
 msgid "Deploying your World for the first time to a local Katana node"
-msgstr ""
+msgstr "ローカルKatanaノードに初めてWorldをデプロイする"
 
 #: src/toolchain/sozo/project-commands/migrate.md:57
 msgid ""
@@ -4901,7 +4901,7 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:61
 msgid "Updating a remote World after making some changes"
-msgstr ""
+msgstr "変更後のリモートワールドの更新"
 
 #: src/toolchain/sozo/project-commands/migrate.md:63
 msgid ""
@@ -4912,11 +4912,11 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/execute.md:1
 msgid "sozo execute"
-msgstr ""
+msgstr "sozo execute"
 
 #: src/toolchain/sozo/world-commands/execute.md:3
 msgid "`execute` is used to execute a World's system."
-msgstr ""
+msgstr "`execute`はワールドのシステムを実行するために使われる。"
 
 #: src/toolchain/sozo/world-commands/execute.md:5
 msgid ""
@@ -4924,6 +4924,8 @@ msgid ""
 "`execute` expects an account address as well as its respective private key "
 "in order to sign the transaction before sending it."
 msgstr ""
+"したがって、`execute`は、トランザクションを送信する前に、トランザクショ ンに"
+"署名するために、アカウントアドレスとそれぞれの秘密鍵を必要とする。"
 
 #: src/toolchain/sozo/world-commands/execute.md:9
 msgid ""
@@ -4943,7 +4945,7 @@ msgstr ""
 msgid ""
 "Executing the _position_ system which takes two values (_x_: 0x77 and _y_: "
 "0x44)"
-msgstr ""
+msgstr "2つの値（_x_: 0x77、_y_: 0x44）を取る_position_システムを実行する。"
 
 #: src/toolchain/sozo/world-commands/execute.md:58
 msgid ""
@@ -4999,6 +5001,8 @@ msgid ""
 "`system` is used to interact with a World's systems. It is useful for "
 "querying about a system's information."
 msgstr ""
+"`system`はワールドのシステムとやり取りするために使われる。システムの情報を問"
+"い合わせるのに便利である。"
 
 #: src/toolchain/sozo/world-commands/system.md:7
 msgid ""
@@ -5023,7 +5027,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:19
 msgid "Get the class hash of a system"
-msgstr ""
+msgstr "システムのクラス・ハッシュを取得する"
 
 #: src/toolchain/sozo/world-commands/system.md:21
 msgid ""
@@ -5053,7 +5057,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:32
 msgid "Retrieve the component dependencies of a system"
-msgstr ""
+msgstr "システムのコンポーネント依存関係を取得します"
 
 #: src/toolchain/sozo/world-commands/system.md:34
 msgid ""
@@ -5064,7 +5068,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:59
 msgid "Get the class hash of the _spawn_ system"
-msgstr ""
+msgstr "_spawn_システムのクラスハッシュを取得する。"
 
 #: src/toolchain/sozo/world-commands/system.md:61
 msgid ""
@@ -5075,7 +5079,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:65
 msgid "Get the component dependencies of the _spawn_ system"
-msgstr ""
+msgstr "_spawn_システムのコンポーネントの依存関係を取得します"
 
 #: src/toolchain/sozo/world-commands/system.md:67
 msgid ""
@@ -5093,6 +5097,8 @@ msgid ""
 "`component` is used to interact with a World's components. It is useful for "
 "querying about a component's information, or a component value of an entity."
 msgstr ""
+"`component`はワールドのコンポーネントと対話するために使用される。コンポーネン"
+"トの情報やエンティティのコンポーネントの値を問い合わせるのに便利である。"
 
 #: src/toolchain/sozo/world-commands/component.md:7
 msgid ""
@@ -5108,7 +5114,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:20
 msgid "Get the class hash of a component"
-msgstr ""
+msgstr "コンポーネントのクラスハッシュを取得します"
 
 #: src/toolchain/sozo/world-commands/component.md:22
 msgid ""
@@ -5124,6 +5130,8 @@ msgid ""
 "_`NAME`_  \n"
 "    The name of the component"
 msgstr ""
+"_`NAME`_  \n"
+"    コンポーネントの名前"
 
 #: src/toolchain/sozo/world-commands/component.md:31
 msgid "`schema`"
@@ -5131,7 +5139,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:33
 msgid "Retrieve the schema for a component"
-msgstr ""
+msgstr "コンポーネントのスキーマを取得する"
 
 #: src/toolchain/sozo/world-commands/component.md:35
 msgid ""
@@ -5146,7 +5154,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:46
 msgid "Get the component value for an entity"
-msgstr ""
+msgstr "エンティティのコンポーネント値を取得する"
 
 #: src/toolchain/sozo/world-commands/component.md:48
 msgid ""
@@ -5168,7 +5176,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/events.md:3
 msgid "`events` is used to queries world events."
-msgstr ""
+msgstr "`events`は世界の出来事を問い合わせるのに使われます。"
 
 #: src/toolchain/sozo/world-commands/events.md:5
 msgid ""
@@ -5183,7 +5191,7 @@ msgstr ""
 
 #: src/toolchain/sozo/world-commands/auth.md:3
 msgid "`auth` is used to manage world authorization."
-msgstr ""
+msgstr "`auth`は世界の認可を管理するために使われます。"
 
 #: src/toolchain/sozo/world-commands/auth.md:5
 msgid ""
@@ -5225,7 +5233,7 @@ msgstr ""
 
 #: src/toolchain/katana/overview.md:8
 msgid "Custom methods for manipulating the blockchain states"
-msgstr ""
+msgstr "ブロックチェーンの状態を操作するカスタム・メソッド"
 
 #: src/toolchain/katana/overview.md:12
 msgid ""
@@ -5235,7 +5243,7 @@ msgstr ""
 
 #: src/toolchain/katana/overview.md:14
 msgid "Installing from source"
-msgstr ""
+msgstr "ソースからのインストール"
 
 #: src/toolchain/katana/overview.md:16
 msgid ""
@@ -5296,6 +5304,8 @@ msgid ""
 "See the [`katana` Reference](./reference.md) for an in depth reference and "
 "documentation on Katana."
 msgstr ""
+"Katanaの詳細なリファレンスとドキュメントについては、[`katana` Reference](./"
+"reference.md)を参照してください。"
 
 #: src/toolchain/katana/reference.md:1
 msgid "katana reference"
