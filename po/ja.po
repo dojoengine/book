@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-18 13:45+0800\n"
+"PO-Revision-Date: 2023-09-18 13:56+0800\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -6021,18 +6021,20 @@ msgid ""
 "`-s, --start-block <START_BLOCK>`      Specify a block to start indexing "
 "from, ignored if stored head exists \\[default: 0\\]"
 msgstr ""
+"`-s, —start-block <START_BLOCK>`      インデックス作成を開始するブロックを指"
+"定します \\[default: 0\\]"
 
 #: src/toolchain/torii/reference.md:52
 msgid "`-h, --help`      Print help"
-msgstr ""
+msgstr "`-h, —help`      Printの表示"
 
 #: src/toolchain/torii/reference.md:55
 msgid "`-V, --version`      Print version"
-msgstr ""
+msgstr "V, —version` Printバージョン"
 
 #: src/deployment/locally.md:1
 msgid "Deploying Locally"
-msgstr ""
+msgstr "ローカルでのデプロイ"
 
 #: src/deployment/locally.md:3
 msgid ""
@@ -6042,60 +6044,71 @@ msgid ""
 "rigorously test your smart contracts before transitioning them to the a "
 "remote testnet."
 msgstr ""
+"Dojoは迅速な開発のために設計されており、[Katana](./toolchain/katana/overview."
+"md)という光速のローカル開発環境を誇ります。Katanaはデバイス上のStarknetブロッ"
+"クチェーンとして機能し、リモートテストネットに移行する前にスマートコントラク"
+"トを厳密にテストすることができます。"
 
 #: src/deployment/locally.md:5
 msgid "Katana Deployments"
-msgstr ""
+msgstr "Katanaのデプロイ"
 
 #: src/deployment/locally.md:7
 msgid "Deploying to Katana could not be easier."
-msgstr ""
+msgstr "Katanaへのデプロイはこれ以上ないほど簡単です。"
 
 #: src/deployment/locally.md:9
 msgid ""
 "This assumes you have followed the [Quick Start](./getting-started/quick-"
 "start.md) guide and have a project initialized."
 msgstr ""
+"これは、[クイック・スタート](./getting-started/quick-start.md)ガイドに従い、"
+"プロジェクトを初期化していることを前提としています。"
 
 #: src/deployment/locally.md:11
 msgid "From your project directory, run:"
-msgstr ""
+msgstr "プロジェクト・ディレクトリから実行します:"
 
 #: src/deployment/locally.md:17
 msgid "This has started a local Katana which you can now deploy on!"
-msgstr ""
+msgstr "これでローカルのKatanaが開始され、デプロイできるようになりました!"
 
 #: src/deployment/locally.md:19
 msgid "Deploying to Katana"
-msgstr ""
+msgstr "Katanaへのデプロイ"
 
 #: src/deployment/locally.md:21
 msgid "To deploy your project to Katana, run:"
-msgstr ""
+msgstr "プロジェクトをKatanaにデプロイするには、以下を実行します:"
 
 #: src/deployment/locally.md:27
 msgid ""
 "Note - this will only work if you have compiled your contracts. If you have "
 "not, run:"
 msgstr ""
+"注意 - これは、コントラクトをコンパイルしている場合にのみ機能します。コンパイ"
+"ルしていない場合は:"
 
 #: src/deployment/remote.md:1
 msgid "Deployment to Remote Network"
-msgstr ""
+msgstr "リモートネットワークへのデプロイ"
 
 #: src/deployment/remote.md:3
 msgid "_IMPORTANT: Dojo is unaudited. Use at your own risk._"
 msgstr ""
+"_重要：Dojoはソースコードがまだ未監査です。自己責任で使用してください._"
 
 #: src/deployment/remote.md:5
 msgid ""
 "Dojo makes it easy to deploy to remote networks, you just need to have a "
 "valid account and network endpoint."
 msgstr ""
+"Dojoでは、有効なアカウントとネットワークエンドポイントがあれば、リモートネッ"
+"トワークに簡単に配備できます。"
 
 #: src/deployment/remote.md:7
 msgid "Scarb.toml"
-msgstr ""
+msgstr "Scarb.toml"
 
 #: src/deployment/remote.md:9
 msgid ""
@@ -6127,6 +6140,33 @@ msgid ""
 "\"0x5b328933afdbbfd44901fd69a2764a254edbb6e992ae87cf958c70493f2d201\"\n"
 "```"
 msgstr ""
+"```toml\n"
+"[package]\n"
+"name = \"ohayoo\"\n"
+"version = \"0.1.0\"\n"
+"cairo-version = \"2.1.1\"\n"
+"\n"
+"[cairo]\n"
+"sierra-replace-ids = true\n"
+"\n"
+"[dependencies]\n"
+"dojo = { git = \"https://github.com/dojoengine/dojo.git\" }\n"
+"\n"
+"# # Katana\n"
+"# rpc_url = \"http://localhost:5050\"\n"
+"# account_address = "
+"“0x03ee9e18edc71a6df30ac3aca2e0b02a198fbce19b7480a63a0d71cbd76652e0”\n"
+"# private_key = "
+"“0x0300001800000000300000180000000000030000000000003006001800006600”\n"
+"\n"
+"#Madara\n"
+"rpc_url = “https://api.cartridge.gg/x/shinai/madara”\n"
+"account_address = “0x2”\n"
+"private_key = "
+"“0xc1cf1490de1352865301bb8705143f3ef938f97fdf892f1090dcb5ac7bcd1d”\n"
+"#world_address = "
+"“0x5b328933afdbbfd44901fd69a2764a254edbb6e992ae87cf958c70493f2d201”\n"
+"```"
 
 #: src/deployment/remote.md:33
 msgid "Remote Katana"
@@ -6137,10 +6177,12 @@ msgid ""
 "Katanas are able to be hosted and run as remote testnets, however this is "
 "not recommended for production use."
 msgstr ""
+"Katanaはリモート・テストネットとしてホスティングして実行することができます"
+"が、本番環境での使用はお勧めできません。"
 
 #: src/deployment/remote.md:37
 msgid "**todo**: add instructions for deploying to remote katana"
-msgstr ""
+msgstr "**todo**: リモートのKatanaにデプロイする手順を追加"
 
 #: src/deployment/remote.md:40
 msgid "Madara"
@@ -6153,18 +6195,22 @@ msgid ""
 "to Rust 🦀, Madara delivers unmatched performance and scalability to power "
 "your Starknet-based Validity Rollup chain."
 msgstr ""
+"[Madara](https://github.com/keep-starknet-strange/madara)は、非常に高速な"
+"Starknetシーケンサーです。堅牢なSubstrateフレームワーク上に構築され、Rust 🦀"
+"のおかげで高速に動作するMadaraは、StarknetベースのValidity Rollupチェーンに比"
+"類ないパフォーマンスとスケーラビリティを提供します。"
 
 #: src/deployment/remote.md:44
 msgid "A public Madara testnet is available for deployment:"
-msgstr ""
+msgstr "マダラのテストネットが公開されている:"
 
 #: src/deployment/remote.md:46
 msgid "**Testnet RPC:** https://api.cartridge.gg/x/shinai/madara"
-msgstr ""
+msgstr "**テストネットRPC:** https://api.cartridge.gg/x/shinai/madara"
 
 #: src/deployment/remote.md:48
 msgid "You can use the following account to deploy:"
-msgstr ""
+msgstr "デプロイには以下のアカウントを使用できます:"
 
 #: src/deployment/remote.md:50
 msgid ""
@@ -6177,6 +6223,14 @@ msgid ""
 "\"0xc1cf1490de1352865301bb8705143f3ef938f97fdf892f1090dcb5ac7bcd1d\"\n"
 "```"
 msgstr ""
+"```toml\n"
+"# …rest of Scarb.toml\n"
+"\n"
+"rpc_url = “https://api.cartridge.gg/x/shinai/madara”\n"
+"account_address = “0x2”\n"
+"private_key = "
+"“0xc1cf1490de1352865301bb8705143f3ef938f97fdf892f1090dcb5ac7bcd1d”\n"
+"```"
 
 #: src/deployment/remote.md:59
 msgid "Starknet"
@@ -6184,15 +6238,15 @@ msgstr ""
 
 #: src/deployment/remote.md:61
 msgid "**todo**: add instructions for deploying to remote Starknet"
-msgstr ""
+msgstr "**todo**: リモートのStarknetへのデプロイ方法を追加"
 
 #: src/tutorial/onchain-chess/index.md:1
 msgid "Building a Chess Game"
-msgstr ""
+msgstr "チェスゲームを作る"
 
 #: src/tutorial/onchain-chess/index.md:3
 msgid "_\"I just finished reading The Dojo Book. What should I do next?\"_"
-msgstr ""
+msgstr "_”Dojo bookを読み終わりました。次は何をすればいいですか？_"
 
 #: src/tutorial/onchain-chess/index.md:5
 msgid ""
@@ -6200,6 +6254,9 @@ msgid ""
 "followed by a list of cool projects. This is a great answer for some people, "
 "but others might be looking for a little more direction."
 msgstr ""
+"この質問に対する答えはいつも「何かを作ろう！」であり、その後にクールなプロ"
+"ジェクトのリストが続くこともある。これはある人にとっては素晴らしい答えだが、"
+"もう少し方向性を知りたい人もいるだろう。"
 
 #: src/tutorial/onchain-chess/index.md:7
 msgid ""
@@ -6207,16 +6264,21 @@ msgid ""
 "tutorials and working on your projects. The primary goal here is to get you "
 "to write code. The secondary goal is to get you reading documentation."
 msgstr ""
+"このガイドは、初心者向けチュートリアルとプロジェクト作業の間のギャップを埋め"
+"ることを目的としています。ここでの第一の目標は、コードを書かせることです。第"
+"二の目標は、ドキュメントを読んでもらうことです。"
 
 #: src/tutorial/onchain-chess/index.md:9
 msgid ""
 "If you haven't read the Dojo Book yet, it is highly encouraged for you to do "
 "so before starting this project."
 msgstr ""
+"もしまだDojo bookを読んでいないのであれば、このプロジェクトを始める前に読んで"
+"おくことを強くお勧めします。"
 
 #: src/tutorial/onchain-chess/index.md:11
 msgid "What are we building?"
-msgstr ""
+msgstr "何を作るのか？"
 
 #: src/tutorial/onchain-chess/index.md:13
 msgid ""
@@ -6224,28 +6286,34 @@ msgid ""
 "game and play chess. This guide does not cover every rules of the chess "
 "game. You will build step by step as follows:"
 msgstr ""
+"私たちは、新しいゲームを始めてチェスをすることができるオンチェーンチェスゲー"
+"ム契約を構築しています。このガイドは、チェスゲームのすべてのルールをカバーし"
+"ているわけではありません。以下のようにステップ・バイ・ステップで構築していき"
+"ます："
 
 #: src/tutorial/onchain-chess/index.md:15
 msgid "A system to spawn all the chess pieces"
-msgstr ""
+msgstr "すべてのチェスの駒を生み出すシステム"
 
 #: src/tutorial/onchain-chess/index.md:16
 msgid "A system to make pieces move"
-msgstr ""
+msgstr "駒を動かすシステム"
 
 #: src/tutorial/onchain-chess/index.md:17
 msgid "Add some functions to check a legal move"
-msgstr ""
+msgstr "合法的な手をチェックする関数を追加"
 
 #: src/tutorial/onchain-chess/index.md:18
 msgid "Play chess ♟♙ - integration test!"
-msgstr ""
+msgstr "チェスをする♟♙ - 統合テスト！"
 
 #: src/tutorial/onchain-chess/index.md:20
 msgid ""
 "The full code of tutorial is based on [this repo](https://github.com/"
 "rkdud007/chess-dojo/tree/tutorialv2)."
 msgstr ""
+"チュートリアルの全コードは[this repo](https://github.com/rkdud007/chess-dojo/"
+"tree/tutorialv2)に基づいています。"
 
 #: src/tutorial/onchain-chess/index.md:22
 msgid ""
@@ -6253,31 +6321,38 @@ msgid ""
 "know some basics about Cairo and Dojo, you're good. We won't make a full "
 "chess game with all the rules. We're keeping it simple."
 msgstr ""
+"もしこれが難しすぎると感じても、心配しないでください！このガイドは初心者向け"
+"です。CairoとDojoについての基本的な知識があれば大丈夫です。すべてのルールの"
+"チェスゲームは作りません。シンプルにします。"
 
 #: src/tutorial/onchain-chess/index.md:24
 msgid "What after this guide?"
-msgstr ""
+msgstr "このガイドの後は？"
 
 #: src/tutorial/onchain-chess/index.md:26
 msgid ""
 "We're making another guide to help design the frontend. This will make our "
 "chess game complete."
 msgstr ""
+"フロントエンドのデザインに役立つ別のガイドを作っている。これで私たちのチェス"
+"は完成する。"
 
 #: src/tutorial/onchain-chess/index.md:28
 msgid ""
 "After you finish all the five chapters, we can move on to the frontend guide."
-msgstr ""
+msgstr "5つの章をすべて終えたら、フロントエンドのガイドに移ることができる。"
 
 #: src/tutorial/onchain-chess/0-setup.md:3
 msgid ""
 "_Before starting recommend following the [`hello-dojo`](../../cairo/hello-"
 "dojo.md) chapter to gain a basic understanding of the Dojo game._"
 msgstr ""
+"_始める前に、[`hello-dojo`](../../cairo/hello-dojo.md)の章を読んで、Dojoゲー"
+"ムの基本を理解することをお勧めします。_"
 
 #: src/tutorial/onchain-chess/0-setup.md:5
 msgid "Initializing the Project"
-msgstr ""
+msgstr "プロジェクトの初期化"
 
 #: src/tutorial/onchain-chess/0-setup.md:7
 msgid ""
