@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-18 13:21+0800\n"
+"PO-Revision-Date: 2023-09-18 13:45+0800\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -1996,7 +1996,7 @@ msgstr "Katanaにプロジェクトを展開"
 
 #: src/cairo/hello-dojo.md:235
 msgid "Ran the spawn system locally"
-msgstr "spawn systemをローカルで実行"
+msgstr "Spawn systemをローカルで実行"
 
 #: src/cairo/hello-dojo.md:236
 msgid "Indexed the world with Torii"
@@ -2311,7 +2311,7 @@ msgid ""
 "encapsulating state for systems to mutate. "
 msgstr ""
 "コンポーネントは、世界の構造を定義する基盤として機能し、システムが変異するた"
-"めの状態をカプセル化します"
+"めの状態をカプセル化します "
 
 #: src/cairo/components.md:7
 msgid ""
@@ -2371,7 +2371,7 @@ msgstr ""
 "`#[key]` 属性は、このコンポーネントが `player` フィールドによってインデックス"
 "化されていることを Dojo に示します。各コンポーネントに対してキーを定義する必"
 "要があります。しかし、複数のフィールドをキーとして定義することで、複合キーを"
-"作成することができます。"
+"作成することができます。 "
 
 #: src/cairo/components.md:27
 msgid ""
@@ -3051,7 +3051,7 @@ msgid ""
 "core.md), utilize the `call` function. "
 msgstr ""
 "**Dojo Core を使用します**:  Dojo Core](../client/npm/core.md) 内で作業してい"
-"る場合は、 `call` 関数を使用します。"
+"る場合は、 `call` 関数を使用します。 "
 
 #: src/cairo/systems.md:82
 msgid ""
@@ -3099,7 +3099,7 @@ msgid ""
 "component. "
 msgstr ""
 "ここでは `Spawn` システムに `Moves` コンポーネントへの書き込みを許可してい"
-"る。"
+"る。 "
 
 #: src/cairo/systems.md:96
 msgid "Read more in the [sozo](../toolchain/sozo/overview.md) docs."
@@ -3134,7 +3134,7 @@ msgid ""
 msgstr ""
 "このエンティティのコンポーネントを定義する際、エンティティを直接参照しないこ"
 "とに注意することが重要である。その代わりに、エンティティが含む2つの構造体を提"
-"供するだけです。"
+"供するだけです。 "
 
 #: src/cairo/entities.md:9
 msgid ""
@@ -3457,7 +3457,7 @@ msgstr ""
 
 #: src/cairo/commands.md:52
 msgid "The `emit!` command"
-msgstr " `emit!`コマンド"
+msgstr "`emit!`コマンド"
 
 #: src/cairo/commands.md:54
 msgid "The `emit!` command is used to emit custom events."
@@ -3698,7 +3698,7 @@ msgstr ""
 
 #: src/cairo/events.md:92
 msgid "Now a full example using a custom event: "
-msgstr "カスタム・イベントを使用した完全な例です:"
+msgstr "カスタム・イベントを使用した完全な例です: "
 
 #: src/cairo/events.md:94
 msgid ""
@@ -5704,7 +5704,7 @@ msgid ""
 "     Disable charging fee for transactions."
 msgstr ""
 "`—disable-fee`  \n"
-"     取引に手数料を課さない"
+"     取引に手数料を課さない."
 
 #: src/toolchain/katana/reference.md:150
 msgid "Environment Options"
@@ -5793,7 +5793,7 @@ msgstr ""
 
 #: src/toolchain/katana/reference.md:188
 msgid "Create 15 dev accounts and disable transaction fee mechanism"
-msgstr "15個の開発者アカウントを作成し、取引手数料の仕組みを無効にする。"
+msgstr "15個の開発者アカウントを作成し、取引手数料の仕組みを無効にします"
 
 #: src/toolchain/katana/reference.md:190
 msgid ""
@@ -5807,7 +5807,7 @@ msgstr ""
 
 #: src/toolchain/katana/reference.md:194
 msgid "Set the chain id to `SN_GOERLI` and run the server on port 8545"
-msgstr "チェーンIDを`SN_GOERLI`に設定し、ポート8545でサーバーを実行する。"
+msgstr "チェーンIDを`SN_GOERLI`に設定し、ポート8545でサーバーを実行します"
 
 #: src/toolchain/katana/reference.md:196
 msgid ""
@@ -5822,7 +5822,7 @@ msgid ""
 "shutdown"
 msgstr ""
 "シャットダウン時に、以前に保存した状態をロードし、このセッションの状態をファ"
-"イルにダンプする。"
+"イルにダンプ"
 
 #: src/toolchain/katana/reference.md:202
 msgid ""
@@ -5960,12 +5960,17 @@ msgid ""
 "running. This is a fast and simple option to start the indexer for "
 "development/testing."
 msgstr ""
+"インメモリデータベースは熱的であり、インデクサが実行されている間だけ持続す"
+"る。これは、開発/テスト用にインデクサを起動するための、高速でシンプルなオプ"
+"ションです。"
 
 #: src/toolchain/torii/reference.md:24
 msgid ""
 "Presistent storage should be used in production. It relies on the local "
 "filesystem for storage."
 msgstr ""
+"本番環境では、Presistent Storageを使用すべきである。ストレージはローカルの"
+"ファイルシステムに依存します。"
 
 #: src/toolchain/torii/reference.md:26
 msgid ""
@@ -5974,6 +5979,10 @@ msgid ""
 "to start `katana` with the `--block-time` option or use a persistent "
 "database."
 msgstr ""
+"注: メモリ内データベースを使用している場合、一定期間使用されないとメモリがガ"
+"ベージコレクションされ、クエリがエラーになる。回避策としては、`—block-time` "
+"オプションを指定して `katana` を起動するか、永続データベースを使用することで"
+"ある。"
 
 #: src/toolchain/torii/reference.md:28
 msgid ""
@@ -5985,23 +5994,27 @@ msgstr ""
 
 #: src/toolchain/torii/reference.md:37
 msgid "`-w, --world`      Address of the world contract to index"
-msgstr ""
+msgstr "`-w, —world`      インデックスを作成するWorldコントラクトのアドレス"
 
 #: src/toolchain/torii/reference.md:40
 msgid ""
 "`--rpc`      Starknet RPC endpoing to use \\[default: http//localhost:5050\\]"
 msgstr ""
+"`—rpc`      Starknet RPC endpoing to use \\[default: http//localhost:5050\\]"
 
 #: src/toolchain/torii/reference.md:43
 msgid ""
 "`-m, --manifest <MANIFEST>`      Specify a local manifest to initialize from"
 msgstr ""
+"`-m, —manifest <MANIFEST>`      初期化するローカル・マニフェストを指定します"
 
 #: src/toolchain/torii/reference.md:46
 msgid ""
 "`-d, --database-url <DATABASE_URL>`      Database URL (read more above) "
 "\\[default: sqlite::memory:\\]"
 msgstr ""
+"`-d, —database-url <DATABASE_URL>`      データベースのURL（詳しくは上記を参"
+"照） \\[default: sqlite::memory:\\]"
 
 #: src/toolchain/torii/reference.md:49
 msgid ""
