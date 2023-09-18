@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-09-18 12:38+0800\n"
+"PO-Revision-Date: 2023-09-18 12:51+0800\n"
 "Last-Translator: \n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -3066,10 +3066,12 @@ msgid ""
 "I hope this revised version enhances the clarity and flow of the information "
 "you want to convey!"
 msgstr ""
+"この改訂版によって、伝えたい情報がより明確になり、流れが良くなることを願って"
+"いる！"
 
 #: src/cairo/systems.md:86
 msgid "System Authentication"
-msgstr ""
+msgstr "システム認証"
 
 #: src/cairo/systems.md:88
 msgid ""
@@ -3077,6 +3079,9 @@ msgid ""
 "have no permissions. With `sozo` we can however give them permissions to "
 "write to components."
 msgstr ""
+"システムには、コンポーネントへの書き込み権限が与えられていなければならない。"
+"デフォルトでは何の権限もない。しかし、`sozo`を使うことで、コンポーネントに書"
+"き込む権限を与えることができる。"
 
 #: src/cairo/systems.md:90
 msgid ""
@@ -3084,22 +3089,30 @@ msgid ""
 "sozo auth writer Moves Spawn \n"
 "```"
 msgstr ""
+"```console\n"
+"sozo auth writer Moves Spawn \n"
+"```"
 
 #: src/cairo/systems.md:94
 msgid ""
 "Here we have authorised the `Spawn` system to write to the `Moves` "
 "component. "
 msgstr ""
+"ここでは `Spawn` システムに `Moves` コンポーネントへの書き込みを許可してい"
+"る。"
 
 #: src/cairo/systems.md:96
 msgid "Read more in the [sozo](../toolchain/sozo/overview.md) docs."
 msgstr ""
+"詳しくは[sozo](../toolchain/sozo/overview.md)のドキュメントをご覧ください。"
 
 #: src/cairo/entities.md:3
 msgid ""
 "Entities are the primary key value within the world, to which components can "
 "be attached."
 msgstr ""
+"エンティティは、ワールド内の主要なキーとなる値で、これにコンポーネントをア"
+"タッチすることができる。"
 
 #: src/cairo/entities.md:5
 msgid ""
@@ -3108,6 +3121,10 @@ msgid ""
 "attached. To illustrate this concept, consider a simple example of a "
 "character in a game that has a `Moves` and a `Position` component."
 msgstr ""
+"ECS システムによって、エンティティの扱い方はさまざまです。Dojoでは、エンティ"
+"ティはワールド内のプライマリキー値として扱われ、そこにコンポーネントをアタッ"
+"チすることができます。この概念を説明するために、単純な例として `Moves` と "
+"`Position` コンポーネントを持つゲームのキャラクターを考えてみましょう。"
 
 #: src/cairo/entities.md:7
 msgid ""
@@ -3115,6 +3132,9 @@ msgid ""
 "we do not reference the entity directly. Instead, we simply provide two "
 "structs that the entity will contain. "
 msgstr ""
+"このエンティティのコンポーネントを定義する際、エンティティを直接参照しないこ"
+"とに注意することが重要である。その代わりに、エンティティが含む2つの構造体を提"
+"供するだけです。"
 
 #: src/cairo/entities.md:9
 msgid ""
@@ -3135,6 +3155,22 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Moves {\n"
+"    #[key]\n"
+"    player: ContractAddress,\n"
+"    remaining: u8,\n"
+"}\n"
+"\n"
+"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
+"struct Health {\n"
+"    #[key]\n"
+"    player: ContractAddress,\n"
+"    x: u32,\n"
+"    y: u32\n"
+"}\n"
+"```"
 
 #: src/cairo/entities.md:26
 msgid ""
@@ -3142,12 +3178,15 @@ msgid ""
 "we have not explicitly defined an Entity anywhere. Instead, we use the `ctx."
 "origin` to reference the current entity."
 msgstr ""
+"では、このキャラクター用に `Spawn` を作成しよう。注意すべき点は、Entityを明示"
+"的に定義していないことだ。その代わりに、`ctx.origin` を使って現在のエンティ"
+"ティを参照している。"
 
 #: src/cairo/entities.md:28
 msgid ""
 "In this example we are using the `ctx.origin` to reference the current "
 "entity."
-msgstr ""
+msgstr "この例では、`ctx.origin`を使って現在のエンティティを参照している。"
 
 #: src/cairo/entities.md:30
 msgid ""
@@ -3180,18 +3219,50 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[system]\n"
+"mod spawn {\n"
+"    use array::ArrayTrait;\n"
+"    use box::BoxTrait;\n"
+"    use traits::Into;\n"
+"    use dojo::world::Context;\n"
+"\n"
+"    use dojo_examples::components::Position;\n"
+"    use dojo_examples::components::Moves;\n"
+"\n"
+"    fn execute(ctx: Context) {\n"
+"        let position = get!(ctx.world, ctx.origin, (Position));\n"
+"        set!(\n"
+"            ctx.world,\n"
+"            (\n"
+"                Moves {\n"
+"                    player: ctx.origin, remaining: 10\n"
+"                    }, Position {\n"
+"                    player: ctx.origin, x: position.x + 10, y: position.y + "
+"10\n"
+"                },\n"
+"            )\n"
+"        );\n"
+"        return ();\n"
+"    }\n"
+"}\n"
+"```"
 
 #: src/cairo/entities.md:58
 msgid ""
 "ECS Theory: Plenty has been written on ECS systems, to go deeper read [ECS-"
 "FAQ](https://github.com/SanderMertens/ecs-faq)"
 msgstr ""
+"ECS理論： ECSシステムについては多くのことが書かれているが、より深く知りたいな"
+"ら[ECS-FAQ](https://github.com/SanderMertens/ecs-faq)を読んでほしい。"
 
 #: src/cairo/authorization.md:3
 msgid ""
 "Authorization is crucial to a world, just like how authorization is crucial "
 "to any smart contract."
 msgstr ""
+"認可がスマート・コントラクトにとって重要であるように、認可は世界にとって重要"
+"である。"
 
 #: src/cairo/authorization.md:5
 msgid ""
@@ -3203,10 +3274,16 @@ msgid ""
 "state within a System requires the appropriate authorization from the "
 "component owner."
 msgstr ""
+"[World](./world.md)の章で説明したように、自律ワールド（AW）はパブリック・ブ"
+"ロックチェーン内に入れ子状に存在する主権チェーンとして機能する。これらのワー"
+"ルドは一般にも公開されている。この構造により、誰でもコンポーネントやシステム"
+"をデプロイしてワールドを拡張することができる。しかし、このオープン性にはセ"
+"キュリティ上の配慮も必要だ。イーサリアムと同様に、システム内のコンポーネント"
+"の状態と相互作用するには、コンポーネントの所有者からの適切な承認が必要です。"
 
 #: src/cairo/authorization.md:7
 msgid "Auth Architecture"
-msgstr ""
+msgstr "認証アーキテクチャ"
 
 #: src/cairo/authorization.md:9
 msgid ""
@@ -3215,14 +3292,18 @@ msgid ""
 "`System` possesses the necessary authorization, the `set!` is executed. The "
 "following diagram illustrates the authorization architecture."
 msgstr ""
+"ある `System` で `set!` が呼ばれるたびに、ワールドは `System` がコンポーネン"
+"トの状態を更新する権限を持っているかどうかをチェックする。System` が必要な認"
+"可を持っている場合にのみ、`set!` が実行される。以下の図は認可アーキテクチャを"
+"表している。"
 
 #: src/cairo/authorization.md:11
 msgid "![Authorization Architecture](../images/dojo-auth.png)"
-msgstr ""
+msgstr "![認証アーキテクチャ](../images/dojo-auth.png)"
 
 #: src/cairo/authorization.md:13
 msgid "Providing Authorization"
-msgstr ""
+msgstr "認可の提供"
 
 #: src/cairo/authorization.md:15
 msgid ""
@@ -3230,10 +3311,14 @@ msgid ""
 "able to grant the `owner` and `writer` roles. Only owners can grant a System "
 "the `writer` role which allows it to update the Component."
 msgstr ""
+"コンポーネントのデプロイ元が最初の所有者となります。コンポーネントのオーナー"
+"は `owner` ロールと `writer` ロールを与えることができます。所有者のみがシステ"
+"ムに `writer` ロールを付与することができ、そのロールはコンポーネントを更新す"
+"ることができます。"
 
 #: src/cairo/authorization.md:17
 msgid "`sozo` offers a convenient tool to authorize systems."
-msgstr ""
+msgstr "`sozo`はシステムを認証する便利なツールを提供している。"
 
 #: src/cairo/authorization.md:19
 msgid ""
@@ -3241,18 +3326,25 @@ msgid ""
 "sozo auth writer Moves spawn\n"
 "```"
 msgstr ""
+"```shell\n"
+"sozo auth writer Moves spawn\n"
+"```"
 
 #: src/cairo/authorization.md:23
 msgid ""
 "This command will generate a `writer` authorization for the `spawn` system "
 "to update the `Moves` component."
 msgstr ""
+"このコマンドは `Moves` コンポーネントを更新するために `spawn` システムの "
+"`writer` 認証を生成する。"
 
 #: src/cairo/commands.md:3
 msgid ""
 "Understanding commands is key to understanding Dojo. You will leverage them "
 "heavily within the systems you design."
 msgstr ""
+"コマンドを理解することは、Dojo を理解する上で重要です。あなたが設計するシステ"
+"ムでは、コマンドを大いに活用することになるでしょう。"
 
 #: src/cairo/commands.md:5
 msgid ""
@@ -3263,16 +3355,23 @@ msgid ""
 "these commands, developers can streamline their system implementations and "
 "improve code readability."
 msgstr ""
+"Dojo のコマンドは、システムの実行を容易にするためにコンパイル時に拡張される一"
+"般化された関数です。コンポーネントの取得や更新、一意な ID の生成などの一般的"
+"な操作を抽象化することで、システムが世界の状態と対話するための便利な方法を提"
+"供します。これらのコマンドを活用することで、開発者はシステム実装を効率化し、"
+"コードの可読性を向上させることができる。"
 
 #: src/cairo/commands.md:8
 msgid "Using commands"
-msgstr ""
+msgstr "コマンドの使用"
 
 #: src/cairo/commands.md:10
 msgid ""
 "Commands are used within systems to interact with the world state. They are "
 "called using the following syntax:"
 msgstr ""
+"コマンドは、ワールド・ステートと対話するためにシステム内で使用される。コマン"
+"ドは以下の構文で呼び出される："
 
 #: src/cairo/commands.md:12 src/cairo/commands.md:22
 msgid ""
@@ -3280,14 +3379,18 @@ msgid ""
 "let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));\n"
+"```"
 
 #: src/cairo/commands.md:16
 msgid "The `get!` command"
-msgstr ""
+msgstr "`get!`コマンド"
 
 #: src/cairo/commands.md:18
 msgid "The `get!` command is used to retrieve components from the world state."
 msgstr ""
+"`get!`コマンドはワールドステートからコンポーネントを取得するために使われる。"
 
 #: src/cairo/commands.md:26
 msgid ""
@@ -3295,20 +3398,24 @@ msgid ""
 "state. We are also using the `ctx.origin` to retrieve the components for the "
 "current entity."
 msgstr ""
+"ここでは、ワールドの状態から `Position` と `Moves` コンポーネントを取得してい"
+"る。また、現在のエンティティのコンポーネントを取得するために `ctx.origin` を"
+"使用している。"
 
 #: src/cairo/commands.md:28
 msgid ""
 "You can then use `position` and `moves` as you would as any other Cairo "
 "struct."
 msgstr ""
+"あとは他のカイロ構造体と同じように `position` や `moves` を使えば良いです。"
 
 #: src/cairo/commands.md:30
 msgid "The `set!` command"
-msgstr ""
+msgstr "`set!`コマンド"
 
 #: src/cairo/commands.md:32
 msgid "The `set!` command is used to update components state."
-msgstr ""
+msgstr "`set!`コマンドはコンポーネントの状態を更新するために使われます。"
 
 #: src/cairo/commands.md:36
 msgid ""
@@ -3326,20 +3433,35 @@ msgid ""
 "set!(ctx.world, (moves, position));\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"set !(ctx.world, (\n"
+"    Moves {\n"
+"        player: ctx.origin, remaining: 10\n"
+"    }, \n"
+"    Position {\n"
+"        player: ctx.origin, x: position.x + 10, y: position.y + 10\n"
+"    },\n"
+"));\n"
+"\n"
+"// If the structs are already defined it can also be written as:\n"
+"set!(ctx.world, (moves, position));\n"
+"```"
 
 #: src/cairo/commands.md:50
 msgid ""
 "Here we are updating the `Moves` and `Position` components in the world "
 "state using the `ctx.origin` as the entity id."
 msgstr ""
+"ここでは、`ctx.origin`をエンティティIDとして、ワールドステートの`Moves`コン"
+"ポーネントと`Position`コンポーネントを更新している。"
 
 #: src/cairo/commands.md:52
 msgid "The `emit!` command"
-msgstr ""
+msgstr " `emit!`コマンド"
 
 #: src/cairo/commands.md:54
 msgid "The `emit!` command is used to emit custom events."
-msgstr ""
+msgstr "`emit!`コマンドはカスタムイベントを発するために使われる。"
 
 #: src/cairo/commands.md:58 src/cairo/events.md:78
 msgid ""
@@ -3347,6 +3469,9 @@ msgid ""
 "emit !(ctx.world, Moved { address: ctx.origin, direction });\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"emit !(ctx.world, Moved { address: ctx.origin, direction });\n"
+"```"
 
 #: src/cairo/events.md:3
 msgid ""
@@ -3357,14 +3482,20 @@ msgid ""
 "overview.md), all these events are seamlessly indexed, ensuring easy and "
 "efficient querying."
 msgstr ""
+"イベントは、Dojo の世界のダイナミクスを理解する上で重要な役割を果たします。コ"
+"ンポーネントが更新されるたびに、 `World` コントラクトはイベントを発行します。"
+"さらにエキサイティングなのは、特定のニーズに合わせて独自のカスタムイベントを"
+"作成できることです！さらに、[Torii](../toolchain/torii/overview.md) のおかげ"
+"で、これらのイベントはすべてシームレスにインデックス化され、簡単で効率的なク"
+"エリを保証します。"
 
 #: src/cairo/events.md:6
 msgid "Component Events"
-msgstr ""
+msgstr "Component Events"
 
 #: src/cairo/events.md:8
 msgid "Consider this example of a `Moves` component:"
-msgstr ""
+msgstr "`Moves`コンポーネントの例を考えてみましょう:"
 
 #: src/cairo/events.md:10
 msgid ""
@@ -3377,12 +3508,22 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[component]\n"
+"struct Moves {\n"
+"    #[key]\n"
+"    player: Address,\n"
+"    remaining: u32,\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:19
 msgid ""
 "When this component is updated, the `World` contract will emit an event with "
 "the following structure:"
 msgstr ""
+"このコンポーネントが更新されると、`World`コントラクトは以下の構造を持つイベン"
+"トを発行する:"
 
 #: src/cairo/events.md:21
 msgid ""
@@ -3396,6 +3537,15 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Drop, starknet::Event)]\n"
+"struct StoreSetRecord {\n"
+"    table: felt252, // Moves\n"
+"    keys: Span<felt252>, // [player]\n"
+"    offset: u8, // 0\n"
+"    value: Span<felt252>, // [remaining]\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:31
 msgid ""
@@ -3403,12 +3553,16 @@ msgid ""
 "indexed for querying. This will allow you to then reconstruct the state of "
 "your world."
 msgstr ""
+"これは[Torii](../toolchain/torii/overview.md)によってキャプチャされ、クエリ用"
+"にインデックス化される。これにより、世界の状態を再構築することができる。"
 
 #: src/cairo/events.md:33
 msgid ""
 "Similarly, when a component is deleted, the `World` contract will emit an "
 "event with the following structure:"
 msgstr ""
+"同様に、コンポーネントが削除されると、`World`コントラクトは以下のような構造の"
+"イベントを発行します:"
 
 #: src/cairo/events.md:35
 msgid ""
@@ -3420,10 +3574,17 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Drop, starknet::Event)]\n"
+"struct StoreDelRecord {\n"
+"    table: felt252,\n"
+"    keys: Span<felt252>,\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:43
 msgid "World Events"
-msgstr ""
+msgstr "World Events"
 
 #: src/cairo/events.md:45
 msgid ""
@@ -3431,6 +3592,9 @@ msgid ""
 "components and systems are registered. These events are emitted with the "
 "following structures:"
 msgstr ""
+"`World`コントラクトは初期化されたときや、新しいコンポーネントやシステムが登録"
+"されたときにもイベントを発行する。これらのイベントは以下の構造体で発行され"
+"る："
 
 #: src/cairo/events.md:47
 msgid ""
@@ -3442,6 +3606,13 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Drop, starknet::Event)]\n"
+"struct WorldSpawned {\n"
+"    address: ContractAddress,\n"
+"    caller: ContractAddress\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:55
 msgid ""
@@ -3453,6 +3624,13 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Drop, starknet::Event)]\n"
+"struct ComponentRegistered {\n"
+"    name: felt252,\n"
+"    class_hash: ClassHash\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:63
 msgid ""
@@ -3464,16 +3642,25 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Drop, starknet::Event)]\n"
+"struct SystemRegistered {\n"
+"    name: felt252,\n"
+"    class_hash: ClassHash\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:71
 msgid ""
 "These events are also captured by [Torii](../toolchain/torii/overview.md) "
 "and indexed for querying."
 msgstr ""
+"これらのイベントは[Torii](../toolchain/torii/overview.md)によってもキャプチャ"
+"され、クエリのためにインデックス化される。"
 
 #: src/cairo/events.md:74
 msgid "Custom Events"
-msgstr ""
+msgstr "Custom Events"
 
 #: src/cairo/events.md:76
 msgid ""
@@ -3481,12 +3668,15 @@ msgid ""
 "Fortunately, there's a handy `emit!` macro that lets you release events "
 "directly from your world. Use it like so:"
 msgstr ""
+"システム内でカスタムイベントを放出することは非常に有益です。幸いなことに、便"
+"利な `emit!` マクロがあるので、ワールドから直接イベントを放出することができま"
+"す。次のように使ってください:"
 
 #: src/cairo/events.md:82
 msgid ""
 "Include this in your system and it will emit an event with the following "
 "structure:"
-msgstr ""
+msgstr "これをシステムに組み込むと、以下のような構造のイベントが発生します:"
 
 #: src/cairo/events.md:84
 msgid ""
@@ -3498,10 +3688,17 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"#[derive(Drop, starknet::Event)]\n"
+"struct Moved {\n"
+"    address: felt252,\n"
+"    direction: felt252,\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:92
 msgid "Now a full example using a custom event: "
-msgstr ""
+msgstr "カスタム・イベントを使用した完全な例です:"
 
 #: src/cairo/events.md:94
 msgid ""
@@ -3519,11 +3716,25 @@ msgid ""
 "}\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"fn execute(ctx: Context, direction: Direction) {\n"
+"    let (mut position, mut moves) = get !(ctx.world, ctx.origin, (Position, "
+"Moves));\n"
+"    moves.remaining -= 1;\n"
+"\n"
+"    let next = next_position(position, direction);\n"
+"    \n"
+"    set !(ctx.world, (moves, next));\n"
+"    emit !(ctx.world, Moved { address: ctx.origin, direction });\n"
+"    return ();\n"
+"}\n"
+"```"
 
 #: src/cairo/events.md:107
 msgid ""
 "Note: Read about the `get!` and `set!` macros in [Commands](./commands.md)."
 msgstr ""
+"注意: `get!` と `set!` マクロについては [Commands](./commands.md) を参照。"
 
 #: src/cairo/testing.md:3
 msgid ""
@@ -3532,10 +3743,14 @@ msgid ""
 "Since Dojo uses a custom compiler, you need to use `sozo` to test your "
 "contracts."
 msgstr ""
+"テストはソフトウェア開発プロセスの重要な部分です。Dojo はスマートコントラクト"
+"のテストを書くためのテストフレームワークを提供します。Dojo はカスタムコンパイ"
+"ラを使用しているため、コントラクトのテストには `sozo` を使用する必要がありま"
+"す。"
 
 #: src/cairo/testing.md:5
 msgid "From your project directory, simply:"
-msgstr ""
+msgstr "プロジェクトディレクトリから、単純に:"
 
 #: src/cairo/testing.md:7
 msgid ""
@@ -3543,30 +3758,37 @@ msgid ""
 "sozo test\n"
 "```"
 msgstr ""
+"```shell\n"
+"sozo test\n"
+"```"
 
 #: src/cairo/testing.md:11
 msgid "This will search for all tests within your project and run them."
-msgstr ""
+msgstr "これにより、プロジェクト内のすべてのテストが検索され、実行される。"
 
 #: src/cairo/testing.md:14
 msgid "Writing Unit Tests"
-msgstr ""
+msgstr "ユニットテストを書く"
 
 #: src/cairo/testing.md:16
 msgid ""
 "It is best practise to include unit tests in the same file as the Component/"
 "System you are writing."
 msgstr ""
+"ユニットテストは、書いているコンポーネントやシステムと同じファイルに含めるの"
+"がベストプラクティスです。"
 
 #: src/cairo/testing.md:18
 msgid ""
 "Lets show a `Component` test example from the [dojo-starter](https://github."
 "com/dojoengine/dojo-starter):"
 msgstr ""
+"[dojo-starter](https://github.com/dojoengine/dojo-starter)にある`コンポーネン"
+"ト`のテスト例を見てみましょう:"
 
 #: src/cairo/testing.md:20
 msgid "`components.cairo`"
-msgstr ""
+msgstr "`components.cairo`"
 
 #: src/cairo/testing.md:21
 msgid ""
@@ -3600,6 +3822,35 @@ msgid ""
 "\n"
 "```"
 msgstr ""
+"```rust,ignore\n"
+"\n"
+"...rest of code\n"
+"\n"
+"#[cfg(test)]\n"
+"mod tests {\n"
+"    use debug::PrintTrait;\n"
+"    use super::{Position, PositionTrait};\n"
+"\n"
+"    #[test]\n"
+"    #[available_gas(100000)]\n"
+"    fn test_position_is_zero() {\n"
+"        let player = starknet::contract_address_const::<0x0>();\n"
+"        assert(PositionTrait::is_zero(Position { player, x: 0, y: 0 }), 'not "
+"zero');\n"
+"    }\n"
+"\n"
+"    #[test]\n"
+"    #[available_gas(100000)]\n"
+"    fn test_position_is_equal() {\n"
+"        let player = starknet::contract_address_const::<0x0>();\n"
+"        let position = Position { player, x: 420, y: 0 };\n"
+"        position.print();\n"
+"        assert(PositionTrait::is_equal(position, Position { player, x: 420, "
+"y: 0 }), ‘not equal’);\n"
+"    }\n"
+"}\n"
+"\n"
+"```"
 
 #: src/cairo/testing.md:49
 msgid ""
@@ -3607,10 +3858,12 @@ msgid ""
 "`Position` component. It is good practise to test all functions of your "
 "components."
 msgstr ""
+"このテストでは `Position` コンポーネントの `is_zero` と `is_equal` 関数をテス"
+"トする。コンポーネントのすべての関数をテストするのは良い習慣です。"
 
 #: src/cairo/testing.md:52
 msgid "Writing Integration Tests"
-msgstr ""
+msgstr "統合テストを書く"
 
 #: src/cairo/testing.md:54
 msgid ""
