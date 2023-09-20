@@ -41,6 +41,22 @@ curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh
 
 Install the [Cairo 1.0](https://marketplace.visualstudio.com/items?itemName=starkware.cairo1) extension for Visual Studio Code.
 
+#### 4. Setup csharp bindings
+
+CSharp binding could be done in order to compile with c# game engines such as Unity or Godot.
+See [Godot Documentation](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_basics.html#using-nuget-packages-in-godot).
+See also [Unity Documentation](https://docs.unity3d.com/Manual/CustomPackages.html).
+
+Dojo uses uniffy-rs bindings generator.
+
+That is why each time you create a new object on dojo that should be avaible on external game engines, you shall [fill uniffy-rs bindings udl file](https://mozilla.github.io/uniffi-rs/udl_file_spec.html)
+
+If you want to compile CSharp bindings from dojo, you should use these commands:
+```powershell
+cargo install uniffi-bindgen-cs --git https://github.com/NordSecurity/uniffi-bindgen-cs
+mkdir .\bindings
+uniffi-bindgen-cs .\crates\dojo-lang\src\dojo.udl --out-dir .\bindings
+```
 
 ### Windows
 
