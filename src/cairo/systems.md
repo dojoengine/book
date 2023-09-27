@@ -8,20 +8,31 @@ Let's look at the simplest possible system which mutates the state of the `Moves
 
 ```rust,ignore
 #[system]
-mod Spawn {
-    use array::ArrayTrait;
-    use traits::Into;
-
+mod spawn {
     use dojo::world::Context;
+
     use dojo_examples::components::Position;
     use dojo_examples::components::Moves;
+    use dojo_examples::constants::OFFSET;
 
+    #[event]
+    use dojo_examples::events::{Event, Moved};
+
+
+    // so we don't go negative
     fn execute(ctx: Context) {
-        set !(
-            ctx.world, ctx.origin, (
-                Moves { player: ctx.origin, remaining: 10 }
+        // cast the offset to a u32
+        let offset: u32 = OFFSET.try_into().unwrap();
+
+        set!(
+            ctx.world,
+            (
+                Moves { player: ctx.origin, remaining: 100 },
+                Position { player: ctx.origin, x: offset, y: offset },
             )
         );
+
+        emit!(ctx.world, Moved { player: ctx.origin, x: offset, y: offset, });
         return ();
     }
 }

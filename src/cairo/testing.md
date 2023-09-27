@@ -24,7 +24,6 @@ Lets show a `Component` test example from the [dojo-starter](https://github.com/
 
 #[cfg(test)]
 mod tests {
-    use debug::PrintTrait;
     use super::{Position, PositionTrait};
 
     #[test]
@@ -39,7 +38,6 @@ mod tests {
     fn test_position_is_equal() {
         let player = starknet::contract_address_const::<0x0>();
         let position = Position { player, x: 420, y: 0 };
-        position.print();
         assert(PositionTrait::is_equal(position, Position { player, x: 420, y: 0 }), 'not equal');
     }
 }
@@ -55,58 +53,102 @@ Integration tests are e2e tests that test the entire system. You can write integ
 
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
-`systems.cairo`
+`move.cairo`
 ```rust,ignore
 #[cfg(test)]
 mod tests {
-    use core::traits::Into;
-    use array::ArrayTrait;
-
-    use dojo::world::IWorldDispatcherTrait;
-
+    use dojo::world::{IWorldDispatcherTrait, IWorldDispatcher};
     use dojo::test_utils::spawn_test_world;
-
-    use dojo_examples::components::position;
-    use dojo_examples::components::Position;
-    use dojo_examples::components::moves;
-    use dojo_examples::components::Moves;
+    use dojo_examples::components::{position, Position};
+    use dojo_examples::components::{moves, Moves};
     use dojo_examples::systems::spawn;
     use dojo_examples::systems::move;
+
+    //OFFSET is defined in constants.cairo
+    use dojo_examples::constants::OFFSET;
+
+    //{Event and Moved are defined in events.cairo}
+    #[event]
+    use dojo_examples::events::{Event, Moved};
+
+    // helper setup function
+    // reusable function for tests
+    fn setup_world() -> IWorldDispatcher {
+        // components
+        let mut components = array![position::TEST_CLASS_HASH, moves::TEST_CLASS_HASH];
+
+        // systems
+        let mut systems = array![spawn::TEST_CLASS_HASH, move::TEST_CLASS_HASH];
+
+        // deploy executor, world and register components/systems
+        spawn_test_world(components, systems)
+    }
+
 
     #[test]
     #[available_gas(30000000)]
     fn test_move() {
+        let world = setup_world();
+
+        // spawn entity
+        world.execute('spawn', array![]);
+
+        // move entity
+        world.execute('move', array![move::Direction::Right(()).into()]);
+
+        // caller
         let caller = starknet::contract_address_const::<0x0>();
 
-        // components
-        let mut components = array::ArrayTrait::new();
-        components.append(position::TEST_CLASS_HASH);
-        components.append(moves::TEST_CLASS_HASH);
+        // check moves
+        let moves = get!(world, caller, (Moves));
+        assert(moves.remaining == 99, 'moves is wrong');
 
-        // systems
-        let mut systems = array::ArrayTrait::new();
-        systems.append(spawn::TEST_CLASS_HASH);
-        systems.append(move::TEST_CLASS_HASH);
+        // check position
+        let new_position = get!(world, caller, (Position));
+        assert(new_position.x == (OFFSET + 1).try_into().unwrap(), 'position x is wrong');
+        assert(new_position.y == OFFSET.try_into().unwrap(), 'position y is wrong');
 
-        // deploy executor, world and register components/systems
-        let world = spawn_test_world(components, systems);
+        //check events
+        // unpop world creation events
+        let mut events_to_unpop = 1; // WorldSpawned
+        events_to_unpop += 2; // 2x ComponentRegistered
+        events_to_unpop += 2; // 2x SystemRegistered
+        loop {
+            if events_to_unpop == 0 {
+                break;
+            };
 
-        let spawn_call_data = array::ArrayTrait::new();
-        world.execute('spawn', spawn_call_data);
+            starknet::testing::pop_log_raw(world.contract_address);
+            events_to_unpop -= 1;
+        };
 
-        let mut move_calldata = array::ArrayTrait::new();
-        move_calldata.append(move::Direction::Right(()).into());
-        world.execute('move', move_calldata);
-        let mut keys = array::ArrayTrait::new();
-        keys.append(caller.into());
+        starknet::testing::pop_log_raw(world.contract_address); // unpop StoreSetRecord Moves
+        starknet::testing::pop_log_raw(world.contract_address); // unpop StoreSetRecord Position
+        // player spawns at x:OFFSET, y:OFFSET
+        assert(
+            @starknet::testing::pop_log(world.contract_address)
+                .unwrap() == @Event::Moved(
+                    Moved {
+                        player: caller, x: OFFSET.try_into().unwrap(), y: OFFSET.try_into().unwrap()
+                    }
+                ),
+            'invalid Moved event 0'
+        );
 
-        let moves = world.entity('Moves', keys.span(), 0, dojo::SerdeLen::<Moves>::len());
-        assert(*moves[0] == 9, 'moves is wrong');
-        let new_position = world
-            .entity('Position', keys.span(), 0, dojo::SerdeLen::<Position>::len());
-        assert(*new_position[0] == 11, 'position x is wrong');
-        assert(*new_position[1] == 10, 'position y is wrong');
-    }
+        starknet::testing::pop_log_raw(world.contract_address); // unpop StoreSetRecord Moves
+        starknet::testing::pop_log_raw(world.contract_address); // unpop StoreSetRecord Position
+        // player move at x:OFFSET+1, y:OFFSET
+        assert(
+            @starknet::testing::pop_log(world.contract_address)
+                .unwrap() == @Event::Moved(
+                    Moved {
+                        player: caller,
+                        x: (OFFSET + 1).try_into().unwrap(),
+                        y: OFFSET.try_into().unwrap()
+                    }
+                ),
+            'invalid Moved event 1'
+        );
 }
 ```
 
