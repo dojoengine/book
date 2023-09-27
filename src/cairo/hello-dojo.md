@@ -2,11 +2,15 @@
 
 > This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](../getting-started/quick-start.md) section.
 
-## Dojo in 15 Minutes
+## Dojo as an ECS in 15 Minutes
 
-Think of Dojo as an abstraction over Cairo, similar to how React is to JavaScript. It enables you to write shorthand commands that expand into complex queries during compile time. Dojo is grounded in the well-known architecture known as the Entity Component System (ECS).
+Dojo serves as an elegant abstraction layer over Cairo, akin to how React relates to JavaScript. Through Dojo, developers can utilize shorthand commands which, during compile time, unfurl into intricate queries. Here are some of Dojo's core features:
 
-In Dojo, you design your worlds using Systems and Components. Systems outline the logic of your world, while components signify the state. This powerful pattern allows you to structure your logic in a highly modular way. If you don't understand this yet, don't fret; we'll delve into it in detail below.
+- **Standard Data Storage:** Provides consistent and efficient data management via an ORM-like onchain storage
+- **Standard Framework (ECS):** Grounded in the well-established Entity Component System, offering a familiar architecture for developers.
+- **Rustesk Macros:** Enables the use of shorthand commands, simplifying complex tasks and promoting efficient coding practices."
+
+In Dojo, the design of your virtual worlds is facilitated through Systems and Components. While it isn't strictly an Entity Component System (ECS) framework, it employs similar principles. Systems define the logic of your environment, whereas components represent its state. This approach offers a modular structure for your logic, ensuring flexibility and scalability. If this sounds complex now, don't worry; we'll dive deeper into the specifics below.
 
 To start, let's set up a project to run locally on your machine. From an empty directory, execute:
 
