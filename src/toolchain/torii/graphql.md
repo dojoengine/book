@@ -2,7 +2,7 @@
 
 ### Name
 
-GraphQL - A modern alternative to the well-known REST API server. In Dojo, it offers custom queries and subscriptions tailored to the world contract for client applications. GraphQL enables us to selectively retrieve the data we need, providing it all in the JSON format.
+In Dojo, you have access to custom queries and subscriptions that are specifically designed to work with the world contract for client applications. GraphQL is the technology that makes this possible. It allows you to specify exactly what data you want to retrieve, and it delivers that data in a structured JSON format. This flexibility in data retrieval ensures that you get the information you need efficiently and in a format that's easy to work with.
 
 ### USAGE
 
@@ -18,19 +18,19 @@ Starts GraphiQL server at `http://0.0.0.0:8080/`
 
 ### Query Examples
 
-Following [`hello-dojo`](../../cairo/hello-dojo.md) we are going to use the same local Dojo project. It means will utilize the `Moves` and `Position` components and `spawn` and `move` systems. Now, we are going discuss about query and subscription operation
+After the torii server starts on your local machine, you're ready to make query and subscription operations.
 
 #### Query operation
 
-In `hello-dojo` we fetched all data from the `Moves` component. This time let's fetch only `id`, `name`, `classHash` fields from `Position` component .
+In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched all data from the `Moves` component. This time let's fetch only `id`, `name`, `classHash` fields from `Position` component .
 
-```json
+```graphql
 query {
-	component(id: "position") {
-		id
-		name
-		classHash
-	}
+    component(id: "position") {
+	    id
+	    name
+	    classHash
+    }
 }
 ```
 
@@ -48,19 +48,19 @@ After you run the query, you will receive an output like this:
 }
 ```
 
-Nice! But how can you know about how many fields a `component` have, or what are the fields of `system`. All this information you can find in the `Documentation Explorer` section of GraphiQL IDE.
+Great! If you're wondering about the number of fields a `Component` has or the details of a `System`, you can find all this information in the `Documentation Explorer` section of the GraphQL IDE. It's your go-to place for exploring the rest of the documentation.
 
-Now lets retrieve data from `spawn` system.
+Now lets retrieve data from `spawn` System.
 
-```json
-query {
-	system(id: "spawn") {
-		classHash
-		createdAt
-		id
-		name
-		transactionHash
-	}
+```graphql
+query getSystem {
+  system(id: "spawn") {
+    id,
+    name,
+    classHash,
+    transactionHash,
+    createdAt,
+  }
 }
 
 ```
@@ -71,11 +71,11 @@ After you run the query, you will receive an output like this:
 {
   "data": {
     "system": {
-      "classHash": "0x3c90894e85d9efd5b0e7dccc2fb2c6347ce1188317567d5b0f8d1128f0bbfa5",
-      "createdAt": "2023-09-28 14:14:28",
       "id": "spawn",
       "name": "spawn",
-      "transactionHash": ""
+      "classHash": "0x3c90894e85d9efd5b0e7dccc2fb2c6347ce1188317567d5b0f8d1128f0bbfa5",
+      "transactionHash": "",
+      "createdAt": "2023-09-28 14:14:28"
     }
   }
 }
@@ -83,4 +83,31 @@ After you run the query, you will receive an output like this:
 
 Now you can create any kind of query for `move` systems!
 
-#### Subscription operation
+#### Subscription operations
+
+These operations allow us to listen to changes in the components of the system.
+
+You can listen when an `Entity` is updated by executing this subscription
+```graphql
+subscription entityUpdated {
+  entityUpdated {
+    id, 
+    componentNames,
+    createdAt,
+    updatedAt
+  }
+}
+```
+
+You can also listen for the components that are being registered by executing
+```graphql
+subscription componentRegistered {
+  componentRegistered {
+    id, 
+    name,
+    classHash,
+    transactionHash,
+    createdAt,
+  }
+}
+```

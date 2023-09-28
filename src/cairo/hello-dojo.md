@@ -218,7 +218,7 @@ With your local world address established, let's delve into indexing. You can in
 torii
 ```
 
-Executing the above activates a local Torii server using SQLite as its database, which is exposed at `http://0.0.0.0:8080`. It will automatically index your world into tables, allowing you to query them using GraphQL. You should see terminal output similar to this:
+Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
 
 ```bash
 2023-09-28T02:06:37.423726Z  INFO torii::indexer: starting indexer
@@ -244,11 +244,11 @@ Open GraphiQL IDE: http://0.0.0.0:8080
 2023-09-28T02:06:38.438882Z  INFO torii::engine: processed block: 11
 ```
 
-We can see that our `Moves` and `Position` components have been registered, as well as our `spawn` and `move` systems.
+You can observe that our `Moves` and `Position` components have been successfully registered, along with our `spawn` and `move` systems.
 
-Now, let's use the GraphiQL IDE to fetch data from the `Moves` component. In your browser, open localhost `http://0.0.0.0:8080`, then input the following query:
+Next, let's use the GraphiQL IDE to retrieve data from the `Moves` component. In your web browser, navigate to `http://0.0.0.0:8080`, and enter the following query:
 
-```json
+```graphql
 query {
 	component(id: "moves") {
 		id
@@ -278,7 +278,7 @@ After you run the query, you will receive an output like this:
 
 Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphiQL IDE and input the following subscription:
 
-```json
+```graphql
 subscription {
   entityUpdated {
     id
@@ -290,18 +290,17 @@ subscription {
 }
 ```
 
-After you run the subscription, you will be notified when new entities have been updated or created. For now, just leave it as is, and let's go create a new entity.
+Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it and proceed to create a new entity.
 
-In your primary local terminal, run the following command:
+In your main local terminal, run the following command:
 
 ```bash
 sozo execute spawn
 ```
 
-By doing so, you've just activated the spawn system, and a new entity has been created. You now have a local world that you can interact with.
+By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
 
-Now, you can check your GraphiQL IDE, and you will realize that you have received the subscription's result similar to this:
-
+Now, go back to your GraphiQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
 ```json
 {
   "data": {
