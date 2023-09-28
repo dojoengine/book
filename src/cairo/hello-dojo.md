@@ -8,7 +8,7 @@ Think of Dojo as an abstraction over Cairo, similar to how React is to JavaScrip
 
 In Dojo, you design your worlds using Systems and Components. Systems outline the logic of your world, while components signify the state. This powerful pattern allows you to structure your logic in a highly modular way. If you don't understand this yet, don't fret; we'll delve into it in detail below.
 
-To start, let's set up a project to run locally on your machine. From an empty directory, execute:
+To start, let's set up a project to run locally on your machine. From an empty directory, open a terminal and execute:
 
 ```console
 sozo init
@@ -51,7 +51,7 @@ struct Position {
 ...rest of code
 ```
 
-Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we *must* include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
+Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we _must_ include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
 
 Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this component is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
 
@@ -139,16 +139,15 @@ Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position
 
 We covered a lot here in a short time. Let's recap:
 
--   Explained the anatomy of a Dojo project
--   Explained the importace of the `#[derive(Component)]` and `#[system]` attribute
--   Explained the `execute` function
--   Explained the `Context` struct
--   Touched on the `get!` and `set!` commands
-
+- Explained the anatomy of a Dojo project
+- Explained the importace of the `#[derive(Component)]` and `#[system]` attribute
+- Explained the `execute` function
+- Explained the `Context` struct
+- Touched on the `get!` and `set!` commands
 
 ### Run it locally!
 
-Now that we have some theory out of the way, lets build the Dojo project!
+Now that we have some theory out of the way, lets build the Dojo project!. In your primary terminal input:
 
 ```bash
 sozo build
@@ -156,13 +155,13 @@ sozo build
 
 That compiled the components and system into an artifact that can be deployed! Simple as that!
 
-Now lets deploy it to [Katana](../toolchain/katana/overview.md)! First we need to get Katana running:
+Now lets deploy it to [Katana](../toolchain/katana/overview.md)! First we need to get Katana running, open a second terminal and input:
 
 ```bash
 katana --disable-fee
 ```
 
-Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now lets deploy!
+Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now lets deploy! In your primary terminal
 
 ```bash
 sozo migrate --name test
@@ -179,7 +178,7 @@ Migration account: 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91
   > Total diffs found: 7
 [3] 📦 Preparing for migration....
   > Total items to be migrated (7): New 7 Update 0
-  
+
 # Executor
   > Contract address: 0x1a8cc7a653543337be184d21ceeb5cfc7e97af5ab7da5e4be77f373124d7e48
 # World
@@ -210,17 +209,11 @@ Add the world address to the bottom of the file:
 world_address = "0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16"
 ```
 
-This establishes the world address for your project. You can then run commands like:
-
-```bash
-sozo execute spawn
-```
-
-By doing so, you've just activated the spawn system. You now have a local world that you can interact with.
+This establishes the world address for your project.
 
 ### Indexing
 
-With your local world set up, let's delve into indexing. You can index the entire world with this simple command:
+With your local world set up, let's delve into indexing. You can index the entire world. Open a new terminal and input this simple command:
 
 ```bash
 torii
@@ -228,13 +221,119 @@ torii
 
 Executing the above activates a local torii server using SQLite as its database, which is exposed at `http://0.0.0.0:8080`. It will automatically index your world into tables, allowing you to query them using GraphQL.
 
+You should see terminal output similar to this:
+
+```bash
+2023-09-28T02:06:37.423726Z  INFO torii::indexer: starting indexer
+Open GraphiQL IDE: http://0.0.0.0:8080
+2023-09-28T02:06:37.427823Z  INFO poem::server: listening addr=socket://0.0.0.0:8080
+2023-09-28T02:06:37.427835Z  INFO poem::server: server started
+2023-09-28T02:06:38.428916Z  INFO torii::engine: processed block: 0
+2023-09-28T02:06:38.429976Z  INFO torii::engine: processed block: 1
+2023-09-28T02:06:38.430706Z  INFO torii::engine: processed block: 2
+2023-09-28T02:06:38.431319Z  INFO torii::engine: processed block: 3
+2023-09-28T02:06:38.432875Z  INFO torii::engine: processed block: 4
+2023-09-28T02:06:38.433582Z  INFO torii::engine: processed block: 5
+2023-09-28T02:06:38.434662Z  INFO torii::engine: processed block: 6
+2023-09-28T02:06:38.435572Z  INFO torii_core::processors::register_component: registered component: Moves
+2023-09-28T02:06:38.435699Z  INFO torii_core::processors::register_component: registered component: Position
+2023-09-28T02:06:38.435813Z  INFO torii::engine: processed block: 7
+2023-09-28T02:06:38.436727Z  INFO torii::engine: processed block: 8
+2023-09-28T02:06:38.437289Z  INFO torii::engine: processed block: 9
+2023-09-28T02:06:38.437985Z  INFO torii::engine: processed block: 10
+2023-09-28T02:06:38.438841Z  INFO torii_core::processors::register_system: registered system: spawn
+2023-09-28T02:06:38.438861Z  INFO torii_core::processors::register_system: registered system: move
+2023-09-28T02:06:38.438871Z  INFO torii_core::processors::register_system: registered system: library_call
+2023-09-28T02:06:38.438882Z  INFO torii::engine: processed block: 11
+```
+
+We can see Our `Moves` and `Position` component has been registered, as well our `spawn` and `move` component.
+
+Now let's use GraphiQL IDE to fetch data about `Moves` component. In our browser you have to open the localhost `http://0.0.0.0:8080`, then input the the following query:
+
+```json
+query {
+	component(id: "moves") {
+		id
+		name
+		classHash
+		transactionHash
+		createdAt
+	}
+}
+```
+
+After you run the query you will receive an output like this:
+
+```json
+{
+  "data": {
+    "component": {
+      "id": "moves",
+      "name": "Moves",
+      "classHash": "0x3240ca67c41c5ae5557f87f44cca2b590f40407082dd390d893a514cfb2b8cd",
+      "transactionHash": "",
+      "createdAt": "2023-09-28 02:48:24"
+    }
+  }
+}
+```
+
+Awesome, now lets work with subscription to get real-time updates. Lets clean our workspace on GraphiQL IDE and input the following subscription.
+
+```json
+subscription {
+  entityUpdated {
+    id
+    keys
+    componentNames
+    createdAt
+    updatedAt
+  }
+}
+```
+
+After you run the subcription you will listening for new entities to been updated(or created). For now just leave like this, and lets go create a new entity.
+
+In our primary local terminal. You can then run commands like:
+
+```bash
+sozo execute spawn
+```
+
+By doing so, you've just activated the spawn system and a new entity has been created. You now have a local world that you can interact with.
+
+Now you can check your GraphiQL IDE, you have received the subscription's result:
+
+```json
+{
+  "data": {
+    "entityUpdated": {
+      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "keys": [
+        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+      ],
+      "componentNames": "Moves,Position",
+      "createdAt": "2023-09-28 03:25:50",
+      "updatedAt": "2023-09-28 03:25:50"
+    }
+  }
+}
+```
+
+In the GraphiQL IDE you can find the `Documentation Explorer` section to give you more information about all kinds of query and subscription operations we provide.
+
 We've covered quite a bit! Here's a recap:
 
--   Built a Dojo world
--   Deployed the project to Katana
--   Ran the spawn system locally
--   Indexed the world with Torii
+- Built a Dojo world
+- Deployed the project to Katana
+- Indexed the world with Torii
+- Ran the spawn system locally
 
 ### Next Steps
 
 This overview provides a rapid end-to-end glimpse into Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and components, Dojo is equipped for expansive creativity. So, what will you craft next?
+
+```
+
+```
