@@ -104,7 +104,7 @@ You'll observe that the system features an `execute` function. It's crucial to n
 
 It's worth mentioning that a system can contain more than just the `execute` function. You're free to include numerous functions as needed. However, the `execute` function is mandatory since it's invoked when your system is executed.
 
-Now lets look at the next line:
+Now let's look at the next line:
 
 ```rust,ignore
 let position = get!(ctx.world, ctx.origin, (Position));
@@ -147,7 +147,7 @@ We covered a lot here in a short time. Let's recap:
 
 ### Run it locally!
 
-Now that we have some theory out of the way, lets build the Dojo project!. In your primary terminal input:
+Now that we have some theory out of the way, let's build the Dojo project!. In your primary terminal:
 
 ```bash
 sozo build
@@ -155,13 +155,13 @@ sozo build
 
 That compiled the components and system into an artifact that can be deployed! Simple as that!
 
-Now lets deploy it to [Katana](../toolchain/katana/overview.md)! First we need to get Katana running, open a second terminal and input:
+Now let's deploy it to [Katana](../toolchain/katana/overview.md)! First we need to get Katana running, open a second terminal and execute:
 
 ```bash
 katana --disable-fee
 ```
 
-Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now lets deploy! In your primary terminal
+Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now let's deploy! In your primary terminal
 
 ```bash
 sozo migrate --name test
@@ -213,15 +213,13 @@ This establishes the world address for your project.
 
 ### Indexing
 
-With your local world set up, let's delve into indexing. You can index the entire world. Open a new terminal and input this simple command:
+With your local world address established, let's delve into indexing. You can index the entire world. Open a new terminal and input this simple command:
 
 ```bash
 torii
 ```
 
-Executing the above activates a local torii server using SQLite as its database, which is exposed at `http://0.0.0.0:8080`. It will automatically index your world into tables, allowing you to query them using GraphQL.
-
-You should see terminal output similar to this:
+Executing the above activates a local torii server using SQLite as its database, which is exposed at `http://0.0.0.0:8080`. It will automatically index your world into tables, allowing you to query them using GraphQL. You should see terminal output similar to this:
 
 ```bash
 2023-09-28T02:06:37.423726Z  INFO torii::indexer: starting indexer
@@ -249,7 +247,7 @@ Open GraphiQL IDE: http://0.0.0.0:8080
 
 We can see Our `Moves` and `Position` component has been registered, as well our `spawn` and `move` component.
 
-Now let's use GraphiQL IDE to fetch data about `Moves` component. In our browser you have to open the localhost `http://0.0.0.0:8080`, then input the the following query:
+Now let's use GraphiQL IDE to fetch data from `Moves` component. In your browser you have to open localhost `http://0.0.0.0:8080`, then input the the following query:
 
 ```json
 query {
@@ -279,7 +277,7 @@ After you run the query you will receive an output like this:
 }
 ```
 
-Awesome, now lets work with subscription to get real-time updates. Lets clean our workspace on GraphiQL IDE and input the following subscription.
+Awesome, now let's work with subscription to get real-time updates. Let's clean up your workspace on GraphiQL IDE and input the following subscription.
 
 ```json
 subscription {
@@ -293,9 +291,9 @@ subscription {
 }
 ```
 
-After you run the subcription you will listening for new entities to been updated(or created). For now just leave like this, and lets go create a new entity.
+After you run the subscription you will be notified for new entities to been updated(or created). For now just leave like this, and let's go create a new entity.
 
-In our primary local terminal. You can then run commands like:
+In your primary local terminal. You can then run commands like:
 
 ```bash
 sozo execute spawn
@@ -303,7 +301,7 @@ sozo execute spawn
 
 By doing so, you've just activated the spawn system and a new entity has been created. You now have a local world that you can interact with.
 
-Now you can check your GraphiQL IDE, you have received the subscription's result:
+Now you can check your GraphiQL IDE, you will realized you have received the subscription's result similar to this:
 
 ```json
 {
