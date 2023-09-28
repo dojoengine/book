@@ -14,11 +14,11 @@ To start, let's set up a project to run locally on your machine. From an empty d
 sozo init
 ```
 
-Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory. It's the ideal starting point for a new project and equips you with everything you need to begin.
+Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory, serving as the ideal starting point for a new project and providing you with everything you need to get started.
 
 #### Anatomy of a Dojo Project
 
-Inspect the contents of the `dojo-starter` project, and you'll notice the following structure (excluding the non-cairo files):
+Inspect the contents of the `dojo-starter` project, and you'll notice the following structure (excluding the non-Cairo files):
 
 ```bash
 src
@@ -28,7 +28,7 @@ src
 Scarb.toml
 ```
 
-Dojo projects largely resemble standard Cairo projects, with the distinction being some special attribute tags you use when creating `Components` and `Systems`. Let's explore this next.
+Dojo projects largely resemble standard Cairo projects, with the distinction being some special attribute tags used when creating `Components` and `Systems`. Let's explore this further.
 
 Open the `src/components.cairo` file to continue.
 
@@ -51,11 +51,11 @@ struct Position {
 ...rest of code
 ```
 
-Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we _must_ include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
+Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, it _must_ include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
 
 Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this component is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
 
-In a similar vein, we possess a `Position` component that holds `x` and `y` values. Once again, this component is indexed by the `player` field.
+In a similar vein, we have a `Position` component that holds `x` and `y` values. Once again, this component is indexed by the `player` field.
 
 Now, let's examine the `src/systems.cairo` file:
 
@@ -100,17 +100,17 @@ Just as we use the `#[derive(Component)]` attribute, the `#[system]` attribute i
 fn execute(ctx: Context)
 ```
 
-You'll observe that the system features an `execute` function. It's crucial to note that all Dojo systems necessitate an `execute` function. This function accepts a `Context` as its parameter. The `Context` is a distinct struct that provides information about the world and the caller.
+You'll notice that the system features an `execute` function. It's crucial to note that all Dojo systems require an `execute` function. This function accepts a `Context` as its parameter. The `Context` is a distinct struct that provides information about the world and the caller.
 
-It's worth mentioning that a system can contain more than just the `execute` function. You're free to include numerous functions as needed. However, the `execute` function is mandatory since it's invoked when your system is executed.
+It's worth mentioning that a system can contain more than just the `execute` function. You are free to include numerous functions as needed. However, the `execute` function is mandatory since it's invoked when your system is executed.
 
-Now let's look at the next line:
+Now, let's examine the next line:
 
 ```rust,ignore
 let position = get!(ctx.world, ctx.origin, (Position));
 ```
 
-Here we use `get!` [command](./commands.md) to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` is the address of the caller. When called for the first time, it will return:
+Here we use the `get!` [command](./commands.md) to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` represents the address of the caller. When called for the first time, it will return:
 
 ```rust,ignore
 Position {
@@ -137,17 +137,17 @@ set!(
 
 Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` components for the `ctx.origin` entity.
 
-We covered a lot here in a short time. Let's recap:
+To recap, we've covered a lot in a short time:
 
 - Explained the anatomy of a Dojo project
-- Explained the importace of the `#[derive(Component)]` and `#[system]` attribute
+- Explained the importance of the `#[derive(Component)]` and `#[system]` attributes
 - Explained the `execute` function
-- Explained the `Context` struct
+- Discussed the `Context` struct
 - Touched on the `get!` and `set!` commands
 
 ### Run it locally!
 
-Now that we have some theory out of the way, let's build the Dojo project!. In your primary terminal:
+Now that we've covered some theory, let's build the Dojo project! In your primary terminal:
 
 ```bash
 sozo build
@@ -155,13 +155,13 @@ sozo build
 
 That compiled the components and system into an artifact that can be deployed! Simple as that!
 
-Now let's deploy it to [Katana](../toolchain/katana/overview.md)! First we need to get Katana running, open a second terminal and execute:
+Now, let's deploy it to [Katana](../toolchain/katana/overview.md)! First, we need to get Katana running. Open a second terminal and execute:
 
 ```bash
 katana --disable-fee
 ```
 
-Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now let's deploy! In your primary terminal
+Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
 
 ```bash
 sozo migrate --name test
@@ -218,7 +218,7 @@ With your local world address established, let's delve into indexing. You can in
 torii
 ```
 
-Executing the above activates a local torii server using SQLite as its database, which is exposed at `http://0.0.0.0:8080`. It will automatically index your world into tables, allowing you to query them using GraphQL. You should see terminal output similar to this:
+Executing the above activates a local Torii server using SQLite as its database, which is exposed at `http://0.0.0.0:8080`. It will automatically index your world into tables, allowing you to query them using GraphQL. You should see terminal output similar to this:
 
 ```bash
 2023-09-28T02:06:37.423726Z  INFO torii::indexer: starting indexer
@@ -244,9 +244,9 @@ Open GraphiQL IDE: http://0.0.0.0:8080
 2023-09-28T02:06:38.438882Z  INFO torii::engine: processed block: 11
 ```
 
-We can see Our `Moves` and `Position` component has been registered, as well our `spawn` and `move` component.
+We can see that our `Moves` and `Position` components have been registered, as well as our `spawn` and `move` components.
 
-Now let's use GraphiQL IDE to fetch data from `Moves` component. In your browser you have to open localhost `http://0.0.0.0:8080`, then input the the following query:
+Now, let's use the GraphiQL IDE to fetch data from the `Moves` component. In your browser, open localhost `http://0.0.0.0:8080`, then input the following query:
 
 ```json
 query {
@@ -260,7 +260,7 @@ query {
 }
 ```
 
-After you run the query you will receive an output like this:
+After you run the query, you will receive an output like this:
 
 ```json
 {
@@ -276,7 +276,7 @@ After you run the query you will receive an output like this:
 }
 ```
 
-Awesome, now let's work with subscription to get real-time updates. Let's clean up your workspace on GraphiQL IDE and input the following subscription.
+Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphiQL IDE and input the following subscription:
 
 ```json
 subscription {
@@ -290,17 +290,17 @@ subscription {
 }
 ```
 
-After you run the subscription you will be notified for new entities to been updated(or created). For now just leave like this, and let's go create a new entity.
+After you run the subscription, you will be notified when new entities have been updated or created. For now, just leave it as is, and let's go create a new entity.
 
-In your primary local terminal. You can then run commands like:
+In your primary local terminal, run the following command:
 
 ```bash
 sozo execute spawn
 ```
 
-By doing so, you've just activated the spawn system and a new entity has been created. You now have a local world that you can interact with.
+By doing so, you've just activated the spawn system, and a new entity has been created. You now have a local world that you can interact with.
 
-Now you can check your GraphiQL IDE, you will realize you have received the subscription's result similar to this:
+Now, you can check your GraphiQL IDE, and you will realize that you have received the subscription's result similar to this:
 
 ```json
 {
@@ -318,7 +318,7 @@ Now you can check your GraphiQL IDE, you will realize you have received the subs
 }
 ```
 
-In the GraphiQL IDE you can find the `Documentation Explorer` section to give you more information about all kinds of query and subscription operations we provide.
+In the GraphiQL IDE, you can find the `Documentation Explorer` section to provide you with more information about all kinds of query and subscription operations we provide.
 
 We've covered quite a bit! Here's a recap:
 
@@ -330,7 +330,3 @@ We've covered quite a bit! Here's a recap:
 ### Next Steps
 
 This overview provides a rapid end-to-end glimpse into Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and components, Dojo is equipped for expansive creativity. So, what will you craft next?
-
-```
-
-```
