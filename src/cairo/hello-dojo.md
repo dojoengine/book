@@ -244,7 +244,7 @@ Open GraphiQL IDE: http://0.0.0.0:8080
 2023-09-28T02:06:38.438882Z  INFO torii::engine: processed block: 11
 ```
 
-We can see that our `Moves` and `Position` components have been registered, as well as our `spawn` and `move` components.
+We can see that our `Moves` and `Position` components have been registered, as well as our `spawn` and `move` systems.
 
 Now, let's use the GraphiQL IDE to fetch data from the `Moves` component. In your browser, open localhost `http://0.0.0.0:8080`, then input the following query:
 
