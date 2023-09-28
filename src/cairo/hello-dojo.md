@@ -178,7 +178,6 @@ Migration account: 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91
   > Total diffs found: 7
 [3] 📦 Preparing for migration....
   > Total items to be migrated (7): New 7 Update 0
-
 # Executor
   > Contract address: 0x1a8cc7a653543337be184d21ceeb5cfc7e97af5ab7da5e4be77f373124d7e48
 # World
@@ -301,7 +300,7 @@ sozo execute spawn
 
 By doing so, you've just activated the spawn system and a new entity has been created. You now have a local world that you can interact with.
 
-Now you can check your GraphiQL IDE, you will realized you have received the subscription's result similar to this:
+Now you can check your GraphiQL IDE, you will realize you have received the subscription's result similar to this:
 
 ```json
 {
