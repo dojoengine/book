@@ -2,40 +2,58 @@
 
 > Systems = Logic
 
-Systems underpin the logic of your world. While systems are inherently stateless, their primary role is to modify the state of components. Every system features an 'execute' function that's called upon during interactions within the world.
+Systems are the backbone of your world's logic. They drive changes in component states within the world.
+
+System functions use a 'world' address as their initial parameter, enabling them to modify the world's state. This allows systems to be reused by other worlds!
 
 Let's look at the simplest possible system which mutates the state of the `Moves` component.
 
 ```rust,ignore
-#[system]
-mod Spawn {
-    use array::ArrayTrait;
-    use traits::Into;
+#[starknet::contract]
+mod player_actions {
+    use starknet::{ContractAddress, get_caller_address};
+    use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
+    use dojo_examples::components::{Position, Moves, Direction, Vec2};
+    use dojo_examples::utils::next_position;
+    use super::IPlayerActions;
 
-    use dojo::world::Context;
-    use dojo_examples::components::Position;
-    use dojo_examples::components::Moves;
+    // no storage
+    #[storage]
+    struct Storage {}
 
-    fn execute(ctx: Context) {
-        set !(
-            ctx.world, ctx.origin, (
-                Moves { player: ctx.origin, remaining: 10 }
-            )
-        );
-        return ();
+    // implementation of the PlayerActions interface
+    #[external(v0)]
+    impl PlayerActionsImpl of IPlayerActions<ContractState> {
+        fn spawn(self: @ContractState, world: IWorldDispatcher) {
+            let player = get_caller_address();
+            let position = get!(world, player, (Position));
+            set!(
+                world,
+                (
+                    Moves { 
+                        player, 
+                        remaining: 10, 
+                        last_direction: Direction::None(()) 
+                    }
+                )
+            );
+        }
     }
 }
 ```
 
+### Breaking it down
 
-### The Execute function
+#### System is a contract
 
-The `execute` function is mandatory in a system and runs when called, taking `Context` as its first parameter. See more in [Context](./world.md).
+As you can see a System is like a regular Starknet contract. It can include storage, and it can implement interfaces.
 
-### Other functions in a System
+#### `Spawn` function
 
-You are free to add other functions to your system, but they will not be callable from the world. This is useful for breaking up your logic into smaller chunks.
+The spawn function is currently the only function that exists in a system. It is called when a player spawns into the world. It is responsible for setting up the player's initial state.
 
+
+<!-- 
 ### Using View Functions
 
 There are times when we need to compute the value of a component dynamically, rather than fetching its static state. For instance, in the context of a VRGDA, if you want to ascertain the current price, merely querying the component state won't suffice. Instead, you'd need to compute the price based on certain parameters and the current state.
@@ -93,4 +111,4 @@ sozo auth writer Moves Spawn
 
 Here we have authorised the `Spawn` system to write to the `Moves` component. 
 
-Read more in the [sozo](../toolchain/sozo/overview.md) docs.
+Read more in the [sozo](../toolchain/sozo/overview.md) docs. -->
