@@ -1,31 +1,23 @@
-> **To think about:** Consider Autonomous Worlds as sovereign blockchains residing within another blockchain - a nested blockchain, so to speak. Just as you can deploy contracts onto Ethereum to enhance its functionality, you can similarly introduce systems into the World contract to enrich its features. While anyone can contribute to the World, akin to Ethereum, authorization is required to interact with model state. There is a dedicated topic to [Authorisation](./authorization.md).
+> You should have a good understanding of Cairo before proceeding. If you're unfamiliar with Cairo, we recommend you read the [Cairo documentation](https://book.cairo-lang.org/title-page.html) first.
 
-## Architecture overview
+## A New Approach to Game Development
 
-Dojo serves as an elegant abstraction layer over Cairo, akin to how React relates to JavaScript. Through Dojo, developers can utilize shorthand commands which, during compile time, unfurl into intricate queries. Here are some of Dojo's core features:
+Dojo provides an advanced abstraction layer over Cairo, mirroring React's relationship with JavaScript. Its specialized architecture simplifies game design and development. By leveraging Dojo, developers can use succinct commands that transform into comprehensive queries at compile time. This chapter delves deeper into Dojo's unique architecture.
 
-- **Standard Data Storage:** Provides consistent and efficient data management via an ORM-like onchain storage
-- **Standard Framework (ECS):** Grounded in the well-established Entity Component System, offering a familiar architecture for developers.
-- **Rustesk Macros:** Enables the use of shorthand commands, simplifying complex tasks and promoting efficient coding practices."
+#### Delving into the Architecture
 
-### High level transaction flow of a world
+Dojo efficiently encapsulates boilerplate contracts within the compiler, letting developers concentrate on the distinct aspects of their game or app.
 
-To call a Dojo world you invoke a system, which then calls the [world](./world.md) and does the necessary state changes.
-
-![Dojo World](../images/world_flow.png)
-
-### The simplest possible Dojo World
-
-This is the simplest possible Dojo World. It has 1 model and one contract.
-
-Directory structure:
+Consider this as the most basic Dojo world setup:
 
 ```rust,ignore
 - src
-- - main.cairo
-- - lib.cairo
-- scarb.toml
+  - main.cairo
+  - lib.cairo
+- Scarb.toml
 ```
+
+While seemingly simple, behind the scenes Dojo generates foundational contracts, setting the stage for you to focus purely on data and logic. 
 
 Lets take a look at the `main.cairo`:
 
@@ -33,24 +25,28 @@ Lets take a look at the `main.cairo`:
 use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
 use starknet::ContractAddress;
 
+// dojo data models
 #[derive(Model, Copy, Drop, Print, Serde)]
 struct Position {
-    #[key]
+    #[key] // primary key
     player: ContractAddress,
     vec: Vec2,
 }
 
+// regular cairo struct
 #[derive(Copy, Drop, Serde, Print, Introspect)]
 struct Vec2 {
     x: u32,
     y: u32
 }
 
+// interface
 #[starknet::interface]
 trait IPlayerActions<TContractState> {
     fn spawn(self: @TContractState, world: IWorldDispatcher);
 }
 
+// contract
 #[starknet::contract]
 mod player_actions {
     use starknet::{ContractAddress, get_caller_address};
@@ -58,22 +54,24 @@ mod player_actions {
     use super::{Position, Vec2};
     use super::IPlayerActions;
 
+    // note the is no storage here - it's in the world contract
     #[storage]
     struct Storage {}
 
     #[external(v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         // 
-        // NOTICE: we pass the world dispatcher as an argument to every function
+        // NOTICE: we pass the world dispatcher as an argument to every function. 
+        // This is how we interact with the world contract.
         //
         fn spawn(self: @ContractState, world: IWorldDispatcher) {
             // get player address
             let player = get_caller_address();
 
-            // get player position
+            // dojo command - get player position
             let position = get!(world, player, (Position));
 
-            // set player position
+            // dojo command - set player position
             set!(world, (Position { player, vec: Vec2 { x: 10, y: 10 } }));
         }
     }
@@ -85,17 +83,23 @@ mod player_actions {
 This just a regular Cairo contract, with some specifics.
 
 #### `Position` struct
-This is how you define state in a dojo world. Models are structs that are annotated with the `#[derive(Model)]` attribute. Think of these models as a keypair store. The `#[key]` attribute is used to define the primary key of the model. In this case it's the `player` field.
 
-Models are a key part of every dojo world read more here [here](./models.md).
+In a Dojo world, state is defined using models. These are structs marked with the `#[derive(Model)]` attribute, functioning similarly to a keypair store. The primary key for a model is indicated using the `#[key]` attribute; for instance, the `player` field serves as the primary key in this context.
 
-#### `spawn` function
+Read more about models [here](./models.md).
 
-Notice the second parameter of the `spawn` function. It's a `IWorldDispatcher` interface. This is the interface to the world contract. You pass this into the function which then allows the macros `get!` and `set!` to work on the world contract!
+#### `spawn` function - a dojo system
 
-Commands are one of the biggest innovations in dojo and read more about them [here](./commands.md).
+In the `spawn` function, take note of the second parameter: the `IWorldDispatcher` interface. This provides a gateway to the world contract. By integrating it into the function, it enables the `get!` and `set!` macros to interface directly with the world contract. 
 
+Commands, a significant innovation in Dojo, are further explored [here](./commands.md).
 
 #### `#[storage]` attribute
 
-You will notice there is no storage in the contract. This is because the storage is in the world contract. You can however use this attribute to store data in the contract itself, but we suggest you use the world contract for storage.
+You will notice there is no storage in the contract. This is because the storage is in the world contract. You can however use this attribute to store data in the System contract itself, but we suggest you use the world contract for storage.
+
+### High level transaction flow of a world
+
+To call a Dojo world you invoke a system, which then calls the [world](./world.md) and does the necessary state changes.
+
+![Dojo World](../images/world_flow.png)

@@ -20,6 +20,7 @@
 # Architecture
 -   [Overview](./cairo/overview.md)
     -   [World](./cairo/world.md)
+    -   [Systems](./cairo/systems.md)    
     -   [Models](./cairo/models.md)
     -   [Commands](./cairo/commands.md)
     -   [Config](./cairo/config.md)
@@ -27,7 +28,7 @@
     -   [Authorization](./cairo/authorization.md)
 -   [ECS in 15 minutes](./cairo/hello-dojo.md)
     -   [Components](./cairo/components.md)
-    -   [Systems](./cairo/systems.md)
+
     -   [Entities](./cairo/entities.md)
     -   [Testing](./cairo/testing.md)
 -   [Modules](./cairo/modules.md)

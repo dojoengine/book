@@ -4,7 +4,7 @@
 
 ## Dojo as an ECS in 15 Minutes
 
-In Dojo, the design of your virtual worlds is facilitated through Systems and Components. While it isn't strictly an Entity Component System (ECS) framework, it employs similar principles. Systems define the logic of your environment, whereas components represent its state. This approach offers a modular structure for your logic, ensuring flexibility and scalability. If this sounds complex now, don't worry; we'll dive deeper into the specifics below.
+Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](./models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework that promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
 
 To start, let's set up a project to run locally on your machine. From an empty directory, execute:
 
@@ -26,7 +26,9 @@ src
 Scarb.toml
 ```
 
-Dojo projects largely resemble standard Cairo projects, with the distinction being a special attribute tag to define your data models, which we will use as components in this example.
+Dojo projects bear a strong resemblance to typical Cairo projects. The primary difference is the inclusion of a special attribute tag used to define your data models. In this context, we'll refer to these models as components.
+
+As we're crafting an ECS, we'll adhere to the specific terminology associated with Entity Component Systems.
 
 Open the `src/components.cairo` file to continue.
 

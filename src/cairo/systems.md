@@ -1,10 +1,22 @@
 ## Systems
 
-> Systems = Logic
+> **IMPORTANT:** Before defining your systems, prioritize permissions. Systems require specific permissions to write to models. Plan carefully to ensure proper access and security.
 
-Systems are the backbone of your world's logic. They drive changes in component states within the world.
+_tldr;_
+-  Systems are just contract functions
+-  Contracts which contain Systems are given permissions to write to models
+-  Systems pass a `world`` address as their first parameter
+-  Systems invoke the world contract to mutate the state of models
 
-System functions use a 'world' address as their initial parameter, enabling them to modify the world's state. This allows systems to be reused by other worlds!
+### What are Systems?
+
+Within dojo we define systems as functions within a Contract that act on the world. The contracts that hold systems are given permissions to write to models, so you must be careful when defining systems.
+
+Systems play a pivotal role in your world's logic, directly mutating its component states. It's important to understand that to enact these mutations, a system needs explicit permission from the [`models`](./models.md) owner. This permission is established when the Contract, defining the system, is provided write access to the model.
+
+### System Structure
+
+Every system function starts with a [`world`](./world.md) address as its initial parameter. This design permits these functions to alter the world's state. Notably, this structure also makes systems adaptable and reusable across multiple worlds!
 
 Let's look at the simplest possible system which mutates the state of the `Moves` component.
 
