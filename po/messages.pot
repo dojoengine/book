@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2023-09-28T02:43:42+07:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,7 @@ msgid "Foreword"
 msgstr ""
 
 #: src/SUMMARY.md:4
+#: src/theory/what-is-dojo.md:1
 msgid "What is Dojo?"
 msgstr ""
 
@@ -29,14 +30,18 @@ msgid "Cairo Ecosystem"
 msgstr ""
 
 #: src/SUMMARY.md:7
+#: src/theory/faqs.md:1
 msgid "FAQs"
 msgstr ""
 
 #: src/SUMMARY.md:9
+#: src/client/npm/core.md:10
+#: src/misc/contributors.md:12
 msgid "Getting Started"
 msgstr ""
 
 #: src/SUMMARY.md:11
+#: src/getting-started/quick-start.md:1
 msgid "Quick Start"
 msgstr ""
 
@@ -45,6 +50,7 @@ msgid "Manual Install"
 msgstr ""
 
 #: src/SUMMARY.md:13
+#: src/getting-started/setup.md:1
 msgid "Development Setup"
 msgstr ""
 
@@ -57,6 +63,7 @@ msgid "Community"
 msgstr ""
 
 #: src/SUMMARY.md:18
+#: src/community/get-started.md:1
 msgid "Get Started"
 msgstr ""
 
@@ -65,10 +72,12 @@ msgid "Architecture"
 msgstr ""
 
 #: src/SUMMARY.md:22
+#: src/cairo/hello-dojo.md:1
 msgid "Hello Dojo"
 msgstr ""
 
 #: src/SUMMARY.md:23
+#: src/cairo/config.md:1
 msgid "Config"
 msgstr ""
 
@@ -77,38 +86,47 @@ msgid "World"
 msgstr ""
 
 #: src/SUMMARY.md:25
+#: src/cairo/components.md:1
 msgid "Components"
 msgstr ""
 
 #: src/SUMMARY.md:26
+#: src/cairo/systems.md:1
 msgid "Systems"
 msgstr ""
 
 #: src/SUMMARY.md:27
+#: src/cairo/entities.md:1
 msgid "Entities"
 msgstr ""
 
 #: src/SUMMARY.md:28
+#: src/cairo/authorization.md:1
 msgid "Authorization"
 msgstr ""
 
 #: src/SUMMARY.md:29
+#: src/cairo/commands.md:1
 msgid "Commands"
 msgstr ""
 
 #: src/SUMMARY.md:30
+#: src/cairo/events.md:1
 msgid "Events"
 msgstr ""
 
 #: src/SUMMARY.md:31
+#: src/cairo/testing.md:1
 msgid "Testing"
 msgstr ""
 
 #: src/SUMMARY.md:32
+#: src/cairo/modules.md:1
 msgid "Dojo Modules"
 msgstr ""
 
 #: src/SUMMARY.md:33
+#: src/cairo/modules/erc20.md:1
 msgid "ERC20"
 msgstr ""
 
@@ -129,6 +147,7 @@ msgid "Client SDKs"
 msgstr ""
 
 #: src/SUMMARY.md:40
+#: src/client/overview.md:1
 msgid "Overview"
 msgstr ""
 
@@ -149,6 +168,7 @@ msgid "Dojoup"
 msgstr ""
 
 #: src/SUMMARY.md:47
+#: src/toolchain/sozo/overview.md:1
 msgid "Sozo"
 msgstr ""
 
@@ -199,6 +219,7 @@ msgid "auth"
 msgstr ""
 
 #: src/SUMMARY.md:59
+#: src/toolchain/katana/overview.md:1
 msgid "Katana"
 msgstr ""
 
@@ -227,6 +248,7 @@ msgid "Onchain Chess"
 msgstr ""
 
 #: src/SUMMARY.md:72
+#: src/tutorial/onchain-chess/0-setup.md:1
 msgid "0. Setup"
 msgstr ""
 
@@ -239,6 +261,7 @@ msgid "2. Move"
 msgstr ""
 
 #: src/SUMMARY.md:75
+#: src/tutorial/onchain-chess/3-legal.md:1
 msgid "3. Check Legal Move"
 msgstr ""
 
@@ -251,19 +274,19 @@ msgid "Contributors"
 msgstr ""
 
 #: src/index.md:1
-msgid "Dojo"
+msgid "![Dojo](images/dojo-mark-full-dark.svg)"
 msgstr ""
 
 #: src/index.md:3
 msgid ""
-"> Dojo is an open-source project, currently in its early development phase, "
+"Dojo is an open-source project, currently in its early development phase, "
 "and warmly welcomes contributors. For additional resources, join the "
 "community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the "
 "[contribution guide](./misc/contributors.md)."
 msgstr ""
 
 #: src/index.md:7
-msgid "## Dojo: The Provable Game Engine"
+msgid "Dojo: The Provable Game Engine"
 msgstr ""
 
 #: src/index.md:9
@@ -283,14 +306,19 @@ msgid ""
 msgstr ""
 
 #: src/index.md:13
-msgid ""
-"- [Quickstart](./getting-started/quick-start.md)\n"
-"- [What is Dojo? ](./theory/what-is-dojo.md)\n"
-"- [Explore the Architecture](./cairo/hello-dojo.md)"
+msgid "[Quickstart](./getting-started/quick-start.md)"
+msgstr ""
+
+#: src/index.md:14
+msgid "[What is Dojo? ](./theory/what-is-dojo.md)"
+msgstr ""
+
+#: src/index.md:15
+msgid "[Explore the Architecture](./cairo/hello-dojo.md)"
 msgstr ""
 
 #: src/index.md:18
-msgid "### Explainer"
+msgid "Explainer"
 msgstr ""
 
 #: src/index.md:20
@@ -301,19 +329,8 @@ msgid ""
 "Summit](https://twitter.com/pet3rpan_/status/1666764726427353091):"
 msgstr ""
 
-#: src/index.md:22
-msgid ""
-"<video controls "
-"poster=\"https://gf326cjag4w6pdpc42qp22enfhxsywmq6sgs7mkxbn6el7aioyxa.arweave.net/MXevCSA3LeeN4uag_WiNKe8sWZD0jS-xVwt8RfwIdi4\">\n"
-"  <source "
-"src=\"https://sfx25btazqz62pajxecorlp4exskwgokakub44rxmpnsosep5iqa.arweave.net/kW-uhmDMM-08CbkE6K38JeSrGcoCqB5yN2PbJ0iP6iA\" "
-"type=\"video/mp4\">\n"
-"  Your browser does not support the video tag.\n"
-"</video>"
-msgstr ""
-
 #: src/index.md:30
-msgid "### Organizational Structure"
+msgid "Organizational Structure"
 msgstr ""
 
 #: src/index.md:31
@@ -327,7 +344,7 @@ msgid ""
 msgstr ""
 
 #: src/index.md:33
-msgid "### How do I get involved?"
+msgid "How do I get involved?"
 msgstr ""
 
 #: src/index.md:35
@@ -336,10 +353,6 @@ msgid ""
 "[Twitter](https://twitter.com/dojostarknet), "
 "[Discord](https://discord.gg/vUN4Xq9Qv6) and [contribution "
 "guide](https://book.dojoengine.org/misc/contributors.html)"
-msgstr ""
-
-#: src/theory/what-is-dojo.md:1
-msgid "# What is Dojo?"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:3
@@ -361,7 +374,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/what-is-dojo.md:9
-msgid "## Stop building infrastructure; start building games"
+msgid "Stop building infrastructure; start building games"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:11
@@ -371,7 +384,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/what-is-dojo.md:13
-msgid "### Entity Component System (ECS)"
+msgid "Entity Component System (ECS)"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:15
@@ -397,7 +410,7 @@ msgid "Read detailed information about the [Dojo ECS](../cairo/overview.md)."
 msgstr ""
 
 #: src/theory/what-is-dojo.md:21
-msgid "### [Torii](/crates/torii/README.md) - Starknet Indexer"
+msgid "[Torii](/crates/torii/README.md) - Starknet Indexer"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:23
@@ -419,8 +432,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/what-is-dojo.md:27
-msgid ""
-"### [Katana](/crates/katana/README.md) - Blazingly fast development network"
+msgid "[Katana](/crates/katana/README.md) - Blazingly fast development network"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:29
@@ -430,7 +442,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/what-is-dojo.md:31
-msgid "### [Sozo CLI](/crates/sozo/README.md) - CLI Management Tool"
+msgid "[Sozo CLI](/crates/sozo/README.md) - CLI Management Tool"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:33
@@ -442,18 +454,18 @@ msgid ""
 msgstr ""
 
 #: src/theory/what-is-dojo.md:35
-msgid "### What Dojo doesn't give you"
+msgid "What Dojo doesn't give you"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:37
 msgid ""
-"1. Visual graphics - While Dojo provides networking and contracts, it "
-"doesn't offer graphical engines. You can bring your graphics of choice! "
-"Integrate your Dojo world with Unreal, Godot, or Unity."
+"Visual graphics - While Dojo provides networking and contracts, it doesn't "
+"offer graphical engines. You can bring your graphics of choice! Integrate "
+"your Dojo world with Unreal, Godot, or Unity."
 msgstr ""
 
 #: src/theory/what-is-dojo.md:39
-msgid "## Understanding the Dojo Workflow: A Visual Guide"
+msgid "Understanding the Dojo Workflow: A Visual Guide"
 msgstr ""
 
 #: src/theory/what-is-dojo.md:41
@@ -471,18 +483,17 @@ msgid ""
 msgstr ""
 
 #: src/theory/what-is-dojo.md:45
-msgid "Dojo Sozo Workflow"
+msgid "![Dojo Sozo Workflow](../images/dojo-sozo-workflow.jpg)"
 msgstr ""
 
 #: src/theory/autonomous-worlds.md:1
-msgid "## Autonomous Worlds"
+msgid "Autonomous Worlds"
 msgstr ""
 
 #: src/theory/autonomous-worlds.md:3
 msgid ""
-"> \"Autonomous worlds represent persistent, permissionless, and "
-"decentralized open environments that users can freely interact with and "
-"contribute to.\""
+"\"Autonomous worlds represent persistent, permissionless, and decentralized "
+"open environments that users can freely interact with and contribute to.\""
 msgstr ""
 
 #: src/theory/autonomous-worlds.md:5
@@ -510,15 +521,17 @@ msgstr ""
 
 #: src/theory/autonomous-worlds.md:9
 msgid ""
-"1. Decentralized data availability layer: While the state execution may "
-"reside on a centralized layer, it is crucial that the state can be "
-"reconstructed if the execution layer ceases to exist. Rollups offer a "
-"solution, providing increased capacity execution layers while ensuring data "
-"is permanently settled on Ethereum. This guarantees the world's perpetual "
-"persistence.\n"
-"\n"
-"2. Permissionless entry point for expanding the world: The World contract "
-"must be capable of accepting new systems and components without requiring "
+"Decentralized data availability layer: While the state execution may reside "
+"on a centralized layer, it is crucial that the state can be reconstructed if "
+"the execution layer ceases to exist. Rollups offer a solution, providing "
+"increased capacity execution layers while ensuring data is permanently "
+"settled on Ethereum. This guarantees the world's perpetual persistence."
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:11
+msgid ""
+"Permissionless entry point for expanding the world: The World contract must "
+"be capable of accepting new systems and components without requiring "
 "permission. While this doesn't imply that every component and system will be "
 "utilized, they must adhere to this pattern, ensuring open and unrestricted "
 "access for potential enhancements."
@@ -535,30 +548,57 @@ msgid ""
 msgstr ""
 
 #: src/theory/autonomous-worlds.md:15
-msgid "### Homework"
+msgid "Homework"
 msgstr ""
 
 #: src/theory/autonomous-worlds.md:16
 msgid ""
-"- [Wired - Autonomous Worlds "
-"Primer](https://www.wired.com/story/autonomous-worlds-aim-to-free-online-games-from-corporate-control/)\n"
-"- [0xParc - Autonomous Worlds (Part "
-"1)](https://0xparc.org/blog/autonomous-worlds)\n"
-"- [Gubsheep - The Strongest Crypto Gaming "
-"Thesis](https://gubsheep.substack.com/p/the-strongest-crypto-gaming-thesis)\n"
-"- [Lattice - MUD: An engine for Autonomous "
-"Worlds](https://lattice.xyz/blog/mud-an-engine-for-autonomous-worlds)\n"
-"- [Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)\n"
-"- [Guiltygyoza - Composable "
-"Engineering](https://www.guiltygyoza.xyz/2023/05/composable-engineering)\n"
-"- [Jay Springett - Wind-up "
-"Worlds](https://www.thejaymo.net/2022/05/06/wind-up-worlds/)\n"
-"- [Are.na collection on Autonomous "
+"[Wired - Autonomous Worlds "
+"Primer](https://www.wired.com/story/autonomous-worlds-aim-to-free-online-games-from-corporate-control/)"
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:17
+msgid ""
+"[0xParc - Autonomous Worlds (Part "
+"1)](https://0xparc.org/blog/autonomous-worlds)"
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:18
+msgid ""
+"[Gubsheep - The Strongest Crypto Gaming "
+"Thesis](https://gubsheep.substack.com/p/the-strongest-crypto-gaming-thesis)"
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:19
+msgid ""
+"[Lattice - MUD: An engine for Autonomous "
+"Worlds](https://lattice.xyz/blog/mud-an-engine-for-autonomous-worlds)"
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:20
+msgid "[Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)"
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:21
+msgid ""
+"[Guiltygyoza - Composable "
+"Engineering](https://www.guiltygyoza.xyz/2023/05/composable-engineering)"
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:22
+msgid ""
+"[Jay Springett - Wind-up "
+"Worlds](https://www.thejaymo.net/2022/05/06/wind-up-worlds/)"
+msgstr ""
+
+#: src/theory/autonomous-worlds.md:23
+msgid ""
+"[Are.na collection on Autonomous "
 "Worlds](https://www.are.na/sylve-chevet/on-chain-realities-and-autonomous-worlds)"
 msgstr ""
 
 #: src/theory/cairo.md:1
-msgid "# Provable games"
+msgid "Provable games"
 msgstr ""
 
 #: src/theory/cairo.md:3
@@ -594,7 +634,8 @@ msgid ""
 msgstr ""
 
 #: src/theory/cairo.md:11
-msgid "## Cairo"
+#: src/getting-started/setup.md:8
+msgid "Cairo"
 msgstr ""
 
 #: src/theory/cairo.md:13
@@ -630,18 +671,23 @@ msgid ""
 msgstr ""
 
 #: src/theory/cairo.md:21
-msgid "#### Essential Reading"
+msgid "Essential Reading"
 msgstr ""
 
 #: src/theory/cairo.md:22
-msgid ""
-"- [Cairo book](https://cairo-book.github.io/)\n"
-"- [Awesome Cairo](https://github.com/auditless/awesome-cairo)\n"
-"- [Starknet Book](https://book.starknet.io/)"
+msgid "[Cairo book](https://cairo-book.github.io/)"
+msgstr ""
+
+#: src/theory/cairo.md:23
+msgid "[Awesome Cairo](https://github.com/auditless/awesome-cairo)"
+msgstr ""
+
+#: src/theory/cairo.md:24
+msgid "[Starknet Book](https://book.starknet.io/)"
 msgstr ""
 
 #: src/theory/cairo.md:26
-msgid "### Starknet as an L2"
+msgid "Starknet as an L2"
 msgstr ""
 
 #: src/theory/cairo.md:28
@@ -665,7 +711,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/cairo.md:32
-msgid "### Starknet as an Appchain"
+msgid "Starknet as an Appchain"
 msgstr ""
 
 #: src/theory/cairo.md:34
@@ -678,12 +724,8 @@ msgid ""
 "Starknet appchains to seamlessly run Dojo worlds."
 msgstr ""
 
-#: src/theory/faqs.md:1
-msgid "# FAQs"
-msgstr ""
-
 #: src/theory/faqs.md:3
-msgid "#### Who owns Dojo?"
+msgid "Who owns Dojo?"
 msgstr ""
 
 #: src/theory/faqs.md:5
@@ -693,7 +735,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/faqs.md:7
-msgid "#### Why Dojo?"
+msgid "Why Dojo?"
 msgstr ""
 
 #: src/theory/faqs.md:9
@@ -704,7 +746,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/faqs.md:11
-msgid "#### What is the Dojo roadmap?"
+msgid "What is the Dojo roadmap?"
 msgstr ""
 
 #: src/theory/faqs.md:13
@@ -716,7 +758,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/faqs.md:15
-msgid "#### What is an onchain game?"
+msgid "What is an onchain game?"
 msgstr ""
 
 #: src/theory/faqs.md:17
@@ -728,7 +770,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/faqs.md:19
-msgid "#### What is an autonomous world?"
+msgid "What is an autonomous world?"
 msgstr ""
 
 #: src/theory/faqs.md:21
@@ -740,7 +782,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/faqs.md:23
-msgid "#### What is Cairo?"
+msgid "What is Cairo?"
 msgstr ""
 
 #: src/theory/faqs.md:25
@@ -752,7 +794,7 @@ msgid ""
 msgstr ""
 
 #: src/theory/faqs.md:27
-msgid "#### What is a provable game?"
+msgid "What is a provable game?"
 msgstr ""
 
 #: src/theory/faqs.md:29
@@ -774,19 +816,15 @@ msgid ""
 "This constitutes a provable game."
 msgstr ""
 
-#: src/getting-started/quick-start.md:1
-msgid "## Quick Start"
-msgstr ""
-
 #: src/getting-started/quick-start.md:3
 msgid ""
-"> It is worth reading [theory](../theory/autonomous-worlds.md) to "
-"familiarize yourself with the concept of Autonomous Worlds (AWs) and the "
-"[Cairo ecosystem](../theory/cairo.md) before diving into the code."
+"It is worth reading [theory](../theory/autonomous-worlds.md) to familiarize "
+"yourself with the concept of Autonomous Worlds (AWs) and the [Cairo "
+"ecosystem](../theory/cairo.md) before diving into the code."
 msgstr ""
 
 #: src/getting-started/quick-start.md:6
-msgid "### Install Dojoup"
+msgid "Install Dojoup"
 msgstr ""
 
 #: src/getting-started/quick-start.md:8
@@ -807,16 +845,8 @@ msgstr ""
 
 #: src/getting-started/quick-start.md:14
 msgid ""
-"This will install Dojoup, then simply follow the instructions on-screen,\n"
+"This will install Dojoup, then simply follow the instructions on-screen, "
 "which will make the `dojoup` command available in your CLI."
-msgstr ""
-
-#: src/getting-started/quick-start.md:17
-#: src/toolchain/dojoup.md:15
-msgid ""
-"```sh\n"
-"dojoup\n"
-"```"
 msgstr ""
 
 #: src/getting-started/quick-start.md:21
@@ -826,57 +856,50 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/quick-start.md:23
-msgid "### Next steps"
+msgid "Next steps"
 msgstr ""
 
 #: src/getting-started/quick-start.md:25
 msgid ""
-"> Head to [Hello Dojo](../cairo/hello-dojo.md) to get create your first Dojo "
+"Head to [Hello Dojo](../cairo/hello-dojo.md) to get create your first Dojo "
 "world."
 msgstr ""
 
 #: src/getting-started/from-source.md:1
-msgid "## Building from source"
+msgid "Building from source"
 msgstr ""
 
 #: src/getting-started/from-source.md:3
 msgid ""
-"> If you are just wanting to play with the toolchain, we strongly suggest "
+"If you are just wanting to play with the toolchain, we strongly suggest "
 "following the [Quick Start](./quick-start.md) guide."
 msgstr ""
 
 #: src/getting-started/from-source.md:5
-msgid "#### Prerequisites"
+#: src/getting-started/setup.md:5
+msgid "Prerequisites"
 msgstr ""
 
 #: src/getting-started/from-source.md:7
 msgid ""
 "You will need the [Rust](https://rust-lang.org) compiler and Cargo, the Rust "
-"package manager.\n"
-"The easiest way to install both is with [`rustup.rs`](https://rustup.rs/)."
+"package manager. The easiest way to install both is with "
+"[`rustup.rs`](https://rustup.rs/)."
 msgstr ""
 
 #: src/getting-started/from-source.md:10
 msgid ""
 "On Windows, you will also need a recent version of [Visual "
-"Studio](https://visualstudio.microsoft.com/downloads/),\n"
-"installed with the \"Desktop Development With C++\" Workloads option."
+"Studio](https://visualstudio.microsoft.com/downloads/), installed with the "
+"\"Desktop Development With C++\" Workloads option."
 msgstr ""
 
 #: src/getting-started/from-source.md:13
-msgid "#### Building"
+msgid "Building"
 msgstr ""
 
 #: src/getting-started/from-source.md:15
 msgid "You can either use the different [Dojoup](#using-dojoup) flags:"
-msgstr ""
-
-#: src/getting-started/from-source.md:17
-msgid ""
-"```sh\n"
-"dojoup --branch master\n"
-"dojoup --path path/to/dojo\n"
-"```"
 msgstr ""
 
 #: src/getting-started/from-source.md:22
@@ -912,32 +935,24 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/getting-started/setup.md:1
-msgid "# Development Setup"
-msgstr ""
-
 #: src/getting-started/setup.md:3
 msgid ""
-"> This article is a guide to setting up a development environment for Dojo. "
-"It is not suggested to follow this guide if you are just wanting to play "
-"with the toolchain. We strongly suggest following the [Quick "
+"This article is a guide to setting up a development environment for Dojo. It "
+"is not suggested to follow this guide if you are just wanting to play with "
+"the toolchain. We strongly suggest following the [Quick "
 "Start](../getting-started/quick-start.md) guide."
 msgstr ""
 
-#: src/getting-started/setup.md:5
-msgid "### Prerequisites"
-msgstr ""
-
 #: src/getting-started/setup.md:7
-msgid "- Rust\n- Cairo"
+msgid "Rust"
 msgstr ""
 
 #: src/getting-started/setup.md:12
-msgid "## Guide"
+msgid "Guide"
 msgstr ""
 
 #: src/getting-started/setup.md:14
-msgid "### Clone"
+msgid "Clone"
 msgstr ""
 
 #: src/getting-started/setup.md:16
@@ -948,11 +963,11 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/setup.md:20
-msgid "### Linux & Mac"
+msgid "Linux & Mac"
 msgstr ""
 
 #: src/getting-started/setup.md:22
-msgid "#### 1. Install Rust and Dependencies"
+msgid "1. Install Rust and Dependencies"
 msgstr ""
 
 #: src/getting-started/setup.md:24
@@ -960,22 +975,15 @@ msgid ""
 "Start by installing Rust and running the test suite to confirm your setup:"
 msgstr ""
 
-#: src/getting-started/setup.md:26
-msgid ""
-"```sh\n"
-"rustup override set stable && rustup update && cargo test\n"
-"```"
-msgstr ""
-
 #: src/getting-started/setup.md:30
 msgid ""
-"> Note: Depending on your Linux distribution, you may need to install "
+"Note: Depending on your Linux distribution, you may need to install "
 "additional dependencies. Make sure to install any suggested or missing "
 "dependencies that arise during the setup process."
 msgstr ""
 
 #: src/getting-started/setup.md:32
-msgid "#### 2. Install Scarb Package Manager"
+msgid "2. Install Scarb Package Manager"
 msgstr ""
 
 #: src/getting-started/setup.md:34
@@ -993,7 +1001,7 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/setup.md:40
-msgid "#### 3. Add the Cairo 1.0 VSCode Extension"
+msgid "3. Add the Cairo 1.0 VSCode Extension"
 msgstr ""
 
 #: src/getting-started/setup.md:42
@@ -1004,7 +1012,7 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/setup.md:45
-msgid "### Windows"
+msgid "Windows"
 msgstr ""
 
 #: src/getting-started/setup.md:47
@@ -1013,11 +1021,11 @@ msgid "_Coming soon_"
 msgstr ""
 
 #: src/getting-started/setup.md:49
-msgid "### Container"
+msgid "Container"
 msgstr ""
 
 #: src/getting-started/contributing.md:1
-msgid "# Contributing to the Core"
+msgid "Contributing to the Core"
 msgstr ""
 
 #: src/getting-started/contributing.md:3
@@ -1027,7 +1035,7 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/contributing.md:5
-msgid "## How to Contribute"
+msgid "How to Contribute"
 msgstr ""
 
 #: src/getting-started/contributing.md:7
@@ -1038,32 +1046,33 @@ msgid ""
 "create an issue with the `enhancement` tag."
 msgstr ""
 
-#: src/community/get-started.md:1
-msgid "## Get Started"
-msgstr ""
-
 #: src/community/get-started.md:3
 msgid ""
-"-   [Community "
-"Hub](https://dojoengine.notion.site/Dojo-Engine-Community-Hub-d316194b998941c48ddf771a4dd5ff08#bcd6a32db1b2406cb6c325f3b700d45a)\n"
-"-   [Discord](https://discord.gg/KG9w9BmDrV)\n"
-"-   [Twitter](https://twitter.com/dojostarknet)\n"
-"-   [Awesome Dojo](https://github.com/dojoengine/awesome-dojo)"
+"[Community "
+"Hub](https://dojoengine.notion.site/Dojo-Engine-Community-Hub-d316194b998941c48ddf771a4dd5ff08#bcd6a32db1b2406cb6c325f3b700d45a)"
 msgstr ""
 
-#: src/cairo/hello-dojo.md:1
-msgid "# Hello Dojo"
+#: src/community/get-started.md:4
+msgid "[Discord](https://discord.gg/KG9w9BmDrV)"
+msgstr ""
+
+#: src/community/get-started.md:5
+msgid "[Twitter](https://twitter.com/dojostarknet)"
+msgstr ""
+
+#: src/community/get-started.md:6
+msgid "[Awesome Dojo](https://github.com/dojoengine/awesome-dojo)"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:3
 msgid ""
-"> This section assumes that you have already installed the Dojo toolchain "
-"and are familiar with Cairo. If not, please refer to the [Getting "
+"This section assumes that you have already installed the Dojo toolchain and "
+"are familiar with Cairo. If not, please refer to the [Getting "
 "Started](../getting-started/quick-start.md) section."
 msgstr ""
 
 #: src/cairo/hello-dojo.md:5
-msgid "## Dojo in 15 Minutes"
+msgid "Dojo in 15 Minutes"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:7
@@ -1089,13 +1098,6 @@ msgid ""
 "empty directory, execute:"
 msgstr ""
 
-#: src/cairo/hello-dojo.md:13
-msgid ""
-"```console\n"
-"sozo init\n"
-"```"
-msgstr ""
-
 #: src/cairo/hello-dojo.md:17
 msgid ""
 "Congratulations! You now have a local Dojo project. This command creates a "
@@ -1104,24 +1106,13 @@ msgid ""
 msgstr ""
 
 #: src/cairo/hello-dojo.md:19
-msgid "#### Anatomy of a Dojo Project"
+msgid "Anatomy of a Dojo Project"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:21
 msgid ""
 "Inspect the contents of the `dojo-starter` project, and you'll notice the "
 "following structure (excluding the non-cairo files):"
-msgstr ""
-
-#: src/cairo/hello-dojo.md:23
-msgid ""
-"```bash\n"
-"src\n"
-"  - components.cairo\n"
-"  - systems.cairo\n"
-"  - lib.cairo\n"
-"Scarb.toml\n"
-"```"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:31
@@ -1135,32 +1126,10 @@ msgstr ""
 msgid "Open the `src/components.cairo` file to continue."
 msgstr ""
 
-#: src/cairo/hello-dojo.md:35
-msgid ""
-"```rust,ignore\n"
-"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
-"struct Moves {\n"
-"    #[key]\n"
-"    player: ContractAddress,\n"
-"    remaining: u8,\n"
-"}\n"
-"\n"
-"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
-"struct Position {\n"
-"    #[key]\n"
-"    player: ContractAddress,\n"
-"    x: u32,\n"
-"    y: u32\n"
-"}\n"
-"\n"
-"...rest of code\n"
-"```"
-msgstr ""
-
 #: src/cairo/hello-dojo.md:54
 msgid ""
 "Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. "
-"For a component to be recognized, we *must* include `Component`. This "
+"For a component to be recognized, we _must_ include `Component`. This "
 "signals to the Dojo compiler that this struct should be treated as a "
 "component."
 msgstr ""
@@ -1184,48 +1153,8 @@ msgstr ""
 msgid "Now, let's examine the `src/systems.cairo` file:"
 msgstr ""
 
-#: src/cairo/hello-dojo.md:62
-msgid ""
-"```rust,ignore\n"
-"#[system]\n"
-"mod spawn {\n"
-"    use array::ArrayTrait;\n"
-"    use box::BoxTrait;\n"
-"    use traits::Into;\n"
-"    use dojo::world::Context;\n"
-"\n"
-"    use dojo_examples::components::Position;\n"
-"    use dojo_examples::components::Moves;\n"
-"\n"
-"    fn execute(ctx: Context) {\n"
-"        let position = get!(ctx.world, ctx.origin, (Position));\n"
-"        set!(\n"
-"            ctx.world,\n"
-"            (\n"
-"                Moves {\n"
-"                    player: ctx.origin, remaining: 10\n"
-"                },\n"
-"                Position {\n"
-"                    player: ctx.origin, x: position.x + 10, y: position.y + "
-"10\n"
-"                },\n"
-"            )\n"
-"        );\n"
-"        return ();\n"
-"    }\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/hello-dojo.md:91
 msgid "Let us break this down:"
-msgstr ""
-
-#: src/cairo/hello-dojo.md:93
-msgid ""
-"```rust,ignore\n"
-"#[system]\n"
-"```"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:97
@@ -1233,13 +1162,6 @@ msgid ""
 "Just as we use the `#[derive(Component)]` attribute, the `#[system]` "
 "attribute informs the Dojo compiler that this struct is a system, "
 "instructing it to compile accordingly."
-msgstr ""
-
-#: src/cairo/hello-dojo.md:99
-msgid ""
-"```rust,ignore\n"
-"fn execute(ctx: Context)\n"
-"```"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:103
@@ -1260,13 +1182,6 @@ msgstr ""
 
 #: src/cairo/hello-dojo.md:107
 msgid "Now lets look at the next line:"
-msgstr ""
-
-#: src/cairo/hello-dojo.md:109
-msgid ""
-"```rust,ignore\n"
-"let position = get!(ctx.world, ctx.origin, (Position));\n"
-"```"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:113
@@ -1291,22 +1206,6 @@ msgstr ""
 msgid "Now the next line:"
 msgstr ""
 
-#: src/cairo/hello-dojo.md:125
-msgid ""
-"```rust,ignore\n"
-"set!(\n"
-"    ctx.world,\n"
-"    (\n"
-"        Moves {\n"
-"            player: ctx.origin, remaining: 10\n"
-"            }, Position {\n"
-"            player: ctx.origin, x: position.x + 10, y: position.y + 10\n"
-"        },\n"
-"    )\n"
-");\n"
-"```"
-msgstr ""
-
 #: src/cairo/hello-dojo.md:138
 msgid ""
 "Here we use the `set!` [command](./commands.md) to set the `Moves` and "
@@ -1318,29 +1217,33 @@ msgid "We covered a lot here in a short time. Let's recap:"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:142
+msgid "Explained the anatomy of a Dojo project"
+msgstr ""
+
+#: src/cairo/hello-dojo.md:143
 msgid ""
-"-   Explained the anatomy of a Dojo project\n"
-"-   Explained the importace of the `#[derive(Component)]` and `#[system]` "
-"attribute\n"
-"-   Explained the `execute` function\n"
-"-   Explained the `Context` struct\n"
-"-   Touched on the `get!` and `set!` commands"
+"Explained the importace of the `#[derive(Component)]` and `#[system]` "
+"attribute"
+msgstr ""
+
+#: src/cairo/hello-dojo.md:144
+msgid "Explained the `execute` function"
+msgstr ""
+
+#: src/cairo/hello-dojo.md:145
+msgid "Explained the `Context` struct"
+msgstr ""
+
+#: src/cairo/hello-dojo.md:146
+msgid "Touched on the `get!` and `set!` commands"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:149
-msgid "### Run it locally!"
+msgid "Run it locally!"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:151
 msgid "Now that we have some theory out of the way, lets build the Dojo project!"
-msgstr ""
-
-#: src/cairo/hello-dojo.md:153
-#: src/deployment/locally.md:29
-msgid ""
-"```bash\n"
-"sozo build\n"
-"```"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:157
@@ -1355,74 +1258,16 @@ msgid ""
 "need to get Katana running:"
 msgstr ""
 
-#: src/cairo/hello-dojo.md:161
-#: src/deployment/locally.md:13
-msgid ""
-"```bash\n"
-"katana --disable-fee\n"
-"```"
-msgstr ""
-
 #: src/cairo/hello-dojo.md:165
 msgid ""
 "Success! [Katana](../toolchain/katana/overview.md) should now be running "
 "locally on your machine. Now lets deploy!"
 msgstr ""
 
-#: src/cairo/hello-dojo.md:167
-#: src/deployment/locally.md:23
-msgid ""
-"```bash\n"
-"sozo migrate --name test\n"
-"```"
-msgstr ""
-
 #: src/cairo/hello-dojo.md:171
 msgid ""
 "This will deploy the artifact to [Katana](../toolchain/katana/overview.md). "
 "You should see terminal output similar to this:"
-msgstr ""
-
-#: src/cairo/hello-dojo.md:173
-msgid ""
-"```bash\n"
-"Migration account: "
-"0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c\n"
-"\n"
-"[1] 🌎 Building World state....\n"
-"  > No remote World found\n"
-"[2] 🧰 Evaluating Worlds diff....\n"
-"  > Total diffs found: 7\n"
-"[3] 📦 Preparing for migration....\n"
-"  > Total items to be migrated (7): New 7 Update 0\n"
-"  \n"
-"# Executor\n"
-"  > Contract address: "
-"0x1a8cc7a653543337be184d21ceeb5cfc7e97af5ab7da5e4be77f373124d7e48\n"
-"# World\n"
-"  > Contract address: "
-"0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16\n"
-"# Components (2)\n"
-"Moves\n"
-"  > class hash: "
-"0x3240ca67c41c5ae5557f87f44cca2b590f40407082dd390d893a514cfb2b8cd\n"
-"Position\n"
-"  > class hash: "
-"0x4caa1806451739b6fb470652b8066a11f80e847d49003b43cca75a2fd7647b6\n"
-"# Systems (3)\n"
-"spawn\n"
-"  > class hash: "
-"0x1b949b00d5776c8ba13c2fdada38d4b196f3717c93c5c254c4909ed0eb249f7\n"
-"move\n"
-"  > class hash: "
-"0x2534c514efeab524f24cd4b03add904eb540391e9966ebc96f8ce98453a4e1e\n"
-"library_call\n"
-"  > class hash: "
-"0xabfd55d9bb6552aac17d78b33a6e18b06b1b95d4f684637e661dd83053fd45\n"
-"\n"
-"🎉 Successfully migrated World on block #4 at address "
-"0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16\n"
-"```"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:203
@@ -1456,13 +1301,6 @@ msgid ""
 "commands like:"
 msgstr ""
 
-#: src/cairo/hello-dojo.md:215
-msgid ""
-"```bash\n"
-"sozo execute spawn\n"
-"```"
-msgstr ""
-
 #: src/cairo/hello-dojo.md:219
 msgid ""
 "By doing so, you've just activated the spawn system. You now have a local "
@@ -1470,20 +1308,13 @@ msgid ""
 msgstr ""
 
 #: src/cairo/hello-dojo.md:221
-msgid "### Indexing"
+msgid "Indexing"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:223
 msgid ""
 "With your local world set up, let's delve into indexing. You can index the "
 "entire world with this simple command:"
-msgstr ""
-
-#: src/cairo/hello-dojo.md:225
-msgid ""
-"```bash\n"
-"torii\n"
-"```"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:229
@@ -1498,15 +1329,23 @@ msgid "We've covered quite a bit! Here's a recap:"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:233
-msgid ""
-"-   Built a Dojo world\n"
-"-   Deployed the project to Katana\n"
-"-   Ran the spawn system locally\n"
-"-   Indexed the world with Torii"
+msgid "Built a Dojo world"
+msgstr ""
+
+#: src/cairo/hello-dojo.md:234
+msgid "Deployed the project to Katana"
+msgstr ""
+
+#: src/cairo/hello-dojo.md:235
+msgid "Ran the spawn system locally"
+msgstr ""
+
+#: src/cairo/hello-dojo.md:236
+msgid "Indexed the world with Torii"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:238
-msgid "### Next Steps"
+msgid "Next Steps"
 msgstr ""
 
 #: src/cairo/hello-dojo.md:240
@@ -1515,10 +1354,6 @@ msgid ""
 "potential of these worlds is vast! Designed to manage hundreds of systems "
 "and components, Dojo is equipped for expansive creativity. So, what will you "
 "craft next?"
-msgstr ""
-
-#: src/cairo/config.md:1
-msgid "# Config"
 msgstr ""
 
 #: src/cairo/config.md:3
@@ -1569,7 +1404,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/world.md:1
-msgid "## World Contract"
+msgid "World Contract"
 msgstr ""
 
 #: src/cairo/world.md:3
@@ -1591,7 +1426,7 @@ msgstr ""
 
 #: src/cairo/world.md:8
 msgid ""
-"> **To think about:** Consider Autonomous Worlds as sovereign blockchains "
+"**To think about:** Consider Autonomous Worlds as sovereign blockchains "
 "residing within another blockchain - a nested blockchain, so to speak. Just "
 "as you can deploy contracts onto Ethereum to enhance its functionality, you "
 "can similarly introduce systems into the World contract to enrich its "
@@ -1601,7 +1436,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/world.md:11
-msgid "### Context"
+msgid "Context"
 msgstr ""
 
 #: src/cairo/world.md:13
@@ -1625,7 +1460,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/world.md:25
-msgid "### The `uuid()` command"
+msgid "The `uuid()` command"
 msgstr ""
 
 #: src/cairo/world.md:27
@@ -1641,15 +1476,8 @@ msgstr ""
 msgid "Use it like this:"
 msgstr ""
 
-#: src/cairo/world.md:31
-msgid ""
-"```rust,ignore\n"
-"let game_id = ctx.world.uuid();\n"
-"```"
-msgstr ""
-
 #: src/cairo/world.md:36
-msgid "### Full World API"
+msgid "Full World API"
 msgstr ""
 
 #: src/cairo/world.md:38
@@ -1700,12 +1528,8 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/cairo/components.md:1
-msgid "## Components"
-msgstr ""
-
 #: src/cairo/components.md:3
-msgid "> Components = Data"
+msgid "Components = Data"
 msgstr ""
 
 #: src/cairo/components.md:5
@@ -1721,7 +1545,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/components.md:10
-msgid "### Components are Structs"
+msgid "Components are Structs"
 msgstr ""
 
 #: src/cairo/components.md:12
@@ -1732,20 +1556,8 @@ msgid ""
 "reuse components across multiple entity types."
 msgstr ""
 
-#: src/cairo/components.md:14
-msgid ""
-"```rust,ignore\n"
-"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
-"struct Moves {\n"
-"    #[key]\n"
-"    player: ContractAddress,\n"
-"    remaining: u8,\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/components.md:23
-msgid "#### The #[key] attribute"
+msgid "The #\\[key\\] attribute"
 msgstr ""
 
 #: src/cairo/components.md:25
@@ -1756,44 +1568,14 @@ msgid ""
 "defining multiple fields as keys. "
 msgstr ""
 
-#: src/cairo/components.md:27
-msgid ""
-"```rust,ignore\n"
-"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
-"struct Resource {\n"
-"    #[key]\n"
-"    player: ContractAddress,\n"
-"    #[key]\n"
-"    location: ContractAddress,\n"
-"    balance: u8,\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/components.md:38
 msgid ""
 "In this case you then would set the component with both the player and "
 "location fields:"
 msgstr ""
 
-#: src/cairo/components.md:40
-msgid ""
-"```rust,ignore\n"
-"set!(\n"
-"    ctx.world,\n"
-"    (\n"
-"        Resource {\n"
-"            player: ctx.origin,\n"
-"            location: 12,\n"
-"            balance: 10\n"
-"        },\n"
-"    )\n"
-");\n"
-"```"
-msgstr ""
-
 #: src/cairo/components.md:53
-msgid "#### Implementing Traits"
+msgid "Implementing Traits"
 msgstr ""
 
 #: src/cairo/components.md:55
@@ -1805,31 +1587,8 @@ msgid ""
 "when accessing the component."
 msgstr ""
 
-#: src/cairo/components.md:57
-msgid ""
-"```rust,ignore\n"
-"trait PositionTrait {\n"
-"    fn is_zero(self: Position) -> bool;\n"
-"    fn is_equal(self: Position, b: Position) -> bool;\n"
-"}\n"
-"\n"
-"impl PositionImpl of PositionTrait {\n"
-"    fn is_zero(self: Position) -> bool {\n"
-"        if self.x - self.y == 0 {\n"
-"            return true;\n"
-"        }\n"
-"        false\n"
-"    }\n"
-"\n"
-"    fn is_equal(self: Position, b: Position) -> bool {\n"
-"        self.x == b.x && self.y == b.y\n"
-"    }\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/components.md:77
-msgid "#### Custom Setting Components"
+msgid "Custom Setting Components"
 msgstr ""
 
 #: src/cairo/components.md:79
@@ -1849,22 +1608,8 @@ msgid ""
 "GAME_SETTINGS_ID."
 msgstr ""
 
-#: src/cairo/components.md:83
-msgid ""
-"```rust,ignore\n"
-"const GAME_SETTINGS_ID: u32 = 9999999999999;\n"
-"\n"
-"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
-"struct GameSettings {\n"
-"    #[key]\n"
-"    game_settings_id: u32,\n"
-"    combat_cool_down: u32,\n"
-"}\n"
-"``` "
-msgstr ""
-
 #: src/cairo/components.md:94
-msgid "#### Types"
+msgid "Types"
 msgstr ""
 
 #: src/cairo/components.md:96
@@ -1872,14 +1617,31 @@ msgid "Support Component types:"
 msgstr ""
 
 #: src/cairo/components.md:98
-msgid ""
-"-   `u8`\n"
-"-   `u16`\n"
-"-   `u32`\n"
-"-   `u64`\n"
-"-   `u128`\n"
-"-   `u256`\n"
-"-   `ContractAddress`"
+msgid "`u8`"
+msgstr ""
+
+#: src/cairo/components.md:99
+msgid "`u16`"
+msgstr ""
+
+#: src/cairo/components.md:100
+msgid "`u32`"
+msgstr ""
+
+#: src/cairo/components.md:101
+msgid "`u64`"
+msgstr ""
+
+#: src/cairo/components.md:102
+msgid "`u128`"
+msgstr ""
+
+#: src/cairo/components.md:103
+msgid "`u256`"
+msgstr ""
+
+#: src/cairo/components.md:104
+msgid "`ContractAddress`"
 msgstr ""
 
 #: src/cairo/components.md:106
@@ -1887,7 +1649,7 @@ msgid "It is currently not possible to use Arrays."
 msgstr ""
 
 #: src/cairo/components.md:109
-msgid "### In practice with modularity in mind"
+msgid "In practice with modularity in mind"
 msgstr ""
 
 #: src/cairo/components.md:111
@@ -2023,16 +1785,12 @@ msgstr ""
 
 #: src/cairo/components.md:218
 msgid ""
-"> A complete example can be found in the [Dojo "
+"A complete example can be found in the [Dojo "
 "Starter](https://github.com/dojoengine/dojo-starter)"
 msgstr ""
 
-#: src/cairo/systems.md:1
-msgid "## Systems"
-msgstr ""
-
 #: src/cairo/systems.md:3
-msgid "> Systems = Logic"
+msgid "Systems = Logic"
 msgstr ""
 
 #: src/cairo/systems.md:5
@@ -2049,32 +1807,8 @@ msgid ""
 "`Moves` component."
 msgstr ""
 
-#: src/cairo/systems.md:9
-msgid ""
-"```rust,ignore\n"
-"#[system]\n"
-"mod Spawn {\n"
-"    use array::ArrayTrait;\n"
-"    use traits::Into;\n"
-"\n"
-"    use dojo::world::Context;\n"
-"    use dojo_examples::components::Position;\n"
-"    use dojo_examples::components::Moves;\n"
-"\n"
-"    fn execute(ctx: Context) {\n"
-"        set !(\n"
-"            ctx.world, ctx.origin, (\n"
-"                Moves { player: ctx.origin, remaining: 10 }\n"
-"            )\n"
-"        );\n"
-"        return ();\n"
-"    }\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/systems.md:31
-msgid "### The Execute function"
+msgid "The Execute function"
 msgstr ""
 
 #: src/cairo/systems.md:33
@@ -2084,7 +1818,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/systems.md:35
-msgid "### Other functions in a System"
+msgid "Other functions in a System"
 msgstr ""
 
 #: src/cairo/systems.md:37
@@ -2095,7 +1829,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/systems.md:39
-msgid "### Using View Functions"
+msgid "Using View Functions"
 msgstr ""
 
 #: src/cairo/systems.md:41
@@ -2175,11 +1909,14 @@ msgstr ""
 
 #: src/cairo/systems.md:80
 msgid ""
-"- **Using Dojo Core**: If you are working within the [Dojo "
-"Core](../client/npm/core.md), utilize the `call` function. \n"
-"  \n"
-"- **For Rust Users**: The [Starkli](https://book.starkli.rs/) library "
-"provides a handy method to invoke view functions in Rust."
+"**Using Dojo Core**: If you are working within the [Dojo "
+"Core](../client/npm/core.md), utilize the `call` function. "
+msgstr ""
+
+#: src/cairo/systems.md:82
+msgid ""
+"**For Rust Users**: The [Starkli](https://book.starkli.rs/) library provides "
+"a handy method to invoke view functions in Rust."
 msgstr ""
 
 #: src/cairo/systems.md:84
@@ -2189,7 +1926,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/systems.md:86
-msgid "### System Authentication"
+msgid "System Authentication"
 msgstr ""
 
 #: src/cairo/systems.md:88
@@ -2197,13 +1934,6 @@ msgid ""
 "Systems must be given permission to write to components. By default they "
 "have no permissions. With `sozo` we can however give them permissions to "
 "write to components."
-msgstr ""
-
-#: src/cairo/systems.md:90
-msgid ""
-"```console\n"
-"sozo auth writer Moves Spawn \n"
-"```"
 msgstr ""
 
 #: src/cairo/systems.md:94
@@ -2216,14 +1946,10 @@ msgstr ""
 msgid "Read more in the [sozo](../toolchain/sozo/overview.md) docs."
 msgstr ""
 
-#: src/cairo/entities.md:1
-msgid "## Entities"
-msgstr ""
-
 #: src/cairo/entities.md:3
 msgid ""
-"> Entities are the primary key value within the world, to which components "
-"can be attached."
+"Entities are the primary key value within the world, to which components can "
+"be attached."
 msgstr ""
 
 #: src/cairo/entities.md:5
@@ -2241,26 +1967,6 @@ msgid ""
 "structs that the entity will contain. "
 msgstr ""
 
-#: src/cairo/entities.md:9
-msgid ""
-"```rust,ignore\n"
-"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
-"struct Moves {\n"
-"    #[key]\n"
-"    player: ContractAddress,\n"
-"    remaining: u8,\n"
-"}\n"
-"\n"
-"#[derive(Component, Copy, Drop, Serde, SerdeLen)]\n"
-"struct Health {\n"
-"    #[key]\n"
-"    player: ContractAddress,\n"
-"    x: u32,\n"
-"    y: u32\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/entities.md:26
 msgid ""
 "Now, let's create a `Spawn` for the character. It is important to note that "
@@ -2274,52 +1980,16 @@ msgid ""
 "entity."
 msgstr ""
 
-#: src/cairo/entities.md:30
-msgid ""
-"```rust,ignore\n"
-"#[system]\n"
-"mod spawn {\n"
-"    use array::ArrayTrait;\n"
-"    use box::BoxTrait;\n"
-"    use traits::Into;\n"
-"    use dojo::world::Context;\n"
-"\n"
-"    use dojo_examples::components::Position;\n"
-"    use dojo_examples::components::Moves;\n"
-"\n"
-"    fn execute(ctx: Context) {\n"
-"        let position = get!(ctx.world, ctx.origin, (Position));\n"
-"        set!(\n"
-"            ctx.world,\n"
-"            (\n"
-"                Moves {\n"
-"                    player: ctx.origin, remaining: 10\n"
-"                    }, Position {\n"
-"                    player: ctx.origin, x: position.x + 10, y: position.y + "
-"10\n"
-"                },\n"
-"            )\n"
-"        );\n"
-"        return ();\n"
-"    }\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/entities.md:58
 msgid ""
-"> ECS Theory: Plenty has been written on ECS systems, to go deeper read "
+"ECS Theory: Plenty has been written on ECS systems, to go deeper read "
 "[ECS-FAQ](https://github.com/SanderMertens/ecs-faq)"
-msgstr ""
-
-#: src/cairo/authorization.md:1
-msgid "## Authorization"
 msgstr ""
 
 #: src/cairo/authorization.md:3
 msgid ""
-"> Authorization is crucial to a world, just like how authorization is "
-"crucial to any smart contract."
+"Authorization is crucial to a world, just like how authorization is crucial "
+"to any smart contract."
 msgstr ""
 
 #: src/cairo/authorization.md:5
@@ -2334,7 +2004,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/authorization.md:7
-msgid "### Auth Architecture"
+msgid "Auth Architecture"
 msgstr ""
 
 #: src/cairo/authorization.md:9
@@ -2346,16 +2016,16 @@ msgid ""
 msgstr ""
 
 #: src/cairo/authorization.md:11
-msgid "Authorization Architecture"
+msgid "![Authorization Architecture](../images/dojo-auth.png)"
 msgstr ""
 
 #: src/cairo/authorization.md:13
-msgid "### Providing Authorization"
+msgid "Providing Authorization"
 msgstr ""
 
 #: src/cairo/authorization.md:15
 msgid ""
-"> The deployer of the Component is its initial owner. A Component owner is "
+"The deployer of the Component is its initial owner. A Component owner is "
 "able to grant the `owner` and `writer` roles. Only owners can grant a System "
 "the `writer` role which allows it to update the Component."
 msgstr ""
@@ -2364,21 +2034,10 @@ msgstr ""
 msgid "`sozo` offers a convenient tool to authorize systems."
 msgstr ""
 
-#: src/cairo/authorization.md:19
-msgid ""
-"```shell\n"
-"sozo auth writer Moves spawn\n"
-"```"
-msgstr ""
-
 #: src/cairo/authorization.md:23
 msgid ""
 "This command will generate a `writer` authorization for the `spawn` system "
 "to update the `Moves` component."
-msgstr ""
-
-#: src/cairo/commands.md:1
-msgid "## Commands"
 msgstr ""
 
 #: src/cairo/commands.md:3
@@ -2398,7 +2057,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/commands.md:8
-msgid "### Using commands"
+msgid "Using commands"
 msgstr ""
 
 #: src/cairo/commands.md:10
@@ -2407,16 +2066,8 @@ msgid ""
 "called using the following syntax:"
 msgstr ""
 
-#: src/cairo/commands.md:12
-#: src/cairo/commands.md:22
-msgid ""
-"```rust,ignore\n"
-"let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));\n"
-"```"
-msgstr ""
-
 #: src/cairo/commands.md:16
-msgid "### The `get!` command"
+msgid "The `get!` command"
 msgstr ""
 
 #: src/cairo/commands.md:18
@@ -2437,7 +2088,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/commands.md:30
-msgid "### The `set!` command"
+msgid "The `set!` command"
 msgstr ""
 
 #: src/cairo/commands.md:32
@@ -2468,23 +2119,11 @@ msgid ""
 msgstr ""
 
 #: src/cairo/commands.md:52
-msgid "### The `emit!` command"
+msgid "The `emit!` command"
 msgstr ""
 
 #: src/cairo/commands.md:54
 msgid "The `emit!` command is used to emit custom events."
-msgstr ""
-
-#: src/cairo/commands.md:58
-#: src/cairo/events.md:78
-msgid ""
-"```rust,ignore\n"
-"emit !(ctx.world, Moved { address: ctx.origin, direction });\n"
-"```"
-msgstr ""
-
-#: src/cairo/events.md:1
-msgid "## Events"
 msgstr ""
 
 #: src/cairo/events.md:3
@@ -2498,23 +2137,11 @@ msgid ""
 msgstr ""
 
 #: src/cairo/events.md:6
-msgid "### Component Events"
+msgid "Component Events"
 msgstr ""
 
 #: src/cairo/events.md:8
 msgid "Consider this example of a `Moves` component:"
-msgstr ""
-
-#: src/cairo/events.md:10
-msgid ""
-"```rust,ignore\n"
-"#[component]\n"
-"struct Moves {\n"
-"    #[key]\n"
-"    player: Address,\n"
-"    remaining: u32,\n"
-"}\n"
-"```"
 msgstr ""
 
 #: src/cairo/events.md:19
@@ -2549,19 +2176,8 @@ msgid ""
 "event with the following structure:"
 msgstr ""
 
-#: src/cairo/events.md:35
-msgid ""
-"```rust,ignore\n"
-"#[derive(Drop, starknet::Event)]\n"
-"struct StoreDelRecord {\n"
-"    table: felt252,\n"
-"    keys: Span<felt252>,\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/events.md:43
-msgid "### World Events"
+msgid "World Events"
 msgstr ""
 
 #: src/cairo/events.md:45
@@ -2571,39 +2187,6 @@ msgid ""
 "following structures:"
 msgstr ""
 
-#: src/cairo/events.md:47
-msgid ""
-"```rust,ignore\n"
-"#[derive(Drop, starknet::Event)]\n"
-"struct WorldSpawned {\n"
-"    address: ContractAddress,\n"
-"    caller: ContractAddress\n"
-"}\n"
-"```"
-msgstr ""
-
-#: src/cairo/events.md:55
-msgid ""
-"```rust,ignore\n"
-"#[derive(Drop, starknet::Event)]\n"
-"struct ComponentRegistered {\n"
-"    name: felt252,\n"
-"    class_hash: ClassHash\n"
-"}\n"
-"```"
-msgstr ""
-
-#: src/cairo/events.md:63
-msgid ""
-"```rust,ignore\n"
-"#[derive(Drop, starknet::Event)]\n"
-"struct SystemRegistered {\n"
-"    name: felt252,\n"
-"    class_hash: ClassHash\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/events.md:71
 msgid ""
 "These events are also captured by [Torii](../toolchain/torii/overview.md) "
@@ -2611,7 +2194,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/events.md:74
-msgid "### Custom Events"
+msgid "Custom Events"
 msgstr ""
 
 #: src/cairo/events.md:76
@@ -2627,45 +2210,13 @@ msgid ""
 "structure:"
 msgstr ""
 
-#: src/cairo/events.md:84
-msgid ""
-"```rust,ignore\n"
-"#[derive(Drop, starknet::Event)]\n"
-"struct Moved {\n"
-"    address: felt252,\n"
-"    direction: felt252,\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/events.md:92
 msgid "Now a full example using a custom event: "
 msgstr ""
 
-#: src/cairo/events.md:94
-msgid ""
-"```rust,ignore\n"
-"fn execute(ctx: Context, direction: Direction) {\n"
-"    let (mut position, mut moves) = get !(ctx.world, ctx.origin, (Position, "
-"Moves));\n"
-"    moves.remaining -= 1;\n"
-"\n"
-"    let next = next_position(position, direction);\n"
-"    \n"
-"    set !(ctx.world, (moves, next));\n"
-"    emit !(ctx.world, Moved { address: ctx.origin, direction });\n"
-"    return ();\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/cairo/events.md:107
 msgid ""
-"> Note: Read about the `get!` and `set!` macros in [Commands](./commands.md)."
-msgstr ""
-
-#: src/cairo/testing.md:1
-msgid "## Testing"
+"Note: Read about the `get!` and `set!` macros in [Commands](./commands.md)."
 msgstr ""
 
 #: src/cairo/testing.md:3
@@ -2680,19 +2231,12 @@ msgstr ""
 msgid "From your project directory, simply:"
 msgstr ""
 
-#: src/cairo/testing.md:7
-msgid ""
-"```shell\n"
-"sozo test\n"
-"```"
-msgstr ""
-
 #: src/cairo/testing.md:11
 msgid "This will search for all tests within your project and run them."
 msgstr ""
 
 #: src/cairo/testing.md:14
-msgid "### Writing Unit Tests"
+msgid "Writing Unit Tests"
 msgstr ""
 
 #: src/cairo/testing.md:16
@@ -2711,39 +2255,6 @@ msgstr ""
 msgid "`components.cairo`"
 msgstr ""
 
-#: src/cairo/testing.md:21
-msgid ""
-"```rust,ignore\n"
-"\n"
-"...rest of code\n"
-"\n"
-"#[cfg(test)]\n"
-"mod tests {\n"
-"    use debug::PrintTrait;\n"
-"    use super::{Position, PositionTrait};\n"
-"\n"
-"    #[test]\n"
-"    #[available_gas(100000)]\n"
-"    fn test_position_is_zero() {\n"
-"        let player = starknet::contract_address_const::<0x0>();\n"
-"        assert(PositionTrait::is_zero(Position { player, x: 0, y: 0 }), 'not "
-"zero');\n"
-"    }\n"
-"\n"
-"    #[test]\n"
-"    #[available_gas(100000)]\n"
-"    fn test_position_is_equal() {\n"
-"        let player = starknet::contract_address_const::<0x0>();\n"
-"        let position = Position { player, x: 420, y: 0 };\n"
-"        position.print();\n"
-"        assert(PositionTrait::is_equal(position, Position { player, x: 420, "
-"y: 0 }), 'not equal');\n"
-"    }\n"
-"}\n"
-"\n"
-"```"
-msgstr ""
-
 #: src/cairo/testing.md:49
 msgid ""
 "In this test we are testing the `is_zero` and `is_equal` functions of the "
@@ -2752,7 +2263,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/testing.md:52
-msgid "### Writing Integration Tests"
+msgid "Writing Integration Tests"
 msgstr ""
 
 #: src/cairo/testing.md:54
@@ -2832,7 +2343,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/testing.md:113
-msgid "#### Useful Dojo Test Functions"
+msgid "Useful Dojo Test Functions"
 msgstr ""
 
 #: src/cairo/testing.md:115
@@ -2840,10 +2351,6 @@ msgid ""
 "`spawn_test_world(components, systems)` - This function will create a test "
 "world with the components and systems you pass in. It will also deploy the "
 "world and register the components and systems."
-msgstr ""
-
-#: src/cairo/modules.md:1
-msgid "## Dojo Modules"
 msgstr ""
 
 #: src/cairo/modules.md:3
@@ -2854,7 +2361,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/modules.md:5
-msgid "### Module Architecture"
+msgid "Module Architecture"
 msgstr ""
 
 #: src/cairo/modules.md:7
@@ -2863,10 +2370,6 @@ msgid ""
 "share functionality. Modules are a collection of Systems and Components that "
 "can be imported into a Dojo world. Dojo is following the ERC patterns and "
 "has modules already defined for ERC20, ERC721, and ERC1155."
-msgstr ""
-
-#: src/cairo/modules/erc20.md:1
-msgid "## ERC20"
 msgstr ""
 
 #: src/cairo/modules/erc20.md:3
@@ -2878,7 +2381,7 @@ msgid ""
 msgstr ""
 
 #: src/cairo/modules/erc20.md:5
-msgid "### Integration into Your World"
+msgid "Integration into Your World"
 msgstr ""
 
 #: src/cairo/modules/erc20.md:7
@@ -2886,10 +2389,6 @@ msgid ""
 "To integrate the ERC20 module into your world, you must first deploy the "
 "ERC20 Dojo contract. Subsequently, install the systems and components into "
 "your world."
-msgstr ""
-
-#: src/client/overview.md:1
-msgid "# Overview"
 msgstr ""
 
 #: src/client/overview.md:3
@@ -2903,32 +2402,35 @@ msgid "Reference clients are available for the following platforms:"
 msgstr ""
 
 #: src/client/overview.md:7
-msgid "- [npm](./npm.md)"
+msgid "[npm](./npm.md)"
 msgstr ""
 
 #: src/client/npm.md:1
-msgid "# Javascript Libraries"
+msgid "Javascript Libraries"
 msgstr ""
 
 #: src/client/npm.md:3
 msgid ""
-"> Javascript is a great way to get started with Dojo. It's easy to use, and "
+"Javascript is a great way to get started with Dojo. It's easy to use, and "
 "you can get started in minutes."
 msgstr ""
 
 #: src/client/npm.md:5
-msgid "### Examples using these:"
+msgid "Examples using these:"
 msgstr ""
 
 #: src/client/npm.md:7
 msgid ""
-"- "
-"[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)\n"
-"- [Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
+"[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)"
+msgstr ""
+
+#: src/client/npm.md:8
+msgid "[Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
 msgstr ""
 
 #: src/client/npm.md:10
-msgid "### @dojoengine/core"
+#: src/client/npm/core.md:1
+msgid "@dojoengine/core"
 msgstr ""
 
 #: src/client/npm.md:12
@@ -2943,16 +2445,8 @@ msgstr ""
 msgid "[Documentation](./npm/core.md)"
 msgstr ""
 
-#: src/client/npm.md:16
-#: src/client/npm/core.md:12
-msgid ""
-"```console\n"
-"yarn add @dojoengine/core\n"
-"```"
-msgstr ""
-
 #: src/client/npm.md:20
-msgid "### @dojoengine/react"
+msgid "@dojoengine/react"
 msgstr ""
 
 #: src/client/npm.md:22
@@ -2971,15 +2465,8 @@ msgstr ""
 msgid "[Documentation](./npm/react.md)"
 msgstr ""
 
-#: src/client/npm.md:28
-msgid ""
-"```console\n"
-"yarn add @dojoengine/react\n"
-"```"
-msgstr ""
-
 #: src/client/npm.md:33
-msgid "### @dojoengine/create-burner"
+msgid "@dojoengine/create-burner"
 msgstr ""
 
 #: src/client/npm.md:35
@@ -2992,17 +2479,6 @@ msgstr ""
 msgid "[Reopsitory](https://github.com/dojoengine/create-burner)"
 msgstr ""
 
-#: src/client/npm.md:39
-msgid ""
-"```console\n"
-"yarn add @dojoengine/create-burner\n"
-"```"
-msgstr ""
-
-#: src/client/npm/core.md:1
-msgid "## @dojoengine/core"
-msgstr ""
-
 #: src/client/npm/core.md:3
 msgid ""
 "This library abstracts away the world interface and provides a set of helper "
@@ -3011,19 +2487,23 @@ msgid ""
 msgstr ""
 
 #: src/client/npm/core.md:5
-msgid ""
-"- World explorers\n"
-"- World deployers\n"
-"- Games\n"
-"- Anaylitics"
+msgid "World explorers"
 msgstr ""
 
-#: src/client/npm/core.md:10
-msgid "### Getting Started"
+#: src/client/npm/core.md:6
+msgid "World deployers"
+msgstr ""
+
+#: src/client/npm/core.md:7
+msgid "Games"
+msgstr ""
+
+#: src/client/npm/core.md:8
+msgid "Anaylitics"
 msgstr ""
 
 #: src/client/npm/core.md:16
-msgid "### Example Usage"
+msgid "Example Usage"
 msgstr ""
 
 #: src/client/npm/core.md:18
@@ -3070,7 +2550,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/dojoup.md:1
-msgid "# `dojoup`"
+msgid "`dojoup`"
 msgstr ""
 
 #: src/toolchain/dojoup.md:3
@@ -3078,11 +2558,12 @@ msgid "Update or revert to a specific Dojo branch with ease."
 msgstr ""
 
 #: src/toolchain/dojoup.md:5
-msgid "## Installing"
+msgid "Installing"
 msgstr ""
 
 #: src/toolchain/dojoup.md:11
-msgid "## Usage"
+#: src/toolchain/katana/overview.md:22
+msgid "Usage"
 msgstr ""
 
 #: src/toolchain/dojoup.md:13
@@ -3091,30 +2572,12 @@ msgstr ""
 
 #: src/toolchain/dojoup.md:18
 msgid ""
-"> Note: You may have to install `jq` to use `dojoup`. You can do so with the "
+"Note: You may have to install `jq` to use `dojoup`. You can do so with the "
 "following commands:"
-msgstr ""
-
-#: src/toolchain/dojoup.md:20
-msgid ""
-"```sh   \n"
-"# Debian\n"
-"sudo apt-get install jq\n"
-"\n"
-"# Mac\n"
-"brew install jq\n"
-"```"
 msgstr ""
 
 #: src/toolchain/dojoup.md:28
 msgid "To install a specific **version** (in this case the `nightly` version):"
-msgstr ""
-
-#: src/toolchain/dojoup.md:30
-msgid ""
-"```sh\n"
-"dojoup --version nightly\n"
-"```"
 msgstr ""
 
 #: src/toolchain/dojoup.md:34
@@ -3123,24 +2586,10 @@ msgid ""
 "latest commit):"
 msgstr ""
 
-#: src/toolchain/dojoup.md:36
-msgid ""
-"```sh\n"
-"dojoup --branch release/0.1.0\n"
-"```"
-msgstr ""
-
 #: src/toolchain/dojoup.md:40
 msgid ""
 "To install a **fork's main branch** (in this case `tarrencev/dojo`'s main "
 "branch):"
-msgstr ""
-
-#: src/toolchain/dojoup.md:42
-msgid ""
-"```sh\n"
-"dojoup --repo tarrencev/dojo\n"
-"```"
 msgstr ""
 
 #: src/toolchain/dojoup.md:46
@@ -3149,33 +2598,12 @@ msgid ""
 "branch's latest commit in `tarrencev/dojo`):"
 msgstr ""
 
-#: src/toolchain/dojoup.md:48
-msgid ""
-"```sh\n"
-"dojoup --repo tarrencev/dojo --branch patch-10\n"
-"```"
-msgstr ""
-
 #: src/toolchain/dojoup.md:52
 msgid "To install from a **specific Pull Request**:"
 msgstr ""
 
-#: src/toolchain/dojoup.md:54
-msgid ""
-"```sh\n"
-"dojoup --pr 1071\n"
-"```"
-msgstr ""
-
 #: src/toolchain/dojoup.md:58
 msgid "To install from a **specific commit**:"
-msgstr ""
-
-#: src/toolchain/dojoup.md:60
-msgid ""
-"```sh\n"
-"dojoup -C 94bfdb2\n"
-"```"
 msgstr ""
 
 #: src/toolchain/dojoup.md:64
@@ -3186,15 +2614,8 @@ msgstr ""
 
 #: src/toolchain/dojoup.md:66
 msgid ""
-"##### Note: --branch, --repo, and --version flags are ignored during local "
+"Note: --branch, --repo, and --version flags are ignored during local "
 "installations."
-msgstr ""
-
-#: src/toolchain/dojoup.md:68
-msgid ""
-"```sh\n"
-"dojoup --path ./git/dojo\n"
-"```"
 msgstr ""
 
 #: src/toolchain/dojoup.md:74
@@ -3204,29 +2625,26 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/dojoup.md:78
-msgid "### Precompiled binaries"
+msgid "Precompiled binaries"
 msgstr ""
 
 #: src/toolchain/dojoup.md:80
 msgid ""
 "Precompiled binaries are available from the [GitHub releases "
-"page](https://github.com/dojoengine/dojo/releases).\n"
-"These are better managed by using [Dojoup](#using-dojoup)."
+"page](https://github.com/dojoengine/dojo/releases). These are better managed "
+"by using [Dojoup](#using-dojoup)."
 msgstr ""
 
 #: src/toolchain/dojoup.md:84
-msgid ""
-"> ℹ️ **Note**\n"
-">\n"
-"> If you're on Windows, you will need to install and use [Git "
-"BASH](https://gitforwindows.org/) or "
-"[WSL](https://learn.microsoft.com/en-us/windows/wsl/install),\n"
-"> as your terminal, since Dojoup currently does not support Powershell or "
-"Cmd."
+msgid "ℹ️ **Note**"
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:1
-msgid "## Sozo"
+#: src/toolchain/dojoup.md:86
+msgid ""
+"If you're on Windows, you will need to install and use [Git "
+"BASH](https://gitforwindows.org/) or "
+"[WSL](https://learn.microsoft.com/en-us/windows/wsl/install), as your "
+"terminal, since Dojoup currently does not support Powershell or Cmd."
 msgstr ""
 
 #: src/toolchain/sozo/overview.md:3
@@ -3241,12 +2659,13 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/overview.md:5
-msgid "## Features"
+#: src/toolchain/katana/overview.md:5
+msgid "Features"
 msgstr ""
 
 #: src/toolchain/sozo/overview.md:7
 msgid ""
-"-   **Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy "
+"**Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy "
 "management of your Worlds, whether you're updating existing ones or "
 "deploying new ones."
 msgstr ""
@@ -3254,7 +2673,7 @@ msgstr ""
 #: src/toolchain/sozo/overview.md:9
 #: src/toolchain/katana/overview.md:10
 #: src/toolchain/torii/overview.md:14
-msgid "## Installation"
+msgid "Installation"
 msgstr ""
 
 #: src/toolchain/sozo/overview.md:11
@@ -3266,7 +2685,7 @@ msgstr ""
 
 #: src/toolchain/sozo/overview.md:13
 #: src/toolchain/torii/overview.md:18
-msgid "### Installing from Source"
+msgid "Installing from Source"
 msgstr ""
 
 #: src/toolchain/sozo/overview.md:15
@@ -3284,45 +2703,71 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/overview.md:23
+#: src/toolchain/katana/overview.md:60
+#: src/toolchain/torii/overview.md:28
+msgid "📚 **Reference**"
+msgstr ""
+
+#: src/toolchain/sozo/overview.md:25
 msgid ""
-"> 📚 **Reference**\n"
-">\n"
-"> See the [`sozo` Reference](./reference.md) for a complete overview of all "
+"See the [`sozo` Reference](./reference.md) for a complete overview of all "
 "the available subcommands."
 msgstr ""
 
 #: src/toolchain/sozo/reference.md:1
-msgid "## sozo reference"
+msgid "sozo reference"
 msgstr ""
 
 #: src/toolchain/sozo/reference.md:3
-msgid "### Project Commands"
+msgid "Project Commands"
 msgstr ""
 
 #: src/toolchain/sozo/reference.md:5
-msgid ""
-"-   [init](./project-commands/init.md)\n"
-"-   [build](./project-commands/build.md)\n"
-"-   [test](./project-commands/test.md)\n"
-"-   [migrate](./project-commands/migrate.md)"
+msgid "[init](./project-commands/init.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:6
+msgid "[build](./project-commands/build.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:7
+msgid "[test](./project-commands/test.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:8
+msgid "[migrate](./project-commands/migrate.md)"
 msgstr ""
 
 #: src/toolchain/sozo/reference.md:10
-msgid "### World Commands"
+msgid "World Commands"
 msgstr ""
 
 #: src/toolchain/sozo/reference.md:12
-msgid ""
-"-   [execute](./world-commands/execute.md)\n"
-"-   [register](./world-commands/register.md)\n"
-"-   [system](./world-commands/system.md)\n"
-"-   [component](./world-commands/component.md)\n"
-"-   [events](./world-commands/events.md)\n"
-"-   [auth](./world-commands/auth.md)"
+msgid "[execute](./world-commands/execute.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:13
+msgid "[register](./world-commands/register.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:14
+msgid "[system](./world-commands/system.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:15
+msgid "[component](./world-commands/component.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:16
+msgid "[events](./world-commands/events.md)"
+msgstr ""
+
+#: src/toolchain/sozo/reference.md:17
+msgid "[auth](./world-commands/auth.md)"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/init.md:1
-msgid "## sozo init"
+msgid "sozo init"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/init.md:3
@@ -3332,16 +2777,8 @@ msgid ""
 "[dojo-starter](https://github.com/dojoengine/dojo-starter)."
 msgstr ""
 
-#: src/toolchain/sozo/project-commands/init.md:5
-#: src/tutorial/onchain-chess/0-setup.md:21
-msgid ""
-"```sh\n"
-"sozo init\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/project-commands/build.md:1
-msgid "## sozo build"
+msgid "sozo build"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/build.md:3
@@ -3350,16 +2787,8 @@ msgid ""
 "artifacts for deployment."
 msgstr ""
 
-#: src/toolchain/sozo/project-commands/build.md:5
-#: src/tutorial/onchain-chess/0-setup.md:38
-msgid ""
-"```sh\n"
-"sozo build\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/project-commands/test.md:1
-msgid "## sozo test"
+msgid "sozo test"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/test.md:3
@@ -3368,15 +2797,8 @@ msgid ""
 "found within the project."
 msgstr ""
 
-#: src/toolchain/sozo/project-commands/test.md:5
-msgid ""
-"```sh\n"
-"sozo test\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/project-commands/migrate.md:1
-msgid "## sozo migrate"
+msgid "sozo migrate"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:3
@@ -3401,14 +2823,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:5
 #: src/toolchain/katana/reference.md:7
 #: src/toolchain/torii/reference.md:7
-msgid "### USAGE"
-msgstr ""
-
-#: src/toolchain/sozo/project-commands/migrate.md:9
-msgid ""
-"```sh\n"
-"sozo migrate [OPTIONS]\n"
-"```"
+msgid "USAGE"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:13
@@ -3417,30 +2832,30 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:61
 #: src/toolchain/katana/reference.md:105
 #: src/toolchain/torii/reference.md:33
-msgid "### OPTIONS"
+msgid "OPTIONS"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:15
 #: src/toolchain/sozo/world-commands/execute.md:15
 #: src/toolchain/katana/reference.md:107
 #: src/toolchain/torii/reference.md:35
-msgid "#### General Options"
+msgid "General Options"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:17
 msgid ""
 "`--name` _NAME_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;Name of the World. At the moment, the only usage for "
-"this option is to be used as a salt when deploying the World contract to "
-"avoid address conflicts. This option is **required** when performing the "
-"initial migration of the World."
+"    Name of the World. At the moment, the only usage for this option is to "
+"be used as a salt when deploying the World contract to avoid address "
+"conflicts. This option is **required** when performing the initial migration "
+"of the World."
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:20
 #: src/toolchain/sozo/world-commands/execute.md:21
 #: src/toolchain/sozo/world-commands/system.md:45
 #: src/toolchain/sozo/world-commands/component.md:63
-msgid "#### World Options"
+msgid "World Options"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:22
@@ -3449,8 +2864,8 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:65
 msgid ""
 "`--world` _WORLD_ADDRESS_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;The address of the World contract.  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_WORLD_ADDRESS`"
+"    The address of the World contract.  \n"
+"    ENV: `DOJO_WORLD_ADDRESS`"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:26
@@ -3458,7 +2873,7 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/system.md:51
 #: src/toolchain/sozo/world-commands/component.md:69
 #: src/toolchain/katana/reference.md:139
-msgid "#### Starknet Options"
+msgid "Starknet Options"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:28
@@ -3467,67 +2882,64 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:71
 msgid ""
 "`--rpc-url` _URL_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;The Starknet RPC endpoint. [default: "
-"http://localhost:5050]  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `STARKNET_RPC_URL`"
+"    The Starknet RPC endpoint. \\[default: http://localhost:5050\\]  \n"
+"    ENV: `STARKNET_RPC_URL`"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:32
 #: src/toolchain/sozo/world-commands/execute.md:33
-msgid "#### Account Options"
+msgid "Account Options"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:34
 #: src/toolchain/sozo/world-commands/execute.md:35
 msgid ""
 "`--account-address` _ACCOUNT_ADDRESS_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;The Starknet account address.  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_ACCOUNT_ADDRESS`"
+"    The Starknet account address.  \n"
+"    ENV: `DOJO_ACCOUNT_ADDRESS`"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:38
 #: src/toolchain/sozo/world-commands/execute.md:39
-msgid "#### Signer Options - Raw"
+msgid "Signer Options - Raw"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:40
 #: src/toolchain/sozo/world-commands/execute.md:41
 msgid ""
 "`--private-key` _PRIVATE_KEY_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;The raw private key associated with the account "
-"contract.  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_PRIVATE_KEY`"
+"    The raw private key associated with the account contract.  \n"
+"    ENV: `DOJO_PRIVATE_KEY`"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:44
 #: src/toolchain/sozo/world-commands/execute.md:45
-msgid "#### Signer Options - Keystore"
+msgid "Signer Options - Keystore"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:46
 #: src/toolchain/sozo/world-commands/execute.md:47
-msgid ""
-"`--keystore` _PATH_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;Use the keystore in the given folder or file."
+msgid "`--keystore` _PATH_  \n    Use the keystore in the given folder or file."
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:49
 #: src/toolchain/sozo/world-commands/execute.md:50
 msgid ""
 "`--password` _PASSWORD_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;The keystore password. Used with --keystore.  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_KEYSTORE_PASSWORD`"
+"    The keystore password. Used with --keystore.  \n"
+"    ENV: `DOJO_KEYSTORE_PASSWORD`"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:53
 #: src/toolchain/sozo/world-commands/execute.md:54
 #: src/toolchain/sozo/world-commands/system.md:57
+#: src/toolchain/katana/reference.md:178
 #: src/toolchain/katana/reference.md:186
-msgid "### EXAMPLES"
+msgid "EXAMPLES"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:55
-msgid "1. Deploying your World for the first time to a local Katana node"
+msgid "Deploying your World for the first time to a local Katana node"
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:57
@@ -3538,18 +2950,11 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:61
-msgid "2. Updating a remote World after making some changes"
-msgstr ""
-
-#: src/toolchain/sozo/project-commands/migrate.md:63
-msgid ""
-"```sh\n"
-"sozo migrate --world 0x123456\n"
-"```"
+msgid "Updating a remote World after making some changes"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/execute.md:1
-msgid "## sozo execute"
+msgid "sozo execute"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/execute.md:3
@@ -3563,74 +2968,29 @@ msgid ""
 "in order to sign the transaction before sending it."
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/execute.md:9
-msgid ""
-"```sh\n"
-"sozo execute <SYSTEM> [OPTIONS]\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/execute.md:17
 msgid ""
 "`--calldata` _CALLDATA_  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;The calldata to be passed to the system that you "
-"want to execute.  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp;Comma seperated values e.g., 0x12345,0x69420."
+"    The calldata to be passed to the system that you want to execute.  \n"
+"    Comma seperated values e.g., 0x12345,0x69420."
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/execute.md:56
 msgid ""
-"1. Executing the _position_ system which takes two values (_x_: 0x77 and "
-"_y_: 0x44)"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/execute.md:58
-msgid ""
-"```sh\n"
-"sozo execute position --calldata 0x77,0x44\n"
-"```"
+"Executing the _position_ system which takes two values (_x_: 0x77 and _y_: "
+"0x44)"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/register.md:1
-msgid "## sozo register"
+msgid "sozo register"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/register.md:3
 msgid "`register` is used to register new systems and components."
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/register.md:5
-msgid ""
-"```sh\n"
-"sozo register [OPTIONS] <COMMAND>\n"
-"```"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/register.md:9
-msgid ""
-"```sh\n"
-"Commands:\n"
-"  component  Register a component to a world.\n"
-"  system     Register a system to a world.\n"
-"  help       Print this message or the help of the given subcommand(s)\n"
-"```"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/register.md:16
-msgid ""
-"```sh\n"
-"# example: component - register a component to a world\n"
-"# this will register the Moves component to the world\n"
-"sozo register component Moves\n"
-"\n"
-"# example: system - register a system to a world\n"
-"# this will register the spawn system to the world\n"
-"sozo register system spawn\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/system.md:1
-msgid "## sozo system"
+msgid "sozo system"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:3
@@ -3639,36 +2999,18 @@ msgid ""
 "querying about a system's information."
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/system.md:7
-msgid ""
-"```sh\n"
-"sozo system <COMMAND>\n"
-"\n"
-"Commands:\n"
-"  get         Get the class hash of a system.\n"
-"  dependency  Retrieve the component dependencies of a system.\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/system.md:15
 #: src/toolchain/sozo/world-commands/component.md:16
-msgid "### SUBCOMMANDS"
+msgid "SUBCOMMANDS"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:17
 #: src/toolchain/sozo/world-commands/component.md:18
-msgid "#### `get`"
+msgid "`get`"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:19
 msgid "Get the class hash of a system"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/system.md:21
-msgid ""
-"```sh\n"
-"sozo system get <NAME>\n"
-"```"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:25
@@ -3676,53 +3018,32 @@ msgstr ""
 #: src/toolchain/sozo/world-commands/component.md:26
 #: src/toolchain/sozo/world-commands/component.md:39
 #: src/toolchain/sozo/world-commands/component.md:52
-msgid "##### Arguments"
+msgid "Arguments"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:27
 #: src/toolchain/sozo/world-commands/system.md:40
-msgid "_`NAME`_  \n&nbsp;&nbsp;&nbsp;&nbsp;The name of the system"
+msgid "_`NAME`_  \n    The name of the system"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:30
-msgid "#### `dependency`"
+msgid "`dependency`"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:32
 msgid "Retrieve the component dependencies of a system"
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/system.md:34
-msgid ""
-"```sh\n"
-"sozo system dependency <NAME>\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/system.md:59
-msgid "1. Get the class hash of the _spawn_ system"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/system.md:61
-msgid ""
-"```sh\n"
-"sozo system get spawn\n"
-"```"
+msgid "Get the class hash of the _spawn_ system"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/system.md:65
-msgid "2. Get the component dependencies of the _spawn_ system"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/system.md:67
-msgid ""
-"```sh\n"
-"sozo system dependency spawn\n"
-"```"
+msgid "Get the component dependencies of the _spawn_ system"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:1
-msgid "## sozo component"
+msgid "sozo component"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:3
@@ -3731,126 +3052,53 @@ msgid ""
 "querying about a component's information, or a component value of an entity."
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/component.md:7
-msgid ""
-"```sh\n"
-"sozo component <COMMAND>\n"
-"\n"
-"Commands:\n"
-"  get     Get the class hash of a component\n"
-"  schema  Retrieve the schema for a component\n"
-"  entity  Get the component value for an entity\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/component.md:20
 msgid "Get the class hash of a component"
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/component.md:22
-msgid ""
-"```sh\n"
-"sozo component get <NAME>\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/component.md:28
 #: src/toolchain/sozo/world-commands/component.md:41
-msgid "_`NAME`_  \n&nbsp;&nbsp;&nbsp;&nbsp;The name of the component"
+#: src/toolchain/sozo/world-commands/component.md:54
+msgid "_`NAME`_  \n    The name of the component"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:31
-msgid "#### `schema`"
+msgid "`schema`"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:33
 msgid "Retrieve the schema for a component"
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/component.md:35
-msgid ""
-"```sh\n"
-"sozo component schema <NAME>\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/component.md:44
-msgid "#### `entity`"
+msgid "`entity`"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/component.md:46
 msgid "Get the component value for an entity"
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/component.md:48
-msgid ""
-"```sh\n"
-"sozo component entity <NAME> [KEYS]...\n"
-"```"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/component.md:54
-msgid "_`NAME`_  \n &nbsp;&nbsp;&nbsp;&nbsp;The name of the component"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/component.md:57
 msgid ""
 "_`KEYS`_  \n"
-" &nbsp;&nbsp;&nbsp;&nbsp;The keys of the entity that you want to query.  \n"
-" &nbsp;&nbsp;&nbsp;&nbsp;Comma seperated values e.g., 0x12345,0x69420,..."
+"    The keys of the entity that you want to query.  \n"
+"    Comma seperated values e.g., 0x12345,0x69420,..."
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/events.md:1
-msgid "## sozo events"
+msgid "sozo events"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/events.md:3
 msgid "`events` is used to queries world events."
 msgstr ""
 
-#: src/toolchain/sozo/world-commands/events.md:5
-msgid ""
-"```sh\n"
-"sozo events\n"
-"```"
-msgstr ""
-
 #: src/toolchain/sozo/world-commands/auth.md:1
-msgid "## sozo auth"
+msgid "sozo auth"
 msgstr ""
 
 #: src/toolchain/sozo/world-commands/auth.md:3
 msgid "`auth` is used to manage world authorization."
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/auth.md:5
-msgid ""
-"```sh\n"
-"sozo auth [OPTIONS] <COMMAND>\n"
-"```"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/auth.md:9
-msgid ""
-"```sh\n"
-"Commands:\n"
-"  writer  Auth a system with the given calldata.\n"
-"  help    Print this message or the help of the given subcommand(s)\n"
-"```"
-msgstr ""
-
-#: src/toolchain/sozo/world-commands/auth.md:15
-msgid ""
-"```sh\n"
-"# example: writer - auth a system with the given calldata\n"
-"# This will auth the spawn system with the writer role for Position "
-"component\n"
-"sozo auth writer Position spawn\n"
-"```"
-msgstr ""
-
-#: src/toolchain/katana/overview.md:1
-msgid "## Katana"
 msgstr ""
 
 #: src/toolchain/katana/overview.md:3
@@ -3859,16 +3107,14 @@ msgid ""
 "local development with Dojo."
 msgstr ""
 
-#: src/toolchain/katana/overview.md:5
-msgid "### Features"
-msgstr ""
-
 #: src/toolchain/katana/overview.md:7
 msgid ""
-"-   [Starknet JSON-RPC "
-"v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) "
-"support\n"
-"-   Custom methods for manipulating the blockchain states"
+"[Starknet JSON-RPC "
+"v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) support"
+msgstr ""
+
+#: src/toolchain/katana/overview.md:8
+msgid "Custom methods for manipulating the blockchain states"
 msgstr ""
 
 #: src/toolchain/katana/overview.md:12
@@ -3878,7 +3124,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/overview.md:14
-msgid "### Installing from source"
+msgid "Installing from source"
 msgstr ""
 
 #: src/toolchain/katana/overview.md:16
@@ -3888,10 +3134,6 @@ msgid ""
 "cd dojo\n"
 "cargo install --path ./crates/katana --locked --force\n"
 "```"
-msgstr ""
-
-#: src/toolchain/katana/overview.md:22
-msgid "### Usage"
 msgstr ""
 
 #: src/toolchain/katana/overview.md:24
@@ -3939,20 +3181,18 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/toolchain/katana/overview.md:60
+#: src/toolchain/katana/overview.md:62
 msgid ""
-"> 📚 **Reference**\n"
-">\n"
-"> See the [`katana` Reference](./reference.md) for an in depth reference and "
+"See the [`katana` Reference](./reference.md) for an in depth reference and "
 "documentation on Katana."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:1
-msgid "## katana reference"
+msgid "katana reference"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:3
-msgid "### NAME"
+msgid "NAME"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:5
@@ -3961,16 +3201,9 @@ msgid ""
 "smart contracts."
 msgstr ""
 
-#: src/toolchain/katana/reference.md:9
-msgid ""
-"```sh\n"
-"katana [OPTIONS]\n"
-"```"
-msgstr ""
-
 #: src/toolchain/katana/reference.md:13
 #: src/toolchain/torii/reference.md:13
-msgid "### DESCRIPTION"
+msgid "DESCRIPTION"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:15
@@ -3988,7 +3221,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/reference.md:19
-msgid "#### Mining Modes"
+msgid "Mining Modes"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:21
@@ -4005,16 +3238,8 @@ msgid ""
 "demonstrated in the following example."
 msgstr ""
 
-#: src/toolchain/katana/reference.md:25
-msgid ""
-"```sh\n"
-"# Produces a new block every 10 seconds\n"
-"katana --block-time 10\n"
-"```"
-msgstr ""
-
 #: src/toolchain/katana/reference.md:30
-msgid "#### Supported Transport Layers"
+msgid "Supported Transport Layers"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:32
@@ -4023,36 +3248,48 @@ msgid ""
 "5050 by default, but it can be changed by running the following command:"
 msgstr ""
 
-#: src/toolchain/katana/reference.md:34
-msgid ""
-"```sh\n"
-"katana --port <PORT>\n"
-"```"
-msgstr ""
-
 #: src/toolchain/katana/reference.md:38
-msgid "#### Starknet Feature Compatibility"
+msgid "Starknet Feature Compatibility"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:40
-msgid "##### Supported Transaction Type"
+msgid "Supported Transaction Type"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:42
-msgid ""
-"| Type           | Version |\n"
-"| -------------- | ------- |\n"
-"| INVOKE         | 1       |\n"
-"| DECLARE        | 1, 2    |\n"
-"| DEPLOY_ACCOUNT |         |"
+msgid "Type"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:42
+msgid "Version"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:44
+msgid "INVOKE"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:44
+msgid "1"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:45
+msgid "DECLARE"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:45
+msgid "1, 2"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:46
+msgid "DEPLOY_ACCOUNT"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:48
-msgid "#### Supported RPC Methods"
+msgid "Supported RPC Methods"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:50
-msgid "##### Starknet Methods"
+msgid "Starknet Methods"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:52
@@ -4064,39 +3301,99 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/katana/reference.md:54
-msgid ""
-"-   `starknet_blockNumber`\n"
-"-   `starknet_blockHashAndNumber`\n"
-"-   `starknet_getBlockWithTxs`\n"
-"-   `starknet_getBlockWithTxHashes`\n"
-"-   `starknet_getBlockTransactionCount`\n"
-"-   `starknet_getTransactionByHash`\n"
-"-   `starknet_getTransactionByBlockIdAndIndex`\n"
-"-   `starknet_getTransactionReceipt`\n"
-"-   `starknet_pendingTransactions`\n"
-"-   `starknet_getStateUpdate`\n"
-"\n"
-"-   `starknet_call`\n"
-"-   `starknet_estimateFee`\n"
-"\n"
-"-   `starknet_chainId`\n"
-"\n"
-"-   `starknet_getNonce`\n"
-"-   `starknet_getEvents`\n"
-"-   `starknet_getStorageAt`\n"
-"-   `starknet_getClassHashAt`\n"
-"-   `starknet_getClass`\n"
-"-   `starknet_getClassAt`\n"
-"\n"
-"-   `starknet_syncing`\n"
-"\n"
-"-   `starknet_addInvokeTransaction`\n"
-"-   `starknet_addDeclareTransaction`\n"
-"-   `starknet_addDeployAccountTransaction`"
+msgid "`starknet_blockNumber`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:55
+msgid "`starknet_blockHashAndNumber`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:56
+msgid "`starknet_getBlockWithTxs`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:57
+msgid "`starknet_getBlockWithTxHashes`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:58
+msgid "`starknet_getBlockTransactionCount`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:59
+msgid "`starknet_getTransactionByHash`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:60
+msgid "`starknet_getTransactionByBlockIdAndIndex`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:61
+msgid "`starknet_getTransactionReceipt`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:62
+msgid "`starknet_pendingTransactions`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:63
+msgid "`starknet_getStateUpdate`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:65
+msgid "`starknet_call`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:66
+msgid "`starknet_estimateFee`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:68
+msgid "`starknet_chainId`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:70
+msgid "`starknet_getNonce`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:71
+msgid "`starknet_getEvents`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:72
+msgid "`starknet_getStorageAt`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:73
+msgid "`starknet_getClassHashAt`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:74
+msgid "`starknet_getClass`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:75
+msgid "`starknet_getClassAt`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:77
+msgid "`starknet_syncing`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:79
+msgid "`starknet_addInvokeTransaction`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:80
+msgid "`starknet_addDeclareTransaction`"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:81
+msgid "`starknet_addDeployAccountTransaction`"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:83
-msgid "##### Custom Methods"
+msgid "Custom Methods"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:85
@@ -4139,114 +3436,97 @@ msgid "`katana_setStorageAt`  \nSet an exact value of a contract's storage slot.
 msgstr ""
 
 #: src/toolchain/katana/reference.md:109
-msgid "`--silent`  \n&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup."
+msgid "`--silent`  \n     Don't print anything on startup."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:112
 msgid ""
 "`--no-mining`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on "
-"demand instead."
+"     Disable auto and interval mining, and mine on demand instead."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:115
 msgid ""
 "`-b, --block-time <SECONDS>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining."
+"     Block time in seconds for interval mining."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:118
 msgid ""
 "`--dump-state <PATH>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Dump the state of chain on exit to the given file.  "
-"\n"
-"&nbsp;&nbsp;&nbsp;&nbsp; If the value is a directory, the state will be "
-"written to `<PATH>/state.bin`."
+"     Dump the state of chain on exit to the given file.  \n"
+"     If the value is a directory, the state will be written to "
+"`<PATH>/state.bin`."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:122
 msgid ""
 "`--load-state <PATH>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Initialize the chain from a previously saved state "
-"snapshot."
+"     Initialize the chain from a previously saved state snapshot."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:125
-msgid ""
-"`-h, --help`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h')."
+msgid "`-h, --help`  \n     Print help (see a summary with '-h')."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:128
-msgid "`-V, --version`  \n&nbsp;&nbsp;&nbsp;&nbsp; Print version information."
+msgid "`-V, --version`  \n     Print version information."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:131
-msgid "#### Server Options"
+msgid "Server Options"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:133
-msgid ""
-"`-p, --port <PORT>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on. [default: 5050]"
+msgid "`-p, --port <PORT>`  \n     Port number to listen on. \\[default: 5050\\]"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:136
-msgid ""
-"`--host <HOST>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on."
+msgid "`--host <HOST>`  \n     The IP address the server will listen on."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:141
 msgid ""
 "`--seed <SEED>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be "
-"predeployed."
+"     Specify the seed for randomness of accounts to be predeployed."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:144
 msgid ""
 "`--accounts <NUM>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate. "
-"[default: 10]"
+"     Number of pre-funded accounts to generate. \\[default: 10\\]"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:147
-msgid ""
-"`--disable-fee`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Disable charging fee for transactions."
+msgid "`--disable-fee`  \n     Disable charging fee for transactions."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:150
-msgid "#### Environment Options"
+msgid "Environment Options"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:152
-msgid ""
-"`--chain-id <CHAIN_ID>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; The chain ID. [default: KATANA]"
+msgid "`--chain-id <CHAIN_ID>`  \n     The chain ID. \\[default: KATANA\\]"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:155
-msgid "`--gas-price <GAS_PRICE>`  \n&nbsp;&nbsp;&nbsp;&nbsp; The gas price."
+msgid "`--gas-price <GAS_PRICE>`  \n     The gas price."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:158
 msgid ""
 "`--validate-max-steps <VALIDATE_MAX_STEPS>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the "
-"account validation logic."
+"     The maximum number of steps available for the account validation logic."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:161
 msgid ""
 "`--invoke-max-steps <INVOKE_MAX_STEPS>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the "
-"account execution logic."
+"     The maximum number of steps available for the account execution logic."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:164
-msgid "### Shell Completions"
+msgid "Shell Completions"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:166
@@ -4262,16 +3542,23 @@ msgid "Supported shells are:"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:172
-msgid ""
-"-   bash\n"
-"-   elvish\n"
-"-   fish\n"
-"-   powershell\n"
-"-   zsh"
+msgid "bash"
 msgstr ""
 
-#: src/toolchain/katana/reference.md:178
-msgid "#### EXAMPLES"
+#: src/toolchain/katana/reference.md:173
+msgid "elvish"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:174
+msgid "fish"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:175
+msgid "powershell"
+msgstr ""
+
+#: src/toolchain/katana/reference.md:176
+msgid "zsh"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:180
@@ -4280,50 +3567,22 @@ msgid ""
 "file:"
 msgstr ""
 
-#: src/toolchain/katana/reference.md:182
-msgid ""
-"```bash\n"
-"katana completions bash >> ~/.bashrc\n"
-"```"
-msgstr ""
-
 #: src/toolchain/katana/reference.md:188
-msgid "1. Create 15 dev accounts and disable transaction fee mechanism"
-msgstr ""
-
-#: src/toolchain/katana/reference.md:190
-msgid ""
-"```sh\n"
-"katana --accounts 15 --disable-fee\n"
-"```"
+msgid "Create 15 dev accounts and disable transaction fee mechanism"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:194
-msgid "2. Set the chain id to `SN_GOERLI` and run the server on port 8545"
-msgstr ""
-
-#: src/toolchain/katana/reference.md:196
-msgid ""
-"```sh\n"
-"katana --chain-id SN_GOERLI --port 8545\n"
-"```"
+msgid "Set the chain id to `SN_GOERLI` and run the server on port 8545"
 msgstr ""
 
 #: src/toolchain/katana/reference.md:200
 msgid ""
-"3. Load previously stored state and dump the state of this session to a file "
-"on shutdown"
-msgstr ""
-
-#: src/toolchain/katana/reference.md:202
-msgid ""
-"```sh\n"
-"katana --load-state ./dump-state.bin --dump-state ./dump-state.bin\n"
-"```"
+"Load previously stored state and dump the state of this session to a file on "
+"shutdown"
 msgstr ""
 
 #: src/toolchain/torii/overview.md:1
-msgid "## Torii - Networking & Indexing"
+msgid "Torii - Networking & Indexing"
 msgstr ""
 
 #: src/toolchain/torii/overview.md:3
@@ -4333,20 +3592,13 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/torii/overview.md:5
-msgid "### Dojo indexer"
+msgid "Dojo indexer"
 msgstr ""
 
 #: src/toolchain/torii/overview.md:7
 msgid ""
 "Torii indexes your dojo worlds and exposes a GraphQL API to query them. "
 "Simply run:"
-msgstr ""
-
-#: src/toolchain/torii/overview.md:9
-msgid ""
-"```sh\n"
-"torii\n"
-"```"
 msgstr ""
 
 #: src/toolchain/torii/overview.md:12
@@ -4364,42 +3616,25 @@ msgstr ""
 msgid "If you prefer to install from the source code:"
 msgstr ""
 
-#: src/toolchain/torii/overview.md:22
-msgid ""
-"```sh\n"
-"cargo install --path ./crates/torii --profile local --force\n"
-"```"
-msgstr ""
-
 #: src/toolchain/torii/overview.md:26
 msgid ""
 "This will install Torii and the required dependencies on your local system."
 msgstr ""
 
-#: src/toolchain/torii/overview.md:28
-msgid ""
-"> 📚 **Reference**\n"
-">\n"
-"> See the [`torii` Reference](./reference.md) for a complete reference."
+#: src/toolchain/torii/overview.md:30
+msgid "See the [`torii` Reference](./reference.md) for a complete reference."
 msgstr ""
 
 #: src/toolchain/torii/reference.md:1
-msgid "## torii reference"
+msgid "torii reference"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:3
-msgid "### Name"
+msgid "Name"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:5
 msgid "torii - An automatic indexer and networking layer for a world contract."
-msgstr ""
-
-#: src/toolchain/torii/reference.md:9
-msgid ""
-"```sh\n"
-"torii [OPTIONS]\n"
-"```"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:15
@@ -4419,7 +3654,7 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/torii/reference.md:19
-msgid "#### Database URL"
+msgid "Database URL"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:21
@@ -4430,10 +3665,14 @@ msgstr ""
 
 #: src/toolchain/torii/reference.md:23
 msgid ""
-"- The in-memory database is ephermal and only lasts as long as the indexer "
-"is running. This is a fast and simple option to start the indexer for "
-"development/testing.\n"
-"- Presistent storage should be used in production. It relies on the local "
+"The in-memory database is ephermal and only lasts as long as the indexer is "
+"running. This is a fast and simple option to start the indexer for "
+"development/testing."
+msgstr ""
+
+#: src/toolchain/torii/reference.md:24
+msgid ""
+"Presistent storage should be used in production. It relies on the local "
 "filesystem for storage."
 msgstr ""
 
@@ -4445,57 +3684,42 @@ msgid ""
 "database."
 msgstr ""
 
-#: src/toolchain/torii/reference.md:28
-msgid ""
-"```sh\n"
-"# Persistent database storage using file indexer.db\n"
-"torii --database-url sqlite:indexer.db\n"
-"```"
-msgstr ""
-
 #: src/toolchain/torii/reference.md:37
-msgid ""
-"`-w, --world`\n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Address of the world contract to index"
+msgid "`-w, --world`      Address of the world contract to index"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:40
 msgid ""
-"`--rpc`\n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Starknet RPC endpoing to use [default: "
-"http//localhost:5050]"
+"`--rpc`      Starknet RPC endpoing to use \\[default: http//localhost:5050\\]"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:43
 msgid ""
-"`-m, --manifest <MANIFEST>`\n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Specify a local manifest to initialize from"
+"`-m, --manifest <MANIFEST>`      Specify a local manifest to initialize from"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:46
 msgid ""
-"`-d, --database-url <DATABASE_URL>`\n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Database URL (read more above) [default: "
-"sqlite::memory:]"
+"`-d, --database-url <DATABASE_URL>`      Database URL (read more above) "
+"\\[default: sqlite::memory:\\]"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:49
 msgid ""
-"`-s, --start-block <START_BLOCK>`\n"
-"&nbsp;&nbsp;&nbsp;&nbsp; Specify a block to start indexing from, ignored if "
-"stored head exists [default: 0]"
+"`-s, --start-block <START_BLOCK>`      Specify a block to start indexing "
+"from, ignored if stored head exists \\[default: 0\\]"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:52
-msgid "`-h, --help`\n&nbsp;&nbsp;&nbsp;&nbsp; Print help"
+msgid "`-h, --help`      Print help"
 msgstr ""
 
 #: src/toolchain/torii/reference.md:55
-msgid "`-V, --version`\n&nbsp;&nbsp;&nbsp;&nbsp; Print version"
+msgid "`-V, --version`      Print version"
 msgstr ""
 
 #: src/deployment/locally.md:1
-msgid "## Deploying Locally"
+msgid "Deploying Locally"
 msgstr ""
 
 #: src/deployment/locally.md:3
@@ -4508,7 +3732,7 @@ msgid ""
 msgstr ""
 
 #: src/deployment/locally.md:5
-msgid "### Katana Deployments"
+msgid "Katana Deployments"
 msgstr ""
 
 #: src/deployment/locally.md:7
@@ -4517,7 +3741,7 @@ msgstr ""
 
 #: src/deployment/locally.md:9
 msgid ""
-"> This assumes you have followed the [Quick "
+"This assumes you have followed the [Quick "
 "Start](./getting-started/quick-start.md) guide and have a project "
 "initialized."
 msgstr ""
@@ -4531,7 +3755,7 @@ msgid "This has started a local Katana which you can now deploy on!"
 msgstr ""
 
 #: src/deployment/locally.md:19
-msgid "### Deploying to Katana"
+msgid "Deploying to Katana"
 msgstr ""
 
 #: src/deployment/locally.md:21
@@ -4545,11 +3769,11 @@ msgid ""
 msgstr ""
 
 #: src/deployment/remote.md:1
-msgid "## Deployment to Remote Network"
+msgid "Deployment to Remote Network"
 msgstr ""
 
 #: src/deployment/remote.md:3
-msgid "> *IMPORTANT: Dojo is unaudited. Use at your own risk.*"
+msgid "_IMPORTANT: Dojo is unaudited. Use at your own risk._"
 msgstr ""
 
 #: src/deployment/remote.md:5
@@ -4594,7 +3818,7 @@ msgid ""
 msgstr ""
 
 #: src/deployment/remote.md:33
-msgid "### Remote Katana"
+msgid "Remote Katana"
 msgstr ""
 
 #: src/deployment/remote.md:35
@@ -4604,11 +3828,11 @@ msgid ""
 msgstr ""
 
 #: src/deployment/remote.md:37
-msgid "__todo__: add instructions for deploying to remote katana"
+msgid "**todo**: add instructions for deploying to remote katana"
 msgstr ""
 
 #: src/deployment/remote.md:40
-msgid "### Madara "
+msgid "Madara"
 msgstr ""
 
 #: src/deployment/remote.md:42
@@ -4644,15 +3868,15 @@ msgid ""
 msgstr ""
 
 #: src/deployment/remote.md:59
-msgid "### Starknet "
+msgid "Starknet"
 msgstr ""
 
 #: src/deployment/remote.md:61
-msgid "__todo__: add instructions for deploying to remote Starknet"
+msgid "**todo**: add instructions for deploying to remote Starknet"
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:1
-msgid "# Building a Chess Game"
+msgid "Building a Chess Game"
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:3
@@ -4680,7 +3904,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:11
-msgid "## What are we building?"
+msgid "What are we building?"
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:13
@@ -4691,11 +3915,19 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:15
-msgid ""
-"1. A system to spawn all the chess pieces\n"
-"2. A system to make pieces move\n"
-"3. Add some functions to check a legal move\n"
-"4. Play chess ♟♙ - integration test!"
+msgid "A system to spawn all the chess pieces"
+msgstr ""
+
+#: src/tutorial/onchain-chess/index.md:16
+msgid "A system to make pieces move"
+msgstr ""
+
+#: src/tutorial/onchain-chess/index.md:17
+msgid "Add some functions to check a legal move"
+msgstr ""
+
+#: src/tutorial/onchain-chess/index.md:18
+msgid "Play chess ♟♙ - integration test!"
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:20
@@ -4712,7 +3944,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:24
-msgid "## What after this guide?"
+msgid "What after this guide?"
 msgstr ""
 
 #: src/tutorial/onchain-chess/index.md:26
@@ -4726,10 +3958,6 @@ msgid ""
 "After you finish all the five chapters, we can move on to the frontend guide."
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:1
-msgid "# 0. Setup"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:3
 msgid ""
 "_Before starting recommend following the "
@@ -4738,7 +3966,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:5
-msgid "## Initializing the Project"
+msgid "Initializing the Project"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:7
@@ -4746,22 +3974,8 @@ msgid ""
 "Create a new Dojo project folder. You can name your project what you want."
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:9
-msgid ""
-"```sh\n"
-"mkdir dojo-chess\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:13
 msgid "Open the project folder."
-msgstr ""
-
-#: src/tutorial/onchain-chess/0-setup.md:15
-msgid ""
-"```sh\n"
-"cd dojo-chess\n"
-"```"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:19
@@ -4769,7 +3983,7 @@ msgid "And initialize the project using sozo init."
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:25
-msgid "## Cleaning Up the Boilerplate"
+msgid "Cleaning Up the Boilerplate"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:27
@@ -4782,20 +3996,12 @@ msgstr ""
 msgid "In `lib.cairo`, retain only:"
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:31
-msgid ""
-"```rust,ignore\n"
-"mod components;\n"
-"mod systems;\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:36
 msgid "Compile your project with:"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:42
-msgid "## Basic components"
+msgid "Basic components"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:44
@@ -4806,8 +4012,8 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:46
 msgid ""
-"> Every square of the chess board (e.g., A1) will be treated as an entity. "
-"If a piece exists on a square, the square entity will hold that piece."
+"Every square of the chess board (e.g., A1) will be treated as an entity. If "
+"a piece exists on a square, the square entity will hold that piece."
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:48
@@ -4817,39 +4023,8 @@ msgid ""
 "[chapter](../../cairo/components.md)."
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:50
-msgid ""
-"```rust,ignore\n"
-"#[derive(Component)]\n"
-"struct Square {\n"
-"    #[key]\n"
-"    game_id: felt252,\n"
-"    #[key]\n"
-"    x: u32,\n"
-"    #[key]\n"
-"    y: u32,\n"
-"    piece: Option<PieceType>,\n"
-"}\n"
-"\n"
-"enum PieceType {\n"
-"    WhitePawn,\n"
-"    WhiteKnight,\n"
-"    WhiteBishop,\n"
-"    WhiteRook,\n"
-"    WhiteQueen,\n"
-"    WhiteKing,\n"
-"    BlackPawn,\n"
-"    BlackKnight,\n"
-"    BlackBishop,\n"
-"    BlackRook,\n"
-"    BlackQueen,\n"
-"    BlackKing,\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:78
-msgid "## Basic systems"
+msgid "Basic systems"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:80
@@ -4870,58 +4045,20 @@ msgstr ""
 msgid "For example, `initiate.cairo` look like this:"
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:86
-msgid ""
-"```rust,ignore\n"
-"#[system]\n"
-"mod initiate_system {\n"
-"\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:93
 msgid "and in `systems.cairo` we will use `initiate_system` like this:"
-msgstr ""
-
-#: src/tutorial/onchain-chess/0-setup.md:95
-msgid ""
-"```rust,ignore\n"
-"mod initiate;\n"
-"\n"
-"use initiate::initiate_system;\n"
-"```"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:101
 msgid "Do the same with the other systems. Update `systems.cairo` to:"
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:103
-msgid ""
-"```rust,ignore\n"
-"mod initiate;\n"
-"mod move;\n"
-"\n"
-"use initiate::initiate_system;\n"
-"use move::move_system;\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:111
-msgid "## Compile your project"
+msgid "Compile your project"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:113
 msgid "Now try `sozo build` to build. Faced some errors?"
-msgstr ""
-
-#: src/tutorial/onchain-chess/0-setup.md:115
-#: src/tutorial/onchain-chess/0-setup.md:179
-msgid ""
-"```sh\n"
-"error: Trait has no implementation in context:\n"
-"```"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:119
@@ -4930,52 +4067,8 @@ msgid ""
 "implement as a derive like:"
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:121
-msgid ""
-"```rust,ignore\n"
-"\n"
-"#[derive(Component, Drop, SerdeLen, Serde)]\n"
-"struct Square {\n"
-"    #[key]\n"
-"    game_id: felt252,\n"
-"    #[key]\n"
-"    x: u32,\n"
-"    #[key]\n"
-"    y: u32,\n"
-"    piece: Option<PieceType>,\n"
-"}\n"
-"\n"
-"#[derive(Serde, Drop, Copy, PartialEq)]\n"
-"enum PieceType {\n"
-"    WhitePawn,\n"
-"    WhiteKnight,\n"
-"    WhiteBishop,\n"
-"    WhiteRook,\n"
-"    WhiteQueen,\n"
-"    WhiteKing,\n"
-"    BlackPawn,\n"
-"    BlackKnight,\n"
-"    BlackBishop,\n"
-"    BlackRook,\n"
-"    BlackQueen,\n"
-"    BlackKing,\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:151
 msgid "Great! then let's solve this error."
-msgstr ""
-
-#: src/tutorial/onchain-chess/0-setup.md:153
-msgid ""
-"```sh\n"
-"error: Trait has no implementation in context: "
-"dojo::serde::SerdeLen::<core::option::Option::<dojo_chess::components::PieceType>>\n"
-" --> Square:80:54\n"
-"                dojo::SerdeLen::<Option<PieceType>>::len()\n"
-"                                                     ^*^\n"
-"```"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:160
@@ -4985,18 +4078,6 @@ msgid ""
 "You need to define the implementation by your own."
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:162
-msgid ""
-"```rust,ignore\n"
-"impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {\n"
-"    #[inline(always)]\n"
-"    fn len() -> usize {\n"
-"        2\n"
-"    }\n"
-"}\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:171
 msgid ""
 "Fix other issues as above, so that you can run the `sozo build` command runs "
@@ -5004,7 +4085,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:173
-msgid "## Run test"
+msgid "Run test"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:175
@@ -5017,13 +4098,6 @@ msgstr ""
 msgid "Run sozo test. Did you face any errors?"
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:183
-msgid ""
-"```sh\n"
-"error: Variable not dropped. Trait has no implementation in context:\n"
-"```"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:187
 msgid ""
 "For the no implementation error, implement the PrintTrait to run sozo test "
@@ -5032,7 +4106,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:189
-msgid "## Add more components"
+msgid "Add more components"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:191
@@ -5042,48 +4116,35 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:193
-msgid "### Requirements"
+#: src/tutorial/onchain-chess/1-initiate.md:12
+#: src/tutorial/onchain-chess/2-move.md:9
+msgid "Requirements"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:195
-msgid "- `Color` enum enum with values White and Black\n- `Game` component:"
+msgid "`Color` enum enum with values White and Black"
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:198
-msgid ""
-"```rust,ignore\n"
-"    game_id: felt252,\n"
-"    winner: Option<Color>,\n"
-"    white: ContractAddress,\n"
-"    black: ContractAddress\n"
-"```"
+#: src/tutorial/onchain-chess/0-setup.md:196
+msgid "`Game` component:"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:205
-msgid "- `GameTurn` component:"
-msgstr ""
-
-#: src/tutorial/onchain-chess/0-setup.md:207
-msgid ""
-"```rust,ignore\n"
-"    game_id: felt252,\n"
-"    turn: Color\n"
-"```"
+msgid "`GameTurn` component:"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:212
 msgid ""
-"- We will later set game entity composed of the `Game` and `GameTurn` "
-"components.\n"
-"- Run `sozo build` and `sozo test` and ensure all tests pass."
+"We will later set game entity composed of the `Game` and `GameTurn` "
+"components."
+msgstr ""
+
+#: src/tutorial/onchain-chess/0-setup.md:213
+msgid "Run `sozo build` and `sozo test` and ensure all tests pass."
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:215
 msgid "Try to solve on your own, and before you move on check the answer below."
-msgstr ""
-
-#: src/tutorial/onchain-chess/0-setup.md:217
-msgid "<details>\n<summary>Click to see full `components.cairo` code</summary>"
 msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:220
@@ -5267,10 +4328,6 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/tutorial/onchain-chess/0-setup.md:397
-msgid "</details>"
-msgstr ""
-
 #: src/tutorial/onchain-chess/0-setup.md:399
 msgid ""
 "Congratulations! You've completed the basic setup for building an on-chain "
@@ -5278,7 +4335,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:1
-msgid "# 1. Initiate System"
+msgid "1. Initiate System"
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:3
@@ -5288,7 +4345,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:5
-msgid "## What is `initiate_system`?"
+msgid "What is `initiate_system`?"
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:7
@@ -5299,18 +4356,6 @@ msgid ""
 "and the right piece color is in its designated position on the board."
 msgstr ""
 
-#: src/tutorial/onchain-chess/1-initiate.md:9
-msgid ""
-"<p align=\"center\">\n"
-"<img src=\"../../images/board.png\" alt=\"image\" width=\"300\" "
-"height=\"auto\">"
-msgstr ""
-
-#: src/tutorial/onchain-chess/1-initiate.md:12
-#: src/tutorial/onchain-chess/2-move.md:9
-msgid "## Requirements"
-msgstr ""
-
 #: src/tutorial/onchain-chess/1-initiate.md:14
 msgid ""
 "_Copy the unit tests below and paste them at the bottom of your "
@@ -5319,35 +4364,58 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:16
 msgid ""
-"1. Write an `execute` function in the system that accepts the world context, "
-"white address, and black address as input.\n"
-"2. Implement the game entity, comprised of the `Game` component and "
-"`GameTurn` component we created in the previous step.\n"
-"3. Implement square entities by `Square` component, from a1 to h8 containing "
-"the correct `PieceType`.\n"
-"4. Run `sozo test` and pass all the tests."
+"Write an `execute` function in the system that accepts the world context, "
+"white address, and black address as input."
+msgstr ""
+
+#: src/tutorial/onchain-chess/1-initiate.md:17
+msgid ""
+"Implement the game entity, comprised of the `Game` component and `GameTurn` "
+"component we created in the previous step."
+msgstr ""
+
+#: src/tutorial/onchain-chess/1-initiate.md:18
+msgid ""
+"Implement square entities by `Square` component, from a1 to h8 containing "
+"the correct `PieceType`."
+msgstr ""
+
+#: src/tutorial/onchain-chess/1-initiate.md:19
+msgid "Run `sozo test` and pass all the tests."
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:21
 #: src/tutorial/onchain-chess/2-move.md:29
-msgid "## Test Flow"
+msgid "Test Flow"
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:23
 msgid ""
-"- Spawn the test world that imports the components and systems used in "
-"testing.\n"
-"- Execute `initiate_system` by providing white and black player's wallet "
-"addresses as inputs.\n"
-"- Retrieve the game entity and piece entity created during "
-"`initiate_system`.\n"
-"- Ensure the game has been correctly created.\n"
-"- Verify that each `Piece` is located in the correct `Square`."
+"Spawn the test world that imports the components and systems used in testing."
+msgstr ""
+
+#: src/tutorial/onchain-chess/1-initiate.md:24
+msgid ""
+"Execute `initiate_system` by providing white and black player's wallet "
+"addresses as inputs."
+msgstr ""
+
+#: src/tutorial/onchain-chess/1-initiate.md:25
+msgid ""
+"Retrieve the game entity and piece entity created during `initiate_system`."
+msgstr ""
+
+#: src/tutorial/onchain-chess/1-initiate.md:26
+msgid "Ensure the game has been correctly created."
+msgstr ""
+
+#: src/tutorial/onchain-chess/1-initiate.md:27
+msgid "Verify that each `Piece` is located in the correct `Square`."
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:29
 #: src/tutorial/onchain-chess/2-move.md:35
-msgid "## Unit Tests"
+msgid "Unit Tests"
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:31
@@ -5412,7 +4480,7 @@ msgstr ""
 #: src/tutorial/onchain-chess/1-initiate.md:85
 #: src/tutorial/onchain-chess/2-move.md:108
 #: src/tutorial/onchain-chess/3-legal.md:165
-msgid "## Need help?"
+msgid "Need help?"
 msgstr ""
 
 #: src/tutorial/onchain-chess/1-initiate.md:87
@@ -5431,7 +4499,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:1
-msgid "# 2. Move System"
+msgid "2. Move System"
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:3
@@ -5441,7 +4509,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:5
-msgid "## What is `move_system`?"
+msgid "What is `move_system`?"
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:7
@@ -5460,35 +4528,30 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:13
-msgid "1. Write an `execute` function in the system with the following inputs:"
-msgstr ""
-
-#: src/tutorial/onchain-chess/2-move.md:15
-msgid ""
-"```rust,ignore\n"
-" fn execute(\n"
-"        ctx: Context,\n"
-"        curr_position: (u32, u32),\n"
-"        next_position: (u32, u32),\n"
-"        caller: ContractAddress,\n"
-"        game_id: felt252\n"
-"    )\n"
-"```"
+msgid "Write an `execute` function in the system with the following inputs:"
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:25
 msgid ""
-"2. Update the Square with the `next_position` to contain the new piece and "
-"ensure the Square with the `curr_position` no longer holds a piece.\n"
-"\n"
-"3. Run `sozo test` and ensure all tests pass."
+"Update the Square with the `next_position` to contain the new piece and "
+"ensure the Square with the `curr_position` no longer holds a piece."
+msgstr ""
+
+#: src/tutorial/onchain-chess/2-move.md:27
+msgid "Run `sozo test` and ensure all tests pass."
 msgstr ""
 
 #: src/tutorial/onchain-chess/2-move.md:31
+msgid "Follow the same logic as `test_initiate` from the previous chapter."
+msgstr ""
+
+#: src/tutorial/onchain-chess/2-move.md:32
+msgid "Move the White Knight from (1,0) to (2,2) using the `move_system`."
+msgstr ""
+
+#: src/tutorial/onchain-chess/2-move.md:33
 msgid ""
-"- Follow the same logic as `test_initiate` from the previous chapter.\n"
-"- Move the White Knight from (1,0) to (2,2) using the `move_system`.\n"
-"- Retrieve the updated position and verify that the piece has successfully "
+"Retrieve the updated position and verify that the piece has successfully "
 "moved to its new location."
 msgstr ""
 
@@ -5569,25 +4632,32 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/tutorial/onchain-chess/3-legal.md:1
-msgid "# 3. Check Legal Move"
-msgstr ""
-
 #: src/tutorial/onchain-chess/3-legal.md:3
 msgid "In this chapter, we'll make functions to check:"
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:5
-msgid ""
-"- If the next move goes outside the board.\n"
-"- If there's a piece that can be captured.\n"
-"- If the next move is allowed for the type of piece.\n"
-"- If the user can allow to make a action (based on the piece's color).\n"
-"- ... You can also add other custom check functions."
+msgid "If the next move goes outside the board."
+msgstr ""
+
+#: src/tutorial/onchain-chess/3-legal.md:6
+msgid "If there's a piece that can be captured."
+msgstr ""
+
+#: src/tutorial/onchain-chess/3-legal.md:7
+msgid "If the next move is allowed for the type of piece."
+msgstr ""
+
+#: src/tutorial/onchain-chess/3-legal.md:8
+msgid "If the user can allow to make a action (based on the piece's color)."
+msgstr ""
+
+#: src/tutorial/onchain-chess/3-legal.md:9
+msgid "... You can also add other custom check functions."
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:11
-msgid "## Make Check Functions"
+msgid "Make Check Functions"
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:13
@@ -5597,48 +4667,22 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:15
-msgid "1. See if the next spot is allowed for the type of piece moving."
-msgstr ""
-
-#: src/tutorial/onchain-chess/3-legal.md:17
-msgid ""
-"```rust,ignore\n"
-"  fn is_right_piece_move(\n"
-"        maybe_piece: Option<PieceType>, curr_position: (u32, u32), "
-"next_position: (u32, u32)\n"
-"    ) -> bool {}\n"
-"```"
+msgid "See if the next spot is allowed for the type of piece moving."
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:23
-msgid "2. See if the next spot is still on the board."
-msgstr ""
-
-#: src/tutorial/onchain-chess/3-legal.md:25
-msgid ""
-"```rust,ignore\n"
-"  fn is_out_of_board(next_position: (u32, u32)) -> bool{}\n"
-"```"
+msgid "See if the next spot is still on the board."
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:29
 msgid ""
-"3. See if the person trying the move is doing it at the right time and with "
+"See if the person trying the move is doing it at the right time and with "
 "their piece color."
-msgstr ""
-
-#: src/tutorial/onchain-chess/3-legal.md:31
-msgid ""
-"```rust,ignore\n"
-" fn is_correct_turn(maybe_piece: PieceType, caller: ContractAddress, "
-"game_id: felt252) -> bool{}\n"
-"```"
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:35
 msgid ""
-"4. You can also add other check functions to be extra sure the move is "
-"allowed."
+"You can also add other check functions to be extra sure the move is allowed."
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:37
@@ -5700,7 +4744,7 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:85
-msgid "## Testing Each Function"
+msgid "Testing Each Function"
 msgstr ""
 
 #: src/tutorial/onchain-chess/3-legal.md:87
@@ -5811,15 +4855,8 @@ msgid ""
 "errors."
 msgstr ""
 
-#: src/tutorial/onchain-chess/3-legal.md:169
-msgid ""
-"You can find the "
-"[answer](https://github.com/rkdud007/chess-dojo/blob/tutoralv2/src/systems/move.cairo) "
-"for chapter 3 here."
-msgstr ""
-
 #: src/tutorial/onchain-chess/4-test.md:1
-msgid "# 4. Test Contract"
+msgid "4. Test Contract"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:3
@@ -5833,14 +4870,31 @@ msgid "Here's what we'll do in our test:"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:7
-msgid ""
-"1. Spawn `white_pawn_1` to (0,1)\n"
-"2. Move `white_pawn_1` to (0,3)\n"
-"3. Move `black_pawn_2` to (1,6)\n"
-"4. Move `white_pawn_1` to (0,4)\n"
-"5. Move `black_pawn_2` to (1,5)\n"
-"6. Move `white_pawn_1` to (1,5)\n"
-"7. Capture `black_pawn_2`"
+msgid "Spawn `white_pawn_1` to (0,1)"
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:8
+msgid "Move `white_pawn_1` to (0,3)"
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:9
+msgid "Move `black_pawn_2` to (1,6)"
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:10
+msgid "Move `white_pawn_1` to (0,4)"
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:11
+msgid "Move `black_pawn_2` to (1,5)"
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:12
+msgid "Move `white_pawn_1` to (1,5)"
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:13
+msgid "Capture `black_pawn_2`"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:15
@@ -5855,14 +4909,17 @@ msgid "Before we get to the code, set up your integration test like this:"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:19
+msgid "Copy the test below and add it to your `src/tests.cairo` file."
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:20
 msgid ""
-"- Copy the test below and add it to your `src/tests.cairo` file.\n"
-"- Make a `test.cairo` in your src and update `lib.cairo` by adding the `mod "
+"Make a `test.cairo` in your src and update `lib.cairo` by adding the `mod "
 "tests;` line."
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:22
-msgid "## Full Code"
+msgid "Full Code"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:24
@@ -5994,19 +5051,11 @@ msgid ""
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:143
-msgid "## Diving into the Code"
+msgid "Diving into the Code"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:145
 msgid "First, we'll set up the players and their colors."
-msgstr ""
-
-#: src/tutorial/onchain-chess/4-test.md:147
-msgid ""
-"```rust,ignore\n"
-"   let white = starknet::contract_address_const::<0x01>();\n"
-"   let black = starknet::contract_address_const::<0x02>();\n"
-"```"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:152
@@ -6033,13 +5082,6 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:167
 msgid "Next, we'll create our game world."
-msgstr ""
-
-#: src/tutorial/onchain-chess/4-test.md:169
-msgid ""
-"```rust,ignore\n"
-"     let world = spawn_test_world(components, systems);\n"
-"```"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:173
@@ -6108,7 +5150,7 @@ msgid "Keep moving pieces and checking if they're in the right places."
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:212
-msgid "## Congratulations!"
+msgid "Congratulations!"
 msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:214
@@ -6121,14 +5163,24 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/4-test.md:216
 msgid ""
-"- Make an `initiate_system` that uses lazy init. If you're unsure about lazy "
+"Make an `initiate_system` that uses lazy init. If you're unsure about lazy "
 "init, [read up on it](https://en.wikipedia.org/wiki/Lazy_initialization). "
-"This can help make your game actions more efficient.\n"
-"- Add a checkmate feature. Our game doesn't end now, so decide when it "
-"should!\n"
-"- Include special moves like castling, En Passant Capture, or Pawn "
-"Promotion.\n"
-"- Make your own chess rules! You could even create your own version of the "
+"This can help make your game actions more efficient."
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:217
+msgid ""
+"Add a checkmate feature. Our game doesn't end now, so decide when it should!"
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:218
+msgid ""
+"Include special moves like castling, En Passant Capture, or Pawn Promotion."
+msgstr ""
+
+#: src/tutorial/onchain-chess/4-test.md:219
+msgid ""
+"Make your own chess rules! You could even create your own version of the "
 "[immortal game](https://immortal.game/)"
 msgstr ""
 
@@ -6139,7 +5191,7 @@ msgid ""
 msgstr ""
 
 #: src/misc/contributors.md:1
-msgid "## Contributing to Dojo Book"
+msgid "Contributing to Dojo Book"
 msgstr ""
 
 #: src/misc/contributors.md:3
@@ -6152,7 +5204,7 @@ msgid ""
 msgstr ""
 
 #: src/misc/contributors.md:5
-msgid "### The purpose of the book"
+msgid "The purpose of the book"
 msgstr ""
 
 #: src/misc/contributors.md:7
@@ -6169,14 +5221,15 @@ msgid "The book is split into some major chapters:"
 msgstr ""
 
 #: src/misc/contributors.md:11
-msgid ""
-"- Framework Theory\n"
-"- Getting Started\n"
-"- Building a World"
+msgid "Framework Theory"
+msgstr ""
+
+#: src/misc/contributors.md:13
+msgid "Building a World"
 msgstr ""
 
 #: src/misc/contributors.md:15
-msgid "### Code of Conduct"
+msgid "Code of Conduct"
 msgstr ""
 
 #: src/misc/contributors.md:17
@@ -6186,11 +5239,11 @@ msgid ""
 msgstr ""
 
 #: src/misc/contributors.md:19
-msgid "### Ways to contribute"
+msgid "Ways to contribute"
 msgstr ""
 
 #: src/misc/contributors.md:21
-msgid "#### Issues"
+msgid "Issues"
 msgstr ""
 
 #: src/misc/contributors.md:23
@@ -6213,7 +5266,7 @@ msgid ""
 msgstr ""
 
 #: src/misc/contributors.md:29
-msgid "#### Pull requests"
+msgid "Pull requests"
 msgstr ""
 
 #: src/misc/contributors.md:31
@@ -6230,7 +5283,7 @@ msgid ""
 msgstr ""
 
 #: src/misc/contributors.md:35
-msgid "### Writing style"
+msgid "Writing style"
 msgstr ""
 
 #: src/misc/contributors.md:37
@@ -6239,28 +5292,14 @@ msgid ""
 msgstr ""
 
 #: src/misc/contributors.md:39
-msgid "#### Chapters start with a second level heading"
+msgid "Chapters start with a second level heading"
 msgstr ""
 
 #: src/misc/contributors.md:41
 msgid "We use:"
 msgstr ""
 
-#: src/misc/contributors.md:43
-msgid ""
-"```md\n"
-"## Some Page\n"
-"```"
-msgstr ""
-
 #: src/misc/contributors.md:47
 msgid "We do not use:"
-msgstr ""
-
-#: src/misc/contributors.md:49
-msgid ""
-"```md\n"
-"# Some Page\n"
-"```"
 msgstr ""
 

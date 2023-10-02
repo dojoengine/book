@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Building Autonomous Worlds with Dojo\n"
+"Project-Id-Version: Building Autonomous Worlds with Dojo\n
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2023-09-27 07:01+0100\n"
 "Last-Translator: dami <pinonesdamian@gmail.com>\n"
@@ -19,7 +19,6 @@ msgstr "Introducción"
 #: src/SUMMARY.md:4
 msgid "What is Dojo?"
 msgstr "## ¿Qué es Dojo?"
-
 #: src/SUMMARY.md:5
 msgid "AW Theory"
 msgstr "Teoría AW"
@@ -253,6 +252,33 @@ msgid "Dojo"
 msgstr "Dojo"
 
 #: src/index.md:3
+#, fuzzy
+msgid ""
+"Dojo is an open-source project, currently in its early development phase, "
+"and warmly welcomes contributors. For additional resources, join the "
+"community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the "
+"[contribution guide](./misc/contributors.md)."
+msgstr ""
+"> Dojo es un proyecto de código abierto, actualmente en su fase inicial de "
+"desarrollo, y da una cálida bienvenida a los colaboradores. Para obtener "
+"recursos adicionales, encuentra el libro en [Github](https://github.com/"
+"dojoengine/book)."
+
+#: src/index.md:7
+#, fuzzy
+msgid "Dojo: The Provable Game Engine"
+msgstr "## Dojo: El motor de juegos demostrables"
+
+#: src/index.md:9
+msgid ""
+"Dojo employs [Cairo](https://github.com/starkware-libs/cairo) to deliver a "
+"robust architecture and toolset for designing autonomous worlds and onchain "
+"games. It features an integrated entity component system (ECS) and includes "
+"a native indexer, RPC testnet, and a comprehensive CLI management toolkit."
+msgstr ""
+
+#: src/index.md:11
+#, fuzzy
 msgid ""
 "> Dojo is an open-source project, currently in its early development phase, "
 "and warmly welcomes contributors. For additional resources, join the "
@@ -559,14 +585,15 @@ msgid "Dojo Sozo Workflow"
 msgstr "Dojo Sozo Workflow"
 
 #: src/theory/autonomous-worlds.md:1
-msgid "## Autonomous Worlds"
+#, fuzzy
+msgid "Autonomous Worlds"
 msgstr "## Mundos Autónomos"
 
 #: src/theory/autonomous-worlds.md:3
+#, fuzzy
 msgid ""
-"> \"Autonomous worlds represent persistent, permissionless, and "
-"decentralized open environments that users can freely interact with and "
-"contribute to.\""
+"\"Autonomous worlds represent persistent, permissionless, and decentralized "
+"open environments that users can freely interact with and contribute to.\""
 msgstr ""
 "> \"Los mundos autónomos representan entornos abiertos, persistentes, sin "
 "permisos y descentralizados, en los que los usuarios pueden interactuar y "
@@ -612,16 +639,32 @@ msgstr ""
 "considerado como tal:"
 
 #: src/theory/autonomous-worlds.md:9
+#, fuzzy
 msgid ""
-"1. Decentralized data availability layer: While the state execution may "
-"reside on a centralized layer, it is crucial that the state can be "
-"reconstructed if the execution layer ceases to exist. Rollups offer a "
-"solution, providing increased capacity execution layers while ensuring data "
-"is permanently settled on Ethereum. This guarantees the world's perpetual "
-"persistence.\n"
+"Decentralized data availability layer: While the state execution may reside "
+"on a centralized layer, it is crucial that the state can be reconstructed if "
+"the execution layer ceases to exist. Rollups offer a solution, providing "
+"increased capacity execution layers while ensuring data is permanently "
+"settled on Ethereum. This guarantees the world's perpetual persistence."
+msgstr ""
+"1. Capa de disponibilidad de datos descentralizada: Si bien la ejecución del "
+"estado puede residir en una capa centralizada, es crucial que el estado "
+"pueda reconstruirse si la capa de ejecución deja de existir. Los Rollups "
+"ofrecen una solución al proporcionar capas de ejecución con mayor capacidad "
+"mientras aseguran que los datos se asienten permanentemente en Ethereum. "
+"Esto garantiza la persistencia perpetua del mundo.\n"
 "\n"
-"2. Permissionless entry point for expanding the world: The World contract "
-"must be capable of accepting new systems and components without requiring "
+"2. Punto de entrada sin permisos para expandir el mundo: El contrato del "
+"Mundo debe ser capaz de aceptar nuevos sistemas y componentes sin requerir "
+"permiso. Si bien esto no implica que cada componente y sistema se utilizará, "
+"deben adherirse a este patrón, garantizando un acceso abierto e irrestricto "
+"para posibles mejoras."
+
+#: src/theory/autonomous-worlds.md:11
+#, fuzzy
+msgid ""
+"Permissionless entry point for expanding the world: The World contract must "
+"be capable of accepting new systems and components without requiring "
 "permission. While this doesn't imply that every component and system will be "
 "utilized, they must adhere to this pattern, ensuring open and unrestricted "
 "access for potential enhancements."
@@ -640,6 +683,7 @@ msgstr ""
 "para posibles mejoras."
 
 #: src/theory/autonomous-worlds.md:13
+#, fuzzy
 msgid ""
 "We're firm believers in the potential for Autonomous Worlds to catalize the "
 "exploration of novel forms in the medium provided by zk proofs and "
@@ -656,26 +700,14 @@ msgstr ""
 "\"juego\" en este nuevo mundo valiente, descentralizado y sin confianza."
 
 #: src/theory/autonomous-worlds.md:15
-msgid "### Homework"
+#, fuzzy
+msgid "Homework"
 msgstr "### Tarea"
 
 #: src/theory/autonomous-worlds.md:16
 msgid ""
-"- [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-"
-"worlds-aim-to-free-online-games-from-corporate-control/)\n"
-"- [0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-"
-"worlds)\n"
-"- [Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack."
-"com/p/the-strongest-crypto-gaming-thesis)\n"
-"- [Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/"
-"mud-an-engine-for-autonomous-worlds)\n"
-"- [Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)\n"
-"- [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/"
-"composable-engineering)\n"
-"- [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-"
-"up-worlds/)\n"
-"- [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/"
-"on-chain-realities-and-autonomous-worlds)"
+"[Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-"
+"worlds-aim-to-free-online-games-from-corporate-control/)"
 msgstr ""
 "- [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-"
 "worlds-aim-to-free-online-games-from-corporate-control/)\n"
@@ -697,7 +729,7 @@ msgstr ""
 msgid "# Provable games"
 msgstr "# Juegos probables"
 
-#: src/theory/cairo.md:3
+#: src/theory/autonomous-worlds.md:18
 msgid ""
 "Provable games demand [zero-knowledge](https://ethereum.org/en/zero-"
 "knowledge-proofs/) properties for efficient scaling and verification of "
@@ -713,7 +745,7 @@ msgstr ""
 "generalizado, eliminando la complejidad de crear circuitos para incorporar "
 "[SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/). "
 
-#: src/theory/cairo.md:5
+#: src/theory/cairo.md:15
 msgid ""
 "**You can simply program in Cairo and your applications become automatically "
 "provable**. "
@@ -721,7 +753,8 @@ msgstr ""
 "**Puedes simplemente programar en Cairo y tus aplicaciones se vuelven "
 "automáticamente demostrables**. "
 
-#: src/theory/cairo.md:7
+#: src/theory/cairo.md:17
+#, fuzzy
 msgid ""
 "Moreover, you can deploy your programs on the [Cairo Virtual Machine]"
 "(https://medium.com/starkware/cairo-welcome-on-board-1cf3487554f) (CVM), "
@@ -736,7 +769,7 @@ msgstr ""
 "proporcionar primitivas de conocimiento cero sencillas(ZK) para impulsar el "
 "desarrollo de tus juegos."
 
-#: src/theory/cairo.md:9
+#: src/theory/cairo.md:19
 msgid ""
 "For more information about Starknet, Cairo and its tech stack, check out the "
 "[Starknet & Cairo book](https://book.starknet.io/)."
@@ -848,7 +881,6 @@ msgstr ""
 "L1 está garantizada por su utilización del sistema de prueba criptográfica "
 "STARK, que se considera uno de los más seguros y escalables."
 
-#: src/theory/cairo.md:32
 msgid "### Starknet as an Appchain"
 msgstr "### Starknet como una Appchain"
 
@@ -1043,7 +1075,7 @@ msgstr ""
 
 #: src/getting-started/quick-start.md:14
 msgid ""
-"This will install Dojoup, then simply follow the instructions on-screen,\n"
+"This will install Dojoup, then simply follow the instructions on-screen, "
 "which will make the `dojoup` command available in your CLI."
 msgstr ""
 "Esto instalará Dojoup, luego simplemente sigue las instrucciones que "
@@ -1100,8 +1132,8 @@ msgstr "#### Requisitos previos"
 #: src/getting-started/from-source.md:7
 msgid ""
 "You will need the [Rust](https://rust-lang.org) compiler and Cargo, the Rust "
-"package manager.\n"
-"The easiest way to install both is with [`rustup.rs`](https://rustup.rs/)."
+"package manager. The easiest way to install both is with [`rustup.rs`]"
+"(https://rustup.rs/)."
 msgstr ""
 "Necesitarás el compilador de [Rust](https://rust-lang.org) y Cargo, el "
 "gestor de paquetes de Rust.\n"
@@ -1111,8 +1143,8 @@ msgstr ""
 #: src/getting-started/from-source.md:10
 msgid ""
 "On Windows, you will also need a recent version of [Visual Studio](https://"
-"visualstudio.microsoft.com/downloads/),\n"
-"installed with the \"Desktop Development With C++\" Workloads option."
+"visualstudio.microsoft.com/downloads/), installed with the \"Desktop "
+"Development With C++\" Workloads option."
 msgstr ""
 "En Windows, también necesitarás una versión reciente de [Visual Studio]"
 "(https://visualstudio.microsoft.com/downloads/),\n"
@@ -1217,7 +1249,6 @@ msgstr ""
 "- Rust\n"
 "- Cairo"
 
-#: src/getting-started/setup.md:12
 msgid "## Guide"
 msgstr "## Guía"
 
@@ -1262,7 +1293,7 @@ msgstr ""
 
 #: src/getting-started/setup.md:30
 msgid ""
-"> Note: Depending on your Linux distribution, you may need to install "
+"Note: Depending on your Linux distribution, you may need to install "
 "additional dependencies. Make sure to install any suggested or missing "
 "dependencies that arise during the setup process."
 msgstr ""
@@ -1617,6 +1648,40 @@ msgstr ""
 "        return ();\n"
 "    }\n"
 "}\n"
+"\n"
+"impl ColorSerdeLen of dojo::SerdeLen<Color> {\n"
+"    #[inline(always)]\n"
+"    fn len() -> usize {\n"
+"        1\n"
+"    }\n"
+"}\n"
+"\n"
+"#[derive(Component, Drop, SerdeLen, Serde)]\n"
+"struct Game {\n"
+"    /// game id, computed as follows pedersen_hash(player1_address, "
+"player2_address)\n"
+"    #[key]\n"
+"    game_id: felt252,\n"
+"    winner: Option<Color>,\n"
+"    white: ContractAddress,\n"
+"    black: ContractAddress\n"
+"}\n"
+"\n"
+"\n"
+"#[derive(Component, Drop, SerdeLen, Serde)]\n"
+"struct GameTurn {\n"
+"    #[key]\n"
+"    game_id: felt252,\n"
+"    turn: Color,\n"
+"}\n"
+"\n"
+"impl OptionPieceColorSerdeLen of dojo::SerdeLen<Option<Color>> {\n"
+"    #[inline(always)]\n"
+"    fn len() -> usize {\n"
+"        1\n"
+"    }\n"
+"}\n"
+"\n"
 "```"
 
 #: src/cairo/hello-dojo.md:91
@@ -5604,8 +5669,53 @@ msgstr "### NOMBRE"
 
 #: src/toolchain/katana/reference.md:5
 msgid ""
-"katana - Create a local testnet node for deploying and testing Starknet "
-"smart contracts."
+"```rust,ignore\n"
+"    fn execute(\n"
+"        ctx: Context,\n"
+"        curr_position: (u32, u32),\n"
+"        next_position: (u32, u32),\n"
+"        caller: ContractAddress,\n"
+"        game_id: felt252\n"
+"    ) {\n"
+"        //... upper code is the same\n"
+"        //Check if next_position is out of board or not\n"
+"        assert(is_out_of_board(next_position), 'Should be inside board');\n"
+"\n"
+"        //Check if this is the right piece type move\n"
+"\n"
+"        assert(\n"
+"            is_right_piece_move(current_square.piece, curr_position, "
+"next_position),\n"
+"            'Should be right piece move'\n"
+"        );\n"
+"\n"
+"        let target_piece = current_square.piece;\n"
+"\n"
+"        // make current_square piece none and move piece to next_square\n"
+"        current_square.piece = Option::None(());\n"
+"        let mut next_square = get!(ctx.world, (game_id, next_x, next_y), "
+"(Square));\n"
+"\n"
+"        //Check the piece already in next_suqare\n"
+"        let maybe_next_square_piece = next_square.piece;\n"
+"        match maybe_next_square_piece {\n"
+"            Option::Some(maybe_piece) => {\n"
+"                if is_piece_is_mine(maybe_piece) {\n"
+"                    panic(array!['Already same color piece exist'])\n"
+"                } else {\n"
+"                    //Occupy the piece\n"
+"                    next_square.piece = target_piece;\n"
+"                }\n"
+"            },\n"
+"            //if not exist, then just move the original piece\n"
+"            Option::None(_) => {\n"
+"                next_square.piece = target_piece;\n"
+"            },\n"
+"        };\n"
+"        // ... below code is the same\n"
+"\n"
+"    }\n"
+"```"
 msgstr ""
 "katana - Crea un nodo de prueba local para implementar y probar contratos "
 "inteligentes de Starknet."
@@ -8990,7 +9100,8 @@ msgstr ""
 "discord.gg/akd2yfuRS3)!"
 
 #: src/misc/contributors.md:1
-msgid "## Contributing to Dojo Book"
+#, fuzzy
+msgid "Contributing to Dojo Book"
 msgstr "## Contribuyendo al Libro de Dojo"
 
 #: src/misc/contributors.md:3
@@ -9008,7 +9119,8 @@ msgstr ""
 "características y capacidades del motor de Dojo. ¡Toda ayuda es bienvenida!"
 
 #: src/misc/contributors.md:5
-msgid "### The purpose of the book"
+#, fuzzy
+msgid "The purpose of the book"
 msgstr "### El propósito del libro es"
 
 #: src/misc/contributors.md:7
@@ -9031,17 +9143,17 @@ msgid "The book is split into some major chapters:"
 msgstr "El libro está dividido en varios capítulos principales:"
 
 #: src/misc/contributors.md:11
-msgid ""
-"- Framework Theory\n"
-"- Getting Started\n"
-"- Building a World"
+msgid "Framework Theory"
 msgstr ""
-"- Teoría del Framework\n"
-"- Comenzando\n"
-"- Construyendo un Mundo"
+
+#: src/misc/contributors.md:13
+#, fuzzy
+msgid "Building a World"
+msgstr "### Compilando desde el código fuente"
 
 #: src/misc/contributors.md:15
-msgid "### Code of Conduct"
+#, fuzzy
+msgid "Code of Conduct"
 msgstr "### Código de conducta"
 
 #: src/misc/contributors.md:17
@@ -9053,7 +9165,8 @@ msgstr ""
 "code-of-conduct)."
 
 #: src/misc/contributors.md:19
-msgid "### Ways to contribute"
+#, fuzzy
+msgid "Ways to contribute"
 msgstr "### Formas de contribuir"
 
 #: src/misc/contributors.md:21
@@ -9110,7 +9223,8 @@ msgstr ""
 "podrían solicitar cambios. ¡No te desanimes!"
 
 #: src/misc/contributors.md:35
-msgid "### Writing style"
+#, fuzzy
+msgid "Writing style"
 msgstr "### Estilo de escritura"
 
 #: src/misc/contributors.md:37
@@ -9121,7 +9235,8 @@ msgstr ""
 "del libro."
 
 #: src/misc/contributors.md:39
-msgid "#### Chapters start with a second level heading"
+#, fuzzy
+msgid "Chapters start with a second level heading"
 msgstr "#### Los capítulos comienzan con un encabezado de segundo nivel"
 
 #: src/misc/contributors.md:41
@@ -9255,9 +9370,6 @@ msgstr ""
 #~ "Este archivo README te guiará a través del proceso de configurar tu "
 #~ "entorno de desarrollo local para Dojo."
 
-#~ msgid "## Prerequisites"
-#~ msgstr "## Requisitos previos"
-
 #~ msgid "## Clone the Repository"
 #~ msgstr "## Clonar el repositorio"
 
@@ -9299,7 +9411,6 @@ msgstr ""
 #~ msgid "Install the extension:"
 #~ msgstr "Instala la extensión:"
 
-#~ msgid ""
 #~ "> **Mac Tip:** If you don't have the `code` command, in VSCode do `Cmd"
 #~ "+Shift+P` and type 'shell command' to find the Shell Command: Install "
 #~ "'code' command in PATH command."
