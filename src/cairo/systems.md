@@ -1,18 +1,24 @@
 ## Systems
 
-> **IMPORTANT:** Before defining your systems, prioritize permissions. Systems require specific permissions to write to models. Plan carefully to ensure proper access and security.
+> **IMPORTANT:** Before defining your systems, prioritize permissions. Plan carefully to ensure proper access and security.
 
 _tldr;_
 -  Systems are just contract functions
 -  Contracts which contain Systems are given permissions to write to models
--  Systems pass a `world`` address as their first parameter
+-  Systems pass a `world` address as their first parameter
 -  Systems invoke the world contract to mutate the state of models
 
 ### What are Systems?
 
-Within dojo we define systems as functions within a Contract that act on the world. The contracts that hold systems are given permissions to write to models, so you must be careful when defining systems.
+Within dojo we define systems as functions within a Contract that act on the world.
 
-Systems play a pivotal role in your world's logic, directly mutating its component states. It's important to understand that to enact these mutations, a system needs explicit permission from the [`models`](./models.md) owner. This permission is established when the Contract, defining the system, is provided write access to the model.
+Systems play a pivotal role in your world's logic, directly mutating its component states. It's important to understand that to enact these mutations, a system needs explicit permission from the [`models`](./models.md) owner.
+
+### System Permissions
+
+Since the whole contract is giving write access to the model, it is important to be careful when defining systems. A simple way to think about it is:
+
+![System Permissions](../images/permissions.png)
 
 ### System Structure
 
@@ -54,7 +60,7 @@ mod player_actions {
 }
 ```
 
-### Breaking it down
+## Breaking it down
 
 #### System is a contract
 
@@ -64,63 +70,4 @@ As you can see a System is like a regular Starknet contract. It can include stor
 
 The spawn function is currently the only function that exists in a system. It is called when a player spawns into the world. It is responsible for setting up the player's initial state.
 
-
-<!-- 
-### Using View Functions
-
-There are times when we need to compute the value of a component dynamically, rather than fetching its static state. For instance, in the context of a VRGDA, if you want to ascertain the current price, merely querying the component state won't suffice. Instead, you'd need to compute the price based on certain parameters and the current state.
-
-This is where view functions come into play.
-
-**What are View Functions?**
-
-View functions are a way to derive or compute values from the existing state of a component. They are invoked by the world and receive the current state of the component as an argument. Subsequently, these functions return a computed value based on this state.
-
-**Example from VRGDA**:
-
-The below snippet, taken from the VRGDA example available on [this link](https://github.com/dojoengine/dojo-examples), illustrates how to implement a view function:
-
-```rust,ignore
-#[system]
-mod view_price {
-    //... other code ...
-
-    fn execute(ctx: Context, game_id: u64, item_id: u128, amount: u128) -> Fixed {
-        let mut auction = get!(ctx.world, (game_id, item_id), Auction);
-
-        // Convert auction to VRGDA
-        let VRGDA = auction.to_LogisticVRGDA();
-
-        // Calculate time since the auction began
-        let time_since_start: u128 = get_block_timestamp().into() - auction.start_time.into();
-
-        // Compute the current price
-        VRGDA.get_vrgda_price(
-            FixedTrait::new(time_since_start, false), // Time elapsed since auction start
-            FixedTrait::new(auction.sold, false)      // Quantity sold
-        )
-    }
-}
-```
-
-In this example, the function computes and returns the current price of the VRGDA based on the ongoing state of the auction.
-
-**How to Invoke View Functions?**
-
-- **Using Dojo Core**: If you are working within the [Dojo Core](../client/npm/core.md), utilize the `call` function. 
-  
-- **For Rust Users**: The [Starkli](https://book.starkli.rs/) library provides a handy method to invoke view functions in Rust.
-
-I hope this revised version enhances the clarity and flow of the information you want to convey!
-
-### System Authentication
-
-Systems must be given permission to write to components. By default they have no permissions. With `sozo` we can however give them permissions to write to components.
-
-```console
-sozo auth writer Moves Spawn 
-```
-
-Here we have authorised the `Spawn` system to write to the `Moves` component. 
-
-Read more in the [sozo](../toolchain/sozo/overview.md) docs. -->
+Read more in the [sozo](../toolchain/sozo/overview.md) docs.
