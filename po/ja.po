@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
-"POT-Creation-Date: 2023-09-28T02:35:48+07:00\n"
+"POT-Creation-Date: 2023-10-04T10:45:06+08:00\n"
 "PO-Revision-Date: 2023-09-18 14:38+0800\n"
 "Last-Translator: LIB <libcreatesweb3@gmail.com>\n"
 "Language-Team: Language ja\n"
@@ -4309,13 +4309,13 @@ msgstr ""
 msgid ""
 "You can switch from the default mining behaviour to interval mining, where a "
 "new block is created at a fixed time interval selected by the user. To "
-"enable this mode of mining, use the `--block-time <SECONDS>` flag, as "
+"enable this mode of mining, use the `--block-time <MILLISECONDS>` flag, as "
 "demonstrated in the following example."
 msgstr ""
 "デフォルトのマイニング動作から、ユーザーが選択した一定の時間間隔で新しいブ"
 "ロックを作成するインターバルマイニングに切り替えることができます。このマイニ"
-"ングモードを有効にするには、次の例のように `—block-time <SECONDS>` フラグを使"
-"用します。"
+"ングモードを有効にするには、次の例のように `—block-time <MILLISECONDS>` フラ"
+"グを使用します。"
 
 #: src/toolchain/katana/reference.md:30
 #, fuzzy
@@ -4561,11 +4561,11 @@ msgstr ""
 #: src/toolchain/katana/reference.md:115
 #, fuzzy
 msgid ""
-"`-b, --block-time <SECONDS>`  \n"
-"     Block time in seconds for interval mining."
+"`-b, --block-time <MILLISECONDS>`  \n"
+"     Block time in milliseconds for interval mining."
 msgstr ""
-"`-b, —block-time <SECONDS>`  \n"
-"     インターバルマイニングのブロック時間（秒）。"
+"`-b, —block-time <MILLISECONDS>`  \n"
+"     インターバルマイニングのブロック時間（ミリ秒）。"
 
 #: src/toolchain/katana/reference.md:118
 #, fuzzy

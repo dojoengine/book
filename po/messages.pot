@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
-"POT-Creation-Date: 2023-09-28T02:43:42+07:00\n"
+"POT-Creation-Date: 2023-10-04T10:45:06+08:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3234,7 +3234,7 @@ msgstr ""
 msgid ""
 "You can switch from the default mining behaviour to interval mining, where a "
 "new block is created at a fixed time interval selected by the user. To "
-"enable this mode of mining, use the `--block-time <SECONDS>` flag, as "
+"enable this mode of mining, use the `--block-time <MILLISECONDS>` flag, as "
 "demonstrated in the following example."
 msgstr ""
 
@@ -3447,8 +3447,8 @@ msgstr ""
 
 #: src/toolchain/katana/reference.md:115
 msgid ""
-"`-b, --block-time <SECONDS>`  \n"
-"     Block time in seconds for interval mining."
+"`-b, --block-time <MILLISECONDS>`  \n"
+"     Block time in milliseconds for interval mining."
 msgstr ""
 
 #: src/toolchain/katana/reference.md:118
