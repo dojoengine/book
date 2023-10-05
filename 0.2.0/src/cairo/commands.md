@@ -10,7 +10,7 @@ Commands in Dojo are generalized functions that are expanded at compile time to 
 Commands are used within systems to interact with the world state. They are called using the following syntax:
 
 ```rust,ignore
-let (position, moves) = get!(world, caller, (Position, Moves));
+let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));
 ```
 
 ### The `get!` command
@@ -20,10 +20,10 @@ The `get!` command is used to retrieve components from the world state.
 Use it like this:
 
 ```rust,ignore
-let (position, moves) = get!(world, caller, (Position, Moves));
+let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));
 ```
 
-Here we are retrieving the `Position` and `Moves` components from the world state. We are also using the `caller` to retrieve the components for the current entity.
+Here we are retrieving the `Position` and `Moves` components from the world state. We are also using the `ctx.origin` to retrieve the components for the current entity.
 
 You can then use `position` and `moves` as you would as any other Cairo struct.
 
@@ -34,20 +34,20 @@ The `set!` command is used to update components state.
 Use it like this:
 
 ```rust,ignore
-set !(world, (
+set !(ctx.world, (
     Moves {
-        player: caller, remaining: 10
+        player: ctx.origin, remaining: 10
     }, 
     Position {
-        player: caller, x: position.x + 10, y: position.y + 10
+        player: ctx.origin, x: position.x + 10, y: position.y + 10
     },
 ));
 
 // If the structs are already defined it can also be written as:
-set!(world, (moves, position));
+set!(ctx.world, (moves, position));
 ```
 
-Here we are updating the `Moves` and `Position` components in the world state using the `caller` as the entity id.
+Here we are updating the `Moves` and `Position` components in the world state using the `ctx.origin` as the entity id.
 
 ### The `emit!` command
 
@@ -56,5 +56,5 @@ The `emit!` command is used to emit custom events.
 Use it like this:
 
 ```rust,ignore
-emit !(world, Moved { address: caller, direction });
+emit !(ctx.world, Moved { address: ctx.origin, direction });
 ```

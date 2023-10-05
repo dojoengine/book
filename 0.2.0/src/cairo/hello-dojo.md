@@ -2,9 +2,11 @@
 
 > This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](../getting-started/quick-start.md) section.
 
-## Dojo as an ECS in 15 Minutes
+## Dojo in 15 Minutes
 
-Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](./models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework that promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
+Think of Dojo as an abstraction over Cairo, similar to how React is to JavaScript. It enables you to write shorthand commands that expand into complex queries during compile time. Dojo is grounded in the well-known architecture known as the Entity Component System (ECS).
+
+In Dojo, you design your worlds using Systems and Components. Systems outline the logic of your world, while components signify the state. This powerful pattern allows you to structure your logic in a highly modular way. If you don't understand this yet, don't fret; we'll delve into it in detail below.
 
 To start, let's set up a project to run locally on your machine. From an empty directory, execute:
 
@@ -26,21 +28,19 @@ src
 Scarb.toml
 ```
 
-Dojo projects bear a strong resemblance to typical Cairo projects. The primary difference is the inclusion of a special attribute tag used to define your data models. In this context, we'll refer to these models as components.
-
-As we're crafting an ECS, we'll adhere to the specific terminology associated with Entity Component Systems.
+Dojo projects largely resemble standard Cairo projects, with the distinction being some special attribute tags you use when creating `Components` and `Systems`. Let's explore this next.
 
 Open the `src/components.cairo` file to continue.
 
 ```rust,ignore
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Component, Copy, Drop, Serde, SerdeLen)]
 struct Moves {
     #[key]
     player: ContractAddress,
     remaining: u8,
 }
 
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Component, Copy, Drop, Serde, SerdeLen)]
 struct Position {
     #[key]
     player: ContractAddress,
@@ -51,97 +51,96 @@ struct Position {
 ...rest of code
 ```
 
-Notice the `#[derive(Model, Copy, Drop, Serde, SerdeLen)]` attributes. For a model to be recognized, we *must* include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
+Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we *must* include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
 
-Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
+Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this component is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
 
 In a similar vein, we possess a `Position` component that holds `x` and `y` values. Once again, this component is indexed by the `player` field.
 
 Now, let's examine the `src/systems.cairo` file:
 
 ```rust,ignore
-#[starknet::contract]
-mod player_actions_external {
-    use starknet::{ContractAddress, get_caller_address};
-    use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
-    use dojo_examples::components::{Position, Moves, Direction, Vec2};
-    use dojo_examples::utils::next_position;
-    use super::IPlayerActions;
+#[system]
+mod spawn {
+    use array::ArrayTrait;
+    use box::BoxTrait;
+    use traits::Into;
+    use dojo::world::Context;
 
-    #[storage]
-    struct Storage {}
+    use dojo_examples::components::Position;
+    use dojo_examples::components::Moves;
 
-    #[event]
-    #[derive(Drop, starknet::Event)]
-    enum Event {
-        Moved: Moved,
-    }
-
-    #[derive(Drop, starknet::Event)]
-    struct Moved {
-        player: ContractAddress,
-        direction: Direction
-    }
-
-    // impl: implement functions specified in trait
-    #[external(v0)]
-    impl PlayerActionsImpl of IPlayerActions<ContractState> {
-        fn spawn(self: @ContractState, world: IWorldDispatcher) {
-            let player = get_caller_address();
-            let position = get!(world, player, (Position));
-            set!(
-                world,
-                (
-                    Moves { player, remaining: 10, last_direction: Direction::None(()) },
-                    Position { player, vec: Vec2 { x: 10, y: 10 } },
-                )
-            );
-        }
-
-        fn move(self: @ContractState, world: IWorldDispatcher, direction: Direction) {
-            let player = get_caller_address();
-            let (mut position, mut moves) = get!(world, player, (Position, Moves));
-            moves.remaining -= 1;
-            moves.last_direction = direction;
-            let next = next_position(position, direction);
-            set!(world, (moves, next));
-            emit!(world, Moved { player, direction });
-            return ();
-        }
+    fn execute(ctx: Context) {
+        let position = get!(ctx.world, ctx.origin, (Position));
+        set!(
+            ctx.world,
+            (
+                Moves {
+                    player: ctx.origin, remaining: 10
+                },
+                Position {
+                    player: ctx.origin, x: position.x + 10, y: position.y + 10
+                },
+            )
+        );
+        return ();
     }
 }
 ```
 
-### Breaking it down
-
-#### System is a contract
-
-As you can see a System is like a regular Starknet contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
+Let us break this down:
 
 ```rust,ignore
-let position = get!(world, caller, (Position));
+#[system]
 ```
 
-Here we use `get!` [command](./commands.md) to retrieve the `Position` model for the `caller` entity, which in this case is the caller.
+Just as we use the `#[derive(Component)]` attribute, the `#[system]` attribute informs the Dojo compiler that this struct is a system, instructing it to compile accordingly.
+
+```rust,ignore
+fn execute(ctx: Context)
+```
+
+You'll observe that the system features an `execute` function. It's crucial to note that all Dojo systems necessitate an `execute` function. This function accepts a `Context` as its parameter. The `Context` is a distinct struct that provides information about the world and the caller.
+
+It's worth mentioning that a system can contain more than just the `execute` function. You're free to include numerous functions as needed. However, the `execute` function is mandatory since it's invoked when your system is executed.
+
+Now lets look at the next line:
+
+```rust,ignore
+let position = get!(ctx.world, ctx.origin, (Position));
+```
+
+Here we use `get!` [command](./commands.md) to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` is the address of the caller. When called for the first time, it will return:
+
+```rust,ignore
+Position {
+  player: 0x0, // zero address
+  x: 0,
+  y: 0
+}
+```
 
 Now the next line:
 
 ```rust,ignore
 set!(
-    world,
+    ctx.world,
     (
-        Moves { player, remaining: 10, last_direction: Direction::None(()) },
-        Position { player, vec: Vec2 { x: 10, y: 10 } },
+        Moves {
+            player: ctx.origin, remaining: 10
+            }, Position {
+            player: ctx.origin, x: position.x + 10, y: position.y + 10
+        },
     )
 );
 ```
 
-Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` models for the `caller` entity.
+Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` components for the `ctx.origin` entity.
 
 We covered a lot here in a short time. Let's recap:
 
 -   Explained the anatomy of a Dojo project
--   Explained the importance of the `#[derive(Model)]`attribute
+-   Explained the importace of the `#[derive(Component)]` and `#[system]` attribute
 -   Explained the `execute` function
 -   Explained the `Context` struct
 -   Touched on the `get!` and `set!` commands
@@ -238,4 +237,4 @@ We've covered quite a bit! Here's a recap:
 
 ### Next Steps
 
-This overview provides a rapid end-to-end glimpse into Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and models, Dojo is equipped for expansive creativity. So, what will you craft next?
+This overview provides a rapid end-to-end glimpse into Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and components, Dojo is equipped for expansive creativity. So, what will you craft next?

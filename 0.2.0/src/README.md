@@ -6,7 +6,7 @@
 
 ## Dojo: The Provable Game Engine
 
-Dojo is a provable game engine built using [Cairo](https://github.com/starkware-libs/cairo). It establishes a standard for game development via smart contracts, blending best practices with streamlined development and deployment tools. With Dojo by your side, you can evolve from initial concept to a fully realized game in days, not weeks.
+Dojo employs [Cairo](https://github.com/starkware-libs/cairo) to deliver a robust architecture and toolset for designing autonomous worlds and onchain games. It features an integrated entity component system (ECS) and includes a native indexer, RPC testnet, and a comprehensive CLI management toolkit.
 
 This book is dedicated to familiarizing you with the Dojo engine and the potential of Provable games. A special section on the [Theory](./theory/autonomous-worlds.md) elucidates this emergent concept of autonomous worlds and Provable games.
 
