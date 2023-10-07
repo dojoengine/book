@@ -2,7 +2,7 @@
 
 Understanding commands is key to understanding Dojo. You will leverage them heavily within the systems you design.
 
-Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating components, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
+Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating models, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
 
 
 ### Using commands
@@ -15,7 +15,7 @@ let (position, moves) = get!(world, caller, (Position, Moves));
 
 ### The `get!` command
 
-The `get!` command is used to retrieve components from the world state.
+The `get!` command is used to retrieve models from the world state.
 
 Use it like this:
 
@@ -23,13 +23,13 @@ Use it like this:
 let (position, moves) = get!(world, caller, (Position, Moves));
 ```
 
-Here we are retrieving the `Position` and `Moves` components from the world state. We are also using the `caller` to retrieve the components for the current entity.
+Here we are retrieving the `Position` and `Moves` models from the world state. We are also using the `caller` to retrieve the models for the current entity.
 
 You can then use `position` and `moves` as you would as any other Cairo struct.
 
 ### The `set!` command
 
-The `set!` command is used to update components state.
+The `set!` command is used to update models state.
 
 Use it like this:
 
@@ -47,7 +47,7 @@ set !(world, (
 set!(world, (moves, position));
 ```
 
-Here we are updating the `Moves` and `Position` components in the world state using the `caller` as the entity id.
+Here we are updating the `Moves` and `Position` models in the world state using the `caller` as the entity id.
 
 ### The `emit!` command
 

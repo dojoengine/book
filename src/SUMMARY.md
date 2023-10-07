@@ -70,12 +70,12 @@
 
 # Tutorial
 
-- [Onchain Chess](./tutorial/onchain-chess/README.md)
+<!-- - [Onchain Chess](./tutorial/onchain-chess/README.md)
   - [0. Setup](./tutorial/onchain-chess/0-setup.md)
   - [1. Initiate](./tutorial/onchain-chess/1-initiate.md)
   - [2. Move](./tutorial/onchain-chess/2-move.md)
   - [3. Check Legal Move](./tutorial/onchain-chess/3-legal.md)
-  - [4. Test Chess](./tutorial/onchain-chess/4-test.md)
+  - [4. Test Chess](./tutorial/onchain-chess/4-test.md) -->
 ---
 
 [Contributors](misc/contributors.md)

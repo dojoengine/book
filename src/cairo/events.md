@@ -1,14 +1,13 @@
 ## Events
 
-Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a `Component`, the `World` contract emits these events. What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to [Torii](../toolchain/torii/overview.md), all these events are seamlessly indexed, ensuring easy and efficient querying.
+Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a `Model`, the `World` contract emits these events. What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to [Torii](../toolchain/torii/overview.md), all these events are seamlessly indexed, ensuring easy and efficient querying.
 
 
 ### Component Events
 
-Consider this example of a `Moves` component:
+Consider this example of a `Moves` model:
 
 ```rust,ignore
-#[component]
 struct Moves {
     #[key]
     player: Address,
