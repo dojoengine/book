@@ -3,10 +3,11 @@
 > **IMPORTANT:** Before defining your systems, prioritize permissions. Plan carefully to ensure proper access and security.
 
 _tldr;_
--  Systems are just contract functions
--  Contracts which contain Systems are given permissions to write to models
--  Systems pass a `world` address as their first parameter
--  Systems invoke the world contract to mutate the state of models
+
+- Systems are just contract functions
+- Contracts which contain Systems are given permissions to write to models
+- Systems pass a `world` address as their first parameter
+- Systems invoke the world contract to mutate the state of models
 
 ### What are Systems?
 
@@ -48,10 +49,10 @@ mod player_actions {
             set!(
                 world,
                 (
-                    Moves { 
-                        player, 
-                        remaining: 10, 
-                        last_direction: Direction::None(()) 
+                    Moves {
+                        player,
+                        remaining: 10,
+                        last_direction: Direction::None(())
                     }
                 )
             );
@@ -68,6 +69,6 @@ As you can see a System is like a regular Starknet contract. It can include stor
 
 #### `Spawn` function
 
-The spawn function is currently the only function that exists in a system. It is called when a player spawns into the world. It is responsible for setting up the player's initial state.
+The spawn function is currently the only function that exists in this system. It is called when a player spawns into the world. It is responsible for setting up the player's initial state.
 
 Read more in the [sozo](../toolchain/sozo/overview.md) docs.
