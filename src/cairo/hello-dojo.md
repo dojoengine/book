@@ -284,7 +284,7 @@ subscription {
   entityUpdated {
     id
     keys
-    componentNames
+    modelNames
     createdAt
     updatedAt
   }
@@ -311,7 +311,7 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "componentNames": "Moves,Position",
+      "modelNames": "Moves,Position",
       "createdAt": "2023-09-28 03:25:50",
       "updatedAt": "2023-09-28 03:25:50"
     }

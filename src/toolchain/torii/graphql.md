@@ -2,7 +2,7 @@
 
 ### Name
 
-In Dojo, you have access to custom queries and subscriptions that are specifically designed to work with the world contract for client applications. GraphQL is the technology that makes this possible. It allows you to specify exactly what data you want to retrieve, and it delivers that data in a structured JSON format. This flexibility in data retrieval ensures that you get the information you need efficiently and in a format that's easy to work with.
+In Dojo, you have access to custom queries and subscriptions that are specifically designed to work with the `caller` for client applications. GraphQL is the technology that makes this possible. It allows you to specify exactly what data you want to retrieve, and it delivers that data in a structured JSON format. This flexibility in data retrieval ensures that you get the information you need efficiently and in a format that's easy to work with.
 
 ### USAGE
 
@@ -26,11 +26,11 @@ In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched all data from
 
 ```graphql
 query {
-    component(id: "position") {
-	    id
-	    name
-	    classHash
-    }
+  component(id: "position") {
+    id
+    name
+    classHash
+  }
 }
 ```
 
@@ -55,14 +55,13 @@ Now lets retrieve data from `spawn` System.
 ```graphql
 query getSystem {
   system(id: "spawn") {
-    id,
-    name,
-    classHash,
-    transactionHash,
-    createdAt,
+    id
+    name
+    classHash
+    transactionHash
+    createdAt
   }
 }
-
 ```
 
 After you run the query, you will receive an output like this:
@@ -85,29 +84,31 @@ Now you can create any kind of query for `move` systems!
 
 #### Subscription operations
 
-These operations allow us to listen to changes in the components of the system.
+These operations allow us to listen to changes in the system.
 
 You can listen when an `Entity` is updated by executing this subscription
+
 ```graphql
 subscription entityUpdated {
   entityUpdated {
-    id, 
-    componentNames,
-    createdAt,
+    id
+    modelNames
+    createdAt
     updatedAt
   }
 }
 ```
 
-You can also listen for the components that are being registered by executing
+You can also listen for the models that are being registered by executing
+
 ```graphql
-subscription componentRegistered {
+subscription modelRegistered {
   componentRegistered {
-    id, 
-    name,
-    classHash,
-    transactionHash,
-    createdAt,
+    id
+    name
+    classHash
+    transactionHash
+    createdAt
   }
 }
 ```
