@@ -12,7 +12,7 @@ To start, let's set up a project to run locally on your machine. From an empty d
 sozo init
 ```
 
-Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory, serving as the ideal starting point for a new project and providing you with everything you need to get started.
+Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory. It's the ideal starting point for a new project and equips you with everything you need to begin.
 
 #### Anatomy of a Dojo Project
 
@@ -51,7 +51,7 @@ struct Position {
 ...rest of code
 ```
 
-Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we _must_ include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
+Notice the `#[derive(Model, Copy, Drop, Serde, SerdeLen)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
 Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
 
@@ -138,7 +138,7 @@ set!(
 
 Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` models for the `caller` entity.
 
-To recap, we've covered a lot in a short time:
+We covered a lot here in a short time. Let's recap:
 
 - Explained the anatomy of a Dojo project
 - Explained the importance of the `#[derive(Model)]`attribute
