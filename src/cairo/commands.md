@@ -9,17 +9,14 @@ Commands in Dojo are generalized functions that are expanded at compile time to 
 
 Commands are used within systems to interact with the world state. They are called using the following syntax:
 
-```rust,ignore
-let (position, moves) = get!(world, caller, (Position, Moves));
-```
-
 ### The `get!` command
 
-The `get!` command is used to retrieve models from the world state.
-
-Use it like this:
+The `get!` command is used to retrieve models from the world state:
 
 ```rust,ignore
+// world = calling world
+// caller = key of the entity that called the system
+// (Position, Moves) = tuple of models to retrieve
 let (position, moves) = get!(world, caller, (Position, Moves));
 ```
 
@@ -56,5 +53,5 @@ The `emit!` command is used to emit custom events.
 Use it like this:
 
 ```rust,ignore
-emit !(world, Moved { address: caller, direction });
+emit!(world, Moved { address: caller, direction });
 ```

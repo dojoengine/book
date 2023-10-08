@@ -14,7 +14,8 @@ version = "0.1.0"
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo" }
+# IMPORTANT: Dojo should be pinned to a specific version or else your world might not compile
+dojo = { git = "https://github.com/dojoengine/dojo", rev="v0.3.0" }
 
 [[target.dojo]]
 

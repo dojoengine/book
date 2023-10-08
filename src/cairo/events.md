@@ -22,7 +22,7 @@ When this component is updated, the `World` contract will emit an event with the
 struct StoreSetRecord {
     table: felt252, // Moves
     keys: Span<felt252>, // [player]
-    offset: u8, // 0
+    offset: u8, // offset for the value in the table
     value: Span<felt252>, // [remaining]
 }
 ```

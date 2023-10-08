@@ -99,8 +99,15 @@ Support model types:
 -   `u128`
 -   `u256`
 -   `ContractAddress`
+-   Enums
+-   Custom Structs
 
 It is currently not possible to use Arrays.
+
+#### Enum support
+
+
+#### Custom Structs 
 
 
 ### In practice with modularity in mind
