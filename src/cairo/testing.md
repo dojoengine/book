@@ -13,11 +13,11 @@ This will search for all tests within your project and run them.
 
 ### Writing Unit Tests
 
-It is best practise to include unit tests in the same file as the Component/System you are writing.
+It is best practise to include unit tests in the same file as the model/System you are writing.
 
-Lets show a `Component` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
+Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
-`components.cairo`
+`models.cairo`
 ```rust,ignore
 
 ...rest of code
@@ -46,7 +46,7 @@ mod tests {
 
 ```
 
-In this test we are testing the `is_zero` and `is_equal` functions of the `Position` component. It is good practise to test all functions of your components.
+In this test we are testing the `is_zero` and `is_equal` functions of the `Position` model. It is good practise to test all functions of your models.
 
 
 ### Writing Integration Tests
@@ -66,10 +66,10 @@ mod tests {
 
     use dojo::test_utils::spawn_test_world;
 
-    use dojo_examples::components::position;
-    use dojo_examples::components::Position;
-    use dojo_examples::components::moves;
-    use dojo_examples::components::Moves;
+    use dojo_examples::models::position;
+    use dojo_examples::models::Position;
+    use dojo_examples::models::moves;
+    use dojo_examples::models::Moves;
     use dojo_examples::systems::spawn;
     use dojo_examples::systems::move;
 
@@ -78,18 +78,18 @@ mod tests {
     fn test_move() {
         let caller = starknet::contract_address_const::<0x0>();
 
-        // components
-        let mut components = array::ArrayTrait::new();
-        components.append(position::TEST_CLASS_HASH);
-        components.append(moves::TEST_CLASS_HASH);
+        // models
+        let mut models = array::ArrayTrait::new();
+        models.append(position::TEST_CLASS_HASH);
+        models.append(moves::TEST_CLASS_HASH);
 
         // systems
         let mut systems = array::ArrayTrait::new();
         systems.append(spawn::TEST_CLASS_HASH);
         systems.append(move::TEST_CLASS_HASH);
 
-        // deploy executor, world and register components/systems
-        let world = spawn_test_world(components, systems);
+        // deploy executor, world and register models/systems
+        let world = spawn_test_world(models, systems);
 
         let spawn_call_data = array::ArrayTrait::new();
         world.execute('spawn', spawn_call_data);
@@ -112,4 +112,4 @@ mod tests {
 
 #### Useful Dojo Test Functions
 
-`spawn_test_world(components, systems)` - This function will create a test world with the components and systems you pass in. It will also deploy the world and register the components and systems.
+`spawn_test_world(models, systems)` - This function will create a test world with the models and systems you pass in. It will also deploy the world and register the models and systems.
