@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
-"POT-Creation-Date: 2023-09-28T02:35:48+07:00\n"
+"POT-Creation-Date: \n"
 "PO-Revision-Date: 2023-09-21 02:15+0900\n"
 "Last-Translator: Gayeong(Pia) Park <gayeongparkk@gmail.com>\n"
 "Language-Team: Korean <translation-team-ko@googlegroups.com>\n"
