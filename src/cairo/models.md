@@ -100,15 +100,56 @@ Support model types:
 -   `u256`
 -   `ContractAddress`
 -   Enums
--   Custom Structs
+-   Custom Types
 
 It is currently not possible to use Arrays.
 
-#### Enum support
+#### Custom Types + Enums 
+For models containing complex types, it's crucial to implement the `SchemaIntrospection` trait.
 
+Consider the model below:
 
-#### Custom Structs 
+```rust
+struct Card {
+    #[key]
+    token_id: u256,
+    /// The card's designated role.
+    role: Roles,
+}
+```
 
+For complex types, like `Roles` in the above example, you need to implement `SchemaIntrospection`. Here's how:
+
+```rust
+impl RolesSchemaIntrospectionImpl for SchemaIntrospection<Roles> {
+    #[inline(always)]
+    fn size() -> usize {
+        1 // Represents the byte size of the enum.
+    }
+
+    #[inline(always)]
+    fn layout(ref layout: Array<u8>) {
+        layout.append(8); // Specifies the layout byte size;
+    }
+
+    #[inline(always)]
+    fn ty() -> Ty {
+        Ty::Enum(
+            Enum {
+                name: 'Roles',
+                attrs: array![].span(),
+                children: array![
+                    ('Goalkeeper', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('Defender', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('Midfielder', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('Attacker', serialize_member_type(@Ty::Tuple(array![].span()))),
+                ]
+                .span()
+            }
+        )
+    }
+}
+```
 
 ### In practice with modularity in mind
 
