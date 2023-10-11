@@ -32,9 +32,9 @@ yarn add @dojoengine/react
 
 ### @dojoengine/create-burner
 
-Create burner is a simply way to incorporate burner wallets into your Dojo app.
+Create burner is a simple way to incorporate burner wallets into your Dojo app.
 
-[Reopsitory](https://github.com/dojoengine/create-burner)
+[Repository](https://github.com/dojoengine/create-burner)
 
 ```console
 yarn add @dojoengine/create-burner
