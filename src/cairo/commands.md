@@ -1,5 +1,10 @@
 ## Commands
 
+_tldr_
+- Commands are shorthand ways to write function calls
+- Commands abstract complex queries into shorthands
+- Commands are similar to rust macros
+
 Understanding commands is key to understanding Dojo. You will leverage them heavily within the systems you design.
 
 Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating models, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
@@ -28,8 +33,6 @@ You can then use `position` and `moves` as you would as any other Cairo struct.
 
 The `set!` command is used to update models state.
 
-Use it like this:
-
 ```rust,ignore
 set !(world, (
     Moves {
@@ -48,10 +51,10 @@ Here we are updating the `Moves` and `Position` models in the world state using 
 
 ### The `emit!` command
 
-The `emit!` command is used to emit custom events.
-
-Use it like this:
+The `emit!` command is used to emit custom events. These events are indexed by [torii](../toolchain/torii/overview.md)
 
 ```rust,ignore
 emit!(world, Moved { address: caller, direction });
 ```
+
+This will emit these values which could be captured by a client or you could query these via [torii](../toolchain/torii/overview.md)

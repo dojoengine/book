@@ -28,7 +28,7 @@
   - [Events](./cairo/events.md)
   - [Authorization](./cairo/authorization.md)
 - [Migration](./cairo/migration.md)
-  - [0.3.0](./cairo/migration/0.3.0.md)
+  - [0.2.0 -> 0.3.0](./cairo/migration/0.3.0.md)
 - [ECS in 15 minutes](./cairo/hello-dojo.md)
 
   - [Components](./cairo/components.md)
@@ -47,6 +47,7 @@
 - [Overview](./client/overview.md)
 - [JS](./client/npm.md)
   - [Core](./client/npm/core.md)
+- [torii](./client/torii.md)
 
 # Toolchain
 
