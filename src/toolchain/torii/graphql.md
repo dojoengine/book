@@ -11,10 +11,10 @@ In Dojo, you have access to custom queries and subscriptions that are specifical
 Make sure torii is running in your local terminal.
 
 ```sh
-torii
+torii --world <WORLD_ADDRESS>
 ```
 
-Starts GraphiQL server at `http://0.0.0.0:8080/`
+Starts GraphQL server at `http://0.0.0.0:8080/graphql`
 
 ### Query Examples
 
@@ -22,11 +22,11 @@ After the torii server starts on your local machine, you're ready to make query 
 
 #### Query operation
 
-In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched all data from the `Moves` component. This time let's fetch only `id`, `name`, `classHash` fields from `Position` component .
+In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched all data from the `Moves` model. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model .
 
 ```graphql
 query {
-  component(id: "position") {
+  modelPosition(id: "position") {
     id
     name
     classHash
@@ -39,7 +39,7 @@ After you run the query, you will receive an output like this:
 ```json
 {
   "data": {
-    "component": {
+    "model": {
       "id": "position",
       "name": "Position",
       "classHash": "0x6a8ab7eb5689bed6f0e9fb63d2565411830e1725aca7299f5f512d375d9a28c"
@@ -48,7 +48,7 @@ After you run the query, you will receive an output like this:
 }
 ```
 
-Great! If you're wondering about the number of fields a `Component` has or the details of a `System`, you can find all this information in the `Documentation Explorer` section of the GraphQL IDE. It's your go-to place for exploring the rest of the documentation.
+Great! If you're wondering about the number of fields a `Model` has or the details of a `System`, you can find all this information in the `Documentation Explorer` section of the GraphQL IDE. It's your go-to place for exploring the rest of the documentation.
 
 Now lets retrieve data from `spawn` System.
 
@@ -103,7 +103,7 @@ You can also listen for the models that are being registered by executing
 
 ```graphql
 subscription modelRegistered {
-  componentRegistered {
+  modelRegistered {
     id
     name
     classHash
