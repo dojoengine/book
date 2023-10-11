@@ -16,7 +16,7 @@ sozo execute <SYSTEM> [OPTIONS]
 
 `--calldata` _CALLDATA_  
 &nbsp;&nbsp;&nbsp;&nbsp;The calldata to be passed to the system that you want to execute.  
-&nbsp;&nbsp;&nbsp;&nbsp;Comma seperated values e.g., 0x12345,0x69420.
+&nbsp;&nbsp;&nbsp;&nbsp;Comma separated values e.g., 0x12345,0x69420.
 
 #### World Options
 
