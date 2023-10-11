@@ -20,9 +20,12 @@ Inspect the contents of the `dojo-starter` project, and you'll notice the follow
 
 ```bash
 src
-  - components.cairo
-  - systems.cairo
+  systems
+    - raw_contract.cairo
+    - with_decorator.cairo
   - lib.cairo
+  - models.cairo
+  - utils.cairo
 Scarb.toml
 ```
 
@@ -30,46 +33,54 @@ Dojo projects bear a strong resemblance to typical Cairo projects. The primary d
 
 As we're crafting an ECS, we'll adhere to the specific terminology associated with Entity Component Systems.
 
-Open the `src/components.cairo` file to continue.
+Open the `src/models.cairo` file to continue.
 
 ```rust,ignore
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Moves {
     #[key]
     player: ContractAddress,
     remaining: u8,
+    last_direction: Direction
 }
 
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Copy, Drop, Serde, Print, Introspect)]
+struct Vec2 {
+    x: u32,
+    y: u32
+}
+
+#[derive(Model, Copy, Drop, Print, Serde)]
 struct Position {
     #[key]
     player: ContractAddress,
-    x: u32,
-    y: u32
+    vec: Vec2,
 }
 
 ...rest of code
 ```
 
-Notice the `#[derive(Model, Copy, Drop, Serde, SerdeLen)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
+Notice the `#[derive(Model, Copy, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
-Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
+Our `Moves` model houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
 
-In a similar vein, we have a `Position` component that holds `x` and `y` values. Once again, this component is indexed by the `player` field.
+In a similar vein, we have a `Position` component that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this component is indexed by the `player` field.
 
-Now, let's examine the `src/systems.cairo` file:
+Now, let's examine the `src/systems/raw_contract.cairo` file:
 
 ```rust,ignore
 #[starknet::contract]
 mod player_actions_external {
     use starknet::{ContractAddress, get_caller_address};
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
-    use dojo_examples::components::{Position, Moves, Direction, Vec2};
+    use dojo_examples::models::{Position, Moves, Direction, Vec2};
     use dojo_examples::utils::next_position;
     use super::IPlayerActions;
 
     #[storage]
-    struct Storage {}
+    struct Storage {
+        world_dispatcher: IWorldDispatcher,
+    }
 
     #[event]
     #[derive(Drop, starknet::Event)]
@@ -86,7 +97,8 @@ mod player_actions_external {
     // impl: implement functions specified in trait
     #[external(v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
-        fn spawn(self: @ContractState, world: IWorldDispatcher) {
+        fn spawn(self: @ContractState) {
+            let world = self.world_dispatcher.read();
             let player = get_caller_address();
             let position = get!(world, player, (Position));
             set!(
@@ -98,7 +110,8 @@ mod player_actions_external {
             );
         }
 
-        fn move(self: @ContractState, world: IWorldDispatcher, direction: Direction) {
+        fn move(self: @ContractState, direction: Direction) {
+            let world = self.world_dispatcher.read();
             let player = get_caller_address();
             let (mut position, mut moves) = get!(world, player, (Position, Moves));
             moves.remaining -= 1;
@@ -119,10 +132,10 @@ mod player_actions_external {
 As you can see a System is like a regular Starknet contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
 
 ```rust,ignore
-let position = get!(world, caller, (Position));
+let position = get!(world, player, (Position));
 ```
 
-Here we use `get!` [command](./commands.md) to retrieve the `Position` model for the `caller` entity, which in this case is the caller.
+Here we use `get!` [command](./commands.md) to retrieve the `Position` model for the `caller` entity, which in this case is the player.
 
 Now the next line:
 
@@ -216,10 +229,10 @@ This establishes the world address for your project.
 With your local world address established, let's delve into indexing. You can index the entire world. Open a new terminal and input this simple command:
 
 ```bash
-torii
+torii --world 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
 ```
 
-Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
+Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
 
 ```bash
 2023-09-28T02:06:37.423726Z  INFO torii::indexer: starting indexer
@@ -245,13 +258,12 @@ Open GraphiQL IDE: http://0.0.0.0:8080
 2023-09-28T02:06:38.438882Z  INFO torii::engine: processed block: 11
 ```
 
-You can observe that our `Moves` and `Position` components have been successfully registered, along with our `spawn` and `move` systems.
-
-Next, let's use the GraphiQL IDE to retrieve data from the `Moves` component. In your web browser, navigate to `http://0.0.0.0:8080`, and enter the following query:
+You can observe that our `Moves` and `Position` models have been successfully registered.
+Next, let's use the GraphiQL IDE to retrieve data from the `Moves` model. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
 
 ```graphql
 query {
-  component(id: "moves") {
+  movesModels(id: "moves") {
     id
     name
     classHash
@@ -266,7 +278,7 @@ After you run the query, you will receive an output like this:
 ```json
 {
   "data": {
-    "component": {
+    "model": {
       "id": "moves",
       "name": "Moves",
       "classHash": "0x3240ca67c41c5ae5557f87f44cca2b590f40407082dd390d893a514cfb2b8cd",
@@ -296,7 +308,7 @@ Once you execute the subscription, you will receive notifications whenever new e
 In your main local terminal, run the following command:
 
 ```bash
-sozo execute spawn
+sozo execute --0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16 spawn
 ```
 
 By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
