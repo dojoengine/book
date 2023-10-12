@@ -45,7 +45,7 @@ While there are many ways to design a chess game using the ECS model, we'll foll
 
 > Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square, the square entity will hold that piece.
 
-First, add this basic component to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../cairo/components.md).
+First, add this basic component to `components.cairo` file. If you are not familiar with component syntax in Dojo engine, go back to this [chapter](../../cairo/components.md).
 
 ```rust,ignore
 #[derive(Component)]
