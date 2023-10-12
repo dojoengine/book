@@ -56,7 +56,7 @@ _`NAME`_
 
 _`KEYS`_  
  &nbsp;&nbsp;&nbsp;&nbsp;The keys of the entity that you want to query.  
- &nbsp;&nbsp;&nbsp;&nbsp;Comma seperated values e.g., 0x12345,0x69420,...
+ &nbsp;&nbsp;&nbsp;&nbsp;Comma separated values e.g., 0x12345,0x69420,...
 
 ### OPTIONS
 
