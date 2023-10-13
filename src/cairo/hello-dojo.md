@@ -62,7 +62,7 @@ struct Position {
 
 Notice the `#[derive(Model, Copy, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
-Our `Moves` model houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
+Our `Moves` model houses a `player` field. At the same tine, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
 
 In a similar vein, we have a `Position` component that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this component is indexed by the `player` field.
 
@@ -129,13 +129,13 @@ mod player_actions_external {
 
 #### System is a contract
 
-As you can see a System is like a regular Starknet contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
+As you can see a `System` is like a regular Starknet contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
 
 ```rust,ignore
 let position = get!(world, player, (Position));
 ```
 
-Here we use `get!` [command](./commands.md) to retrieve the `Position` model for the `caller` entity, which in this case is the player.
+Here we use `get!` [command](./commands.md) to retrieve the `Position` model for the `player` entity, which is the address of the caller.
 
 Now the next line:
 
@@ -149,7 +149,7 @@ set!(
 );
 ```
 
-Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` models for the `caller` entity.
+Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` models for the `player` entity.
 
 We covered a lot here in a short time. Let's recap:
 
@@ -184,32 +184,40 @@ sozo migrate --name test
 This will deploy the artifact to [Katana](../toolchain/katana/overview.md). You should see terminal output similar to this:
 
 ```bash
-Migration account: 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c
+Migration account: 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973
+
+World name: test
 
 [1] 🌎 Building World state....
   > No remote World found
 [2] 🧰 Evaluating Worlds diff....
-  > Total diffs found: 7
+  > Total diffs found: 6
 [3] 📦 Preparing for migration....
-  > Total items to be migrated (7): New 7 Update 0
+  > Total items to be migrated (6): New 6 Update 0
+
 # Executor
-  > Contract address: 0x1a8cc7a653543337be184d21ceeb5cfc7e97af5ab7da5e4be77f373124d7e48
+  > Contract address: 0x5c3494b21bc92d40abdc40cdc54af66f22fb92bf876665d982c765a2cc0e06a
+# Base Contract
+  > Class Hash: 0x7aec2b7d7064c1294a339cd90060331ff704ab573e4ee9a1b699be2215c11c9
 # World
   > Contract address: 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
-# Components (2)
+# Models (2)
 Moves
-  > class hash: 0x3240ca67c41c5ae5557f87f44cca2b590f40407082dd390d893a514cfb2b8cd
+  > Class hash: 0xb37482a660983dfbf65968caa26eab260d3e1077986454b52ac06e58ae20c4
 Position
-  > class hash: 0x4caa1806451739b6fb470652b8066a11f80e847d49003b43cca75a2fd7647b6
-# Systems (3)
-spawn
-  > class hash: 0x1b949b00d5776c8ba13c2fdada38d4b196f3717c93c5c254c4909ed0eb249f7
-move
-  > class hash: 0x2534c514efeab524f24cd4b03add904eb540391e9966ebc96f8ce98453a4e1e
-library_call
-  > class hash: 0xabfd55d9bb6552aac17d78b33a6e18b06b1b95d4f684637e661dd83053fd45
+  > Class hash: 0x6ffc643cbc4b2fb9c424242b18175a5e142269b45f4463d1cd4dddb7a2e5095
+  > Registered at: 0x36eedf55545c4e770da905325bb00f853864a15d1fbf4fbfb54f668f074d553
+# Contracts (2)
+player_actions
+  > Contract address: 0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe
+player_actions_external
+  > Contract address: 0x7cb0ac6dd2cd2a38bd27ce47ba429a1f31bf69055040342253f972e0b0473ce
 
-🎉 Successfully migrated World on block #4 at address 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
+🎉 Successfully migrated World at address 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
+
+✨ Updating manifest.json...
+
+✨ Done.
 ```
 
 Your 🌎 is now deployed at `0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16`!
@@ -235,27 +243,24 @@ torii --world 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
 Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
 
 ```bash
-2023-09-28T02:06:37.423726Z  INFO torii::indexer: starting indexer
-Open GraphiQL IDE: http://0.0.0.0:8080
-2023-09-28T02:06:37.427823Z  INFO poem::server: listening addr=socket://0.0.0.0:8080
-2023-09-28T02:06:37.427835Z  INFO poem::server: server started
-2023-09-28T02:06:38.428916Z  INFO torii::engine: processed block: 0
-2023-09-28T02:06:38.429976Z  INFO torii::engine: processed block: 1
-2023-09-28T02:06:38.430706Z  INFO torii::engine: processed block: 2
-2023-09-28T02:06:38.431319Z  INFO torii::engine: processed block: 3
-2023-09-28T02:06:38.432875Z  INFO torii::engine: processed block: 4
-2023-09-28T02:06:38.433582Z  INFO torii::engine: processed block: 5
-2023-09-28T02:06:38.434662Z  INFO torii::engine: processed block: 6
-2023-09-28T02:06:38.435572Z  INFO torii_core::processors::register_component: registered component: Moves
-2023-09-28T02:06:38.435699Z  INFO torii_core::processors::register_component: registered component: Position
-2023-09-28T02:06:38.435813Z  INFO torii::engine: processed block: 7
-2023-09-28T02:06:38.436727Z  INFO torii::engine: processed block: 8
-2023-09-28T02:06:38.437289Z  INFO torii::engine: processed block: 9
-2023-09-28T02:06:38.437985Z  INFO torii::engine: processed block: 10
-2023-09-28T02:06:38.438841Z  INFO torii_core::processors::register_system: registered system: spawn
-2023-09-28T02:06:38.438861Z  INFO torii_core::processors::register_system: registered system: move
-2023-09-28T02:06:38.438871Z  INFO torii_core::processors::register_system: registered system: library_call
-2023-09-28T02:06:38.438882Z  INFO torii::engine: processed block: 11
+2023-10-13T10:14:10.903554Z  INFO torii::server: 🚀 Torii listening at http://0.0.0.0:8080
+2023-10-13T10:14:10.903568Z  INFO torii::server: Graphql playground: http://0.0.0.0:8080/graphql
+
+2023-10-13T10:14:10.904767Z  INFO torii_core::engine: processed block: 0
+2023-10-13T10:14:10.905334Z  INFO torii_core::engine: processed block: 1
+2023-10-13T10:14:10.905949Z  INFO torii_core::engine: processed block: 2
+2023-10-13T10:14:10.906422Z  INFO torii_core::engine: processed block: 3
+2023-10-13T10:14:10.907088Z  INFO torii_core::engine: processed block: 4
+2023-10-13T10:14:10.907951Z  INFO torii_core::engine: processed block: 5
+2023-10-13T10:14:10.908566Z  INFO torii_core::engine: processed block: 6
+2023-10-13T10:14:10.909239Z  INFO torii_core::engine: processed block: 7
+2023-10-13T10:14:10.920225Z  INFO torii_core::processors::register_model: Registered model: Moves
+2023-10-13T10:14:10.928852Z  INFO torii_core::processors::register_model: Registered model: Position
+2023-10-13T10:14:10.929576Z  INFO torii_core::engine: processed block: 8
+2023-10-13T10:14:10.930337Z  INFO torii_core::engine: processed block: 9
+2023-10-13T10:14:10.930982Z  INFO torii_core::engine: processed block: 10
+2023-10-13T10:14:10.931467Z  INFO torii_core::engine: processed block: 11
+2023-10-13T10:14:10.931964Z  INFO torii_core::engine: processed block: 12
 ```
 
 You can observe that our `Moves` and `Position` models have been successfully registered.
@@ -263,12 +268,12 @@ Next, let's use the GraphiQL IDE to retrieve data from the `Moves` model. In you
 
 ```graphql
 query {
-  movesModels(id: "moves") {
+  model(id: "Moves") {
     id
     name
-    classHash
-    transactionHash
-    createdAt
+    class_hash
+    transaction_hash
+    created_at
   }
 }
 ```
@@ -279,11 +284,11 @@ After you run the query, you will receive an output like this:
 {
   "data": {
     "model": {
-      "id": "moves",
+      "id": "Moves",
       "name": "Moves",
-      "classHash": "0x3240ca67c41c5ae5557f87f44cca2b590f40407082dd390d893a514cfb2b8cd",
-      "transactionHash": "",
-      "createdAt": "2023-09-28 02:48:24"
+      "class_hash": "0xb37482a660983dfbf65968caa26eab260d3e1077986454b52ac06e58ae20c4",
+      "transaction_hash": "",
+      "created_at": "2023-10-13 14:55:47"
     }
   }
 }
@@ -296,19 +301,34 @@ subscription {
   entityUpdated {
     id
     keys
-    modelNames
-    createdAt
-    updatedAt
+    model_names
+    created_at
+    updated_at
   }
 }
 ```
 
 Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it and proceed to create a new entity.
 
+To accomplish this, we have to go back to our primary terminal again and check the contracts section.
+
+```
+# Contracts (2)
+player_actions
+  > Contract address: 0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe
+player_actions_external
+  > Contract address: 0x7cb0ac6dd2cd2a38bd27ce47ba429a1f31bf69055040342253f972e0b0473ce
+```
+
+AWe have `player_actions` contract address and `player_actions_external` contract address.
+Since these to contracts have the same funcuinality, we can choose any of them to start to create entities.
+
+For this example let's choose player_actions contract address: `0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe`
+
 In your main local terminal, run the following command:
 
 ```bash
-sozo execute --0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16 spawn
+sozo execute --0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe spawn
 ```
 
 By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
@@ -323,9 +343,9 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "modelNames": "Moves,Position",
-      "createdAt": "2023-09-28 03:25:50",
-      "updatedAt": "2023-09-28 03:25:50"
+      "model_names": "Moves,Position",
+      "created_at": "2023-10-13 15:08:53",
+      "updated_at": "2023-10-13 15:08:53"
     }
   }
 }
