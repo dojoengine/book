@@ -310,7 +310,7 @@ subscription {
 
 Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it and proceed to create a new entity.
 
-To accomplish this, we have to go back to our primary terminal again and check the contracts section.
+To accomplish this, we have to go back to our primary terminal and check the contracts section.
 
 ```
 # Contracts (2)
@@ -320,8 +320,8 @@ player_actions_external
   > Contract address: 0x7cb0ac6dd2cd2a38bd27ce47ba429a1f31bf69055040342253f972e0b0473ce
 ```
 
-AWe have `player_actions` contract address and `player_actions_external` contract address.
-Since these to contracts have the same funcuinality, we can choose any of them to start to create entities.
+We have `player_actions` contract address and `player_actions_external` contract address.
+Since these two contracts have the same functionality, we can choose any of them to start to create entities.
 
 For this example let's choose player_actions contract address: `0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe`
 
