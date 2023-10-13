@@ -22,14 +22,14 @@ After the torii server starts on your local machine, you're ready to make query 
 
 #### Query operation
 
-In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched all data from the `Moves` model. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model .
+In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched some data from the `Moves` model. This time let's fetch only `id`, `name`, `class_hash` fields from `Position` model .
 
 ```graphql
 query {
-  modelPosition(id: "position") {
+  model(id: "Position") {
     id
     name
-    classHash
+    class_hash
   }
 }
 ```
@@ -40,26 +40,28 @@ After you run the query, you will receive an output like this:
 {
   "data": {
     "model": {
-      "id": "position",
+      "id": "Position",
       "name": "Position",
-      "classHash": "0x6a8ab7eb5689bed6f0e9fb63d2565411830e1725aca7299f5f512d375d9a28c"
+      "class_hash": "0x6ffc643cbc4b2fb9c424242b18175a5e142269b45f4463d1cd4dddb7a2e5095"
     }
   }
 }
 ```
 
-Great! If you're wondering about the number of fields a `Model` has or the details of a `System`, you can find all this information in the `Documentation Explorer` section of the GraphQL IDE. It's your go-to place for exploring the rest of the documentation.
+Great! If you're wondering about the number of fields a `Model` has or the details of a `Entities`, you can find all this information in the `Documentation Explorer` section of the GraphQL IDE. It's your go-to place for exploring the rest of the documentation.
 
-Now lets retrieve data from `spawn` System.
+Now lets retrieve more data from `Moves` model.
 
 ```graphql
-query getSystem {
-  system(id: "spawn") {
-    id
-    name
-    classHash
-    transactionHash
-    createdAt
+query {
+  movesModels {
+    edges {
+      node {
+        player
+        remaining
+        last_direction
+      }
+    }
   }
 }
 ```
@@ -69,18 +71,22 @@ After you run the query, you will receive an output like this:
 ```json
 {
   "data": {
-    "system": {
-      "id": "spawn",
-      "name": "spawn",
-      "classHash": "0x3c90894e85d9efd5b0e7dccc2fb2c6347ce1188317567d5b0f8d1128f0bbfa5",
-      "transactionHash": "",
-      "createdAt": "2023-09-28 14:14:28"
+    "movesModels": {
+      "edges": [
+        {
+          "node": {
+            "player": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "remaining": 10,
+            "last_direction": "None"
+          }
+        }
+      ]
     }
   }
 }
 ```
 
-Now you can create any kind of query for `move` systems!
+Now you can create any kind of query for entities and models!
 
 #### Subscription operations
 
@@ -89,12 +95,13 @@ These operations allow us to listen to changes in the system.
 You can listen when an `Entity` is updated by executing this subscription
 
 ```graphql
-subscription entityUpdated {
+subscription {
   entityUpdated {
     id
-    modelNames
-    createdAt
-    updatedAt
+    keys
+    model_names
+    created_at
+    updated_at
   }
 }
 ```
@@ -106,9 +113,6 @@ subscription modelRegistered {
   modelRegistered {
     id
     name
-    classHash
-    transactionHash
-    createdAt
   }
 }
 ```
