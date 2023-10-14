@@ -302,6 +302,7 @@ subscription {
     id
     keys
     model_names
+    event_id
     created_at
     updated_at
   }
@@ -343,7 +344,23 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
+      "model_names": "Moves",
+      "event_id": "0x000000000000000000000000000000000000000000000000000000000000000d:0x0000:0x0000",
+      "created_at": "2023-10-13 15:08:53",
+      "updated_at": "2023-10-13 15:08:53"
+    }
+  }
+}
+--------------------------------------------------------------------------------------------------------
+{
+  "data": {
+    "entityUpdated": {
+      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "keys": [
+        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+      ],
       "model_names": "Moves,Position",
+      "event_id": "0x000000000000000000000000000000000000000000000000000000000000000d:0x0000:0x0001",
       "created_at": "2023-10-13 15:08:53",
       "updated_at": "2023-10-13 15:08:53"
     }
@@ -351,17 +368,15 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 }
 ```
 
-In the GraphiQL IDE, you can find the `Documentation Explorer` section to provide you with more information about all kinds of query and subscription operations we provide.
-
+In the GraphiQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema.. In order to know more about query and subscription, you can jump to [GraphQL](../toolchain/torii/graphql.md) section.
 We've covered quite a bit! Here's a recap:
 
 - Built a Dojo world
 - Deployed the project to Katana
 - Indexed the world with Torii
 - Ran the spawn system locally
+- Interacted with GraphQL
 
 ### Next Steps
 
 This overview provides a rapid end-to-end glimpse into Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and components, Dojo is equipped for expansive creativity. So, what will you craft next?
-
-This overview provides a rapid end-to-end glimpse into Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and models, Dojo is equipped for expansive creativity. So, what will you craft next?
