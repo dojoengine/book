@@ -407,7 +407,7 @@ impl ColorSchemaIntrospectionImpl for SchemaIntrospection<Color> {
     }
 }
 
-#[derive(model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde, SerdeLen)]
 struct Game {
     /// game id, computed as follows pedersen_hash(player1_address, player2_address)
     #[key]
@@ -418,7 +418,7 @@ struct Game {
 }
 
 
-#[derive(model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde, SerdeLen)]
 struct GameTurn {
     #[key]
     game_id: felt252,
