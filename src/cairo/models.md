@@ -2,11 +2,18 @@
 
 > Models = Data
 
-Models are structs that are annotated with the `#[derive(Model)]` attribute. Think of these models as a keypair store. The `#[key]` attribute is used to define the primary key of the model.
+
+**_TL;DR_**
+- Models store structured data in your world.
+- Models are Cairo structs with additional features.
+- Models can implement traits.
+- Use the `#[derive(Model)]` decorator to define them.
+- Custom enums and types are supported.
+- Define the primary key using the `#[key]` attribute.
 
 ### Models are Structs
 
-Models are defined as structs in Cairo. They can contain any number of fields, however it is best practice in ECS to have small isolated models. This promotes modularity and composability, allowing you to reuse models across multiple entity types.
+Models are structs annotated with the `#[derive(Model)]` attribute. Consider these models as a key-value store, where the `#[key]` attribute is utilized to define the primary key. While models can contain any number of fields, adhering to best practices in Entity-Component-System (ECS) design involves maintaining small, isolated models. This approach fosters modularity and composability, enabling you to reuse models across various entity types.
 
 ```rust,ignore
 #[derive(Model, Copy, Drop, Serde, SerdeLen)]
