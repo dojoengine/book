@@ -24,12 +24,12 @@ sozo init
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure both `components.cairo` and `systems.cairo` files are empty.
+The project comes with a lot of boilerplate codes. Clear it all. Make sure both `models.cairo` and `systems.cairo` files are empty.
 
 In `lib.cairo`, retain only:
 
 ```rust,ignore
-mod components;
+mod models;
 mod systems;
 ```
 
@@ -45,10 +45,10 @@ While there are many ways to design a chess game using the ECS model, we'll foll
 
 > Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square, the square entity will hold that piece.
 
-First, add this basic component to `components.cairo` file. If you are not familar with component syntax in Dojo engine, go back to this [chapter](../../cairo/components.md).
+First, add this basic model to `models.cairo` file. If you are not familar with model syntax in Dojo engine, go back to this [chapter](../../cairo/models.md).
 
 ```rust,ignore
-#[derive(Component)]
+#[derive(Model)]
 struct Square {
     #[key]
     game_id: felt252,
@@ -77,14 +77,14 @@ enum PieceType {
 
 ## Basic systems
 
-Starting from the next chapter, you will implement `initiate` and `move` systems one in each chapter. Let's create each system in its own file for better modularity.
+Starting from the next chapter, you will implement `initiate` and `move` systems, one in each chapter. Let's create each system in its own file for better modularity.
 
 Create a `systems` folder at `src`. Create `initiate.cairo`and `move.cairo` two files inside the folder. Each file should contain a basic system structure.
 
 For example, `initiate.cairo` look like this:
 
 ```rust,ignore
-#[system]
+#[starknet::contract]
 mod initiate_system {
 
 }
@@ -107,6 +107,7 @@ mod move;
 use initiate::initiate_system;
 use move::move_system;
 ```
+It should be noted that systems are cairo contracts.
 
 ## Compile your project
 
@@ -120,7 +121,7 @@ You would probably faced some trait implementation errors, which you can impleme
 
 ```rust,ignore
 
-#[derive(Component, Drop, SerdeLen, Serde)]
+#[derive(Model, Copy, Drop, Serde, SerdeLen)]
 struct Square {
     #[key]
     game_id: felt252,
@@ -148,22 +149,37 @@ enum PieceType {
 }
 ```
 
-Great! then let's solve this error.
-
-```sh
-error: Trait has no implementation in context: dojo::serde::SerdeLen::<core::option::Option::<dojo_chess::components::PieceType>>
- --> Square:80:54
-                dojo::SerdeLen::<Option<PieceType>>::len()
-                                                     ^*^
-```
-
-One thing you have to make sure is, that `<Option<PieceType>>` is the type that we created. So this type does not implement basic traits like SerdeLen. You need to define the implementation by your own.
+Great! then let's move on. One thing you have to make sure is, that `<Option<PieceType>>` is the type that we created. You need to define the implementation by your own also, You need to implement `SchemaIntrospection` for the complex type `PieceType` here is how : 
 
 ```rust,ignore
-impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {
+impl PieceTypeSchemaIntrospectionImpl for SchemaIntrospection<Option<PieceType>>{
     #[inline(always)]
     fn len() -> usize {
         2
+    }
+    #[inline(always)]
+    fn ty() -> Ty {
+        Ty::Enum(
+            Enum {
+                name: 'PieceType',
+                attrs: array![].span(),
+                children: array![
+                    ('WhitePawn', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteRook', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteKing', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackPawn', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackRook', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackKing', serialize_member_type(@Ty::Tuple(array![].span()))),
+                ]
+                .span()
+            }
+        )
     }
 }
 ```
@@ -184,16 +200,16 @@ error: Trait has no implementation in context:
 error: Variable not dropped. Trait has no implementation in context:
 ```
 
-For the no implementation error, implement the PrintTrait to run sozo test successfully. For the not dropped error, add the Drop trait. Address other errors by adding derives or implementing them on a case-by-case basis.
+For the no implementation error, implement the PrintTrait to run `sozo test` successfully. For the not dropped error, add the Drop trait. Address other errors by adding derives or implementing them on a case-by-case basis.
 
-## Add more components
+## Add more models
 
-Before you move on, add more components so we can use them in the next chapter when creating systems.
+Before you move on, add more models so we can use them in the next chapter when creating system contracts.
 
 ### Requirements
 
-- `Color` enum enum with values White and Black
-- `Game` component:
+- `Color` enum with values White and Black
+- `Game` model:
 
 ```rust,ignore
     game_id: felt252,
@@ -202,26 +218,26 @@ Before you move on, add more components so we can use them in the next chapter w
     black: ContractAddress
 ```
 
-- `GameTurn` component:
+- `GameTurn` model:
 
 ```rust,ignore
     game_id: felt252,
     turn: Color
 ```
 
-- We will later set game entity composed of the `Game` and `GameTurn` components.
+- We will later set game entity composed of the `Game` and `GameTurn` models.
 - Run `sozo build` and `sozo test` and ensure all tests pass.
 
 Try to solve on your own, and before you move on check the answer below.
 
 <details>
-<summary>Click to see full `components.cairo` code</summary>
+<summary>Click to see full `models.cairo` code</summary>
 
 ```rust,ignore
 use debug::PrintTrait;
 use starknet::ContractAddress;
 
-#[derive(Component, Drop, SerdeLen, Serde)]
+#[derive(Model, Copy, Drop, Serde, SerdeLen)]
 struct Square {
     #[key]
     game_id: felt252,
@@ -255,10 +271,34 @@ enum Color {
 }
 
 
-impl PieceOptionSerdeLen of dojo::SerdeLen<Option<PieceType>> {
+impl PieceTypeSchemaIntrospectionImpl for SchemaIntrospection<Option<PieceType>> {
     #[inline(always)]
     fn len() -> usize {
         2
+    }
+    #[inline(always)]
+    fn ty() -> Ty {
+        Ty::Enum(
+            Enum {
+                name: 'PieceType',
+                attrs: array![].span(),
+                children: array![
+                    ('WhitePawn', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteRook', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('WhiteKing', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackPawn', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackRook', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
+                    ('BlackKing', serialize_member_type(@Ty::Tuple(array![].span()))),
+                ]
+                .span()
+            }
+        )
     }
 }
 
@@ -360,14 +400,14 @@ impl PieceTypePrintTrait of PrintTrait<PieceType> {
     }
 }
 
-impl ColorSerdeLen of dojo::SerdeLen<Color> {
+impl ColorSchemaIntrospectionImpl for SchemaIntrospection<Color> {
     #[inline(always)]
     fn len() -> usize {
         1
     }
 }
 
-#[derive(Component, Drop, SerdeLen, Serde)]
+#[derive(model, Copy, Drop, Serde, SerdeLen)]
 struct Game {
     /// game id, computed as follows pedersen_hash(player1_address, player2_address)
     #[key]
@@ -378,14 +418,14 @@ struct Game {
 }
 
 
-#[derive(Component, Drop, SerdeLen, Serde)]
+#[derive(model, Copy, Drop, Serde, SerdeLen)]
 struct GameTurn {
     #[key]
     game_id: felt252,
     turn: Color,
 }
 
-impl OptionPieceColorSerdeLen of dojo::SerdeLen<Option<Color>> {
+impl ColorOptionSchemaIntrospectionImpl for SchemaIntrospection<Option<Color>> {
     #[inline(always)]
     fn len() -> usize {
         1
