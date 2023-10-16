@@ -1,12 +1,12 @@
 # Config
 
-Dojo worlds are defined in their Scarb.toml files. This is just a [Scarb](https://docs.swmansion.com/scarb/) file which is an excellent Cairo package manager and project manager.
+Dojo worlds are defined in their Scarb.toml files. This is just a regular [Scarb](https://docs.swmansion.com/scarb/) file which is an excellent Cairo package manager and project manager.
 
 Full example of a Scarb.toml file:
 
 ```toml
 [package]
-cairo-version = "2.1.0-rc4"
+cairo-version = "2.3.0"
 name = "dojo_examples"
 version = "0.1.0"
 
@@ -14,7 +14,8 @@ version = "0.1.0"
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo" }
+# IMPORTANT: Dojo should be pinned to a specific version or else your world might not compile
+dojo = { git = "https://github.com/dojoengine/dojo", rev="v0.3.0" }
 
 [[target.dojo]]
 
@@ -22,6 +23,7 @@ dojo = { git = "https://github.com/dojoengine/dojo" }
 initializer_class_hash = "0xbeef"
 
 [tool.dojo.env]
+# local katana devnet
 rpc_url = "http://localhost:5050/"
 
 # account address of world deployer

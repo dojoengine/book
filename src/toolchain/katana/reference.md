@@ -20,11 +20,11 @@ This section covers an extensive list of information about Mining Modes, Support
 
 In Katana, mining modes determine how frequent blocks are mined. By default, a new block is automatically mined as soon as a transaction is submitted.
 
-You can switch from the default mining behaviour to interval mining, where a new block is created at a fixed time interval selected by the user. To enable this mode of mining, use the `--block-time <SECONDS>` flag, as demonstrated in the following example.
+You can switch from the default mining behaviour to interval mining, where a new block is created at a fixed time interval selected by the user. To enable this mode of mining, use the `--block-time <MILLISECONDS>` flag, as demonstrated in the following example.
 
 ```sh
 # Produces a new block every 10 seconds
-katana --block-time 10
+katana --block-time 10000
 ```
 
 #### Supported Transport Layers
@@ -112,8 +112,8 @@ Set an exact value of a contract's storage slot.
 `--no-mining`  
 &nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on demand instead.
 
-`-b, --block-time <SECONDS>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Block time in seconds for interval mining.
+`-b, --block-time <MILLISECONDS>`
+&nbsp;&nbsp;&nbsp;&nbsp; Block time in milliseconds for interval mining.
 
 `--dump-state <PATH>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Dump the state of chain on exit to the given file.  

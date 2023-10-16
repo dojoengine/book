@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Building Autonomous Worlds with Dojo\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2023-10-04T10:45:06+08:00\n"
 "PO-Revision-Date: 2023-09-17 09:41+0900\n"
 "Last-Translator: y-bi <cryptonerdcn@gmail.com>\n"
 "Language-Team: Language zh-cn\n"
@@ -4221,11 +4221,12 @@ msgstr ""
 msgid ""
 "You can switch from the default mining behaviour to interval mining, where a "
 "new block is created at a fixed time interval selected by the user. To "
-"enable this mode of mining, use the `--block-time <SECONDS>` flag, as "
+"enable this mode of mining, use the `--block-time <MILLISECONDS>` flag, as "
 "demonstrated in the following example."
 msgstr ""
 "您可以将默认的挖矿行为切换为间隔挖矿，即按照用户选择的固定时间间隔创建新区"
-"块。要启用这种挖矿模式，请使用`--block-time <SECONDS>` 标识符，如下例所示。"
+"块。要启用这种挖矿模式，请使用`--block-time <MILLISECONDS>` 标识符，如下例所"
+"示。"
 
 #: src/toolchain/katana/reference.md:30
 #, fuzzy
@@ -4473,11 +4474,11 @@ msgstr ""
 #: src/toolchain/katana/reference.md:115
 #, fuzzy
 msgid ""
-"`-b, --block-time <SECONDS>`  \n"
-"     Block time in seconds for interval mining."
+"`-b, --block-time <MILLISECONDS>`  \n"
+"     Block time in milliseconds for interval mining."
 msgstr ""
-"`-b, --block-time <SECONDS>`  \n"
-"&nbsp;&nbsp;&nbsp;&nbsp; 以秒为单位的区间挖掘时间。"
+"`-b, --block-time <MILLISECONDS>`  \n"
+"&nbsp;&nbsp;&nbsp;&nbsp; 以毫秒为单位的区间挖掘时间。"
 
 #: src/toolchain/katana/reference.md:118
 #, fuzzy

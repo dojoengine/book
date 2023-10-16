@@ -1,60 +1,60 @@
 ## Commands
 
+_tldr_
+- Commands are shorthand ways to write function calls
+- Commands abstract complex queries into shorthands
+- Commands are similar to rust macros
+
 Understanding commands is key to understanding Dojo. You will leverage them heavily within the systems you design.
 
-Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating components, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
+Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating models, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
 
 
 ### Using commands
 
 Commands are used within systems to interact with the world state. They are called using the following syntax:
 
-```rust,ignore
-let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));
-```
-
 ### The `get!` command
 
-The `get!` command is used to retrieve components from the world state.
-
-Use it like this:
+The `get!` command is used to retrieve models from the world state:
 
 ```rust,ignore
-let (position, moves) = get!(ctx.world, ctx.origin, (Position, Moves));
+// world = calling world
+// caller = key of the entity that called the system
+// (Position, Moves) = tuple of models to retrieve
+let (position, moves) = get!(world, caller, (Position, Moves));
 ```
 
-Here we are retrieving the `Position` and `Moves` components from the world state. We are also using the `ctx.origin` to retrieve the components for the current entity.
+Here we are retrieving the `Position` and `Moves` models from the world state. We are also using the `caller` to retrieve the models for the current entity.
 
 You can then use `position` and `moves` as you would as any other Cairo struct.
 
 ### The `set!` command
 
-The `set!` command is used to update components state.
-
-Use it like this:
+The `set!` command is used to update models state.
 
 ```rust,ignore
-set !(ctx.world, (
+set !(world, (
     Moves {
-        player: ctx.origin, remaining: 10
+        player: caller, remaining: 10
     }, 
     Position {
-        player: ctx.origin, x: position.x + 10, y: position.y + 10
+        player: caller, x: position.x + 10, y: position.y + 10
     },
 ));
 
 // If the structs are already defined it can also be written as:
-set!(ctx.world, (moves, position));
+set!(world, (moves, position));
 ```
 
-Here we are updating the `Moves` and `Position` components in the world state using the `ctx.origin` as the entity id.
+Here we are updating the `Moves` and `Position` models in the world state using the `caller` as the entity id.
 
 ### The `emit!` command
 
-The `emit!` command is used to emit custom events.
-
-Use it like this:
+The `emit!` command is used to emit custom events. These events are indexed by [torii](../toolchain/torii/overview.md)
 
 ```rust,ignore
-emit !(ctx.world, Moved { address: ctx.origin, direction });
+emit!(world, Moved { address: caller, direction });
 ```
+
+This will emit these values which could be captured by a client or you could query these via [torii](../toolchain/torii/overview.md)

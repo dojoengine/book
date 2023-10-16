@@ -2,11 +2,9 @@
 
 > This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](../getting-started/quick-start.md) section.
 
-## Dojo in 15 Minutes
+## Dojo as an ECS in 15 Minutes
 
-Think of Dojo as an abstraction over Cairo, similar to how React is to JavaScript. It enables you to write shorthand commands that expand into complex queries during compile time. Dojo is grounded in the well-known architecture known as the Entity Component System (ECS).
-
-In Dojo, you design your worlds using Systems and Components. Systems outline the logic of your world, while components signify the state. This powerful pattern allows you to structure your logic in a highly modular way. If you don't understand this yet, don't fret; we'll delve into it in detail below.
+Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](./models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework that promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
 
 To start, let's set up a project to run locally on your machine. From an empty directory, execute:
 
@@ -18,137 +16,152 @@ Congratulations! You now have a local Dojo project. This command creates a `dojo
 
 #### Anatomy of a Dojo Project
 
-Inspect the contents of the `dojo-starter` project, and you'll notice the following structure (excluding the non-cairo files):
+Inspect the contents of the `dojo-starter` project, and you'll notice the following structure (excluding the non-Cairo files):
 
 ```bash
 src
-  - components.cairo
-  - systems.cairo
+  systems
+    - raw_contract.cairo
+    - with_decorator.cairo
   - lib.cairo
+  - models.cairo
+  - utils.cairo
 Scarb.toml
 ```
 
-Dojo projects largely resemble standard Cairo projects, with the distinction being some special attribute tags you use when creating `Components` and `Systems`. Let's explore this next.
+Dojo projects bear a strong resemblance to typical Cairo projects. The primary difference is the inclusion of a special attribute tag used to define your data models. In this context, we'll refer to these models as components.
 
-Open the `src/components.cairo` file to continue.
+As we're crafting an ECS, we'll adhere to the specific terminology associated with Entity Component Systems.
+
+Open the `src/models.cairo` file to continue.
 
 ```rust,ignore
-#[derive(Component, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Moves {
     #[key]
     player: ContractAddress,
     remaining: u8,
+    last_direction: Direction
 }
 
-#[derive(Component, Copy, Drop, Serde, SerdeLen)]
+#[derive(Copy, Drop, Serde, Print, Introspect)]
+struct Vec2 {
+    x: u32,
+    y: u32
+}
+
+#[derive(Model, Copy, Drop, Print, Serde)]
 struct Position {
     #[key]
     player: ContractAddress,
-    x: u32,
-    y: u32
+    vec: Vec2,
 }
 
 ...rest of code
 ```
 
-Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we *must* include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
+Notice the `#[derive(Model, Copy, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
-Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this component is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
+Our `Moves` model houses a `player` field. At the same tine, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
 
-In a similar vein, we possess a `Position` component that holds `x` and `y` values. Once again, this component is indexed by the `player` field.
+In a similar vein, we have a `Position` component that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this component is indexed by the `player` field.
 
-Now, let's examine the `src/systems.cairo` file:
+Now, let's examine the `src/systems/raw_contract.cairo` file:
 
 ```rust,ignore
-#[system]
-mod spawn {
-    use array::ArrayTrait;
-    use box::BoxTrait;
-    use traits::Into;
-    use dojo::world::Context;
+#[starknet::contract]
+mod player_actions_external {
+    use starknet::{ContractAddress, get_caller_address};
+    use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
+    use dojo_examples::models::{Position, Moves, Direction, Vec2};
+    use dojo_examples::utils::next_position;
+    use super::IPlayerActions;
 
-    use dojo_examples::components::Position;
-    use dojo_examples::components::Moves;
+    #[storage]
+    struct Storage {
+        world_dispatcher: IWorldDispatcher,
+    }
 
-    fn execute(ctx: Context) {
-        let position = get!(ctx.world, ctx.origin, (Position));
-        set!(
-            ctx.world,
-            (
-                Moves {
-                    player: ctx.origin, remaining: 10
-                },
-                Position {
-                    player: ctx.origin, x: position.x + 10, y: position.y + 10
-                },
-            )
-        );
-        return ();
+    #[event]
+    #[derive(Drop, starknet::Event)]
+    enum Event {
+        Moved: Moved,
+    }
+
+    #[derive(Drop, starknet::Event)]
+    struct Moved {
+        player: ContractAddress,
+        direction: Direction
+    }
+
+    // impl: implement functions specified in trait
+    #[external(v0)]
+    impl PlayerActionsImpl of IPlayerActions<ContractState> {
+        fn spawn(self: @ContractState) {
+            let world = self.world_dispatcher.read();
+            let player = get_caller_address();
+            let position = get!(world, player, (Position));
+            set!(
+                world,
+                (
+                    Moves { player, remaining: 10, last_direction: Direction::None(()) },
+                    Position { player, vec: Vec2 { x: 10, y: 10 } },
+                )
+            );
+        }
+
+        fn move(self: @ContractState, direction: Direction) {
+            let world = self.world_dispatcher.read();
+            let player = get_caller_address();
+            let (mut position, mut moves) = get!(world, player, (Position, Moves));
+            moves.remaining -= 1;
+            moves.last_direction = direction;
+            let next = next_position(position, direction);
+            set!(world, (moves, next));
+            emit!(world, Moved { player, direction });
+            return ();
+        }
     }
 }
 ```
 
-Let us break this down:
+### Breaking it down
+
+#### System is a contract
+
+As you can see a `System` is like a regular Starknet contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
 
 ```rust,ignore
-#[system]
+let position = get!(world, player, (Position));
 ```
 
-Just as we use the `#[derive(Component)]` attribute, the `#[system]` attribute informs the Dojo compiler that this struct is a system, instructing it to compile accordingly.
-
-```rust,ignore
-fn execute(ctx: Context)
-```
-
-You'll observe that the system features an `execute` function. It's crucial to note that all Dojo systems necessitate an `execute` function. This function accepts a `Context` as its parameter. The `Context` is a distinct struct that provides information about the world and the caller.
-
-It's worth mentioning that a system can contain more than just the `execute` function. You're free to include numerous functions as needed. However, the `execute` function is mandatory since it's invoked when your system is executed.
-
-Now lets look at the next line:
-
-```rust,ignore
-let position = get!(ctx.world, ctx.origin, (Position));
-```
-
-Here we use `get!` [command](./commands.md) to retrieve the `Position` component for the `ctx.origin` entity. `ctx.origin` is the address of the caller. When called for the first time, it will return:
-
-```rust,ignore
-Position {
-  player: 0x0, // zero address
-  x: 0,
-  y: 0
-}
-```
+Here we use `get!` [command](./commands.md) to retrieve the `Position` model for the `player` entity, which is the address of the caller.
 
 Now the next line:
 
 ```rust,ignore
 set!(
-    ctx.world,
+    world,
     (
-        Moves {
-            player: ctx.origin, remaining: 10
-            }, Position {
-            player: ctx.origin, x: position.x + 10, y: position.y + 10
-        },
+        Moves { player, remaining: 10, last_direction: Direction::None(()) },
+        Position { player, vec: Vec2 { x: 10, y: 10 } },
     )
 );
 ```
 
-Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` components for the `ctx.origin` entity.
+Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` models for the `player` entity.
 
 We covered a lot here in a short time. Let's recap:
 
--   Explained the anatomy of a Dojo project
--   Explained the importace of the `#[derive(Component)]` and `#[system]` attribute
--   Explained the `execute` function
--   Explained the `Context` struct
--   Touched on the `get!` and `set!` commands
-
+- Explained the anatomy of a Dojo project
+- Explained the importance of the `#[derive(Model)]`attribute
+- Explained the `execute` function
+- Explained the `Context` struct
+- Touched on the `get!` and `set!` commands
 
 ### Run it locally!
 
-Now that we have some theory out of the way, lets build the Dojo project!
+Now that we've covered some theory, let's build the Dojo project! In your primary terminal:
 
 ```bash
 sozo build
@@ -156,13 +169,13 @@ sozo build
 
 That compiled the components and system into an artifact that can be deployed! Simple as that!
 
-Now lets deploy it to [Katana](../toolchain/katana/overview.md)! First we need to get Katana running:
+Now, let's deploy it to [Katana](../toolchain/katana/overview.md)! First, we need to get Katana running. Open a second terminal and execute:
 
 ```bash
 katana --disable-fee
 ```
 
-Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now lets deploy!
+Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
 
 ```bash
 sozo migrate --name test
@@ -171,33 +184,40 @@ sozo migrate --name test
 This will deploy the artifact to [Katana](../toolchain/katana/overview.md). You should see terminal output similar to this:
 
 ```bash
-Migration account: 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c
+Migration account: 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973
+
+World name: test
 
 [1] 🌎 Building World state....
   > No remote World found
 [2] 🧰 Evaluating Worlds diff....
-  > Total diffs found: 7
+  > Total diffs found: 6
 [3] 📦 Preparing for migration....
-  > Total items to be migrated (7): New 7 Update 0
-  
+  > Total items to be migrated (6): New 6 Update 0
+
 # Executor
-  > Contract address: 0x1a8cc7a653543337be184d21ceeb5cfc7e97af5ab7da5e4be77f373124d7e48
+  > Contract address: 0x5c3494b21bc92d40abdc40cdc54af66f22fb92bf876665d982c765a2cc0e06a
+# Base Contract
+  > Class Hash: 0x7aec2b7d7064c1294a339cd90060331ff704ab573e4ee9a1b699be2215c11c9
 # World
   > Contract address: 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
-# Components (2)
+# Models (2)
 Moves
-  > class hash: 0x3240ca67c41c5ae5557f87f44cca2b590f40407082dd390d893a514cfb2b8cd
+  > Class hash: 0xb37482a660983dfbf65968caa26eab260d3e1077986454b52ac06e58ae20c4
 Position
-  > class hash: 0x4caa1806451739b6fb470652b8066a11f80e847d49003b43cca75a2fd7647b6
-# Systems (3)
-spawn
-  > class hash: 0x1b949b00d5776c8ba13c2fdada38d4b196f3717c93c5c254c4909ed0eb249f7
-move
-  > class hash: 0x2534c514efeab524f24cd4b03add904eb540391e9966ebc96f8ce98453a4e1e
-library_call
-  > class hash: 0xabfd55d9bb6552aac17d78b33a6e18b06b1b95d4f684637e661dd83053fd45
+  > Class hash: 0x6ffc643cbc4b2fb9c424242b18175a5e142269b45f4463d1cd4dddb7a2e5095
+  > Registered at: 0x36eedf55545c4e770da905325bb00f853864a15d1fbf4fbfb54f668f074d553
+# Contracts (2)
+player_actions
+  > Contract address: 0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe
+player_actions_external
+  > Contract address: 0x7cb0ac6dd2cd2a38bd27ce47ba429a1f31bf69055040342253f972e0b0473ce
 
-🎉 Successfully migrated World on block #4 at address 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
+🎉 Successfully migrated World at address 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
+
+✨ Updating manifest.json...
+
+✨ Done.
 ```
 
 Your 🌎 is now deployed at `0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16`!
@@ -210,30 +230,152 @@ Add the world address to the bottom of the file:
 world_address = "0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16"
 ```
 
-This establishes the world address for your project. You can then run commands like:
-
-```bash
-sozo execute spawn
-```
-
-By doing so, you've just activated the spawn system. You now have a local world that you can interact with.
+This establishes the world address for your project.
 
 ### Indexing
 
-With your local world set up, let's delve into indexing. You can index the entire world with this simple command:
+With your local world address established, let's delve into indexing. You can index the entire world. Open a new terminal and input this simple command:
 
 ```bash
-torii
+torii --world 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
 ```
 
-Executing the above activates a local torii server using SQLite as its database, which is exposed at `http://0.0.0.0:8080`. It will automatically index your world into tables, allowing you to query them using GraphQL.
+Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
 
+```bash
+2023-10-13T10:14:10.903554Z  INFO torii::server: 🚀 Torii listening at http://0.0.0.0:8080
+2023-10-13T10:14:10.903568Z  INFO torii::server: Graphql playground: http://0.0.0.0:8080/graphql
+
+2023-10-13T10:14:10.904767Z  INFO torii_core::engine: processed block: 0
+2023-10-13T10:14:10.905334Z  INFO torii_core::engine: processed block: 1
+2023-10-13T10:14:10.905949Z  INFO torii_core::engine: processed block: 2
+2023-10-13T10:14:10.906422Z  INFO torii_core::engine: processed block: 3
+2023-10-13T10:14:10.907088Z  INFO torii_core::engine: processed block: 4
+2023-10-13T10:14:10.907951Z  INFO torii_core::engine: processed block: 5
+2023-10-13T10:14:10.908566Z  INFO torii_core::engine: processed block: 6
+2023-10-13T10:14:10.909239Z  INFO torii_core::engine: processed block: 7
+2023-10-13T10:14:10.920225Z  INFO torii_core::processors::register_model: Registered model: Moves
+2023-10-13T10:14:10.928852Z  INFO torii_core::processors::register_model: Registered model: Position
+2023-10-13T10:14:10.929576Z  INFO torii_core::engine: processed block: 8
+2023-10-13T10:14:10.930337Z  INFO torii_core::engine: processed block: 9
+2023-10-13T10:14:10.930982Z  INFO torii_core::engine: processed block: 10
+2023-10-13T10:14:10.931467Z  INFO torii_core::engine: processed block: 11
+2023-10-13T10:14:10.931964Z  INFO torii_core::engine: processed block: 12
+```
+
+You can observe that our `Moves` and `Position` models have been successfully registered.
+Next, let's use the GraphiQL IDE to retrieve data from the `Moves` model. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
+
+```graphql
+query {
+  model(id: "Moves") {
+    id
+    name
+    class_hash
+    transaction_hash
+    created_at
+  }
+}
+```
+
+After you run the query, you will receive an output like this:
+
+```json
+{
+  "data": {
+    "model": {
+      "id": "Moves",
+      "name": "Moves",
+      "class_hash": "0xb37482a660983dfbf65968caa26eab260d3e1077986454b52ac06e58ae20c4",
+      "transaction_hash": "",
+      "created_at": "2023-10-13 14:55:47"
+    }
+  }
+}
+```
+
+Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphiQL IDE and input the following subscription:
+
+```graphql
+subscription {
+  entityUpdated {
+    id
+    keys
+    model_names
+    event_id
+    created_at
+    updated_at
+  }
+}
+```
+
+Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it and proceed to create a new entity.
+
+To accomplish this, we have to go back to our primary terminal and check the contracts section.
+
+```bash
+# Contracts (2)
+player_actions
+  > Contract address: 0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe
+player_actions_external
+  > Contract address: 0x7cb0ac6dd2cd2a38bd27ce47ba429a1f31bf69055040342253f972e0b0473ce
+```
+
+We have `player_actions` contract address and `player_actions_external` contract address.
+Since these two contracts have the same functionality, we can choose any of them to start to create entities.
+
+For this example let's choose player_actions contract address: `0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe`
+
+In your main local terminal, run the following command:
+
+```bash
+sozo execute --0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe spawn
+```
+
+By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
+
+Now, go back to your GraphiQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
+
+```json
+{
+  "data": {
+    "entityUpdated": {
+      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "keys": [
+        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+      ],
+      "model_names": "Moves",
+      "event_id": "0x000000000000000000000000000000000000000000000000000000000000000d:0x0000:0x0000",
+      "created_at": "2023-10-13 15:08:53",
+      "updated_at": "2023-10-13 15:08:53"
+    }
+  }
+}
+--------------------------------------------------------------------------------------------------------
+{
+  "data": {
+    "entityUpdated": {
+      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "keys": [
+        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+      ],
+      "model_names": "Moves,Position",
+      "event_id": "0x000000000000000000000000000000000000000000000000000000000000000d:0x0000:0x0001",
+      "created_at": "2023-10-13 15:08:53",
+      "updated_at": "2023-10-13 15:08:53"
+    }
+  }
+}
+```
+
+In the GraphiQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema.. In order to know more about query and subscription, you can jump to [GraphQL](../toolchain/torii/graphql.md) section.
 We've covered quite a bit! Here's a recap:
 
--   Built a Dojo world
--   Deployed the project to Katana
--   Ran the spawn system locally
--   Indexed the world with Torii
+- Built a Dojo world
+- Deployed the project to Katana
+- Indexed the world with Torii
+- Ran the spawn system locally
+- Interacted with GraphQL
 
 ### Next Steps
 

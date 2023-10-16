@@ -13,11 +13,11 @@ This will search for all tests within your project and run them.
 
 ### Writing Unit Tests
 
-It is best practise to include unit tests in the same file as the Component/System you are writing.
+It is best practise to include unit tests in the same file as the model/System you are writing.
 
-Lets show a `Component` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
+Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
-`components.cairo`
+`models.cairo`
 ```rust,ignore
 
 ...rest of code
@@ -46,7 +46,7 @@ mod tests {
 
 ```
 
-In this test we are testing the `is_zero` and `is_equal` functions of the `Position` component. It is good practise to test all functions of your components.
+In this test we are testing the `is_zero` and `is_equal` functions of the `Position` model. It is good practise to test all functions of your models.
 
 
 ### Writing Integration Tests
@@ -55,61 +55,69 @@ Integration tests are e2e tests that test the entire system. You can write integ
 
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
-`systems.cairo`
+`move.cairo`
 ```rust,ignore
 #[cfg(test)]
 mod tests {
-    use core::traits::Into;
-    use array::ArrayTrait;
+    use dojo::world::{IWorldDispatcherTrait, IWorldDispatcher};
+    use dojo::test_utils::{spawn_test_world, deploy_contract};
+    use dojo_examples::models::{position, moves};
+    use dojo_examples::models::{Position, Moves, Direction};
+    
+    use super::{
+        IPlayerActionsDispatcher, IPlayerActionsDispatcherTrait,
+        player_actions_external as player_actions
+    };
 
-    use dojo::world::IWorldDispatcherTrait;
+    //OFFSET is defined in constants.cairo
+    use dojo_examples::constants::OFFSET;
 
-    use dojo::test_utils::spawn_test_world;
+    //{Event and Moved are defined in events.cairo}
+    #[event]
+    use dojo_examples::events::{Event, Moved};
 
-    use dojo_examples::components::position;
-    use dojo_examples::components::Position;
-    use dojo_examples::components::moves;
-    use dojo_examples::components::Moves;
-    use dojo_examples::systems::spawn;
-    use dojo_examples::systems::move;
+    // helper setup function
+    // reusable function for tests
+    fn setup_world() -> IPlayerActionsDispatcher {
+        // components
+        let mut models = array![position::TEST_CLASS_HASH, moves::TEST_CLASS_HASH];
+
+         // deploy world with models
+        let world = spawn_test_world(models);
+        
+        // deploy systems contract
+        let contract_address = world
+            .deploy_contract('salt', player_actions::TEST_CLASS_HASH.try_into().unwrap());
+        let player_actions_system = IPlayerActionsDispatcher { contract_address };
+
+        player_actions_system
+    }
+
 
     #[test]
     #[available_gas(30000000)]
     fn test_move() {
+        // caller
         let caller = starknet::contract_address_const::<0x0>();
 
-        // components
-        let mut components = array::ArrayTrait::new();
-        components.append(position::TEST_CLASS_HASH);
-        components.append(moves::TEST_CLASS_HASH);
+        let player_actions_system = setup_world();
+        
+         // System calls
+        player_actions_system.spawn();
+        player_actions_system.move(Direction::Right(()));
 
-        // systems
-        let mut systems = array::ArrayTrait::new();
-        systems.append(spawn::TEST_CLASS_HASH);
-        systems.append(move::TEST_CLASS_HASH);
+        // check moves
+        let moves = get!(world, caller, (Moves));
+        assert(moves.remaining == 99, 'moves is wrong');
 
-        // deploy executor, world and register components/systems
-        let world = spawn_test_world(components, systems);
-
-        let spawn_call_data = array::ArrayTrait::new();
-        world.execute('spawn', spawn_call_data);
-
-        let mut move_calldata = array::ArrayTrait::new();
-        move_calldata.append(move::Direction::Right(()).into());
-        world.execute('move', move_calldata);
-        let mut keys = array::ArrayTrait::new();
-        keys.append(caller.into());
-
-        let moves = world.entity('Moves', keys.span(), 0, dojo::SerdeLen::<Moves>::len());
-        assert(*moves[0] == 9, 'moves is wrong');
-        let new_position = world
-            .entity('Position', keys.span(), 0, dojo::SerdeLen::<Position>::len());
-        assert(*new_position[0] == 11, 'position x is wrong');
-        assert(*new_position[1] == 10, 'position y is wrong');
+        // check position
+        let new_position = get!(world, caller, (Position));
+        assert(new_position.x == (OFFSET + 1).try_into().unwrap(), 'position x is wrong');
+        assert(new_position.y == OFFSET.try_into().unwrap(), 'position y is wrong');
     }
 }
 ```
 
 #### Useful Dojo Test Functions
 
-`spawn_test_world(components, systems)` - This function will create a test world with the components and systems you pass in. It will also deploy the world and register the components and systems.
+`spawn_test_world(models, systems)` - This function will create a test world with the models and systems you pass in. It will also deploy the world and register the models and systems.
