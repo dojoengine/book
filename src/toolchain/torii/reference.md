@@ -20,8 +20,8 @@ The GraphQL and gRPC API endpoints run in tandem with the indexer, providing cus
 
 `torii` uses a sqlite database to store indexed data. The database can be stored either in-memory or persistently on the filesystem.
 
-- The in-memory database is ephermal and only lasts as long as the indexer is running. This is a fast and simple option to start the indexer for development/testing.
-- Presistent storage should be used in production. It relies on the local filesystem for storage.
+- The in-memory database is ephemeral and only lasts as long as the indexer is running. This is a fast and simple option to start the indexer for development/testing.
+- Persistent storage should be used in production. It relies on the local filesystem for storage.
 
 Note: If using in-memory db, the memory will be garbage collected after a period of inactivity, causing queries to result in errors. A workaround is to start `katana` with the `--block-time` option or use a persistent database.
 
@@ -38,7 +38,7 @@ torii --database-url sqlite:indexer.db
 &nbsp;&nbsp;&nbsp;&nbsp; Address of the world contract to index
 
 `--rpc`
-&nbsp;&nbsp;&nbsp;&nbsp; Starknet RPC endpoing to use [default: http//localhost:5050]
+&nbsp;&nbsp;&nbsp;&nbsp; Starknet RPC endpoint to use [default: http//localhost:5050]
 
 `-m, --manifest <MANIFEST>`
 &nbsp;&nbsp;&nbsp;&nbsp; Specify a local manifest to initialize from

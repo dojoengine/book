@@ -5,7 +5,7 @@ This library abstracts away the world interface and provides a set of helper fun
 - World explorers
 - World deployers
 - Games
-- Anaylitics
+- Analytics
 
 ### Getting Started
 
