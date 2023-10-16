@@ -313,7 +313,7 @@ Once you execute the subscription, you will receive notifications whenever new e
 
 To accomplish this, we have to go back to our primary terminal and check the contracts section.
 
-```
+```bash
 # Contracts (2)
 player_actions
   > Contract address: 0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe
