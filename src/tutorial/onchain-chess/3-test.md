@@ -8,8 +8,8 @@ Here's what we'll do in our test:
 2. Move `white_pawn_1` to (0,3)
 3. Move `black_pawn_2` to (1,6)
 4. Move `white_pawn_1` to (0,4)
-5. Move `black_pawn_2` to (1,5)
-6. Move `white_pawn_1` to (1,5)
+5. Move `black_pawn_2` to (1,4)
+6. Move `white_pawn_1` to (1,4)
 7. Capture `black_pawn_2`
 
 To place the pieces, use our `spawn_game` function in our `actions` contract. For moving them, use the `move_system` contract. Remember to check if a piece can be captured when using `move_system`.
