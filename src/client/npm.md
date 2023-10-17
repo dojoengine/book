@@ -11,28 +11,28 @@
 
 This is the lowest level library, and is used by all other downstream libraries. It contains the core functionality of Dojo and exposes the contract interfaces. Use it if you want to build your own library on top of Dojo.
 
-[Documentation](./npm/core.md)
+[Repository](https://github.com/dojoengine/packages/tree/main/packages/core)
 
 ```console
-yarn add @dojoengine/core
+bun add @dojoengine/core
 ```
 
 ### @dojoengine/create-burner
 
-Create burner is a simply way to incorporate burner wallets into your Dojo app.
+Create burner is a simple way to incorporate burner wallets into your Dojo app.
 
-[Reopsitory](https://github.com/dojoengine/packages)
+[Repository](https://github.com/dojoengine/packages/tree/main/packages/create-burner)
 
 ```console
-yarn add @dojoengine/create-burner
+bun add @dojoengine/create-burner
 ```
 
 ### @dojoengine/utils
 
 These are utils for helping with interfacing dojo.
 
-[Reopsitory](https://github.com/dojoengine/packages)
+[Reopsitory](https://github.com/dojoengine/packages/tree/main/packages/utils)
 
 ```console
-yarn add @dojoengine/create-burner
+bun add @dojoengine/utils
 ```

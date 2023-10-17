@@ -116,7 +116,7 @@ For models containing complex types, it's crucial to implement the `SchemaIntros
 
 Consider the model below:
 
-```rust
+```rust,ignore
 struct Card {
     #[key]
     token_id: u256,
@@ -127,7 +127,7 @@ struct Card {
 
 For complex types, like `Roles` in the above example, you need to implement `SchemaIntrospection`. Here's how:
 
-```rust
+```rust,ignore
 impl RolesSchemaIntrospectionImpl for SchemaIntrospection<Roles> {
     #[inline(always)]
     fn size() -> usize {

@@ -79,7 +79,7 @@ All StarkNet contracts are defined using the `#[starknet::contract]` decorator, 
 
 The `#[dojo::contract]` decorator allows developers to omit including `world: IWorldDispatcher` as a parameter. Behind the scenes, it injects the world into the contract and eliminates some imports, thereby streamlining the development process.
 
-```rust
+```rust,ignore
 #[dojo::contract]
 mod player_actions {
     use starknet::{ContractAddress, get_caller_address};

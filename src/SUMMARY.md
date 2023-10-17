@@ -68,6 +68,7 @@
   - [Reference](./toolchain/katana/reference.md)
 - [Torii](./toolchain/torii/overview.md)
   - [Reference](./toolchain/torii/reference.md)
+  - [Graphql](./toolchain/torii/graphql.md)
 
 # Deploying
 
