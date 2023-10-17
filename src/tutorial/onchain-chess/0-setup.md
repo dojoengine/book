@@ -136,7 +136,7 @@ enum PieceType {
 }
 ```
 
-Complied? Great! then let's move on. if not Fix other issues as above, so that you can run the `sozo build` command runs successfully.
+Complied? Great! then let's move on. If not fix other issues as above, so that you can run the `sozo build` command successfully.
 
 ## Run test
 
