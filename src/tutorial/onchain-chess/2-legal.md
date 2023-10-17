@@ -1,4 +1,4 @@
-# 3. Check Legal Move
+# 2. Check Legal Move
 
 In this chapter, we'll make functions to check:
 
