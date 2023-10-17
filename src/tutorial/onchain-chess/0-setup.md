@@ -24,13 +24,14 @@ sozo init
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure both `models.cairo` and `systems.cairo` files are empty.
+The project comes with a lot of boilerplate codes. Clear it all. Make sure both `models.cairo` and `systems.cairo` files are empty. In this tutorial, we won't be creating a `systems.cairo` nor the `src/systems` folder, you can delete both (highly optional, folder structure is entirely up to you). instead, we'll be creating a file named `actions_contract.cairo`, this is where our game logic/contract will reside. 
 
-In `lib.cairo`, retain only:
+Remodel your`lib.cairo`, to look like this :
 
 ```rust,ignore
 mod models;
-mod systems;
+mod actions_contract;
+mod tests;
 ```
 
 Compile your project with:
@@ -56,58 +57,43 @@ struct Square {
     x: u32,
     #[key]
     y: u32,
-    piece: Option<PieceType>,
+    piece: PieceType,
 }
 
 enum PieceType {
-    WhitePawn,
-    WhiteKnight,
-    WhiteBishop,
-    WhiteRook,
-    WhiteQueen,
-    WhiteKing,
-    BlackPawn,
-    BlackKnight,
-    BlackBishop,
-    BlackRook,
-    BlackQueen,
-    BlackKing,
+    WhitePawn : (),
+    WhiteKnight: (),
+    WhiteBishop: (),
+    WhiteRook: (),
+    WhiteQueen: (),
+    WhiteKing: (),
+    BlackPawn: (),
+    BlackKnight: (),
+    BlackBishop: (),
+    BlackRook: (),
+    BlackQueen: (),
+    BlackKing: (),
+    None: ()
 }
 ```
 
 ## Basic systems
 
-Starting from the next chapter, you will implement `initiate` and `move` systems, one in each chapter. Let's create each system in its own file for better modularity.
+Starting from the next chapter, you will implement the `actions_contract.cairo` logic.
 
-Create a `systems` folder at `src`. Create `initiate.cairo`and `move.cairo` two files inside the folder. Each file should contain a basic system structure.
+Create `actions_contract.cairo` inside the src folder. the file should contain a basic contract.
 
-For example, `initiate.cairo` look like this:
+For example, `actions_contract.cairo` should look like this:
 
 ```rust,ignore
 #[starknet::contract]
-mod initiate_system {
-
+mod actions {
+    
+    #[storage]
+    struct Storage {}
 }
 ```
-
-and in `systems.cairo` we will use `initiate_system` like this:
-
-```rust,ignore
-mod initiate;
-
-use initiate::initiate_system;
-```
-
-Do the same with the other systems. Update `systems.cairo` to:
-
-```rust,ignore
-mod initiate;
-mod move;
-
-use initiate::initiate_system;
-use move::move_system;
-```
-It should be noted that systems are cairo contracts.
+It should be noted that systems are cairo contracts, by implication, rather than implementing the game logic in systems, we are implementing it in a contract.
 
 ## Compile your project
 
@@ -121,7 +107,7 @@ You would probably faced some trait implementation errors, which you can impleme
 
 ```rust,ignore
 
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Drop, Serde)]
 struct Square {
     #[key]
     game_id: felt252,
@@ -129,62 +115,28 @@ struct Square {
     x: u32,
     #[key]
     y: u32,
-    piece: Option<PieceType>,
+    piece: PieceType,
 }
 
-#[derive(Serde, Drop, Copy, PartialEq)]
+#[derive(Serde, Drop, Copy, PartialEq, Introspect)]
 enum PieceType {
-    WhitePawn,
-    WhiteKnight,
-    WhiteBishop,
-    WhiteRook,
-    WhiteQueen,
-    WhiteKing,
-    BlackPawn,
-    BlackKnight,
-    BlackBishop,
-    BlackRook,
-    BlackQueen,
-    BlackKing,
+    WhitePawn: (),
+    WhiteKnight: (),
+    WhiteBishop: (),
+    WhiteRook: (),
+    WhiteQueen: (),
+    WhiteKing: (),
+    BlackPawn: (),
+    BlackKnight: (),
+    BlackBishop: (),
+    BlackRook: (),
+    BlackQueen: (),
+    BlackKing: (),
+    None: (),
 }
 ```
 
-Great! then let's move on. One thing you have to make sure is, that `<Option<PieceType>>` is the type that we created. You need to define the implementation by your own also, You need to implement `SchemaIntrospection` for the complex type `PieceType` here is how : 
-
-```rust,ignore
-impl PieceTypeSchemaIntrospectionImpl for SchemaIntrospection<Option<PieceType>>{
-    #[inline(always)]
-    fn len() -> usize {
-        2
-    }
-    #[inline(always)]
-    fn ty() -> Ty {
-        Ty::Enum(
-            Enum {
-                name: 'PieceType',
-                attrs: array![].span(),
-                children: array![
-                    ('WhitePawn', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteRook', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteKing', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackPawn', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackRook', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackKing', serialize_member_type(@Ty::Tuple(array![].span()))),
-                ]
-                .span()
-            }
-        )
-    }
-}
-```
-
-Fix other issues as above, so that you can run the `sozo build` command runs successfully.
+Complied? Great! then let's move on. if not Fix other issues as above, so that you can run the `sozo build` command runs successfully.
 
 ## Run test
 
@@ -204,40 +156,46 @@ For the no implementation error, implement the PrintTrait to run `sozo test` suc
 
 ## Add more models
 
-Before you move on, add more models so we can use them in the next chapter when creating system contracts.
+Before you move on, add more models so we can use them in the next chapter when creating the action contract.
 
 ### Requirements
 
-- `Color` enum with values White and Black
-- `Game` model:
+- `Color` enum with values White,Black & None
+```rust,ignore
+    White: (),
+    Black: (),
+    None: (),
+```
 
+- `Game` model:
 ```rust,ignore
     game_id: felt252,
-    winner: Option<Color>,
+    winner: Color,
     white: ContractAddress,
     black: ContractAddress
 ```
 
 - `GameTurn` model:
-
 ```rust,ignore
     game_id: felt252,
     turn: Color
 ```
 
-- We will later set game entity composed of the `Game` and `GameTurn` models.
-- Run `sozo build` and `sozo test` and ensure all tests pass.
+- Run `sozo build` to see if your code compiles, we'll handle `test` implementiation in the subsequent chapters.
 
-Try to solve on your own, and before you move on check the answer below.
+This tutorial is extracted from [here](https://github.com/Akinbola247/chess-dojo/tree/tutorialv3)
 
 <details>
 <summary>Click to see full `models.cairo` code</summary>
 
 ```rust,ignore
+use array::ArrayTrait;
 use debug::PrintTrait;
 use starknet::ContractAddress;
+use dojo::database::schema::{SchemaIntrospection, Ty, Enum, serialize_member_type};
 
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+
+#[derive(Model, Drop, Serde)]
 struct Square {
     #[key]
     game_id: felt252,
@@ -245,63 +203,52 @@ struct Square {
     x: u32,
     #[key]
     y: u32,
-    piece: Option<PieceType>,
+    piece: PieceType,
 }
 
-#[derive(Serde, Drop, Copy, PartialEq)]
+#[derive(Serde, Drop, Copy, PartialEq, Introspect)]
 enum PieceType {
-    WhitePawn,
-    WhiteKnight,
-    WhiteBishop,
-    WhiteRook,
-    WhiteQueen,
-    WhiteKing,
-    BlackPawn,
-    BlackKnight,
-    BlackBishop,
-    BlackRook,
-    BlackQueen,
-    BlackKing,
+    WhitePawn: (),
+    WhiteKnight: (),
+    WhiteBishop: (),
+    WhiteRook: (),
+    WhiteQueen: (),
+    WhiteKing: (),
+    BlackPawn: (),
+    BlackKnight: (),
+    BlackBishop: (),
+    BlackRook: (),
+    BlackQueen: (),
+    BlackKing: (),
+    None: (),
 }
 
-#[derive(Serde, Drop, Copy, PartialEq)]
+#[derive(Serde, Drop, Copy, PartialEq, Introspect)]
 enum Color {
-    White,
-    Black,
+    White: (),
+    Black: (),
+    None: (),
+}
+
+#[derive(Model, Drop, Serde)]
+struct Game {
+    /// game id, computed as follows pedersen_hash(player1_address, player2_address)
+    #[key]
+    game_id: felt252,
+    winner: Color,
+    white: ContractAddress,
+    black: ContractAddress
+}
+
+#[derive(Model, Drop, Serde)]
+struct GameTurn {
+    #[key]
+    game_id: felt252,
+    turn: Color
 }
 
 
-impl PieceTypeSchemaIntrospectionImpl for SchemaIntrospection<Option<PieceType>> {
-    #[inline(always)]
-    fn len() -> usize {
-        2
-    }
-    #[inline(always)]
-    fn ty() -> Ty {
-        Ty::Enum(
-            Enum {
-                name: 'PieceType',
-                attrs: array![].span(),
-                children: array![
-                    ('WhitePawn', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteRook', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('WhiteKing', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackPawn', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackKnight', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackBishop', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackRook', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackQueen', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('BlackKing', serialize_member_type(@Ty::Tuple(array![].span()))),
-                ]
-                .span()
-            }
-        )
-    }
-}
-
+//printing trait for debug
 impl ColorPrintTrait of PrintTrait<Color> {
     #[inline(always)]
     fn print(self: Color) {
@@ -312,20 +259,9 @@ impl ColorPrintTrait of PrintTrait<Color> {
             Color::Black(_) => {
                 'Black'.print();
             },
-        }
-    }
-}
-
-impl ColorOptionPrintTrait of PrintTrait<Option<Color>> {
-    #[inline(always)]
-    fn print(self: Option<Color>) {
-        match self {
-            Option::Some(color) => {
-                color.print();
-            },
-            Option::None(_) => {
+            Color::None(_) => {
                 'None'.print();
-            }
+            },
         }
     }
 }
@@ -337,21 +273,6 @@ impl BoardPrintTrait of PrintTrait<(u32, u32)> {
         let (x, y): (u32, u32) = self;
         x.print();
         y.print();
-    }
-}
-
-
-impl PieceTypeOptionPrintTrait of PrintTrait<Option<PieceType>> {
-    #[inline(always)]
-    fn print(self: Option<PieceType>) {
-        match self {
-            Option::Some(piece_type) => {
-                piece_type.print();
-            },
-            Option::None(_) => {
-                'None'.print();
-            }
-        }
     }
 }
 
@@ -376,7 +297,7 @@ impl PieceTypePrintTrait of PrintTrait<PieceType> {
                 'WhiteQueen'.print();
             },
             PieceType::WhiteKing(_) => {
-                'WhiteKing'.print();
+            'WhiteKing'.print();
             },
             PieceType::BlackPawn(_) => {
                 'BlackPawn'.print();
@@ -396,39 +317,10 @@ impl PieceTypePrintTrait of PrintTrait<PieceType> {
             PieceType::BlackKing(_) => {
                 'BlackKing'.print();
             },
+            PieceType::None(_) => {
+                'None'.print();
+            },
         }
-    }
-}
-
-impl ColorSchemaIntrospectionImpl for SchemaIntrospection<Color> {
-    #[inline(always)]
-    fn len() -> usize {
-        1
-    }
-}
-
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
-struct Game {
-    /// game id, computed as follows pedersen_hash(player1_address, player2_address)
-    #[key]
-    game_id: felt252,
-    winner: Option<Color>,
-    white: ContractAddress,
-    black: ContractAddress
-}
-
-
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
-struct GameTurn {
-    #[key]
-    game_id: felt252,
-    turn: Color,
-}
-
-impl ColorOptionSchemaIntrospectionImpl for SchemaIntrospection<Option<Color>> {
-    #[inline(always)]
-    fn len() -> usize {
-        1
     }
 }
 
