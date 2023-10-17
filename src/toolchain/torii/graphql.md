@@ -143,7 +143,7 @@ subscription {
 
 According to your input, you will receive an output like this:
 
-```
+```json
 {
   "data": {
     "entityUpdated": {
