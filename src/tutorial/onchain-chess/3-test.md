@@ -88,7 +88,6 @@ mod tests {
 ```
 
 ## Diving into the Code
-
 First, we'll set up the players and their colors.
 
 ```rust,ignore
