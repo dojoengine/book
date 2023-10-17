@@ -222,15 +222,9 @@ player_actions_external
 
 Your 🌎 is now deployed at `0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16`!
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze. (Read more about it [here](./config.md)).
-
-Add the world address to the bottom of the file:
-
-```toml
-world_address = "0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16"
-```
-
 This establishes the world address for your project.
+
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze. (Read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed!
 
 ### Indexing
 
@@ -329,7 +323,7 @@ For this example let's choose player_actions contract address: `0x2e4ff2961ac4f4
 In your main local terminal, run the following command:
 
 ```bash
-sozo execute --0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe spawn
+sozo execute 0x2e4ff2961ac4f49e1e3c2b55c5090cc80ca61c38fdcabc7acabbf81e28a4abe spawn
 ```
 
 By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.

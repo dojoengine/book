@@ -20,7 +20,7 @@ Make sure torii is running in your local terminal.
 torii --world <WORLD_ADDRESS>
 ```
 
-Starts GraphQL server at `http://0.0.0.0:8080/graphql`
+It starts GraphQL server at `http://0.0.0.0:8080/graphql`
 
 After the torii server starts on your local machine, you're ready to make query and subscription operations.
 
@@ -111,18 +111,65 @@ subscription modelRegistered {
 
 Graphql also supports subscription to a targeted entity or model, for this we have to pass its id as an argument
 
-In this example, our serve provides a `entityUpdated` subscription, which should notify clients whenever an entity with id `0x579e8877c7755365d5ec1ec7d3a94a457eff5d1f40482bbe9729c064cdead2` is updated. A client can execute a subscription that looks like this:
+In this example, our serve provides a `entityUpdated` subscription, which should notify clients whenever an entity with id `0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20` is updated. On the same subscription we can get the model(components) values of entityUpdated. A client can execute a subscription that looks like this:
 
 ```graphql
 subscription {
   entityUpdated(
-    id: "0x579e8877c7755365d5ec1ec7d3a94a457eff5d1f40482bbe9729c064cdead2"
+    id: "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20"
   ) {
     id
     keys
     model_names
+    event_id
     created_at
     updated_at
+    models {
+      __typename
+      ... on Moves {
+        remaining
+        player
+      }
+      ... on Position {
+        vec {
+          x
+          y
+        }
+      }
+    }
+  }
+}
+```
+
+According to your input, you will receive an output like this:
+
+```
+{
+  "data": {
+    "entityUpdated": {
+      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "keys": [
+        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+      ],
+      "model_names": "Moves,Position",
+      "event_id": "0x0000000000000000000000000000000000000000000000000000000000000013:0x0000:0x0000",
+      "created_at": "2023-10-17 11:39:42",
+      "updated_at": "2023-10-17 11:52:48",
+      "models": [
+        {
+          "__typename": "Moves",
+          "remaining": 10,
+          "player": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+        },
+        {
+          "__typename": "Position",
+          "vec": {
+            "x": 10,
+            "y": 10
+          }
+        }
+      ]
+    }
   }
 }
 ```
