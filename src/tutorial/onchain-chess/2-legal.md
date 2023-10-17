@@ -59,7 +59,7 @@ We need to add some check functions in `actions` contract. These will help make 
                     return true;
                 }
 
-                panic(array!['Knight ilegal move'])
+                panic(array!['Knight illegal move'])
             },
             PieceType::WhiteBishop => {
                 true
