@@ -1,4 +1,4 @@
-# 5. Modularize functions
+# 4. Modularize functions
 In order to keep our code has dry as possible, you can modularize your functions. To do this, we'll create an `utils.cairo` file and add the below:
 ```rust,ignore
 use dojo_chess::models::PieceType;

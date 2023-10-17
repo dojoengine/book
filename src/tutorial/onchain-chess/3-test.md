@@ -1,4 +1,4 @@
- # 4 Test Contract
+ # 3 Test Contract
 
 In this chapter, we'll use everything we've learned to run a full chess game scenario.
 
