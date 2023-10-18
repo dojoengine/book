@@ -12,12 +12,12 @@ If you haven't read the Dojo Book yet, it is highly encouraged for you to do so 
 
 We're building an on-chain chess game contract that lets you start a new game and play chess. This guide does not cover every rules of the chess game. You will build step by step as follows:
 
-1. A system to spawn all the chess pieces
-2. A system to make pieces move
+1. A system contract to spawn all the chess pieces
+2. A system contract to make pieces move
 3. Add some functions to check a legal move
 4. Play chess ♟♙ - integration test!
 
-The full code of tutorial is based on [this repo](https://github.com/rkdud007/chess-dojo/tree/tutorialv2).
+The full code of tutorial is based on [this repo](https://github.com/rkdud007/chess-dojo/tree/tutorialv3).
 
 If this seems too hard, don't worry! This guide is for beginners. If you know some basics about Cairo and Dojo, you're good. We won't make a full chess game with all the rules. We're keeping it simple.
 
@@ -25,4 +25,4 @@ If this seems too hard, don't worry! This guide is for beginners. If you know so
 
 We're making another guide to help design the frontend. This will make our chess game complete.
 
-After you finish all the five chapters, we can move on to the frontend guide.
+After you finish all the four chapters, we can move on to the frontend guide.
