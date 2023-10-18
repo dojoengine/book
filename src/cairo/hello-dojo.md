@@ -377,7 +377,7 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "created_at": "2023-10-18 06:53:12",
       "updated_at": "2023-10-18 06:53:12"
     }
-	}
+  }
 }
 --------------------------------------------------------------------------------------------------------
 {
@@ -392,7 +392,7 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "created_at": "2023-10-18 06:53:12",
       "updated_at": "2023-10-18 06:53:12"
     }
-	}
+  }
 }
 ```
 
