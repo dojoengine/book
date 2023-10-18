@@ -257,7 +257,7 @@ actions
 
 ```
 
-Your 🌎 is now deployed at `0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16`!
+Your 🌎 is now deployed at `0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f84025e83a99a922a0c`!
 
 This establishes the world address for your project.
 
@@ -273,7 +273,7 @@ dojo = { git = "https://github.com/dojoengine/dojo", rev = "v0.3.0" }
 With your local world address established, let's delve into indexing. You can index the entire world. Open a new terminal and input this simple command:
 
 ```bash
-torii --world 0x71b95a2c000545624c51813444b57dbcdcc153dfc79b6b0e3a9a536168d1e16
+torii --world 0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f84025e83a99a922a0c
 ```
 
 Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
