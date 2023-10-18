@@ -17,7 +17,7 @@ We're building an on-chain chess game contract that lets you start a new game an
 3. Add some functions to check a legal move
 4. Play chess ♟♙ - integration test!
 
-The full code of tutorial is based on [this repo](https://github.com/Akinbola247/chess-dojo/tree/tutorialv3).
+The full code of tutorial is based on [this repo](https://github.com/rkdud007/chess-dojo/tree/tutorialv3).
 
 If this seems too hard, don't worry! This guide is for beginners. If you know some basics about Cairo and Dojo, you're good. We won't make a full chess game with all the rules. We're keeping it simple.
 
