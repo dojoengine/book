@@ -243,4 +243,4 @@ mod tests {
 
 If you're stuck, don't hesitate to ask questions at the [Dojo community](https://discord.gg/akd2yfuRS3)!
 
-You can find the [answer](https://github.com/Akinbola247/chess-dojo/blob/tutorialv3/src/actions_contract.cairo) for chapter 1 here.
+You can find the [answer](https://github.com/rkdud007/chess-dojo/blob/tutorialv3/src/actions_contract.cairo) for chapter 1 here.
