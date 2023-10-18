@@ -111,7 +111,7 @@ subscription modelRegistered {
 
 Graphql also supports subscription to a targeted entity or model, for this we have to pass its id as an argument
 
-In this example, our serve provides a `entityUpdated` subscription, which should notify clients whenever an entity with id `0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20` is updated. On the same subscription we can get the model(components) values of entityUpdated. A client can execute a subscription that looks like this:
+In this example, our server provides a `entityUpdated` subscription, which should notify clients whenever an entity with id `0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20` is updated. On the same subscription we can get the model(components) values of the updated entity . A client can execute a subscription that looks like this:
 
 ```graphql
 subscription {
