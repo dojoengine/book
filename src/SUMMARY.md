@@ -31,8 +31,6 @@
   - [0.2.0 -> 0.3.0](./cairo/migration/0.3.0.md)
 - [ECS in 15 minutes](./cairo/hello-dojo.md)
 
-  - [Components](./cairo/components.md)
-
   - [Entities](./cairo/entities.md)
   - [Testing](./cairo/testing.md)
 
