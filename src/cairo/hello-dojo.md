@@ -178,11 +178,11 @@ set!(
     world,
     (
         Moves {
-					  player, remaining: moves.remaining + 10, last_direction: Direction::None(())
-				},
+            player, remaining: moves.remaining + 10, last_direction: Direction::None(())
+        },
         Position {
-					  player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10}
-				},
+            player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10}
+        },
     )
 );
 ```
