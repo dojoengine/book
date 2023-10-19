@@ -70,15 +70,15 @@ msgstr "Descripción General"
 
 #: src/SUMMARY.md:23
 msgid "World"
-msgstr "Mundo"
+msgstr "World"
 
 #: src/SUMMARY.md:24
 msgid "Systems"
-msgstr "Sistemas"
+msgstr "Systems"
 
 #: src/SUMMARY.md:25
 msgid "Models"
-msgstr "Modelos"
+msgstr "Models"
 
 #: src/SUMMARY.md:26
 msgid "Commands"
@@ -282,7 +282,7 @@ msgstr ""
 
 #: src/index.md:7
 msgid "## Dojo: The Provable Game Engine"
-msgstr "## Dojo: El Motor de Juegos Demostrables"
+msgstr "## Dojo: El Provable Game Engine"
 
 #: src/index.md:9
 msgid ""
@@ -292,9 +292,9 @@ msgid ""
 "deployment tools. With Dojo by your side, you can evolve from initial "
 "concept to a fully realized game in days, not weeks."
 msgstr ""
-"Dojo es un motor de juego demostrable creado con [Cairo](https://github.com/"
+"Dojo es un provable game engine (motor de juego demostrable) creado con [Cairo](https://github.com/"
 "starkware-libs/cairo). Establece un estándar para el desarrollo de juegos a "
-"través de contratos inteligentes, combinando las mejores prácticas con "
+"través de smart contract, combinando las mejores prácticas con "
 "herramientas de desarrollo e implementación optimizadas. Con Dojo a tu lado, "
 "puedes evolucionar desde el concepto inicial hasta un juego completamente "
 "realizado en días, no semanas."
@@ -306,10 +306,10 @@ msgid ""
 "autonomous-worlds.md) elucidates this emergent concept of autonomous worlds "
 "and Provable games."
 msgstr ""
-"Este libro está dedicado a familiarizarte con el motor Dojo y el potencial "
-"de los juegos Demostrables. Una sección especial sobre la [Teoría](./theory/"
-"autonomous-worlds.md) elucida este concepto emergente de mundos autónomos y "
-"juegos Demostrables."
+"Este libro está dedicado a familiarizarte con el Dojo engine y el potencial "
+"de los Provable games. Una sección especial sobre la [Teoría](./theory/"
+"autonomous-worlds.md) elucida este concepto emergente de Autonomous Worlds  y "
+"Provable games."
 
 #: src/index.md:13
 msgid ""
@@ -369,7 +369,7 @@ msgid ""
 "more [contributors](https://github.com/orgs/dojoengine/people)."
 msgstr ""
 "Dojo es una iniciativa de código abierto, con licencia Apache 2.0, dedicada "
-"a promover y hacer avanzar el concepto de Mundos Autónomos (AWs). Está "
+"a promover y hacer avanzar el concepto de Autonomous Worlds  (AWs). Está "
 "encabezado por [Cartridge](https://cartridge.gg/), [Realms & BibliothecaDAO]"
 "(https://bibliothecadao.xyz/), [briq](https://briq.construction/) y muchos "
 "más. [colaboradores](https://github.com/orgs/dojoengine/people)."
@@ -418,8 +418,8 @@ msgid ""
 "Dojo aspires to be the go-to tool for building provable games. It is "
 "radically open-source, and all contributions are welcome."
 msgstr ""
-"Dojo aspira a convertirse en la herramienta de referencia para crear juegos "
-"demostrables. Es radicalmente de código abierto, y todas las contribuciones "
+"Dojo aspira a convertirse en la herramienta de referencia para crear Provable "
+"games. Es radicalmente de código abierto, y todas las contribuciones "
 "son bienvenidas."
 
 #: src/theory/what-is-dojo.md:9
@@ -436,7 +436,7 @@ msgstr ""
 
 #: src/theory/what-is-dojo.md:13
 msgid "### Entity Component System (ECS)"
-msgstr "### Sistema de Componentes de Entidad (ECS)"
+msgstr "### Entity Component System (ECS)"
 
 #: src/theory/what-is-dojo.md:15
 msgid ""
@@ -450,7 +450,7 @@ msgstr ""
 "inteligentes. Al reconocer las complejidades del diseño de juegos, Dojo "
 "simplifica el proceso de desarrollo, permitiendo a los creadores centrarse "
 "en la lógica del juego. Esta estandarización allana el camino para una red "
-"interconectada de mundos, optimizando la experiencia de los desarrolladores "
+"interconectada de Worlds, optimizando la experiencia de los desarrolladores "
 "y promoviendo la integración de juegos."
 
 #: src/theory/what-is-dojo.md:17
@@ -462,9 +462,9 @@ msgid ""
 "process based on persistent queries over these components."
 msgstr ""
 "Utilizando el ECS (Entity Component System) como arquitectura central, Dojo "
-"gestiona eficazmente el estado y el comportamiento de los Mundos Autónomos "
-"(AWs). Este modelo gira en torno a sistemas que actúan sobre entidades, que "
-"son colecciones de componentes de datos puros. Los sistemas determinan "
+"gestiona eficazmente el estado y el comportamiento de los Autonomous Worlds  "
+"(AWs). Este Model gira en torno a Systems que actúan sobre entidades, que "
+"son colecciones de componentes de datos puros. Los Systems determinan "
 "eficientemente qué entidades procesar basándose en consultas persistentes "
 "sobre estos componentes."
 
@@ -529,10 +529,10 @@ msgid ""
 "build, test, and deploy your worlds. Additionally, you can craft new "
 "components and systems and register them with your world."
 msgstr ""
-"Los mundos Dojo están a punto de convertirse en algunos de los mayores "
-"contratos. Sozo es una herramienta CLI que te ayuda a gestionar tus mundos. "
-"Te permite crear, construir, probar y desplegar tus mundos. Además, puedes "
-"crear nuevos componentes y sistemas y registrarlos en tu mundo."
+"Los Worlds Dojo están a punto de convertirse en algunos de los mayores "
+"contratos. Sozo es una herramienta CLI que te ayuda a gestionar tus Worlds. "
+"Te permite crear, construir, probar y desplegar tus Worlds. Además, puedes "
+"crear nuevos componentes y Systems y registrarlos en tu World."
 
 #: src/theory/what-is-dojo.md:35
 msgid "### What Dojo doesn't give you"
@@ -546,7 +546,7 @@ msgid ""
 msgstr ""
 "1. Gráficos visuales - Aunque Dojo proporciona redes y contratos, no ofrece "
 "motores gráficos. ¡Puedes traer los gráficos de tu elección! Integra tu "
-"mundo Dojo con Unreal, Godot o Unity."
+"World Dojo con Unreal, Godot o Unity."
 
 #: src/theory/what-is-dojo.md:39
 msgid "## Understanding the Dojo Workflow: A Visual Guide"
@@ -578,7 +578,7 @@ msgstr "Dojo Sozo Workflow"
 
 #: src/theory/autonomous-worlds.md:1
 msgid "## Autonomous Worlds"
-msgstr "## Mundos Autónomos"
+msgstr "## Autonomous Worlds "
 
 #: src/theory/autonomous-worlds.md:3
 msgid ""
@@ -586,7 +586,7 @@ msgid ""
 "decentralized open environments that users can freely interact with and "
 "contribute to.\""
 msgstr ""
-"> \"Los mundos autónomos representan entornos abiertos persistentes, sin "
+"> \"Los Autonomous Worlds  representan entornos abiertos persistentes, sin "
 "permisos y descentralizados con los que los usuarios pueden interactuar y "
 "contribuir libremente\"."
 
@@ -600,13 +600,13 @@ msgid ""
 "served as a catalyst for the market to recognize the potential of these "
 "worlds."
 msgstr ""
-"La definición precisa de Mundos Autónomos (AW) sigue siendo algo difícil de "
+"La definición precisa de Autonomous Worlds (AWs) sigue siendo algo difícil de "
 "alcanzar, ya que es más bien un concepto abstracto que aún no se ha "
 "cristalizado por completo. Lattice [introdujo](https://0xparc.org/blog/"
 "autonomous-worlds) la terminología por primera vez en 2022, pero la noción "
-"de mundos abiertos operando en blockchain existe desde hace un tiempo. La "
+"de Worlds abiertos operando en blockchain existe desde hace un tiempo. La "
 "abstracción introducida por la MUD sirvió de catalizador para que el mercado "
-"reconociera el potencial de estos mundos."
+"reconociera el potencial de estos Worlds."
 
 #: src/theory/autonomous-worlds.md:7
 msgid ""
@@ -619,13 +619,13 @@ msgid ""
 "game must possess at least the following two essential features to be "
 "considered as such:"
 msgstr ""
-"Los Mundos Autónomos comparten similitudes destacadas con las cadenas de "
+"Los Autonomous Worlds  comparten similitudes destacadas con las cadenas de "
 "bloques en su naturaleza fundamental. Una vez establecidos, persisten y "
 "mantienen su estado a lo largo de la vida útil de la cadena. Los jugadores "
-"pueden unirse o salir, y los desarrolladores pueden ampliar estos mundos "
+"pueden unirse o salir, y los desarrolladores pueden ampliar estos Worlds "
 "desplegando características de manera sin permisos, de manera similar a cómo "
 "se añaden contratos a una cadena. Aunque no existe una definición "
-"universalmente aceptada para un Mundo Autónomo, creemos que un juego debe "
+"universalmente aceptada para un Autonomous Worlds, creemos que un juego debe "
 "poseer al menos las siguientes dos características esenciales para ser "
 "considerado como tal:"
 
@@ -649,12 +649,12 @@ msgstr ""
 "pueda reconstruirse si la capa de ejecución deja de existir. Los rollups "
 "ofrecen una solución que proporciona capas de ejecución de mayor capacidad y "
 "al mismo tiempo garantiza que los datos se establezcan permanentemente en "
-"Ethereum. Esto garantiza la persistencia perpetua del Mundo.\n"
+"Ethereum. Esto garantiza la persistencia perpetua del World.\n"
 "\n"
-"2. Punto de entrada permissionless para expandir el mundo: El contrato del "
-"Mundo debe ser capaz de aceptar nuevos sistemas y componentes sin necesidad "
+"2. Punto de entrada permissionless para expandir el World: El contrato del "
+"World debe ser capaz de aceptar nuevos Systems y componentes sin necesidad "
 "de permiso. Si bien esto no implica que se utilizarán todos los componentes "
-"y sistemas, deben cumplir con este patrón, garantizando un acceso abierto y "
+"y Systems, deben cumplir con este patrón, garantizando un acceso abierto y "
 "sin restricciones para posibles mejoras."
 
 #: src/theory/autonomous-worlds.md:13
@@ -666,12 +666,12 @@ msgid ""
 "innovation, eventually questioning the very notion of \"play\" in this brave "
 "new decentralized and trustless world."
 msgstr ""
-"Creemos firmemente en el potencial de los Mundos Autónomos para catalizar la "
+"Creemos firmemente en el potencial de los Autonomous Worlds  para catalizar la "
 "exploración de formas novedosas en el medio proporcionado por las pruebas zk "
 "y la tecnología blockchain. No se trata sólo de juegos, sino también de "
 "nuevas formas de arte, coordinación y diversión que surgen de la innovación "
 "radical y los retoques, y que eventualmente cuestionan la noción misma de "
-"\"jugar\" en este nuevo y valiente mundo descentralizado y sin confianza."
+"\"jugar\" en este nuevo y valiente World descentralizado y sin confianza."
 
 #: src/theory/autonomous-worlds.md:15
 msgid "### Homework"
@@ -724,7 +724,7 @@ msgid ""
 "complexity of creating circuits to incorporate [SNARKs](https://consensys."
 "net/blog/developers/introduction-to-zk-snarks/). "
 msgstr ""
-"Los juegos demostrables requieren propiedades de [zero-knowledge](https://"
+"Los Provable games requieren propiedades de [zero-knowledge](https://"
 "ethereum.org/en/zero-knowledge-proofs/)(ZK) para una escalabilidad eficiente "
 "y verificación de cálculos. [Cairo](https://book.starknet.io/chapter_1/"
 "what_is_cairo.html) aborda esta necesidad proporcionando un lenguaje "
@@ -774,7 +774,7 @@ msgid ""
 "for building scalable and secure applications, including decentralized "
 "finance (DeFi) projects."
 msgstr ""
-"Cairo es un lenguaje de contratos inteligentes de código abierto y Turing "
+"Cairo es un lenguaje de smart contract de código abierto y Turing "
 "completo, desarrollado por Starkware, diseñado para impulsar el Validity "
 "Rollup Starknet. El lenguaje permite una computación altamente expresiva y "
 "verificable, lo que lo hace adecuado para construir aplicaciones escalables "
@@ -787,8 +787,8 @@ msgid ""
 "streamline the development process, improve maintainability, and enhance the "
 "performance of AWs."
 msgstr ""
-"Dojo se basa en Cairo al crear un framework para desarrollar Mundos "
-"Autonomos (AWs). Al aprovechar las capacidades de Cairo, Dojo tiene como "
+"Dojo se basa en Cairo al crear un framework para desarrollar Autonomous "
+"Worlds  (AWs). Al aprovechar las capacidades de Cairo, Dojo tiene como "
 "objetivo agilizar el proceso de desarrollo, mejorar la mantenibilidad y "
 "mejorar el rendimiento de AWs."
 
@@ -812,7 +812,7 @@ msgid ""
 "takes care of inlining the appropriate functions. "
 msgstr ""
 "Los desarrolladores pueden escribir comandos libremente dentro de los "
-"Sistemas, y el compilador de Cairo se encarga de enlazar las funciones "
+"Systems, y el compilador de Cairo se encarga de enlazar las funciones "
 "apropiadas. "
 
 #: src/theory/cairo.md:21
@@ -885,7 +885,7 @@ msgstr ""
 "ejecutar en WebAssembly (WASM) para generar pruebas en el lado del cliente! "
 "El equipo de Dojo está trabajando en estrecha colaboración con el equipo de "
 "[Madara](https://github.com/keep-starknet-strange/madara) para permitir que "
-"las appchains de Starknet ejecuten sin problemas los mundos de Dojo."
+"las appchains de Starknet ejecuten sin problemas los Worlds de Dojo."
 
 #: src/theory/faqs.md:1
 msgid "# FAQs"
@@ -953,7 +953,7 @@ msgstr ""
 
 #: src/theory/faqs.md:19
 msgid "#### What is an autonomous world?"
-msgstr "#### ¿Qué es un mundo autónomo?"
+msgstr "#### ¿Qué es un Autonomous Worlds?"
 
 #: src/theory/faqs.md:21
 msgid ""
@@ -962,10 +962,10 @@ msgid ""
 "world. Dive deeper into the topic here: [Autonomous Worlds](../theory/"
 "autonomous-worlds.md)."
 msgstr ""
-"Un mundo autónomo es aquel que existe completamente en cadena. No está "
+"Un Autonomous Worlds es aquel que existe completamente on chain. No está "
 "controlado por ninguna entidad única, sino que se rige por las reglas "
-"establecidas dentro de ese mundo. Profundice en el tema aquí: [Mundos "
-"autónomos](../theory/autonomous-worlds.md)."
+"establecidas dentro de ese World. Profundice en el tema aquí: [Autonomous "
+"Worlds](../theory/autonomous-worlds.md)."
 
 #: src/theory/faqs.md:23
 msgid "#### What is Cairo?"
@@ -985,7 +985,7 @@ msgstr ""
 
 #: src/theory/faqs.md:27
 msgid "#### What is a provable game?"
-msgstr "#### ¿Qué es un juego demostrable?"
+msgstr "#### ¿Qué es un provable game?"
 
 #: src/theory/faqs.md:29
 msgid ""
@@ -1016,8 +1016,8 @@ msgstr ""
 "Con las pruebas zk y las comunicaciones cliente, los jugadores pueden "
 "establecer un canal de estado, compartiendo movimientos fuera de la cadena y "
 "garantizando su validez. Al final, se puede enviar una prueba zk a la cadena "
-"de bloques para confirmar la equidad del juego. Esto constituye un juego "
-"demostrable."
+"de bloques para confirmar la equidad del juego. Esto constituye un provable "
+"game."
 
 #: src/getting-started/quick-start.md:1
 msgid "## Quick Start"
@@ -1030,7 +1030,7 @@ msgid ""
 "[Cairo ecosystem](../theory/cairo.md) before diving into the code."
 msgstr ""
 "> Merece la pena leer [teoría](../theory/autonomous-worlds.md) para "
-"familiarizarse con el concepto de Mundos Autónomos (MA) y el [ecosistema de "
+"familiarizarse con el concepto de Autonomous Worlds (AWs) y el [ecosistema de "
 "Cairo](../theory/cairo.md) antes de sumergirse en el código."
 
 #: src/getting-started/quick-start.md:6
@@ -1096,7 +1096,7 @@ msgid ""
 "> Head to [Hello Dojo](../cairo/hello-dojo.md) to get create your first Dojo "
 "world."
 msgstr ""
-"> Dirígete a [Hello Dojo](../cairo/hello-dojo.md) para crear tu primer mundo "
+"> Dirígete a [Hello Dojo](../cairo/hello-dojo.md) para crear tu primer World "
 "Dojo."
 
 #: src/getting-started/from-source.md:1
@@ -1427,7 +1427,7 @@ msgstr ""
 
 #: src/cairo/overview.md:11
 msgid "Consider this as the most basic Dojo world setup:"
-msgstr "Considere esto como la configuración de un Mundo Dojo más básica:"
+msgstr "Considere esto como la configuración de un World Dojo más básica:"
 
 #: src/cairo/overview.md:13
 msgid ""
@@ -1597,15 +1597,15 @@ msgid ""
 "attribute; for instance, the `player` field serves as the primary key in "
 "this context."
 msgstr ""
-"En un mundo Dojo, el estado se define mediante modelos. Estas son "
+"En un World Dojo, el estado se define mediante Models. Estas son "
 "estructuras marcadas con el atributo `#[derive(Model)]`, que funcionan de "
 "manera similar a un almacén de pares de claves. La clave principal de un "
-"modelo se indica mediante el atributo `#[key]`; por ejemplo, el campo "
+"Model se indica mediante el atributo `#[key]`; por ejemplo, el campo "
 "`player` sirve como clave principal en este contexto."
 
 #: src/cairo/overview.md:89
 msgid "Read more about models [here](./models.md)."
-msgstr "Lea más sobre los modelos [aquí](./models.md)."
+msgstr "Lea más sobre los Models [aquí](./models.md)."
 
 #: src/cairo/overview.md:91
 msgid "#### `spawn` function - a dojo system"
@@ -1620,8 +1620,8 @@ msgid ""
 msgstr ""
 "En la función `spawn`, tome nota del segundo parámetro: la interfaz "
 "`IWorldDispatcher`. Esto proporciona una puerta de entrada al contrato de "
-"Mundo. Al integrarlo en la función, permite que las macros `get!` y `set!` "
-"interactúen directamente con el contrato Mundo. "
+"World. Al integrarlo en la función, permite que las macros `get!` y `set!` "
+"interactúen directamente con el contrato World. "
 
 #: src/cairo/overview.md:95
 msgid ""
@@ -1643,20 +1643,20 @@ msgid ""
 "contract for storage."
 msgstr ""
 "Notarás que no hay almacenamiento en el contrato. Esto se debe a que el "
-"almacenamiento está en el contrato del Mundo. Sin embargo, puede utilizar "
+"almacenamiento está en el contrato del World. Sin embargo, puede utilizar "
 "este atributo para almacenar datos en el contrato del sistema, pero le "
-"sugerimos que utilice el contrato de Mundo para el almacenamiento."
+"sugerimos que utilice el contrato de World para el almacenamiento."
 
 #: src/cairo/overview.md:101
 msgid "### High level transaction flow of a world"
-msgstr "### Flujo de transacciones de alto nivel de un mundo"
+msgstr "### Flujo de transacciones de alto nivel de un World"
 
 #: src/cairo/overview.md:103
 msgid ""
 "To call a Dojo world you invoke a system, which then calls the [world](./"
 "world.md) and does the necessary state changes."
 msgstr ""
-"Para llamar a un mundo Dojo, se invoca un sistema, que luego llama al [mundo]"
+"Para llamar a un World Dojo, se invoca un sistema, que luego llama al [World]"
 "(./world.md) y realiza los cambios de estado necesarios."
 
 #: src/cairo/overview.md:105
@@ -1673,18 +1673,18 @@ msgid ""
 "authorization is required to interact with model state. There is a dedicated "
 "topic to [Authorisation](./authorization.md)."
 msgstr ""
-"> **Para pensar:** Considere los mundos autónomos como cadenas de bloques "
+"> **Para pensar:** Considere los Autonomous Worlds  como cadenas de bloques "
 "soberanas que residen dentro de otra cadena de bloques: una cadena de "
 "bloques anidada, por así decirlo. Así como puedes implementar contratos en "
-"Ethereum para mejorar su funcionalidad, también puedes introducir sistemas "
-"en el contrato del Mundo para enriquecer sus características. Si bien "
-"cualquiera puede contribuir al Mundo, al igual que Ethereum, se requiere "
-"autorización para interactuar con el estado modelo. Hay un tema dedicado a "
+"Ethereum para mejorar su funcionalidad, también puedes introducir Systems "
+"en el contrato del World para enriquecer sus características. Si bien "
+"cualquiera puede contribuir al World, al igual que Ethereum, se requiere "
+"autorización para interactuar con el estado Model. Hay un tema dedicado a "
 "[Autorización](./autorización.md)."
 
 #: src/cairo/world.md:3
 msgid "## The World Contract"
-msgstr "## El Contrato del Mundo"
+msgstr "## El Contrato del World"
 
 #: src/cairo/world.md:5
 msgid ""
@@ -1693,10 +1693,10 @@ msgid ""
 "contract address as the first parameter. This is how the world contract is "
 "able to manage the state of the world."
 msgstr ""
-"El contrato del Mundo funciona como un almacén central para los modelos y "
-"sistemas mundiales. Todo contrato que interactúe con el Mundo debe utilizar "
-"la dirección del contrato Mundo como primer parámetro. Así es como el "
-"contrato del Mundo puede gestionar el estado del mundo."
+"El contrato del World funciona como un almacén central para los Models y "
+"Systems mundiales. Todo contrato que interactúe con el World debe utilizar "
+"la dirección del contrato World como primer parámetro. Así es como el "
+"contrato del World puede gestionar el estado del World."
 
 #: src/cairo/world.md:7
 msgid ""
@@ -1704,8 +1704,8 @@ msgid ""
 "you are not required to do so. You can simply use the dojo-models as a "
 "keypair store along with the supporting infrastructure."
 msgstr ""
-"Aunque sugerimos encarecidamente estructurar su mundo en torno a un patrón "
-"ECS, no está obligado a hacerlo. Simplemente puede utilizar los modelos dojo "
+"Aunque sugerimos encarecidamente estructurar su World en torno a un patrón "
+"ECS, no está obligado a hacerlo. Simplemente puede utilizar los Models dojo "
 "como almacén de pares de claves junto con la infraestructura de soporte."
 
 #: src/cairo/world.md:9
@@ -1714,8 +1714,8 @@ msgid ""
 "not meant to be altered when building a world. However, it's important to "
 "understand how it works and how it interacts with the rest of the system."
 msgstr ""
-"> El núcleo del Dojo abstrae el contrato Mundo, no lo escribes y no debe "
-"modificarse al construir un mundo. Sin embargo, es importante comprender "
+"> El núcleo del Dojo abstrae el contrato World, no lo escribes y no debe "
+"modificarse al construir un World. Sin embargo, es importante comprender "
 "cómo funciona y cómo interactúa con el resto del sistema."
 
 #: src/cairo/world.md:11
@@ -1746,13 +1746,13 @@ msgstr ""
 
 #: src/cairo/world.md:22
 msgid "### Full World API"
-msgstr "### Full API Mundo"
+msgstr "### Full API World"
 
 #: src/cairo/world.md:24
 msgid ""
 "The world exposes an interface which can be interacted with by any client."
 msgstr ""
-"El mundo expone una interfaz con la que puede interactuar cualquier cliente."
+"El World expone una interfaz con la que puede interactuar cualquier cliente."
 
 #: src/cairo/world.md:26
 msgid ""
@@ -1834,14 +1834,14 @@ msgstr ""
 
 #: src/cairo/systems.md:1
 msgid "## Systems"
-msgstr "## Sistemas"
+msgstr "## Systems"
 
 #: src/cairo/systems.md:3
 msgid ""
 "> **IMPORTANT:** Before defining your systems, prioritize permissions. Plan "
 "carefully to ensure proper access and security."
 msgstr ""
-"> **IMPORTANTE:** Antes de definir sus sistemas, priorice los permisos. "
+"> **IMPORTANTE:** Antes de definir sus Systems, priorice los permisos. "
 "Planifique cuidadosamente para garantizar el acceso y la seguridad adecuados."
 
 #: src/cairo/systems.md:5 src/cairo/models.md:6
@@ -1859,28 +1859,28 @@ msgid ""
 "- Systems ought to be concise and specific.\n"
 "- In most scenarios, systems are stateless."
 msgstr ""
-"- Los sistemas funcionan como métodos de contrato.\n"
-"- Los contratos que contienen sistemas obtienen permisos para escribir en "
-"modelos.\n"
-"- Los sistemas pasan una dirección `world` como primer parámetro a menos que "
+"- Los Systems funcionan como métodos de contrato.\n"
+"- Los contratos que contienen Systems obtienen permisos para escribir en "
+"Models.\n"
+"- Los Systems pasan una dirección `world` como primer parámetro a menos que "
 "utilicen el decorador [`#[dojo::contract]`](#the-dojocontract-decorator).\n"
-"- Los sistemas participan en el contrato mundo para alterar el estado de los "
-"modelos.\n"
-"- El contrato mundo se invoca a través de sistemas.\n"
-"- Los sistemas deben ser concisos y específicos.\n"
-"- En la mayoría de los escenarios, los sistemas no tienen estado."
+"- Los Systems participan en el contrato World para alterar el estado de los "
+"Models.\n"
+"- El contrato World se invoca a través de Systems.\n"
+"- Los Systems deben ser concisos y específicos.\n"
+"- En la mayoría de los escenarios, los Systems no tienen estado."
 
 #: src/cairo/systems.md:14
 msgid "### What are Systems?"
-msgstr "### ¿Qué son los Sistemas?"
+msgstr "### ¿Qué son los Systems?"
 
 #: src/cairo/systems.md:16
 msgid ""
 "Within dojo we define systems as functions within a Contract that act on the "
 "world."
 msgstr ""
-"Dentro del dojo definimos sistemas como funciones dentro de un Contrato que "
-"actúan sobre el mundo."
+"Dentro del dojo definimos Systems como funciones dentro de un Contrato que "
+"actúan sobre el World."
 
 #: src/cairo/systems.md:18
 msgid ""
@@ -1889,7 +1889,7 @@ msgid ""
 "mutations, a system needs explicit permission from the [`models`](./models."
 "md) owner."
 msgstr ""
-"Los sistemas desempeñan un papel fundamental en la lógica de su mundo, "
+"Los Systems desempeñan un papel fundamental en la lógica de su World, "
 "mutando directamente los estados que lo componen. Es importante comprender "
 "que para implementar estas mutaciones, un sistema necesita un permiso "
 "explícito del propietario de [`models`](./models.md)."
@@ -1904,8 +1904,8 @@ msgid ""
 "important to be careful when defining systems. A simple way to think about "
 "it is:"
 msgstr ""
-"Dado que todo el contrato otorga acceso de escritura al modelo, es "
-"importante tener cuidado al definir los sistemas. Una forma sencilla de "
+"Dado que todo el contrato otorga acceso de escritura al Model, es "
+"importante tener cuidado al definir los Systems. Una forma sencilla de "
 "pensarlo es:"
 
 #: src/cairo/systems.md:24
@@ -1925,8 +1925,8 @@ msgid ""
 msgstr ""
 "Cada función del sistema comienza con una dirección [`world`](./world.md) "
 "como parámetro inicial. Este diseño permite que estas funciones alteren el "
-"estado del mundo. En particular, esta estructura también hace que los "
-"sistemas sean adaptables y reutilizables en múltiples mundos"
+"estado del World. En particular, esta estructura también hace que los "
+"Systems sean adaptables y reutilizables en múltiples Worlds"
 
 #: src/cairo/systems.md:30
 msgid ""
@@ -2033,7 +2033,7 @@ msgid ""
 "for setting up the player's initial state."
 msgstr ""
 "La función de spawn es actualmente la única función que existe en este "
-"sistema. Se llama cuando un jugador aparece en el mundo. Es responsable de "
+"sistema. Se llama cuando un jugador aparece en el World. Es responsable de "
 "configurar el estado inicial del jugador."
 
 #: src/cairo/systems.md:76
@@ -2063,7 +2063,7 @@ msgid ""
 msgstr ""
 "El decorador `#[dojo::contract]` permite a los desarrolladores omitir "
 "incluir `world: IWorldDispatcher` como parámetro. Entre bastidores, inyecta "
-"el mundo en el contrato y elimina algunas importaciones, agilizando así el "
+"el World en el contrato y elimina algunas importaciones, agilizando así el "
 "proceso de desarrollo."
 
 #: src/cairo/systems.md:82
@@ -2181,12 +2181,12 @@ msgid ""
 "> To interact with Systems read more in the [sozo](../toolchain/sozo/"
 "overview.md) docs."
 msgstr ""
-"> Para interactuar con los Sistemas, lea más en los documentos [sozo](../"
+"> Para interactuar con los Systems, lea más en los documentos [sozo](../"
 "toolchain/sozo/overview.md)."
 
 #: src/cairo/models.md:1
 msgid "## Models"
-msgstr "## Modelos"
+msgstr "## Models"
 
 #: src/cairo/models.md:3
 msgid "> Models = Data"
@@ -2201,16 +2201,16 @@ msgid ""
 "- Custom enums and types are supported.\n"
 "- Define the primary key using the `#[key]` attribute."
 msgstr ""
-"- Los modelos almacenan datos estructurados en tu mundo.\n"
-"- Los modelos son estructuras de Cairo con características adicionales.\n"
-"- Los modelos pueden implementar traits.\n"
+"- Los Models almacenan datos estructurados en tu World.\n"
+"- Los Models son estructuras de Cairo con características adicionales.\n"
+"- Los Models pueden implementar traits.\n"
 "- Utilice el decorador `#[derive(Model)]` para definirlos.\n"
 "- Se admiten enumeraciones y tipos personalizados.\n"
 "- Defina la clave principal utilizando el atributo `#[key]`."
 
 #: src/cairo/models.md:14
 msgid "### Models are Structs"
-msgstr "### Los Modelos son Structs"
+msgstr "### Los Models son Structs"
 
 #: src/cairo/models.md:16
 msgid ""
@@ -2221,13 +2221,13 @@ msgid ""
 "maintaining small, isolated models. This approach fosters modularity and "
 "composability, enabling you to reuse models across various entity types."
 msgstr ""
-"Los Modelos son estructuras anotadas con el atributo `#[derive(Model)]`. "
-"Considere estos modelos como un almacén de valores clave, donde el atributo "
-"`#[key]` se utiliza para definir la clave principal. Si bien los modelos "
+"Los Models son estructuras anotadas con el atributo `#[derive(Model)]`. "
+"Considere estos Models como un almacén de valores clave, donde el atributo "
+"`#[key]` se utiliza para definir la clave principal. Si bien los Models "
 "pueden contener cualquier cantidad de campos, cumplir con las mejores "
-"prácticas en el diseño de entidad-componente-sistema (ECS) implica mantener "
-"modelos pequeños y aislados. Este enfoque fomenta la modularidad y la "
-"componibilidad, lo que le permite reutilizar modelos en varios tipos de "
+"prácticas en el Entity Component System (ECS) implica mantener "
+"Models pequeños y aislados. Este enfoque fomenta la modularidad y la "
+"componibilidad, lo que le permite reutilizar Models en varios tipos de "
 "entidades."
 
 #: src/cairo/models.md:18
@@ -2261,9 +2261,9 @@ msgid ""
 "query the model. However, you can create composite keys by defining multiple "
 "fields as keys. "
 msgstr ""
-"El atributo `#[key]` indica a Dojo que este modelo está indexado por el "
-"campo `player`. Debe definir una clave para cada modelo, ya que así es como "
-"se consulta el modelo. Sin embargo, puede crear claves compuestas definiendo "
+"El atributo `#[key]` indica a Dojo que este Model está indexado por el "
+"campo `player`. Debe definir una clave para cada Model, ya que así es como "
+"se consulta el Model. Sin embargo, puede crear claves compuestas definiendo "
 "varios campos como claves. "
 
 #: src/cairo/models.md:31
@@ -2295,7 +2295,7 @@ msgid ""
 "In this case you then would set the model with both the player and location "
 "fields:"
 msgstr ""
-"En este caso, entonces configurarías el modelo con los campos de jugador y "
+"En este caso, entonces configurarías el Model con los campos de jugador y "
 "de ubicación:"
 
 #: src/cairo/models.md:44
@@ -2338,11 +2338,11 @@ msgid ""
 "define functions such as `is_zero` and `is_equal` which could be used when "
 "accessing the model."
 msgstr ""
-"Los modelos pueden implementar traits. Esto es útil para definir una "
-"funcionalidad común entre modelos. Por ejemplo, es posible que desee definir "
-"un modelo `Position` que implemente un traits `PositionTrait`. Este traits "
+"Los Models pueden implementar traits. Esto es útil para definir una "
+"funcionalidad común entre Models. Por ejemplo, es posible que desee definir "
+"un Model `Position` que implemente un traits `PositionTrait`. Este traits "
 "podría definir funciones como `is_zero` y `is_equal` que podrían usarse al "
-"acceder al modelo."
+"acceder al Model."
 
 #: src/cairo/models.md:61
 msgid ""
@@ -2388,7 +2388,7 @@ msgstr ""
 
 #: src/cairo/models.md:81
 msgid "#### Custom Setting models"
-msgstr "#### Modelos de Configuración Personalizada"
+msgstr "#### Models de Configuración Personalizada"
 
 #: src/cairo/models.md:83
 msgid ""
@@ -2403,8 +2403,8 @@ msgstr ""
 "flexibilidad de modificarlo en el futuro. Tomemos, por ejemplo, un parámetro "
 "global `combat_cool_down` que define la duración requerida para que una "
 "entidad esté preparada para otro ataque. Para lograr esto, podemos diseñar "
-"un modelo dedicado a almacenar este valor y al mismo tiempo permitir su "
-"modificación a través de un modelo de gobernanza descentralizada."
+"un Model dedicado a almacenar este valor y al mismo tiempo permitir su "
+"modificación a través de un Model de gobernanza descentralizada."
 
 #: src/cairo/models.md:85
 msgid ""
@@ -2412,7 +2412,7 @@ msgid ""
 "when initializing them, employ a constant identifier, such as "
 "GAME_SETTINGS_ID."
 msgstr ""
-"Para establecer estos modelos, seguirías el método de creación habitual. Sin "
+"Para establecer estos Models, seguirías el método de creación habitual. Sin "
 "embargo, al inicializarlos, emplee un identificador constante, como "
 "GAME_SETTINGS_ID."
 
@@ -2446,7 +2446,7 @@ msgstr "#### Tipos"
 
 #: src/cairo/models.md:100
 msgid "Support model types:"
-msgstr "Tipos de modelos que soporta:"
+msgstr "Tipos de Models que soporta:"
 
 #: src/cairo/models.md:102
 msgid ""
@@ -2483,12 +2483,12 @@ msgid ""
 "For models containing complex types, it's crucial to implement the "
 "`SchemaIntrospection` trait."
 msgstr ""
-"Para modelos que contienen tipos complejos, es crucial implementar el trait "
+"Para Models que contienen tipos complejos, es crucial implementar el trait "
 "`SchemaIntrospection`."
 
 #: src/cairo/models.md:117 src/cairo/migration/0.3.0.md:29
 msgid "Consider the model below:"
-msgstr "Considere el siguiente modelo:"
+msgstr "Considere el siguiente Model:"
 
 #: src/cairo/models.md:119
 msgid ""
@@ -2604,8 +2604,8 @@ msgid ""
 msgstr ""
 "Considere una analogía tangible: Humanos y Duendes. Si bien poseen "
 "diferencias intrínsecas, comparten rasgos comunes, como tener una posición y "
-"salud. Sin embargo, los humanos poseen un modelo adicional. Además, "
-"presentamos un modelo de contador, una característica distintiva que cuenta "
+"salud. Sin embargo, los humanos poseen un Model adicional. Además, "
+"presentamos un Model de contador, una característica distintiva que cuenta "
 "el número de humanos y duendes."
 
 #: src/cairo/models.md:165
@@ -2682,9 +2682,9 @@ msgid ""
 "Goblin will have a `Health` and `Position` model. By doing we save having to "
 "create Health and Position models for each entity type."
 msgstr ""
-"Entonces el Humano tendrá un modelo de `Potions`, `Health` y `Position`, y "
-"el Duende tendrá un modelo de `Health` y `Position`. Al hacerlo nos "
-"ahorramos tener que crear modelos de Salud y Posición para cada tipo de "
+"Entonces el Humano tendrá un Model de `Potions`, `Health` y `Position`, y "
+"el Duende tendrá un Model de `Health` y `Position`. Al hacerlo nos "
+"ahorramos tener que crear Models de Salud y Posición para cada tipo de "
 "entidad."
 
 #: src/cairo/models.md:200
@@ -2869,7 +2869,7 @@ msgid ""
 "heavily within the systems you design."
 msgstr ""
 "Comprender los comandos es clave para entender Dojo. Los aprovechará en gran "
-"medida dentro de los sistemas que diseñe."
+"medida dentro de los Systems que diseñe."
 
 #: src/cairo/commands.md:10
 msgid ""
@@ -2882,10 +2882,10 @@ msgid ""
 msgstr ""
 "Los comandos en Dojo son funciones generalizadas que se expanden en tiempo "
 "de compilación para facilitar la ejecución del sistema. Proporcionan una "
-"forma conveniente para que los sistemas interactúen con el estado del Mundo "
-"abstrayendo operaciones comunes, como recuperar o actualizar modelos, y "
+"forma conveniente para que los Systems interactúen con el estado del World "
+"abstrayendo operaciones comunes, como recuperar o actualizar Models, y "
 "generar identificaciones únicas. Al aprovechar estos comandos, los "
-"desarrolladores pueden optimizar las implementaciones de sus sistemas y "
+"desarrolladores pueden optimizar las implementaciones de sus Systems y "
 "mejorar la legibilidad del código."
 
 #: src/cairo/commands.md:13
@@ -2897,8 +2897,8 @@ msgid ""
 "Commands are used within systems to interact with the world state. They are "
 "called using the following syntax:"
 msgstr ""
-"Los comandos se utilizan dentro de los sistemas para interactuar con el "
-"estado del Mundo. Se llaman usando la siguiente sintaxis:"
+"Los comandos se utilizan dentro de los Systems para interactuar con el "
+"estado del World. Se llaman usando la siguiente sintaxis:"
 
 #: src/cairo/commands.md:17
 msgid "### The `get!` command"
@@ -2907,7 +2907,7 @@ msgstr "### El comando `get!`"
 #: src/cairo/commands.md:19
 msgid "The `get!` command is used to retrieve models from the world state:"
 msgstr ""
-"El comando `get!` se utiliza para recuperar modelos del estado del mundo:"
+"El comando `get!` se utiliza para recuperar Models del estado del World:"
 
 #: src/cairo/commands.md:21
 msgid ""
@@ -2931,8 +2931,8 @@ msgid ""
 "state. We are also using the `caller` to retrieve the models for the current "
 "entity."
 msgstr ""
-"Aquí estamos recuperando los modelos de `Position` y `Moves` del estado del "
-"mundo. También estamos usando `caller` para recuperar los modelos de la "
+"Aquí estamos recuperando los Models de `Position` y `Moves` del estado del "
+"World. También estamos usando `caller` para recuperar los Models de la "
 "entidad actual."
 
 #: src/cairo/commands.md:30
@@ -2949,7 +2949,7 @@ msgstr "### El comando `set!`"
 
 #: src/cairo/commands.md:34
 msgid "The `set!` command is used to update models state."
-msgstr "El comando `set!` se utiliza para actualizar el estado de los modelos."
+msgstr "El comando `set!` se utiliza para actualizar el estado de los Models."
 
 #: src/cairo/commands.md:36
 msgid ""
@@ -2986,8 +2986,8 @@ msgid ""
 "Here we are updating the `Moves` and `Position` models in the world state "
 "using the `caller` as the entity id."
 msgstr ""
-"Aquí estamos actualizando los modelos `Moves` y `Position` en el estado de "
-"mundo utilizando`caller` como el id de entidad."
+"Aquí estamos actualizando los Models `Moves` y `Position` en el estado de "
+"World utilizando`caller` como el id de entidad."
 
 #: src/cairo/commands.md:52
 msgid "### The `emit!` command"
@@ -3029,7 +3029,7 @@ msgid ""
 "[Scarb](https://docs.swmansion.com/scarb/) file which is an excellent Cairo "
 "package manager and project manager."
 msgstr ""
-"Los mundos Dojo se definen en sus archivos Scarb.toml. Este es solo un "
+"Los Worlds Dojo se definen en sus archivos Scarb.toml. Este es solo un "
 "archivo [Scarb](https://docs.swmansion.com/scarb/) normal que es un "
 "excelente administrador de paquetes y administrador de proyectos de Cairo."
 
@@ -3125,7 +3125,7 @@ msgid ""
 "efficient querying."
 msgstr ""
 "Los eventos juegan un papel fundamental en la decodificación de la dinámica "
-"de un mundo en Dojo. Cada vez que hay una actualización de un `Model`, el "
+"de un World en Dojo. Cada vez que hay una actualización de un `Model`, el "
 "contrato `World` emite estos eventos. ¡Lo que es aún más emocionante es que "
 "puedes crear tus propios eventos personalizados para satisfacer necesidades "
 "específicas! Además, gracias a [Torii](../toolchain/torii/overview.md), "
@@ -3138,7 +3138,7 @@ msgstr "### Eventos de Componentes"
 
 #: src/cairo/events.md:8
 msgid "Consider this example of a `Moves` model:"
-msgstr "Considere este ejemplo de un modelo `Moves`:"
+msgstr "Considere este ejemplo de un Model `Moves`:"
 
 #: src/cairo/events.md:10
 msgid ""
@@ -3196,7 +3196,7 @@ msgid ""
 msgstr ""
 "Esto luego será capturado por [Torii](../toolchain/torii/overview.md) y "
 "indexado para realizar consultas. Esto te permitirá luego reconstruir el "
-"estado de tu mundo."
+"estado de tu World."
 
 #: src/cairo/events.md:32
 msgid ""
@@ -3226,7 +3226,7 @@ msgstr ""
 
 #: src/cairo/events.md:42
 msgid "### World Events"
-msgstr "### Eventos de Mundo"
+msgstr "### Eventos de World"
 
 #: src/cairo/events.md:44
 msgid ""
@@ -3235,7 +3235,7 @@ msgid ""
 "following structures:"
 msgstr ""
 "El contrato `World` también emite eventos cuando se inicializa y cuando se "
-"registran nuevos componentes y sistemas. Estos eventos se emiten con las "
+"registran nuevos componentes y Systems. Estos eventos se emiten con las "
 "siguientes estructuras:"
 
 #: src/cairo/events.md:46
@@ -3311,9 +3311,9 @@ msgid ""
 "directly from your world. These events are indexed by [torii](../toolchain/"
 "torii/overview.md)"
 msgstr ""
-"Dentro de sus sistemas, la emisión de eventos personalizados puede resultar "
+"Dentro de sus Systems, la emisión de eventos personalizados puede resultar "
 "muy beneficiosa. Afortunadamente, existe una útil macro `emit!` que te "
-"permite liberar eventos directamente desde tu mundo. Estos eventos están "
+"permite liberar eventos directamente desde tu World. Estos eventos están "
 "indexados por [torii](../toolchain/torii/overview.md)"
 
 #: src/cairo/events.md:77
@@ -3405,7 +3405,7 @@ msgid ""
 "> Authorization is crucial to a world, just like how authorization is "
 "crucial to any smart contract."
 msgstr ""
-"> La autorización es crucial para un mundo, al igual que la autorización es "
+"> La autorización es crucial para un World, al igual que la autorización es "
 "crucial para cualquier contrato inteligente."
 
 #: src/cairo/authorization.md:5
@@ -3418,14 +3418,14 @@ msgid ""
 "state within a System requires the appropriate authorization from the model "
 "owner."
 msgstr ""
-"Como se analiza en el capítulo [Mundo](./world.md), los Mundos Autónomos "
+"Como se analiza en el capítulo [World](./world.md), los Autonomous Worlds  "
 "(AWs) funcionan como cadenas soberanas anidadas dentro de una cadena de "
-"bloques pública. Estos mundos también están abiertos al público. Esta "
-"estructura permite a cualquiera mejorar un mundo mediante el despliegue de "
-"modelos o sistemas. Sin embargo, esta apertura también introduce "
+"bloques pública. Estos Worlds también están abiertos al público. Esta "
+"estructura permite a cualquiera mejorar un World mediante el despliegue de "
+"Models o Systems. Sin embargo, esta apertura también introduce "
 "consideraciones de seguridad. De manera similar a Ethereum, interactuar con "
-"el estado de un modelo dentro de un Sistema requiere la autorización "
-"adecuada del propietario del modelo."
+"el estado de un Model dentro de un Sistema requiere la autorización "
+"adecuada del propietario del Model."
 
 #: src/cairo/authorization.md:7
 msgid "### Auth Architecture"
@@ -3438,8 +3438,8 @@ msgid ""
 "possesses the necessary authorization, the `set!` is executed. The following "
 "diagram illustrates the authorization architecture."
 msgstr ""
-"Cada vez que se llama a un `set!` en un `System`, el mundo verifica si el "
-"`System` tiene autorización para actualizar el estado del modelo. Sólo "
+"Cada vez que se llama a un `set!` en un `System`, el World verifica si el "
+"`System` tiene autorización para actualizar el estado del Model. Sólo "
 "cuando el `System` posee la autorización necesaria, se ejecuta el `set!`. El "
 "siguiente diagrama ilustra la arquitectura de autorización."
 
@@ -3457,14 +3457,14 @@ msgid ""
 "grant the `owner` and `writer` roles. Only owners can grant a System the "
 "`writer` role which allows it to update the model."
 msgstr ""
-"> El implementador del modelo es su propietario inicial. Un propietario de "
-"modelo puede otorgar los roles de `owner` y `writer`. Solo los propietarios "
+"> El implementador del Model es su propietario inicial. Un propietario de "
+"Model puede otorgar los roles de `owner` y `writer`. Solo los propietarios "
 "pueden otorgarle a un sistema la función de `writer`que le permite "
-"actualizar el modelo."
+"actualizar el Model."
 
 #: src/cairo/authorization.md:17
 msgid "`sozo` offers a convenient tool to authorize systems."
-msgstr "`sozo` ofrece una herramienta conveniente para autorizar sistemas."
+msgstr "`sozo` ofrece una herramienta conveniente para autorizar Systems."
 
 #: src/cairo/authorization.md:19
 msgid ""
@@ -3482,7 +3482,7 @@ msgid ""
 "to update the `Moves` model."
 msgstr ""
 "Este comando generará una autorización de `writer` para que el sistema "
-"`spawn` actualice el modelo `Moves`."
+"`spawn` actualice el Model `Moves`."
 
 #: src/cairo/migration.md:1
 msgid "## Migration"
@@ -3501,8 +3501,8 @@ msgid ""
 "0.3.0 introduced some breaking changes to Systems and Models which requires "
 "reworking of your worlds."
 msgstr ""
-"0.3.0 introdujo algunos cambios importantes en los sistemas y modelos que "
-"requieren una reelaboración de sus mundos."
+"0.3.0 introdujo algunos cambios importantes en los Systems y Models que "
+"requieren una reelaboración de sus Worlds."
 
 #: src/cairo/migration/0.3.0.md:5
 msgid ""
@@ -3511,14 +3511,14 @@ msgid ""
 "- [Events](#events)\n"
 "- [Npm](#npm)"
 msgstr ""
-"- [Componentes](#componentes-a-modelos)\n"
-"- [Sistemas](#actualización-de-sistemas)\n"
+"- [Componentes](#componentes-a-Models)\n"
+"- [Systems](#actualización-de-Systems)\n"
 "- [Eventos](#eventos)\n"
 "- [Npm](#npm)"
 
 #: src/cairo/migration/0.3.0.md:10
 msgid "### Components to Models"
-msgstr "### Componentes de Modelos"
+msgstr "### Componentes de Models"
 
 #: src/cairo/migration/0.3.0.md:12
 msgid ""
@@ -3549,14 +3549,14 @@ msgstr ""
 
 #: src/cairo/migration/0.3.0.md:21
 msgid "### Changes in Model Implementation"
-msgstr "### Cambios en la Implementación del Modelo"
+msgstr "### Cambios en la Implementación del Model"
 
 #: src/cairo/migration/0.3.0.md:23
 msgid ""
 "The trait `SerdeLen` is no longer implemented for models. If you relied on "
 "this previously, you should now use `SchemaIntrospection`."
 msgstr ""
-"El trait `SerdeLen` ya no se implementa para los modelos. Si confiaba en "
+"El trait `SerdeLen` ya no se implementa para los Models. Si confiaba en "
 "esto anteriormente, ahora debería usar `SchemaIntrospection`."
 
 #: src/cairo/migration/0.3.0.md:25
@@ -3605,7 +3605,7 @@ msgstr ""
 
 #: src/cairo/migration/0.3.0.md:80
 msgid "### Systems Update"
-msgstr "### Actualización de Sistemas"
+msgstr "### Actualización de Systems"
 
 #: src/cairo/migration/0.3.0.md:82
 msgid ""
@@ -3613,9 +3613,9 @@ msgid ""
 "systems just like regular contracts, and each dojo contract can contain "
 "mulitple systems."
 msgstr ""
-"Los sistemas en 0.3.0 ahora son muy similares a los Contratos de El Cairo. "
-"Puede escribir sus sistemas como si fueran contratos normales, y cada "
-"contrato de dojo puede contener varios sistemas."
+"Los Systems en 0.3.0 ahora son muy similares a los Contratos de El Cairo. "
+"Puede escribir sus Systems como si fueran contratos normales, y cada "
+"contrato de dojo puede contener varios Systems."
 
 #: src/cairo/migration/0.3.0.md:84
 msgid "Important high level changes:"
@@ -3629,11 +3629,11 @@ msgid ""
 "- Multiple systems per dojo contract, rather than singular\n"
 "- `execute` is no longer required system selector name"
 msgstr ""
-"- Los sistemas ahora son contratos starknet.\n"
+"- Los Systems ahora son contratos starknet.\n"
 "- Definir [Interfaces](#interface-creation) para cada contrato del sistema\n"
-"- Nuevos sistemas opcionales de definición de decoradores `#[dojo::"
+"- Nuevos Systems opcionales de definición de decoradores `#[dojo::"
 "contract]`\n"
-"- Múltiples sistemas por contrato de dojo, en lugar de singulares\n"
+"- Múltiples Systems por contrato de dojo, en lugar de singulares\n"
 "- `execute` ya no es necesario el nombre del selector del sistema"
 
 #: src/cairo/migration/0.3.0.md:92
@@ -3796,7 +3796,7 @@ msgid ""
 "Events should now reside within the models. Here's an example of how to "
 "migrate your events:"
 msgstr ""
-"Los eventos ahora deberían residir dentro de los modelos. A continuación se "
+"Los eventos ahora deberían residir dentro de los Models. A continuación se "
 "muestra un ejemplo de cómo migrar sus eventos:"
 
 #: src/cairo/migration/0.3.0.md:158
@@ -3868,7 +3868,7 @@ msgid ""
 "Testing has seen significant changes with the change to systems as "
 "Contracts. Instead of using `world.execute`, use the dispatcher."
 msgstr ""
-"Las pruebas han visto cambios significativos con el cambio a sistemas como "
+"Las pruebas han visto cambios significativos con el cambio a Systems como "
 "Contratos. En lugar de utilizar `world.execute`, utilice el dispatcher."
 
 #: src/cairo/migration/0.3.0.md:188
@@ -3973,10 +3973,10 @@ msgid ""
 msgstr ""
 "Aunque Dojo no es exclusivamente un marco de Entity Component System (ECS), "
 "recomendamos adoptar este sólido patrón de diseño. En este contexto, los "
-"sistemas dan forma a la lógica del entorno, mientras que los componentes "
-"([models](./models.md)) reflejan el estado del mundo. Al tomar esta ruta, se "
+"Systems dan forma a la lógica del entorno, mientras que los componentes "
+"([models](./models.md)) reflejan el estado del World. Al tomar esta ruta, se "
 "beneficiará de un marco estructurado y modular que promete flexibilidad y "
-"escalabilidad en un mundo en continua evolución. Si esto parece un poco "
+"escalabilidad en un World en continua evolución. Si esto parece un poco "
 "complicado al principio, espera; profundizaremos en los detalles en breve."
 
 #: src/cairo/hello-dojo.md:9
@@ -4049,8 +4049,8 @@ msgid ""
 msgstr ""
 "Los proyectos de dojo guardan un gran parecido con los proyectos típicos de "
 "Cairo. La principal diferencia es la inclusión de una etiqueta de atributo "
-"especial que se utiliza para definir sus modelos de datos. En este contexto, "
-"nos referiremos a estos modelos como componentes."
+"especial que se utiliza para definir sus Models de datos. En este contexto, "
+"nos referiremos a estos Models como componentes."
 
 #: src/cairo/hello-dojo.md:32
 msgid ""
@@ -4123,8 +4123,8 @@ msgid ""
 "that this struct should be treated as a model."
 msgstr ""
 "Observe los atributos `#[derive(Model, Copy, Drop, Serde)]`. Para que un "
-"modelo sea reconocido, _debemos_ incluir `Model`. Esto le indica al "
-"compilador Dojo que esta estructura debe tratarse como un modelo."
+"Model sea reconocido, _debemos_ incluir `Model`. Esto le indica al "
+"compilador Dojo que esta estructura debe tratarse como un Model."
 
 #: src/cairo/hello-dojo.md:63
 msgid ""
@@ -4135,11 +4135,11 @@ msgid ""
 "component using the `player` field. Our `Moves` model also contains the "
 "`remaining` and `last_direction` fields"
 msgstr ""
-"Nuestro modelo `Moves` alberga un campo de`player`. Al mismo tiempo, tenemos "
-"el atributo `#[key]`, le informa a Dojo que este modelo está indexado por el "
+"Nuestro Model `Moves` alberga un campo de`player`. Al mismo tiempo, tenemos "
+"el atributo `#[key]`, le informa a Dojo que este Model está indexado por el "
 "campo `player`. Si esto no le resulta familiar, aclararemos su importancia "
 "más adelante en este capítulo. Esencialmente, implica que puedes consultar "
-"este componente usando el campo `player`. Nuestro modelo `Moves` también "
+"este componente usando el campo `player`. Nuestro Model `Moves` también "
 "contiene los campos `remaining` y `last_direction`"
 
 #: src/cairo/hello-dojo.md:65
@@ -4364,8 +4364,8 @@ msgid ""
 "move respectively."
 msgstr ""
 "Como puede ver, un `System` es como un contrato de dojo (starknet). Importa "
-"los modelos que definimos anteriormente y expone dos funciones `spawn` y "
-"`move`. Estas funciones se llaman cuando un jugador aparece en el mundo y "
+"los Models que definimos anteriormente y expone dos funciones `spawn` y "
+"`move`. Estas funciones se llaman cuando un jugador aparece en el World y "
 "cuando se mueve, respectivamente."
 
 #: src/cairo/hello-dojo.md:161
@@ -4391,7 +4391,7 @@ msgid ""
 "Here we use `get!` [command](./commands.md) to retrieve the `Position` and "
 "`Moves` model for the `player` entity, which is the address of the caller."
 msgstr ""
-"Aquí usamos `get!` [comando](./commands.md) para recuperar el modelo "
+"Aquí usamos `get!` [comando](./commands.md) para recuperar el Model "
 "`Position` y `Moves` para la entidad `player`, que es la dirección de la "
 "persona que llama."
 
@@ -4444,7 +4444,7 @@ msgid ""
 "Here we use the `set!` [command](./commands.md) to set the `Moves` and "
 "`Position` models for the `player` entity."
 msgstr ""
-"Aquí usamos el [comando](./commands.md) `set!` para configurar los modelos "
+"Aquí usamos el [comando](./commands.md) `set!` para configurar los Models "
 "`Moves` y `Position` para la entidad `player`."
 
 #: src/cairo/hello-dojo.md:192
@@ -4644,7 +4644,7 @@ msgstr ""
 
 #: src/cairo/hello-dojo.md:262
 msgid "This establishes the world address for your project."
-msgstr "Esto establece la dirección del mundo de su proyecto."
+msgstr "Esto establece la dirección del World de su proyecto."
 
 #: src/cairo/hello-dojo.md:264
 msgid ""
@@ -4682,8 +4682,8 @@ msgid ""
 "can index the entire world. Open a new terminal and input this simple "
 "command:"
 msgstr ""
-"Una vez establecida su dirección del mundo local, profundicemos en la "
-"indexación. Puedes indexar el mundo entero. Abra una nueva terminal e "
+"Una vez establecida su dirección del World local, profundicemos en la "
+"indexación. Puedes indexar el World entero. Abra una nueva terminal e "
 "ingrese este simple comando:"
 
 #: src/cairo/hello-dojo.md:275
@@ -4772,9 +4772,9 @@ msgid ""
 "your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the "
 "following query:"
 msgstr ""
-"Puede observar que nuestros modelos `Moves` y `Position` se han registrado "
+"Puede observar que nuestros Models `Moves` y `Position` se han registrado "
 "correctamente.\n"
-"A continuación, usemos el IDE GraphiQL para recuperar datos del modelo "
+"A continuación, usemos el IDE GraphiQL para recuperar datos del Model "
 "`Moves`. En su navegador web, navegue hasta `http://0.0.0.0:8080/graphql` e "
 "ingrese la siguiente consulta:"
 
@@ -4941,7 +4941,7 @@ msgid ""
 "interact with."
 msgstr ""
 "Al ejecutar este comando, ha activado el sistema de generación, lo que "
-"resulta en la creación de una nueva entidad. Esta acción establece un mundo "
+"resulta en la creación de una nueva entidad. Esta acción establece un World "
 "local con el que puedes interactuar."
 
 #: src/cairo/hello-dojo.md:365
@@ -5050,9 +5050,9 @@ msgid ""
 "- Ran the spawn system locally\n"
 "- Interacted with GraphQL"
 msgstr ""
-"- Construyó un mundo en Dojo\n"
+"- Construyó un World en Dojo\n"
 "- Implementé el proyecto en Katana.\n"
-"- Indexado el mundo con Torii.\n"
+"- Indexado el World con Torii.\n"
 "- Ejecuté el sistema de generación localmente.\n"
 "- Interactuado con GraphQL"
 
@@ -5068,8 +5068,8 @@ msgid ""
 "craft next?"
 msgstr ""
 "Esta descripción general proporciona una visión rápida de principio a fin de "
-"Dojo. Sin embargo, ¡El potencial de estos mundos es enorme! Diseñado para "
-"gestionar cientos de sistemas y componentes, Dojo está equipado para una "
+"Dojo. Sin embargo, ¡El potencial de estos Worlds es enorme! Diseñado para "
+"gestionar cientos de Systems y componentes, Dojo está equipado para una "
 "creatividad expansiva. Entonces, ¿qué vas a crear a continuación?"
 
 #: src/cairo/entities.md:1
@@ -5081,7 +5081,7 @@ msgid ""
 "> Entities are the primary key value within the world, to which components "
 "can be attached."
 msgstr ""
-"> Las entidades son el valor clave principal dentro del mundo, al que se "
+"> Las entidades son el valor clave principal dentro del World, al que se "
 "pueden adjuntar componentes."
 
 #: src/cairo/entities.md:5
@@ -5091,8 +5091,8 @@ msgid ""
 "attached. To illustrate this concept, consider a simple example of a "
 "character in a game that has a `Moves` and a `Position` component."
 msgstr ""
-"Los diferentes sistemas ECS manejan entidades de diversas maneras. En Dojo, "
-"las entidades se tratan como un valor de clave principal dentro del mundo, "
+"Los diferentes Systems ECS manejan entidades de diversas maneras. En Dojo, "
+"las entidades se tratan como un valor de clave principal dentro del World, "
 "al que se pueden adjuntar componentes. Para ilustrar este concepto, "
 "considere un ejemplo simple de un personaje en un juego que tiene un "
 "componente `Moves` y `Position`."
@@ -5226,7 +5226,7 @@ msgid ""
 "> ECS Theory: Plenty has been written on ECS systems, to go deeper read [ECS-"
 "FAQ](https://github.com/SanderMertens/ecs-faq)"
 msgstr ""
-"> Teoría de ECS: Se ha escrito mucho sobre los sistemas ECS; para "
+"> Teoría de ECS: Se ha escrito mucho sobre los Systems ECS; para "
 "profundizar, lea [ECS-FAQ](https://github.com/SanderMertens/ecs-faq)"
 
 #: src/cairo/testing.md:1
@@ -5242,7 +5242,7 @@ msgid ""
 msgstr ""
 "Las pruebas son una parte crucial de cualquier proceso de desarrollo de "
 "software. Dojo proporciona un marco de prueba que le permite escribir "
-"pruebas para sus contratos inteligentes. Dado que Dojo usa un compilador "
+"pruebas para sus smart contract. Dado que Dojo usa un compilador "
 "personalizado, necesitas usar `sozo` para probar tus contratos."
 
 #: src/cairo/testing.md:5
@@ -5272,7 +5272,7 @@ msgid ""
 "It is best practise to include unit tests in the same file as the model/"
 "System you are writing."
 msgstr ""
-"Se recomienda incluir pruebas unitarias en el mismo archivo que el modelo/"
+"Se recomienda incluir pruebas unitarias en el mismo archivo que el Model/"
 "Sistema que está escribiendo."
 
 #: src/cairo/testing.md:18
@@ -5355,8 +5355,8 @@ msgid ""
 "`Position` model. It is good practise to test all functions of your models."
 msgstr ""
 "En esta prueba estamos probando las funciones `is_zero` y `is_equal` del "
-"modelo `Position`. Es una buena práctica probar todas las funciones de sus "
-"modelos."
+"Model `Position`. Es una buena práctica probar todas las funciones de sus "
+"Models."
 
 #: src/cairo/testing.md:52
 msgid "### Writing Integration Tests"
@@ -5369,7 +5369,7 @@ msgid ""
 "project root. Then create a file for each integration test you want to write."
 msgstr ""
 "Los tests de integración son tests e2e que prueban todo el sistema. Puede "
-"escribir pruebas de integración para su mundo creando un directorio `tests` "
+"escribir pruebas de integración para su World creando un directorio `tests` "
 "en la raíz de su proyecto. Luego cree un archivo para cada prueba de "
 "integración que desee escribir."
 
@@ -5531,9 +5531,9 @@ msgid ""
 "with the models and systems you pass in. It will also deploy the world and "
 "register the models and systems."
 msgstr ""
-"`spawn_test_world(models, systems)`: esta función creará un mundo de prueba "
-"con los modelos y sistemas que ingrese. También implementará el mundo y "
-"registrará los modelos y sistemas."
+"`spawn_test_world(models, systems)`: esta función creará un World de prueba "
+"con los Models y Systems que ingrese. También implementará el World y "
+"registrará los Models y Systems."
 
 #: src/cairo/modules.md:1
 msgid "## Dojo Modules"
@@ -5545,9 +5545,9 @@ msgid ""
 "architecture for Dojo. This allows us to create reusable modules that can be "
 "used in any Dojo world."
 msgstr ""
-"Con la estandarización de Sistemas y Componentes podemos crear una "
+"Con la estandarización de Systems y Componentes podemos crear una "
 "arquitectura de módulo para Dojo. Esto nos permite crear módulos "
-"reutilizables que se pueden usar en cualquier mundo Dojo."
+"reutilizables que se pueden usar en cualquier World Dojo."
 
 #: src/cairo/modules.md:5
 msgid "### Module Architecture"
@@ -5561,8 +5561,8 @@ msgid ""
 "has modules already defined for ERC20, ERC721, and ERC1155."
 msgstr ""
 "Piense en los módulos como ERC para Dojo. Son una forma estándar de crear y "
-"compartir funciones. Los módulos son una colección de sistemas y componentes "
-"que se pueden importar a un mundo Dojo. Dojo sigue los patrones de ERC y ya "
+"compartir funciones. Los módulos son una colección de Systems y componentes "
+"que se pueden importar a un World Dojo. Dojo sigue los patrones de ERC y ya "
 "tiene módulos definidos para ERC20, ERC721 y ERC1155."
 
 #: src/cairo/modules/erc20.md:1
@@ -5577,13 +5577,13 @@ msgid ""
 "within the Dojo environment."
 msgstr ""
 "El módulo ERC20 de Dojo es una implementación estándar del estándar de token "
-"ERC20, pero utiliza sistemas y componentes de Dojo. Esto nos permite "
+"ERC20, pero utiliza Systems y componentes de Dojo. Esto nos permite "
 "aprovechar las excelentes propiedades del estándar ERC20 y utilizarlo de "
 "forma nativa dentro del entorno Dojo."
 
 #: src/cairo/modules/erc20.md:5
 msgid "### Integration into Your World"
-msgstr "### Integración en Tu Mundo"
+msgstr "### Integración en Tu World"
 
 #: src/cairo/modules/erc20.md:7
 msgid ""
@@ -5591,9 +5591,9 @@ msgid ""
 "ERC20 Dojo contract. Subsequently, install the systems and components into "
 "your world."
 msgstr ""
-"Para integrar el módulo ERC20 en su mundo, primero debe implementar el "
-"contrato ERC20 Dojo. Posteriormente, instale los sistemas y componentes en "
-"su mundo."
+"Para integrar el módulo ERC20 en su World, primero debe implementar el "
+"contrato ERC20 Dojo. Posteriormente, instale los Systems y componentes en "
+"su World."
 
 #: src/client/overview.md:1
 msgid "# Overview"
@@ -5749,7 +5749,7 @@ msgid ""
 "compiled to wasm to be used in JS clients, or can used directly in Rust "
 "clients or other lower level languages with bindings."
 msgstr ""
-"El cliente Torii es un cliente Rust para interactuar con los mundos Dojo. Se "
+"El cliente Torii es un cliente Rust para interactuar con los Worlds Dojo. Se "
 "puede compilar en wasm para usarlo en clientes JS, o puede usarse "
 "directamente en clientes Rust u otros lenguajes de nivel inferior con "
 "enlaces."
@@ -5994,9 +5994,9 @@ msgstr ""
 "Dojo. Ayuda con todo, desde la preparación de un nuevo proyecto hasta la "
 "implementación e interacción con sus Dojo Worlds. Incluye una herramienta de "
 "planificación de migración, diseñada para agilizar la actualización y la "
-"implementación de AW. Proporciona una sólida interfaz de línea de comandos "
-"(CLI) que simplifica las tareas de gestión de mundos, permitiéndole "
-"centrarse en los aspectos creativos de la construcción de mundos. En el "
+"implementación de AWs. Proporciona una sólida interfaz de línea de comandos "
+"(CLI) que simplifica las tareas de gestión de Worlds, permitiéndole "
+"centrarse en los aspectos creativos de la construcción de Worlds. En el "
 "futuro, puede incluir una GUI."
 
 #: src/toolchain/sozo/overview.md:5
@@ -6010,7 +6010,7 @@ msgid ""
 "deploying new ones."
 msgstr ""
 "-  **CLI Binaria**: Sozo proporciona una CLI binaria intuitiva, lo que "
-"garantiza una fácil administración de tus mundos, ya sea que estés "
+"garantiza una fácil administración de tus Worlds, ya sea que estés "
 "actualizando los existentes o implementando otros nuevos."
 
 #: src/toolchain/sozo/overview.md:9 src/toolchain/katana/overview.md:10
@@ -6183,7 +6183,7 @@ msgid ""
 msgstr ""
 "`migrate` se utiliza para realizar el proceso de migración (implementación), "
 "declarando e implementando contratos según sea necesario para implementar o "
-"actualizar el mundo."
+"actualizar el World."
 
 #: src/toolchain/sozo/project-commands/migrate.md:5
 msgid ""
@@ -6194,12 +6194,12 @@ msgid ""
 "World, then, start constructing a migration strategy to determine, if any, "
 "which part of the local World needs to be pushed upstream."
 msgstr ""
-"Los cambios realizados en el mundo local después de la implementación "
+"Los cambios realizados en el World local después de la implementación "
 "inicial se pueden enviar fácilmente a la contraparte remota ejecutando `sozo "
 "migrate --world <WORLD_ADDRESS>` siendo `WORLD_ADDRESS` la dirección del "
-"mundo remoto. En segundo plano, `migrate` calculará las diferencias entre el "
-"mundo local y remoto, luego comenzará a construir una estrategia de "
-"migración para determinar, si corresponde, qué parte del mundo local "
+"World remoto. En segundo plano, `migrate` calculará las diferencias entre el "
+"World local y remoto, luego comenzará a construir una estrategia de "
+"migración para determinar, si corresponde, qué parte del World local "
 "necesita ser impulsada hacia arriba."
 
 #: src/toolchain/sozo/project-commands/migrate.md:7
@@ -6244,10 +6244,10 @@ msgid ""
 "initial migration of the World."
 msgstr ""
 "`--name` _NAME_\n"
-"&nbsp;&nbsp;&nbsp;&nbsp;Nombre del Mundo. Por el momento, el único uso de "
+"&nbsp;&nbsp;&nbsp;&nbsp;Nombre del World. Por el momento, el único uso de "
 "esta opción es como sal al implementar el contrato mundial para evitar "
 "conflictos de direcciones. Esta opción es **obligatoria** al realizar la "
-"migración inicial del mundo."
+"migración inicial del World."
 
 #: src/toolchain/sozo/project-commands/migrate.md:20
 #: src/toolchain/sozo/world-commands/execute.md:21
@@ -6266,7 +6266,7 @@ msgid ""
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_WORLD_ADDRESS`"
 msgstr ""
 "`--world` _WORLD_ADDRESS_\n"
-"&nbsp;&nbsp;&nbsp;&nbsp;La dirección del contrato del mundo.\n"
+"&nbsp;&nbsp;&nbsp;&nbsp;La dirección del contrato del World.\n"
 "&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_WORLD_ADDRESS`"
 
 #: src/toolchain/sozo/project-commands/migrate.md:26
@@ -6360,7 +6360,7 @@ msgstr "## EJEMPLOS"
 
 #: src/toolchain/sozo/project-commands/migrate.md:55
 msgid "1. Deploying your World for the first time to a local Katana node"
-msgstr "1. Implementar tu mundo por primera vez en un nodo Katana local"
+msgstr "1. Implementar tu World por primera vez en un nodo Katana local"
 
 #: src/toolchain/sozo/project-commands/migrate.md:57
 msgid ""
@@ -6374,7 +6374,7 @@ msgstr ""
 
 #: src/toolchain/sozo/project-commands/migrate.md:61
 msgid "2. Updating a remote World after making some changes"
-msgstr "2. Actualizar un mundo remoto después de realizar algunos cambios"
+msgstr "2. Actualizar un World remoto después de realizar algunos cambios"
 
 #: src/toolchain/sozo/project-commands/migrate.md:63
 msgid ""
@@ -6392,7 +6392,7 @@ msgstr "## sozo execute"
 
 #: src/toolchain/sozo/world-commands/execute.md:3
 msgid "`execute` is used to execute a World's system."
-msgstr "`execute` se utiliza para ejecutar el sistema de un mundo."
+msgstr "`execute` se utiliza para ejecutar el sistema de un World."
 
 #: src/toolchain/sozo/world-commands/execute.md:5
 msgid ""
@@ -6451,7 +6451,7 @@ msgstr "## sozo register"
 
 #: src/toolchain/sozo/world-commands/register.md:3
 msgid "`register` is used to register new systems and components."
-msgstr "`register` se utiliza para registrar nuevos sistemas y componentes."
+msgstr "`register` se utiliza para registrar nuevos Systems y componentes."
 
 #: src/toolchain/sozo/world-commands/register.md:5
 msgid ""
@@ -6510,7 +6510,7 @@ msgid ""
 "`system` is used to interact with a World's systems. It is useful for "
 "querying about a system's information."
 msgstr ""
-"`system` se utiliza para interactuar con los sistemas de un mundo. Es útil "
+"`system` se utiliza para interactuar con los Systems de un World. Es útil "
 "para consultar información sobre un sistema."
 
 #: src/toolchain/sozo/world-commands/system.md:7
@@ -6627,7 +6627,7 @@ msgid ""
 "`component` is used to interact with a World's components. It is useful for "
 "querying about a component's information, or a component value of an entity."
 msgstr ""
-"`component` se utiliza para interactuar con los componentes de un mundo. Es "
+"`component` se utiliza para interactuar con los componentes de un World. Es "
 "útil para consultar sobre la información de un componente o el valor de un "
 "componente de una entidad."
 
@@ -6735,7 +6735,7 @@ msgstr "## sozo events"
 
 #: src/toolchain/sozo/world-commands/events.md:3
 msgid "`events` is used to queries world events."
-msgstr "`eventos` se utiliza para consultar eventos de mundo."
+msgstr "`eventos` se utiliza para consultar eventos de World."
 
 #: src/toolchain/sozo/world-commands/events.md:5
 msgid ""
@@ -6753,7 +6753,7 @@ msgstr "## sozo auth"
 
 #: src/toolchain/sozo/world-commands/auth.md:3
 msgid "`auth` is used to manage world authorization."
-msgstr "`auth` se utiliza para gestionar la autorización del mundo."
+msgstr "`auth` se utiliza para gestionar la autorización del World."
 
 #: src/toolchain/sozo/world-commands/auth.md:5
 msgid ""
@@ -7695,7 +7695,7 @@ msgid ""
 "Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly "
 "fast and exceptionally scalable."
 msgstr ""
-"Torii es un indexador automático para mundos dojo. Construido en rust para "
+"Torii es un indexador automático para Worlds dojo. Construido en rust para "
 "ser increíblemente rápido y excepcionalmente escalable."
 
 #: src/toolchain/torii/overview.md:5
@@ -7707,7 +7707,7 @@ msgid ""
 "Torii indexes your dojo worlds and exposes a GraphQL API to query them. "
 "Simply run:"
 msgstr ""
-"Torii indexa los mundos de tu dojo y expone una API GraphQL para "
+"Torii indexa los Worlds de tu dojo y expone una API GraphQL para "
 "consultarlos. Simplemente ejecuta:"
 
 #: src/toolchain/torii/overview.md:9
@@ -7775,7 +7775,7 @@ msgstr "### Name"
 #: src/toolchain/torii/reference.md:5
 msgid "torii - An automatic indexer and networking layer for a world contract."
 msgstr ""
-"torii: - Un indexador automático y una capa de red para un contrato de mundo."
+"torii: - Un indexador automático y una capa de red para un contrato de World."
 
 #: src/toolchain/torii/reference.md:9
 msgid ""
@@ -7799,8 +7799,8 @@ msgstr ""
 "`torii` inicia el indexador y expone los puntos finales de la API GraphQL/"
 "gRPC. El indexador consulta el punto final Starknet RPC especificado en "
 "busca de bloques de transacciones y escucha las transacciones relacionadas "
-"con el contrato de mundo. Estas transacciones pueden incluir registros de "
-"componentes/sistemas, actualizaciones del estado de la entidad, llamadas al "
+"con el contrato de World. Estas transacciones pueden incluir registros de "
+"componentes/Systems, actualizaciones del estado de la entidad, llamadas al "
 "sistema y eventos. Luego, los datos analizados se almacenan en una base de "
 "datos SQLite local."
 
@@ -8015,8 +8015,8 @@ msgid ""
 "`class_hash` fields from `Position` model ."
 msgstr ""
 "En [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) obtuvimos algunos "
-"datos del modelo `Moves`. Esta vez recuperaremos solo los campos `id`, "
-"`name`, `class_hash` del modelo `Position`."
+"datos del Model `Moves`. Esta vez recuperaremos solo los campos `id`, "
+"`name`, `class_hash` del Model `Position`."
 
 #: src/toolchain/torii/graphql.md:31
 msgid ""
@@ -8083,7 +8083,7 @@ msgstr ""
 
 #: src/toolchain/torii/graphql.md:57
 msgid "Now lets retrieve more data from `Moves` model."
-msgstr "Ahora recuperemos más datos del modelo `Moves`."
+msgstr "Ahora recuperemos más datos del Model `Moves`."
 
 #: src/toolchain/torii/graphql.md:59
 msgid ""
@@ -8163,7 +8163,7 @@ msgid ""
 msgstr ""
 "Siéntase libre de jugar con la consulta eliminando cualquier campo del "
 "conjunto de selección y observe las respuestas enviadas por el servidor. ¡Es "
-"tu turno de crear cualquier tipo de consulta para entidades y modelos!"
+"tu turno de crear cualquier tipo de consulta para entidades y Models!"
 
 #: src/toolchain/torii/graphql.md:95
 msgid "### Subscription operations"
@@ -8228,7 +8228,7 @@ msgid ""
 "Graphql also supports subscription to a targeted entity or model, for this "
 "we have to pass its id as an argument"
 msgstr ""
-"Graphql también admite la suscripción a una entidad o modelo de destino, "
+"Graphql también admite la suscripción a una entidad o Model de destino, "
 "para ello tenemos que pasar su identificación como argumento."
 
 #: src/toolchain/torii/graphql.md:114
@@ -8244,7 +8244,7 @@ msgstr ""
 "`entityUpdated`, que debe notificar a los clientes cada vez que se actualiza "
 "una entidad con ID "
 "`0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20`. En la "
-"misma suscripción podemos obtener los valores del modelo (componentes) de la "
+"misma suscripción podemos obtener los valores del Model (componentes) de la "
 "entidad actualizada. Un cliente puede ejecutar una suscripción similar a "
 "esta:"
 
@@ -8397,7 +8397,7 @@ msgstr ""
 "Dojo está diseñado para un desarrollo rápido y cuenta con un entorno de "
 "desarrollo local ultrarrápido llamado [Katana](./toolchain/katana/overview."
 "md). Katana sirve como una cadena de bloques Starknet en el dispositivo, lo "
-"que le permite probar rigurosamente sus contratos inteligentes antes de "
+"que le permite probar rigurosamente sus smart contract antes de "
 "realizar la transición a la red de prueba remota."
 
 #: src/deployment/locally.md:5
@@ -8799,7 +8799,7 @@ msgid ""
 "follow this approach:"
 msgstr ""
 "Si bien hay muchas formas de diseñar un juego de ajedrez utilizando el "
-"modelo ECS, seguiremos este enfoque:"
+"Model ECS, seguiremos este enfoque:"
 
 #: src/tutorial/onchain-chess/0-setup.md:47
 msgid ""
@@ -8816,8 +8816,8 @@ msgid ""
 "with model syntax in Dojo engine, go back to this [chapter](../../cairo/"
 "models.md)."
 msgstr ""
-"Primero, agregue este modelo básico al archivo `models.cairo`. Si no está "
-"familiarizado con la sintaxis del modelo en el motor Dojo, vuelva a este "
+"Primero, agregue este Model básico al archivo `models.cairo`. Si no está "
+"familiarizado con la sintaxis del Model en el Dojo engine, vuelva a este "
 "[capítulo](../../cairo/models.md)."
 
 #: src/tutorial/onchain-chess/0-setup.md:51
@@ -8882,7 +8882,7 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:80
 msgid "## Basic systems"
-msgstr "## Sistemas básicos"
+msgstr "## Systems básicos"
 
 #: src/tutorial/onchain-chess/0-setup.md:82
 msgid ""
@@ -8930,8 +8930,8 @@ msgid ""
 "than implementing the game logic in systems, we are implementing it in a "
 "contract."
 msgstr ""
-"Cabe señalar que los sistemas son contratos de Cairo, por implicación, en "
-"lugar de implementar la lógica del juego en los sistemas, la estamos "
+"Cabe señalar que los Systems son contratos de Cairo, por implicación, en "
+"lugar de implementar la lógica del juego en los Systems, la estamos "
 "implementando en un contrato."
 
 #: src/tutorial/onchain-chess/0-setup.md:98
@@ -9074,14 +9074,14 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:157
 msgid "## Add more models"
-msgstr "## Agregar más modelos"
+msgstr "## Agregar más Models"
 
 #: src/tutorial/onchain-chess/0-setup.md:159
 msgid ""
 "Before you move on, add more models so we can use them in the next chapter "
 "when creating the action contract."
 msgstr ""
-"Antes de continuar, agregue más modelos para que podamos usarlos en el "
+"Antes de continuar, agregue más Models para que podamos usarlos en el "
 "próximo capítulo al crear el contrato de acción."
 
 #: src/tutorial/onchain-chess/0-setup.md:161
@@ -9108,7 +9108,7 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:170
 msgid "- `Game` model:"
-msgstr "- Modelo `Game`:"
+msgstr "- Model `Game`:"
 
 #: src/tutorial/onchain-chess/0-setup.md:171
 msgid ""
@@ -9128,7 +9128,7 @@ msgstr ""
 
 #: src/tutorial/onchain-chess/0-setup.md:178
 msgid "- `GameTurn` model:"
-msgstr "- Modelo `GameTurn`:"
+msgstr "- Model `GameTurn`:"
 
 #: src/tutorial/onchain-chess/0-setup.md:179
 msgid ""
@@ -9488,11 +9488,11 @@ msgid ""
 "interested in understanding and utilizing the latest Dojo engine features "
 "and capabilities. All help is welcome!"
 msgstr ""
-"A medida que el motor Dojo progresa y se desarrolla, es esencial que el "
+"A medida que el Dojo engine progresa y se desarrolla, es esencial que el "
 "libro Dojo siga el ritmo de estos avances. Actualizar y perfeccionar el "
 "libro garantiza que siga siendo un recurso relevante y valioso para aquellos "
 "interesados en comprender y utilizar las funciones y capacidades más "
-"recientes del motor Dojo. ¡Toda ayuda es bienvenida!"
+"recientes del Dojo engine. ¡Toda ayuda es bienvenida!"
 
 #: src/misc/contributors.md:5
 msgid "### The purpose of the book"
@@ -9525,7 +9525,7 @@ msgid ""
 msgstr ""
 "- Teoría del Framework\n"
 "- Primeros Pasos\n"
-"- Construyendo un Mundo"
+"- Construyendo un World"
 
 #: src/misc/contributors.md:15
 msgid "### Code of Conduct"
