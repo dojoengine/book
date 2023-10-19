@@ -46,7 +46,7 @@ msgstr "Manual de Instalación"
 
 #: src/SUMMARY.md:13
 msgid "Development Setup"
-msgstr "Configuración del Desarrollo"
+msgstr "Configuración de Desarrollo"
 
 #: src/SUMMARY.md:14
 msgid "Contributing"
