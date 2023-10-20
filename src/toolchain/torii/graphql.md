@@ -24,6 +24,14 @@ It starts GraphQL server at `http://0.0.0.0:8080/graphql`
 
 After the torii server starts on your local machine, you're ready to make query and subscription operations.
 
+### Schema and query defintions
+
+Torii generates both the schema and queries at runtime specific to your world. There are mainly two groups of queries, predefined queries and dynamically generated custom queries.
+
+Predefined queries like `entities` provide a generic entry point to the entities data of the world. Custom queries on the other hand are built according to the models of the world. Each model has a correpsonding `{name}Models` query and retrieves the associated model data.
+
+The benefit of custom queries becomes apparent when filtering and sorting is needed. They allow much more finer control of the returned dataset.
+
 ### Query operation
 
 In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched some data from the `Moves` model. This time let's fetch only `id`, `name`, `class_hash` fields from `Position` model .
@@ -91,6 +99,79 @@ After you run the query, you will receive an output like this:
 ```
 
 Feel free to play around with the query by removing any fields from the selection set and observe the responses sent by the server. It is your turn to create any kind of query for entities and models!
+
+#### Pagination
+
+As the entities in your world grows, fetching all of that data at once can become inefficient and slow.
+
+Torii provides two methods to address this - cursor or offset/limit based pagination. To keep the return type consistent, both methods will return a [`Connection`](https://relay.dev/graphql/connections.htm#sec-Connection-Types) type.
+
+You can read more about graphql pagination [here](https://graphql.org/learn/pagination).
+
+##### Cursor
+
+Cursor based pagination is the most efficient, allowing us to query a subset or slice of the entire set of data. Both forward and backward pagination are supported using a combination of `first, last, before, after` input arguments.
+
+Forward pagination uses `first`/`after` and backward pagination uses `last`/`before`. `first`/`last` are integers representing the number of items to return. `after`/`before` are the cursors to paginate from.
+
+Query for first page of 2 entities
+
+```graphql
+query {
+  entities (first: 2) {
+    total_count
+    edges {
+      cursor
+      node {
+        ...
+      }
+    }
+  }
+}
+```
+
+Result shows there are 5 entities and returns the first two
+
+```json
+{
+  "entities" {
+    "total_count": 5,
+    "edges" [
+      {
+        "cursor": "Y3Vyc29yX29uZQ==",
+        "node" : { }
+      },
+      {
+        "cursor": "Y3Vyc29yX3R3bw==",
+        "node" : { }
+      },
+    ]
+  }
+}
+```
+
+Query 3 entities after the second node (last 3)
+
+```graphql
+query {
+  entities (first: 3, after: "Y3Vyc29yX3R3bw==") {
+    ...
+  }
+}
+```
+
+##### Offset/limit
+
+Offset/limit based pagination can be more intuitive and easier to use. However, for very, very large datasets they can be inefficient.
+
+```graphql
+# essentially the same as the last query in cursor example
+query {
+  entities (offset: 2, limit 3) {
+    ...
+  }
+}
+```
 
 ### Subscription operations
 
