@@ -200,7 +200,7 @@ So the Human will have a `Potions`, `Health` and `Position` model, and the Gobli
 So then a system would look like this:
 
 ```rust,ignore
-#[system]
+#[dojo::contract]
 mod spawnHuman {
     use array::ArrayTrait;
     use box::BoxTrait;
@@ -215,54 +215,59 @@ mod spawnHuman {
     // we can set the counter value as a const, then query it easily! This pattern is useful for settins.
     const COUNTER_ID: u32 = 9999999999999;
 
-    fn execute(ctx: Context, entity_id: u32) {
+    // impl: implement functions specified in trait
+    #[external(v0)]
+    impl GoblinActionsImpl of IGoblinActions<ContractState> {
+        fn goblin_actions(self: @ContractState, entity_id: u32) {
+            let world = self.world_dispatcher.read();
 
-        let counter = get!(world, COUNTER_ID, (Counter));
+            let counter = get!(world, COUNTER_ID, (Counter));
 
-        let human_count = counter.human_count + 1;
-        let goblin_count = counter.goblin_count + 1;
+            let human_count = counter.human_count + 1;
+            let goblin_count = counter.goblin_count + 1;
 
-        // spawn a human
-        set!(
-            world,
-            (
-                Health {
-                    entity_id: human_count, health: 100
-                    }, 
-                Position {
-                    entity_id: human_count, x: position.x + 10, y: position.y + 10,
-                    }, 
-                Potions {
-                    entity_id: human_count, quantity: 10
-                    
-                },
-            )
-        );
-
-        // spawn a goblin
-        set!(
-            world,
-            (
-                Health {
-                    entity_id: goblin_count, health: 100
-                    }, 
-                Position {
-                    entity_id: goblin_count, x: position.x + 10, y: position.y + 10,
+            // spawn a human
+            set!(
+                world,
+                (
+                    Health {
+                        entity_id: human_count, health: 100
+                        }, 
+                    Position {
+                        entity_id: human_count, x: position.x + 10, y: position.y + 10,
+                        }, 
+                    Potions {
+                        entity_id: human_count, quantity: 10
+                        
                     },
-            )
-        );
+                )
+            );
 
-        // increment the counter
-        set!(
-            world,
-            (
-                Counter {
-                    counter: COUNTER_ID, human_count: human_count, goblin_count: goblin_count
-                },
-            )
-        );
-        
-        return ();
+            // spawn a goblin
+            set!(
+                world,
+                (
+                    Health {
+                        entity_id: goblin_count, health: 100
+                        }, 
+                    Position {
+                        entity_id: goblin_count, x: position.x + 10, y: position.y + 10,
+                        },
+                )
+            );
+
+            // increment the counter
+            set!(
+                world,
+                (
+                    Counter {
+                        counter: COUNTER_ID, human_count: human_count, goblin_count: goblin_count
+                    },
+                )
+            );
+            
+            return ();
+        }
     }
 }
 ```
