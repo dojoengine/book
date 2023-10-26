@@ -34,7 +34,7 @@ As we're crafting an ECS, we'll adhere to the specific terminology associated wi
 Open the `src/models.cairo` file to continue.
 
 ```rust,ignore
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Model, Drop, Serde)]
 struct Moves {
     #[key]
     player: ContractAddress,
@@ -42,13 +42,13 @@ struct Moves {
     last_direction: Direction
 }
 
-#[derive(Copy, Drop, Serde, Print, Introspect)]
+#[derive(Copy, Drop, Serde, Introspect)]
 struct Vec2 {
     x: u32,
     y: u32
 }
 
-#[derive(Model, Copy, Drop, Print, Serde)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Position {
     #[key]
     player: ContractAddress,
@@ -58,7 +58,7 @@ struct Position {
 ...rest of code
 ```
 
-Notice the `#[derive(Model, Copy, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
+Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
 Our `Moves` model houses a `player` field. At the same tine, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
 
@@ -261,11 +261,11 @@ Your 🌎 is now deployed at `0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f840
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze. (Read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed!. In this case version `v0.3.0`
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze. (Read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed!. In this case version `v0.3.1`
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", rev = "v0.3.0" }
+dojo = { git = "https://github.com/dojoengine/dojo", rev = "v0.3.1" }
 ```
 
 ### Indexing
