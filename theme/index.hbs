@@ -140,6 +140,23 @@
                     <h1 class="menu-title">{{ book_title }}</h1>
 
                     <div class="right-buttons">
+                        <button id="version-toggle" class="icon-button" type="button" title="Change version"
+                            aria-label="Change version" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="version-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="version-list" class="theme-popup" aria-label="versions" role="menu">
+                            <li role="none">
+                                <button role="menuitem" class="theme">
+                                    <a id="0.3.0">0.3.0</a>
+                                </button>
+                            </li>
+                            <li role="none">
+                                <button role="menuitem" class="theme">
+                                    <a id="0.2.0">0.2.0</a>
+                                </button>
+                            </li>
+                        </ul>
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
                                 aria-haspopup="true" aria-expanded="false"
@@ -166,27 +183,37 @@
                         <script>
                             let langToggle = document.getElementById("language-toggle");
                             let langList = document.getElementById("language-list");
-                            langToggle.addEventListener("click", (event) => {
+                            let versionToggle = document.getElementById("version-toggle");
+                            let versionList = document.getElementById("version-list");
+
+                            langToggle.addEventListener("click", () => {
                                 langList.style.display = langList.style.display == "block" ? "none" : "block";
                             });
+
+                            versionToggle.addEventListener("click", () => {
+                                versionList.style.display = versionList.style.display == "block" ? "none" : "block";
+                            });
+
                             let selectedLang = document.getElementById("{{ language }}");
                             selectedLang.parentNode.classList.add("theme-selected");
-                            // The path to the root, taking the current
-                            // language into account.
-                            {{#if (eq language "en")}}
-                            let full_path_to_root = "{{ path_to_root }}";
-                            {{else}}
-                            let full_path_to_root = "{{ path_to_root }}../";
-                            {{/if}}
-                            // The page path (mdbook only gives us
-                            // access to the path to the Markdown file).
+
+                            // Define the base path to the root, taking the current language into account
+                            let basePathToRoot = "{{ path_to_root }}";
+                            if (basePathToRoot.endsWith('/')) {
+                                basePathToRoot = basePathToRoot.slice(0, -1); // Remove trailing slash
+                            }
+
+                            // Define the page path (mdBook provides the path to the Markdown file)
                             let path = "{{ path }}".replace(/\.md$/, ".html");
+                            
+                            // Update language links
                             for (let lang of langList.querySelectorAll("a")) {
-                                if (lang.id == "en") {
-                                    lang.href = `${full_path_to_root}${path}`;
-                                } else {
-                                    lang.href = `${full_path_to_root}${lang.id}/${path}`;
-                                }
+                                lang.href = `${basePathToRoot}/${lang.id === 'en' ? '' : lang.id + '/'}${path}`;
+                            }
+
+                            // Update version links
+                            for (let version of versionList.querySelectorAll("a")) {
+                                version.href = `${basePathToRoot}/${version.id}/${path}`;
                             }
                         </script>
 

@@ -43,6 +43,15 @@ jobs:
         run: |
           mdbook build -d book
 
+      - name: Build all versions
+        run: |
+          for version in $(cat ./VERSIONS); do
+              echo "::group::Building $version version"
+              cd ./$versions
+              mdbook build -d ../book/$version
+              echo "::endgroup::"
+          done
+
       - name: Build all translations
         run: |
           for po_lang in $(cat ./LANGUAGES); do
