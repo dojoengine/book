@@ -7,7 +7,7 @@ Performing a system execution requires sending a transaction, therefore, `execut
 ### USAGE
 
 ```sh
-sozo execute <SYSTEM> [OPTIONS]
+sozo execute <CONTRACT> <ENTRYPOINT>
 ```
 
 ### OPTIONS
@@ -43,5 +43,5 @@ sozo execute <SYSTEM> [OPTIONS]
 1. Executing the _position_ system which takes two values (_x_: 0x77 and _y_: 0x44)
 
 ```sh
-sozo execute position --calldata 0x77,0x44
+sozo execute moving_contract position --calldata 0x77,0x44
 ```
