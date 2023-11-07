@@ -1,11 +1,16 @@
 ## Katana
 
-`katana` is a _blazingly fast_ local Starknet node, designed to support local development with Dojo.
+Katana is a _blazingly fast_ sequencer, designed to support both local development as well as production deployments.
+
+In development mode, Katana provides the tool necessary for rapid iteration, including custom development RPCs for manipulating the execution context.
+
+In produciton mode, Katana provides a high performance sequencer optimized for gaming workloads, with support for settlment and cross layer communication.
 
 ### Features
 
--   [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) support
--   Custom methods for manipulating the blockchain states
+- [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) support
+- Cross layer communication (L1 <> L2, LN <> LN+1)
+- Custom methods for manipulating the blockchain states
 
 ## Installation
 
@@ -56,6 +61,8 @@ ACCOUNTS SEED
 
 
 ```
+
+To enable development features, run using the `--dev` flag.
 
 > 📚 **Reference**
 >
