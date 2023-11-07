@@ -1,15 +1,16 @@
 ## Torii - Networking & Indexing
 
-Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly fast and exceptionally scalable.
+Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly fast and exceptionally scalable. Torii provides a fully typed, dynamically generated GraphqQL interface and a high performance gRPC api for binding clients to the world state.
 
-### Dojo indexer
+### Usage
 
-Torii indexes your dojo worlds and exposes a GraphQL API to query them. Simply run:
+Torii leverages world introspection to bootstrap directly from an onchain deployment. Simply run:
 
 ```sh
-torii
+torii --world <World Address>
 ```
-and you'll have a GraphQL API running on `http://localhost:8080`!
+
+You'll have a GraphQL API running at `http://localhost:8080/graphql` and a gRPC api at `http://localhost:8080/grpc`
 
 ## Installation
 
