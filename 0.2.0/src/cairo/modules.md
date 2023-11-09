@@ -1,6 +1,6 @@
 ## Dojo Modules
 
-With standardization of Systems and Components we can create a module architecture for Dojo. This allows us to create reusable modules that can be used in any Dojo world.
+With the standardization of Systems and Components we can create a module architecture for Dojo. This allows us to create reusable modules that can be used in any Dojo world.
 
 ### Module Architecture
 
