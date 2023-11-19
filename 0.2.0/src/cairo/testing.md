@@ -46,7 +46,7 @@ mod tests {
 
 ```
 
-In this test we are testing the `is_zero` and `is_equal` functions of the `Position` component. It is good practise to test all functions of your components.
+In this test we are testing the `is_zero` and `is_equal` functions of the `Position` component. It is good practice to test all functions of your components.
 
 
 ### Writing Integration Tests

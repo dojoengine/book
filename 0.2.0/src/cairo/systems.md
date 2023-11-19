@@ -91,6 +91,6 @@ Systems must be given permission to write to components. By default they have no
 sozo auth writer Moves Spawn 
 ```
 
-Here we have authorised the `Spawn` system to write to the `Moves` component. 
+Here we have authorized the `Spawn` system to write to the `Moves` component. 
 
 Read more in the [sozo](../toolchain/sozo/overview.md) docs.

@@ -140,7 +140,7 @@ Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position
 We covered a lot here in a short time. Let's recap:
 
 -   Explained the anatomy of a Dojo project
--   Explained the importace of the `#[derive(Component)]` and `#[system]` attribute
+-   Explained the importance of the `#[derive(Component)]` and `#[system]` attribute
 -   Explained the `execute` function
 -   Explained the `Context` struct
 -   Touched on the `get!` and `set!` commands
@@ -148,7 +148,7 @@ We covered a lot here in a short time. Let's recap:
 
 ### Run it locally!
 
-Now that we have some theory out of the way, lets build the Dojo project!
+Now that we have some theory out of the way, let's build the Dojo project!
 
 ```bash
 sozo build
@@ -162,7 +162,7 @@ Now lets deploy it to [Katana](../toolchain/katana/overview.md)! First we need t
 katana --disable-fee
 ```
 
-Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now lets deploy!
+Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now let's deploy!
 
 ```bash
 sozo migrate --name test
