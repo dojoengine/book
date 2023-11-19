@@ -261,16 +261,16 @@ Your 🌎 is now deployed at `0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f840
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze. (Read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed!. In this case version `v0.3.1`
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze. (Read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed!. In this case version `0.3.10`
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", rev = "v0.3.1" }
+dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.10" }
 ```
 
 ### Indexing
 
-With your local world address established, let's delve into indexing. You can index the entire world. Open a new terminal and input this simple command:
+With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your world address from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
 
 ```bash
 torii --world 0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f84025e83a99a922a0c

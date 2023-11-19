@@ -1,6 +1,6 @@
 # Provable games
 
-Provable games demand [zero-knowledge](https://ethereum.org/en/zero-knowledge-proofs/) properties for efficient scaling and verification of computations. [Cairo](https://book.starknet.io/chapter_1/what_is_cairo.html) addresses this need by providing a generalized language, eliminating the complexity of creating circuits to incorporate [SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/). 
+Provable games demand [zero-knowledge](https://ethereum.org/en/zero-knowledge-proofs/) properties for efficient scaling and verification of computations. [Cairo](https://book.starknet.io/ch01-00-getting-started.html) addresses this need by providing a generalized language, eliminating the complexity of creating circuits to incorporate [SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/). 
 
 **You can simply program in Cairo and your applications become automatically provable**. 
 
@@ -19,7 +19,7 @@ A key feature of the Dojo framework is its use of [commands](../cairo/commands.m
 Developers can write commands freely within Systems, and the Cairo compiler takes care of inlining the appropriate functions. 
 
 #### Essential Reading
-- [Cairo book](https://cairo-book.github.io/)
+- [Cairo book](https://github.com/cairo-book/cairo-book)
 - [Awesome Cairo](https://github.com/auditless/awesome-cairo)
 - [Starknet Book](https://book.starknet.io/)
 
