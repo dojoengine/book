@@ -27,8 +27,10 @@ cargo install --path ./crates/katana --locked --force
 ### Usage
 
 ```console
-$ katana
+katana
+```
 
+```
 
 
 ██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗
@@ -57,7 +59,7 @@ ACCOUNTS SEED
 0
 
 
-🚀 JSON-RPC server started: http://127.0.0.1:5050
+🚀 JSON-RPC server started: http://0.0.0.0:5050
 
 
 ```

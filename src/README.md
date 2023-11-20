@@ -12,7 +12,7 @@ This book is dedicated to familiarizing you with the Dojo engine and the potenti
 
 - [Quickstart](./getting-started/quick-start.md)
 - [What is Dojo? ](./theory/what-is-dojo.md)
-- [Explore the Architecture](./cairo/hello-dojo.md)
+- [Explore the Architecture](./cairo/overview.md)
 
 
 ### Explainer

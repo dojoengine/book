@@ -20,30 +20,25 @@ Lets show a `model` test example from the [dojo-starter](https://github.com/dojo
 `models.cairo`
 ```rust,ignore
 
-...rest of code
+...//rest of code
 
 #[cfg(test)]
 mod tests {
-    use debug::PrintTrait;
-    use super::{Position, PositionTrait};
+    use super::{Position, Vec2, Vec2Trait};
 
     #[test]
     #[available_gas(100000)]
-    fn test_position_is_zero() {
-        let player = starknet::contract_address_const::<0x0>();
-        assert(PositionTrait::is_zero(Position { player, x: 0, y: 0 }), 'not zero');
+    fn test_vec_is_zero() {
+        assert(Vec2Trait::is_zero(Vec2 { x: 0, y: 0 }), 'not zero');
     }
 
     #[test]
     #[available_gas(100000)]
-    fn test_position_is_equal() {
-        let player = starknet::contract_address_const::<0x0>();
-        let position = Position { player, x: 420, y: 0 };
-        position.print();
-        assert(PositionTrait::is_equal(position, Position { player, x: 420, y: 0 }), 'not equal');
+    fn test_vec_is_equal() {
+        let position = Vec2 { x: 420, y: 0 };
+        assert(position.is_equal(Vec2 { x: 420, y: 0 }), 'not equal');
     }
 }
-
 ```
 
 In this test we are testing the `is_zero` and `is_equal` functions of the `Position` model. It is good practise to test all functions of your models.
@@ -64,21 +59,11 @@ mod tests {
     use dojo_examples::models::{position, moves};
     use dojo_examples::models::{Position, Moves, Direction};
     
-    use super::{
-        IPlayerActionsDispatcher, IPlayerActionsDispatcherTrait,
-        player_actions_external as player_actions
-    };
-
-    //OFFSET is defined in constants.cairo
-    use dojo_examples::constants::OFFSET;
-
-    //{Event and Moved are defined in events.cairo}
-    #[event]
-    use dojo_examples::events::{Event, Moved};
+    use super::{actions, IActionsDispatcher, IActionsDispatcherTrait};
 
     // helper setup function
     // reusable function for tests
-    fn setup_world() -> IPlayerActionsDispatcher {
+    fn setup_world() -> IActionsDispatcher {
         // components
         let mut models = array![position::TEST_CLASS_HASH, moves::TEST_CLASS_HASH];
 
@@ -87,10 +72,10 @@ mod tests {
         
         // deploy systems contract
         let contract_address = world
-            .deploy_contract('salt', player_actions::TEST_CLASS_HASH.try_into().unwrap());
-        let player_actions_system = IPlayerActionsDispatcher { contract_address };
+            .deploy_contract('salt', actions::TEST_CLASS_HASH.try_into().unwrap());
+        let actions_system = IActionsDispatcher { contract_address };
 
-        player_actions_system
+        actions_system
     }
 
 
@@ -100,24 +85,28 @@ mod tests {
         // caller
         let caller = starknet::contract_address_const::<0x0>();
 
-        let player_actions_system = setup_world();
+        let actions_system = setup_world();
         
          // System calls
-        player_actions_system.spawn();
-        player_actions_system.move(Direction::Right(()));
+        actions_system.spawn();
+        actions_system.move(Direction::Right(()));
 
         // check moves
         let moves = get!(world, caller, (Moves));
         assert(moves.remaining == 99, 'moves is wrong');
 
-        // check position
-        let new_position = get!(world, caller, (Position));
-        assert(new_position.x == (OFFSET + 1).try_into().unwrap(), 'position x is wrong');
-        assert(new_position.y == OFFSET.try_into().unwrap(), 'position y is wrong');
+        // get new_position
+        let new_position = get!(world, caller, Position);
+
+        // check new position x
+        assert(new_position.vec.x == 11, 'position x is wrong');
+
+        // check new position y
+        assert(new_position.vec.y == 10, 'position y is wrong');
     }
 }
 ```
 
 #### Useful Dojo Test Functions
 
-`spawn_test_world(models, systems)` - This function will create a test world with the models and systems you pass in. It will also deploy the world and register the models and systems.
+`spawn_test_world(models)` - This function will create a test world with the models and systems you pass in. It will also deploy the world and register the models and systems.
