@@ -4,7 +4,9 @@ Welcome to this tutorial where we'll guide you through deploying a project using
 
 ---
 
-First, let's create a new folder and initialize it with sozo.
+Before we start, make sure you are using the latest dojo version. Run `dojoup` to have the latest version installed.
+
+Now, let's create a new folder and initialize it with sozo.
 
 ```sh
 mkdir dojo-starter && cd dojo-starter
@@ -56,7 +58,7 @@ sozo build
 Now, let's migrate the project to our new katana slot:
 
 ```sh
-sozo migrate --name YOUR_PROJECT_NAME --rpc-url YOUR_NEW_RPC_URL
+sozo migrate --name YOUR_PROJECT_NAME
 ```
 
 If the migrations have been successful, you will receive the `WORLD_ADDRESS`, which then you can use to interact with your world.
