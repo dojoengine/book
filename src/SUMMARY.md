@@ -68,6 +68,8 @@
 - [Torii](./toolchain/torii/overview.md)
   - [Reference](./toolchain/torii/reference.md)
   - [Graphql](./toolchain/torii/graphql.md)
+- [Slot](./toolchain/slot/overview.md)
+  - [Referrence](./toolchain/slot/reference.md)
 
 # Deploying
 
