@@ -4,11 +4,13 @@ Slot is a toolchain developed by [Cartrige.gg](https://github.com/cartridge-gg/s
 
 ## Installation
 
-Install `slotup` to manage slot installations and follow the outputted directions.
+Run the following command to install slot:
 
 ```sh
 curl -L https://slot.cartridge.sh | bash
 ```
+
+Once finished, run `slotup` to manage slot installations and follow the outputted directions.
 
 ## Deploy using Slot
 
