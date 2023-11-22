@@ -68,6 +68,8 @@
 - [Torii](./toolchain/torii/overview.md)
   - [Reference](./toolchain/torii/reference.md)
   - [Graphql](./toolchain/torii/graphql.md)
+- [Slot](./toolchain/slot/overview.md)
+  - [Referrence](./toolchain/slot/reference.md)
 
 # Deploying
 
@@ -82,6 +84,7 @@
   - [2. Move](./tutorial/onchain-chess/2-legal.md)
   - [3. Check Legal Move](./tutorial/onchain-chess/3-test.md)
   - [4. Test Chess](./tutorial/onchain-chess/4-utils.md)
+- [Deploy using Slot](./tutorial/deploy-using-slot/main.md)
 
 ---
 
