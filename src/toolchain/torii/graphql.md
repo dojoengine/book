@@ -8,7 +8,7 @@ GraphQL is the rising star of backend technologies. It replaces REST as an API d
 
 #### GraphQL Playground
 
-GraphQL Playground is a `GraphQL IDE`` that allows you to interactively explore the functionality of a GraphQL API by sending queries and mutations to it. It’s somewhat similar to Postman which offers comparable functionality for REST APIs.
+GraphQL Playground is a `GraphQL IDE` that allows you to interactively explore the functionality of a GraphQL API by sending queries and mutations to it. It’s somewhat similar to Postman which offers comparable functionality for REST APIs.
 
 ### USAGE
 
@@ -28,7 +28,7 @@ After the torii server starts on your local machine, you're ready to make query 
 
 Torii generates both the schema and queries at runtime specific to your world. There are mainly two groups of queries, predefined queries and dynamically generated custom queries.
 
-Predefined queries like `entities` provide a generic entry point to the entities data of the world. Custom queries on the other hand are built according to the models of the world. Each model has a correpsonding `{name}Models` query and retrieves the associated model data.
+Predefined queries like `entities` provide a generic entry point to the entities data of the world. Custom queries on the other hand are built according to the models of the world. Each model has a correpsonding `{name}Models` query and retrieves the associated model data. For example: `positionModels`.
 
 The benefit of custom queries becomes apparent when filtering and sorting is needed. They allow much more finer control of the returned dataset.
 
@@ -98,7 +98,99 @@ After you run the query, you will receive an output like this:
 }
 ```
 
-Feel free to play around with the query by removing any fields from the selection set and observe the responses sent by the server. It is your turn to create any kind of query for entities and models!
+#### Transactions
+
+GraphQL additionally offers an API to fetch transactions emitted from your `world`. Presently, you can retrieve `transaction data` with the potential for future support of `transaction receipt`. Current API includes pagination support, although filtering is not yet supported. Let's explore an example.
+
+```grapql
+query{
+  transactions{
+    edges{
+      node{
+        id
+        transaction_hash
+        sender_address
+        calldata
+      }
+    }
+    total_count
+  }
+}
+```
+If you execute this query after you applied `sozo migrate` in your [`hello-dojo`](../../cairo/hello-dojo.md) example. You will get an output similar to this.
+
+```json
+{
+  "data": {
+    "transactions": {
+      "edges": [
+        {
+          "node": {
+            "id": "0x000000000000000000000000000000000000000000000000000000000000000a:0x0000",
+            "transaction_hash": "0x2da3d65e223362c72906f97663a4e7dc81ab0bbd04bbde5532a230c1e97d93e",
+            "sender_address": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "calldata": [
+              "0x1",
+              "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
+              "0x2730079d734ee55315f4f141eaed376bddd8c2133523d223a344c5604e0f7f8",
+              "0x0",
+              "0x2",
+              "0x2",
+              "0x35ec9fd22092dc0c8fc9341e94d5f361924d921c128fa46a0648f2dac519ce4",
+              "0x2ffecbe8de6c7c10c785a6eb964ee6489f8dcf139000adbe2c0f12d249be7d8"
+            ]
+          }
+        },
+        {
+          "node": {
+            "id": "0x0000000000000000000000000000000000000000000000000000000000000008:0x0000",
+            "transaction_hash": "0x2aa02de0e3fa582b3cb6cf9e4371051f44ae2e0d6c94f5c936338ffc8c2ac12",
+            "sender_address": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "calldata": [
+              "0x2",
+              "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
+              "0x1e7875674bcb09daaf984cbf77264ac98120cb39e6d17522520defcdc347476",
+              "0x0",
+              "0x1",
+              "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
+              "0x1e7875674bcb09daaf984cbf77264ac98120cb39e6d17522520defcdc347476",
+              "0x1",
+              "0x1",
+              "0x2",
+              "0x2e5174b54aef0b99d4685827ffa51488447e1f5607908293d5c715d6bd22433",
+              "0x6a11b5b3003a3aa0ae7f8f443e48314cc0bc51eaea7c3ed1c19beb909f5dda3"
+            ]
+          }
+        },
+        {
+          "node": {
+            "id": "0x0000000000000000000000000000000000000000000000000000000000000005:0x0000",
+            "transaction_hash": "0x1f03fa7dc5a673f96d53b728785a98d6ff089c182a7bb32735b150e91817e5b",
+            "sender_address": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "calldata": [
+              "0x1",
+              "0x41a78e741e5af2fec34b695679bc6891742439f7afb8484ecd7766661ad02bf",
+              "0x1987cbd17808b9a23693d4de7e246a443cfe37e6e7fbaeabd7d7e6532b07c3d",
+              "0x0",
+              "0x6",
+              "0x6",
+              "0xb3e374b8087dca92601afbb9881fed855ac0d568e3bf878a876fca5ffcb479",
+              "0x41d7f42bf7a362f0420aaae66d7a91df981100a039ac116a1d9cb632c74ad27",
+              "0x0",
+              "0x2",
+              "0x59f31686991d7cac25a7d4844225b9647c89e3e1e2d03460dbc61e3fbfafc59",
+              "0x77638e9a645209ac1e32e143bfdbfe9caf723c4f7645fcf465c38967545ea2f"
+            ]
+          }
+        }
+      ],
+      "total_count": 3
+    }
+  }
+}
+```
+
+Now feel free to play around with the query by removing any fields from the selection set and observe the responses sent by the server. It is your turn to create any kind of query for entities and models!
 
 #### Pagination
 
@@ -250,6 +342,66 @@ According to your input, you will receive an output like this:
           }
         }
       ]
+    }
+  }
+}
+```
+
+#### Susbcription to events
+
+A valuable approach for harnessing the power of GraphQL is by actively monitoring the events emitted throughout your game. This allows you to extract essential information such as key values, data, and transaction hashes. These events are customizable and can be filtered based on keys, much like `entities query`, and they seamlessly support pagination. In the subsequent example, we will demonstrate how to listen for any event emitted within your program.
+
+```graphql
+subscription{
+  eventEmitted{
+    id
+    keys
+    data
+    transaction_hash
+  }
+}
+```
+If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT_ADDRESS> spawn` in your [`hello-dojo`](../../cairo/hello-dojo.md) example. You will get an output similar to this.
+
+```json
+{
+  "data": {
+    "eventEmitted": {
+      "id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0000",
+      "keys": [
+        "0x1a2f334228cee715f1f0f54053bb6b5eac54fa336e0bc1aacf7516decb0471d"
+      ],
+      "data": [
+        "0x4d6f766573",
+        "0x1",
+        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+        "0x0",
+        "0x2",
+        "0x64",
+        "0x0"
+      ],
+      "transaction_hash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
+    }
+  }
+}
+-----------------------------------------------------------------------------------------------
+{
+  "data": {
+    "eventEmitted": {
+      "id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0001",
+      "keys": [
+        "0x1a2f334228cee715f1f0f54053bb6b5eac54fa336e0bc1aacf7516decb0471d"
+      ],
+      "data": [
+        "0x506f736974696f6e",
+        "0x1",
+        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+        "0x0",
+        "0x2",
+        "0xa",
+        "0xa"
+      ],
+      "transaction_hash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
     }
   }
 }
