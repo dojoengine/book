@@ -53,6 +53,8 @@
 - [Dojoup](./toolchain/dojoup.md)
 - [Sozo](./toolchain/sozo/overview.md)
   - [Reference](./toolchain/sozo/reference.md)
+    - [profile](./toolchain/sozo/common-options/profile.md)
+    - [offline](./toolchain/sozo/common-options/offline.md)
     - [init](./toolchain/sozo/project-commands/init.md)
     - [build](./toolchain/sozo/project-commands/build.md)
     - [test](./toolchain/sozo/project-commands/test.md)
@@ -69,7 +71,8 @@
   - [Reference](./toolchain/torii/reference.md)
   - [Graphql](./toolchain/torii/graphql.md)
 - [Slot](./toolchain/slot/overview.md)
-  - [Referrence](./toolchain/slot/reference.md)
+  - [Reference](./toolchain/slot/reference.md)
+    - [Deployments](./toolchain/slot/deployments-commands/deployments.md)
 
 # Deploying
 
