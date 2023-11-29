@@ -1,5 +1,10 @@
 ## sozo reference
 
+### Common options
+
+-   [profile](./common-options/profile.md)
+-   [offline](./common-options/offline.md)
+
 ### Project Commands
 
 -   [init](./project-commands/init.md)
