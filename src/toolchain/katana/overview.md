@@ -30,7 +30,7 @@ cargo install --path ./crates/katana --locked --force
 katana
 ```
 
-```
+```console
 
 
 ██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗
