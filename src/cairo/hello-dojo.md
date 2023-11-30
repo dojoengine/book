@@ -216,15 +216,16 @@ katana --disable-fee
 Success! [Katana](../toolchain/katana/overview.md) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
 
 ```bash
-sozo migrate --name test
+sozo migrate
 ```
 
 This will deploy the artifact to [Katana](../toolchain/katana/overview.md). You should see terminal output similar to this:
 
 ```bash
+
 Migration account: 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973
 
-World name: test
+World name: dojo_examples
 
 [1] 🌎 Building World state....
   > No remote World found
@@ -234,22 +235,22 @@ World name: test
   > Total items to be migrated (5): New 5 Update 0
 
 # Executor
-  > Contract address: 0x5c3494b21bc92d40abdc40cdc54af66f22fb92bf876665d982c765a2cc0e06a
+  > Contract address: 0x59f31686991d7cac25a7d4844225b9647c89e3e1e2d03460dbc61e3fbfafc59
 # Base Contract
-  > Class Hash: 0x7aec2b7d7064c1294a339cd90060331ff704ab573e4ee9a1b699be2215c11c9
+  > Class Hash: 0x77638e9a645209ac1e32e143bfdbfe9caf723c4f7645fcf465c38967545ea2f
 # World
-  > Contract address: 0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f84025e83a99a922a0c
+  > Contract address: 0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138
 # Models (2)
 Moves
-  > Class hash: 0xb37482a660983dfbf65968caa26eab260d3e1077986454b52ac06e58ae20c4
+  > Class hash: 0x509a65bd8cc5516176a694a3b3c809011f1f0680959c567b3189e60ddab7ce1
 Position
-  > Class hash: 0x6ffc643cbc4b2fb9c424242b18175a5e142269b45f4463d1cd4dddb7a2e5095
-  > Registered at: 0x3e74b09d320ceb5d4401842bec805489019c04202bc23bc67a385f6e537dce0
+  > Class hash: 0x52a1da1853c194683ca5d6d154452d0654d23f2eacd4267c555ff2338e144d6
+  > Registered at: 0x82d996aab290f086314745685c6f05bd69730d46589339763202de5264b1b6
 # Contracts (1)
 actions
-  > Contract address: 0x69a474a39b11d05c07bb9090fd1961b8e1c87aa5643e7b97087cb0c7620356a
+  > Contract address: 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd
 
-🎉 Successfully migrated World at address 0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f84025e83a99a922a0c
+🎉 Successfully migrated World at address 0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138
 
 ✨ Updating manifest.json...
 
@@ -257,7 +258,7 @@ actions
 
 ```
 
-Your 🌎 is now deployed at `0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f84025e83a99a922a0c`!
+Your 🌎 is now deployed at `0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973`!
 
 This establishes the world address for your project.
 
@@ -265,7 +266,7 @@ Let's discuss the `Scarb.toml` file in the project. This file contains environme
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.10" }
+dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.13" }
 ```
 
 ### Indexing
@@ -273,7 +274,7 @@ dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.10" }
 With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your world address from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
 
 ```bash
-torii --world 0x1af130f7b9027f3748c1e3b10ca4a82ac836a30ac4f2f84025e83a99a922a0c
+torii --world 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973
 ```
 
 Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
@@ -351,13 +352,13 @@ To accomplish this, we have to go back to our primary terminal and check the con
 ```bash
 # Contracts (1)
 actions
-  > Contract address: 0x69a474a39b11d05c07bb9090fd1961b8e1c87aa5643e7b97087cb0c7620356a
+  > Contract address: 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd
 ```
 
 We have to use `actions` contract address to start to create entities. In your main local terminal, run the following command:
 
 ```bash
-sozo execute 0x69a474a39b11d05c07bb9090fd1961b8e1c87aa5643e7b97087cb0c7620356a spawn
+sozo execute 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd spawn
 ```
 
 By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
