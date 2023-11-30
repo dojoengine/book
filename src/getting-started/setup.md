@@ -1,13 +1,12 @@
 # Development Setup
 
-> This article is a guide to setting up a development environment for Dojo. It is not suggested to follow this guide if you are just wanting to play with the toolchain. We strongly suggest following the [Quick Start](../getting-started/quick-start.md) guide.
+> This is a guide to setting up a development environment for Dojo. It is not suggested to follow this guide if you are just wanting to play with the toolchain. We strongly suggest following the [Quick Start](../getting-started/quick-start.md) guide.
 
 ### Prerequisites
 
-- Rust
-- Cairo
-
-
+- [Rust](https://github.com/rust-lang/rust)
+- [Cairo](https://github.com/starkware-libs/cairo)
+- [protoc](https://github.com/protocolbuffers/protobuf)
 
 ## Guide
 
@@ -40,7 +39,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh
 #### 3. Add the Cairo 1.0 VSCode Extension
 
 Install the [Cairo 1.0](https://marketplace.visualstudio.com/items?itemName=starkware.cairo1) extension for Visual Studio Code.
-
 
 ### Windows
 
