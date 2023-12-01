@@ -1,5 +1,5 @@
 # TRANSLATE .po FILE TO ANOTHER LANGUAGE USING GPT-3
-# 1. Set OPENAI_API_KEY environment variable to your API key: export OPENAI_API_KEY=<your key>
+# 1. Set OPENAI_API_KEY environment variable to your API key.
 # 2. Set the source_file, target_language, and output_file variables.
 # 3. Run the script.
 
@@ -11,13 +11,13 @@ import os
 openai_api_key = os.environ.get('OPENAI_API_KEY')
 
 # source_file is the path to your .pot file
-source_file = './po/messages.pot'
+source_file = './messages.pot'
 
 # target_language is the language you want to translate to
-target_language = 'latin'
+target_language = 'japanese'
 
 # output_file is the path to the translated .po file.
-output_file = './po/JP.po' 
+output_file = './JP.po' 
 
 if openai_api_key is None:
     print("""
@@ -41,7 +41,7 @@ def process_po_file(file_path, target_language, output_file_path):
         print("Original Text (msgid):", entry.msgid)
 
         # Construct the message for translation
-        translation_request = f"translate this to {target_language} do not include english characters if it is asian lang: " + entry.msgid
+        translation_request = f"translate this to {target_language} do not include english characters if it is asian lang unless it is a heading or link: " + entry.msgid
 
         # Simulating a translation API call
         chat_completion = client.chat.completions.create(
