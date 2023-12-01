@@ -1,4 +1,3 @@
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
