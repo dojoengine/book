@@ -1,7 +1,10 @@
-# TRANSLATE .po FILE TO ANOTHER LANGUAGE USING GPT-3
+# NOTE: TRANSLATE .po FILE TO ANOTHER LANGUAGE USING GPT-3
 # 1. Set OPENAI_API_KEY environment variable to your API key.
-# 2. Set the source_file, target_language, and output_file variables.
+# 2. Set the source_file, target_language, and output_file variables. 
 # 3. Run the script.
+
+# NOTE: If you are making a totally new version, delete the old lang file first.
+# NOTE: If the script fails, just start it again and it will pick up where it left off.
 
 import polib
 from openai import OpenAI
@@ -32,35 +35,63 @@ else:
 
 client = OpenAI()
 
-def process_po_file(file_path, target_language, output_file_path):
+def process_po_file(source_file_path, target_language, output_file_path):
     # Load the .po file
-    po = polib.pofile(file_path)
+    if os.path.exists(output_file_path):
+        print(f"Using existing translated file: {output_file_path}")
+        po = polib.pofile(output_file_path)
+    else:
+        print(f"Starting with source file: {source_file_path}")
+        po = polib.pofile(source_file_path)
 
     # Iterate through all entries in the .po file
-    for entry in po:
+    for index, entry in enumerate(po):
+        print(f"Processing entry {index + 1}/{len(po)}")
+
+        # Skip entry if translation already exists
+        if entry.msgstr.strip() != "":
+            print(f"Skipping entry {index + 1}, translation already exists.")
+            continue
+
         print("Original Text (msgid):", entry.msgid)
-
-        # Construct the message for translation
-        translation_request = f"translate this to {target_language} do not include english characters if it is asian lang unless it is a heading or link: " + entry.msgid
-
-        # Simulating a translation API call
-        chat_completion = client.chat.completions.create(
-            messages=[{"role": "user", "content": translation_request}],
-            model="gpt-3.5-turbo",
-        )
         
-        # Assuming the translation is in the 'choices' field of the response
-        translated_text = chat_completion.choices[0].message.content.strip()
-        entry.msgstr = translated_text
+        success = False
+        retries = 3  # Number of retries
+        while retries > 0 and not success:
+            try:
+                # Construct the message for translation
+                translation_request = f"translate this to {target_language}: " + entry.msgid
 
-        print("Translated Text (msgstr):", translated_text)
-        print("-----------")
+                # Simulating a translation API call
+                chat_completion = client.chat.completions.create(
+                    messages=[{"role": "user", "content": translation_request}],
+                    model="gpt-3.5-turbo",
+                )
+
+                # Extracting the translated text
+                translated_text = chat_completion.choices[0].message.content.strip()
+                entry.msgstr = translated_text
+
+                print("Translated Text (msgstr):", translated_text)
+                success = True  # Translation successful
+
+            except Exception as e:
+                retries -= 1
+                print(f"Error processing entry {index + 1}: {e}")
+                print(f"Retrying... {retries} attempts left.")
+                time.sleep(2)  # Delay before retrying
+
+        if not success:
+            print(f"Failed to translate entry {index + 1} after multiple attempts.")
+
+        # Save the .po file after each entry
+        po.save(output_file_path)
+        print("Progress saved.")
 
         # Half-second delay between requests
         time.sleep(0.5)
 
-    # Save the translated entries to a new .po file
-    po.save(output_file_path)
+        print("-----------")
 
 # Path to your .po file
 process_po_file(source_file, target_language, output_file)
