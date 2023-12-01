@@ -17,10 +17,10 @@ openai_api_key = os.environ.get('OPENAI_API_KEY')
 source_file = './messages.pot'
 
 # target_language is the language you want to translate to
-target_language = 'japanese'
+target_language = 'chinese'
 
 # output_file is the path to the translated .po file.
-output_file = './JP.po' 
+output_file = './cn.po' 
 
 if openai_api_key is None:
     print("""
@@ -54,18 +54,26 @@ def process_po_file(source_file_path, target_language, output_file_path):
             continue
 
         print("Original Text (msgid):", entry.msgid)
-        
+
         success = False
         retries = 3  # Number of retries
         while retries > 0 and not success:
             try:
                 # Construct the message for translation
-                translation_request = f"translate this to {target_language}: " + entry.msgid
+                translation_request = f"""
+                You are a professional book/novel translator and you will be given a language and a body of text in english. Your job is to translate the text into into {target_language}.
+
+                You are only allowed to return the translated text and nothing else. 
+
+                IMPORTANT: ONLY RETURN TRANSLATED TEXT AND NOTHING ELSE.
+
+                 message to translate: {entry.msgid}
+                 """
 
                 # Simulating a translation API call
                 chat_completion = client.chat.completions.create(
                     messages=[{"role": "user", "content": translation_request}],
-                    model="gpt-3.5-turbo",
+                    model="gpt-3.5-turbo-1106",
                 )
 
                 # Extracting the translated text
@@ -89,7 +97,7 @@ def process_po_file(source_file_path, target_language, output_file_path):
         print("Progress saved.")
 
         # Half-second delay between requests
-        time.sleep(0.5)
+        time.sleep(0.2)
 
         print("-----------")
 
