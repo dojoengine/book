@@ -35,18 +35,24 @@
   - [Entities](./cairo/entities.md)
   - [Testing](./cairo/testing.md)
 
-- [Modules](./cairo/modules.md)
-  - [ERC20](./cairo/modules/erc20.md)
-  - [ERC721]()
-  - [ERC1155]()
-  - [DeFi]()
+- [Origami](./cairo/origami.md)
+  - [Tokens](./cairo/origami/tokens.md)
+    - [ERC20](./cairo/origami/tokens/erc20.md)
+    - [ERC721](./cairo/origami/tokens/erc721.md)
+    - [ERC1155](./cairo/origami/tokens/erc1155.md)
+  - [DeFi](./cairo/origami/defi.md)
+  - [Random](./cairo/origami/random.md)
+  - [Map](./cairo/origami/map.md)
+  - [Security](./cairo/origami/security.md)
 
 # Client SDKs
 
 - [Overview](./client/overview.md)
-- [JS](./client/npm.md)
-  - [Core](./client/npm/core.md)
-- [torii](./client/torii.md)
+  - [dojo.js](./client/dojojs.md)
+  - [torii](./client/torii.md)
+    - [wasm](./client/torii/torii-wasm.md)
+    - [unity](./client/torii/unity.md)
+    - [c](./client/torii/c.md)
 
 # Toolchain
 
@@ -70,6 +76,7 @@
 - [Torii](./toolchain/torii/overview.md)
   - [Reference](./toolchain/torii/reference.md)
   - [Graphql](./toolchain/torii/graphql.md)
+  - [Graphql](./toolchain/torii/grpc.md)
 - [Slot](./toolchain/slot/overview.md)
   - [Reference](./toolchain/slot/reference.md)
     - [Deployments](./toolchain/slot/deployments-commands/deployments.md)

@@ -8,7 +8,7 @@
 }
 
 html {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: var(--fg);
     background-color: var(--bg);
     text-size-adjust: none;
@@ -194,8 +194,13 @@ kbd {
 
 .chapter li.part-title {
     color: var(--sidebar-fg);
-    margin: 5px 0px;
+    margin: 8px 0px;
     font-weight: bold;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: rgb(64, 64, 64);
+    border-bottom-style: solid;
 }
 
 .result-no-output {

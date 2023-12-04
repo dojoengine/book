@@ -1,4 +1,4 @@
-# Javascript Libraries
+# Dojo.js
 
 > Javascript is a great way to get started with Dojo. It's easy to use, and you can get started in minutes.
 
