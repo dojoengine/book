@@ -8,7 +8,7 @@
 }
 
 html {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'DM Mono', monospace;
     color: var(--fg);
     background-color: var(--bg);
     text-size-adjust: none;

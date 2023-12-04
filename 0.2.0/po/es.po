@@ -520,7 +520,7 @@ msgstr "### [Katana](/crates/katana/README.md) - Red de desarrollo rapidísima"
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
-"Katana is a customizable StarkNet development network. It is blazingly fast "
+"Katana is a customizable Starknet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
 msgstr ""
 "Katana es una red de desarrollo Starknet personalizable. Es rapidísima y te "
@@ -9331,7 +9331,7 @@ msgstr ""
 #~ "- SDKs tipados"
 
 #~ msgid "### Why Cairo & Starknet?"
-#~ msgstr "### ¿Por qué Cairo y StarkNet?"
+#~ msgstr "### ¿Por qué Cairo y Starknet?"
 
 #~ msgid "### Vision"
 #~ msgstr "### Visión"

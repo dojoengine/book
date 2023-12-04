@@ -480,9 +480,9 @@ msgstr "[刀](/crates/katana/README.md) - 极快的开发网络"
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
-"Katana is a customizable StarkNet development network. It is blazingly fast "
+"Katana is a customizable Starknet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
-msgstr "Katana 是一个可定制的 StarkNet 开发网络。它运行速度非常快，可以让您迅速迭代游戏逻辑。"
+msgstr "Katana 是一个可定制的 Starknet 开发网络。它运行速度非常快，可以让您迅速迭代游戏逻辑。"
 
 #: src/theory/what-is-dojo.md:31
 msgid "[Sozo CLI](/crates/sozo/README.md) - CLI Management Tool"
@@ -1495,13 +1495,13 @@ msgstr "装饰 `#[dojo::contract]`"
 
 #: src/cairo/systems.md:78
 msgid ""
-"All StarkNet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[starknet::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "
 "decorator is entirely optional."
 msgstr ""
-"所有StarkNet合同都是使用`#[starknet::contract]`装饰器定义的，确保准确编译。在这种情况下，Dojo引入了`#[dojo::contract]`装饰器，旨在最大程度地减少合同编写中的样板代码。必须承认，使用这个装饰器是完全可选的。"
+"所有Starknet合同都是使用`#[starknet::contract]`装饰器定义的，确保准确编译。在这种情况下，Dojo引入了`#[dojo::contract]`装饰器，旨在最大程度地减少合同编写中的样板代码。必须承认，使用这个装饰器是完全可选的。"
 
 #: src/cairo/systems.md:80
 msgid ""
@@ -4477,7 +4477,7 @@ msgstr ""
 
 #: src/toolchain/katana/reference.md:103
 msgid "`starknet_blockNumber`"
-msgstr "StarkNet 区块编号"
+msgstr "Starknet 区块编号"
 
 #: src/toolchain/katana/reference.md:104
 msgid "`starknet_blockHashAndNumber`"
@@ -4570,12 +4570,12 @@ msgstr "`starknet_addInvokeTransaction`的中文翻译。"
 
 #: src/toolchain/katana/reference.md:127
 msgid "`starknet_addDeclareTransaction`"
-msgstr "StarkNet_addDeclareTransaction"
+msgstr "Starknet_addDeclareTransaction"
 
 #: src/toolchain/katana/reference.md:128
 msgid "`starknet_addDeployAccountTransaction`"
 msgstr ""
-"StarkNet_addDeployAccountTransaction\n"
+"Starknet_addDeployAccountTransaction\n"
 "\n"
 "重要事项：只返回已翻译文本，不要追加其他任何内容。"
 

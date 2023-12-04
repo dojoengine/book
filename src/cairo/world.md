@@ -6,7 +6,7 @@ The world contract functions as a central store for the world models and systems
 
 Although we suggest strongly to structure your world around an ECS pattern you are not required to do so. You can simply use the dojo-models as a keypair store along with the supporting infrastructure.
 
-> Dojo core abstracts the world contract away, you do not write it and it is not meant to be altered when building a world. However, it's important to understand how it works and how it interacts with the rest of the system.
+> NOTE: Dojo core abstracts the world contract away, you do not write it and it is not meant to be altered when building a world. However, it's important to understand how it works and how it interacts with the rest of the system.
 
 ### The `uuid()` command
 
@@ -18,7 +18,6 @@ Use it like this:
 let game_id = world.uuid();
 ```
 
-
 ### Full World API
 
 The world exposes an interface which can be interacted with by any client.
@@ -27,32 +26,44 @@ The world exposes an interface which can be interacted with by any client.
 // World interface
 #[starknet::interface]
 trait IWorld<T> {
-    fn component(self: @T, name: felt252) -> ClassHash;
-    fn register_component(ref self: T, class_hash: ClassHash);
-    fn system(self: @T, name: felt252) -> ClassHash;
-    fn register_system(ref self: T, class_hash: ClassHash);
+    fn metadata_uri(self: @T, resource: felt252) -> Span<felt252>;
+    fn set_metadata_uri(ref self: T, resource: felt252, uri: Span<felt252>);
+    fn model(self: @T, name: felt252) -> ClassHash;
+    fn register_model(ref self: T, class_hash: ClassHash);
+    fn deploy_contract(ref self: T, salt: felt252, class_hash: ClassHash) -> ContractAddress;
+    fn upgrade_contract(ref self: T, address: ContractAddress, class_hash: ClassHash) -> ClassHash;
     fn uuid(ref self: T) -> usize;
     fn emit(self: @T, keys: Array<felt252>, values: Span<felt252>);
     fn entity(
-        self: @T, component: felt252, keys: Span<felt252>, offset: u8, length: usize
+        self: @T, model: felt252, keys: Span<felt252>, offset: u8, length: usize, layout: Span<u8>
     ) -> Span<felt252>;
     fn set_entity(
-        ref self: T, component: felt252, keys: Span<felt252>, offset: u8, value: Span<felt252>
+        ref self: T,
+        model: felt252,
+        keys: Span<felt252>,
+        offset: u8,
+        values: Span<felt252>,
+        layout: Span<u8>
     );
     fn entities(
-        self: @T, component: felt252, index: felt252, length: usize
+        self: @T,
+        model: felt252,
+        index: Option<felt252>,
+        values: Span<felt252>,
+        values_length: usize,
+        values_layout: Span<u8>
     ) -> (Span<felt252>, Span<Span<felt252>>);
+    fn entity_ids(self: @T, model: felt252) -> Span<felt252>;
     fn set_executor(ref self: T, contract_address: ContractAddress);
     fn executor(self: @T) -> ContractAddress;
-    fn delete_entity(ref self: T, component: felt252, keys: Span<felt252>);
-    fn origin(self: @T) -> ContractAddress;
+    fn base(self: @T) -> ClassHash;
+    fn delete_entity(ref self: T, model: felt252, keys: Span<felt252>, layout: Span<u8>);
+    fn is_owner(self: @T, address: ContractAddress, resource: felt252) -> bool;
+    fn grant_owner(ref self: T, address: ContractAddress, resource: felt252);
+    fn revoke_owner(ref self: T, address: ContractAddress, resource: felt252);
 
-    fn is_owner(self: @T, account: ContractAddress, target: felt252) -> bool;
-    fn grant_owner(ref self: T, account: ContractAddress, target: felt252);
-    fn revoke_owner(ref self: T, account: ContractAddress, target: felt252);
-
-    fn is_writer(self: @T, component: felt252, system: felt252) -> bool;
-    fn grant_writer(ref self: T, component: felt252, system: felt252);
-    fn revoke_writer(ref self: T, component: felt252, system: felt252);
+    fn is_writer(self: @T, model: felt252, system: ContractAddress) -> bool;
+    fn grant_writer(ref self: T, model: felt252, system: ContractAddress);
+    fn revoke_writer(ref self: T, model: felt252, system: ContractAddress);
 }
 ```

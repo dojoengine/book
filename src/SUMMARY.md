@@ -35,24 +35,13 @@
   - [Entities](./cairo/entities.md)
   - [Testing](./cairo/testing.md)
 
+# 🖥️ Client SDKs + Origami
+
 - [Origami](./cairo/origami.md)
-  - [Tokens](./cairo/origami/tokens.md)
-    - [ERC20](./cairo/origami/tokens/erc20.md)
-    - [ERC721](./cairo/origami/tokens/erc721.md)
-    - [ERC1155](./cairo/origami/tokens/erc1155.md)
-  - [DeFi](./cairo/origami/defi.md)
-  - [Random](./cairo/origami/random.md)
-  - [Map](./cairo/origami/map.md)
-  - [Security](./cairo/origami/security.md)
-
-# 🖥️ Client SDKs
-
-- [Overview](./client/overview.md)
+- [SDKs](./client/overview.md)
   - [dojo.js](./client/dojojs.md)
-  - [torii](./client/torii.md)
-    - [wasm](./client/torii/torii-wasm.md)
-    - [unity](./client/torii/unity.md)
-    - [c](./client/torii/c.md)
+  - [unity](./client/torii/unity.md)
+  - [c](./client/torii/c.md)
 
 # ⛓️ Toolchain
 

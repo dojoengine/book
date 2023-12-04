@@ -1,10 +1,4 @@
-![Dojo](images/dojo-mark-full-dark.svg)
-
-> Dojo is an open-source project, currently in its early development phase, and warmly welcomes contributors. For additional resources, join the community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the [contribution guide](./misc/contributors.md).
-
----
-
-## Dojo: The Provable Game Engine
+# Dojo: The Provable Game Engine
 
 Dojo is a provable game engine built using [Cairo](https://github.com/starkware-libs/cairo). It establishes a standard for game development via smart contracts, blending best practices with streamlined development and deployment tools. With Dojo by your side, you can evolve from initial concept to a fully realized game in days, not weeks.
 
@@ -14,20 +8,12 @@ This book is dedicated to familiarizing you with the Dojo engine and the potenti
 - [What is Dojo? ](./theory/what-is-dojo.md)
 - [Explore the Architecture](./cairo/overview.md)
 
+> Dojo is an open-source onchain gaming project currently in its early development phase, and warmly welcomes contributors. For additional resources, join the community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the [contribution guide](./misc/contributors.md).
 
-### Explainer
-
-Here's a video of [Cartridge](https://cartridge.gg/)'s [Tarrence](https://twitter.com/tarrenceva) explaining how Dojo works at the 2023 [Autonomous Anonymous Summit](https://twitter.com/pet3rpan_/status/1666764726427353091):
-
-<video controls poster="https://gf326cjag4w6pdpc42qp22enfhxsywmq6sgs7mkxbn6el7aioyxa.arweave.net/MXevCSA3LeeN4uag_WiNKe8sWZD0jS-xVwt8RfwIdi4">
-  <source src="https://sfx25btazqz62pajxecorlp4exskwgokakub44rxmpnsosep5iqa.arweave.net/kW-uhmDMM-08CbkE6K38JeSrGcoCqB5yN2PbJ0iP6iA" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-
-
+---
 
 ### Organizational Structure
+
 Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promoting and advancing the concept of Autonomous Worlds (AWs). It is spearheaded by [Cartridge](https://cartridge.gg/), [Realms & BibliothecaDAO](https://bibliothecadao.xyz/), [briq](https://briq.construction/) and many more [contributors](https://github.com/orgs/dojoengine/people).
 
 ### How do I get involved?

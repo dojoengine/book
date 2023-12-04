@@ -485,9 +485,9 @@ msgstr "[刀](/crates/katana/README.md) - 驚くほど高速な開発ネット�
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
-"Katana is a customizable StarkNet development network. It is blazingly fast "
+"Katana is a customizable Starknet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
-msgstr "カタナはカスタマイズ可能なStarkNet開発ネットワークです。 非常に高速であり、ゲームロジックを迅速に反復することができます。"
+msgstr "カタナはカスタマイズ可能なStarknet開発ネットワークです。 非常に高速であり、ゲームロジックを迅速に反復することができます。"
 
 #: src/theory/what-is-dojo.md:31
 msgid "[Sozo CLI](/crates/sozo/README.md) - CLI Management Tool"
@@ -1528,13 +1528,13 @@ msgstr "「`#[dojo::contract]`」デコレーター"
 
 #: src/cairo/systems.md:78
 msgid ""
-"All StarkNet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[starknet::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "
 "decorator is entirely optional."
 msgstr ""
-"すべてのStarkNet契約は、正確なコンパイルを保証する`#[starknet::contract]`デコレータを使用して定義されています。この文脈では、Dojoは契約の記述でブレークプレートを最小限に抑えることを目指す`#[dojo::contract]`デコレータを導入しています。このデコレータを利用することは完全に任意であることを認識することが重要です。"
+"すべてのStarknet契約は、正確なコンパイルを保証する`#[starknet::contract]`デコレータを使用して定義されています。この文脈では、Dojoは契約の記述でブレークプレートを最小限に抑えることを目指す`#[dojo::contract]`デコレータを導入しています。このデコレータを利用することは完全に任意であることを認識することが重要です。"
 
 #: src/cairo/systems.md:80
 msgid ""

@@ -458,7 +458,7 @@ msgstr ""
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
-"Katana is a customizable StarkNet development network. It is blazingly fast "
+"Katana is a customizable Starknet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
 msgstr ""
 
@@ -1405,7 +1405,7 @@ msgstr ""
 
 #: src/cairo/systems.md:78
 msgid ""
-"All StarkNet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[starknet::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "

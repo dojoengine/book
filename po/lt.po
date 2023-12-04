@@ -523,10 +523,10 @@ msgstr ""
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
-"Katana is a customizable StarkNet development network. It is blazingly fast "
+"Katana is a customizable Starknet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
 msgstr ""
-"Gladius est rete developmenti StarkNet mutabile. Id celerrime procedit et "
+"Gladius est rete developmenti Starknet mutabile. Id celerrime procedit et "
 "tibi permittit celeriter logica ludendi tuae renovare."
 
 #: src/theory/what-is-dojo.md:31
@@ -1719,13 +1719,13 @@ msgstr "The `#[dojo::contract]` Ornamentum"
 
 #: src/cairo/systems.md:78
 msgid ""
-"All StarkNet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[starknet::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "
 "decorator is entirely optional."
 msgstr ""
-"Omnes contractus StarkNet definitur adhibendo `#[starknet::contract]` "
+"Omnes contractus Starknet definitur adhibendo `#[starknet::contract]` "
 "ornatum, compilationem accurate certificans. In hoc contextu, Dojo "
 "introducit `#[dojo::contract]` ornatum, qui propositum habet minuere "
 "formularem contractuum scriptorum. Imperativum est agnoscere hunc ornatum "
@@ -5061,7 +5061,7 @@ msgstr "Numerus_blockStarknet"
 
 #: src/toolchain/katana/reference.md:104
 msgid "`starknet_blockHashAndNumber`"
-msgstr "starknet_blockHashAndNumber => StarkNet bloccus hash et numerus"
+msgstr "starknet_blockHashAndNumber => Starknet bloccus hash et numerus"
 
 #: src/toolchain/katana/reference.md:105
 msgid "`starknet_getBlockWithTxs`"
@@ -5075,7 +5075,7 @@ msgstr "ObtinereBlockCumTxHashes"
 msgid "`starknet_getBlockTransactionCount`"
 msgstr ""
 "starknet_getBlockTransactionCount -> "
-"StarkNet_BlockTransactionHumeroConseguere"
+"Starknet_BlockTransactionHumeroConseguere"
 
 #: src/toolchain/katana/reference.md:108
 msgid "`starknet_getTransactionByHash`"
