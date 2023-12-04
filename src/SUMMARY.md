@@ -6,18 +6,18 @@
   - [Cairo Ecosystem](./theory/cairo.md)
   - [FAQs](./theory/faqs.md)
 
-# Getting Started
+# 🚀 Getting Started
 
 - [Quick Start](./getting-started/quick-start.md)
   - [Manual Install](./getting-started/from-source.md)
   - [Development Setup](./getting-started/setup.md)
   - [Contributing](./getting-started/contributing.md)
 
-# Community
+# 🫂 Community
 
 - [Get Started](./community/get-started.md)
 
-# Architecture
+# 🏛️ Architecture
 
 - [Overview](./cairo/overview.md)
   - [World](./cairo/world.md)
@@ -45,7 +45,7 @@
   - [Map](./cairo/origami/map.md)
   - [Security](./cairo/origami/security.md)
 
-# Client SDKs
+# 🖥️ Client SDKs
 
 - [Overview](./client/overview.md)
   - [dojo.js](./client/dojojs.md)
@@ -54,7 +54,7 @@
     - [unity](./client/torii/unity.md)
     - [c](./client/torii/c.md)
 
-# Toolchain
+# ⛓️ Toolchain
 
 - [Dojoup](./toolchain/dojoup.md)
 - [Sozo](./toolchain/sozo/overview.md)
@@ -81,12 +81,12 @@
   - [Reference](./toolchain/slot/reference.md)
     - [Deployments](./toolchain/slot/deployments-commands/deployments.md)
 
-# Deploying
+# 🌌 Deploying
 
 - [Locally](./deployment/locally.md)
 - [Remote](./deployment/remote.md)
 
-# Tutorial
+# 🙌 Tutorial
 
 - [Onchain Chess](./tutorial/onchain-chess/README.md)
   - [0. Setup](./tutorial/onchain-chess/0-setup.md)
