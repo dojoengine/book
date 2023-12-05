@@ -13,6 +13,7 @@ html {
     background-color: var(--bg);
     text-size-adjust: none;
     -webkit-text-size-adjust: none;
+    font-weight: 300;
 }
 
 body {
@@ -196,11 +197,12 @@ kbd {
     color: var(--sidebar-fg);
     margin: 8px 0px;
     font-weight: bold;
+    padding: 10px 0px 0px 0px;
 
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    border-bottom: var(--bg);
-    border-bottom-style: solid;
+    border-top: var(--bg);
+    border-top-style: solid;
 }
 
 .result-no-output {
