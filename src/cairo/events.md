@@ -72,7 +72,7 @@ These events are also captured by [Torii](../toolchain/torii/overview.md) and in
 
 ### Custom Events
 
-Within your systems, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` macro that lets you release events directly from your world. These events are indexed by [torii](../toolchain/torii/overview.md)
+Within your systems, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` command that lets you release events directly from your world. These events are indexed by [Torii](../toolchain/torii/overview.md).
 
 Use it like so:
 
@@ -105,4 +105,4 @@ fn move(ctx: Context, direction: Direction) {
 }
 ```
 
-> Note: Read about the `get!` and `set!` macros in [Commands](./commands.md).
+> Note: Read about the `get!` and `set!` commands in the [Commands](./commands.md) chapter.
