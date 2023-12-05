@@ -203,6 +203,7 @@ kbd {
     letter-spacing: 0.04em;
     border-top: var(--bg);
     border-top-style: solid;
+    border-width: 0.5px;
 }
 
 .result-no-output {

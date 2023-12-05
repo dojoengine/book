@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dojo: The Provable Game Engine\n"
-"POT-Creation-Date: 2023-12-01T09:27:46+01:00\n"
+"POT-Creation-Date: 2023-12-05T11:51:07+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,8 +36,8 @@ msgstr ""
 msgid "FAQs"
 msgstr ""
 
-#: src/SUMMARY.md:9 src/misc/contributors.md:12
-msgid "Getting Started"
+#: src/SUMMARY.md:9
+msgid "🚀 Getting Started"
 msgstr ""
 
 #: src/SUMMARY.md:11 src/getting-started/quick-start.md:1
@@ -57,7 +57,7 @@ msgid "Contributing"
 msgstr ""
 
 #: src/SUMMARY.md:16
-msgid "Community"
+msgid "🫂 Community"
 msgstr ""
 
 #: src/SUMMARY.md:18 src/community/get-started.md:1
@@ -65,10 +65,10 @@ msgid "Get Started"
 msgstr ""
 
 #: src/SUMMARY.md:20
-msgid "Architecture"
+msgid "🏛️ Architecture"
 msgstr ""
 
-#: src/SUMMARY.md:22 src/SUMMARY.md:46 src/client/overview.md:1
+#: src/SUMMARY.md:22 src/client/overview.md:1
 msgid "Overview"
 msgstr ""
 
@@ -126,190 +126,166 @@ msgid "Testing"
 msgstr ""
 
 #: src/SUMMARY.md:38
-msgid "Modules"
-msgstr ""
-
-#: src/SUMMARY.md:39 src/cairo/modules/erc20.md:1
-msgid "ERC20"
+msgid "🖥️ Client SDKs + Origami"
 msgstr ""
 
 #: src/SUMMARY.md:40
-msgid "ERC721"
+msgid "Origami"
 msgstr ""
 
 #: src/SUMMARY.md:41
-msgid "ERC1155"
+msgid "SDKs"
 msgstr ""
 
 #: src/SUMMARY.md:42
-msgid "DeFi"
+msgid "dojo.js"
 msgstr ""
 
-#: src/SUMMARY.md:44
-msgid "Client SDKs"
+#: src/SUMMARY.md:43
+msgid "unity"
 msgstr ""
 
-#: src/SUMMARY.md:47
-msgid "JS"
+#: src/SUMMARY.md:44 src/client/torii/c.md:1
+msgid "c"
 msgstr ""
 
-#: src/SUMMARY.md:48 src/client/npm/core.md:1
-msgid "Core"
+#: src/SUMMARY.md:46
+msgid "⛓️ Toolchain"
 msgstr ""
 
-#: src/SUMMARY.md:49
-msgid "torii"
-msgstr ""
-
-#: src/SUMMARY.md:51
-msgid "Toolchain"
-msgstr ""
-
-#: src/SUMMARY.md:53
+#: src/SUMMARY.md:48
 msgid "Dojoup"
 msgstr ""
 
-#: src/SUMMARY.md:54 src/toolchain/sozo/overview.md:1
+#: src/SUMMARY.md:49 src/toolchain/sozo/overview.md:3
 msgid "Sozo"
 msgstr ""
 
-#: src/SUMMARY.md:55 src/SUMMARY.md:69 src/SUMMARY.md:71 src/SUMMARY.md:74
+#: src/SUMMARY.md:50 src/SUMMARY.md:64 src/SUMMARY.md:66 src/SUMMARY.md:70
 msgid "Reference"
 msgstr ""
 
-#: src/SUMMARY.md:56
+#: src/SUMMARY.md:51
 msgid "profile"
 msgstr ""
 
-#: src/SUMMARY.md:57 src/toolchain/sozo/common-options/offline.md:1
+#: src/SUMMARY.md:52 src/toolchain/sozo/common-options/offline.md:1
 msgid "offline"
 msgstr ""
 
-#: src/SUMMARY.md:58
+#: src/SUMMARY.md:53
 msgid "init"
 msgstr ""
 
-#: src/SUMMARY.md:59
+#: src/SUMMARY.md:54
 msgid "build"
 msgstr ""
 
-#: src/SUMMARY.md:60
+#: src/SUMMARY.md:55
 msgid "test"
 msgstr ""
 
-#: src/SUMMARY.md:61
+#: src/SUMMARY.md:56
 msgid "migrate"
 msgstr ""
 
-#: src/SUMMARY.md:62
+#: src/SUMMARY.md:57
 msgid "execute"
 msgstr ""
 
-#: src/SUMMARY.md:63
+#: src/SUMMARY.md:58
 msgid "register"
 msgstr ""
 
-#: src/SUMMARY.md:64
+#: src/SUMMARY.md:59
 msgid "system"
 msgstr ""
 
-#: src/SUMMARY.md:65
+#: src/SUMMARY.md:60
 msgid "component"
 msgstr ""
 
-#: src/SUMMARY.md:66
+#: src/SUMMARY.md:61
 msgid "events"
 msgstr ""
 
-#: src/SUMMARY.md:67
+#: src/SUMMARY.md:62
 msgid "auth"
 msgstr ""
 
-#: src/SUMMARY.md:68 src/toolchain/katana/overview.md:1
+#: src/SUMMARY.md:63
 msgid "Katana"
 msgstr ""
 
-#: src/SUMMARY.md:70 src/tutorial/deploy-using-slot/main.md:77
+#: src/SUMMARY.md:65 src/tutorial/deploy-using-slot/main.md:77
 msgid "Torii"
 msgstr ""
 
-#: src/SUMMARY.md:72
+#: src/SUMMARY.md:67 src/SUMMARY.md:68 src/toolchain/torii/grpc.md:1
 msgid "Graphql"
 msgstr ""
 
-#: src/SUMMARY.md:73 src/toolchain/slot/overview.md:1
+#: src/SUMMARY.md:69 src/toolchain/slot/overview.md:1
 msgid "Slot"
 msgstr ""
 
-#: src/SUMMARY.md:75
+#: src/SUMMARY.md:71
 msgid "Deployments"
 msgstr ""
 
-#: src/SUMMARY.md:77
-msgid "Deploying"
+#: src/SUMMARY.md:73
+msgid "🌌 Deploying"
 msgstr ""
 
-#: src/SUMMARY.md:79
+#: src/SUMMARY.md:75
 msgid "Locally"
 msgstr ""
 
-#: src/SUMMARY.md:80
+#: src/SUMMARY.md:76
 msgid "Remote"
 msgstr ""
 
-#: src/SUMMARY.md:82
-msgid "Tutorial"
+#: src/SUMMARY.md:78
+msgid "🙌 Tutorial"
 msgstr ""
 
-#: src/SUMMARY.md:84
+#: src/SUMMARY.md:80
 msgid "Onchain Chess"
 msgstr ""
 
-#: src/SUMMARY.md:85 src/tutorial/onchain-chess/0-setup.md:1
+#: src/SUMMARY.md:81 src/tutorial/onchain-chess/0-setup.md:1
 msgid "0. Setup"
 msgstr ""
 
-#: src/SUMMARY.md:86
+#: src/SUMMARY.md:82
 msgid "1. Initiate"
 msgstr ""
 
-#: src/SUMMARY.md:87
+#: src/SUMMARY.md:83
 msgid "2. Move"
 msgstr ""
 
-#: src/SUMMARY.md:88
+#: src/SUMMARY.md:84
 msgid "3. Check Legal Move"
 msgstr ""
 
-#: src/SUMMARY.md:89
+#: src/SUMMARY.md:85
 msgid "4. Test Chess"
 msgstr ""
 
-#: src/SUMMARY.md:90 src/toolchain/slot/overview.md:15
+#: src/SUMMARY.md:86 src/toolchain/slot/overview.md:15
 msgid "Deploy using Slot"
 msgstr ""
 
-#: src/SUMMARY.md:94
+#: src/SUMMARY.md:90
 msgid "Contributors"
 msgstr ""
 
 #: src/index.md:1
-msgid "![Dojo](images/dojo-mark-full-dark.svg)"
-msgstr ""
-
-#: src/index.md:3
-msgid ""
-"Dojo is an open-source project, currently in its early development phase, "
-"and warmly welcomes contributors. For additional resources, join the "
-"community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the "
-"[contribution guide](./misc/contributors.md)."
-msgstr ""
-
-#: src/index.md:7
 msgid "Dojo: The Provable Game Engine"
 msgstr ""
 
-#: src/index.md:9
+#: src/index.md:3
 msgid ""
 "Dojo is a provable game engine built using "
 "[Cairo](https://github.com/starkware-libs/cairo). It establishes a standard "
@@ -318,7 +294,7 @@ msgid ""
 "can evolve from initial concept to a fully realized game in days, not weeks."
 msgstr ""
 
-#: src/index.md:11
+#: src/index.md:5
 msgid ""
 "This book is dedicated to familiarizing you with the Dojo engine and the "
 "potential of Provable games. A special section on the "
@@ -326,35 +302,31 @@ msgid ""
 "autonomous worlds and Provable games."
 msgstr ""
 
-#: src/index.md:13
+#: src/index.md:7
 msgid "[Quickstart](./getting-started/quick-start.md)"
 msgstr ""
 
-#: src/index.md:14
+#: src/index.md:8
 msgid "[What is Dojo? ](./theory/what-is-dojo.md)"
 msgstr ""
 
-#: src/index.md:15
+#: src/index.md:9
 msgid "[Explore the Architecture](./cairo/overview.md)"
 msgstr ""
 
-#: src/index.md:18
-msgid "Explainer"
-msgstr ""
-
-#: src/index.md:20
+#: src/index.md:11
 msgid ""
-"Here's a video of [Cartridge](https://cartridge.gg/)'s "
-"[Tarrence](https://twitter.com/tarrenceva) explaining how Dojo works at the "
-"2023 [Autonomous Anonymous "
-"Summit](https://twitter.com/pet3rpan_/status/1666764726427353091):"
+"Dojo is an open-source onchain gaming project currently in its early "
+"development phase, and warmly welcomes contributors. For additional "
+"resources, join the community on [Discord](https://discord.gg/vUN4Xq9Qv6) "
+"and check out the [contribution guide](./misc/contributors.md)."
 msgstr ""
 
-#: src/index.md:30
+#: src/index.md:15
 msgid "Organizational Structure"
 msgstr ""
 
-#: src/index.md:31
+#: src/index.md:17
 msgid ""
 "Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to "
 "promoting and advancing the concept of Autonomous Worlds (AWs). It is "
@@ -364,11 +336,11 @@ msgid ""
 "[contributors](https://github.com/orgs/dojoengine/people)."
 msgstr ""
 
-#: src/index.md:33
+#: src/index.md:19
 msgid "How do I get involved?"
 msgstr ""
 
-#: src/index.md:35
+#: src/index.md:21
 msgid ""
 "Check out our [Github](https://github.com/dojoengine), our "
 "[Twitter](https://twitter.com/dojostarknet), "
@@ -483,28 +455,6 @@ msgid ""
 "Visual graphics - While Dojo provides networking and contracts, it doesn't "
 "offer graphical engines. You can bring your graphics of choice! Integrate "
 "your Dojo world with Unreal, Godot, or Unity."
-msgstr ""
-
-#: src/theory/what-is-dojo.md:39
-msgid "Understanding the Dojo Workflow: A Visual Guide"
-msgstr ""
-
-#: src/theory/what-is-dojo.md:41
-msgid ""
-"To help you understand how `Sozo` works, we've created a visual guide that "
-"outlines the flow of execution using the powerful sozo tool and the katana "
-"development network."
-msgstr ""
-
-#: src/theory/what-is-dojo.md:43
-msgid ""
-"This visual representation will help you grasp the fundamental steps of "
-"working with Dojo, guiding you through the process of creating and managing "
-"your on-chain games."
-msgstr ""
-
-#: src/theory/what-is-dojo.md:45
-msgid "![Dojo Sozo Workflow](../images/dojo-sozo-workflow.jpg)"
 msgstr ""
 
 #: src/theory/autonomous-worlds.md:1
@@ -910,7 +860,7 @@ msgid "Building"
 msgstr ""
 
 #: src/getting-started/from-source.md:15
-msgid "You can either use the different [Dojoup](#using-dojoup) flags:"
+msgid "You can either use the different [Dojoup](../toolchain/dojoup.md) flags:"
 msgstr ""
 
 #: src/getting-started/from-source.md:22
@@ -1243,9 +1193,9 @@ msgstr ""
 
 #: src/cairo/world.md:9
 msgid ""
-"Dojo core abstracts the world contract away, you do not write it and it is "
-"not meant to be altered when building a world. However, it's important to "
-"understand how it works and how it interacts with the rest of the system."
+"NOTE: Dojo core abstracts the world contract away, you do not write it and "
+"it is not meant to be altered when building a world. However, it's important "
+"to understand how it works and how it interacts with the rest of the system."
 msgstr ""
 
 #: src/cairo/world.md:11
@@ -1262,16 +1212,16 @@ msgstr ""
 msgid "Use it like this:"
 msgstr ""
 
-#: src/cairo/world.md:22
+#: src/cairo/world.md:21
 msgid "Full World API"
 msgstr ""
 
-#: src/cairo/world.md:24
+#: src/cairo/world.md:23
 msgid ""
 "The world exposes an interface which can be interacted with by any client."
 msgstr ""
 
-#: src/cairo/world.md:27
+#: src/cairo/world.md:26
 msgid "// World interface\n"
 msgstr ""
 
@@ -1285,47 +1235,47 @@ msgstr ""
 msgid "**_TL;DR_**"
 msgstr ""
 
-#: src/cairo/systems.md:6
+#: src/cairo/systems.md:7
 msgid "Systems function as contract methods."
 msgstr ""
 
-#: src/cairo/systems.md:7
+#: src/cairo/systems.md:8
 msgid "Contracts containing Systems gain permissions to write to models."
 msgstr ""
 
-#: src/cairo/systems.md:8
+#: src/cairo/systems.md:9
 msgid ""
 "Systems pass a `world` address as their first parameter unless utilizing the "
 "[`#[dojo::contract]`](#the-dojocontract-decorator) decorator."
 msgstr ""
 
-#: src/cairo/systems.md:9
+#: src/cairo/systems.md:10
 msgid "Systems engage the world contract to alter models' state."
 msgstr ""
 
-#: src/cairo/systems.md:10
+#: src/cairo/systems.md:11
 msgid "The world contract is invoked through systems."
 msgstr ""
 
-#: src/cairo/systems.md:11
+#: src/cairo/systems.md:12
 msgid "Systems ought to be concise and specific."
 msgstr ""
 
-#: src/cairo/systems.md:12
+#: src/cairo/systems.md:13
 msgid "In most scenarios, systems are stateless."
 msgstr ""
 
-#: src/cairo/systems.md:14
+#: src/cairo/systems.md:15
 msgid "What are Systems?"
 msgstr ""
 
-#: src/cairo/systems.md:16
+#: src/cairo/systems.md:17
 msgid ""
 "Within dojo we define systems as functions within a Contract that act on the "
 "world."
 msgstr ""
 
-#: src/cairo/systems.md:18
+#: src/cairo/systems.md:19
 msgid ""
 "Systems play a pivotal role in your world's logic, directly mutating its "
 "component states. It's important to understand that to enact these "
@@ -1333,26 +1283,26 @@ msgid ""
 "[`models`](./models.md) owner."
 msgstr ""
 
-#: src/cairo/systems.md:20
+#: src/cairo/systems.md:21
 msgid "System Permissions"
 msgstr ""
 
-#: src/cairo/systems.md:22
+#: src/cairo/systems.md:23
 msgid ""
 "Since the whole contract is giving write access to the model, it is "
 "important to be careful when defining systems. A simple way to think about "
 "it is:"
 msgstr ""
 
-#: src/cairo/systems.md:24
+#: src/cairo/systems.md:25
 msgid "![System Permissions](../images/permissions.png)"
 msgstr ""
 
-#: src/cairo/systems.md:26
+#: src/cairo/systems.md:27
 msgid "System Structure"
 msgstr ""
 
-#: src/cairo/systems.md:28
+#: src/cairo/systems.md:29
 msgid ""
 "Every system function starts with a [`world`](./world.md) address as its "
 "initial parameter. This design permits these functions to alter the world's "
@@ -1360,50 +1310,50 @@ msgid ""
 "across multiple worlds!"
 msgstr ""
 
-#: src/cairo/systems.md:30
+#: src/cairo/systems.md:31
 msgid ""
 "Let's look at the simplest possible system which mutates the state of the "
 "`Moves` component."
 msgstr ""
 
-#: src/cairo/systems.md:41
+#: src/cairo/systems.md:42
 msgid "// no storage\n"
 msgstr ""
 
-#: src/cairo/systems.md:45
+#: src/cairo/systems.md:46
 msgid "// implementation of the PlayerActions interface\n"
 msgstr ""
 
-#: src/cairo/systems.md:66 src/cairo/hello-dojo.md:155
+#: src/cairo/systems.md:67 src/cairo/hello-dojo.md:155
 msgid "Breaking it down"
 msgstr ""
 
-#: src/cairo/systems.md:68 src/cairo/hello-dojo.md:157
+#: src/cairo/systems.md:69 src/cairo/hello-dojo.md:157
 msgid "System is a contract"
 msgstr ""
 
-#: src/cairo/systems.md:70
+#: src/cairo/systems.md:71
 msgid ""
 "As you can see a System is like a regular Starknet contract. It can include "
 "storage, and it can implement interfaces."
 msgstr ""
 
-#: src/cairo/systems.md:72
+#: src/cairo/systems.md:73
 msgid "`Spawn` function"
 msgstr ""
 
-#: src/cairo/systems.md:74
+#: src/cairo/systems.md:75
 msgid ""
 "The spawn function is currently the only function that exists in this "
 "system. It is called when a player spawns into the world. It is responsible "
 "for setting up the player's initial state."
 msgstr ""
 
-#: src/cairo/systems.md:76
+#: src/cairo/systems.md:77
 msgid "The `#[dojo::contract]` Decorator"
 msgstr ""
 
-#: src/cairo/systems.md:78
+#: src/cairo/systems.md:79
 msgid ""
 "All Starknet contracts are defined using the `#[starknet::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
@@ -1412,7 +1362,7 @@ msgid ""
 "decorator is entirely optional."
 msgstr ""
 
-#: src/cairo/systems.md:80
+#: src/cairo/systems.md:81
 msgid ""
 "The `#[dojo::contract]` decorator allows developers to omit including "
 "`world: IWorldDispatcher` as a parameter. Behind the scenes, it injects the "
@@ -1420,11 +1370,11 @@ msgid ""
 "the development process."
 msgstr ""
 
-#: src/cairo/systems.md:102 src/cairo/models.md:218 src/cairo/hello-dojo.md:92
+#: src/cairo/systems.md:103 src/cairo/models.md:218 src/cairo/hello-dojo.md:92
 msgid "// impl: implement functions specified in trait\n"
 msgstr ""
 
-#: src/cairo/systems.md:105 src/cairo/hello-dojo.md:95
+#: src/cairo/systems.md:106 src/cairo/hello-dojo.md:95
 msgid "// ContractState is defined by system decorator expansion\n"
 msgstr ""
 
@@ -2966,46 +2916,56 @@ msgid ""
 "the models and systems."
 msgstr ""
 
-#: src/cairo/modules.md:1
-msgid "Dojo Modules"
+#: src/cairo/origami.md:1
+msgid "![origami](../images/origami.png)"
 msgstr ""
 
-#: src/cairo/modules.md:3
+#: src/cairo/origami.md:3
 msgid ""
-"With standardization of Systems and Components we can create a module "
-"architecture for Dojo. This allows us to create reusable modules that can be "
-"used in any Dojo world."
+"The magic of origami is in seeing a single piece of cairo evolve into a "
+"masterpiece through careful folds."
 msgstr ""
 
-#: src/cairo/modules.md:5
-msgid "Module Architecture"
+#: src/cairo/origami.md:5
+msgid "What is Origami?"
 msgstr ""
 
-#: src/cairo/modules.md:7
+#: src/cairo/origami.md:7
 msgid ""
-"Think of modules as ERCs for Dojo. They are a standard way to create and "
-"share functionality. Modules are a collection of Systems and Components that "
-"can be imported into a Dojo world. Dojo is following the ERC patterns and "
-"has modules already defined for ERC20, ERC721, and ERC1155."
+"Origami is the native dojo collection of primitives that can be imported "
+"into your game."
 msgstr ""
 
-#: src/cairo/modules/erc20.md:3
-msgid ""
-"Dojo's ERC20 module is a standard implementation of the ERC20 token "
-"standard, but it utilizes Dojo Systems and Components. This allows us to "
-"leverage the excellent properties of the ERC20 standard and use it natively "
-"within the Dojo environment."
+#: src/cairo/origami.md:9
+msgid "It contains:"
 msgstr ""
 
-#: src/cairo/modules/erc20.md:5
-msgid "Integration into Your World"
+#: src/cairo/origami.md:11
+msgid "algebra"
 msgstr ""
 
-#: src/cairo/modules/erc20.md:7
-msgid ""
-"To integrate the ERC20 module into your world, you must first deploy the "
-"ERC20 Dojo contract. Subsequently, install the systems and components into "
-"your world."
+#: src/cairo/origami.md:12
+msgid "defi"
+msgstr ""
+
+#: src/cairo/origami.md:13
+msgid "hex map"
+msgstr ""
+
+#: src/cairo/origami.md:14
+msgid "random"
+msgstr ""
+
+#: src/cairo/origami.md:15
+msgid "security"
+msgstr ""
+
+#: src/cairo/origami.md:16
+msgid "erc tokens"
+msgstr ""
+
+#: src/cairo/origami.md:18
+msgid "Find the [Origami repo](https://github.com/dojoengine/origami)"
 msgstr ""
 
 #: src/client/overview.md:3
@@ -3028,34 +2988,21 @@ msgid ""
 "contribute reach out into the [Discord](https://discord.gg/KG9w9BmDrV) "
 msgstr ""
 
-#: src/client/npm.md:1
-msgid "Javascript Libraries"
+#: src/client/dojojs.md:1
+msgid "Dojo.js"
 msgstr ""
 
-#: src/client/npm.md:3
+#: src/client/dojojs.md:3
 msgid ""
 "Javascript is a great way to get started with Dojo. It's easy to use, and "
 "you can get started in minutes."
 msgstr ""
 
-#: src/client/npm.md:5
-msgid "Examples using these:"
-msgstr ""
-
-#: src/client/npm.md:7
-msgid ""
-"[Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)"
-msgstr ""
-
-#: src/client/npm.md:8
-msgid "[Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)"
-msgstr ""
-
-#: src/client/npm.md:10
+#: src/client/dojojs.md:5
 msgid "@dojoengine/core"
 msgstr ""
 
-#: src/client/npm.md:12
+#: src/client/dojojs.md:7
 msgid ""
 "This is the lowest level library, and is used by all other downstream "
 "libraries. It contains the core functionality of Dojo and exposes the "
@@ -3063,60 +3010,80 @@ msgid ""
 "Dojo."
 msgstr ""
 
-#: src/client/npm.md:14
+#: src/client/dojojs.md:9
 msgid ""
 "[Repository](https://github.com/dojoengine/packages/tree/main/packages/core)"
 msgstr ""
 
-#: src/client/npm.md:20
+#: src/client/dojojs.md:15
 msgid "@dojoengine/create-burner"
 msgstr ""
 
-#: src/client/npm.md:22
+#: src/client/dojojs.md:17
 msgid ""
 "Create burner is a simple way to incorporate burner wallets into your Dojo "
 "app."
 msgstr ""
 
-#: src/client/npm.md:24
+#: src/client/dojojs.md:19
 msgid ""
 "[Repository](https://github.com/dojoengine/packages/tree/main/packages/create-burner)"
 msgstr ""
 
-#: src/client/npm.md:30
+#: src/client/dojojs.md:25
 msgid "@dojoengine/utils"
 msgstr ""
 
-#: src/client/npm.md:32
+#: src/client/dojojs.md:27
 msgid "These are utils for helping with interfacing dojo."
 msgstr ""
 
-#: src/client/npm.md:34
+#: src/client/dojojs.md:29
 msgid ""
-"[Reopsitory](https://github.com/dojoengine/packages/tree/main/packages/utils)"
+"[Repository](https://github.com/dojoengine/packages/tree/main/packages/utils)"
 msgstr ""
 
-#: src/client/torii.md:1
-msgid "Torii Client"
+#: src/client/dojojs.md:35
+msgid "@dojoengine/react"
 msgstr ""
 
-#: src/client/torii.md:3
+#: src/client/dojojs.md:37
+msgid "React hooks for dojo."
+msgstr ""
+
+#: src/client/dojojs.md:39
 msgid ""
-"Torii client is a rust client for interacting with Dojo worlds. It can be "
-"compiled to wasm to be used in JS clients, or can used directly in Rust "
-"clients or other lower level languages with bindings."
+"[Repository](https://github.com/dojoengine/packages/tree/main/packages/react)"
 msgstr ""
 
-#: src/client/torii.md:5
-msgid "Usage in Rust projects"
+#: src/client/dojojs.md:45
+msgid "@dojoengine/torii-client"
 msgstr ""
 
-#: src/client/torii.md:7
-msgid "**@kairy**"
+#: src/client/dojojs.md:47
+msgid "The wasm client to access torii via grpc."
 msgstr ""
 
-#: src/client/torii.md:9
-msgid "Usage in JS Clients"
+#: src/client/dojojs.md:49
+msgid ""
+"[Repository](https://github.com/dojoengine/packages/tree/main/packages/torii-client)"
+msgstr ""
+
+#: src/client/dojojs.md:55
+msgid "@dojoengine/torii-wasm"
+msgstr ""
+
+#: src/client/dojojs.md:57
+msgid "Torii client for wasm bindings."
+msgstr ""
+
+#: src/client/dojojs.md:59
+msgid ""
+"[Repository](https://github.com/dojoengine/packages/tree/main/packages/torii-wasm)"
+msgstr ""
+
+#: src/client/torii/unity.md:1
+msgid "Unity"
 msgstr ""
 
 #: src/toolchain/dojoup.md:1
@@ -3132,7 +3099,7 @@ msgid "Installing"
 msgstr ""
 
 #: src/toolchain/dojoup.md:11 src/toolchain/katana/overview.md:27
-#: src/toolchain/torii/overview.md:5 src/toolchain/slot/reference.md:7
+#: src/toolchain/torii/overview.md:7 src/toolchain/slot/reference.md:7
 msgid "Usage"
 msgstr ""
 
@@ -3140,73 +3107,73 @@ msgstr ""
 msgid "To install latest **stable** version:"
 msgstr ""
 
-#: src/toolchain/dojoup.md:18
+#: src/toolchain/dojoup.md:19
 msgid ""
 "Note: You may have to install `jq` to use `dojoup`. You can do so with the "
 "following commands:"
 msgstr ""
 
-#: src/toolchain/dojoup.md:21
+#: src/toolchain/dojoup.md:22
 msgid "# Debian\n"
 msgstr ""
 
-#: src/toolchain/dojoup.md:23
+#: src/toolchain/dojoup.md:24
 msgid "# Mac\n"
 msgstr ""
 
-#: src/toolchain/dojoup.md:28
+#: src/toolchain/dojoup.md:29
 msgid "To install a specific **version** (in this case the `nightly` version):"
 msgstr ""
 
-#: src/toolchain/dojoup.md:34
+#: src/toolchain/dojoup.md:35
 msgid ""
 "To install a specific **branch** (in this case the `release/0.1.0` branch's "
 "latest commit):"
 msgstr ""
 
-#: src/toolchain/dojoup.md:40
+#: src/toolchain/dojoup.md:41
 msgid ""
 "To install a **fork's main branch** (in this case `tarrencev/dojo`'s main "
 "branch):"
 msgstr ""
 
-#: src/toolchain/dojoup.md:46
+#: src/toolchain/dojoup.md:47
 msgid ""
 "To install a **specific branch in a fork** (in this case the `patch-10` "
 "branch's latest commit in `tarrencev/dojo`):"
 msgstr ""
 
-#: src/toolchain/dojoup.md:52
+#: src/toolchain/dojoup.md:53
 msgid "To install from a **specific Pull Request**:"
 msgstr ""
 
-#: src/toolchain/dojoup.md:58
+#: src/toolchain/dojoup.md:59
 msgid "To install from a **specific commit**:"
 msgstr ""
 
-#: src/toolchain/dojoup.md:64
+#: src/toolchain/dojoup.md:65
 msgid ""
 "To install a local directory or repository (e.g. one located at "
 "`~/git/dojo`, assuming you're in the home directory)"
 msgstr ""
 
-#: src/toolchain/dojoup.md:66
+#: src/toolchain/dojoup.md:67
 msgid ""
 "Note: --branch, --repo, and --version flags are ignored during local "
 "installations."
 msgstr ""
 
-#: src/toolchain/dojoup.md:74
+#: src/toolchain/dojoup.md:75
 msgid ""
 "**Tip**: All flags have a single character shorthand equivalent! You can use "
 "`-v` instead of `--version`, etc."
 msgstr ""
 
-#: src/toolchain/dojoup.md:78
+#: src/toolchain/dojoup.md:79
 msgid "Precompiled binaries"
 msgstr ""
 
-#: src/toolchain/dojoup.md:80
+#: src/toolchain/dojoup.md:81
 msgid ""
 "Precompiled binaries are available from the [GitHub releases "
 "page](https://github.com/dojoengine/dojo/releases). These are better managed "
@@ -3225,7 +3192,11 @@ msgid ""
 "terminal, since Dojoup currently does not support Powershell or Cmd."
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:3
+#: src/toolchain/sozo/overview.md:1
+msgid "![katana](../../images/sozo-icon-word.png)"
+msgstr ""
+
+#: src/toolchain/sozo/overview.md:5
 msgid ""
 "`sozo` is a powerful all-in-one tool for managing your Dojo projects. It "
 "helps with everything from scaffolding a new project, all the way to "
@@ -3236,44 +3207,44 @@ msgid ""
 "World-building. In the future, it may include a GUI."
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:5 src/toolchain/katana/overview.md:9
+#: src/toolchain/sozo/overview.md:7 src/toolchain/katana/overview.md:9
 msgid "Features"
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:7
+#: src/toolchain/sozo/overview.md:9
 msgid ""
 "**Binary CLI**: Sozo provides an intuitive binary CLI, ensuring easy "
 "management of your Worlds, whether you're updating existing ones or "
 "deploying new ones."
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:9 src/toolchain/katana/overview.md:15
-#: src/toolchain/torii/overview.md:15 src/toolchain/slot/overview.md:5
+#: src/toolchain/sozo/overview.md:11 src/toolchain/katana/overview.md:15
+#: src/toolchain/torii/overview.md:17 src/toolchain/slot/overview.md:5
 msgid "Installation"
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:11
+#: src/toolchain/sozo/overview.md:13
 msgid ""
 "`sozo` binary can be installed via "
 "[`dojoup`](../../getting-started/quick-start.md), our dedicated installation "
 "package manager."
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:13 src/toolchain/torii/overview.md:19
+#: src/toolchain/sozo/overview.md:15 src/toolchain/torii/overview.md:21
 msgid "Installing from Source"
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:21
+#: src/toolchain/sozo/overview.md:23
 msgid ""
 "This will install Sozo and the required dependencies on your local system."
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:23 src/toolchain/katana/overview.md:69
-#: src/toolchain/torii/overview.md:29 src/toolchain/slot/overview.md:19
+#: src/toolchain/sozo/overview.md:25 src/toolchain/katana/overview.md:69
+#: src/toolchain/torii/overview.md:31 src/toolchain/slot/overview.md:19
 msgid "📚 **Reference**"
 msgstr ""
 
-#: src/toolchain/sozo/overview.md:25
+#: src/toolchain/sozo/overview.md:27
 msgid ""
 "See the [`sozo` Reference](./reference.md) for a complete overview of all "
 "the available subcommands."
@@ -3762,6 +3733,10 @@ msgid ""
 "# example: writer - auth a system with the given calldata\n"
 "# This will auth the spawn system with the writer role for Position "
 "component\n"
+msgstr ""
+
+#: src/toolchain/katana/overview.md:1
+msgid "![katana](../../images/katana-icon-word.png)"
 msgstr ""
 
 #: src/toolchain/katana/overview.md:3
@@ -4411,10 +4386,14 @@ msgid ""
 msgstr ""
 
 #: src/toolchain/torii/overview.md:1
-msgid "Torii - Networking & Indexing"
+msgid "![katana](../../images/torii-icon-word.png)"
 msgstr ""
 
 #: src/toolchain/torii/overview.md:3
+msgid "Torii - Networking & Indexing"
+msgstr ""
+
+#: src/toolchain/torii/overview.md:5
 msgid ""
 "Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly "
 "fast and exceptionally scalable. Torii provides a fully typed, dynamically "
@@ -4422,35 +4401,35 @@ msgid ""
 "clients to the world state."
 msgstr ""
 
-#: src/toolchain/torii/overview.md:7
+#: src/toolchain/torii/overview.md:9
 msgid ""
 "Torii leverages world introspection to bootstrap directly from an onchain "
 "deployment. Simply run:"
 msgstr ""
 
-#: src/toolchain/torii/overview.md:13
+#: src/toolchain/torii/overview.md:15
 msgid ""
 "You'll have a GraphQL API running at `http://localhost:8080/graphql` and a "
 "gRPC api at `http://localhost:8080/grpc`"
 msgstr ""
 
-#: src/toolchain/torii/overview.md:17
+#: src/toolchain/torii/overview.md:19
 msgid ""
 "The `torii` binary can be installed via "
 "[`dojoup`](../../getting-started/quick-start.md), our dedicated installation "
 "package manager."
 msgstr ""
 
-#: src/toolchain/torii/overview.md:21
+#: src/toolchain/torii/overview.md:23
 msgid "If you prefer to install from the source code:"
 msgstr ""
 
-#: src/toolchain/torii/overview.md:27
+#: src/toolchain/torii/overview.md:29
 msgid ""
 "This will install Torii and the required dependencies on your local system."
 msgstr ""
 
-#: src/toolchain/torii/overview.md:31
+#: src/toolchain/torii/overview.md:33
 msgid "See the [`torii` Reference](./reference.md) for a complete reference."
 msgstr ""
 
@@ -6387,6 +6366,10 @@ msgstr ""
 
 #: src/misc/contributors.md:11
 msgid "Framework Theory"
+msgstr ""
+
+#: src/misc/contributors.md:12
+msgid "Getting Started"
 msgstr ""
 
 #: src/misc/contributors.md:13
