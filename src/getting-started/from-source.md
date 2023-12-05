@@ -12,7 +12,7 @@ installed with the "Desktop Development With C++" Workloads option.
 
 #### Building
 
-You can either use the different [Dojoup](#using-dojoup) flags:
+You can either use the different [Dojoup](../toolchain/dojoup.md) flags:
 
 ```sh
 dojoup --branch master

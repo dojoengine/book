@@ -3,6 +3,7 @@
 > **IMPORTANT:** Before defining your systems, prioritize permissions. Plan carefully to ensure proper access and security.
 
 **_TL;DR_**
+
 - Systems function as contract methods.
 - Contracts containing Systems gain permissions to write to models.
 - Systems pass a `world` address as their first parameter unless utilizing the [`#[dojo::contract]`](#the-dojocontract-decorator) decorator.
@@ -75,7 +76,7 @@ The spawn function is currently the only function that exists in this system. It
 
 ### The `#[dojo::contract]` Decorator
 
-All StarkNet contracts are defined using the `#[starknet::contract]` decorator, ensuring accurate compilation. In this context, Dojo introduces the `#[dojo::contract]` decorator, which aims to minimize boilerplate in contract writing. It’s imperative to acknowledge that utilizing this decorator is entirely optional.
+All Starknet contracts are defined using the `#[starknet::contract]` decorator, ensuring accurate compilation. In this context, Dojo introduces the `#[dojo::contract]` decorator, which aims to minimize boilerplate in contract writing. It’s imperative to acknowledge that utilizing this decorator is entirely optional.
 
 The `#[dojo::contract]` decorator allows developers to omit including `world: IWorldDispatcher` as a parameter. Behind the scenes, it injects the world into the contract and eliminates some imports, thereby streamlining the development process.
 
@@ -130,6 +131,5 @@ mod player_actions {
     }
 }
 ```
-
 
 > To interact with Systems read more in the [sozo](../toolchain/sozo/overview.md) docs.

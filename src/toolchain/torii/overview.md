@@ -1,3 +1,5 @@
+![katana](../../images/torii-icon-word.png)
+
 ## Torii - Networking & Indexing
 
 Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly fast and exceptionally scalable. Torii provides a fully typed, dynamically generated GraphqQL interface and a high performance gRPC api for binding clients to the world state.

@@ -6,18 +6,18 @@
   - [Cairo Ecosystem](./theory/cairo.md)
   - [FAQs](./theory/faqs.md)
 
-# Getting Started
+# 🚀 Getting Started
 
 - [Quick Start](./getting-started/quick-start.md)
   - [Manual Install](./getting-started/from-source.md)
   - [Development Setup](./getting-started/setup.md)
   - [Contributing](./getting-started/contributing.md)
 
-# Community
+# 🫂 Community
 
 - [Get Started](./community/get-started.md)
 
-# Architecture
+# 🏛️ Architecture
 
 - [Overview](./cairo/overview.md)
   - [World](./cairo/world.md)
@@ -35,20 +35,15 @@
   - [Entities](./cairo/entities.md)
   - [Testing](./cairo/testing.md)
 
-- [Modules](./cairo/modules.md)
-  - [ERC20](./cairo/modules/erc20.md)
-  - [ERC721]()
-  - [ERC1155]()
-  - [DeFi]()
+# 🖥️ Client SDKs + Origami
 
-# Client SDKs
+- [Origami](./cairo/origami.md)
+- [SDKs](./client/overview.md)
+  - [dojo.js](./client/dojojs.md)
+  - [unity](./client/torii/unity.md)
+  - [c](./client/torii/c.md)
 
-- [Overview](./client/overview.md)
-- [JS](./client/npm.md)
-  - [Core](./client/npm/core.md)
-- [torii](./client/torii.md)
-
-# Toolchain
+# ⛓️ Toolchain
 
 - [Dojoup](./toolchain/dojoup.md)
 - [Sozo](./toolchain/sozo/overview.md)
@@ -70,16 +65,17 @@
 - [Torii](./toolchain/torii/overview.md)
   - [Reference](./toolchain/torii/reference.md)
   - [Graphql](./toolchain/torii/graphql.md)
+  - [Graphql](./toolchain/torii/grpc.md)
 - [Slot](./toolchain/slot/overview.md)
   - [Reference](./toolchain/slot/reference.md)
     - [Deployments](./toolchain/slot/deployments-commands/deployments.md)
 
-# Deploying
+# 🌌 Deploying
 
 - [Locally](./deployment/locally.md)
 - [Remote](./deployment/remote.md)
 
-# Tutorial
+# 🙌 Tutorial
 
 - [Onchain Chess](./tutorial/onchain-chess/README.md)
   - [0. Setup](./tutorial/onchain-chess/0-setup.md)

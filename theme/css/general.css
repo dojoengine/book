@@ -8,11 +8,12 @@
 }
 
 html {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'DM Mono', monospace;
     color: var(--fg);
     background-color: var(--bg);
     text-size-adjust: none;
     -webkit-text-size-adjust: none;
+    font-weight: 300;
 }
 
 body {
@@ -47,8 +48,8 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
 .hide-boring .boring { display: none; }
 .hidden { display: none !important; }
 
-h2, h3 { margin-top: 2.5em; }
-h4, h5 { margin-top: 2em; }
+h2, h3 { margin-top: 2.5em; font-family: 'Roboto', sans-serif; }
+h4, h5 { margin-top: 2em; font-family: 'Roboto', sans-serif; }
 
 .header + .header h3,
 .header + .header h4,
@@ -97,7 +98,7 @@ h6:target::before {
     margin-right: auto;
     max-width: var(--content-max-width);
 }
-.content p { line-height: 1.45em; }
+.content p { line-height: 1.75em; }
 .content ol { line-height: 1.45em; }
 .content ul { line-height: 1.45em; }
 .content a { text-decoration: none; }
@@ -194,8 +195,15 @@ kbd {
 
 .chapter li.part-title {
     color: var(--sidebar-fg);
-    margin: 5px 0px;
+    margin: 8px 0px;
     font-weight: bold;
+    padding: 10px 0px 0px 0px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-top: var(--bg);
+    border-top-style: solid;
+    border-width: 0.5px;
 }
 
 .result-no-output {

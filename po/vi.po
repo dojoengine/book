@@ -528,10 +528,10 @@ msgstr ""
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
-"Katana is a customizable StarkNet development network. It is blazingly fast "
+"Katana is a customizable Starknet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
 msgstr ""
-"Katana là một mạng phát triển StarkNet có thể tùy chỉnh. Nó vô cùng nhanh "
+"Katana là một mạng phát triển Starknet có thể tùy chỉnh. Nó vô cùng nhanh "
 "chóng và cho phép bạn làm nhanh chóng trên logic trò chơi của mình."
 
 #: src/theory/what-is-dojo.md:31
@@ -1747,13 +1747,13 @@ msgstr "Trang trí 'dojo::hợp đồng'"
 
 #: src/cairo/systems.md:78
 msgid ""
-"All StarkNet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[starknet::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "
 "decorator is entirely optional."
 msgstr ""
-"Tất cả các hợp đồng StarkNet được xác định bằng cách sử dụng trang trí "
+"Tất cả các hợp đồng Starknet được xác định bằng cách sử dụng trang trí "
 "`#[starknet::contract]`, đảm bảo biên dịch chính xác. Trong ngữ cảnh này, "
 "Dojo giới thiệu trang trí `#[dojo::contract]`, mục tiêu là giảm thiểu khoán "
 "lề trong việc viết hợp đồng. Rất quan trọng phải nhận thức rằng việc sử dụng"

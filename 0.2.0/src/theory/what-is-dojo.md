@@ -26,7 +26,7 @@ Using Torii drastically reduces the time and effort required to build on-chain g
 
 ### [Katana](/crates/katana/README.md) - Blazingly fast development network
 
-Katana is a customizable StarkNet development network. It is blazingly fast and allows you to iterate on your game logic swiftly.
+Katana is a customizable Starknet development network. It is blazingly fast and allows you to iterate on your game logic swiftly.
 
 ### [Sozo CLI](/crates/sozo/README.md) - CLI Management Tool
 

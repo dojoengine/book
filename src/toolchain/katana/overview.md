@@ -1,4 +1,4 @@
-## Katana
+![katana](../../images/katana-icon-word.png)
 
 Katana is a _blazingly fast_ sequencer, designed to support both local development as well as production deployments.
 

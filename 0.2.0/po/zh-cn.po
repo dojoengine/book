@@ -339,7 +339,7 @@ msgstr ""
 "(https://github.com/orgs/dojoengine/people)牵头。\n"
 "\n"
 "\n"
-"中文版由[Starknet Astro](https://twitter.com/StarkNetAstroCN)与[AW Research]"
+"中文版由[Starknet Astro](https://twitter.com/StarknetAstroCN)与[AW Research]"
 "(https://twitter.com/AW_Research)共同翻译。"
 
 #: src/index.md:33
@@ -462,10 +462,10 @@ msgstr "### [Katana](/crates/katana/README.md) - 如闪电般快速的开发网"
 
 #: src/theory/what-is-dojo.md:29
 msgid ""
-"Katana is a customizable StarkNet development network. It is blazingly fast "
+"Katana is a customizable Starknet development network. It is blazingly fast "
 "and allows you to iterate on your game logic swiftly."
 msgstr ""
-"Katana 是一个可定制的 StarkNet 开发网。它速度极快，可让您迅速迭代游戏逻辑。"
+"Katana 是一个可定制的 Starknet 开发网。它速度极快，可让您迅速迭代游戏逻辑。"
 
 #: src/theory/what-is-dojo.md:31
 #, fuzzy

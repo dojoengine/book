@@ -1,11 +1,6 @@
-# Javascript Libraries
+# Dojo.js
 
 > Javascript is a great way to get started with Dojo. It's easy to use, and you can get started in minutes.
-
-### Examples using these:
-
-- [Dojo-create-react-app](https://github.com/dojoengine/dojo-starter-react-app)
-- [Dojo-starter-phaser](https://github.com/dojoengine/dojo-starter-phaser)
 
 ### @dojoengine/core
 
@@ -31,8 +26,38 @@ bun add @dojoengine/create-burner
 
 These are utils for helping with interfacing dojo.
 
-[Reopsitory](https://github.com/dojoengine/packages/tree/main/packages/utils)
+[Repository](https://github.com/dojoengine/packages/tree/main/packages/utils)
 
 ```console
 bun add @dojoengine/utils
+```
+
+### @dojoengine/react
+
+React hooks for dojo.
+
+[Repository](https://github.com/dojoengine/packages/tree/main/packages/react)
+
+```console
+bun add @dojoengine/react
+```
+
+### @dojoengine/torii-client
+
+The wasm client to access torii via grpc.
+
+[Repository](https://github.com/dojoengine/packages/tree/main/packages/torii-client)
+
+```console
+bun add @dojoengine/torii-client
+```
+
+### @dojoengine/torii-wasm
+
+Torii client for wasm bindings.
+
+[Repository](https://github.com/dojoengine/packages/tree/main/packages/torii-wasm)
+
+```console
+bun add @dojoengine/torii-wasm
 ```
