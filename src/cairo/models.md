@@ -2,8 +2,8 @@
 
 > Models = Data
 
-
 **_TL;DR_**
+
 - Models store structured data in your world.
 - Models are Cairo structs with additional features.
 - Models can implement traits.
@@ -16,7 +16,7 @@
 Models are structs annotated with the `#[derive(Model)]` attribute. Consider these models as a key-value store, where the `#[key]` attribute is utilized to define the primary key. While models can contain any number of fields, adhering to best practices in Entity-Component-System (ECS) design involves maintaining small, isolated models. This approach fosters modularity and composability, enabling you to reuse models across various entity types.
 
 ```rust,ignore
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Moves {
     #[key]
     player: ContractAddress,
@@ -26,10 +26,10 @@ struct Moves {
 
 #### The #[key] attribute
 
-The `#[key]` attribute indicates to Dojo that this model is indexed by the `player` field. You need to define a key for each model, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys. 
+The `#[key]` attribute indicates to Dojo that this model is indexed by the `player` field. You need to define a key for each model, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys.
 
 ```rust,ignore
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Resource {
     #[key]
     player: ContractAddress,
@@ -87,31 +87,32 @@ To establish these models, you'd follow the usual creation method. However, when
 ```rust,ignore
 const GAME_SETTINGS_ID: u32 = 9999999999999;
 
-#[derive(model, Copy, Drop, Serde, SerdeLen)]
+#[derive(model, Copy, Drop, Serde)]
 struct GameSettings {
     #[key]
     game_settings_id: u32,
     combat_cool_down: u32,
 }
-``` 
+```
 
 #### Types
 
 Support model types:
 
--   `u8`
--   `u16`
--   `u32`
--   `u64`
--   `u128`
--   `u256`
--   `ContractAddress`
--   Enums
--   Custom Types
+- `u8`
+- `u16`
+- `u32`
+- `u64`
+- `u128`
+- `u256`
+- `ContractAddress`
+- Enums
+- Custom Types
 
 It is currently not possible to use Arrays.
 
-#### Custom Types + Enums 
+#### Custom Types + Enums
+
 For models containing complex types, it's crucial to implement the `SchemaIntrospection` trait.
 
 Consider the model below:
@@ -163,21 +164,21 @@ impl RolesSchemaIntrospectionImpl for SchemaIntrospection<Roles> {
 Consider a tangible analogy: Humans and Goblins. While they possess intrinsic differences, they share common traits, such as having a position and health. However, humans possess an additional model. Furthermore, we introduce a Counter model, a distinct feature that tallies the numbers of humans and goblins.
 
 ```rust,ignore
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Potions {
     #[key]
     entity_id: u32,
     quantity: u8,
 }
 
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Health {
     #[key]
     entity_id: u32,
     health: u8,
 }
 
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Position {
     #[key]
     entity_id: u32,
@@ -186,7 +187,7 @@ struct Position {
 }
 
 // Special counter model
-#[derive(Model, Copy, Drop, Serde, SerdeLen)]
+#[derive(Model, Copy, Drop, Serde)]
 struct Counter {
     #[key]
     counter: u32,
@@ -197,7 +198,7 @@ struct Counter {
 
 So the Human will have a `Potions`, `Health` and `Position` model, and the Goblin will have a `Health` and `Position` model. By doing we save having to create Health and Position models for each entity type.
 
-So then a system would look like this:
+So then a contract would look like this:
 
 ```rust,ignore
 #[dojo::contract]
@@ -232,13 +233,13 @@ mod spawnHuman {
                 (
                     Health {
                         entity_id: human_count, health: 100
-                        }, 
+                        },
                     Position {
                         entity_id: human_count, x: position.x + 10, y: position.y + 10,
-                        }, 
+                        },
                     Potions {
                         entity_id: human_count, quantity: 10
-                        
+
                     },
                 )
             );
@@ -249,7 +250,7 @@ mod spawnHuman {
                 (
                     Health {
                         entity_id: goblin_count, health: 100
-                        }, 
+                        },
                     Position {
                         entity_id: goblin_count, x: position.x + 10, y: position.y + 10,
                         },
@@ -265,8 +266,6 @@ mod spawnHuman {
                     },
                 )
             );
-            
-            return ();
         }
     }
 }
