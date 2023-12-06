@@ -258,11 +258,11 @@ actions
 
 ```
 
-Your 🌎 is now deployed at `0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973`!
+Your 🌎 is now deployed at `0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138`!
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze. (Read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed!. In this case version `0.3.10`
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.3.13`.
 
 ```toml
 [dependencies]
@@ -274,10 +274,10 @@ dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.13" }
 With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your world address from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
 
 ```bash
-torii --world 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973
+torii --world 0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138
 ```
 
-Running the command mentioned above starts a Torii server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. Torii will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
+Running the command mentioned above starts a [Torii](../toolchain/torii/overview.md) server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. [Torii](../toolchain/torii/overview.md) will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
 
 ```bash
 2023-10-18T06:49:48.184233Z  INFO torii::server: 🚀 Torii listening at http://0.0.0.0:8080

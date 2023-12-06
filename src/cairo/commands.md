@@ -51,10 +51,10 @@ Here we are updating the `Moves` and `Position` models in the world state using 
 
 ### The `emit!` command
 
-The `emit!` command is used to emit custom events. These events are indexed by [torii](../toolchain/torii/overview.md)
+The `emit!` command is used to emit custom events. These events are indexed by [Torii](../toolchain/torii/overview.md).
 
 ```rust,ignore
 emit!(world, Moved { address: caller, direction });
 ```
 
-This will emit these values which could be captured by a client or you could query these via [torii](../toolchain/torii/overview.md)
+This will emit these values which could be captured by a client or you could query these via [Torii](../toolchain/torii/overview.md).
