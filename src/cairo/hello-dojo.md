@@ -60,9 +60,9 @@ struct Position {
 
 Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
-Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
+Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this model using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
 
-In a similar vein, we have a `Position` component that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this component is indexed by the `player` field.
+In a similar vein, we have a `Position` model that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this model is indexed by the `player` field.
 
 Now, let's examine the `src/actions.cairo` file:
 
@@ -154,9 +154,9 @@ mod actions {
 
 ### Breaking it down
 
-#### System is a contract
+#### System is a function in a contract
 
-As you can see a `System` is like a dojo(starknet) contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
+As you can see a `System` is like a regular function of a dojo(starknet) contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
 
 ```rust,ignore
 // Retrieve the player's current position from the world.
@@ -205,7 +205,7 @@ Now that we've covered some theory, let's build the Dojo project! In your primar
 sozo build
 ```
 
-That compiled the components and system into an artifact that can be deployed! Simple as that!
+That compiled the models and system into an artifact that can be deployed! Simple as that!
 
 Now, let's deploy it to [Katana](../toolchain/katana/overview.md)! First, we need to get Katana running. Open a second terminal and execute:
 
@@ -361,7 +361,7 @@ We have to use `actions` contract address to start to create entities. In your m
 sozo execute 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd spawn
 ```
 
-By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
+By running this command, you've activated the spawn function, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
 
 Now, go back to your GraphiQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
 
