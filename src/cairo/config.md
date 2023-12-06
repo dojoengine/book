@@ -1,8 +1,8 @@
 # Config
 
-Dojo worlds are defined in their Scarb.toml files. This is just a regular [Scarb](https://docs.swmansion.com/scarb/) file which is an excellent Cairo package manager and project manager.
+Dojo worlds are defined in their `Scarb.toml` files. This is just a regular [Scarb](https://docs.swmansion.com/scarb/) file which is an excellent Cairo package manager and project manager.
 
-Full example of a Scarb.toml file:
+Full example of a `Scarb.toml` file:
 
 ```toml
 [package]

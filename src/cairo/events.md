@@ -78,7 +78,7 @@ These events are also captured by [Torii](../toolchain/torii/overview.md) and in
 
 ### Custom Events
 
-Within your contracts, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` macro that lets you release events directly from your world. These events are indexed by [torii](../toolchain/torii/overview.md)
+Within your game, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` command that lets you release events directly from your world. These events are indexed by [Torii](../toolchain/torii/overview.md).
 
 Use it like so:
 

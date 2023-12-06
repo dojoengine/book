@@ -13,7 +13,7 @@ This will search for all tests within your project and run them.
 
 ### Writing Unit Tests
 
-It is best practise to include unit tests in the same file as the model/System you are writing.
+It is best practise to include unit tests in the same file as the Model/System you are writing.
 
 Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 

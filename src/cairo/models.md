@@ -212,7 +212,7 @@ mod spawnHuman {
     use dojo_examples::models::Potions;
     use dojo_examples::models::Counter;
 
-    // we can set the counter value as a const, then query it easily! This pattern is useful for settins.
+    // we can set the counter value as a const, then query it easily! This pattern is useful for settings.
     const COUNTER_ID: u32 = 9999999999999;
 
     // impl: implement functions specified in trait
