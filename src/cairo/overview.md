@@ -55,7 +55,6 @@ mod player_actions {
     #[external(v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         //
-        // NOTICE: we pass the world dispatcher as an argument to every function.
         // This is how we interact with the world contract.
         //
         fn spawn(self: @ContractState) {
@@ -87,7 +86,7 @@ Read more about models [here](./models.md).
 
 #### `spawn` function - a dojo system
 
-In the `spawn` function, take note of the second parameter: the `IWorldDispatcher` interface. This provides a gateway to the world contract. By integrating it into the function, it enables the `get!` and `set!` macros to interface directly with the world contract.
+In the `spawn` function, we just call `self.world_dispatcher`. This provides a gateway to the world contract. This facilitates the effortless utilization of the get! and set! commands, allowing seamless interaction with the world contract.
 
 Commands, a significant innovation in Dojo, are further explored [here](./commands.md).
 
