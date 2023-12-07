@@ -66,13 +66,13 @@ mod player_actions {
 
 ## Breaking it down
 
-#### System is a contract
+#### System is a function in a contract
 
-As you can see a System is like a regular Starknet contract. It can include storage, and it can implement interfaces.
+As you can see a System is like a regular function of a Starknet contract. This contract can include storage, and it can implement interfaces.
 
 #### `Spawn` function
 
-The spawn function is currently the only function that exists in this system. It is called when a player spawns into the world. It is responsible for setting up the player's initial state.
+The spawn function is currently the only system that exists in this contract. It is called when a player spawns into the world. It is responsible for setting up the player's initial state.
 
 ### The `#[dojo::contract]` Decorator
 
