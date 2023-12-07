@@ -294,7 +294,6 @@ subscription {
   ) {
     id
     keys
-    model_names
     event_id
     created_at
     updated_at
@@ -325,7 +324,6 @@ According to your input, you will receive an output like this:
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "model_names": "Moves,Position",
       "event_id": "0x0000000000000000000000000000000000000000000000000000000000000013:0x0000:0x0000",
       "created_at": "2023-10-17 11:39:42",
       "updated_at": "2023-10-17 11:52:48",

@@ -193,8 +193,8 @@ We covered a lot here in a short time. Let's recap:
 
 - Explained the anatomy of a Dojo project
 - Explained the importance of the `#[derive(Model)]`attribute
-- Explained the `execute` function
-- Explained the `Context` struct
+- Explained the `spawn` and `move` functions
+- Explained the `Moves` and `Position` struct
 - Touched on the `get!` and `set!` commands
 
 ### Run it locally!
@@ -262,16 +262,16 @@ Your 🌎 is now deployed at `0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.3.13`.
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.3.14`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.13" }
+dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.14" }
 ```
 
 ### Indexing
 
-With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your world address from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
+With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your `world address` from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
 
 ```bash
 torii --world 0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138
@@ -337,7 +337,6 @@ subscription {
   entityUpdated {
     id
     keys
-    model_names
     event_id
     created_at
     updated_at
@@ -373,7 +372,6 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "model_names": "Moves",
       "event_id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0000",
       "created_at": "2023-10-18 06:53:12",
       "updated_at": "2023-10-18 06:53:12"
@@ -388,7 +386,6 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "model_names": "Moves,Position",
       "event_id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0001",
       "created_at": "2023-10-18 06:53:12",
       "updated_at": "2023-10-18 06:53:12"
