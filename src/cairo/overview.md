@@ -86,7 +86,7 @@ Read more about models [here](./models.md).
 
 #### `spawn` function - a dojo system
 
-In the `spawn` function, we just call `self.world_dispatcher`. This provides a gateway to the world contract. This facilitates the effortless utilization of the get! and set! macros, allowing seamless interaction with the world contract.
+In the `spawn` function, we just call `self.world_dispatcher`. This provides a gateway to the world contract. This facilitates the effortless utilization of the get! and set! commands, allowing seamless interaction with the world contract.
 
 Commands, a significant innovation in Dojo, are further explored [here](./commands.md).
 
