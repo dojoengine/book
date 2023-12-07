@@ -165,4 +165,3 @@ Finish by making your tests. These should find wrong moves and give back errors.
 ## Need help?
 
 If you're stuck, don't hesitate to ask questions at the [Dojo community](https://discord.gg/akd2yfuRS3)!
-

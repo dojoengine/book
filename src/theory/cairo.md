@@ -1,8 +1,8 @@
 # Provable games
 
-Provable games demand [zero-knowledge](https://ethereum.org/en/zero-knowledge-proofs/) properties for efficient scaling and verification of computations. [Cairo](https://book.starknet.io/ch01-00-getting-started.html) addresses this need by providing a generalized language, eliminating the complexity of creating circuits to incorporate [SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/). 
+Provable games demand [zero-knowledge](https://ethereum.org/en/zero-knowledge-proofs/) properties for efficient scaling and verification of computations. [Cairo](https://book.starknet.io/ch01-00-getting-started.html) addresses this need by providing a generalized language, eliminating the complexity of creating circuits to incorporate [SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/).
 
-**You can simply program in Cairo and your applications become automatically provable**. 
+**You can simply program in Cairo and your applications become automatically provable**.
 
 Moreover, you can deploy your programs on the [Cairo Virtual Machine](https://medium.com/starkware/cairo-welcome-on-board-1cf3487554f) (CVM), which is compatible with Starknet's Layer 2, Starknet appchains, and even in-browser through WebAssembly (WASM)! Dojo aims to supply straightforward ZK primitives to fuel your game development.
 
@@ -16,9 +16,10 @@ Dojo builds on Cairo to create a robust framework for developing Autonomous Worl
 
 A key feature of the Dojo framework is its use of [commands](../cairo/commands.md). Commands are a design pattern that helps to reduce boilerplate code, resulting in cleaner and more maintainable applications. They achieve this by encapsulating specific actions or operations within self-contained, reusable units.
 
-Developers can write commands freely within Systems, and the Cairo compiler takes care of inlining the appropriate functions. 
+Developers can write commands freely within Systems, and the Cairo compiler takes care of inlining the appropriate functions.
 
 #### Essential Reading
+
 - [Cairo book](https://github.com/cairo-book/cairo-book)
 - [Awesome Cairo](https://github.com/auditless/awesome-cairo)
 - [Starknet Book](https://book.starknet.io/)

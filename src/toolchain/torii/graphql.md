@@ -117,6 +117,7 @@ query{
   }
 }
 ```
+
 If you execute this query after you applied `sozo migrate` in your [`hello-dojo`](../../cairo/hello-dojo.md) example. You will get an output similar to this.
 
 ```json
@@ -352,8 +353,8 @@ According to your input, you will receive an output like this:
 A valuable approach for harnessing the power of GraphQL is by actively monitoring the events emitted throughout your game. This allows you to extract essential information such as key values, data, and transaction hashes. These events are customizable and can be filtered based on keys, much like `entities query`, and they seamlessly support pagination. In the subsequent example, we will demonstrate how to listen for any event emitted within your program.
 
 ```graphql
-subscription{
-  eventEmitted{
+subscription {
+  eventEmitted {
     id
     keys
     data
@@ -361,6 +362,7 @@ subscription{
   }
 }
 ```
+
 If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT_ADDRESS> spawn` in your [`hello-dojo`](../../cairo/hello-dojo.md) example. You will get an output similar to this.
 
 ```json

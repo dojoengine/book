@@ -54,5 +54,5 @@ sozo migrate --world 0x123456
 3. Deploying your World using [profile options](../common-options/profile-options.md)
 
 ```sh
-sozo --profile dev migrate 
+sozo --profile dev migrate
 ```

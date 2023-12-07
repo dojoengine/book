@@ -57,22 +57,22 @@ The messaging config file is a JSON file that contains the following fields:
 
 ```json
 {
-	/// The type of messaging service to use. Can be either "ethereum" or "starknet".
-	"chain": "ethereum",
-	/// The RPC-URL of the settlement chain.
-	"rpc_url": "http://127.0.0.1:8545",
-	/// The messaging-contract address on the settlement chain.
-	"contract_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-	/// The address to use for settling messages. It should be a valid address that
-	/// can be used to send a transaction on the settlement chain.
-	"sender_address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-	/// The private key associated to `sender_address`.
-	"private_key": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
-	/// The interval, in seconds, at which the messaging service will fetch and settle messages
-	/// from/to the settlement chain.
-	"interval": 2,
-	/// The block on settlement chain from where Katana will start fetching messages.
-	"from_block": 0
+  /// The type of messaging service to use. Can be either "ethereum" or "starknet".
+  "chain": "ethereum",
+  /// The RPC-URL of the settlement chain.
+  "rpc_url": "http://127.0.0.1:8545",
+  /// The messaging-contract address on the settlement chain.
+  "contract_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  /// The address to use for settling messages. It should be a valid address that
+  /// can be used to send a transaction on the settlement chain.
+  "sender_address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  /// The private key associated to `sender_address`.
+  "private_key": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+  /// The interval, in seconds, at which the messaging service will fetch and settle messages
+  /// from/to the settlement chain.
+  "interval": 2,
+  /// The block on settlement chain from where Katana will start fetching messages.
+  "from_block": 0
 }
 ```
 
@@ -100,32 +100,32 @@ katana --port <PORT>
 
 Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. The standard methods are based on [this](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) reference.
 
--   `starknet_blockNumber`
--   `starknet_blockHashAndNumber`
--   `starknet_getBlockWithTxs`
--   `starknet_getBlockWithTxHashes`
--   `starknet_getBlockTransactionCount`
--   `starknet_getTransactionByHash`
--   `starknet_getTransactionByBlockIdAndIndex`
--   `starknet_getTransactionReceipt`
--   `starknet_pendingTransactions`
--   `starknet_getStateUpdate`
+- `starknet_blockNumber`
+- `starknet_blockHashAndNumber`
+- `starknet_getBlockWithTxs`
+- `starknet_getBlockWithTxHashes`
+- `starknet_getBlockTransactionCount`
+- `starknet_getTransactionByHash`
+- `starknet_getTransactionByBlockIdAndIndex`
+- `starknet_getTransactionReceipt`
+- `starknet_pendingTransactions`
+- `starknet_getStateUpdate`
 
--   `starknet_call`
--   `starknet_estimateFee`
+- `starknet_call`
+- `starknet_estimateFee`
 
--   `starknet_chainId`
+- `starknet_chainId`
 
--   `starknet_getNonce`
--   `starknet_getEvents`
--   `starknet_getStorageAt`
--   `starknet_getClassHashAt`
--   `starknet_getClass`
--   **`starknet_getClassAt`**
+- `starknet_getNonce`
+- `starknet_getEvents`
+- `starknet_getStorageAt`
+- `starknet_getClassHashAt`
+- `starknet_getClass`
+- **`starknet_getClassAt`**
 
--   `starknet_addInvokeTransaction`
--   `starknet_addDeclareTransaction`
--   `starknet_addDeployAccountTransaction`
+- `starknet_addInvokeTransaction`
+- `starknet_addDeclareTransaction`
+- `starknet_addDeployAccountTransaction`
 
 ##### Custom Methods
 
@@ -228,11 +228,11 @@ Generates a shell completions script for the given shell.
 
 Supported shells are:
 
--   bash
--   elvish
--   fish
--   powershell
--   zsh
+- bash
+- elvish
+- fish
+- powershell
+- zsh
 
 #### EXAMPLES
 

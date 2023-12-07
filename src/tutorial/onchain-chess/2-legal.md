@@ -44,6 +44,7 @@ We need to add some check functions in `actions` contract. These will help make 
 ```
 
 4. see if it's the right move
+
 ```rust,ignore
     fn is_right_piece_move(
         maybe_piece: PieceType, curr_position: (u32, u32), next_position: (u32, u32)
@@ -95,6 +96,7 @@ We need to add some check functions in `actions` contract. These will help make 
         }
     }
 ```
+
 5. You can also add other check functions to be extra sure the move is allowed.
 
 Once you've made these check functions, you can use them in the `move` function in the contract as illustrated in the previous chapter [here](1-action.md). You can decide how to set them up and which ones to use. We'll give an example to help:
@@ -144,7 +146,7 @@ Now we can make tests that show errors if we try moves that aren't allowed. Let'
 ```rust,ignore
     #[test]
     #[should_panic]
-    fn test_piecetype_ilegal() {    
+    fn test_piecetype_ilegal() {
     let white = starknet::contract_address_const::<0x01>();
     let black = starknet::contract_address_const::<0x02>();
     let (world, actions_system) = setup_world();
@@ -163,4 +165,3 @@ Finish by making your tests. These should find wrong moves and give back errors.
 ## Need help?
 
 If you're stuck, don't hesitate to ask questions at the [Dojo community](https://discord.gg/akd2yfuRS3)!
-

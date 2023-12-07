@@ -27,7 +27,6 @@ mod Spawn {
 }
 ```
 
-
 ### The Execute function
 
 The `execute` function is mandatory in a system and runs when called, taking `Context` as its first parameter. See more in [Context](./world.md).
@@ -77,8 +76,7 @@ In this example, the function computes and returns the current price of the VRGD
 
 **How to Invoke View Functions?**
 
-- **Using Dojo Core**: If you are working within the [Dojo Core](../client/npm/core.md), utilize the `call` function. 
-  
+- **Using Dojo Core**: If you are working within the [Dojo Core](../client/npm/core.md), utilize the `call` function.
 - **For Rust Users**: The [Starkli](https://book.starkli.rs/) library provides a handy method to invoke view functions in Rust.
 
 I hope this revised version enhances the clarity and flow of the information you want to convey!
@@ -88,9 +86,9 @@ I hope this revised version enhances the clarity and flow of the information you
 Systems must be given permission to write to components. By default they have no permissions. With `sozo` we can however give them permissions to write to components.
 
 ```console
-sozo auth writer Moves Spawn 
+sozo auth writer Moves Spawn
 ```
 
-Here we have authorized the `Spawn` system to write to the `Moves` component. 
+Here we have authorized the `Spawn` system to write to the `Moves` component.
 
 Read more in the [sozo](../toolchain/sozo/overview.md) docs.

@@ -4,6 +4,6 @@ Torii client is a rust client for interacting with Dojo worlds. It can be compil
 
 ### Usage in Rust projects
 
-__@kairy__
+**@kairy**
 
 ### Usage in JS Clients

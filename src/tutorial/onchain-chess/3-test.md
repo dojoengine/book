@@ -1,4 +1,4 @@
- # 3 Test Contract
+# 3 Test Contract
 
 In this chapter, we'll use everything we've learned to run a full chess game scenario.
 
@@ -88,6 +88,7 @@ mod tests {
 ```
 
 ## Diving into the Code
+
 First, we'll set up the players and their colors.
 
 ```rust,ignore
@@ -102,7 +103,9 @@ We should list both models with each having CLASS_HASH as elements and then we d
  let mut models = array![game::TEST_CLASS_HASH, game_turn::TEST_CLASS_HASH, square::TEST_CLASS_HASH];
  let world = spawn_test_world(models);
 ```
+
 We then deploy our system contracts in our helper function in `action_contract` file. we only imported it in our test file.
+
 ```rust,ignore
     let contract_address = world
             .deploy_contract('salt', actions::TEST_CLASS_HASH.try_into().unwrap());

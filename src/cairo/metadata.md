@@ -2,7 +2,6 @@
 
 Dojo supports associating offchain metadata with the world contract and other deployed contracts. This can provide additional context about the world, such as it's name, description, social links and other media. Enabling external services to easily index and distribute worlds and experiences built on them.
 
-
 ### World Metadata
 
 During migration, `sozo` will automatically manage the worlds metadata for you, uploading it to ipfs and setting it in the world contract. It does so by parsing the metadata defined in the projects `Scarb.toml`.
