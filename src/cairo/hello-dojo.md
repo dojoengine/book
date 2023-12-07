@@ -361,7 +361,7 @@ We have to use `actions` contract address to start to create entities. In your m
 sozo execute 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd spawn
 ```
 
-By running this command, you've activated the spawn function, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
+By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
 
 Now, go back to your GraphiQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
 
