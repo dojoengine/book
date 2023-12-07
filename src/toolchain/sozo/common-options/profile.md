@@ -11,7 +11,6 @@ Profiles can be convenient when dealing with multiple environments (dev, staging
 `--release`  
 &nbsp;&nbsp;&nbsp;&nbsp;Use release profile.
 
-
 ### USAGE
 
 Multiple profiles can be defined in Scarb.toml
@@ -34,7 +33,7 @@ Then used with sozo commands
 sozo --profile dev migrate
 ```
 
-is equivalent to 
+is equivalent to
 
 ```sh
 sozo migrate --rpc-url http://localhost:5050 --account-address 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973 --private-key 0x1800000000300000180000000000030000000000003006001800006600

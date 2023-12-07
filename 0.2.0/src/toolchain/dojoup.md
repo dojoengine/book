@@ -15,9 +15,10 @@ To install latest **stable** version:
 ```sh
 dojoup
 ```
+
 > Note: You may have to install `jq` to use `dojoup`. You can do so with the following commands:
 
-```sh   
+```sh
 # Debian
 sudo apt-get install jq
 
@@ -79,7 +80,6 @@ dojoup --path ./git/dojo
 
 Precompiled binaries are available from the [GitHub releases page](https://github.com/dojoengine/dojo/releases).
 These are better managed by using [Dojoup](#using-dojoup).
-
 
 > ℹ️ **Note**
 >

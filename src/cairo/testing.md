@@ -10,7 +10,6 @@ sozo test
 
 This will search for all tests within your project and run them.
 
-
 ### Writing Unit Tests
 
 It is best practise to include unit tests in the same file as the Model/System you are writing.
@@ -18,6 +17,7 @@ It is best practise to include unit tests in the same file as the Model/System y
 Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 `models.cairo`
+
 ```rust,ignore
 
 ...//rest of code
@@ -43,7 +43,6 @@ mod tests {
 
 In this test we are testing the `is_zero` and `is_equal` functions of the `Position` model. It is good practise to test all functions of your models.
 
-
 ### Writing Integration Tests
 
 Integration tests are e2e tests that test the entire system. You can write integration tests for your world by creating a `tests` directory in your project root. Then create a file for each integration test you want to write.
@@ -51,6 +50,7 @@ Integration tests are e2e tests that test the entire system. You can write integ
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 `move.cairo`
+
 ```rust,ignore
 #[cfg(test)]
 mod tests {
@@ -58,7 +58,7 @@ mod tests {
     use dojo::test_utils::{spawn_test_world, deploy_contract};
     use dojo_examples::models::{position, moves};
     use dojo_examples::models::{Position, Moves, Direction};
-    
+
     use super::{actions, IActionsDispatcher, IActionsDispatcherTrait};
 
     // helper setup function
@@ -69,7 +69,7 @@ mod tests {
 
          // deploy world with models
         let world = spawn_test_world(models);
-        
+
         // deploy systems contract
         let contract_address = world
             .deploy_contract('salt', actions::TEST_CLASS_HASH.try_into().unwrap());
@@ -86,7 +86,7 @@ mod tests {
         let caller = starknet::contract_address_const::<0x0>();
 
         let actions_system = setup_world();
-        
+
          // System calls
         actions_system.spawn();
         actions_system.move(Direction::Right(()));

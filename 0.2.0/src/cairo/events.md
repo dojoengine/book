@@ -2,7 +2,6 @@
 
 Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a `Component`, the `World` contract emits these events. What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to [Torii](../toolchain/torii/overview.md), all these events are seamlessly indexed, ensuring easy and efficient querying.
 
-
 ### Component Events
 
 Consider this example of a `Moves` component:
@@ -70,7 +69,6 @@ struct SystemRegistered {
 
 These events are also captured by [Torii](../toolchain/torii/overview.md) and indexed for querying.
 
-
 ### Custom Events
 
 Within your systems, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` macro that lets you release events directly from your world. Use it like so:
@@ -89,7 +87,7 @@ struct Moved {
 }
 ```
 
-Now a full example using a custom event: 
+Now a full example using a custom event:
 
 ```rust,ignore
 fn execute(ctx: Context, direction: Direction) {
@@ -97,7 +95,7 @@ fn execute(ctx: Context, direction: Direction) {
     moves.remaining -= 1;
 
     let next = next_position(position, direction);
-    
+
     set !(ctx.world, (moves, next));
     emit !(ctx.world, Moved { address: ctx.origin, direction });
     return ();

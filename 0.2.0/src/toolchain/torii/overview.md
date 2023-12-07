@@ -9,6 +9,7 @@ Torii indexes your dojo worlds and exposes a GraphQL API to query them. Simply r
 ```sh
 torii
 ```
+
 and you'll have a GraphQL API running on `http://localhost:8080`!
 
 ## Installation

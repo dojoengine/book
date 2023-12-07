@@ -51,7 +51,7 @@ struct Position {
 ...rest of code
 ```
 
-Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we *must* include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
+Notice the `#[derive(Component, Copy, Drop, Serde, SerdeLen)]` attributes. For a component to be recognized, we _must_ include `Component`. This signals to the Dojo compiler that this struct should be treated as a component.
 
 Our `Moves` component houses a `remaining` value in its state. The `#[key]` attribute informs Dojo that this component is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this component using the `player` field.
 
@@ -139,12 +139,11 @@ Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position
 
 We covered a lot here in a short time. Let's recap:
 
--   Explained the anatomy of a Dojo project
--   Explained the importance of the `#[derive(Component)]` and `#[system]` attribute
--   Explained the `execute` function
--   Explained the `Context` struct
--   Touched on the `get!` and `set!` commands
-
+- Explained the anatomy of a Dojo project
+- Explained the importance of the `#[derive(Component)]` and `#[system]` attribute
+- Explained the `execute` function
+- Explained the `Context` struct
+- Touched on the `get!` and `set!` commands
 
 ### Run it locally!
 
@@ -179,7 +178,7 @@ Migration account: 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91
   > Total diffs found: 7
 [3] 📦 Preparing for migration....
   > Total items to be migrated (7): New 7 Update 0
-  
+
 # Executor
   > Contract address: 0x1a8cc7a653543337be184d21ceeb5cfc7e97af5ab7da5e4be77f373124d7e48
 # World
@@ -230,10 +229,10 @@ Executing the above activates a local torii server using SQLite as its database,
 
 We've covered quite a bit! Here's a recap:
 
--   Built a Dojo world
--   Deployed the project to Katana
--   Ran the spawn system locally
--   Indexed the world with Torii
+- Built a Dojo world
+- Deployed the project to Katana
+- Ran the spawn system locally
+- Indexed the world with Torii
 
 ### Next Steps
 

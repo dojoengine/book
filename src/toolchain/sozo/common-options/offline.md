@@ -1,4 +1,5 @@
 # offline
+
 ## use sozo offline
 
 `--offline`  
@@ -11,7 +12,7 @@
 sozo --offline [COMMAND]
 ```
 
-For example 
+For example
 
 ```sh
 sozo --offline build

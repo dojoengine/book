@@ -4,7 +4,7 @@ This chapter will address implementing `action_contract.cairo`, which spawns the
 
 ## What is `action_contract`?
 
-To play chess, you need, to start game, spawn the pieces, and move around the board. the `action_contract` has two dominant functions `spawn_game` function which spawns the game entity and places each 
+To play chess, you need, to start game, spawn the pieces, and move around the board. the `action_contract` has two dominant functions `spawn_game` function which spawns the game entity and places each
 piece in its proper position on the board and the `move` funtion which allows pieces to be moved around the board.
 
 <p align="center">
@@ -14,7 +14,8 @@ piece in its proper position on the board and the `move` funtion which allows pi
 
 _Copy the unit tests below and paste them at the bottom of your `action_contract.cairo` file._
 
-1. Write an interface for the `initiate_system` contract and define your functions. In this case, `move` and `spawn_game` 
+1. Write an interface for the `initiate_system` contract and define your functions. In this case, `move` and `spawn_game`
+
 ```shell
     #[starknet::interface]
     trait IActions<ContractState> {
@@ -26,11 +27,13 @@ _Copy the unit tests below and paste them at the bottom of your `action_contract
             game_id: felt252
         );
         fn spawn_game(
-            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress, 
+            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress,
         );
     }
 ```
+
 2. Bring in required imports into the contract and initialize storage with the `world_dispatcher` in it like this :
+
 ```shell
     #[starknet::contract]
         mod actions {
@@ -42,13 +45,15 @@ _Copy the unit tests below and paste them at the bottom of your `action_contract
 
         #[storage]
         struct Storage {
-            world_dispatcher: IWorldDispatcher, 
+            world_dispatcher: IWorldDispatcher,
         }
     }
 ```
+
 should be noted that `actions` is the contract name.
 
 3. Write a `spawn_game` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`.Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `models.cairo` and Implement the square entities from a1 to h8 containing the correct `PieceType` in the `spawn_game` fn.
+
 ```shell
         #[external(v0)]
     impl PlayerActionsImpl of IActions<ContractState> {
@@ -66,7 +71,7 @@ should be noted that `actions` is the contract name.
                         white: white_address,
                         black: black_address,
                         }, GameTurn {
-                        game_id: game_id, turn: Color::White(()), 
+                        game_id: game_id, turn: Color::White(()),
                     },
                 )
             );
@@ -78,12 +83,14 @@ should be noted that `actions` is the contract name.
             set!(world, (Square { game_id: game_id, x: 1, y: 6, piece: PieceType::BlackPawn }));
 
             set!(world, (Square { game_id: game_id, x: 1, y: 0, piece: PieceType::WhiteKnight }));
-            
-            //the rest of the positions on the board goes here.... 
+
+            //the rest of the positions on the board goes here....
         }
 ```
+
 4. Write a `move` function that accepts the `current position`, `next position`, `caller address`, and `game id`. The `move` function should look like this:
-```shell 
+
+```shell
     fn move(
             self: @ContractState,
             curr_position: (u32, u32),
@@ -112,7 +119,7 @@ should be noted that `actions` is the contract name.
                 'Should be right piece move'
             );
             let target_piece = current_square.piece;
-            // make current_square piece none and move piece to next_square 
+            // make current_square piece none and move piece to next_square
             current_square.piece = PieceType::None(());
             let mut next_square = get!(world, (game_id, next_x, next_y), (Square));
 
@@ -132,7 +139,7 @@ should be noted that `actions` is the contract name.
             set!(world, (next_square));
             set!(world, (current_square));
         }
-        //helper functions within the fn move. don't worry, we'll address logic content in the next chapter 
+        //helper functions within the fn move. don't worry, we'll address logic content in the next chapter
         fn is_piece_is_mine(maybe_piece: PieceType) -> bool {
             //the rest of the code ....
         }
@@ -146,7 +153,8 @@ should be noted that `actions` is the contract name.
             //the rest of the code ....
         }
     }
-``` 
+```
+
 7. Run `sozo test` and pass all the tests.
 
 ## Test Flow

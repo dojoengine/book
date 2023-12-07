@@ -4,9 +4,7 @@ The world contract functions as a central system kernel, serving as the foundati
 
 Dojo core abstracts this contract away from the developer as a developer you do not write it and it is not meant to be altered when building a world. However, it's important to understand how it works and how it interacts with the rest of the system.
 
-
 > **To think about:** Consider Autonomous Worlds as sovereign blockchains residing within another blockchain - a nested blockchain, so to speak. Just as you can deploy contracts onto Ethereum to enhance its functionality, you can similarly introduce systems into the World contract to enrich its features. While anyone can contribute to the World, akin to Ethereum, authorization is required to interact with component state. There is a dedicated topic to Authorisation.
-
 
 ### Context
 
@@ -31,7 +29,6 @@ Use it like this:
 ```rust,ignore
 let game_id = ctx.world.uuid();
 ```
-
 
 ### Full World API
 

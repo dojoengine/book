@@ -1,6 +1,7 @@
 ## Commands
 
 _tldr_
+
 - Commands are shorthand ways to write function calls
 - Commands abstract complex queries into shorthands
 - Commands are similar to rust macros
@@ -8,7 +9,6 @@ _tldr_
 Understanding commands is key to understanding Dojo. You will leverage them heavily within the systems you design.
 
 Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating models, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
-
 
 ### Using commands
 
@@ -37,7 +37,7 @@ The `set!` command is used to update models state.
 set !(world, (
     Moves {
         player: caller, remaining: 10
-    }, 
+    },
     Position {
         player: caller, x: position.x + 10, y: position.y + 10
     },

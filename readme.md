@@ -25,6 +25,11 @@ Always edit Markdown files in English. Here's how to work on it:
 - Spin up a local server using `mdbook serve`. Navigate to [localhost:3000](http://localhost:3000). For an automated browser launch, append the `--open` flag: `mdbook serve --open`.
 - Modify the content as desired. Refresh your browser to review edits.
 - Ready to share? Open a PR with your enhancements.
+- Don't forge to use prettier locally to format your markdown files:
+  ```bash
+  npm i -g prettier
+  prettier -w "**/*.md"
+  ```
 
 ### Working Locally (Translations)
 

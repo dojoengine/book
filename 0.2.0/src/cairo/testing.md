@@ -10,7 +10,6 @@ sozo test
 
 This will search for all tests within your project and run them.
 
-
 ### Writing Unit Tests
 
 It is best practise to include unit tests in the same file as the Component/System you are writing.
@@ -18,6 +17,7 @@ It is best practise to include unit tests in the same file as the Component/Syst
 Lets show a `Component` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 `components.cairo`
+
 ```rust,ignore
 
 ...rest of code
@@ -48,7 +48,6 @@ mod tests {
 
 In this test we are testing the `is_zero` and `is_equal` functions of the `Position` component. It is good practice to test all functions of your components.
 
-
 ### Writing Integration Tests
 
 Integration tests are e2e tests that test the entire system. You can write integration tests for your world by creating a `tests` directory in your project root. Then create a file for each integration test you want to write.
@@ -56,6 +55,7 @@ Integration tests are e2e tests that test the entire system. You can write integ
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 `systems.cairo`
+
 ```rust,ignore
 #[cfg(test)]
 mod tests {

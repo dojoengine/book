@@ -24,7 +24,7 @@ sozo init
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure both `models.cairo` and `systems.cairo` files are empty. In this tutorial, we won't be creating a `systems.cairo` nor the `src/systems` folder, you can delete both (highly optional, folder structure is entirely up to you). instead, we'll be creating a file named `actions_contract.cairo`, this is where our game logic/contract will reside. 
+The project comes with a lot of boilerplate codes. Clear it all. Make sure both `models.cairo` and `systems.cairo` files are empty. In this tutorial, we won't be creating a `systems.cairo` nor the `src/systems` folder, you can delete both (highly optional, folder structure is entirely up to you). instead, we'll be creating a file named `actions_contract.cairo`, this is where our game logic/contract will reside.
 
 Remodel your`lib.cairo`, to look like this :
 
@@ -88,11 +88,12 @@ For example, `actions_contract.cairo` should look like this:
 ```rust,ignore
 #[starknet::contract]
 mod actions {
-    
+
     #[storage]
     struct Storage {}
 }
 ```
+
 It should be noted that systems are cairo contracts, by implication, rather than implementing the game logic in systems, we are implementing it in a contract.
 
 ## Compile your project
@@ -161,6 +162,7 @@ Before you move on, add more models so we can use them in the next chapter when 
 ### Requirements
 
 - `Color` enum with values White,Black & None
+
 ```rust,ignore
     White: (),
     Black: (),
@@ -168,6 +170,7 @@ Before you move on, add more models so we can use them in the next chapter when 
 ```
 
 - `Game` model:
+
 ```rust,ignore
     game_id: felt252,
     winner: Color,
@@ -176,6 +179,7 @@ Before you move on, add more models so we can use them in the next chapter when 
 ```
 
 - `GameTurn` model:
+
 ```rust,ignore
     game_id: felt252,
     turn: Color
