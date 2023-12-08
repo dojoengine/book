@@ -16,12 +16,14 @@ This functions will check:
 
 ## Make Check Functions
 
-We need to add some check functions in `actions` contract. These will help make sure the next move is allowed.
+We need to add some check functions in `actions` contract. These will help make sure the next move is allowed. Fill the following code in your `utils.cairo` file
 
 1. See if player is moving the right piece
 
 ```rust,ignore
-   fn is_piece_is_mine(maybe_piece: PieceType) -> bool {
+    use dojo_chess::models::PieceType;
+    use starknet::ContractAddress;
+    fn is_piece_is_mine(maybe_piece: PieceType) -> bool {
         false
     }
 ```
