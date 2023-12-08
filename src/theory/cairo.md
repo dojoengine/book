@@ -32,4 +32,6 @@ In more technical terms, Starknet is a permissionless Validity-Rollup (also know
 
 ### Starknet as an Appchain
 
-Cairo is an isomorphic, general-purpose language, optimized for Zero-Knowledge (ZK) proofs. It's the driving force behind Starknet, Starkex, and appchains. Remarkably, you can also run it in WebAssembly (WASM) to generate proofs on the client-side! The Dojo team is working closely with the [Madara](https://github.com/keep-starknet-strange/madara) team to enable Starknet appchains to seamlessly run Dojo worlds.
+Cairo is an isomorphic, general-purpose language, optimized for Zero-Knowledge (ZK) proofs. It's the driving force behind Starknet, Starkex, and appchains. Remarkably, you can also run it in WebAssembly (WASM) to generate proofs on the client-side! Within the dojo toolchain exists [Katana](../toolchain/katana/overview.md) which is a gaming specific sequencer, which is perfectly suited to run a Dojo appchain.
+
+The Dojo team is also working closely with the [Madara](https://github.com/keep-starknet-strange/madara) team to enable Starknet appchains to seamlessly run Dojo worlds.

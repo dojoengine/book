@@ -8,15 +8,9 @@ Although we suggest strongly to structure your world around an ECS pattern you a
 
 > NOTE: Dojo core abstracts the world contract away, you do not write it and it is not meant to be altered when building a world. However, it's important to understand how it works and how it interacts with the rest of the system.
 
-### The `uuid()` command
+### Events
 
-It is often useful to generate unique IDs for entities. The `uuid()` fn can be used to generate a unique ID.
-
-Use it like this:
-
-```rust,ignore
-let game_id = world.uuid();
-```
+The world contract emits all model events via the `StoreSetRecord` event. This enables block explorers to reconstruct everything in the world by listening to one contract.
 
 ### Full World API
 
@@ -66,4 +60,14 @@ trait IWorld<T> {
     fn grant_writer(ref self: T, model: felt252, system: ContractAddress);
     fn revoke_writer(ref self: T, model: felt252, system: ContractAddress);
 }
+```
+
+### `uuid()`
+
+It is often useful to generate unique IDs for entities. The `uuid()` fn can be used to generate a unique ID.
+
+Use it like this:
+
+```rust,ignore
+let game_id = world.uuid();
 ```

@@ -1,8 +1,10 @@
 > You should have a good understanding of Cairo before proceeding. If you're unfamiliar with Cairo, we recommend you read the [Cairo documentation](https://book.cairo-lang.org/title-page.html) first.
 
-## A New Approach to Game Development
+## A New Approach to Onchain Game Development
 
-Dojo provides an advanced abstraction layer over Cairo, mirroring React's relationship with JavaScript. Its specialized architecture simplifies game design and development. By leveraging Dojo, developers can use succinct commands that transform into comprehensive queries at compile time. This chapter delves deeper into Dojo's unique architecture.
+Dojo provides an advanced abstraction layer over Cairo, mirroring React's relationship with JavaScript. Its specialized architecture simplifies game design and development.
+
+By leveraging Dojo, developers can use succinct [commands](./commands.md) that transform into comprehensive queries at compile time.
 
 #### Delving into the Architecture
 
@@ -17,7 +19,7 @@ Consider this as the most basic Dojo world setup:
 - Scarb.toml
 ```
 
-While seemingly simple, behind the scenes Dojo generates foundational contracts, setting the stage for you to focus purely on data and logic.
+While seemingly simple, behind the scenes Dojo compiler generates foundational contracts, setting the stage for you to focus purely on data and logic.
 
 Lets take a look at the `main.cairo`:
 
@@ -89,9 +91,3 @@ Read more about models [here](./models.md).
 In the `spawn` function, we just call `self.world_dispatcher`. This provides a gateway to the world contract. This facilitates the effortless utilization of the get! and set! commands, allowing seamless interaction with the world contract.
 
 Commands, a significant innovation in Dojo, are further explored [here](./commands.md).
-
-### High level transaction flow of a world
-
-To call a Dojo world you invoke a system, which then calls the [world](./world.md) and does the necessary state changes.
-
-![Dojo World](../images/world_flow.png)
