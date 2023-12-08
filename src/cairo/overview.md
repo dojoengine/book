@@ -78,11 +78,11 @@ mod player_actions {
 
 ### Breakdown
 
-This just a regular Cairo contract, with some specifics.
+Dojo contract is just a regular Cairo contract, with some dojo specifics.
 
-#### `Position` struct
+#### `Position` struct - the dojo model
 
-In a Dojo world, state is defined using models. These are structs marked with the `#[derive(Model)]` attribute, functioning similarly to a keypair store. The primary key for a model is indicated using the `#[key]` attribute; for instance, the `player` field serves as the primary key in this context.
+In a Dojo world, state is defined using models. These are structs marked with the `#[derive(Model)]` attribute, functioning similarly to a key-pair store. The primary key for a model is indicated using the `#[key]` attribute; for instance, the `player` field serves as the primary key in this context.
 
 Read more about models [here](./models.md).
 

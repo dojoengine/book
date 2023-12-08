@@ -1528,13 +1528,13 @@ msgstr "「`#[dojo::contract]`」デコレーター"
 
 #: src/cairo/systems.md:78
 msgid ""
-"All Starknet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[dojo::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "
 "decorator is entirely optional."
 msgstr ""
-"すべてのStarknet契約は、正確なコンパイルを保証する`#[starknet::contract]`デコレータを使用して定義されています。この文脈では、Dojoは契約の記述でブレークプレートを最小限に抑えることを目指す`#[dojo::contract]`デコレータを導入しています。このデコレータを利用することは完全に任意であることを認識することが重要です。"
+"すべてのStarknet契約は、正確なコンパイルを保証する`#[dojo::contract]`デコレータを使用して定義されています。この文脈では、Dojoは契約の記述でブレークプレートを最小限に抑えることを目指す`#[dojo::contract]`デコレータを導入しています。このデコレータを利用することは完全に任意であることを認識することが重要です。"
 
 #: src/cairo/systems.md:80
 msgid ""

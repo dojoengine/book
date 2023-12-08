@@ -14,7 +14,7 @@ The world contract emits all model events via the `StoreSetRecord` event. This e
 
 ### Full World API
 
-The world exposes an interface which can be interacted with by any client.
+The world exposes an interface which can be interacted with by any client. It is worth noting here that as a developer you don't deploy this world, it is deployed when you [migrate](../toolchain/sozo/overview.md) the world.
 
 ```rust,ignore
 // World interface
@@ -55,7 +55,6 @@ trait IWorld<T> {
     fn is_owner(self: @T, address: ContractAddress, resource: felt252) -> bool;
     fn grant_owner(ref self: T, address: ContractAddress, resource: felt252);
     fn revoke_owner(ref self: T, address: ContractAddress, resource: felt252);
-
     fn is_writer(self: @T, model: felt252, system: ContractAddress) -> bool;
     fn grant_writer(ref self: T, model: felt252, system: ContractAddress);
     fn revoke_writer(ref self: T, model: felt252, system: ContractAddress);

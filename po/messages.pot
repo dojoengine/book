@@ -1355,7 +1355,7 @@ msgstr ""
 
 #: src/cairo/systems.md:79
 msgid ""
-"All Starknet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[dojo::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "

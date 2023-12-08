@@ -1,6 +1,6 @@
 ## Commands
 
-_tldr_
+**_TL;DR_**
 
 - Commands are shorthand ways to write function calls
 - Commands abstract complex queries into shorthands

@@ -35,7 +35,7 @@ _Copy the unit tests below and paste them at the bottom of your `action_contract
 2. Bring in required imports into the contract and initialize storage with the `world_dispatcher` in it like this :
 
 ```shell
-    #[starknet::contract]
+    #[dojo::contract]
         mod actions {
         use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
         use debug::PrintTrait;

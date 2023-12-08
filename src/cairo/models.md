@@ -13,7 +13,9 @@
 
 ### Models are Structs
 
-Models are structs annotated with the `#[derive(Model)]` attribute. Consider these models as a key-value store, where the `#[key]` attribute is utilized to define the primary key. While models can contain any number of fields, adhering to best practices in Entity-Component-System (ECS) design involves maintaining small, isolated models. This approach fosters modularity and composability, enabling you to reuse models across various entity types.
+Models are structs annotated with the `#[derive(Model)]` attribute. Consider these models as a key-value store, where the `#[key]` attribute is utilized to define the primary key. While models can contain any number of fields, adhering to best practices in Entity-Component-System (ECS) design involves maintaining small, isolated models.
+
+This approach fosters modularity and composability, enabling you to reuse models across various entity types.
 
 ```rust,ignore
 #[derive(Model, Copy, Drop, Serde)]
