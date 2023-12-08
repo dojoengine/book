@@ -41,7 +41,7 @@ world_address = "0x5b328933afdbbfd44901fd69a2764a254edbb6e992ae87cf958c70493f2d2
 
 If you credentials are correct in the Scarb.toml then a simple migrate will deploy the world to Starknet.
 
-### Deploy to Remote Katana
+### Deploy to Remote [Katana](../toolchain/katana/overview.md)
 
 Katanas are able to be hosted and run as remote testnets, however this is not recommended for production use.
 

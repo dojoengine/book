@@ -1,31 +1,41 @@
-## Deploying Locally to Katana
+## Local Deployment with Katana
 
-Dojo is engineered for rapid development, boasting a lightning-fast local development sequencer, [Katana](../toolchain/katana/overview.md). Katana serves as an on-device Starknet blockchain, allowing you to rigorously test your smart contracts before transitioning them to the remote testnet.
+Experience the power of rapid development with Dojo, featuring the ultra-fast local development sequencer, [Katana](../toolchain/katana/overview.md). Katana acts as an on-device Starknet, enabling thorough testing of your dojo world in a controlled environment before migrating them to the remote testnet.
 
-### Katana Deployments
+### Easy Katana Deployments
 
-Deploying to Katana could not be easier.
+Deploying to Katana is straightforward and efficient.
 
-> This assumes you have followed the [Quick Start](../getting-started/quick-start.md) guide and have a project initialized.
+> **Pre-requisite:** Ensure you've completed the [Quick Start](../getting-started/quick-start.md) guide and have your project set up.
 
-From your project directory, run:
+To initiate Katana from your project directory, execute:
 
 ```bash
 katana --disable-fee
 ```
 
-This has started a local Katana which you can now deploy on!
+This command launches a local instance of Katana, setting the stage for your deployment.
 
-### Deploying to Katana
+### Step-by-Step Guide to Deploy on Katana
 
-To deploy your project to Katana, run:
+Deploying your project to Katana involves a few simple steps.\
 
-```bash
-sozo migrate --name test
-```
+1. **Compile Your Contracts:**
 
-Note - this will only work if you have compiled your contracts. If you have not, run:
+   If you haven't compiled your contracts yet, run:
 
-```bash
-sozo build
-```
+   ```bash
+   sozo build
+   ```
+
+   Compiling ensures that your contracts are ready for deployment.
+
+2. **Migrate your Project:**
+
+   To migrate, run:
+
+   ```bash
+   sozo migrate
+   ```
+
+Success! You have now migrated your world. You will be able to interact with the world using [sozo](../toolchain/sozo/overview.md).
