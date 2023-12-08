@@ -114,7 +114,7 @@ Create `actions_contract.cairo` inside the src folder. the file should contain a
 For example, `actions_contract.cairo` should look like this:
 
 ```rust,ignore
-#[starknet::contract]
+#[dojo::contract]
 mod actions {
 
     #[storage]

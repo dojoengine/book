@@ -14,13 +14,13 @@
 
 ### What are Systems?
 
-Within dojo we define systems as functions within a Contract that act on the world.
+Within dojo we define systems as functions within a Dojo Contract that act on the world.
 
 Systems play a pivotal role in your world's logic, directly mutating its component states. It's important to understand that to enact these mutations, a system needs explicit permission from the [`models`](./models.md) owner.
 
 ### System Permissions
 
-Since the whole contract is giving write access to the model, it is important to be careful when defining systems. A simple way to think about it is:
+Since the whole contract is given write access to the model, it is important to be careful when defining systems. A simple way to think about it is:
 
 ![System Permissions](../images/permissions.png)
 
@@ -29,6 +29,8 @@ Since the whole contract is giving write access to the model, it is important to
 Every system function starts with a [`world`](./world.md) address as its initial parameter. This design permits these functions to alter the world's state. Notably, this structure also makes systems adaptable and reusable across multiple worlds!
 
 Let's look at the simplest possible system which mutates the state of the `Moves` component.
+
+> NOTE: This is not using the #[dojo::contract] attribute meaning it was to accept the world as a parameter.
 
 ```rust,ignore
 #[starknet::contract]
@@ -76,7 +78,7 @@ The spawn function is currently the only system that exists in this contract. It
 
 ### The `#[dojo::contract]` Decorator
 
-All Starknet contracts are defined using the `#[starknet::contract]` decorator, ensuring accurate compilation. In this context, Dojo introduces the `#[dojo::contract]` decorator, which aims to minimize boilerplate in contract writing. It’s imperative to acknowledge that utilizing this decorator is entirely optional.
+All Starknet contracts are defined using the `#[dojo::contract]` decorator, ensuring accurate compilation. In this context, Dojo introduces the `#[dojo::contract]` decorator, which aims to minimize boilerplate in contract writing.
 
 The `#[dojo::contract]` decorator allows developers to omit including `world: IWorldDispatcher` as a parameter. Behind the scenes, it injects the world into the contract and eliminates some imports, thereby streamlining the development process.
 
@@ -105,9 +107,16 @@ mod player_actions {
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         // ContractState is defined by system decorator expansion
         fn spawn(self: @ContractState) {
+            // world dispatcher
             let world = self.world_dispatcher.read();
+
+            // player
             let player = get_caller_address();
+
+            // get the position
             let position = get!(world, player, (Position));
+
+            // set the position
             set!(
                 world,
                 (
@@ -118,15 +127,27 @@ mod player_actions {
         }
 
         fn move(self: @ContractState, direction: Direction) {
+            // world dispatcher
             let world = self.world_dispatcher.read();
+
+            // player
             let player = get_caller_address();
+
+            // get the position and moves
             let (mut position, mut moves) = get!(world, player, (Position, Moves));
+
+            // adjust
             moves.remaining -= 1;
             moves.last_direction = direction;
+
+            // get next direction
             let next = next_position(position, direction);
+
+            // set models
             set!(world, (moves, next));
+
+            // emit custom event
             emit!(world, Moved { player, direction });
-            return ();
         }
     }
 }

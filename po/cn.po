@@ -1495,13 +1495,13 @@ msgstr "装饰 `#[dojo::contract]`"
 
 #: src/cairo/systems.md:78
 msgid ""
-"All Starknet contracts are defined using the `#[starknet::contract]` "
+"All Starknet contracts are defined using the `#[dojo::contract]` "
 "decorator, ensuring accurate compilation. In this context, Dojo introduces "
 "the `#[dojo::contract]` decorator, which aims to minimize boilerplate in "
 "contract writing. It’s imperative to acknowledge that utilizing this "
 "decorator is entirely optional."
 msgstr ""
-"所有Starknet合同都是使用`#[starknet::contract]`装饰器定义的，确保准确编译。在这种情况下，Dojo引入了`#[dojo::contract]`装饰器，旨在最大程度地减少合同编写中的样板代码。必须承认，使用这个装饰器是完全可选的。"
+"所有Starknet合同都是使用`#[dojo::contract]`装饰器定义的，确保准确编译。在这种情况下，Dojo引入了`#[dojo::contract]`装饰器，旨在最大程度地减少合同编写中的样板代码。必须承认，使用这个装饰器是完全可选的。"
 
 #: src/cairo/systems.md:80
 msgid ""

@@ -29,3 +29,11 @@ Cairo is an opensource programming language invented by Starkware. It's a Turing
 Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain. But what does that entail? Consider a game of chess. We aim for an experience where players trust each other's moves. In a straightforward approach — and given the simple rules of chess — if this were in a blockchain environment, every move would be a transaction on the blockchain. This is costly. We just want to know the winner, not every move.
 
 With zk proofs and client communications, players can establish a state channel, sharing moves off-chain and ensuring their validity. At the end, a zk proof can be submitted to the blockchain to confirm the game's fairness. This constitutes a provable game.
+
+#### Can dojo implement client side proofs?
+
+The ability to execute Dojo programs in the browser is entirely plausible and is on our roadmap. Expect q1/q2 in 2024, or if you are a specalist in this jump into the code and help out!
+
+#### Can I deploy dojo on Starknet?
+
+Yes! Dojo can run on any StarknetVM including the public blockchains. Within the dojo toolchain exists [Katana](../toolchain/katana/overview.md) which is a gaming specific sequencer, which is perfectly suited to Dojo games.

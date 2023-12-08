@@ -36,5 +36,5 @@ cargo install --path ./crates/sozo --force
 # install Katana
 cargo install --path ./crates/katana --force
 # install Torii
-cargo install --path ./crates/torii --force
+cargo run -—bin torii
 ```
