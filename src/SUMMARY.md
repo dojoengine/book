@@ -80,9 +80,9 @@
 - [Onchain Chess](./tutorial/onchain-chess/README.md)
   - [0. Setup](./tutorial/onchain-chess/0-setup.md)
   - [1. Initiate](./tutorial/onchain-chess/1-action.md)
-  - [2. Move](./tutorial/onchain-chess/2-legal.md)
-  - [3. Check Legal Move](./tutorial/onchain-chess/3-test.md)
-  - [4. Test Chess](./tutorial/onchain-chess/4-utils.md)
+  - [2. Check Legal Move](./tutorial/onchain-chess/2-legal.md)
+  - [3. Move](./tutorial/onchain-chess/3-move.md)
+  - [4. Test Chess](./tutorial/onchain-chess/4-test.md)
 - [Deploy using Slot](./tutorial/deploy-using-slot/main.md)
 
 ---
