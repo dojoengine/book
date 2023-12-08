@@ -1,6 +1,6 @@
 ## Deployment to Remote Network
 
-> *IMPORTANT: Dojo is unaudited. Use at your own risk.*
+> _IMPORTANT: Dojo is unaudited. Use at your own risk._
 
 Dojo makes it easy to deploy to remote networks, you just need to have a valid account and network endpoint.
 
@@ -34,10 +34,9 @@ private_key = "0xc1cf1490de1352865301bb8705143f3ef938f97fdf892f1090dcb5ac7bcd1d"
 
 Katanas are able to be hosted and run as remote testnets, however this is not recommended for production use.
 
-__todo__: add instructions for deploying to remote katana
+**todo**: add instructions for deploying to remote katana
 
-
-### Madara 
+### Madara
 
 [Madara](https://github.com/keep-starknet-strange/madara) is a blazingly fast Starknet sequencer. Built on the robust Substrate framework and fast, thanks to Rust 🦀, Madara delivers unmatched performance and scalability to power your Starknet-based Validity Rollup chain.
 
@@ -55,7 +54,6 @@ account_address = "0x2"
 private_key = "0xc1cf1490de1352865301bb8705143f3ef938f97fdf892f1090dcb5ac7bcd1d"
 ```
 
+### Starknet
 
-### Starknet 
-
-__todo__: add instructions for deploying to remote Starknet
+**todo**: add instructions for deploying to remote Starknet

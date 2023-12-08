@@ -14,7 +14,6 @@ This book is dedicated to familiarizing you with the Dojo engine and the potenti
 - [What is Dojo? ](./theory/what-is-dojo.md)
 - [Explore the Architecture](./cairo/hello-dojo.md)
 
-
 ### Explainer
 
 Here's a video of [Cartridge](https://cartridge.gg/)'s [Tarrence](https://twitter.com/tarrenceva) explaining how Dojo works at the 2023 [Autonomous Anonymous Summit](https://twitter.com/pet3rpan_/status/1666764726427353091):
@@ -24,10 +23,8 @@ Here's a video of [Cartridge](https://cartridge.gg/)'s [Tarrence](https://twitte
   Your browser does not support the video tag.
 </video>
 
-
-
-
 ### Organizational Structure
+
 Dojo is an open-source initiative, licensed under MIT, dedicated to promoting and advancing the concept of Autonomous Worlds (AWs). It is spearheaded by [Cartridge](https://cartridge.gg/), [Realms & BibliothecaDAO](https://bibliothecadao.xyz/), [briq](https://briq.construction/) and many more [contributors](https://github.com/orgs/dojoengine/people).
 
 ### How do I get involved?

@@ -13,6 +13,7 @@ Autonomous Worlds share notable similarities with blockchains in their fundament
 We're firm believers in the potential for Autonomous Worlds to catalyze the exploration of novel forms in the medium provided by zk proofs and blockchain technology. This is not only about games, but also about new forms of artwork, coordination, fun, emerging from tinkering and radical innovation, eventually questioning the very notion of "play" in this brave new decentralized and trustless world.
 
 ### Homework
+
 - [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-worlds-aim-to-free-online-games-from-corporate-control/)
 - [0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-worlds)
 - [Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack.com/p/the-strongest-crypto-gaming-thesis)

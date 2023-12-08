@@ -7,8 +7,6 @@
 - Rust
 - Cairo
 
-
-
 ## Guide
 
 ### Clone
@@ -40,7 +38,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh
 #### 3. Add the Cairo 1.0 VSCode Extension
 
 Install the [Cairo 1.0](https://marketplace.visualstudio.com/items?itemName=starkware.cairo1) extension for Visual Studio Code.
-
 
 ### Windows
 

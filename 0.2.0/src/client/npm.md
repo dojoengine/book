@@ -29,7 +29,6 @@ This library contains a set of React components that can be used when building R
 yarn add @dojoengine/react
 ```
 
-
 ### @dojoengine/create-burner
 
 Create burner is a simply way to incorporate burner wallets into your Dojo app.
@@ -39,5 +38,3 @@ Create burner is a simply way to incorporate burner wallets into your Dojo app.
 ```console
 yarn add @dojoengine/create-burner
 ```
-
-

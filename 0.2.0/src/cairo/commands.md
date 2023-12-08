@@ -4,7 +4,6 @@ Understanding commands is key to understanding Dojo. You will leverage them heav
 
 Commands in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating components, and generating unique IDs. By leveraging these commands, developers can streamline their system implementations and improve code readability.
 
-
 ### Using commands
 
 Commands are used within systems to interact with the world state. They are called using the following syntax:
@@ -37,7 +36,7 @@ Use it like this:
 set !(ctx.world, (
     Moves {
         player: ctx.origin, remaining: 10
-    }, 
+    },
     Position {
         player: ctx.origin, x: position.x + 10, y: position.y + 10
     },

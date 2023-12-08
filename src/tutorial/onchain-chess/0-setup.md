@@ -24,6 +24,7 @@ sozo init
 
 ## Cleaning Up the Boilerplate
 
+The project comes with a lot of boilerplate codes. Clear it all. Make sure both `models.cairo` and `systems.cairo` files are empty. In this tutorial, we won't be creating a `systems.cairo` nor the `src/systems` folder, you can delete both (highly optional, folder structure is entirely up to you). instead, we'll be creating a file named `actions_contract.cairo`, this is where our game logic/contract will reside.
 The project comes with a lot of boilerplate codes. Clear it all. Make sure both `actions.cairo`, `models.cairo` and `utils.cairo` files are empty. The create a new empty `tests.cairo` file in your `/src directory`.
 
 Remodel your`lib.cairo`, to look like this :
@@ -77,6 +78,65 @@ While there are many ways to design a chess game using the ECS model, we'll foll
 First, add this basic model to `models.cairo` file. If you are not familar with model syntax in Dojo engine, go back to this [chapter](../../cairo/models.md).
 
 ```rust,ignore
+#[derive(Model)]
+struct Square {
+    #[key]
+    game_id: felt252,
+    #[key]
+    x: u32,
+    #[key]
+    y: u32,
+    piece: PieceType,
+}
+
+enum PieceType {
+    WhitePawn : (),
+    WhiteKnight: (),
+    WhiteBishop: (),
+    WhiteRook: (),
+    WhiteQueen: (),
+    WhiteKing: (),
+    BlackPawn: (),
+    BlackKnight: (),
+    BlackBishop: (),
+    BlackRook: (),
+    BlackQueen: (),
+    BlackKing: (),
+    None: ()
+}
+```
+
+## Basic systems
+
+Starting from the next chapter, you will implement the `actions_contract.cairo` logic.
+
+Create `actions_contract.cairo` inside the src folder. the file should contain a basic contract.
+
+For example, `actions_contract.cairo` should look like this:
+
+```rust,ignore
+#[starknet::contract]
+mod actions {
+
+    #[storage]
+    struct Storage {}
+}
+```
+
+It should be noted that systems are cairo contracts, by implication, rather than implementing the game logic in systems, we are implementing it in a contract.
+
+## Compile your project
+
+Now try `sozo build` to build. Faced some errors?
+
+```sh
+error: Trait has no implementation in context:
+```
+
+You would probably faced some trait implementation errors, which you can implement as a derive like:
+
+```rust,ignore
+
 #[derive(Model, Drop, Serde)]
 struct Square {
     #[key]
@@ -132,13 +192,33 @@ Before you move on, add more models so we can use them in the next chapter when 
 
 ### Requirements
 
-- `Color` enum with values: White,Black & None
+- `Color` enum with values White,Black & None
 
-- `Game` model with fields: game_id, winner, white, black.
+```rust,ignore
+    White: (),
+    Black: (),
+    None: (),
+```
 
-- `GameTurn` model with fields: game_id, turn.
+- `Game` model:
 
-Try to implement this code by yourself, Otherwise
+```rust,ignore
+    game_id: felt252,
+    winner: Color,
+    white: ContractAddress,
+    black: ContractAddress
+```
+
+- `GameTurn` model:
+
+```rust,ignore
+    game_id: felt252,
+    turn: Color
+```
+
+- Run `sozo build` to see if your code compiles, we'll handle `test` implementiation in the subsequent chapters.
+
+This tutorial is extracted from [here](https://github.com/Akinbola247/chess-dojo/tree/tutorialv3)
 
 <details>
 <summary>Click to see full `models.cairo` code</summary>

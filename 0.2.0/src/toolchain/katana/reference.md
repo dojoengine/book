@@ -51,34 +51,34 @@ katana --port <PORT>
 
 Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. The standard methods are based on [this](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) reference.
 
--   `starknet_blockNumber`
--   `starknet_blockHashAndNumber`
--   `starknet_getBlockWithTxs`
--   `starknet_getBlockWithTxHashes`
--   `starknet_getBlockTransactionCount`
--   `starknet_getTransactionByHash`
--   `starknet_getTransactionByBlockIdAndIndex`
--   `starknet_getTransactionReceipt`
--   `starknet_pendingTransactions`
--   `starknet_getStateUpdate`
+- `starknet_blockNumber`
+- `starknet_blockHashAndNumber`
+- `starknet_getBlockWithTxs`
+- `starknet_getBlockWithTxHashes`
+- `starknet_getBlockTransactionCount`
+- `starknet_getTransactionByHash`
+- `starknet_getTransactionByBlockIdAndIndex`
+- `starknet_getTransactionReceipt`
+- `starknet_pendingTransactions`
+- `starknet_getStateUpdate`
 
--   `starknet_call`
--   `starknet_estimateFee`
+- `starknet_call`
+- `starknet_estimateFee`
 
--   `starknet_chainId`
+- `starknet_chainId`
 
--   `starknet_getNonce`
--   `starknet_getEvents`
--   `starknet_getStorageAt`
--   `starknet_getClassHashAt`
--   `starknet_getClass`
--   `starknet_getClassAt`
+- `starknet_getNonce`
+- `starknet_getEvents`
+- `starknet_getStorageAt`
+- `starknet_getClassHashAt`
+- `starknet_getClass`
+- `starknet_getClassAt`
 
--   `starknet_syncing`
+- `starknet_syncing`
 
--   `starknet_addInvokeTransaction`
--   `starknet_addDeclareTransaction`
--   `starknet_addDeployAccountTransaction`
+- `starknet_addInvokeTransaction`
+- `starknet_addDeclareTransaction`
+- `starknet_addDeployAccountTransaction`
 
 ##### Custom Methods
 
@@ -169,11 +169,11 @@ Generates a shell completions script for the given shell.
 
 Supported shells are:
 
--   bash
--   elvish
--   fish
--   powershell
--   zsh
+- bash
+- elvish
+- fish
+- powershell
+- zsh
 
 #### EXAMPLES
 

@@ -2,10 +2,9 @@
 
 > Components = Data
 
-Components serve as the foundation for defining the world's structure, encapsulating state for systems to mutate. 
+Components serve as the foundation for defining the world's structure, encapsulating state for systems to mutate.
 
 When designing a world's components, it is crucial to carefully consider the abstractions you create, always keeping composability in mind.
-
 
 ### Components are Structs
 
@@ -22,7 +21,7 @@ struct Moves {
 
 #### The #[key] attribute
 
-The `#[key]` attribute indicates to Dojo that this component is indexed by the `player` field. You need to define a key for each component, as this is how you query the component. However, you can create composite keys by defining multiple fields as keys. 
+The `#[key]` attribute indicates to Dojo that this component is indexed by the `player` field. You need to define a key for each component, as this is how you query the component. However, you can create composite keys by defining multiple fields as keys.
 
 ```rust,ignore
 #[derive(Component, Copy, Drop, Serde, SerdeLen)]
@@ -89,22 +88,21 @@ struct GameSettings {
     game_settings_id: u32,
     combat_cool_down: u32,
 }
-``` 
+```
 
 #### Types
 
 Support Component types:
 
--   `u8`
--   `u16`
--   `u32`
--   `u64`
--   `u128`
--   `u256`
--   `ContractAddress`
+- `u8`
+- `u16`
+- `u32`
+- `u64`
+- `u128`
+- `u256`
+- `ContractAddress`
 
 It is currently not possible to use Arrays.
-
 
 ### In practice with modularity in mind
 
@@ -176,13 +174,13 @@ mod spawnHuman {
             (
                 Health {
                     entity_id: human_count, health: 100
-                    }, 
+                    },
                 Position {
                     entity_id: human_count, x: position.x + 10, y: position.y + 10,
-                    }, 
+                    },
                 Potions {
                     entity_id: human_count, quantity: 10
-                    
+
                 },
             )
         );
@@ -193,7 +191,7 @@ mod spawnHuman {
             (
                 Health {
                     entity_id: goblin_count, health: 100
-                    }, 
+                    },
                 Position {
                     entity_id: goblin_count, x: position.x + 10, y: position.y + 10,
                     },
@@ -209,7 +207,7 @@ mod spawnHuman {
                 },
             )
         );
-        
+
         return ();
     }
 }
