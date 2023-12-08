@@ -17,6 +17,9 @@ First, we need to set up our configuration, starting by authenticating with Cart
 
 ```sh
 slot auth login
+
+# Slot Auth debug (if old auth credentials):
+rm ~/Library/Application\ Support/slot/credentials.json
 ```
 
 Once successful, you can create a new deployment with a unique `DEPLOYMENT_NAME`. To do this, run the following command:

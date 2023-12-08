@@ -1,6 +1,6 @@
-## Deploying Locally
+## Deploying Locally to Katana
 
-Dojo is engineered for rapid development, boasting a lightning-fast local development environment named [Katana](../toolchain/katana/overview.md). Katana serves as an on-device Starknet blockchain, allowing you to rigorously test your smart contracts before transitioning them to the remote testnet.
+Dojo is engineered for rapid development, boasting a lightning-fast local development sequencer, [Katana](../toolchain/katana/overview.md). Katana serves as an on-device Starknet blockchain, allowing you to rigorously test your smart contracts before transitioning them to the remote testnet.
 
 ### Katana Deployments
 
