@@ -24,7 +24,7 @@ sozo init
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure both `actions.cairo`, `models.cairo` and `utils.cairo` files are empty. The create a new empty `tests.cairo` file in your `/src directory`.
+The project comes with a lot of boilerplate codes. Clear it all. Make sure both `actions.cairo`, `models.cairo` and `utils.cairo` files are empty. Then create a new empty `tests.cairo` file in your `/src` directory.
 
 Remodel your`lib.cairo`, to look like this :
 
