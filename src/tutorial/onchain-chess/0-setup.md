@@ -167,8 +167,9 @@ enum PieceType {
 
 ## Basic systems
 
-In the upcoming chapter, you'll embark on the implementation of the `actions.cairo` file, the very core where our game logic will unfold.
-For now, `actions.cairo` could look like this:
+Starting from the next chapter, you will implement the `actions.cairo` file. This is where our game logic/contract will reside.
+
+For now, `actions.cairo` should look like this:
 
 ```rust,ignore
 #[dojo::contract]
