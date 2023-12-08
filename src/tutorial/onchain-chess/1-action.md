@@ -13,11 +13,9 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
 
 1. Write an interface for the `actions` contract on top of your code. In this case, `move` and `spawn`
 
-````rust,ignore
+```rust,ignore
     use starknet::ContractAddress;
 
-1. Write an interface for the `initiate_system` contract and define your functions. In this case, `move` and `spawn_game`
-```shell
     #[starknet::interface]
     trait IActions<ContractState> {
         fn move(
@@ -31,11 +29,11 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
             self: @ContractState, white_address: ContractAddress, black_address: ContractAddress,
         );
     }
-````
+```
 
 2. Bring in required imports into the contract and initialize storage with the `world_dispatcher` in it like this :
 
-```shell
+```rust,ignore
     #[starknet::contract]
         mod actions {
         use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
@@ -55,7 +53,7 @@ should be noted that `actions` is the contract name.
 
 3. Write a `spawn_game` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`.Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `models.cairo` and Implement the square entities from a1 to h8 containing the correct `PieceType` in the `spawn_game` fn.
 
-```shell
+```rust,ignore
         #[external(v0)]
     impl PlayerActionsImpl of IActions<ContractState> {
         fn spawn_game(
@@ -73,8 +71,7 @@ should be noted that `actions` is the contract name.
                         black: black_address,
                         }, GameTurn {
                         game_id: game_id, turn: Color::White(()),
-                    },
-                    GameTurn { game_id: game_id, turn: Color::White(()), },
+                    }
                 )
             );
 

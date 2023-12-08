@@ -24,7 +24,7 @@ sozo init
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure both `actions.cairo`, `models.cairo` and `utils.cairo` files are empty. The create a new empty `tests.cairo` file in your `/src directory`.
+The project comes with a lot of boilerplate codes. Clear it all. Make sure both `actions.cairo`, `models.cairo` and `utils.cairo` files are empty. Then create a new empty `tests.cairo` file in your `/src` directory.
 
 Remodel your`lib.cairo`, to look like this :
 
@@ -167,8 +167,7 @@ enum PieceType {
 
 ## Basic systems
 
-Starting from the next chapter, you will implement the `actions.cairo` file. This is where our game logic/contract will reside.
-
+In the upcoming chapter, you'll embark on the implementation of the `actions.cairo` file, the very core where our game logic will unfold.
 For now, `actions.cairo` could look like this:
 
 ```rust,ignore
