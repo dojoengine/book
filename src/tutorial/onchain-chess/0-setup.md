@@ -24,7 +24,6 @@ sozo init
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure both `models.cairo` and `systems.cairo` files are empty. In this tutorial, we won't be creating a `systems.cairo` nor the `src/systems` folder, you can delete both (highly optional, folder structure is entirely up to you). instead, we'll be creating a file named `actions_contract.cairo`, this is where our game logic/contract will reside.
 The project comes with a lot of boilerplate codes. Clear it all. Make sure both `actions.cairo`, `models.cairo` and `utils.cairo` files are empty. The create a new empty `tests.cairo` file in your `/src directory`.
 
 Remodel your`lib.cairo`, to look like this :

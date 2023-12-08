@@ -4,8 +4,6 @@ This chapter will address implementing `actions.cairo`, which spawns the game & 
 
 ## What is `actions` contract?
 
-To play chess, you need, to start game, spawn the pieces, and move around the board. the `action_contract` has two dominant functions `spawn_game` function which spawns the game entity and places each
-piece in its proper position on the board and the `move` funtion which allows pieces to be moved around the board.
 To play chess, you need, to start game, spawn the pieces, and move around the board. the `actions` contract has two dominant functions `spawn` function which spawns the game entity, places each piece in its proper position on the board and returns the game_id, and the `move` funtion which allows pieces to be moved around the board.
 
 <p align="center">

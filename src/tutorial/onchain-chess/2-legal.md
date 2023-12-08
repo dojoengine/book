@@ -51,8 +51,6 @@ We need to add some check functions in `actions` contract. These will help make 
 
 4. see if it's the right move
 
-````rust,ignore
-
 ```c
     fn is_right_piece_move(
         maybe_piece: PieceType, curr_position: (u32, u32), next_position: (u32, u32)
@@ -103,7 +101,7 @@ We need to add some check functions in `actions` contract. These will help make 
             PieceType::None(_) => panic(array!['Should not move empty square']),
         }
     }
-````
+```
 
 5. You can also add other check functions to be extra sure the move is allowed.
 
