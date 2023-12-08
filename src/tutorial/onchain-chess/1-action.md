@@ -1,22 +1,21 @@
-# 1. Action_Contract
+# 1. Actions
 
-This chapter will address implementing `action_contract.cairo`, which spawns the game & squares containing pieces and also allow players to move pieces.
+This chapter will address implementing `actions.cairo`, which spawns the game & squares containing pieces and also allow players to move pieces.
 
-## What is `action_contract`?
+## What is `actions` contract?
 
-To play chess, you need, to start game, spawn the pieces, and move around the board. the `action_contract` has two dominant functions `spawn_game` function which spawns the game entity and places each
-piece in its proper position on the board and the `move` funtion which allows pieces to be moved around the board.
+To play chess, you need, to start game, spawn the pieces, and move around the board. the `actions` contract has two dominant functions `spawn` function which spawns the game entity, places each piece in its proper position on the board and returns the game_id, and the `move` funtion which allows pieces to be moved around the board.
 
 <p align="center">
 <img src="../../images/board.png" alt="image" width="300" height="auto">
 
 ## Requirements
 
-_Copy the unit tests below and paste them at the bottom of your `action_contract.cairo` file._
+1. Write an interface for the `actions` contract on top of your code. In this case, `move` and `spawn`
 
-1. Write an interface for the `initiate_system` contract and define your functions. In this case, `move` and `spawn_game`
+```rust,ignore
+    use starknet::ContractAddress;
 
-```shell
     #[starknet::interface]
     trait IActions<ContractState> {
         fn move(
@@ -24,7 +23,7 @@ _Copy the unit tests below and paste them at the bottom of your `action_contract
             curr_position: (u32, u32),
             next_position: (u32, u32),
             caller: ContractAddress, //player
-            game_id: felt252
+            game_id: u32
         );
         fn spawn_game(
             self: @ContractState, white_address: ContractAddress, black_address: ContractAddress,
@@ -34,8 +33,8 @@ _Copy the unit tests below and paste them at the bottom of your `action_contract
 
 2. Bring in required imports into the contract and initialize storage with the `world_dispatcher` in it like this :
 
-```shell
-    #[dojo::contract]
+```rust,ignore
+    #[starknet::contract]
         mod actions {
         use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
         use debug::PrintTrait;
@@ -54,14 +53,14 @@ should be noted that `actions` is the contract name.
 
 3. Write a `spawn_game` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`.Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `models.cairo` and Implement the square entities from a1 to h8 containing the correct `PieceType` in the `spawn_game` fn.
 
-```shell
+```rust,ignore
         #[external(v0)]
     impl PlayerActionsImpl of IActions<ContractState> {
         fn spawn_game(
             self: @ContractState, white_address: ContractAddress, black_address: ContractAddress
-        ) {
+        ) -> u32 {
             let world = self.world_dispatcher.read();
-            let game_id = pedersen::pedersen(white_address.into(), black_address.into());
+            let game_id = world.uuid();
             set!(
                 world,
                 (
@@ -72,16 +71,13 @@ should be noted that `actions` is the contract name.
                         black: black_address,
                         }, GameTurn {
                         game_id: game_id, turn: Color::White(()),
-                    },
+                    }
                 )
             );
 
             set!(world, (Square { game_id: game_id, x: 0, y: 0, piece: PieceType::WhiteRook }));
-
             set!(world, (Square { game_id: game_id, x: 0, y: 1, piece: PieceType::WhitePawn }));
-
             set!(world, (Square { game_id: game_id, x: 1, y: 6, piece: PieceType::BlackPawn }));
-
             set!(world, (Square { game_id: game_id, x: 1, y: 0, piece: PieceType::WhiteKnight }));
 
             //the rest of the positions on the board goes here....

@@ -1,6 +1,12 @@
-# 2. Check Legal Move
+# 2. Utils and Legal Moves
 
-In this chapter, we'll make functions to check:
+In order to keep our code has dry as possible, we decide to modularize some functions. Those functions are the ones we import from `utils.cairo` into `actions.cairo`.
+
+```rust,ignore
+    use dojo_chess::utils::{is_out_of_board, is_right_piece_move, is_piece_is_mine};
+```
+
+This functions will check:
 
 - If the next move goes outside the board.
 - If there's a piece that can be captured.
@@ -23,7 +29,7 @@ We need to add some check functions in `actions` contract. These will help make 
 2. See if the next spot is still on the board.
 
 ```rust,ignore
-      fn is_out_of_board(next_position: (u32, u32)) -> bool {
+    fn is_out_of_board(next_position: (u32, u32)) -> bool {
         let (n_x, n_y) = next_position;
         if n_x > 7 || n_x < 0 {
             return false;
@@ -45,7 +51,7 @@ We need to add some check functions in `actions` contract. These will help make 
 
 4. see if it's the right move
 
-```rust,ignore
+```c
     fn is_right_piece_move(
         maybe_piece: PieceType, curr_position: (u32, u32), next_position: (u32, u32)
     ) -> bool {
