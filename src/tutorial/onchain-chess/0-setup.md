@@ -110,7 +110,7 @@ enum PieceType {
 
 Starting from the next chapter, you will implement the `actions.cairo` file. This is where our game logic/contract will reside.
 
-For now, `actions.cairo` could look like this:
+For now, `actions.cairo` should look like this:
 
 ```rust,ignore
 #[dojo::contract]
