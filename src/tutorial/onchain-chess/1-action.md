@@ -26,7 +26,7 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
             game_id: u32
         );
         fn spawn(
-            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress,
+            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress
         ) -> u32;
     }
 ```
@@ -58,19 +58,19 @@ Should be noted that `actions` is the contract name.
                 world,
                 (
                     Game {
-                        game_id: game_id,
+                        game_id,
                         winner: Color::None(()),
                         white: white_address,
-                        black: black_address,
+                        black: black_address
                     },
-                    GameTurn { game_id: game_id, turn: Color::White(()), },
+                    GameTurn { game_id, turn: Color::White(())},
                 )
             );
 
-            set!(world, (Square { game_id: game_id, x: 0, y: 0, piece: PieceType::WhiteRook }));
-            set!(world, (Square { game_id: game_id, x: 0, y: 1, piece: PieceType::WhitePawn }));
-            set!(world, (Square { game_id: game_id, x: 1, y: 6, piece: PieceType::BlackPawn }));
-            set!(world, (Square { game_id: game_id, x: 1, y: 0, piece: PieceType::WhiteKnight }));
+            set!(world, (Square { game_id, x: 0, y: 0, piece: PieceType::WhiteRook }));
+            set!(world, (Square { game_id, x: 0, y: 1, piece: PieceType::WhitePawn }));
+            set!(world, (Square { game_id, x: 1, y: 6, piece: PieceType::BlackPawn }));
+            set!(world, (Square { game_id, x: 1, y: 0, piece: PieceType::WhiteKnight }));
 
             //the rest of the positions on the board goes here....
 

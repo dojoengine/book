@@ -29,8 +29,8 @@ The project comes with a lot of boilerplate codes. Clear it all. Make sure both 
 Remodel your`lib.cairo`, to look like this :
 
 ```rust,ignore
-mod models;
 mod actions;
+mod models;
 mod utils;
 mod tests;
 ```
