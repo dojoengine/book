@@ -1,8 +1,20 @@
 ![katana](../../images/torii-icon-word.png)
 
-## Torii - Networking & Indexing
+## Torii
 
-Torii is an automatic indexer for dojo worlds. Built in rust to be blazingly fast and exceptionally scalable. Torii provides a fully typed, dynamically generated GraphqQL interface and a high performance gRPC api for binding clients to the world state.
+Torii is an automatic indexer and client for dojo worlds. Built in rust to be blazingly fast and exceptionally scalable. Torii provides a fully typed, dynamically generated GraphqQL interface and a high performance gRPC api for binding clients to the world state. There are two parts to torii, the client and the server.
+
+### Torii Server
+
+The torii server comprises of the rust backend that exposes the graphql and gRPC endpoints.
+
+### Torii Client
+
+Torii client interfaces with the server to provide an easy to use api for your clients:
+
+- [wasm](../../client/torii/torii-wasm.md)
+- [unity](../../client/torii/unity.md)
+- [c](../../client/torii/unity.md)
 
 ### Usage
 
@@ -12,7 +24,7 @@ Torii leverages world introspection to bootstrap directly from an onchain deploy
 torii --world <World Address>
 ```
 
-You'll have a GraphQL API running at `http://localhost:8080/graphql` and a gRPC api at `http://localhost:8080/grpc`
+You'll have a GraphQL API running at `http://localhost:8080/graphql` and a gRPC api at `http://localhost:8080`
 
 ## Installation
 
