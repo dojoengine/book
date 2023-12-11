@@ -7,6 +7,7 @@ Performing a system execution requires sending a transaction, therefore, `execut
 ### USAGE
 
 ```sh
+# you can use the name or address of the contract
 sozo execute <CONTRACT> <ENTRYPOINT>
 ```
 
