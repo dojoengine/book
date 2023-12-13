@@ -20,7 +20,7 @@ Utilizing the ECS (Entity Component System) as its core architecture, Dojo effec
 
 Read detailed information about the [Dojo ECS](../cairo/overview.md).
 
-### [Torii](/crates/torii/README.md) - Starknet Indexer
+### [Torii](../toolchain/torii/overview.md) - Starknet Indexer
 
 Building on-chain games often involves grappling with the challenge of indexing on-chain state. However, Dojo standardizes contract states to mirror traditional relational databases. This setup enables the [Torii Indexer](../toolchain/torii/overview.md) to auto-index all contract states, ensuring efficient and streamlined queries. Torii then exposes these states via a GraphQL API or gRPC, allowing developers to easily query and retrieve data.
 
