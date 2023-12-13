@@ -51,7 +51,7 @@ sozo migrate --name ohayo --rpc-url http://localhost:5050
 sozo migrate --world 0x123456
 ```
 
-3. Deploying your World using [profile options](../common-options/profile-options.md)
+3. Deploying your World using [profile options](../common-options/profile.md)
 
 ```sh
 sozo --profile dev migrate
