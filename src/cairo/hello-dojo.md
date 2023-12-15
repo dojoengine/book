@@ -113,7 +113,7 @@ mod actions {
                 world,
                 (
                     Moves {
-                        player, remaining: moves.remaining + 10, last_direction: Direction::None(())
+                        player, remaining: moves.remaining + 10, last_direction: Direction::None
                     },
                     Position {
                         player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
@@ -178,7 +178,7 @@ set!(
     world,
     (
         Moves {
-            player, remaining: moves.remaining + 10, last_direction: Direction::None(())
+            player, remaining: moves.remaining + 10, last_direction: Direction::None
         },
         Position {
             player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10}
@@ -307,9 +307,9 @@ query {
   model(id: "Moves") {
     id
     name
-    class_hash
-    transaction_hash
-    created_at
+    classHash
+    transactionHash
+    createdAt
   }
 }
 ```
@@ -322,9 +322,9 @@ After you run the query, you will receive an output like this:
     "model": {
       "id": "Moves",
       "name": "Moves",
-      "class_hash": "0xb37482a660983dfbf65968caa26eab260d3e1077986454b52ac06e58ae20c4",
-      "transaction_hash": "",
-      "created_at": "2023-10-18 06:49:48"
+      "classHash": "0x64495ca6dc1dc328972697b30468cea364bcb7452bbb6e4aaad3e4b3f190147",
+      "transactionHash": "",
+      "createdAt": "2023-12-15 18:07:22"
     }
   }
 }
@@ -337,9 +337,9 @@ subscription {
   entityUpdated {
     id
     keys
-    event_id
-    created_at
-    updated_at
+    eventId
+    createdAt
+    updatedAt
   }
 }
 ```
@@ -372,9 +372,9 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "event_id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0000",
-      "created_at": "2023-10-18 06:53:12",
-      "updated_at": "2023-10-18 06:53:12"
+      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000e:0x0000:0x0000",
+      "createdAt": "2023-12-15 18:07:22",
+      "updatedAt": "2023-12-15 18:10:56"
     }
   }
 }
@@ -386,9 +386,9 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "event_id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0001",
-      "created_at": "2023-10-18 06:53:12",
-      "updated_at": "2023-10-18 06:53:12"
+      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000e:0x0000:0x0001",
+      "createdAt": "2023-12-15 18:07:22",
+      "updatedAt": "2023-12-15 18:10:56"
     }
   }
 }
