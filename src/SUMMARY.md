@@ -39,9 +39,9 @@
 
 - [Origami](./cairo/origami.md)
 - [SDKs](./client/overview.md)
-  - [dojo.js](./client/dojojs.md)
-  - [unity](./client/torii/unity.md)
-  - [c](./client/torii/c.md)
+  - [dojo.js](./client/sdk/dojojs.md)
+  - [unity](./client/sdk/unity.md)
+  - [c](./client/sdk/c.md)
 
 # ⛓️ Toolchain
 
