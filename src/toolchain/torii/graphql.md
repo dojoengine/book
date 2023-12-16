@@ -34,14 +34,14 @@ The benefit of custom queries becomes apparent when filtering and sorting is nee
 
 ### Query operation
 
-In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched some data from the `Moves` model. This time let's fetch only `id`, `name`, `class_hash` fields from `Position` model .
+In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched some data from the `Moves` model. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model .
 
 ```graphql
 query {
   model(id: "Position") {
     id
     name
-    class_hash
+    classHash
   }
 }
 ```
@@ -54,7 +54,7 @@ After you run the query, you will receive an output like this:
     "model": {
       "id": "Position",
       "name": "Position",
-      "class_hash": "0x6ffc643cbc4b2fb9c424242b18175a5e142269b45f4463d1cd4dddb7a2e5095"
+      "classHash": "0x6ffc643cbc4b2fb9c424242b18175a5e142269b45f4463d1cd4dddb7a2e5095"
     }
   }
 }
@@ -108,12 +108,12 @@ query{
     edges{
       node{
         id
-        transaction_hash
-        sender_address
+        transactionHash
+        senderAddress
         calldata
       }
     }
-    total_count
+    totalCount
   }
 }
 ```
@@ -128,8 +128,8 @@ If you execute this query after you applied `sozo migrate` in your [`hello-dojo`
         {
           "node": {
             "id": "0x000000000000000000000000000000000000000000000000000000000000000a:0x0000",
-            "transaction_hash": "0x2da3d65e223362c72906f97663a4e7dc81ab0bbd04bbde5532a230c1e97d93e",
-            "sender_address": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "transactionHash": "0x2da3d65e223362c72906f97663a4e7dc81ab0bbd04bbde5532a230c1e97d93e",
+            "senderAddress": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
             "calldata": [
               "0x1",
               "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
@@ -145,8 +145,8 @@ If you execute this query after you applied `sozo migrate` in your [`hello-dojo`
         {
           "node": {
             "id": "0x0000000000000000000000000000000000000000000000000000000000000008:0x0000",
-            "transaction_hash": "0x2aa02de0e3fa582b3cb6cf9e4371051f44ae2e0d6c94f5c936338ffc8c2ac12",
-            "sender_address": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "transactionHash": "0x2aa02de0e3fa582b3cb6cf9e4371051f44ae2e0d6c94f5c936338ffc8c2ac12",
+            "senderAddress": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
             "calldata": [
               "0x2",
               "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
@@ -166,8 +166,8 @@ If you execute this query after you applied `sozo migrate` in your [`hello-dojo`
         {
           "node": {
             "id": "0x0000000000000000000000000000000000000000000000000000000000000005:0x0000",
-            "transaction_hash": "0x1f03fa7dc5a673f96d53b728785a98d6ff089c182a7bb32735b150e91817e5b",
-            "sender_address": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "transactionHash": "0x1f03fa7dc5a673f96d53b728785a98d6ff089c182a7bb32735b150e91817e5b",
+            "senderAddress": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
             "calldata": [
               "0x1",
               "0x41a78e741e5af2fec34b695679bc6891742439f7afb8484ecd7766661ad02bf",
@@ -185,7 +185,7 @@ If you execute this query after you applied `sozo migrate` in your [`hello-dojo`
           }
         }
       ],
-      "total_count": 3
+      "totalCount": 3
     }
   }
 }
@@ -212,7 +212,7 @@ Query for first page of 2 entities
 ```graphql
 query {
   entities (first: 2) {
-    total_count
+    totalCount
     edges {
       cursor
       node {
@@ -228,7 +228,7 @@ Result shows there are 5 entities and returns the first two
 ```json
 {
   "entities" {
-    "total_count": 5,
+    "totalCount": 5,
     "edges" [
       {
         "cursor": "Y3Vyc29yX29uZQ==",
@@ -294,9 +294,9 @@ subscription {
   ) {
     id
     keys
-    event_id
-    created_at
-    updated_at
+    eventId
+    createdAt
+    updatedAt
     models {
       __typename
       ... on Moves {
@@ -324,9 +324,9 @@ According to your input, you will receive an output like this:
       "keys": [
         "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
       ],
-      "event_id": "0x0000000000000000000000000000000000000000000000000000000000000013:0x0000:0x0000",
-      "created_at": "2023-10-17 11:39:42",
-      "updated_at": "2023-10-17 11:52:48",
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000013:0x0000:0x0000",
+      "createdAt": "2023-10-17 11:39:42",
+      "updatedAt": "2023-10-17 11:52:48",
       "models": [
         {
           "__typename": "Moves",
@@ -356,7 +356,7 @@ subscription {
     id
     keys
     data
-    transaction_hash
+    transactionHash
   }
 }
 ```
@@ -380,7 +380,7 @@ If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT
         "0x64",
         "0x0"
       ],
-      "transaction_hash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
+      "transactionHash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
     }
   }
 }
@@ -401,7 +401,7 @@ If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT
         "0xa",
         "0xa"
       ],
-      "transaction_hash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
+      "transactionHash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
     }
   }
 }
