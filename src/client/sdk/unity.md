@@ -21,6 +21,10 @@ This will generate a `.dll` or `.so` binary in the `target/release` directory, d
 
 ---
 
+### Watch video
+
+[![Watch the video](../../images/unity-screen-grab.png)](../../images/dojo.unity_demo.mp4)
+
 ## Dojo Unity Concepts
 
 Building on-chain games and worlds with Unity involves understanding several key concepts and components. Let's go over them to give you a clearer picture:
