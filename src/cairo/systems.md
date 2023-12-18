@@ -78,7 +78,7 @@ The spawn function is currently the only system that exists in this contract. It
 
 ### The `#[dojo::contract]` Decorator
 
-All Starknet contracts are defined using the `#[dojo::contract]` decorator, ensuring accurate compilation. In this context, Dojo introduces the `#[dojo::contract]` decorator, which aims to minimize boilerplate in contract writing.
+All Starknet contracts are defined using the `#[starknet::contract]` decorator, ensuring accurate compilation. In this context, Dojo introduces the `#[dojo::contract]` decorator, which aims to minimize boilerplate in contract writing.
 
 The `#[dojo::contract]` decorator allows developers to omit including `world: IWorldDispatcher` as a parameter. Behind the scenes, it injects the world into the contract and eliminates some imports, thereby streamlining the development process.
 
