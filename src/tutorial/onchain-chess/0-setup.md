@@ -200,6 +200,6 @@ struct GameTurn {
 
 </details>
 
-This tutorial is extracted from [here](https://github.com/dojoengine/origami/tree/main/dojo-chess)
+This tutorial is extracted from [here](https://github.com/dojoengine/origami/tree/main/examples/chess)
 
 Congratulations! You've completed the basic setup for building an on-chain chess game 🎉
