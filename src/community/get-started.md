@@ -27,6 +27,9 @@ Dojo is a thriving community of builders, artists, and deep thinkers, pushing th
 - [discord](https://discord.gg/cartridge)
 - [website](https://cartridge.gg/)
 
+#### zKorp
+- [twitter] (https://twitter.com/zKorp_)
+
 ## Templates & Libraries
 
 Templates, libraries or utilities that use Dojo.
