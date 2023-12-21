@@ -4,7 +4,7 @@ This chapter will address implementing `actions.cairo`, which spawns the game & 
 
 ## What is `actions` contract?
 
-To play chess, you need, to start game, spawn the pieces, and move around the board. the `actions` contract has two dominant functions `spawn` function which spawns the game entity, places each piece in its proper position on the board and returns the game_id, and the `move` funtion which allows pieces to be moved around the board.
+To play chess, you need, to start game, spawn the pieces, and move around the board. The `actions` contract has two dominant functions `spawn` function which spawns the game entity, places each piece in its proper position on the board and returns the game_id, and the `move` funtion which allows pieces to be moved around the board.
 
 <p align="center">
 <img src="../../images/board.png" alt="image" width="300" height="auto">
@@ -15,13 +15,13 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
 
 ```rust,ignore
     use starknet::ContractAddress;
-
+    use chess::models::piece::Vec2;
     #[starknet::interface]
     trait IActions<ContractState> {
         fn move(
             self: @ContractState,
-            curr_position: (u32, u32),
-            next_position: (u32, u32),
+            curr_position: Vec2,
+            next_position: Vec2,
             caller: ContractAddress, //player
             game_id: u32
         );
@@ -36,15 +36,16 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
 ```rust,ignore
     #[dojo::contract]
     mod actions {
-        use dojo_chess::models::{Color, Square, PieceType, Game, GameTurn};
-        use super::{ContractAddress, IActions};
-        use dojo_chess::utils::{is_out_of_board, is_right_piece_move, is_piece_is_mine};
+        use chess::models::player::{Player, Color, PlayerTrait};
+        use chess::models::piece::{Piece, PieceType, PieceTrait};
+        use chess::models::game::{Game, GameTurn, GameTurnTrait};
+        use super::{ContractAddress, IActions, Vec2};
     }
 ```
 
 Should be noted that `actions` is the contract name.
 
-3. Write a `spawn` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`.Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `models.cairo` and Implement the square entities from a1 to h8 containing the correct `PieceType` in the `spawn` fn.
+3. Write a `spawn` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`. Implement the `player` entity from player model. Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `game.cairo` and implement the piece entities from a1 to h8 containing the correct `PieceType` in the `spawn` fn.
 
 ```rust,ignore
     #[external(v0)]
@@ -54,35 +55,105 @@ Should be noted that `actions` is the contract name.
         ) -> u32 {
             let world = self.world_dispatcher.read();
             let game_id = world.uuid();
+
+            // set Players
+            set!(
+                world,
+                (
+                    Player { game_id, address: black_address, color: Color::Black },
+                    Player { game_id, address: white_address, color: Color::White },
+                )
+            );
+
+            // set Game and GameTurn
             set!(
                 world,
                 (
                     Game {
-                        game_id,
-                        winner: Color::None(()),
-                        white: white_address,
-                        black: black_address
+                        game_id, winner: Color::None, white: white_address, black: black_address
                     },
-                    GameTurn { game_id, turn: Color::White(())},
+                    GameTurn { game_id, player_color: Color::White },
                 )
             );
 
-            set!(world, (Square { game_id, x: 0, y: 0, piece: PieceType::WhiteRook }));
-            set!(world, (Square { game_id, x: 0, y: 1, piece: PieceType::WhitePawn }));
-            set!(world, (Square { game_id, x: 1, y: 6, piece: PieceType::BlackPawn }));
-            set!(world, (Square { game_id, x: 1, y: 0, piece: PieceType::WhiteKnight }));
+            // set Pieces
+            set!(
+                world,
+                (Piece {
+                    game_id,
+                    color: Color::White,
+                    position: Vec2 { x: 0, y: 0 },
+                    piece_type: PieceType::Rook
+                })
+            );
+            set!(
+                world,
+                (Piece {
+                    game_id,
+                    color: Color::White,
+                    position: Vec2 { x: 0, y: 1 },
+                    piece_type: PieceType::Pawn
+                })
+            );
+            set!(
+                world,
+                (Piece {
+                    game_id,
+                    color: Color::Black,
+                    position: Vec2 { x: 1, y: 6 },
+                    piece_type: PieceType::Pawn
+                })
+            );
+            set!(
+                world,
+                (Piece {
+                    game_id,
+                    color: Color::White,
+                    position: Vec2 { x: 1, y: 0 },
+                    piece_type: PieceType::Knight
+                })
+            );
+            set!(
+                world,
+                (Piece {
+                    game_id,
+                    color: Color::None,
+                    position: Vec2 { x: 0, y: 2 },
+                    piece_type: PieceType::None
+                })
+            );
+
+            set!(
+                world,
+                (Piece {
+                    game_id,
+                    color: Color::None,
+                    position: Vec2 { x: 0, y: 3 },
+                    piece_type: PieceType::None
+                })
+            );
+            set!(
+                world,
+                (Piece {
+                    game_id,
+                    color: Color::None,
+                    position: Vec2 { x: 1, y: 4 },
+                    piece_type: PieceType::None
+                })
+            );
 
             //the rest of the positions on the board goes here....
 
             game_id
         }
-        fn move(self: @ContractState, curr_position: (u32, u32),
-            next_position: (u32, u32), caller: ContractAddress,
+        fn move(
+            self: @ContractState,
+            curr_position: Vec2,
+            next_position: Vec2,
+            caller: ContractAddress, //player
             game_id: u32
-        ) {
+        )  {
             // Upcoming code
         }
     }
 ```
-
-Before we implement the `move()` function, we are going to setup some helper function in our `utils.cairo` file
