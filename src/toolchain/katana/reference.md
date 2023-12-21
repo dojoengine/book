@@ -166,9 +166,6 @@ Set an exact value of a contract's storage slot.
 &nbsp;&nbsp;&nbsp;&nbsp; Dump the state of chain on exit to the given file.  
 &nbsp;&nbsp;&nbsp;&nbsp; If the value is a directory, the state will be written to `<PATH>/state.bin`.
 
-`--load-state <PATH>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Initialize the chain from a previously saved state snapshot.
-
 `--rpc-url <URL>`  
 &nbsp;&nbsp;&nbsp;&nbsp; The Starknet RPC provider to fork the network from.
 
