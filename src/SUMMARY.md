@@ -57,7 +57,7 @@
     - [execute](./toolchain/sozo/world-commands/execute.md)
     - [register](./toolchain/sozo/world-commands/register.md)
     - [system](./toolchain/sozo/world-commands/system.md)
-    - [component](./toolchain/sozo/world-commands/component.md)
+    - [model](./toolchain/sozo/world-commands/model.md)
     - [events](./toolchain/sozo/world-commands/events.md)
     - [auth](./toolchain/sozo/world-commands/auth.md)
 - [Katana](./toolchain/katana/overview.md)
