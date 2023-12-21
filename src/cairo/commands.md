@@ -29,6 +29,17 @@ Here we are retrieving the `Position` and `Moves` models from the world state. W
 
 You can then use `position` and `moves` as you would as any other Cairo struct.
 
+In the case that your model defines several keys as the [resource example](./models.md#the-key-attribute), you must provide a value for each key.
+
+```rust,ignore
+let player = get_caller_address();
+let location = 0x1234;
+
+let resource = get!(world, (player, location), (Resource));
+```
+
+If you use the `get!` command on a model that has never been set before, all the fields that are not `#[key]` are equal to 0 in the returned model, which is the default value in the storage.
+
 ### The `set!` command
 
 The `set!` command is used to update models state.
