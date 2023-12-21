@@ -28,7 +28,9 @@ struct Moves {
 
 #### The #[key] attribute
 
-The `#[key]` attribute indicates to Dojo that this model is indexed by the `player` field. You need to define a key for each model, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys.
+The `#[key]` attribute indicates to Dojo that this model is indexed by the `player` field. A field that is identified as a `#[key]` is not stored. It is used by the dojo database system to uniquely identify the storage location that contains your model.
+
+You need to define at least one key for each model, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys. If you define multiple keys, they must **all** be provided to query the model.
 
 ```rust,ignore
 #[derive(Model, Copy, Drop, Serde)]
@@ -54,6 +56,15 @@ set!(
         },
     )
 );
+```
+
+To retrieve a model with a composite key using the [get!](./commands.md#the-get-command) command, you must provide a value for each key as follow:
+
+```rust,ignore
+let player = get_caller_address();
+let location = 0x1234;
+
+let resource = get!(world, (player, location), (Resource));
 ```
 
 #### Implementing Traits
