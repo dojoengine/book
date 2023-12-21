@@ -107,7 +107,7 @@ While there are many ways to design a chess game using the ECS model, we'll foll
 
 First, add this basic `player` model to `models/player.cairo` file. If you are not familar with model syntax in Dojo engine, go back to this [chapter](../../cairo/models.md).
 
-```rust
+```rust,ignore
 use starknet::ContractAddress;
 
 #[derive(Model, Drop, Serde)]
