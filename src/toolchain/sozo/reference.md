@@ -17,6 +17,6 @@
 - [execute](./world-commands/execute.md)
 - [register](./world-commands/register.md)
 - [system](./world-commands/system.md)
-- [component](./world-commands/component.md)
+- [model](./world-commands/model.md)
 - [events](./world-commands/events.md)
 - [auth](./world-commands/auth.md)
