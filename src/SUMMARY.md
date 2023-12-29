@@ -65,7 +65,7 @@
 - [Torii](./toolchain/torii/overview.md)
   - [Reference](./toolchain/torii/reference.md)
   - [Graphql](./toolchain/torii/graphql.md)
-  - [Graphql](./toolchain/torii/grpc.md)
+  - [gRPC](./toolchain/torii/grpc.md)
 - [Slot](./toolchain/slot/overview.md)
   - [Reference](./toolchain/slot/reference.md)
     - [Deployments](./toolchain/slot/deployments-commands/deployments.md)
