@@ -68,6 +68,8 @@ The `emit!` command is used to emit custom events. These events are indexed by [
 emit!(world, Moved { address: caller, direction });
 ```
 
+This will emit these values which could be captured by a client or you could query these via [Torii](../toolchain/torii/overview.md).
+
 ### The `delete!` command
 
 The `delete!` command deletes a model from the db.
@@ -75,5 +77,3 @@ The `delete!` command deletes a model from the db.
 ```rust,ignore
 delete!(world, Moved { address: caller, direction });
 ```
-
-This will emit these values which could be captured by a client or you could query these via [Torii](../toolchain/torii/overview.md).
