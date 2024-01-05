@@ -20,10 +20,14 @@ Inspect the contents of the `dojo-starter` project, and you'll notice the follow
 
 ```bash
 src
-  - actions.cairo
   - lib.cairo
-  - models.cairo
-  - utils.cairo
+    - systems.cairo
+      - actions.cairo
+    - models.cairo
+      - position.cairo
+      - moves.cairo
+    - tests.cairo
+      - test_world.cairo
 Scarb.toml
 ```
 
@@ -31,7 +35,7 @@ Dojo projects bear a strong resemblance to typical Cairo projects. The primary d
 
 As we're crafting an ECS, we'll adhere to the specific terminology associated with Entity Component Systems.
 
-Open the `src/models.cairo` file to continue.
+Open the `src/models/moves.cairo` file to continue.
 
 ```rust,ignore
 #[derive(Model, Drop, Serde)]
@@ -41,20 +45,6 @@ struct Moves {
     remaining: u8,
     last_direction: Direction
 }
-
-#[derive(Copy, Drop, Serde, Introspect)]
-struct Vec2 {
-    x: u32,
-    y: u32
-}
-
-#[derive(Model, Copy, Drop, Serde)]
-struct Position {
-    #[key]
-    player: ContractAddress,
-    vec: Vec2,
-}
-
 ...rest of code
 ```
 
@@ -62,18 +52,43 @@ Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recogni
 
 Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this model using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
 
-In a similar vein, we have a `Position` model that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this model is indexed by the `player` field.
-
-Now, let's examine the `src/actions.cairo` file:
+Open the `src/models/position.cairo` file to continue.
 
 ```rust,ignore
+#[derive(Model, Copy, Drop, Serde)]
+struct Position {
+    #[key]
+    player: ContractAddress,
+    vec: Vec2,
+}
+
+#[derive(Copy, Drop, Serde, Introspect)]
+struct Vec2 {
+    x: u32,
+    y: u32
+}
+...rest of code
+```
+
+In a similar vein, we have a `Position` model that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this model is indexed by the `player` field.
+
+Now, let's examine the `src/systems/actions.cairo` file:
+
+```rust,ignore
+// define the interface
+#[starknet::interface]
+trait IActions<TContractState> {
+    fn spawn(self: @TContractState);
+    fn move(self: @TContractState, direction: dojo_starter::models::moves::Direction);
+}
+
 // dojo decorator
 #[dojo::contract]
 mod actions {
-    use starknet::{ContractAddress, get_caller_address};
-    use dojo_examples::models::{Position, Moves, Direction, Vec2};
-    use dojo_examples::utils::next_position;
     use super::IActions;
+
+    use starknet::{ContractAddress, get_caller_address};
+    use dojo_starter::models::{position::{Position, Vec2}, moves::{Moves, Direction}};
 
     // declaring custom event struct
     #[event]
@@ -88,6 +103,19 @@ mod actions {
         player: ContractAddress,
         direction: Direction
     }
+
+    // define functions in your contracts like this:
+    fn next_position(mut position: Position, direction: Direction) -> Position {
+        match direction {
+            Direction::None => { return position; },
+            Direction::Left => { position.vec.x -= 1; },
+            Direction::Right => { position.vec.x += 1; },
+            Direction::Up => { position.vec.y -= 1; },
+            Direction::Down => { position.vec.y += 1; },
+        };
+        position
+    }
+
 
     // impl: implement functions specified in trait
     #[external(v0)]
@@ -107,17 +135,13 @@ mod actions {
             let moves = get!(world, player, (Moves));
 
             // Update the world state with the new data.
-            // 1. Increase the player's remaining moves by 10.
-            // 2. Move the player's position 10 units in both the x and y direction.
+            // 1. Set players moves to 10
+            // 2. Move the player's position 100 units in both the x and y direction.
             set!(
                 world,
                 (
-                    Moves {
-                        player, remaining: moves.remaining + 10, last_direction: Direction::None
-                    },
-                    Position {
-                        player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
-                    },
+                    Moves { player, remaining: 100, last_direction: Direction::None },
+                    Position { player, vec: Vec2 { x: 10, y: 10 } },
                 )
             );
         }
@@ -262,11 +286,11 @@ Your 🌎 is now deployed at `0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.3.14`.
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.4.4`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", version = "0.3.14" }
+dojo = { git = "https://github.com/dojoengine/dojo", version = "0.4.4" }
 ```
 
 ### Indexing
