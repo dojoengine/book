@@ -28,6 +28,7 @@
   - [Events](./cairo/events.md)
   - [Authorization](./cairo/authorization.md)
   - [Metadata](./cairo/metadata.md)
+  - [Enum](./cairo/enum.md)
 - [Migration](./cairo/migration.md)
   - [0.2.0 -> 0.3.0](./cairo/migration/0.3.0.md)
 - [ECS in 15 minutes](./cairo/hello-dojo.md)
