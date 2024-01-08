@@ -62,6 +62,7 @@
     - [events](./toolchain/sozo/world-commands/events.md)
     - [auth](./toolchain/sozo/world-commands/auth.md)
 - [Katana](./toolchain/katana/overview.md)
+  - [interact](./toolchain/katana/interact.md)
   - [Reference](./toolchain/katana/reference.md)
 - [Torii](./toolchain/torii/overview.md)
   - [Reference](./toolchain/torii/reference.md)
