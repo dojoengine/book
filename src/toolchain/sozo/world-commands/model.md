@@ -10,19 +10,19 @@
 sozo model <COMMAND>
 
 Commands:
-  get     Get the class hash of a model
-  schema  Retrieve the schema for a model
-  entity  Get the model value for an entity
+  class-hash  Get the class hash of a model
+  schema      Retrieve the schema for a model
+  get         Get the model value for an entity
 ```
 
 ### SUBCOMMANDS
 
-#### `get`
+#### `class-hash`
 
 Get the class hash of a model
 
 ```sh
-sozo model get <NAME>
+sozo model class-hash <NAME>
 ```
 
 ##### Arguments
@@ -43,12 +43,12 @@ sozo model schema <NAME>
 _`NAME`_  
 &nbsp;&nbsp;&nbsp;&nbsp;The name of the model
 
-#### `entity`
+#### `get`
 
 Get the model value for an entity
 
 ```sh
-sozo model entity <NAME> [KEYS]...
+sozo model get <NAME> [KEYS]...
 ```
 
 ##### Arguments
