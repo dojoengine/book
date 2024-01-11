@@ -17,6 +17,17 @@ Commands:
 
 ### SUBCOMMANDS
 
+**Note**: Before to execute the following subcommands, ensure you have added your `world address` to your Scarb.toml file.
+
+```toml
+[tool.dojo.env]
+rpc_url = "http://localhost:5050/"
+# Default account for katana with seed = 0
+account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+private_key = "0x1800000000300000180000000000030000000000003006001800006600"
+world_address = "0x28f5999ae62fec17c09c52a800e244961dba05251f5aaf923afabd9c9804d1a"
+```
+
 #### `class-hash`
 
 Get the class hash of a model
