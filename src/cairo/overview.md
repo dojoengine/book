@@ -54,7 +54,7 @@ mod player_actions {
     use super::{Position, Vec2};
     use super::IPlayerActions;
 
-    #[external(v0)]
+    #[abi(embed_v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         //
         // This is how we interact with the world contract.

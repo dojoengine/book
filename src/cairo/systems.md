@@ -46,7 +46,7 @@ mod player_actions {
     struct Storage {}
 
     // implementation of the PlayerActions interface
-    #[external(v0)]
+    #[abi(embed_v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         fn spawn(self: @ContractState, world: IWorldDispatcher) {
             let player = get_caller_address();
@@ -103,7 +103,7 @@ mod player_actions {
     }
 
     // impl: implement functions specified in trait
-    #[external(v0)]
+    #[abi(embed_v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         // ContractState is defined by system decorator expansion
         fn spawn(self: @ContractState) {

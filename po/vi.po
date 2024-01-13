@@ -2743,8 +2743,8 @@ msgid "To implement the interface:"
 msgstr "Để thực hiện giao diện:"
 
 #: src/cairo/migration/0.3.0.md:120
-msgid "Add `#[external(v0)]` before each method."
-msgstr "Thêm `#[external(v0)]` trước mỗi phương thức."
+msgid "Add `#[abi(embed_v0)]` before each method."
+msgstr "Thêm `#[abi(embed_v0)]` trước mỗi phương thức."
 
 #: src/cairo/migration/0.3.0.md:121
 msgid ""
@@ -7179,7 +7179,7 @@ msgstr ""
 #: src/tutorial/onchain-chess/1-action.md:52
 msgid ""
 "```shell\n"
-"        #[external(v0)]\n"
+"        #[abi(embed_v0)]\n"
 "    impl PlayerActionsImpl of IActions<ContractState> {\n"
 "        fn spawn_game(\n"
 "            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress\n"
@@ -7213,7 +7213,7 @@ msgid ""
 "```"
 msgstr ""
 "```shell\n"
-"#[external(v0)]\n"
+"#[abi(embed_v0)]\n"
 "impl PlayerActionsImpl of IActions<ContractState> {\n"
 "    fn spawn_game(\n"
 "        self: @ContractState, white_address: ContractAddress, black_address: ContractAddress\n"

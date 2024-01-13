@@ -3,7 +3,7 @@
 1. Write a `move` function that accepts the `current position`, `next position`, `caller address`, and `game_id`. The `move` function should look like this:
 
 ```c
-    #[external(v0)]
+    #[abi(embed_v0)]
     impl PlayerActionsImpl of IActions<ContractState> {
         fn spawn(
             self: @ContractState, white_address: ContractAddress, black_address: ContractAddress
