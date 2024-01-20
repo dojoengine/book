@@ -26,11 +26,11 @@ Building on-chain games often involves grappling with the challenge of indexing 
 
 Using Torii drastically reduces the time and effort required to build on-chain games. It also eliminates the need to manually create indexers, which can be a tedious and error-prone process.
 
-### [Katana](/crates/katana/README.md) - Blazingly fast development network
+### [Katana](/toolchain/katana/overview.md) - Blazingly fast development network
 
 Katana is a customizable Starknet development network. It is blazingly fast and allows you to iterate on your game logic swiftly.
 
-### [Sozo CLI](/crates/sozo/README.md) - CLI Management Tool
+### [Sozo CLI](/toolchain/sozo/overview.md) - CLI Management Tool
 
 Dojo worlds are poised to become some of the largest contracts. Sozo is a CLI tool that assists you in managing your worlds. It enables you to create, build, test, and deploy your worlds. Additionally, you can craft new components and systems and register them with your world.
 
