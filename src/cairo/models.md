@@ -230,7 +230,7 @@ mod spawnHuman {
     const COUNTER_ID: u32 = 9999999999999;
 
     // impl: implement functions specified in trait
-    #[external(v0)]
+    #[abi(embed_v0)]
     impl GoblinActionsImpl of IGoblinActions<ContractState> {
         fn goblin_actions(self: @ContractState, entity_id: u32) {
             let world = self.world_dispatcher.read();

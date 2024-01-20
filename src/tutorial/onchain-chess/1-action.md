@@ -48,7 +48,7 @@ Should be noted that `actions` is the contract name.
 3. Write a `spawn` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`. Implement the `player` entity from player model. Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `game.cairo` and implement the piece entities from a1 to h8 containing the correct `PieceType` in the `spawn` fn.
 
 ```rust,ignore
-    #[external(v0)]
+    #[abi(embed_v0)]
     impl IActionsImpl of IActions<ContractState> {
         fn spawn(
             self: @ContractState, white_address: ContractAddress, black_address: ContractAddress
