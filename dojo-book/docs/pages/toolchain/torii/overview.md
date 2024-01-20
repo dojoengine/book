@@ -13,8 +13,8 @@ The torii server comprises of the rust backend that exposes the graphql and gRPC
 Torii client interfaces with the server to provide an easy to use api for your clients:
 
 - [wasm](/client/dojojs.md#dojoenginetorii-wasm)
-- [unity](/client/torii/unity.md)
-- [c](/client/torii/unity.md)
+- [unity](/client/sdk/unity.md)
+- [c](/client/sdk/unity.md)
 
 ### Usage
 
