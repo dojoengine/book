@@ -15,7 +15,7 @@ slot [COMMANDS] [OPTIONS]
 `auth`  
 &nbsp;&nbsp;&nbsp;&nbsp; Manage auth credentials for the Slot CLI.
 
-[`deployments`](./deployments-commands/deployments.md)
+[`deployments`](/toolchain/slot/deployments-commands/deployments.md)
 
 &nbsp;&nbsp;&nbsp;&nbsp; Manage Slot deployments.
 

@@ -1,0 +1,69 @@
+import WorldOptions from '../common/world-options.mdx'
+import StarknetOptions from '../common/starknet-options.mdx'
+
+
+## sozo system
+
+`system` is used to interact with a World's systems. It is useful for querying about a system's information.
+
+### USAGE
+
+```sh
+sozo system <COMMAND>
+
+Commands:
+  get         Get the class hash of a system.
+  dependency  Retrieve the component dependencies of a system.
+```
+
+### SUBCOMMANDS
+
+#### `get`
+
+Get the class hash of a system
+
+```sh
+sozo system get <NAME>
+```
+
+##### Arguments
+
+_`NAME`_  
+&nbsp;&nbsp;&nbsp;&nbsp;The name of the system
+
+#### `dependency`
+
+Retrieve the component dependencies of a system
+
+```sh
+sozo system dependency <NAME>
+```
+
+##### Arguments
+
+_`NAME`_  
+&nbsp;&nbsp;&nbsp;&nbsp;The name of the system
+
+### OPTIONS
+
+#### World Options
+
+<WorldOptions/>
+
+#### Starknet Options
+
+<StarknetOptions/>
+
+### EXAMPLES
+
+1. Get the class hash of the _spawn_ system
+
+```sh
+sozo system get spawn
+```
+
+2. Get the component dependencies of the _spawn_ system
+
+```sh
+sozo system dependency spawn
+```

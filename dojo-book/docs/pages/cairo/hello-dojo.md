@@ -4,7 +4,7 @@
 
 ## Dojo as an ECS in 15 Minutes
 
-Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](./models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework that promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
+Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](/cairo/models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework that promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
 
 To start, let's set up a project to run locally on your machine. From an empty directory, execute:
 
@@ -190,7 +190,7 @@ let position = get!(world, player, (Position));
 let moves = get!(world, player, (Moves));
 ```
 
-Here we use `get!` [command](./commands.md) to retrieve the `Position` and `Moves` model for the `player` entity, which is the address of the caller.
+Here we use `get!` [command](/cairo/commands.md) to retrieve the `Position` and `Moves` model for the `player` entity, which is the address of the caller.
 
 Now the next line:
 
@@ -211,7 +211,7 @@ set!(
 );
 ```
 
-Here we use the `set!` [command](./commands.md) to set the `Moves` and `Position` models for the `player` entity.
+Here we use the `set!` [command](/cairo/commands.md) to set the `Moves` and `Position` models for the `player` entity.
 
 We covered a lot here in a short time. Let's recap:
 
@@ -286,7 +286,7 @@ Your 🌎 is now deployed at `0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](./config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.4.4`.
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/cairo/config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.4.4`.
 
 ```toml
 [dependencies]

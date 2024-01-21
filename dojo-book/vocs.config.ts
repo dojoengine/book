@@ -2,8 +2,15 @@ import { defineConfig } from "vocs";
 
 export default defineConfig({
   iconUrl: "/dojo-mark-full-dark.svg",
+  logoUrl: "/dojo-mark-full-dark.svg",
+  editLink: {
+    pattern:
+      "https://github.com/dojoengine/book/blob/main/dojo-book/docs/pages/:path",
+    text: "Edit on GitHub",
+  },
   ogImageUrl:
     "https://vocs.dev/api/og?logo=%logo&title=%title&description=%description",
+  description: "Dojo | The Provable Game Engine",
   topNav: [
     { text: "Blog", link: "https://www.dojoengine.org/en/articles" },
     { text: "Releases", link: "https://github.com/dojoengine/dojo/releases" },
@@ -12,11 +19,11 @@ export default defineConfig({
       items: [
         {
           text: "Changelog",
-          link: "https://github.com/wevm/vocs/blob/main/src/CHANGELOG.md",
+          link: "https://github.com/dojoengine/dojo/releases",
         },
         {
           text: "Contributing",
-          link: "https://github.com/wevm/vocs/blob/main/.github/CONTRIBUTING.md",
+          link: "https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md",
         },
       ],
     },
@@ -24,14 +31,13 @@ export default defineConfig({
   font: {
     google: "Poppins",
   },
-  // theme: {
-
-  //   accentColor: "#",
-  // },
   theme: {
-    accentColor: "#FF2F42",
     variables: {
       color: {
+        textAccent: {
+          light: "#071E3F",
+          dark: "#A7C9F8",
+        },
         background: {
           light: "white",
           dark: "black",
