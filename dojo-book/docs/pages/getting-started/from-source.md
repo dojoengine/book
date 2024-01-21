@@ -1,6 +1,6 @@
 ## Building from source
 
-> If you are just wanting to play with the toolchain, we strongly suggest following the [Quick Start](./quick-start.md) guide.
+> If you are just wanting to play with the toolchain, we strongly suggest following the [Quick Start](/getting-started/quick-start.md) guide.
 
 #### Prerequisites
 

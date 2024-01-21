@@ -42,4 +42,4 @@ This will install Torii and the required dependencies on your local system.
 
 > 📚 **Reference**
 >
-> See the [`torii` Reference](./reference.md) for a complete reference.
+> See the [`torii` Reference](/toolchain/torii/reference.md) for a complete reference.

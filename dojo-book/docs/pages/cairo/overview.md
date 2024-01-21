@@ -4,7 +4,7 @@
 
 Dojo provides an advanced abstraction layer over Cairo, mirroring React's relationship with JavaScript. Its specialized architecture simplifies game design and development.
 
-By leveraging Dojo, developers can use succinct [commands](./commands.md) that transform into comprehensive queries at compile time.
+By leveraging Dojo, developers can use succinct [commands](/cairo/commands.md) that transform into comprehensive queries at compile time.
 
 #### Delving into the Architecture
 
@@ -84,10 +84,10 @@ Dojo contract is just a regular Cairo contract, with some dojo specifics.
 
 In a Dojo world, state is defined using models. These are structs marked with the `#[derive(Model)]` attribute, functioning similarly to a key-pair store. The primary key for a model is indicated using the `#[key]` attribute; for instance, the `player` field serves as the primary key in this context.
 
-Read more about models [here](./models.md).
+Read more about models [here](/cairo/models.md).
 
 #### `spawn` function - a dojo system
 
 In the `spawn` function, we just call `self.world_dispatcher`. This provides a gateway to the world contract. This facilitates the effortless utilization of the get! and set! commands, allowing seamless interaction with the world contract.
 
-Commands, a significant innovation in Dojo, are further explored [here](./commands.md).
+Commands, a significant innovation in Dojo, are further explored [here](/cairo/commands.md).

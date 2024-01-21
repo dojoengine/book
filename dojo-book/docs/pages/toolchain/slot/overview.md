@@ -18,4 +18,4 @@ To deploy your projects using slot, check out the tutorial [Deploy using Slot](/
 
 > 📚 **Reference**
 >
-> See the [`slot` Reference](./reference.md) for a complete overview of all the available subcommands.
+> See the [`slot` Reference](/toolchain/slot/reference.md) for a complete overview of all the available subcommands.

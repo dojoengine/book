@@ -68,4 +68,4 @@ To enable development features, run using the `--dev` flag.
 
 > 📚 **Reference**
 >
-> See the [`katana` Reference](./reference.md) for an in depth reference and documentation on Katana.
+> See the [`katana` Reference](/toolchain/katana/reference.md) for an in depth reference and documentation on Katana.

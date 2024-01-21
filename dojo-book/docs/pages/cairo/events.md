@@ -109,4 +109,4 @@ fn move(ctx: Context, direction: Direction) {
 }
 ```
 
-> Note: Read about the `get!` and `set!` macros in [Commands](./commands.md).
+> Note: Read about the `get!` and `set!` macros in [Commands](/cairo/commands.md).

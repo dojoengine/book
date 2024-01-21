@@ -58,7 +58,7 @@ set!(
 );
 ```
 
-To retrieve a model with a composite key using the [get!](./commands.md#the-get-command) command, you must provide a value for each key as follow:
+To retrieve a model with a composite key using the [get!](/cairo/commands.md#the-get-command) command, you must provide a value for each key as follow:
 
 ```rust,ignore
 let player = get_caller_address();

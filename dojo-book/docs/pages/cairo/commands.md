@@ -29,7 +29,7 @@ Here we are retrieving the `Position` and `Moves` models from the world state. W
 
 You can then use `position` and `moves` as you would as any other Cairo struct.
 
-In the case that your model defines several keys as the [resource example](./models.md#the-key-attribute), you must provide a value for each key.
+In the case that your model defines several keys as the [resource example](/cairo/models.md#the-key-attribute), you must provide a value for each key.
 
 ```rust,ignore
 let player = get_caller_address();

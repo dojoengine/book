@@ -2,21 +2,21 @@
 
 ### Common options
 
-- [profile](./common-options/profile.md)
-- [offline](./common-options/offline.md)
+- [profile](/toolchain/sozo/common-options/profile.md)
+- [offline](/toolchain/sozo/common-options/offline.md)
 
 ### Project Commands
 
-- [init](./project-commands/init.md)
-- [build](./project-commands/build.md)
-- [test](./project-commands/test.md)
-- [migrate](./project-commands/migrate.md)
+- [init](/toolchain/sozo/project-commands/init.md)
+- [build](/toolchain/sozo/project-commands/build.md)
+- [test](/toolchain/sozo/project-commands/test.md)
+- [migrate](/toolchain/sozo/project-commands/migrate.mdx)
 
 ### World Commands
 
-- [execute](./world-commands/execute.md)
-- [register](./world-commands/register.md)
-- [system](./world-commands/system.md)
-- [model](./world-commands/model.md)
-- [events](./world-commands/events.md)
-- [auth](./world-commands/auth.md)
+- [execute](/toolchain/sozo/world-commands/execute.mdx)
+- [register](/toolchain/sozo/world-commands/register.md)
+- [system](/toolchain/sozo/world-commands/system.mdx)
+- [model](/toolchain/sozo/world-commands/model.mdx)
+- [events](/toolchain/sozo/world-commands/events.md)
+- [auth](/toolchain/sozo/world-commands/auth.md)

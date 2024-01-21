@@ -1,4 +1,4 @@
-> **To think about:** Consider Autonomous Worlds as sovereign blockchains residing within another blockchain - a nested blockchain, so to speak. Just as you can deploy contracts onto Ethereum to enhance its functionality, you can similarly introduce systems into the World contract to enrich its features. While anyone can contribute to the World, akin to Ethereum, authorization is required to interact with model state. There is a dedicated topic to [Authorisation](./authorization.md).
+> **To think about:** Consider Autonomous Worlds as sovereign blockchains residing within another blockchain - a nested blockchain, so to speak. Just as you can deploy contracts onto Ethereum to enhance its functionality, you can similarly introduce systems into the World contract to enrich its features. While anyone can contribute to the World, akin to Ethereum, authorization is required to interact with model state. There is a dedicated topic to [Authorisation](/cairo/authorization.md).
 
 ![overview](/world-map.png)
 
