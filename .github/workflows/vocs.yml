@@ -1,7 +1,3 @@
-# Sample workflow for building and deploying a mdBook site to GitHub Pages
-#
-# To get started with mdBook see: https://rust-lang.github.io/mdBook/index.html
-#
 name: Deploy mdBook site to Pages
 
 on:
@@ -32,25 +28,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
-      - name: Setup Rust cache
-        uses: ./.github/workflows/setup-rust-cache
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "pnpm"
 
-      - name: Install mdbook
-        uses: ./.github/workflows/install-mdbook
-
-      - name: Build in English
-        run: |
-          mdbook build -d book
-
-      - name: Build all translations
-        run: |
-          for po_lang in $(cat ./LANGUAGES); do
-              echo "::group::Building $po_lang translation"
-              MDBOOK_BOOK__LANGUAGE=$po_lang \
-              mdbook build -d book/$po_lang
-              echo "::endgroup::"
-          done
+      - name: Install dependencies
+        run: cd dojo-book && pnpm install && pnpm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -58,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./book
+          path: ./dojo-book/docs/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
