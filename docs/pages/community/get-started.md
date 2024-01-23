@@ -41,7 +41,7 @@ Templates, libraries or utilities that use Dojo.
 ## Awesome Projects
 
 - [Beer Baron](https://github.com/cartridge-gg/beer-baron) - An dojo onchain simulation masked as a beer brewing game. It is designed to work with 10 - 10,000 players.
-- [Chess Dojo](https://github.com/rkdud007/chess-dojo) - A chess game built on Dojo.
+- [Chess Dojo](https://github.com/dojoengine/origami/tree/main/examples/chess) - A chess game built on Dojo.
 - [Dope Wars: Roll Your Own](https://github.com/cartridge-gg/rollyourown) - An onchain adaptation of the classic Drug Wars game developed by the Cartridge team.
 - [Drive AI](https://github.com/cartridge-gg/drive-ai) - An onchain driving simulator controlled by a neural network developed by the Cartridge team.
 - [Emoji Man](https://github.com/dojoengine/emoji-man) - Pac-man inspired onchain game using dojo and phaser.

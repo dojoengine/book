@@ -286,11 +286,11 @@ Your 🌎 is now deployed at `0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/cairo/config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.4.4`.
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/cairo/config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.5.0`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", version = "0.4.4" }
+dojo = { git = "https://github.com/dojoengine/dojo", version = "0.5.0" }
 ```
 
 ### Indexing
