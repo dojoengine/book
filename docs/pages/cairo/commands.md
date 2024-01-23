@@ -75,5 +75,7 @@ This will emit these values which could be captured by a client or you could que
 The `delete!` command deletes a model from the db.
 
 ```rust
-delete!(world, Moved { address: caller, direction });
+let player = get_caller_address();
+let moves = get!(world, player, (Moves));
+delete!(world, (moves, position));
 ```
