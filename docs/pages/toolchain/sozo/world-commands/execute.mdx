@@ -1,0 +1,55 @@
+import WorldOptions from '../common/world-options.mdx'
+import StarknetOptions from '../common/starknet-options.mdx'
+import AccountOptions from '../common/account-options.mdx'
+import SignerOptionsRaw from '../common/signer-options-raw.mdx'
+import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
+
+
+## sozo execute
+
+`execute` is used to execute a World's system.
+
+Performing a system execution requires sending a transaction, therefore, `execute` expects an account address as well as its respective private key in order to sign the transaction before sending it.
+
+### USAGE
+
+```sh
+# you can use the name or address of the contract
+sozo execute <CONTRACT> <ENTRYPOINT>
+```
+
+### OPTIONS
+
+#### General Options
+
+`--calldata` _CALLDATA_  
+&nbsp;&nbsp;&nbsp;&nbsp;The calldata to be passed to the system that you want to execute.  
+&nbsp;&nbsp;&nbsp;&nbsp;Comma separated values e.g., 0x12345,0x69420.
+
+#### World Options
+
+<WorldOptions/>
+
+#### Starknet Options
+
+<StarknetOptions/>
+
+#### Account Options
+
+<AccountOptions/>
+
+#### Signer Options - Raw
+
+<SignerOptionsRaw/>
+
+#### Signer Options - Keystore
+
+<SignerOptionsKeystore/>
+
+### EXAMPLES
+
+1. Executing the _position_ system which takes two values (_x_: 0x77 and _y_: 0x44)
+
+```sh
+sozo execute moving_contract position --calldata 0x77,0x44
+```
