@@ -18,4 +18,4 @@ Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promo
 
 ### How do I get involved?
 
-Check out our [Github](https://github.com/dojoengine), our [Twitter](https://twitter.com/dojostarknet), [Discord](https://discord.gg/vUN4Xq9Qv6) and [contribution guide](https://book.dojoengine.org/misc/contributors.html)
+Check out our [Github](https://github.com/dojoengine), our [Twitter](https://twitter.com/dojostarknet), [Discord](https://discord.gg/vUN4Xq9Qv6) and [contribution guide](getting-started/contributing.md)
