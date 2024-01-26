@@ -8,4 +8,4 @@ Explore the world of Autonomous Worlds with Dojo, your trusted toolchain. [Dive 
 
 Embrace the open-source spirit of Dojo. As it's in its nascent phase, we welcome contributors with open arms.
 
-Peruse our [contributing guidelines](./src/misc/contributors.md). From minor wording adjustments to extensive chapters, every contribution matters!
+Peruse our [contributing guidelines](docs/pages/misc/contributors.md). From minor wording adjustments to extensive chapters, every contribution matters!
