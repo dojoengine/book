@@ -21,13 +21,13 @@ Inspect the contents of the `dojo-starter` project, and you'll notice the follow
 ```bash
 src
   - lib.cairo
-    - systems.cairo
-      - actions.cairo
-    - models.cairo
-      - position.cairo
-      - moves.cairo
-    - tests.cairo
-      - test_world.cairo
+  - systems
+    - actions.cairo
+  - models
+    - position.cairo
+    - moves.cairo
+  - tests
+    - test_world.cairo
 Scarb.toml
 ```
 
