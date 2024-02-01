@@ -32,9 +32,9 @@ Or, by manually building from a local copy of the [Dojo repository](https://gith
 git clone https://github.com/dojoengine/dojo.git
 cd dojo
 # install Sozo
-cargo install --path ./crates/sozo --force
+cargo install --path ./bin/sozo --force
 # install Katana
-cargo install --path ./crates/katana --force
+cargo install --path ./bin/katana --force
 # install Torii
-cargo run -—bin torii
+cargo install --path ./bin/torii --force
 ```
