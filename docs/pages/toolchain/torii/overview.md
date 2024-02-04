@@ -35,7 +35,7 @@ The `torii` binary can be installed via [`dojoup`](/getting-started/quick-start.
 If you prefer to install from the source code:
 
 ```sh
-cargo install --path ./crates/torii --profile local --force
+cargo install --path ./bun/torii --profile local --force
 ```
 
 This will install Torii and the required dependencies on your local system.
