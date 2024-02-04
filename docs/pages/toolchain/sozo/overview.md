@@ -17,7 +17,7 @@
 ```sh
 git clone https://github.com/dojoengine/dojo
 cd dojo
-cargo install --path ./crates/sozo --locked --force
+cargo install --path ./bin/sozo --locked --force
 ```
 
 This will install Sozo and the required dependencies on your local system.

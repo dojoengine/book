@@ -21,7 +21,7 @@ In produciton mode, Katana provides a high performance sequencer optimized for g
 ```sh
 git clone https://github.com/dojoengine/dojo
 cd dojo
-cargo install --path ./crates/katana --locked --force
+cargo install --path ./bin/katana --locked --force
 ```
 
 ### Usage
