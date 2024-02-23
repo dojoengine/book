@@ -4,5 +4,5 @@
 
 ```sh
 mkdir new_project
-sozo init
+sozo init new_project
 ```
