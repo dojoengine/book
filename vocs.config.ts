@@ -1,10 +1,10 @@
 import { defineConfig } from "vocs";
 
 export default defineConfig({
+  banner: "Join the [Discord](https://discord.gg/dojoengine)!",
   title: "Dojo Book",
   iconUrl: "/dojo-mark-full-dark.svg",
   logoUrl: "/dojo-mark-full-dark.svg",
-
   socials: [
     {
       icon: "github",
@@ -26,11 +26,16 @@ export default defineConfig({
     "https://vocs.dev/api/og?logo=%logo&title=%title&description=%description",
   description: "Dojo | The Provable Game Engine",
   topNav: [
+    { text: "Dojo", link: "/getting-started", match: "/docs" },
+    { text: "Katana", link: "/toolchain/katana/overview", match: "/katana" },
     { text: "Blog", link: "https://www.dojoengine.org/en/articles" },
-    { text: "Releases", link: "https://github.com/dojoengine/dojo/releases" },
     {
       text: "0.5.0",
       items: [
+        {
+          text: "Releases",
+          link: "https://github.com/dojoengine/dojo/releases",
+        },
         {
           text: "Changelog",
           link: "https://github.com/dojoengine/dojo/releases",
@@ -54,7 +59,7 @@ export default defineConfig({
         },
         background: {
           light: "white",
-          dark: "black",
+          dark: "#212121",
         },
       },
       content: {
@@ -117,8 +122,15 @@ export default defineConfig({
           text: "SDKs",
           link: "/client/overview",
           items: [
-            { text: "dojo.js", link: "/client/sdk/dojojs" },
-            { text: "unity", link: "/client/sdk/unity" },
+            { text: "dojo.js", link: "/client/dojojs" },
+            {
+              text: "dojo.unity", link: "/client/sdk/unity/overview",
+              collapsed: true,
+              items: [
+                { text: "Dojo unity concepts", link: "/client/sdk/unity/importantConcepts" },
+                { text: "Example", link: "/client/sdk/unity/example" }
+              ]
+            },
             { text: "c", link: "/client/sdk/c" },
           ],
         },
@@ -216,6 +228,51 @@ export default defineConfig({
     {
       text: "Contributors",
       link: "/misc/contributors",
+    },
+  ],
+  sponsors: [
+    {
+      name: "Built in collaboration with",
+      height: 60,
+      items: [
+        [
+          {
+            name: "Cartridge",
+            link: "https://cartridge.gg/",
+            image: "/Cartridge.svg",
+          },
+        ],
+        [
+          {
+            name: "Starkware",
+            link: "https://starkware.co/",
+            image: "/Starkware.svg",
+          },
+          {
+            name: "Starknet",
+            link: "https://starknet.io/",
+            image: "/Starknet.svg",
+          },
+        ],
+      ],
+    },
+    {
+      name: "Powering Worlds",
+      height: 60,
+      items: [
+        [
+          {
+            name: "Realms World",
+            link: "https://realms.world",
+            image: "/RealmsWorld.svg",
+          },
+          {
+            name: "Dope World",
+            link: "https://dopewars.xyz/",
+            image: "/Dope.svg",
+          },
+        ],
+      ],
     },
   ],
 });

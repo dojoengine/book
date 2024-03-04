@@ -77,5 +77,5 @@ The `delete!` command deletes a model from the db.
 ```rust
 let player = get_caller_address();
 let moves = get!(world, player, (Moves));
-delete!(world, (moves, position));
+delete!(world, (moves));
 ```

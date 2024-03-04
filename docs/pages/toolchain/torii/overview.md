@@ -8,13 +8,13 @@ Torii is an automatic indexer and client for dojo worlds. Built in rust to be bl
 
 The torii server comprises of the rust backend that exposes the graphql and gRPC endpoints.
 
-### Torii Client
+<!-- ### Torii Client
 
 Torii client interfaces with the server to provide an easy to use api for your clients:
 
 - [wasm](/client/dojojs.md#dojoenginetorii-wasm)
 - [unity](/client/sdk/unity.md)
-- [c](/client/sdk/unity.md)
+- [c](/client/sdk/unity.md) -->
 
 ### Usage
 
@@ -35,7 +35,7 @@ The `torii` binary can be installed via [`dojoup`](/getting-started/quick-start.
 If you prefer to install from the source code:
 
 ```sh
-cargo install --path ./crates/torii --profile local --force
+cargo install --path ./bun/torii --profile local --force
 ```
 
 This will install Torii and the required dependencies on your local system.
