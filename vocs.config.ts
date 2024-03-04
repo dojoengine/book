@@ -157,7 +157,10 @@ export default defineConfig({
         {
           text: "Katana",
           link: "/toolchain/katana/overview",
-          items: [{ text: "Reference", link: "/toolchain/katana/reference" }],
+          items: [
+            { text: "Reference", link: "/toolchain/katana/reference" },
+            { text: "Interact", link: "/toolchain/katana/interact" },
+          ],
         },
         {
           text: "Torii",
