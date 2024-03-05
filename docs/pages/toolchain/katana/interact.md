@@ -64,6 +64,7 @@ Add contract dependencies to scarb.toml
 ```toml
 [dependencies]
 starknet = "2.5.0"
+
 [[target.starknet-contract]]
 ```
 
