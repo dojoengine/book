@@ -1,14 +1,21 @@
 # Dojo Unity Concepts
 
-Building on-chain games and worlds with Unity involves understanding several key concepts and components. Let's go over them to give you a clearer picture:
+To dive into the exciting world of on-chain games and worlds with Unity, let's explore some essential concepts 
 
 ## World Manager
 
+The World Manager is the central hub for organizing and controlling entities within your Dojo world in Unity.
+
 ![world-manager](/unity/world-manager.png)
 
-- **Function**: The World Manager acts as the central hub for your Dojo world within Unity. It's the starting point where all entities from your Dojo world will be managed.
-- **Implementation**: In your Unity scene, you'll find a `WorldManager` game object. Under this object, all entities from your Dojo world will be instantiated.
-- **Customization**: The WorldManager script component comes with default values, but you have the option to modify these. Specifically, you can update the URLs for your Katana and Torii instances and set your own world address.
+During initialization, the World Manager receives WorldManagerData, which defines essential settings like your Torii URL, RPC URL, and world address. While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
+
+![world-manager](/unity/world-manager-data.png)
+
+In Unity, entities are represented by GameObject instances. The World Manager simplifies their management by offering methods to:
+* Add and remove entities
+* Access entities by name or list all entities
+
 
 ## Synchronization Master
 
