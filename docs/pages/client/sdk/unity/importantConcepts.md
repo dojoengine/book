@@ -10,22 +10,29 @@ The World Manager is the central hub for organizing and controlling entities wit
 
 During initialization, the World Manager receives WorldManagerData, which defines essential settings like your Torii URL, RPC URL, and world address. While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
 
-![world-manager](/unity/world-manager-data.png)
+![world-manager-data](/unity/world-manager-data.png)
 
 In Unity, entities are represented by GameObject instances. The World Manager simplifies their management by offering methods to:
+
 * Add and remove entities
 * Access entities by name or list all entities
 
-
 ## Synchronization Master
 
-![world-manager](/unity/sync-master.png)
+The Synchronization Master acts as the bridge between Unity and your Dojo world, seamlessly synchronizing and managing entities.
 
-- **Role**: This component is crucial for managing the synchronization of entities between your Dojo world and the Unity world.
-- **Features**: In the SynchronizationMaster, you can specify the maximum number of entities you want to synchronize. It also handles the synchronization of your models' components.
-- **Models Component**:
-  - **Purpose**: These are the components that will be synchronized between the two worlds.
-  - **Management**: You have the flexibility to add as many models as needed. However, it's important to ensure that the models you add here are also present in your Dojo world for proper synchronization.
+![sync-master](/unity/sync-master.png)
+
+Key Features:
+
+* Control synchronization: Set the maximum number of entities to synchronize.
+* Event-driven communication:
+  * OnSynchronized: Notifies you when entities were successfully synchronized from Dojo world to Unity.
+  * OnEntitySpawned: Triggered whenever a new entity is spawned in the Unity environment.
+
+* Dynamic entity management:
+  * SynchronizeEntities: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
+  * HandleEntityUpdate: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
 
 ## Models
 
