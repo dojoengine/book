@@ -128,7 +128,8 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { text: "Overview", link: "/client/sdk/unity/overview" },
-                { text: "Important concepts", link: "/client/sdk/unity/importantConcepts" },
+                { text: "Important concepts", link: "/client/sdk/unity/important-concepts" },
+                { text: "Getting Started", link: "/client/sdk/unity/get-started" },
                 { text: "Example", link: "/client/sdk/unity/example" }
               ]
             },
