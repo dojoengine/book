@@ -2,7 +2,7 @@
 
 ### NAME
 
-katana - Create a local testnet node for deploying and testing Starknet smart contracts.
+katana - Create a local Starknet sequencer for deploying and developing Starknet smart contracts.
 
 ### USAGE
 
@@ -12,9 +12,9 @@ katana [OPTIONS]
 
 ### DESCRIPTION
 
-Create a local testnet node for deploying and testing Starknet smart contracts. Katana supports deployment and execution of the **new** as well as the **legacy** (Cairo 0) Cairo contracts.
+Create a local Starknet sequencer for deploying and developing Starknet smart contracts. Katana supports deployment and execution of the **new** as well as the **legacy** (Cairo 0) Cairo contracts.
 
-This section covers an extensive list of information about Mining Modes, Supported RPC Methods, Katana flags and their usages. You can run multiple flags at the same time.
+This section covers an extensive list of information about mining modes, supported RPC methods, the available storage modes, Katana flags, and their usages.
 
 #### Mining Modes
 
@@ -27,11 +27,15 @@ You can switch from the default mining behaviour to interval mining, where a new
 katana --block-time 10000
 ```
 
-#### Forking
+#### State forking
 
-Katana supports forking from a Starknet RPC provider. You can configure your node to enable the forking feature by providing a valid RPC provider using the `--rpc-url <URL>` flag., which would initiate Katana to fork the latest block of the provided network. If you would like to fork from a specific block, you can do so using `--fork-block-number <BLOCK_NUMBER>`.
+Katana supports forking the state of an external Starknet network. You can configure your node to enable the forking feature by providing a valid RPC provider using the `--rpc-url <URL>` flag, which would initiate Katana to fork the latest block of the provided network. If you would like to fork from a specific block, you can do so using `--fork-block-number <BLOCK_NUMBER>`. This would allow you to interact with the external network using Katana's predeployed accounts as if it were a local network. 
 
-NOTE: This does not allow fetching of historical blocks but only blocks that are mined by Katana. However, support for fetching historical blocks will be added in the future.
+This feature is very useful whenever you have a smart contract deployed to your local Katana node and would like to have it interact with a contract deployed on a live network without having to actually deploy your contract there. If you are a smart contract developer and would like to perform end-to-end tests against some contracts that are already deployed on mainnet/testnet, without having to actually deploy your contract there and going through all the hassle of setting up an test account and funding it (especially if its the mainnet), then this feature is for you.
+
+NOTE: Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network will be added in the future.
+
+TODO: Add an example of how to use the forking feature.
 
 ```sh
 # Forks the network at block 1200
@@ -88,17 +92,19 @@ katana --port <PORT>
 
 ##### Supported Transaction Type
 
-| Type           | Version |
-| -------------- | ------- |
-| INVOKE         | 1       |
-| DECLARE        | 1, 2    |
-| DEPLOY_ACCOUNT |         |
+As the currently supported version of the Starknet JSON-RPC specifications is **v0.6.0**, Katana supports the following transaction types. The full list of all supported transaction types is listed below:
+
+| Type           | Version  |
+| -------------- | -------- |
+| INVOKE         | 1, 3     |
+| DECLARE        | 1, 2, 3  |
+| DEPLOY_ACCOUNT | 1, 3     |
 
 #### Supported RPC Methods
 
 ##### Starknet Methods
 
-Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. The standard methods are based on [this](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) reference.
+Katana supports version **v0.6.0** of the Starknet JSON-RPC specifications. The standard methods are based on [this](https://github.com/starkware-libs/starknet-specs/tree/v0.6.0) reference.
 
 - `starknet_blockNumber`
 - `starknet_blockHashAndNumber`
@@ -113,15 +119,17 @@ Katana supports version **v0.3.0** of the Starknet JSON-RPC specifications. The 
 
 - `starknet_call`
 - `starknet_estimateFee`
+- `starknet_estimateMessageFee`
 
 - `starknet_chainId`
+- `starknet_syncStatus`
 
 - `starknet_getNonce`
 - `starknet_getEvents`
 - `starknet_getStorageAt`
 - `starknet_getClassHashAt`
 - `starknet_getClass`
-- **`starknet_getClassAt`**
+- `starknet_getClassAt`
 
 - `starknet_addInvokeTransaction`
 - `starknet_addDeclareTransaction`

@@ -1,16 +1,18 @@
 ![katana](/katana-icon-word.png)
 
-Katana is a _blazingly fast_ sequencer, designed to support both local development as well as production deployments.
+Katana is a _blazingly fast_ Starknet sequencer, designed to support both local development as well as production deployments.
 
 In development mode, Katana provides the tool necessary for rapid iteration, including custom development RPCs for manipulating the execution context.
 
-In produciton mode, Katana provides a high performance sequencer optimized for gaming workloads, with support for settlment and cross layer communication.
+In production mode, Katana provides a high performance sequencer optimized for gaming workloads, with support for settlment and cross layer communication.
 
-### Features
+### Features highlight
 
-- [Starknet JSON-RPC v0.3.0](https://github.com/starkware-libs/starknet-specs/tree/v0.3.0) support
+- [Starknet JSON-RPC v0.6.0](https://github.com/starkware-libs/starknet-specs/tree/v0.6.0) support
 - Cross layer communication (L1 <> L2, LN <> LN+1)
-- Custom methods for manipulating the blockchain states
+- Development RPC methods for manipulating the blockchain states
+- State forking
+- Highly configurable
 
 ## Installation
 
@@ -68,4 +70,4 @@ To enable development features, run using the `--dev` flag.
 
 > 📚 **Reference**
 >
-> See the [`katana` Reference](/toolchain/katana/reference.md) for an in depth reference and documentation on Katana.
+> See the [`katana` Reference](/toolchain/katana/reference.md) for an in depth reference and documentation on Katana's full capabilities.
