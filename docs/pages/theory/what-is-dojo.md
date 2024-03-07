@@ -2,9 +2,7 @@
 
 # What is Dojo?
 
-Dojo is the culmination of lessons learned from attempts at building [onchain games](https://naavik.co/digest/primer-fully-on-chain-gaming), an emerging sector in the gaming industry. Any developer who has endeavored to build an on-chain game recognizes the inherent engineering hurdles - a realization that drove us to create Dojo. Just as you wouldn't recreate Unity every time you develop a new game, the same principle applies here. Dojo is designed to handle the complex infrastructure, allowing developers to focus on the unique aspects of their games.
-
-Dojo aspires to be the go-to tool for building provable games. It is radically open-source, and all contributions are welcome.
+Dojo is an open-source driven provable game engine within the Starknet framework that provides comprehensive toolkit for building verifiable on-chain games.
 
 ---
 

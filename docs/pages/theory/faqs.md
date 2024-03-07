@@ -5,8 +5,7 @@
 Dojo is strictly open-source and uses the Apache 2.0 license. Anyone can use Dojo for free, and anyone can contribute to the project.
 
 #### Why Dojo?
-
-Dojo was created to solve problems the founders faced when building onchain games. It standardizes the process of building such games and provides a suite of tools to make it easier.
+Dojo is cheap and provide near endless compute in the sense that it provides proof recursions. Proof recursion merges and compress an entire sequence of actions and merge them into one which reduces data availability and allows us to settle cheaply on data availability layers like etherium.
 
 #### What is the Dojo roadmap?
 
