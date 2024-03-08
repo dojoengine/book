@@ -1,3 +1,13 @@
+## Onchain games to provable games
+
+Onchain games promise us freedom of expression and sovereignty over our information. They possess these properties because they run on a blockchain verified by consensus. Provable games, using zk proofs, allow for the verification of game state and computations without large consensus schemes. Written in languages like Cairo, Noir or running RISC-Zero, these games can operate independently on an isolated zkVM like a browser, with verifiable outputs ensuring truthful execution. This broadens our possibilities in the onchain gaming industry.
+
+An illustrative example is a game like Donkey Kong. Currently, to have your high score recognized on the leaderboard, you must play on a certified machine to prevent cheating, while recording your gameplay. However, if Donkey Kong were a provable game, players could compete in isolation. Achieving a high score would simply require submitting a proof to the Donkey Kong organization for verification. This method allows players to establish themselves as the King of Kong from the comfort of their home, without the need to record their gameplay!
+
+It's important to note that the approach isn't binary. For instance, you could operate an onchain game on an EVM and then layer a Cairo-based game on top, enhancing the core game while broadening its capabilities.
+
+For more information about Starknet, Cairo and its tech stack, check out the [Starknet & Cairo book](https://book.starknet.io/).
+
 ## Autonomous Worlds
 
 > "Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to."
@@ -22,3 +32,5 @@ We're firm believers in the potential for Autonomous Worlds to catalyze the expl
 - [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/composable-engineering)
 - [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-up-worlds/)
 - [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/on-chain-realities-and-autonomous-worlds)
+- [Tarrence - Provable Games](https://www.dojoengine.org/en/articles/provable-games/)
+- [Loaf - Provable Goblins](https://loaf.coffee/posts/provable-goblins)

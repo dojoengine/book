@@ -1,0 +1,91 @@
+import { Button } from 'vocs/components'
+
+
+# Dojo; Simplifying Onchain Game Development
+
+Building games is hard enough, but building games onchain is even harder. Dojo simplifies the process of building onchain games by providing a suite of tools that streamline the process of building onchain games, allowing developers to focus on gameplay logic and drastically reducing time-to-game.
+
+## Cairo State and Contract Framework
+
+- Dojo extends Cairo's base functionality and adds helpful inline `macros`
+- Simplifies interoperability with the dojo Models
+- Standardized approach to building games on cairo smart contracts
+- Simplifies development process allowing you to focus on logic and not architecture
+
+
+The following is an example of a dojo function and contains the macros `get!` and `set!` which are used to read and write to the world state.
+
+```rust
+fn spawn(self: @ContractState) {
+    // Access the world dispatcher for reading.
+    let world = self.world_dispatcher.read();
+
+    // Get the address of the current caller, possibly the player's address.
+    let player = get_caller_address();
+
+    // Retrieve the player's current position from the world.
+    let position = get!(world, player, (Position));
+
+    // Retrieve the player's move data, e.g., how many moves they have left.
+    let moves = get!(world, player, (Moves));
+
+    // Update the world state with the new data.
+    // 1. Set players moves to 10
+    // 2. Move the player's position 100 units in both the x and y direction.
+    set!(
+        world,
+        (
+            Moves { player, remaining: 100, last_direction: Direction::None },
+            Position { player, vec: Vec2 { x: 10, y: 10 } },
+        )
+    );
+}
+
+```
+
+## Katana - Fast Development Network
+
+- Customizable Starknet development network
+- Allows swift iteration on game logic
+- Easily deploy Katanas to providers like Slot by Cartridge, providing you with a custom network for your team
+
+Spin up a local development network like:
+
+```bash
+katana
+```
+
+<Button href="/toolchain/katana/overview">Read me about Katana</Button>
+
+## Torii - Starknet Indexer
+
+- Auto-indexes all contract states
+- Exposes states via GraphQL API or gRPC automatically!
+- Not more building custom indexers!
+
+Spin up and indexer for your world like:
+
+```bash
+torii --world 0x42069
+```
+
+<Button href="/toolchain/torii/overview">Read more about Torii</Button>
+
+## Sozo CLI - Management Tool
+
+- Assists in managing large contracts (worlds)
+- Enables creation, building, testing, and deployment of worlds
+- Supports crafting new components and systems
+
+Compile and deploy your world!
+
+```bash
+sozo --release build
+```
+
+<Button href="/toolchain/sozo/overview">Read more about Sozo</Button>
+
+
+### What dojo is not
+
+Dojo does not provide visual graphics, but integrates with engines like Unreal, Godot, or Unity. However, dojo SDKs exist to integrate with these visual engines.
