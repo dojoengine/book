@@ -1,10 +1,10 @@
-## What are Provable games?
+## Onchain games to provable games
 
-Provable games demand [zero-knowledge](https://ethereum.org/en/zero-knowledge-proofs/) properties for efficient scaling and verification of computations. [Cairo](https://book.starknet.io/ch01-00-getting-started.html) addresses this need by providing a generalized language, eliminating the complexity of creating circuits to incorporate [SNARKs](https://consensys.net/blog/developers/introduction-to-zk-snarks/).
+Onchain games promise us freedom of expression and sovereignty over our information. They possess these properties because they run on a blockchain verified by consensus. Provable games, using zk proofs, allow for the verification of game state and computations without large consensus schemes. Written in languages like Cairo, Noir or running RISC-Zero, these games can operate independently on an isolated zkVM like a browser, with verifiable outputs ensuring truthful execution. This broadens our possibilities in the onchain gaming industry.
 
-**You can simply program in Cairo and your applications become automatically provable**.
+An illustrative example is a game like Donkey Kong. Currently, to have your high score recognized on the leaderboard, you must play on a certified machine to prevent cheating, while recording your gameplay. However, if Donkey Kong were a provable game, players could compete in isolation. Achieving a high score would simply require submitting a proof to the Donkey Kong organization for verification. This method allows players to establish themselves as the King of Kong from the comfort of their home, without the need to record their gameplay!
 
-Moreover, you can deploy your programs on the [Cairo Virtual Machine](https://medium.com/starkware/cairo-welcome-on-board-1cf3487554f) (CVM), which is compatible with Starknet's Layer 2, Starknet appchains, and even in-browser through WebAssembly (WASM)! Dojo aims to supply straightforward ZK primitives to fuel your game development.
+It's important to note that the approach isn't binary. For instance, you could operate an onchain game on an EVM and then layer a Cairo-based game on top, enhancing the core game while broadening its capabilities.
 
 For more information about Starknet, Cairo and its tech stack, check out the [Starknet & Cairo book](https://book.starknet.io/).
 
@@ -32,3 +32,5 @@ We're firm believers in the potential for Autonomous Worlds to catalyze the expl
 - [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/composable-engineering)
 - [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-up-worlds/)
 - [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/on-chain-realities-and-autonomous-worlds)
+- [Tarrence - Provable Games](https://www.dojoengine.org/en/articles/provable-games/)
+- [Loaf - Provable Goblins](https://loaf.coffee/posts/provable-goblins)

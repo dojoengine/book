@@ -76,7 +76,7 @@ export default defineConfig({
         { text: "What is Dojo?", link: "/getting-started" },
         { text: "Why Dojo?", link: "/theory/what-is-dojo" },
         { text: "Autonomous Worlds", link: "/theory/autonomous-worlds" },
-        { text: "Cairo Ecosystem", link: "/theory/cairo" },
+        { text: "Cairo", link: "/theory/cairo" },
         { text: "FAQs", link: "/theory/faqs" },
         {
           text: "Community",
