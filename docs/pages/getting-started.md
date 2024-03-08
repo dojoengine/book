@@ -1,14 +1,28 @@
-# Dojo The Provable Game Engine
+# What is Dojo?
 
-Dojo is a provable game engine built using [Cairo](https://github.com/starkware-libs/cairo). It establishes a standard for game development via smart contracts, blending best practices with streamlined development and deployment tools. With Dojo by your side, you can evolve from initial concept to a fully realized game in days, not weeks.
+Ohayo Sensei!
+
+Dojo is an open-source, provable game engine built with Cairo, designed to be the ultimate tool for creating onchain games. It sets a new standard for game development using smart contracts, combining best practices with efficient tools.
+
+Dojo enables developers to go from concept to a fully realized onchain game in days!
+
+TLDR;
+
+- Cairo framework for building onchain games
+- Rust based indexing for your games
+- Rust based CLI tooling for improved development flow
+- Built by a vibrant community of engineers and gamers
+- We build hard things for fun - [join us!](https://discord.gg/vUN4Xq9Qv6)
+
+---
+
+### How to use these docs?
 
 This book is dedicated to familiarizing you with the Dojo engine and the potential of Provable games. A special section on the [Theory](/theory/autonomous-worlds.md) elucidates this emergent concept of autonomous worlds and Provable games.
 
 - [Quickstart](/getting-started/quick-start.md)
 - [What is Dojo? ](/theory/what-is-dojo.md)
 - [Explore the Architecture](/cairo/overview.md)
-
-> Dojo is an open-source onchain gaming project currently in its early development phase, and warmly welcomes contributors. For additional resources, join the community on [Discord](https://discord.gg/vUN4Xq9Qv6) and check out the [contribution guide](/misc/contributors.md).
 
 ---
 

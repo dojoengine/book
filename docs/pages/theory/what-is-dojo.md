@@ -1,39 +1,29 @@
-![dojo](/Dojo%20-%20Contracts.png)
+# Dojo; Simplifying Onchain Game Development
 
-# What is Dojo?
+Dojo offers a suite of tools that streamlines the process of building onchain games, allowing developers to focus on gameplay logic. The key components include:
 
-Dojo is the culmination of lessons learned from attempts at building [onchain games](https://naavik.co/digest/primer-fully-on-chain-gaming), an emerging sector in the gaming industry. Any developer who has endeavored to build an on-chain game recognizes the inherent engineering hurdles - a realization that drove us to create Dojo. Just as you wouldn't recreate Unity every time you develop a new game, the same principle applies here. Dojo is designed to handle the complex infrastructure, allowing developers to focus on the unique aspects of their games.
+### Cairo Framework
 
-Dojo aspires to be the go-to tool for building provable games. It is radically open-source, and all contributions are welcome.
+- Introduces onchain Models and an ORM like approach for designing dapps
+- Standardized approach to building games on cairo smart contracts
+- Simplifies development process allowing you to focus on logic and not architecture
+- Enables interconnected network of worlds with the standardisation of data
 
----
+### Torii - Starknet Indexer
 
-## Stop building infrastructure; start building games
+- Auto-indexes all contract states
+- Exposes states via GraphQL API or gRPC automatically!
+- Not more building custom indexers!
 
-Dojo's suite of tools takes the infrastructure complexity out of building on-chain games. It includes:
+### Katana - Fast Development Network
 
-### Entity Component System (ECS)
+- Customizable Starknet development network
+- Allows swift iteration on game logic
 
-Dojo offers a standardized approach to building games on smart contracts. Recognizing the intricacies of game design, Dojo simplifies the development process, allowing creators to focus on gameplay logic. This standardization paves the way for an interconnected network of worlds, streamlining developer expertise and promoting game integration.
+### Sozo CLI - Management Tool
 
-Utilizing the ECS (Entity Component System) as its core architecture, Dojo effectively manages the state and behavior of Autonomous Worlds (AWs). This model revolves around systems acting on entities, which are collections of pure data components. Systems efficiently determine which entities to process based on persistent queries over these components.
+- Assists in managing large contracts (worlds)
+- Enables creation, building, testing, and deployment of worlds
+- Supports crafting new components and systems
 
-Read detailed information about the [Dojo ECS](/cairo/overview.md).
-
-### [Torii](/toolchain/torii/overview.md) - Starknet Indexer
-
-Building on-chain games often involves grappling with the challenge of indexing on-chain state. However, Dojo standardizes contract states to mirror traditional relational databases. This setup enables the [Torii Indexer](/toolchain/torii/overview.md) to auto-index all contract states, ensuring efficient and streamlined queries. Torii then exposes these states via a GraphQL API or gRPC, allowing developers to easily query and retrieve data.
-
-Using Torii drastically reduces the time and effort required to build on-chain games. It also eliminates the need to manually create indexers, which can be a tedious and error-prone process.
-
-### [Katana](/toolchain/katana/overview.md) - Blazingly fast development network
-
-Katana is a customizable Starknet development network. It is blazingly fast and allows you to iterate on your game logic swiftly.
-
-### [Sozo CLI](/toolchain/sozo/overview.md) - CLI Management Tool
-
-Dojo worlds are poised to become some of the largest contracts. Sozo is a CLI tool that assists you in managing your worlds. It enables you to create, build, test, and deploy your worlds. Additionally, you can craft new components and systems and register them with your world.
-
-### What Dojo doesn't give you
-
-1. Visual graphics - While Dojo provides networking and contracts, it doesn't offer graphical engines. You can bring your graphics of choice! Integrate your Dojo world with Unreal, Godot, or Unity.
+Note: Dojo does not provide visual graphics, but integrates with engines like Unreal, Godot, or Unity.
