@@ -75,14 +75,13 @@ export default defineConfig({
       items: [
         { text: "What is Dojo?", link: "/getting-started" },
         { text: "Why Dojo?", link: "/theory/what-is-dojo" },
-        { text: "Autonomous Worlds", link: "/theory/autonomous-worlds" },
-        { text: "Cairo", link: "/theory/cairo" },
+        { text: "Provable Games & Worlds", link: "/theory/autonomous-worlds" },
+        { text: "What is Cairo?", link: "/theory/cairo" },
         { text: "FAQs", link: "/theory/faqs" },
         {
           text: "Community",
           link: "/community/get-started",
         },
-        { text: "Contributing", link: "/getting-started/contributing" },
       ],
     },
     {
@@ -219,26 +218,20 @@ export default defineConfig({
           text: "SDKs",
           collapsed: true,
           items: [
+            { text: "dojo.js", link: "/client/dojojs" },
             {
-              text: "Overview",
-              link: "/client/overview",
+              text: "dojo.unity",
+              link: "/client/sdk/unity/overview",
+              collapsed: true,
               items: [
-                { text: "dojo.js", link: "/client/dojojs" },
                 {
-                  text: "dojo.unity",
-                  link: "/client/sdk/unity/overview",
-                  collapsed: true,
-                  items: [
-                    {
-                      text: "Dojo unity concepts",
-                      link: "/client/sdk/unity/importantConcepts",
-                    },
-                    { text: "Example", link: "/client/sdk/unity/example" },
-                  ],
+                  text: "Dojo unity concepts",
+                  link: "/client/sdk/unity/importantConcepts",
                 },
-                { text: "c", link: "/client/sdk/c" },
+                { text: "Example", link: "/client/sdk/unity/example" },
               ],
             },
+            { text: "dojo.c", link: "/client/sdk/c" },
           ],
         },
         {
