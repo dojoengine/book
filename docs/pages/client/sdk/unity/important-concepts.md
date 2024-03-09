@@ -49,14 +49,23 @@ While you have the flexibility to incorporate as many models as necessary, it's 
 
 * [Dojo as an ECS in 15 Minutes](/cairo/hello-dojo.md): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
 
-> 📖 To automatically generate the models for unity, you must execute this command inside the Dojo project:
+### Bingen
+
+📖 A codegen plugin is available to automate the creation of C# bindings (components and contracts) for your Unity world.
+
+To use this feature, execute the following command within your Cairo project:
 
 ``` rust
   sozo build --unity
 ```
 
-⚠️ To successfully generate the models the version of dojo must be >= `0.6.0-alpha.0`
-> To install it run:
+Once executed, you can proceed by either moving the files generated in the `bindings/unity` directory to your Unity project, or specify a custom output directory using:
+
+``` rust
+  sozo build --unity --output-bindings ./your/unity/project/folder
+```
+
+> ⚠️ The version of dojo must be >= `0.6.0-alpha.0`. To install it run:
 
 ``` rust
   dojoup --version v0.6.0-alpha.0
