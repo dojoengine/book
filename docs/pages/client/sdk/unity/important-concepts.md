@@ -1,6 +1,6 @@
 # Dojo Unity Concepts
 
-To dive into the exciting world of on-chain games and worlds with Unity, let's explore some essential concepts:
+To dive into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
 
 ## World Manager
 
@@ -48,6 +48,19 @@ While you have the flexibility to incorporate as many models as necessary, it's 
 * [Entity Definition](/cairo/entities.md): Learn about entities in the context of Dojo.
 
 * [Dojo as an ECS in 15 Minutes](/cairo/hello-dojo.md): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
+
+> 📖 To automatically generate the models for unity, you must execute this command inside the Dojo project:
+
+``` rust
+  sozo build --unity
+```
+
+⚠️ To successfully generate the models the version of dojo must be >= `0.6.0-alpha.0`
+> To install it run:
+
+``` rust
+  dojoup --version v0.6.0-alpha.0
+```
 
 ### Example
 
