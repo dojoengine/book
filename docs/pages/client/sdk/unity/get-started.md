@@ -43,3 +43,8 @@ Drag the desired ScriptableObject (either the default one or your custom configu
 
 ![world-manager-config](/unity/world-manager-config.png)
 
+## Adding Binding Models
+
+- Generate Models: If you haven't already created your model bindings, please refer to the [Bingen section](/client/sdk/unity/important-concepts#bingen) for step-by-step instructions on how to do so.
+
+- Import Models: Locate the `bindings/unity/Models` folder within your Dojo project. Simply drag the desired `model` files from this folder into your Unity project. The `Synchronization Master` will automatically detect and load these models for seamless data exchange.
