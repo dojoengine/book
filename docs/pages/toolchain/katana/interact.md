@@ -13,7 +13,7 @@ You can check your installation by running `starkli --version`,then you will get
 
 ```bash
 curl -L https://install.dojoengine.org | bash
-dojoup -v 0.6.0-alpha.3
+dojoup -v 0.6.0-alpha.5
 ```
 
 You can check your installation by running `katana --version`,then you will get the katana version.
@@ -32,30 +32,13 @@ After starting the node, a list of accounts will be automatically generated and 
 
 Starkli supports a list of built-in accounts for katana. These built-in accounts are for local development and no one should be using them for anything serious anyways. For example the address of the `Katana-0` built-in account is `0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03`. You can check the full list of account addresses [here](https://github.com/xJonathanLEI/starkli/blob/e9a28f1b6e37bcc9fc53b7b7130e935894856739/src/account.rs#L76).
 
-To facilitate the seamless execution of Starkli commands, it is crucial to configure specific environment variables. Two primary variables are essential for this purpose:
-
-##### Account Configuration:
-
-Create an environment variable for your account, specifically for a pre-funded account on the local development network.
-
-```bash
-export STARKNET_ACCOUNT=katana-0
-```
-
-##### Network Designation:
-
-Establish another environment variable to specify the network, particularly targeting the local katana devnet.
-bash
-
-```bash
-export STARKNET_RPC=http://0.0.0.0:5050
-```
+We will need this `katana-0` built-in account later when we define our `STARKNET_ACCOUNT`. For more details about accounts, please refer to the accounts [page](https://book.starkli.rs/accounts).
 
 ### Contract Deployment and Interaction
 
 1. Create a Vote project
 
-```console
+```bash
 scarb new vote
 ```
 
@@ -256,11 +239,11 @@ scarb build
 
 3. Environment variables
 
-   Having compiled the smart contract, it's time to declare it with Starkli and katana. For convenient management, place the following environment variables in a .env file within the `src/` directory.
+Having compiled the smart contract, it's time to declare it with Starkli and katana. For convenient management, place the following environment variables in a .env file within the `src/` directory.
 
 ```bash
-export STARKNET_ACCOUNT=katana-0
-export STARKNET_RPC=http://0.0.0.0:5050
+export STARKNET_ACCOUNT=katana-0        #A pre-funded account on the local development network.
+export STARKNET_RPC=http://0.0.0.0:5050 #To specify the network, targeting the local katana devnet.
 ```
 
 Then, ensure your project acknowledges the environment variables:
