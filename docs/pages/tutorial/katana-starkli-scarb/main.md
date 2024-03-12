@@ -1,4 +1,4 @@
-# Deploy your Cairo smart contract using Katana: Advanced Tutorial
+# Deploy your Cairo smart contract using Katana. Advanced Tutorial
 
 _Before starting recommend following the [`Interact with katana`](/toolchain/katana/interact.md) chapter to gain a basic understanding of katana, starkli and scarb._
 
@@ -21,7 +21,7 @@ starknet = "2.5.4"
 
 Copy the vote contract to lib.cairo
 
-```rust,ignore
+```rust
 /// @dev Core Library Imports for the Traits outside the Starknet Contract
 use starknet::ContractAddress;
 

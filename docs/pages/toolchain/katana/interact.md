@@ -1,4 +1,4 @@
-# Interact with Katana: Deploy a simple Cairo smart contract using Katana
+# Interact with Katana. Deploy a simple Cairo smart contract using Katana
 
 Welcome to this tutorial where we'll guide you through deploying a raw cairo smart using katana as a local devnet. In order to accomplish this we have to install the following tools.
 
@@ -6,7 +6,7 @@ Welcome to this tutorial where we'll guide you through deploying a raw cairo sma
 
 To install `Starkli`, open a new terminal
 
-```bash
+```bashgit add
 curl https://get.starkli.sh | sh
 starkliup
 ```
@@ -65,7 +65,7 @@ starknet = "2.5.4"
 
 Copy the simple storage contract to lib.cairo
 
-```rust,ignore
+```rust
 #[starknet::interface]
 trait ISimpleStorage<TContractState> {
     fn set(ref self: TContractState, x: u128);
