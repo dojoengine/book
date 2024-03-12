@@ -174,7 +174,7 @@ After running, expect an output similar to:
 ]
 ```
 
-It means the vale of `stored_data` is cero.
+It means the vale of `stored_data` is zero.
 
 ### Invoke contract [can write state]
 
