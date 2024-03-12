@@ -102,7 +102,7 @@ Compile your contract using scarb
 scarb build
 ```
 
-Having compiled the smart contract, it's time to declare it with Starkli and katana. For convenient management, place the following environment variables in a .env file within the `src/` directory.
+Having compiled the smart contract, it's time to declare it with Starkli and katana. For clean enviroment management, place the following environment variables in a .env file within the `src/` directory.
 
 ```bash
 export STARKNET_ACCOUNT=katana-0        #A pre-funded account on the local development network.
