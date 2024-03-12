@@ -8,10 +8,10 @@ Before we start, make sure you are using the latest dojo version. Run `dojoup` t
 
 Now, let's create a new folder and initialize it with sozo.
 
-```sh
+````sh
 mkdir dojo-starter && cd dojo-starter
 sozo init
-```
+```using
 
 First, we need to set up our configuration, starting by authenticating with Cartridge. To do this, run the following command, which will then prompt a new screen where you will need to go through the authentication process.
 
@@ -20,7 +20,7 @@ slot auth login
 
 # Slot Auth debug (if old auth credentials):
 rm ~/Library/Application\ Support/slot/credentials.json
-```
+````
 
 Once successful, you can create a new deployment with a unique `DEPLOYMENT_NAME`. To do this, run the following command:
 
