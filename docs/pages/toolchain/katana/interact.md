@@ -38,7 +38,7 @@ You can check your installation by running `katana --version`, then you will get
 katana --disable-fee
 ```
 
-After starting the node, a list of accounts will be automatically generated and deployed.
+After starting the Katana, a list of accounts will be automatically generated and deployed.
 
 ### Starkli built-in accounts and configuration
 
