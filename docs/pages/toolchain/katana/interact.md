@@ -94,7 +94,7 @@ mod SimpleStorage {
 }
 ```
 
-### Compile contract and Environment variables setup
+### Compile contract and add environment variables
 
 Compile your contract using scarb
 
