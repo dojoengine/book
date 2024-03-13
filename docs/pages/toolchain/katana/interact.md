@@ -6,7 +6,7 @@ Welcome to this tutorial where we'll guide you through deploying a raw cairo sma
 
 To install `Starkli`, open a new terminal
 
-```bashgit add
+```sh
 curl https://get.starkli.sh | sh
 starkliup
 ```
