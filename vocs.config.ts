@@ -113,7 +113,7 @@ export default defineConfig({
           link: "/tutorial/deploy-using-slot/main",
         },
         {
-          text: "Katana x Starkli x Scarb: Advanced example",
+          text: "Katana-Starkli-Scarb: Advanced example",
           link: "/tutorial/katana-starkli-scarb/main",
         },
       ],
