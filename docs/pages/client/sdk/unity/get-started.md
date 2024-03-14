@@ -41,10 +41,65 @@ Customize the configuration values within this new ScriptableObject instance.
 To use a specific configuration, locate the `WorldManager` game object in your scene.
 Drag the desired ScriptableObject (either the default one or your custom configuration) onto the `DojoConfig` field within the `WorldManager` component.
 
-## Adding Binding Models
+### Adding Binding Models
 
 - Generate Models: If you haven't already created your model bindings, please refer to the [Bingen section](/client/sdk/unity/important-concepts#bingen) for step-by-step instructions on how to do so.
 
 - Import Models: Locate the `bindings/unity/Models` folder within your Dojo project. Simply drag the desired `model` files from this folder into your Unity project. The `Synchronization Master` will automatically detect and load these models for seamless data exchange.
 
 ![bindings-example](/unity/bindings-example.png)
+
+::::
+
+## Calling systems
+
+This section explores the process of interacting with Dojo systems from Unity, which involves a three-step process: account creation, call assembly, and call execution.
+
+### Account Creation
+
+We have two options for creating an account: a simple account or a burner account.
+
+#### Simple Account Creation
+
+To create a simple account, follow this code:
+
+``` cs
+using Dojo;
+using Dojo.Starknet;
+using UnityEngine;
+
+void Start()
+{
+    var provider = new JsonRpcClient(dojoConfig.rpcUrl);
+    var signer = new SigningKey(masterPrivateKey);
+    var account = new Account(provider, signer, new FieldElement(masterAddress));
+}
+```
+
+#### Burner Account Creation
+
+For a burner account, execute the following code:
+
+``` cs
+using Dojo;
+using Dojo.Starknet;
+using UnityEngine;
+
+async void Start()
+{
+    Account burnerAccount = await CreateBurnerAccount(dojoConfig.rpcUrl, masterAddress, masterPrivateKey);
+}
+
+private async Task<Account> CreateBurnerAccount(string rpcUrl, string masterAddress, string masterPrivateKey )
+{
+    var provider = new JsonRpcClient(rpcUrl);
+    var signer = new SigningKey(masterPrivateKey);
+    var account = new Account(provider, signer, new FieldElement(masterAddress));
+
+    BurnerManager burnerManager = new BurnerManager(provider, account);
+    return await burnerManager.DeployBurner();
+}
+```
+
+> Replace `masterAddress` and `masterPrivateKey` with the **account Address** and **private key** of the prefunded Katana account.
+![bindings-example](/unity/prefunded-account-address.png)
