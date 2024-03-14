@@ -24,7 +24,8 @@ You can check your installation by running `scarb --version`, then you will get 
 To install `Katana`, use the `dojoup` installer from the command line:
 
 ```sh
-// [!include docs/pages/snippets/dojoup.sh]
+curl -L https://install.dojoengine.org | bash
+dojoup -v 0.6.0-alpha.6
 ```
 
 You can check your installation by running `katana --version`, then you will get the katana version.
