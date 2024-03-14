@@ -53,7 +53,7 @@ Drag the desired ScriptableObject (either the default one or your custom configu
 
 ## Calling systems
 
-This section explores the process of interacting with Dojo systems from Unity, which involves a three-step process: account creation, call assembly, and call execution.
+This section explores the process of interacting with Dojo systems from Unity, which involves these steps: Account creation, contract assembly, and execution.
 
 ### Account Creation
 
@@ -103,3 +103,67 @@ private async Task<Account> CreateBurnerAccount(string rpcUrl, string masterAddr
 
 > Replace `masterAddress` and `masterPrivateKey` with the **account Address** and **private key** of the prefunded Katana account.
 ![bindings-example](/unity/prefunded-account-address.png)
+
+### Contract assembly and execution
+
+The [Bingen plugin](/client/sdk/unity/important-concepts#bingen) also generates bindings for contracts. Therefore, the first step is to move these bindings into your Unity project.
+
+Let's consider a contract named PlayerSystem within our Dojo project:
+
+```rust
+#[starknet::interface]
+trait IPlayerSystem<TContractState> {
+    fn create(
+        ref self: TContractState, player: ContractAddress, player_name: felt252, gender_id: u64
+    );
+}
+```
+
+The generated bindings would be as follows:
+
+```cs
+using System;
+using System.Threading.Tasks;
+using Dojo;
+using Dojo.Starknet;
+using UnityEngine;
+using dojo_bindings;
+
+public class Player_system : MonoBehaviour {
+    // The address of this contract
+    public string contractAddress;
+
+    // Call the `create` system with the specified Account and calldata
+    // Returns the transaction hash. Use `WaitForTransaction` to wait for the transaction to be confirmed.
+    public async Task<FieldElement> Create(Account account, FieldElement player, string player_name, ulong gender_id) {
+        return await account.ExecuteRaw(new dojo.Call[] {
+            new dojo.Call{
+                to = contractAddress,
+                selector = "create",
+                calldata = new dojo.FieldElement[] {
+                    new FieldElement(player.Hex()).Inner(),
+                    new FieldElement(player_name).Inner(),
+                    new FieldElement(gender_id.ToString('X')).Inner()
+                }
+            }
+        });
+    }
+}
+```
+
+Let's break down the concepts:
+
+- `public string contractAddress;`: This indicates the contract address of the `Player_system`, obtained as output from `sozo migrate`.
+- `new dojo.Call{ ... }`: This section creates a new call, where the `selector` is the name of the system to call, and the `calldata` represents the parameters. It's crucial to note that strings, uints and ulongs must be converted into hexadecimal representation.
+- `account.ExecuteRaw(new dojo.Call[] { ... })`: This method executes the call, where `account` can be either a simple account or a burner account.
+
+> It's possible to execute an array of calls simultaneously by passing multiple calls to this method. For example:
+
+```cs
+public async Task<FieldElement> ExecuteCalls(Account account, dojo.Call[] calls)
+{
+    return await account.ExecuteRaw(calls);
+}
+```
+
+
