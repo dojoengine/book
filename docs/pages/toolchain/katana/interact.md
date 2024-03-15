@@ -1,10 +1,10 @@
-# Interact with Katana. Deploy a simple Cairo smart contract using Katana
+# Interact with Katana on Starknet. Deploy a Cairo smart contract using Katana
 
-Welcome to this tutorial where we'll guide you through deploying a raw cairo smart using katana as a local devnet. In order to accomplish this we have to install the following tools.
+Welcome to this tutorial where we'll guide you through deploying a raw cairo smart using katana as a local devnet. In order to accomplish this, we have to install the following tools.
 
 ## Install Starkli, Scarb and Katana
 
-To install `Starkli`, open a new terminal
+To install `Starkli`, open a new terminal.
 
 ```sh
 curl https://get.starkli.sh | sh
@@ -115,11 +115,11 @@ Then, ensure your project acknowledges the environment variables:
 source .env
 ```
 
-These settings significantly streamline Starkli command operations, ensuring a smoother and more efficient workflow.
+These settings significantly streamline `Starkli` command operations, ensuring a smoother and more efficient workflow.
 
 ### Declare contract
 
-Make sure Katana is already running in separate terminal. Otherwise launch katana
+Make sure `Katana` is already running in separate terminal. Otherwise launch katana
 
 ```sh
 katana --disable-fee
@@ -131,7 +131,7 @@ To declare your contract, execute:
 starkli declare target/dev/simple_storage_SimpleStorage.contract_class.json
 ```
 
-Upon successful command execution, you'll obtain a contract class hash: This unique hash serves as the identifier for your contract class within Starknet.
+Upon successful command execution, you'll obtain a contract class hash: This unique hash serves as the identifier for your contract class within `Starknet`.
 
 ```console
 Sierra compiler version not specified. Attempting to automatically decide version to use...
@@ -152,8 +152,9 @@ starkli deploy <class_hash_of_the_contract_to_be_deployed>
 
 For this contract we did not specified a `constructor` function, thus we don't need to pass any constructor argument
 
-````sh
+```sh
 starkli deploy 0x07ad2516dd66fb2e274e78d4357837cad689c9fffaa347feb9800b231b37b306
+```
 
 After running, expect an output similar to:
 
@@ -163,7 +164,7 @@ The contract will be deployed at address 0x03da69257a94a06a1101c1413d78551e38d91
 Contract deployment transaction: 0x06817bc837ce4df879fe903ca4700a860ce8165742bd74bdadf379618e89cccd
 Contract deployed:
 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e
-````
+```
 
 ### Call contract [only read state]
 
@@ -191,7 +192,7 @@ The first parameter is the contract address, the second parameter is the functio
 starkli invoke 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e set 42
 ```
 
-Let's retrieve the new vale of `stoted_data`
+Let's retrieve the new value of `stored_data`
 
 ```sh
 starkli call 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e get
@@ -205,4 +206,4 @@ After running, expect an output similar to:
 ]
 ```
 
-Awesome you interacted a deployed a raw cairo smart contract using katana
+Awesome you interacted a deployed a raw Cairo smart contract using katana! You can now build more complex smart contracts and interact with them using the same process.

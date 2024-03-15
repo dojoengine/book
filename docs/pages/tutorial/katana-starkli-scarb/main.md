@@ -246,7 +246,7 @@ Class hash declared: 0x071092406ababbba5573bbff0074b068aaeb48c9a67ec66abe982ab19
 starkli deploy <class_hash_of_the_contract_to_be_deployed> <voter_0_address> <voter_1_address> <voter_2_address>
 ```
 
-There are four hexadecimal numbers in total. The first one is the class_hash of the contract, and the next three are the vote account addresses. We can define that the first vote account address corresponds to the address of `katana-0`, while the second and third vote account addresses are associated with `katana-1` and `katana-2`, respectively. Check the list of built-in accounts [here](https://github.com/xJonathanLEI/starkli/blob/e9a28f1b6e37bcc9fc53b7b7130e935894856739/src/account.rs#L76).
+The first hexadecimal input is the class_hash of the contract, and the next three are the vote account addresses. We can define that the first vote account address corresponds to the address of `katana-0`, while the second and third vote account addresses are associated with `katana-1` and `katana-2`, respectively. Check the list of built-in accounts [here](https://github.com/xJonathanLEI/starkli/blob/e9a28f1b6e37bcc9fc53b7b7130e935894856739/src/account.rs#L76).
 
 ```bash
 starkli deploy 0x071092406ababbba5573bbff0074b068aaeb48c9a67ec66abe982ab19bc6997b 0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03 0x2d71e9c974539bb3ffb4b115e66a23d0f62a641ea66c4016e903454c8753bbc 0x6b86e40118f29ebe393a75469b4d926c7a44c2e2681b6d319520b7c1156d114
@@ -300,7 +300,7 @@ Let's try to vote again with `katana-0` user
 starkli invoke 0x02c44f2d396fc5f9caa551e8c1d901d943a3b8cc5c433c88a1bf10b1f15fcd15 vote 0
 ```
 
-Since the same user/signer cannot vote repeatedly Katana will report an error.
+Since the same user/signer cannot vote repeatedly, `Katana` will report an error.
 
 ```console
 Transaction execution error: "Error in the called contract (0x06162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03):
