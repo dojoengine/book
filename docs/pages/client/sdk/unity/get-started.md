@@ -166,4 +166,43 @@ public async Task<FieldElement> ExecuteCalls(Account account, dojo.Call[] calls)
 }
 ```
 
+## Building your Dojo Game
 
+The final stage is building your onchain game for deployment. Dojo currently supports building for both *desktop* and *WebGL* platforms.
+
+### Building for Desktop (Windows, macOS, Linux)
+
+- Navigate to `File/Build Settings`.
+- From the right menu choose `Windows, Mac, Linux` option.
+- From the Platform dropdown, select the target desktop platform (Windows, macOS, or Linux) based on your needs.
+- Click the Build button to initiate the build process.
+
+![build-desktop](/unity/build-desktop.png)
+
+### Building for WebGL
+
+> Ensure the WebGL module is installed for your current Unity version. If not:
+
+- Open the `Unity Hub`.
+- Go to `Installs`.
+- Select the Unity version matching your project.
+- Click `Add Modules`.
+- Under the Modules tab, locate and install the `WebGL` module.
+
+![unityhub-add-module](/unity/webgl-module.png)
+
+> Configure WebGL Player Settings:
+
+- Go to `Edit/Project Settings/Player` (or navigate directly using the Project Settings window).
+- Select the `WebGL` tab.
+- Under `Resolution and Presentation`, ensure the `Dojo Template` is selected.
+
+![unityhub-add-module](/unity/webgl-player-settings.png)
+
+Build Steps:
+
+- Navigate to `File/Build Settings`.
+- From the right menu choose `WebGL` option.
+- Click the Build button to build your game for WebGL.
+
+![build-webgl](/unity/build-webgl.png)
