@@ -192,10 +192,17 @@ export default defineConfig({
             {
               text: "Katana",
               link: "/toolchain/katana/overview",
+			collapsed: true,
               items: [
                 { text: "Reference", link: "/toolchain/katana/reference" },
+                { text: "Storage", link: "/toolchain/katana/storage" },
+                { text: "RPC", link: "/toolchain/katana/rpc" },
+                { text: "Execution engine", link: "/toolchain/katana/execution" },
+                { text: "Genesis", link: "/toolchain/katana/genesis" },
+                { text: "Forking", link: "/toolchain/katana/forking" },
+                { text: "Messaging", link: "/toolchain/katana/messaging" },
                 { text: "Interact", link: "/toolchain/katana/interact" },
-              ],
+			],
             },
             {
               text: "Torii",
