@@ -7,7 +7,7 @@ katana - Create a local Starknet sequencer for deploying and developing Starknet
 ### USAGE
 
 ```sh
-katana [OPTIONS]
+katana [OPTIONS] [COMMAND]
 ```
 
 ### DESCRIPTION
@@ -27,22 +27,30 @@ You can switch from the default mining behaviour to interval mining, where a new
 katana --block-time 10000
 ```
 
-#### State forking
+### State forking
 
-Katana supports forking the state of an external Starknet network. You can configure your node to enable the forking feature by providing a valid RPC provider using the `--rpc-url <URL>` flag, which would initiate Katana to fork the latest block of the provided network. If you would like to fork from a specific block, you can do so using `--fork-block-number <BLOCK_NUMBER>`. This would allow you to interact with the external network using Katana's predeployed accounts as if it were a local network. 
+Katana offers a powerful feature called "*forking*," which allows you to interact with the state of another Starknet network as if it were a local network. This feature enables developers to test and interact with smart contracts deployed on live networks without the need to deploy their own contracts or set up test accounts on those networks.
 
-This feature is very useful whenever you have a smart contract deployed to your local Katana node and would like to have it interact with a contract deployed on a live network without having to actually deploy your contract there. If you are a smart contract developer and would like to perform end-to-end tests against some contracts that are already deployed on mainnet/testnet, without having to actually deploy your contract there and going through all the hassle of setting up an test account and funding it (especially if its the mainnet), then this feature is for you.
+To enable the forking feature, you can configure your Katana node by providing a valid RPC provider using the `--rpc-url <URL>` flag. By default, Katana will fork the latest block of the specified network. However, if you wish to fork from a specific block, you can use the `--fork-block-number <BLOCK_NUMBER>` flag to specify the desired block number.
 
-NOTE: Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network will be added in the future.
+Once the forking feature is enabled, you can interact with the forked network through Katana as if it were a separate, isolated environment. You can deploy your own smart contracts to the local Katana node and have them interact with the contracts that exist on the forked network. You can then use the accounts predeployed by Katana to simulate interactions with the external network, making it convenient for testing and development purposes.
 
-TODO: Add an example of how to use the forking feature.
+The forking feature is particularly useful for smart contract developers who want to perform end-to-end tests against contracts already deployed on mainnet or testnet. It eliminates the need to deploy your own contracts on those networks and avoids the hassle of setting up test accounts and funding them, especially when working with the mainnet. By forking the state of the desired network, you can create a local testing environment that closely mimics the live network, allowing you to test your contracts and interactions with confidence.
+
+With Katana's forking feature, developers can streamline their testing and development process, saving time and resources while ensuring the integrity and compatibility of their smart contracts with existing networks.
+
+> **NOTE:** Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network will be added in the future.
+
+#### EXAMPLES
+
+The following command forks the Starknet mainnet at exactly the 1200th block. All the states of the mainnet up until block 1200 will be accessible on your local Katana node. It will then start producing new blocks starting from block 1201.
 
 ```sh
 # Forks the network at block 1200
-katana --rpc-url http://your-rpc-provider.com --fork-block-number 1200
+katana --rpc-url https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY> --fork-block-number 1200
 ```
 
-#### Messaging
+### Messaging
 
 Katana also allows users to perform L1 <-> L2 integration using the messaging feature. There are two types of messaging service supported by Katana:
 
@@ -80,7 +88,7 @@ The messaging config file is a JSON file that contains the following fields:
 }
 ```
 
-#### Supported Transport Layers
+### Supported Transport Layers
 
 Only HTTP connection is supported at the moment. The server listens on port 5050 by default, but it can be changed by running the following command:
 
@@ -88,9 +96,9 @@ Only HTTP connection is supported at the moment. The server listens on port 5050
 katana --port <PORT>
 ```
 
-#### Starknet Feature Compatibility
+### Starknet Feature Compatibility
 
-##### Supported Transaction Type
+#### Supported Transaction Type
 
 As the currently supported version of the Starknet JSON-RPC specifications is **v0.6.0**, Katana supports the following transaction types. The full list of all supported transaction types is listed below:
 
@@ -99,63 +107,6 @@ As the currently supported version of the Starknet JSON-RPC specifications is **
 | INVOKE         | 1, 3     |
 | DECLARE        | 1, 2, 3  |
 | DEPLOY_ACCOUNT | 1, 3     |
-
-#### Supported RPC Methods
-
-##### Starknet Methods
-
-Katana supports version **v0.6.0** of the Starknet JSON-RPC specifications. The standard methods are based on [this](https://github.com/starkware-libs/starknet-specs/tree/v0.6.0) reference.
-
-- `starknet_blockNumber`
-- `starknet_blockHashAndNumber`
-- `starknet_getBlockWithTxs`
-- `starknet_getBlockWithTxHashes`
-- `starknet_getBlockTransactionCount`
-- `starknet_getTransactionByHash`
-- `starknet_getTransactionByBlockIdAndIndex`
-- `starknet_getTransactionReceipt`
-- `starknet_pendingTransactions`
-- `starknet_getStateUpdate`
-
-- `starknet_call`
-- `starknet_estimateFee`
-- `starknet_estimateMessageFee`
-
-- `starknet_chainId`
-- `starknet_syncStatus`
-
-- `starknet_getNonce`
-- `starknet_getEvents`
-- `starknet_getStorageAt`
-- `starknet_getClassHashAt`
-- `starknet_getClass`
-- `starknet_getClassAt`
-
-- `starknet_addInvokeTransaction`
-- `starknet_addDeclareTransaction`
-- `starknet_addDeployAccountTransaction`
-
-##### Custom Methods
-
-Katana provides a convenient set of custom RPC methods to quickly and easily configure the node to suit your testing environment.
-
-`katana_generateBlock`  
-Mine a new block which includes all currently pending transactions.
-
-`katana_nextBlockTimestamp`  
-Get the time for the next block.
-
-`katana_increaseNextBlockTimestamp`  
-Increase the time for the block by a given amount of time, in seconds.
-
-`katana_setNextBlockTimestamp`  
-Similar to `katana_increaseNextBlockTimestamp` but takes the exact timestamp that you want in the next block.
-
-`katana_predeployedAccounts`  
-Get the info for all of the predeployed accounts.
-
-`katana_setStorageAt`  
-Set an exact value of a contract's storage slot.
 
 ### OPTIONS
 
