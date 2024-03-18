@@ -1,7 +1,8 @@
-# Execution Engines
+## Execution Engines
 
-Execution engine is the transaction-executing component in the Katana sequencer. It is responsible for processing transactions and updating the state of the StarkNet contracts. There are two execution engines currently available in Katana; [`blockifier`](https://github.com/starkware-libs/blockifier), and [`starknet_in_rust`](https://github.com/lambdaclass/starknet_in_rust). By default, the `blockfier` execution engine is used. It is the official implementation of the Starknet execution logic developed by StarkWare. Blockifier is also what Katana is shipped with when it is installed using `dojoup`. For now, the only way to use the `starknet_in_rust` engine is to build the Katana binary directly 
-from source.
+Execution engine is the transaction-executing component in the Katana sequencer. It is responsible for processing transactions and updating the state of the Starknet contracts. Currently, Katana supports two execution engines: `blockifier` and `starknet_in_rust`.
+
+By default, the `blockfier` execution engine is used. It is the official implementation of the Starknet execution logic developed by StarkWare. Blockifier is also what Katana is shipped with when it is installed using `dojoup`. For now, the only way to use the `starknet_in_rust` engine is to build the Katana binary directly from source.
 
 ### Using `starknet_in_rust` Engine
 
@@ -19,11 +20,6 @@ Although starknet_in_rust and blockifier are different implementations of the St
 ### Cairo Native
 
 TODO: Add more information about Cairo Native and how to build it
-
-
-
-
-
 
 
 
