@@ -1,3 +1,10 @@
+## Supported Transport Layers
+
+Only HTTP connection is supported at the moment. The server listens on port 5050 by default, but it can be changed by running the following command:
+
+```sh
+katana --port <PORT>
+```
 
 ## Supported RPC Methods
 

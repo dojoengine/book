@@ -27,14 +27,6 @@ You can switch from the default mining behaviour to interval mining, where a new
 katana --block-time 10000
 ```
 
-### Supported Transport Layers
-
-Only HTTP connection is supported at the moment. The server listens on port 5050 by default, but it can be changed by running the following command:
-
-```sh
-katana --port <PORT>
-```
-
 ### Starknet Feature Compatibility
 
 #### Supported Transaction Type
@@ -60,15 +52,14 @@ As the currently supported version of the Starknet JSON-RPC specifications is **
 `-b, --block-time <MILLISECONDS>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Block time in milliseconds for interval mining.
 
-`--dump-state <PATH>`  
-&nbsp;&nbsp;&nbsp;&nbsp; Dump the state of chain on exit to the given file.  
-&nbsp;&nbsp;&nbsp;&nbsp; If the value is a directory, the state will be written to `<PATH>/state.bin`.
-
-`--rpc-url <URL>`  
-&nbsp;&nbsp;&nbsp;&nbsp; The Starknet RPC provider to fork the network from.
+`--db-dir <PATH>`  
+&nbsp;&nbsp;&nbsp;&nbsp; Directory path of the database to initialize from. The path must either be an empty directory or a directory which already contains a previously initialized Katana database.
 
 `--json-log`  
 &nbsp;&nbsp;&nbsp;&nbsp; Output logs in JSON format.
+
+`--rpc-url <URL>`  
+&nbsp;&nbsp;&nbsp;&nbsp; The Starknet RPC provider to fork the network from.
 
 `--fork-block-number <BLOCK_NUMBER>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Fork the network at a specific block.
@@ -90,6 +81,9 @@ As the currently supported version of the Starknet JSON-RPC specifications is **
 `--host <HOST>`  
 &nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on.
 
+`--max-connections <MAX_CONNECTIONS>`  
+&nbsp;&nbsp;&nbsp;&nbsp; Maximum number of concurrent connections allowed. [default: 100]
+
 #### Starknet Options
 
 `--seed <SEED>`  
@@ -100,6 +94,9 @@ As the currently supported version of the Starknet JSON-RPC specifications is **
 
 `--disable-fee`  
 &nbsp;&nbsp;&nbsp;&nbsp; Disable charging fee for transactions.
+
+`--disable-validate`  
+&nbsp;&nbsp;&nbsp;&nbsp; Disable validation when executing transactions. Allowing transaction to be executed even with invalid signature.
 
 #### Environment Options
 
@@ -114,6 +111,9 @@ As the currently supported version of the Starknet JSON-RPC specifications is **
 
 `--invoke-max-steps <INVOKE_MAX_STEPS>`  
 &nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the account execution logic.
+
+`--genesis <GENESIS>`  
+&nbsp;&nbsp;&nbsp;&nbsp; The genesis configuration file.
 
 ### Shell Completions
 
