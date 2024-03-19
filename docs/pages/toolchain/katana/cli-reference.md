@@ -1,43 +1,14 @@
-## katana reference
+## Katana CLI References
 
 ### NAME
 
-katana - Create a local Starknet sequencer for deploying and developing Starknet smart contracts.
+`katana` - Create a local Starknet sequencer for deploying and developing Starknet smart contracts.
 
 ### USAGE
 
 ```sh
 katana [OPTIONS] [COMMAND]
 ```
-
-### DESCRIPTION
-
-Create a local Starknet sequencer for deploying and developing Starknet smart contracts. Katana supports deployment and execution of the **new** as well as the **legacy** (Cairo 0) Cairo contracts.
-
-This section covers an extensive list of information about mining modes, supported RPC methods, the available storage modes, Katana flags, and their usages.
-
-#### Mining Modes
-
-In Katana, mining modes determine how frequent blocks are mined. By default, a new block is automatically mined as soon as a transaction is submitted.
-
-You can switch from the default mining behaviour to interval mining, where a new block is created at a fixed time interval selected by the user. To enable this mode of mining, use the `--block-time <MILLISECONDS>` flag, as demonstrated in the following example.
-
-```sh
-# Produces a new block every 10 seconds
-katana --block-time 10000
-```
-
-### Starknet Feature Compatibility
-
-#### Supported Transaction Type
-
-As the currently supported version of the Starknet JSON-RPC specifications is **v0.6.0**, Katana supports the following transaction types. The full list of all supported transaction types is listed below:
-
-| Type           | Version  |
-| -------------- | -------- |
-| INVOKE         | 1, 3     |
-| DECLARE        | 1, 2, 3  |
-| DEPLOY_ACCOUNT | 1, 3     |
 
 ### OPTIONS
 
@@ -115,13 +86,11 @@ As the currently supported version of the Starknet JSON-RPC specifications is **
 `--genesis <GENESIS>`  
 &nbsp;&nbsp;&nbsp;&nbsp; The genesis configuration file.
 
-### Shell Completions
+### SUBCOMMANDS
 
-`katana` completions shell
+#### `completions`
 
-Generates a shell completions script for the given shell.
-
-Supported shells are:
+Generates a shell completions script for the given supported shells:
 
 - bash
 - elvish
@@ -129,7 +98,7 @@ Supported shells are:
 - powershell
 - zsh
 
-#### EXAMPLES
+##### EXAMPLES
 
 Generate shell completions script for `bash` and appends it to a `.bashrc` file:
 
@@ -137,7 +106,7 @@ Generate shell completions script for `bash` and appends it to a `.bashrc` file:
 katana completions bash >> ~/.bashrc
 ```
 
-### EXAMPLES
+### USAGE EXAMPLES
 
 1. Create 15 dev accounts and disable transaction fee mechanism
 
