@@ -1,41 +1,78 @@
 ## Genesis configuration
 
+Katana's genesis configuration feature allows you to define the **initial state** and settings of your blockchain network. This feature enables you to **customize** the chain's starting point and set up some aspects of the network according to your specific requirements. With this feature, you can:
+
+1. Specify the **token** used for network fees
+2. **Allocate** initial token balances to accounts
+3. **Pre-declare classes** at the start of the chain
+4. **Pre-deploy smart contracts** at the start of the chain
+
+The genesis configuration provides a convenient way to customize the chain's starting point, **reduce manual setup** efforts, and ensure a **consistent** and predictable initial state for your applications and smart contracts.
+
 ### Configuration file format
 
-- `number`: The block number of the genesis block.
-- `parentHash`: The parent hash of the genesis block.
-- `timestamp`: The timestamp of the genesis block.
-- `stateRoot`: The state root of the genesis block.
-- `sequencerAddress`: The sequencer address.
-- `gasPrices`: The gas prices for the L1 tokens at the genesis block.  
-&nbsp; - `ETH`: The price of ETH in wei.  
-&nbsp; - `STRK`: The price of STRK in fri.
-- `feeToken` (optional): The network fee token configuration.  
-&nbsp; - `address`: The fee token contract address.  
-&nbsp; - `name`: The name of the fee token.  
-&nbsp; - `symbol`: The symbol of the fee token.  
-&nbsp; - `decimals`: The number of decimal places for the fee token.  
-&nbsp; - `class`: The class of the fee token.  
-&nbsp; - `storage`: Key-value pairs for the fee token's storage.
-- `universalDeployer` (optional): The universal deployer configuration.  
-&nbsp; - `address`: The universal deployer contract address.  
-&nbsp; - `storage`: Key-value pairs for the universal deployer's storage.  
-- `accounts`: The genesis allocations.  
-&nbsp; - <account_address>:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `publicKey`: The public key associated with the account.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `privateKey` (optional): The private key associated with publicKey.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `balance`: The initial balance of the account.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `nonce`: The nonce of the account.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `class` (optional): The class to be used for the account contract.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `storage` (optional): Key-value pairs for the account's storage.
-- `contracts`: Contract configurations.  
-&nbsp; - <contract_address>:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `balance`: The balance allocated to the contract.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `class`: The class of the contract.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `storage` (optional): Key-value pairs for the contract's storage.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `classes`: Classes to declare at genesis.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `class`: The path to the class file.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - `classHash`: The hash of the class.
+The genesis configuration file is a JSON file that contains the following fields:
+
+- `number`  
+*The block number of the genesis block.*
+- `parentHash`  
+*The parent hash of the genesis block.*
+- `timestamp`  
+*The timestamp of the genesis block.*
+- `stateRoot`  
+*The state root of the genesis block.*
+- `sequencerAddress`  
+*The sequencer address.*
+- `gasPrices` *The gas prices for the L1 tokens at the genesis block.*  
+    - `ETH`   
+  	*The price of ETH in wei.*
+    - `STRK`  
+	*The price of STRK in fri.*
+- `feeToken` *The network fee token configuration. (optional)* 
+	- `name`  
+	*The name of the fee token.*
+	- `symbol`  
+	*The symbol of the fee token.*  
+	- `decimals`  
+	*The number of decimal places for the fee token.*
+    - `address` (optional)  
+  	*The fee token contract address.* 
+	- `class`  (optional)  
+  	*The class of the fee token.* 
+	- `storage` (optional)  
+    *Key-value pairs for the fee token's storage.*
+- `universalDeployer` *The universal deployer configuration. (optional)*
+	- `address` (optional)  
+	*The universal deployer contract address.* 
+	- `storage` (optional)  
+	*Key-value pairs for the universal deployer's storage.* 
+- `accounts` *The genesis allocations.*
+	- <CONTRACT_ADDRESS> *The address of the account contract.* 
+		- `publicKey`  
+		*The public key associated with the account.*  
+		- `privateKey` (optional)  
+		*The private key associated with publicKey.* 
+		- `balance` (optional)  
+		*The initial balance of the account.* 
+		- `nonce` (optional)  
+		*The nonce of the account.* 
+		- `class` (optional)  
+		*The class to be used for the account contract.* 
+		- `storage` (optional)  
+		*Key-value pairs for the account's storage.* 
+- `contracts` *Genesis contract deployments.*  
+    - <CONTRACT_ADDRESS> *The address of the contract.* 
+		- `class`  
+		*The class of the contract.*  
+		- `balance` (optional)    
+		 *The balance allocated to the contract.*  
+		- `storage` (optional)  
+		*Key-value pairs for the contract's storage.*  
+- `classes`  *Classes to declare at genesis.*  
+    - `class`  
+    *The path (relative to the genesis config file) to the class artifact file, or the full class artifact object*  
+    - `classHash` (optional)
+    *The hash of the class.*  
 
 ### Example
 
@@ -72,7 +109,7 @@
 			"publicKey": "0x1",
 			"balance": "0xD3C21BCECCEDA1000000",
 			"nonce": "0x1",
-			"class": "0x80085",
+			"class": "0x444",
 			"storage": {
 				"0x1": "0x1",
 				"0x2": "0x2"
@@ -111,16 +148,30 @@
 	},
 	"classes": [
 		{
-			"class": "../../contracts/compiled/erc20.json",
+			"class": "path/to/file/erc20.json",
 			"classHash": "0x8"
 		},
 		{
-			"class": "../../contracts/compiled/universal_deployer.json",
-			"classHash": "0x80085"
+			"class": "path/to/file/universal_deployer.json",
+			"classHash": "0x444"
 		},
 		{
-			"class": "../../contracts/compiled/oz_account_080.json",
-			"classHash": "0xa55"
+			"class": {
+				"abi": [
+					{
+						"members": [
+							{ "name": "to", "offset": 0, "type": "felt" },
+							{ "name": "selector", "offset": 1, "type": "felt" },
+							{ "name": "data_offset", "offset": 2, "type": "felt" },
+							{ "name": "data_len", "offset": 3, "type": "felt" }
+						],
+						"name": "AccountCallArray",
+						"size": 4,
+						"type": "struct"
+					}
+				],
+                ...
+			}
 		}
 	]
 }
