@@ -203,21 +203,21 @@ export default defineConfig({
 						},
 						{
 							text: "Katana",
-							link: "/toolchain/katana/overview",
 							collapsed: true,
+							link: "/toolchain/katana/overview",
 							items: [
 								{
-									text: "Reference",
-									link: "/toolchain/katana/reference",
+									text: "CLI Reference",
+									link: "/toolchain/katana/cli-reference",
 								},
-								{ text: "Storage", link: "/toolchain/katana/storage" },
 								{ text: "RPC", link: "/toolchain/katana/rpc" },
+								{ text: "Forking", link: "/toolchain/katana/forking" },
+								{ text: "Genesis", link: "/toolchain/katana/genesis" },
 								{
 									text: "Execution engine",
 									link: "/toolchain/katana/execution",
 								},
-								{ text: "Genesis", link: "/toolchain/katana/genesis" },
-								{ text: "Forking", link: "/toolchain/katana/forking" },
+								{ text: "Storage", link: "/toolchain/katana/storage" },
 								{
 									text: "Messaging",
 									link: "/toolchain/katana/messaging",
