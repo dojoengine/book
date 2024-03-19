@@ -14,6 +14,24 @@ In production mode, Katana provides a high performance sequencer optimized for g
 - State forking
 - Highly configurable
 
+### DESCRIPTION
+
+Create a local Starknet sequencer for deploying and developing Starknet smart contracts. Katana supports deployment and execution of the **new** as well as the **legacy** (Cairo 0) Cairo contracts.
+
+This section covers an extensive list of information about mining modes, supported RPC methods, the available storage modes, Katana flags, and their usages.
+
+### Starknet Feature Compatibility
+
+#### Supported Transaction Type
+
+Katana supports the following Starknet transaction types:
+
+| Type           | Version |
+| -------------- | ------- |
+| INVOKE         | 1, 3    |
+| DECLARE        | 1, 2, 3 |
+| DEPLOY_ACCOUNT | 1, 3    |
+
 ## Installation
 
 `katana` binary is available via [`dojoup`](/getting-started/quick-start.md).
@@ -116,4 +134,4 @@ ACCOUNTS SEED
 
 > 📚 **CLI Reference**
 >
-> See the [`katana` Reference](/toolchain/katana/reference.md) for an in depth reference and documentation on all the available subcommands and options.
+> See the [`katana` Reference](/toolchain/katana/cli-reference.md) for an in depth reference and documentation on all the available subcommands and options.
