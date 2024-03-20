@@ -210,7 +210,29 @@ export default defineConfig({
 									text: "CLI Reference",
 									link: "/toolchain/katana/cli-reference",
 								},
-								{ text: "RPC", link: "/toolchain/katana/rpc" },
+								{
+									text: "JSON-RPC",
+									link: "/toolchain/katana/rpc/overview",
+									collapsed: true,
+									items: [
+										{
+											text: "starknet",
+											link: "/toolchain/katana/rpc/starknet",
+										},
+										{
+											text: "dev",
+											link: "/toolchain/katana/rpc/dev",
+										},
+										{
+											text: "torii",
+											link: "/toolchain/katana/rpc/torii",
+										},
+										{
+											text: "katana",
+											link: "/toolchain/katana/rpc/katana",
+										},
+									],
+								},
 								{
 									text: "Mining modes",
 									link: "/toolchain/katana/mining",
