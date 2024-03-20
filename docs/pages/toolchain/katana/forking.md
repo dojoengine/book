@@ -12,7 +12,7 @@ With Katana's forking feature, developers can streamline their testing and devel
 
 :::note
 💡 **NOTE**  
-Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network will be added in the future.
+Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network through the RPC will be added in the future.
 :::
 
 #### Examples
