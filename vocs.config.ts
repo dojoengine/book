@@ -223,6 +223,10 @@ export default defineConfig({
 								},
 								{ text: "Storage", link: "/toolchain/katana/storage" },
 								{
+									text: "Transaction types",
+									link: "/toolchain/katana/transactions",
+								},
+								{
 									text: "Messaging",
 									link: "/toolchain/katana/messaging",
 								},

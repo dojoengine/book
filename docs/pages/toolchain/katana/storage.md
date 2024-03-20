@@ -1,3 +1,3 @@
-## Persistent storage using MDBX
+## Persistent Storage
 
 - db schema

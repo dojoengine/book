@@ -13,9 +13,9 @@ katana --block-time 10000
 
 ### On-demand Mining
 
-On-demand mining is another mode of mining that allows users to manually create a new block. This mode is useful for testing purposes or when you want to create a block at a specific time.
+On-demand mining is another mode of mining that allows users to manually create a new block. This mode is useful for testing purposes or when you want to create a block at a specific time. New blocks can only be created by calling the [`generateBlock`](/toolchain/katana/rpc.md#dev-namespace) RPC method of the `dev` namespace.
 
-In on-demand mining mode, transactions will be executed after receiving them but blocks will not be mined until you have called the `generateBlock` RPC method of the `dev` namespace. Upon calling it, a new block will be created and all the pending transactions will be included in it.
+In on-demand mining mode, transactions will be executed after receiving them but blocks will not be mined until you have called the `generateBlock` RPC method. Upon calling it, a new block will be created and all the pending transactions will be included in it.
 
 To enable on-demand mining, use the `--no-mining` flag.
 

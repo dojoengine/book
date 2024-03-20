@@ -1,4 +1,4 @@
-## Genesis configuration
+## Genesis Configuration
 
 Katana's genesis configuration feature allows you to define the **initial state** and settings of your blockchain network. This feature enables you to **customize** the chain's starting point and set up some aspects of the network according to your specific requirements. With this feature, you can:
 
@@ -9,9 +9,9 @@ Katana's genesis configuration feature allows you to define the **initial state*
 
 The genesis configuration provides a convenient way to customize the chain's starting point, **reduce manual setup** efforts, and ensure a **consistent** and predictable initial state for your applications and smart contracts.
 
-### Configuration file format
+### Configuration File Format
 
-The genesis configuration file is a JSON file that contains the following fields:
+The genesis config file is a JSON file that contains the following fields:
 
 - `number`  
 *The block number of the genesis block.*
@@ -70,9 +70,9 @@ The genesis configuration file is a JSON file that contains the following fields
 		*Key-value pairs for the contract's storage.*  
 - `classes`  *Classes to declare at genesis.*  
     - `class`  
-    *The path (relative to the genesis config file) to the class artifact file, or the full class artifact object*  
+    *The path to the class artifact file relative to the genesis config file, or the full class artifact object.*  
     - `classHash` (optional)
-    *The hash of the class.*  
+    *The hash of the class. To override the actual class hash that will be computed from the class definition itself.*  
 
 ### Example
 
