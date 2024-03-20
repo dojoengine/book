@@ -10,9 +10,10 @@ The forking feature is particularly useful for smart contract developers who wan
 
 With Katana's forking feature, developers can streamline their testing and development process, saving time and resources while ensuring the integrity and compatibility of their smart contracts with existing networks.
 
-> 💡 **NOTE:** 
-> 
-> Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network will be added in the future.
+:::note
+💡 **NOTE**  
+Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network will be added in the future.
+:::
 
 #### EXAMPLES
 

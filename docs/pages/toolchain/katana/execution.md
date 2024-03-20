@@ -15,7 +15,10 @@ If you want to install Katana with the `starknet_in_rust` engine, you can do so 
 cargo install --git https://github.com/dojoengine/dojo katana --no-default-features --features sir --locked --force 
 ```
 
-Although starknet_in_rust and blockifier are different implementations of the Starknet logic, under the hood they both are running on the same `cairo-vm` implementation. As such, there is not much performance to be gained by switching to the starknet_in_rust engine as is.
+::::note
+💡 **NOTE**  
+Although `starknet_in_rust` and `blockifier` are different implementations of the Starknet logic, under the hood they both are running on the same `cairo-vm` implementation. As such, there is not much performance to be gained by switching to the `starknet_in_rust` as is. For that, you would need to use the `cairo-native` execution engine.
+::::
 
 ### Cairo Native
 

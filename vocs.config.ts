@@ -211,6 +211,10 @@ export default defineConfig({
 									link: "/toolchain/katana/cli-reference",
 								},
 								{ text: "RPC", link: "/toolchain/katana/rpc" },
+								{
+									text: "Mining modes",
+									link: "/toolchain/katana/mining",
+								},
 								{ text: "Forking", link: "/toolchain/katana/forking" },
 								{ text: "Genesis", link: "/toolchain/katana/genesis" },
 								{
