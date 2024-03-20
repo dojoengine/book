@@ -112,6 +112,10 @@ export default defineConfig({
           text: "Deploy using Slot",
           link: "/tutorial/deploy-using-slot/main",
         },
+        {
+          text: "Katana-Starkli-Scarb: Advanced example",
+          link: "/tutorial/katana-starkli-scarb/main",
+        },
       ],
     },
     {
@@ -190,6 +194,7 @@ export default defineConfig({
               link: "/toolchain/katana/overview",
               items: [
                 { text: "Reference", link: "/toolchain/katana/reference" },
+                { text: "Interact", link: "/toolchain/katana/interact" },
               ],
             },
             {
