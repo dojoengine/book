@@ -159,12 +159,18 @@ export default defineConfig({
                   text: "offline",
                   link: "/toolchain/sozo/common-options/offline",
                 },
-                { text: "init", link: "/toolchain/sozo/project-commands/init" },
+                {
+                  text: "init",
+                  link: "/toolchain/sozo/project-commands/init",
+                },
                 {
                   text: "build",
                   link: "/toolchain/sozo/project-commands/build",
                 },
-                { text: "test", link: "/toolchain/sozo/project-commands/test" },
+                {
+                  text: "test",
+                  link: "/toolchain/sozo/project-commands/test",
+                },
                 {
                   text: "migrate",
                   link: "/toolchain/sozo/project-commands/migrate",
@@ -181,19 +187,71 @@ export default defineConfig({
                   text: "system",
                   link: "/toolchain/sozo/world-commands/system",
                 },
-                { text: "model", link: "/toolchain/sozo/world-commands/model" },
+                {
+                  text: "model",
+                  link: "/toolchain/sozo/world-commands/model",
+                },
                 {
                   text: "events",
                   link: "/toolchain/sozo/world-commands/events",
                 },
-                { text: "auth", link: "/toolchain/sozo/world-commands/auth" },
+                {
+                  text: "auth",
+                  link: "/toolchain/sozo/world-commands/auth",
+                },
               ],
             },
             {
               text: "Katana",
+              collapsed: true,
               link: "/toolchain/katana/overview",
               items: [
-                { text: "Reference", link: "/toolchain/katana/reference" },
+                {
+                  text: "CLI Reference",
+                  link: "/toolchain/katana/cli-reference",
+                },
+                {
+                  text: "JSON-RPC",
+                  link: "/toolchain/katana/rpc/overview",
+                  collapsed: true,
+                  items: [
+                    {
+                      text: "starknet",
+                      link: "/toolchain/katana/rpc/starknet",
+                    },
+                    {
+                      text: "dev",
+                      link: "/toolchain/katana/rpc/dev",
+                    },
+                    {
+                      text: "torii",
+                      link: "/toolchain/katana/rpc/torii",
+                    },
+                    {
+                      text: "katana",
+                      link: "/toolchain/katana/rpc/katana",
+                    },
+                  ],
+                },
+                {
+                  text: "Mining modes",
+                  link: "/toolchain/katana/mining",
+                },
+                { text: "Forking", link: "/toolchain/katana/forking" },
+                { text: "Genesis", link: "/toolchain/katana/genesis" },
+                {
+                  text: "Execution engine",
+                  link: "/toolchain/katana/execution",
+                },
+                { text: "Storage", link: "/toolchain/katana/storage" },
+                {
+                  text: "Transaction types",
+                  link: "/toolchain/katana/transactions",
+                },
+                {
+                  text: "Messaging",
+                  link: "/toolchain/katana/messaging",
+                },
                 { text: "Interact", link: "/toolchain/katana/interact" },
               ],
             },
@@ -226,14 +284,23 @@ export default defineConfig({
             { text: "dojo.js", link: "/client/dojojs" },
             {
               text: "dojo.unity",
+              link: "/client/sdk/unity/overview",
               collapsed: true,
               items: [
-                { text: "Overview", link: "/client/sdk/unity/overview" },
-                { text: "Important concepts", link: "/client/sdk/unity/important-concepts" },
-                { text: "Getting Started", link: "/client/sdk/unity/get-started" },
+                {
+                  text: "Get Started",
+                  link: "/client/sdk/unity/get-started",
+                },
+                {
+                  text: "Dojo unity concepts",
+                  link: "/client/sdk/unity/important-concepts",
+                },
+                {
+                  text: "Common Problems",
+                  link: "/client/sdk/unity/common-problems",
+                },
                 { text: "Example", link: "/client/sdk/unity/example" },
-                { text: "Common problems and solutions", link: "/client/sdk/unity/common-problems" }
-              ]
+              ],
             },
             { text: "dojo.c", link: "/client/sdk/c" },
           ],
