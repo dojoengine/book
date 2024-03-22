@@ -127,7 +127,7 @@ enum Color {
 }
 ```
 
-Second, we do the same for `game` model. Edit your `models/player.cairo` file and add this content.
+Second, we do the same for `game` model. Edit your `models/game.cairo` file and add this content.
 
 ```rust
 use chess::models::player::Color;
@@ -150,7 +150,7 @@ struct GameTurn {
 }
 ```
 
-Lastly we create `piece` model in our `models/player.cairo` file.
+Lastly we create `piece` model in our `models/piece.cairo` file.
 
 ```rust
 use chess::models::player::Color;

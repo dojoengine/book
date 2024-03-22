@@ -112,6 +112,10 @@ export default defineConfig({
           text: "Deploy using Slot",
           link: "/tutorial/deploy-using-slot/main",
         },
+        {
+          text: "Katana-Starkli-Scarb: Advanced example",
+          link: "/tutorial/katana-starkli-scarb/main",
+        },
       ],
     },
     {
@@ -190,6 +194,7 @@ export default defineConfig({
               link: "/toolchain/katana/overview",
               items: [
                 { text: "Reference", link: "/toolchain/katana/reference" },
+                { text: "Interact", link: "/toolchain/katana/interact" },
               ],
             },
             {
@@ -221,15 +226,14 @@ export default defineConfig({
             { text: "dojo.js", link: "/client/dojojs" },
             {
               text: "dojo.unity",
-              link: "/client/sdk/unity/overview",
               collapsed: true,
               items: [
-                {
-                  text: "Dojo unity concepts",
-                  link: "/client/sdk/unity/importantConcepts",
-                },
+                { text: "Overview", link: "/client/sdk/unity/overview" },
+                { text: "Important concepts", link: "/client/sdk/unity/important-concepts" },
+                { text: "Getting Started", link: "/client/sdk/unity/get-started" },
                 { text: "Example", link: "/client/sdk/unity/example" },
-              ],
+                { text: "Common problems and solutions", link: "/client/sdk/unity/common-problems" }
+              ]
             },
             { text: "dojo.c", link: "/client/sdk/c" },
           ],

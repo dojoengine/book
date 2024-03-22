@@ -102,7 +102,7 @@ After you run the query, you will receive an output like this:
 
 GraphQL additionally offers an API to fetch transactions emitted from your `world`. Presently, you can retrieve `transaction data` with the potential for future support of `transaction receipt`. Current API includes pagination support, although filtering is not yet supported. Let's explore an example.
 
-```grapql
+```graphql
 query{
   transactions{
     edges{
