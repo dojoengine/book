@@ -6,7 +6,7 @@ In development mode, Katana provides the tool necessary for rapid iteration, inc
 
 In production mode, Katana provides a high performance sequencer optimized for gaming workloads, with support for settlment and cross layer communication.
 
-### Features highlight
+## Features highlight
 
 - [Starknet JSON-RPC v0.6.0](https://github.com/starkware-libs/starknet-specs/tree/v0.6.0) support
 - Cross layer communication (L1 <> L2, LN <> LN+1)
@@ -14,17 +14,13 @@ In production mode, Katana provides a high performance sequencer optimized for g
 - State forking
 - Highly configurable
 
-### DESCRIPTION
-
-Create a local Starknet sequencer for deploying and developing Starknet smart contracts. Katana supports deployment and execution of the **new** as well as the **legacy** (Cairo 0) Cairo contracts.
-
-This section covers an extensive list of information about mining modes, supported RPC methods, the available storage modes, Katana flags, and their usages.
-
 ## Installation
 
 `katana` binary is available via [`dojoup`](/getting-started/quick-start.md).
 
 ### Installing from source
+
+If you would like to install `katana` from source, you can clone the Dojo repository locally and install it using [`cargo`](https://doc.rust-lang.org/cargo/).
 
 ```sh
 git clone https://github.com/dojoengine/dojo
@@ -32,7 +28,7 @@ cd dojo
 cargo install --path ./bin/katana --locked --force
 ```
 
-### Usage
+## Usage
 
 You can run Katana without any arguments to start the sequencer with default settings.
 

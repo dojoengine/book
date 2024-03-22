@@ -1,12 +1,12 @@
-## JSON-RPC
+# JSON-RPC
 
-### Supported Transport Layers
+## Supported Transport Layers
 
 JSON-RPC is provided on multiple transports. Katana supports HTTP, and WebSocket. Both transports are enabled by default.
 
-### Supported RPC Methods
+## Supported RPC Methods
 
-#### Namespaces
+### Namespaces
 
 The RPC methods are categorized into the following namespaces:
 

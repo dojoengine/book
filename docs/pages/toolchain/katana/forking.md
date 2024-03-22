@@ -1,3 +1,5 @@
+# Forking
+
 ## State Forking
 
 Katana offers a powerful feature called "*forking*," which allows you to interact with the state of another Starknet network as if it were a local network. This feature enables developers to test and interact with smart contracts deployed on live networks without the need to deploy their own contracts or set up test accounts on those networks.
@@ -15,7 +17,7 @@ With Katana's forking feature, developers can streamline their testing and devel
 Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network through the RPC will be added in the future.
 :::
 
-#### Examples
+### Examples
 
 The following command forks the Starknet mainnet at exactly the 1200th block. All the states of the mainnet up until block 1200 will be accessible on your local Katana node. It will then start producing new blocks starting from block 1201.
 

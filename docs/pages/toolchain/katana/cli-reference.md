@@ -1,18 +1,18 @@
-## Katana CLI References
+# CLI References
 
-### NAME
+## NAME
 
 `katana` - Create a local Starknet sequencer for deploying and developing Starknet smart contracts.
 
-### USAGE
+## USAGE
 
 ```sh
 katana [OPTIONS] [COMMAND]
 ```
 
-### OPTIONS
+## OPTIONS
 
-#### General Options
+### General Options
 
 `--silent`  
 &nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup.
@@ -44,7 +44,7 @@ katana [OPTIONS] [COMMAND]
 `-V, --version`  
 &nbsp;&nbsp;&nbsp;&nbsp; Print version information.
 
-#### Server Options
+### Server Options
 
 `-p, --port <PORT>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on. [default: 5050]
@@ -55,7 +55,7 @@ katana [OPTIONS] [COMMAND]
 `--max-connections <MAX_CONNECTIONS>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Maximum number of concurrent connections allowed. [default: 100]
 
-#### Starknet Options
+### Starknet Options
 
 `--seed <SEED>`  
 &nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be predeployed.
@@ -86,9 +86,9 @@ katana [OPTIONS] [COMMAND]
 `--genesis <GENESIS>`  
 &nbsp;&nbsp;&nbsp;&nbsp; The genesis configuration file.
 
-### SUBCOMMANDS
+## SUBCOMMANDS
 
-#### `completions`
+### `completions`
 
 Generates a shell completions script for the given supported shells:
 
@@ -98,24 +98,10 @@ Generates a shell completions script for the given supported shells:
 - powershell
 - zsh
 
-##### EXAMPLES
+#### EXAMPLES
 
 Generate shell completions script for `bash` and appends it to a `.bashrc` file:
 
 ```bash
 katana completions bash >> ~/.bashrc
-```
-
-### USAGE EXAMPLES
-
-1. Create 15 dev accounts and disable transaction fee mechanism
-
-```sh
-katana --accounts 15 --disable-fee
-```
-
-2. Set the chain id to `SN_GOERLI` and run the server on port 8545
-
-```sh
-katana --chain-id SN_GOERLI --port 8545
 ```
