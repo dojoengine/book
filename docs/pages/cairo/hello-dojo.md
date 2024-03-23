@@ -135,8 +135,8 @@ mod actions {
             let moves = get!(world, player, (Moves));
 
             // Update the world state with the new data.
-            // 1. Set players moves to 10
-            // 2. Move the player's position 100 units in both the x and y direction.
+            // 1. Set player's moves remaining to 100 and last_direction to Direction::None
+            // 2. Move the player's position 10 units in both the x and y direction.
             set!(
                 world,
                 (
