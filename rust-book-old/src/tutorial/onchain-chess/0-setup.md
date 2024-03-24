@@ -4,10 +4,22 @@ _Before starting recommend following the [`hello-dojo`](../../cairo/hello-dojo.m
 
 ## Initializing the Project
 
-Create and initialize a new Dojo project. You can name your project what you want.
+Create a new Dojo project folder. You can name your project what you want.
 
 ```sh
-sozo init chess
+mkdir chess
+```
+
+Open the project folder.
+
+```sh
+cd chess
+```
+
+And initialize the project using sozo init.
+
+```sh
+sozo init
 ```
 
 ## Cleaning Up the Boilerplate
@@ -58,15 +70,15 @@ Make sure your `Scarb.toml` looks like this:
 
 ```toml
 [package]
-cairo-version = "2.5.4"
+cairo-version = "2.4.0"
 name = "chess"
-version = "0.6.0-alpha.7"
+version = "0.4.0"
 
 [cairo]
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.7" }
+dojo = { git = "https://github.com/dojoengine/dojo", version = "0.4.2" }
 
 [[target.dojo]]
 
@@ -76,9 +88,9 @@ initializer_class_hash = "0xbeef"
 [tool.dojo.env]
 rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0
-account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
+account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
 private_key = "0x1800000000300000180000000000030000000000003006001800006600"
-world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8"
+
 ```
 
 Compile your project with:
@@ -115,7 +127,7 @@ enum Color {
 }
 ```
 
-Second, we do the same for `game` model. Edit your `models/game.cairo` file and add this content.
+Second, we do the same for `game` model. Edit your `models/player.cairo` file and add this content.
 
 ```rust,ignore
 use chess::models::player::Color;
@@ -138,7 +150,7 @@ struct GameTurn {
 }
 ```
 
-Lastly we create `piece` model in our `models/piece.cairo` file.
+Lastly we create `piece` model in our `models/player.cairo` file.
 
 ```rust,ignore
 use chess::models::player::Color;
@@ -221,7 +233,7 @@ Try to implement this code by yourself, Otherwise
 <summary>Click to see full `models.cairo` code</summary>
 
 ```c
-// code for player.cairo file, paste it below the code you already have
+// code for player.cairo file
 trait PlayerTrait {
     fn is_not_my_piece(self: @Player, piece_color: Color) -> bool;
 }
@@ -232,7 +244,7 @@ impl PalyerImpl of PlayerTrait {
     }
 }
 
-// code for game.cairo file, paste it below the code you already have
+// code for game.cairo file
 trait GameTurnTrait {
     fn next_turn(self: @GameTurn) -> Color;
 }
@@ -246,7 +258,7 @@ impl GameTurnImpl of GameTurnTrait {
     }
 }
 
-// code for piece.cairo file, paste it below the code you already have
+// code for piece.cairo file
 trait PieceTrait {
     fn is_out_of_board(next_position: Vec2) -> bool;
     fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool;
