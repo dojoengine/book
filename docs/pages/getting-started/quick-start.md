@@ -23,6 +23,14 @@ dojoup
 
 For full `dojoup` reference and debugging see [Dojoup](/toolchain/dojoup.md).
 
+### Install scarb (optional)
+
+For the language server to work properly, your local Scarb version should not be lower than Dojo's cairo version. To accomplish this, install it with the following command:
+
+```sh
+# todo: input command here
+```
+
 ## Next steps
 
 > Head to [Hello Dojo](/cairo/hello-dojo.md) to get create your first Dojo world.
