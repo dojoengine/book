@@ -1,25 +1,13 @@
 # 0. Setup
 
-_Before starting recommend following the [`hello-dojo`](/cairo/hello-dojo.md) chapter to gain a basic understanding of the Dojo game._
+_Before starting recommend following the [`hello-dojo`](../../cairo/hello-dojo.md) chapter to gain a basic understanding of the Dojo game._
 
 ## Initializing the Project
 
-Create a new Dojo project folder. You can name your project what you want.
+Create and initialize a new Dojo project. You can name your project what you want.
 
 ```sh
-mkdir chess
-```
-
-Open the project folder.
-
-```sh
-cd chess
-```
-
-And initialize the project using sozo init.
-
-```sh
-sozo init
+sozo init chess
 ```
 
 ## Cleaning Up the Boilerplate
@@ -70,15 +58,15 @@ Make sure your `Scarb.toml` looks like this:
 
 ```toml
 [package]
-cairo-version = "2.4.0"
+cairo-version = "2.5.4"
 name = "chess"
-version = "0.4.0"
+version = "0.6.0-alpha.7"
 
 [cairo]
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", version = "0.4.2" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.7" }
 
 [[target.dojo]]
 
@@ -88,9 +76,9 @@ initializer_class_hash = "0xbeef"
 [tool.dojo.env]
 rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0
-account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
 private_key = "0x1800000000300000180000000000030000000000003006001800006600"
-
+world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8"
 ```
 
 Compile your project with:
@@ -233,7 +221,7 @@ Try to implement this code by yourself, Otherwise
 <summary>Click to see full `models.cairo` code</summary>
 
 ```c
-// code for player.cairo file
+// code for player.cairo file, paste it below the code you already have
 trait PlayerTrait {
     fn is_not_my_piece(self: @Player, piece_color: Color) -> bool;
 }
@@ -244,7 +232,7 @@ impl PalyerImpl of PlayerTrait {
     }
 }
 
-// code for game.cairo file
+// code for game.cairo file, paste it below the code you already have
 trait GameTurnTrait {
     fn next_turn(self: @GameTurn) -> Color;
 }
@@ -258,7 +246,7 @@ impl GameTurnImpl of GameTurnTrait {
     }
 }
 
-// code for piece.cairo file
+// code for piece.cairo file, paste it below the code you already have
 trait PieceTrait {
     fn is_out_of_board(next_position: Vec2) -> bool;
     fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool;
