@@ -11,19 +11,27 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
 
 ## Requirements
 
-1. Write an interface for the `actions` contract on top of the code you already have. In this case, `move` and `spawn`
+1. Write an interface for the `actions` contract on top of your code. In this case, `move` and `spawn`
 
 ```rust
     use starknet::ContractAddress;
     use chess::models::piece::Vec2;
-    #[dojo::interface]
-    trait IActions {
-        fn move(curr_position: Vec2, next_position: Vec2, caller: ContractAddress, game_id: u32);
-        fn spawn(white_address: ContractAddress, black_address: ContractAddress) -> u32;
+    #[starknet::interface]
+    trait IActions<ContractState> {
+        fn move(
+            self: @ContractState,
+            curr_position: Vec2,
+            next_position: Vec2,
+            caller: ContractAddress, //player
+            game_id: u32
+        );
+        fn spawn(
+            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress
+        ) -> u32;
     }
 ```
 
-2. Bring in required imports into the contract like this:
+2. Bring in required imports into the contract like this :
 
 ```rust
     #[dojo::contract]
@@ -37,14 +45,15 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
 
 Should be noted that `actions` is the contract name.
 
-3. Write a `spawn` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`. Implement the `player` entity from player model. Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `game.cairo` and implement the piece entities from a1 to h8 containing the correct `PieceType` in the `spawn` fn. Paste this code below inside `mod actions`.
+3. Write a `spawn` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`. Implement the `player` entity from player model. Implement the game entity, comprised of the `Game` model and `GameTurn` model we created in the `game.cairo` and implement the piece entities from a1 to h8 containing the correct `PieceType` in the `spawn` fn.
 
 ```rust
     #[abi(embed_v0)]
     impl IActionsImpl of IActions<ContractState> {
         fn spawn(
-            world: IWorldDispatcher, white_address: ContractAddress, black_address: ContractAddress
+            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress
         ) -> u32 {
+            let world = self.world_dispatcher.read();
             let game_id = world.uuid();
 
             // set Players
@@ -138,7 +147,7 @@ Should be noted that `actions` is the contract name.
             game_id
         }
         fn move(
-            world: IWorldDispatcher,
+            self: @ContractState,
             curr_position: Vec2,
             next_position: Vec2,
             caller: ContractAddress, //player
