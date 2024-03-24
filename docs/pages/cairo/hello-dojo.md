@@ -4,11 +4,11 @@
 
 ## Dojo as an ECS in 15 Minutes
 
-Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](/cairo/models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework that promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
+Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](/cairo/models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework. This framework promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
 
 To start, let's set up a project to run locally on your machine. From an empty directory, execute:
 
-```console
+```bash
 sozo init
 ```
 
@@ -20,22 +20,22 @@ Inspect the contents of the `dojo-starter` project, and you'll notice the follow
 
 ```bash
 src
-  - lib.cairo
-  - systems
-    - actions.cairo
   - models
     - position.cairo
     - moves.cairo
+  - systems
+    - actions.cairo
   - tests
     - test_world.cairo
+  - lib.cairo
 Scarb.toml
 ```
 
-Dojo projects bear a strong resemblance to typical Cairo projects. The primary difference is the inclusion of a special attribute tag used to define your data models. In this context, we'll refer to these models as components.
+As Dojo projects bear a strong resemblance to typical Cairo projects, the primary difference lies in the inclusion of a special attribute tag used to define data models, which we refer to as `components` in this context.
 
-As we're crafting an ECS, we'll adhere to the specific terminology associated with Entity Component Systems.
+Since we're crafting an ECS, it's essential to adhere to the specific terminology associated with Entity Component Systems.
 
-Open the `src/models/moves.cairo` file to continue.
+Next, open the `src/models/moves.cairo` file to continue."
 
 ```rust
 #[derive(Model, Drop, Serde)]
@@ -52,7 +52,7 @@ Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recogni
 
 Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this model using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
 
-Open the `src/models/position.cairo` file to continue.
+Next, open the `src/models/position.cairo` file to continue.
 
 ```rust
 #[derive(Model, Copy, Drop, Serde)]
@@ -72,20 +72,23 @@ struct Vec2 {
 
 In a similar vein, we have a `Position` model that have a Vec2 data structure. Vec holds `x` and `y` values. Once again, this model is indexed by the `player` field.
 
-Now, let's examine the `src/systems/actions.cairo` file:
+Now, let's examine the contents of the `src/systems/actions.cairo` file.
 
 ```rust
+use dojo_starter::models::moves::Direction;
+use dojo_starter::models::position::Position;
+
 // define the interface
-#[starknet::interface]
-trait IActions<TContractState> {
-    fn spawn(self: @TContractState);
-    fn move(self: @TContractState, direction: dojo_starter::models::moves::Direction);
+#[dojo::interface]
+trait IActions {
+    fn spawn();
+    fn move(direction: Direction);
 }
 
 // dojo decorator
 #[dojo::contract]
 mod actions {
-    use super::IActions;
+    use super::{IActions, next_position};
 
     use starknet::{ContractAddress, get_caller_address};
     use dojo_starter::models::{position::{Position, Vec2}, moves::{Moves, Direction}};
@@ -98,59 +101,42 @@ mod actions {
     }
 
     // declaring custom event struct
-    #[derive(Drop, starknet::Event)]
+    #[derive(starknet::Event, Model, Copy, Drop, Serde)]
     struct Moved {
+        #[key]
         player: ContractAddress,
         direction: Direction
     }
 
-    // define functions in your contracts like this:
-    fn next_position(mut position: Position, direction: Direction) -> Position {
-        match direction {
-            Direction::None => { return position; },
-            Direction::Left => { position.vec.x -= 1; },
-            Direction::Right => { position.vec.x += 1; },
-            Direction::Up => { position.vec.y -= 1; },
-            Direction::Down => { position.vec.y += 1; },
-        };
-        position
-    }
-
-
     // impl: implement functions specified in trait
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
-        // ContractState is defined by system decorator expansion
-        fn spawn(self: @ContractState) {
-            // Access the world dispatcher for reading.
-            let world = self.world_dispatcher.read();
-
+        fn spawn(world: IWorldDispatcher) {
             // Get the address of the current caller, possibly the player's address.
             let player = get_caller_address();
-
             // Retrieve the player's current position from the world.
             let position = get!(world, player, (Position));
-
             // Retrieve the player's move data, e.g., how many moves they have left.
             let moves = get!(world, player, (Moves));
 
             // Update the world state with the new data.
-            // 1. Set players moves to 10
-            // 2. Move the player's position 100 units in both the x and y direction.
+            // 1. Set players moves to 100
+            // 2. Initialize player's position to (10,10)
             set!(
                 world,
                 (
-                    Moves { player, remaining: 100, last_direction: Direction::None },
-                    Position { player, vec: Vec2 { x: 10, y: 10 } },
+                    Moves {
+                        player, remaining: moves.remaining + 1, last_direction: Direction::None(())
+                    },
+                    Position {
+                        player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
+                    },
                 )
             );
         }
 
         // Implementation of the move function for the ContractState struct.
-        fn move(self: @ContractState, direction: Direction) {
-            // Access the world dispatcher for reading.
-            let world = self.world_dispatcher.read();
-
+        fn move(world: IWorldDispatcher, direction: Direction) {
             // Get the address of the current caller, possibly the player's address.
             let player = get_caller_address();
 
@@ -166,7 +152,7 @@ mod actions {
             // Calculate the player's next position based on the provided direction.
             let next = next_position(position, direction);
 
-            // Update the world state with the new moves data and position.
+            // // Update the world state with the new moves data and position.
             set!(world, (moves, next));
 
             // Emit an event to the world to notify about the player's move.
@@ -174,13 +160,25 @@ mod actions {
         }
     }
 }
+
+// Define function like this:
+fn next_position(mut position: Position, direction: Direction) -> Position {
+    match direction {
+        Direction::None => { return position; },
+        Direction::Left => { position.vec.x -= 1; },
+        Direction::Right => { position.vec.x += 1; },
+        Direction::Up => { position.vec.y -= 1; },
+        Direction::Down => { position.vec.y += 1; },
+    };
+    position
+}
 ```
 
 ### Breaking it down
 
 #### System is a function in a contract
 
-As you can see a `System` is like a regular function of a dojo(starknet) contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
+As you can see a `System` is like a regular function of a Dojo(Starknet) contract. It imports the Models we defined earlier and exposes two functions `spawn` and `move`. These functions are called when a player spawns into the world and when they move respectively.
 
 ```rust
 // Retrieve the player's current position from the world.
@@ -196,13 +194,13 @@ Now the next line:
 
 ```rust
 // Update the world state with the new data.
-// 1. Increase the player's remaining moves by 10.
+// 1. Increase the player's remaining moves by 1.
 // 2. Move the player's position 10 units in both the x and y direction.
 set!(
     world,
     (
         Moves {
-            player, remaining: moves.remaining + 10, last_direction: Direction::None
+            player, remaining: moves.remaining + 1, last_direction: Direction::None
         },
         Position {
             player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10}
@@ -243,13 +241,14 @@ Success! [Katana](/toolchain/katana/overview.md) should now be running locally o
 sozo migrate
 ```
 
-This will deploy the artifact to [Katana](/toolchain/katana/overview.md). You should see terminal output similar to this:
+This command will deploy the artifact to [Katana](/toolchain/katana/overview.md). You should see terminal output similar to this:
 
-```bash
+```console
+Migration account: 0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
 
-Migration account: 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973
+World name: dojo_starter
 
-World name: dojo_examples
+Chain ID: KATANA
 
 [1] 🌎 Building World state....
   > No remote World found
@@ -258,39 +257,51 @@ World name: dojo_examples
 [3] 📦 Preparing for migration....
   > Total items to be migrated (5): New 5 Update 0
 
-# Executor
-  > Contract address: 0x59f31686991d7cac25a7d4844225b9647c89e3e1e2d03460dbc61e3fbfafc59
 # Base Contract
-  > Class Hash: 0x77638e9a645209ac1e32e143bfdbfe9caf723c4f7645fcf465c38967545ea2f
+  > Class Hash: 0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76
 # World
-  > Contract address: 0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138
-# Models (2)
-Moves
-  > Class hash: 0x509a65bd8cc5516176a694a3b3c809011f1f0680959c567b3189e60ddab7ce1
-Position
-  > Class hash: 0x52a1da1853c194683ca5d6d154452d0654d23f2eacd4267c555ff2338e144d6
-  > Registered at: 0x82d996aab290f086314745685c6f05bd69730d46589339763202de5264b1b6
+  > Contract address: 0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8
+  > Set Metadata transaction: 0x2acbbe239dae2d122c18b3efb0698c00ceb25d7ef9103e63879dce593f8afee
+  > Metadata uri: ipfs://QmcgVv9FGthd1TSm7fUh2dzyQ9Son8EBmntRC1UmKsFuTx
+# Models (3)
+dojo_starter::systems::actions::actions::moved
+  > Class hash: 0xf00737ffe57c5c931bfec9a7ea66f76d5eaae12cacca6952dcee0c2e3d8038
+dojo_starter::models::moves::moves
+  > Class hash: 0x23c28dcfad6be01ca6509fdb35fd2bed6622238397613c60da5d387a43c38d0
+dojo_starter::models::position::position
+  > Class hash: 0x2e9c42b868b520d54bff1b7f4c9b91f39bb2e2ad1c39d6484fb5d8a95382e01
+All models are registered at: 0x2c8998d162d40e9313fd2f7d3e0a8898db1ceb25bb9de1ec463686286c010cd
 # Contracts (1)
-actions
-  > Contract address: 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd
+dojo_starter::systems::actions::actions
+  > Contract address: 0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3
 
-🎉 Successfully migrated World at address 0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138
+🎉 Successfully migrated World on block #3 at address 0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8
 
-✨ Updating manifest.json...
+✨ Updating manifests...
 
 ✨ Done.
-
 ```
 
-Your 🌎 is now deployed at `0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138`!
+Your 🌎 is now deployed at `0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8`!
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/cairo/config.md)). Make sure your file specifies the version of Dojo you have installed! In this case version `0.5.0`.
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/cairo/config.md)). On this file, you have to update the value of `world_address` with the address we got from the output of `sozo migrate`.
+
+```toml
+[tool.dojo.env]
+rpc_url = "http://localhost:5050/"
+# Default account for katana with seed = 0
+account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
+private_key = "0x1800000000300000180000000000030000000000003006001800006600"
+world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8" # Update this line with your world address
+```
+
+At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `0.6.0-alpha.7`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", version = "0.5.0" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.7" }
 ```
 
 ### Indexing
@@ -298,29 +309,43 @@ dojo = { git = "https://github.com/dojoengine/dojo", version = "0.5.0" }
 With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your `world address` from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
 
 ```bash
-torii --world 0x5010c31f127114c6198df8a5239e2b7a5151e1156fb43791e37e7385faa8138
+torii --world 0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8
 ```
 
-Running the command mentioned above starts a [Torii](/toolchain/torii/overview.md) server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. [Torii](/toolchain/torii/overview.md) will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
+Running the command mentioned above starts a [Torii](/toolchain/torii/overview.md) server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. `Torii` will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
 
-```bash
-2023-10-18T06:49:48.184233Z  INFO torii::server: 🚀 Torii listening at http://0.0.0.0:8080
-2023-10-18T06:49:48.184244Z  INFO torii::server: Graphql playground: http://0.0.0.0:8080/graphql
+```console
+2024-03-24T07:01:07.305489Z  INFO torii::relay::server: Relay peer id peer_id=12D3KooWF2CrpqMsHveDqVLtuiGfQur5zTwSFXgu4izK4gFVoCJX
+2024-03-24T07:01:07.311246Z  INFO libp2p_swarm: local_peer_id=12D3KooWF2CrpqMsHveDqVLtuiGfQur5zTwSFXgu4izK4gFVoCJX
+2024-03-24T07:01:07.314052Z  INFO torii::cli: Starting torii endpoint: http://0.0.0.0:8080
+2024-03-24T07:01:07.314065Z  INFO torii::cli: Serving Graphql playground: http://0.0.0.0:8080/graphql
+2024-03-24T07:01:07.314070Z  INFO torii::cli: World Explorer is available on: https://worlds.dev/torii?url=http%3A%2F%2Flocalhost%3A8080%2Fgraphql
 
-2023-10-18T06:49:48.185648Z  INFO torii_core::engine: processed block: 0
-2023-10-18T06:49:48.186129Z  INFO torii_core::engine: processed block: 1
-2023-10-18T06:49:48.186720Z  INFO torii_core::engine: processed block: 2
-2023-10-18T06:49:48.187202Z  INFO torii_core::engine: processed block: 3
-2023-10-18T06:49:48.187674Z  INFO torii_core::engine: processed block: 4
-2023-10-18T06:49:48.188215Z  INFO torii_core::engine: processed block: 5
-2023-10-18T06:49:48.188611Z  INFO torii_core::engine: processed block: 6
-2023-10-18T06:49:48.188985Z  INFO torii_core::engine: processed block: 7
-2023-10-18T06:49:48.199592Z  INFO torii_core::processors::register_model: Registered model: Moves
-2023-10-18T06:49:48.210032Z  INFO torii_core::processors::register_model: Registered model: Position
-2023-10-18T06:49:48.210571Z  INFO torii_core::engine: processed block: 8
-2023-10-18T06:49:48.211678Z  INFO torii_core::engine: processed block: 9
-2023-10-18T06:49:48.212335Z  INFO torii_core::engine: processed block: 10
-
+2024-03-24T07:01:07.315318Z  INFO torii::relay::server: New listen address address=/ip4/127.0.0.1/tcp/9090
+2024-03-24T07:01:07.315336Z  INFO torii::relay::server: New listen address address=/ip4/192.168.100.28/tcp/9090
+2024-03-24T07:01:07.315340Z  INFO torii::relay::server: New listen address address=/ip4/172.17.0.1/tcp/9090
+2024-03-24T07:01:07.315374Z  INFO torii::relay::server: New listen address address=/ip4/127.0.0.1/udp/9090/quic-v1
+2024-03-24T07:01:07.315379Z  INFO torii::relay::server: New listen address address=/ip4/192.168.100.28/udp/9090/quic-v1
+2024-03-24T07:01:07.315383Z  INFO torii::relay::server: New listen address address=/ip4/172.17.0.1/udp/9090/quic-v1
+2024-03-24T07:01:07.315555Z  INFO torii::relay::server: New listen address address=/ip4/127.0.0.1/udp/9091/webrtc-direct/certhash/uEiBNe_o7CBNfrOrx0yDPdKlGN8ODgfdG6VcJnNUGt5EXKQ
+2024-03-24T07:01:07.315563Z  INFO torii::relay::server: New listen address address=/ip4/192.168.100.28/udp/9091/webrtc-direct/certhash/uEiBNe_o7CBNfrOrx0yDPdKlGN8ODgfdG6VcJnNUGt5EXKQ
+2024-03-24T07:01:07.315746Z  INFO torii::relay::server: New listen address address=/ip4/172.17.0.1/udp/9091/webrtc-direct/certhash/uEiBNe_o7CBNfrOrx0yDPdKlGN8ODgfdG6VcJnNUGt5EXKQ
+2024-03-24T07:01:07.321750Z  INFO torii_core::engine: processed block: 0
+2024-03-24T07:01:07.323093Z  INFO torii_core::engine: processed block: 1
+2024-03-24T07:01:07.323538Z  INFO torii_core::engine: processed block: 2
+2024-03-24T07:01:07.324375Z  INFO torii_core::engine: processed block: 3
+2024-03-24T07:01:07.325597Z  INFO torii_core::processors::metadata_update: Resource 0x0 metadata set: ipfs://QmcgVv9FGthd1TSm7fUh2dzyQ9Son8EBmntRC1UmKsFuTx/
+2024-03-24T07:01:07.325648Z  INFO torii_core::engine: processed block: 4
+2024-03-24T07:01:07.326382Z  INFO torii_core::engine: processed block: 5
+2024-03-24T07:01:07.326812Z  INFO torii_core::engine: processed block: 6
+2024-03-24T07:01:07.327265Z  INFO torii_core::engine: processed block: 7
+2024-03-24T07:01:07.332613Z  INFO torii_core::processors::register_model: Registered model name="Moved"
+2024-03-24T07:01:07.339471Z  INFO torii_core::processors::register_model: Registered model name="Moves"
+2024-03-24T07:01:07.346717Z  INFO torii_core::processors::register_model: Registered model name="Position"
+2024-03-24T07:01:07.348367Z  INFO torii_core::engine: processed block: 8
+2024-03-24T07:01:07.349451Z  INFO torii_core::engine: processed block: 9
+2024-03-24T07:01:07.350306Z  INFO torii_core::engine: processed block: 10
+2024-03-24T07:01:11.359573Z  INFO torii_core::processors::metadata_update: Updated resource 0x0 metadata from ipfs
 ```
 
 You can observe that our `Moves` and `Position` models have been successfully registered.
@@ -346,9 +371,9 @@ After you run the query, you will receive an output like this:
     "model": {
       "id": "Moves",
       "name": "Moves",
-      "classHash": "0x64495ca6dc1dc328972697b30468cea364bcb7452bbb6e4aaad3e4b3f190147",
+      "classHash": "0x23c28dcfad6be01ca6509fdb35fd2bed6622238397613c60da5d387a43c38d0",
       "transactionHash": "",
-      "createdAt": "2023-12-15 18:07:22"
+      "createdAt": "2024-03-24T07:01:07+00:00"
     }
   }
 }
@@ -368,20 +393,20 @@ subscription {
 }
 ```
 
-Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it and proceed to create a new entity.
+Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it, and proceed to create a new entity.
 
 To accomplish this, we have to go back to our primary terminal and check the contracts section.
 
 ```bash
 # Contracts (1)
-actions
-  > Contract address: 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd
+dojo_starter::systems::actions::actions
+  > Contract address: 0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3
 ```
 
 We have to use `actions` contract address to start to create entities. In your main local terminal, run the following command:
 
 ```bash
-sozo execute 0x31571485922572446df9e3198a891e10d3a48e544544317dbcbb667e15848cd spawn
+sozo execute 0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3 spawn
 ```
 
 By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
@@ -392,13 +417,13 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 {
   "data": {
     "entityUpdated": {
-      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "id": "0x2038e0daba5c3948a6289e91e2a68dfc28e734a281c753933b8bd331e6d3dae",
       "keys": [
-        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+        "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
       ],
-      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000e:0x0000:0x0000",
-      "createdAt": "2023-12-15 18:07:22",
-      "updatedAt": "2023-12-15 18:10:56"
+      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0000",
+      "createdAt": "2024-03-24T07:06:52Z",
+      "updatedAt": "2024-03-24T07:06:52Z"
     }
   }
 }
@@ -406,13 +431,13 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 {
   "data": {
     "entityUpdated": {
-      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "id": "0x2038e0daba5c3948a6289e91e2a68dfc28e734a281c753933b8bd331e6d3dae",
       "keys": [
-        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+        "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
       ],
-      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000e:0x0000:0x0001",
-      "createdAt": "2023-12-15 18:07:22",
-      "updatedAt": "2023-12-15 18:10:56"
+      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0001",
+      "createdAt": "2024-03-24T07:06:52Z",
+      "updatedAt": "2024-03-24T07:06:52Z"
     }
   }
 }
@@ -429,4 +454,4 @@ We've covered quite a bit! Here's a recap:
 
 ### Next Steps
 
-This overview provides a rapid end-to-end glimpse into Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and components, Dojo is equipped for expansive creativity. So, what will you craft next?
+This overview provides a rapid end-to-end glimpse of Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and components, Dojo is equipped for expansive creativity. So, what will you craft next?
