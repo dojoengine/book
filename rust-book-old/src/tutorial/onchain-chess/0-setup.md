@@ -59,7 +59,7 @@ Make sure your `Scarb.toml` looks like this:
 ```toml
 [package]
 cairo-version = "2.5.4"
-name = "dojo_starter"
+name = "chess"
 version = "0.6.0-alpha.7"
 
 [cairo]
@@ -115,7 +115,7 @@ enum Color {
 }
 ```
 
-Second, we do the same for `game` model. Edit your `models/player.cairo` file and add this content.
+Second, we do the same for `game` model. Edit your `models/game.cairo` file and add this content.
 
 ```rust,ignore
 use chess::models::player::Color;
@@ -138,7 +138,7 @@ struct GameTurn {
 }
 ```
 
-Lastly we create `piece` model in our `models/player.cairo` file.
+Lastly we create `piece` model in our `models/piece.cairo` file.
 
 ```rust,ignore
 use chess::models::player::Color;
@@ -221,7 +221,7 @@ Try to implement this code by yourself, Otherwise
 <summary>Click to see full `models.cairo` code</summary>
 
 ```c
-// code for player.cairo file
+// code for player.cairo file, paste it below the code you already have
 trait PlayerTrait {
     fn is_not_my_piece(self: @Player, piece_color: Color) -> bool;
 }
@@ -232,7 +232,7 @@ impl PalyerImpl of PlayerTrait {
     }
 }
 
-// code for game.cairo file
+// code for game.cairo file, paste it below the code you already have
 trait GameTurnTrait {
     fn next_turn(self: @GameTurn) -> Color;
 }
@@ -246,7 +246,7 @@ impl GameTurnImpl of GameTurnTrait {
     }
 }
 
-// code for piece.cairo file
+// code for piece.cairo file, paste it below the code you already have
 trait PieceTrait {
     fn is_out_of_board(next_position: Vec2) -> bool;
     fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool;

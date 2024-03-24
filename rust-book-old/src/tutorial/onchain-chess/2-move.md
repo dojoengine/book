@@ -4,20 +4,19 @@
 
 ```c
     #[abi(embed_v0)]
-    impl PlayerActionsImpl of IActions<ContractState> {
+    impl IActionsImpl of IActions<ContractState> {
         fn spawn(
-            self: @ContractState, white_address: ContractAddress, black_address: ContractAddress
+            world: IWorldDispatcher, white_address: ContractAddress, black_address: ContractAddress
         ) -> u32 {
             // Rest of code
         }
         fn move(
-            self: @ContractState,
+            world: IWorldDispatcher,
             curr_position: Vec2,
             next_position: Vec2,
             caller: ContractAddress, //player
             game_id: u32
         ) {
-            let world = self.world_dispatcher.read();
             let mut current_piece = get!(world, (game_id, curr_position), (Piece));
             // check if next_position is out of board or not
             assert(!PieceTrait::is_out_of_board(next_position), 'Should be inside board');
