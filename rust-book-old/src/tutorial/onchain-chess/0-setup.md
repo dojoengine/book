@@ -59,14 +59,14 @@ Make sure your `Scarb.toml` looks like this:
 ```toml
 [package]
 cairo-version = "2.5.4"
-name = "chess"
+name = "dojo_starter"
 version = "0.6.0-alpha.7"
 
 [cairo]
 sierra-replace-ids = true
 
 [dependencies]
-dojo.workspace = true
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.7" }
 
 [[target.dojo]]
 
@@ -78,6 +78,7 @@ rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0
 account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
 private_key = "0x1800000000300000180000000000030000000000003006001800006600"
+world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8"
 ```
 
 Compile your project with:
