@@ -25,10 +25,16 @@ For full `dojoup` reference and debugging see [Dojoup](/toolchain/dojoup.md).
 
 ### Install scarb (optional)
 
-For the language server to work properly, your local Scarb version should not be lower than Dojo's cairo version. To accomplish this, install it with the following command:
+To ensure the proper functioning of the language server, your local Scarb version must be equal to or higher than the Dojo's Cairo version. To accomplish this, first check your local Scarb version:
 
 ```sh
-# todo: input command here
+scarb --version
+```
+
+If your local Scarb version is lower than the Dojo's Cairo version, you can install the latest Scarb version by running:
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
 ```
 
 ## Next steps
