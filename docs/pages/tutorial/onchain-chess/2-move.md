@@ -2,7 +2,7 @@
 
 1. Write a `move` function that accepts the `current position`, `next position`, `caller address`, and `game_id`. The `move` function should look like this:
 
-```c
+```rust
     #[abi(embed_v0)]
     impl IActionsImpl of IActions<ContractState> {
         fn spawn(
