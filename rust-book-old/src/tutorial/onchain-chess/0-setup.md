@@ -4,22 +4,10 @@ _Before starting recommend following the [`hello-dojo`](../../cairo/hello-dojo.m
 
 ## Initializing the Project
 
-Create a new Dojo project folder. You can name your project what you want.
+Create and initialize a new Dojo project. You can name your project what you want.
 
 ```sh
-mkdir chess
-```
-
-Open the project folder.
-
-```sh
-cd chess
-```
-
-And initialize the project using sozo init.
-
-```sh
-sozo init
+sozo init chess
 ```
 
 ## Cleaning Up the Boilerplate
@@ -70,15 +58,15 @@ Make sure your `Scarb.toml` looks like this:
 
 ```toml
 [package]
-cairo-version = "2.4.0"
+cairo-version = "2.5.4"
 name = "chess"
-version = "0.4.0"
+version = "0.6.0-alpha.7"
 
 [cairo]
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", version = "0.4.2" }
+dojo.workspace = true
 
 [[target.dojo]]
 
@@ -88,9 +76,8 @@ initializer_class_hash = "0xbeef"
 [tool.dojo.env]
 rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0
-account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
 private_key = "0x1800000000300000180000000000030000000000003006001800006600"
-
 ```
 
 Compile your project with:
