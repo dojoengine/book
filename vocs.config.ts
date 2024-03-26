@@ -281,7 +281,11 @@ export default defineConfig({
           text: "SDKs",
           collapsed: true,
           items: [
-            { text: "dojo.js", link: "/client/dojojs" },
+            {
+              text: "dojo.js",
+              link: "/client/sdk/js/dojojs",
+              collapsed: true,
+            },
             {
               text: "dojo.unity",
               link: "/client/sdk/unity/overview",
