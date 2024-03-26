@@ -28,6 +28,8 @@ There are currently 4 starter projects available:
 
 ## Core documentation
 
+⚠️ WIP
+
 ## React documentation
 
 React hooks are used to manage the states. Whenever Torii receives a new entity, it will trigger the `useEntityQuery` hook.
@@ -189,17 +191,6 @@ Position: (() => {
 })(),
 ```
 
-### defineSystem, defineEnterSystem
-
 ## Contribute
 
 To contribute to the project, check the [Contribute section](https://github.com/dojoengine/dojo.js?tab=readme-ov-file#contributing-to-dojojs) of the dojo.js repo.
-
-Core documentation including examples of usage in vanilla JS
-React documentation including examples of usage in React
-Torii-client explanation
-running npx create-dojo
-Explanation and code snippets of Recs state library
-
-
-E2E example using dojo.js
