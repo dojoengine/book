@@ -260,8 +260,9 @@ impl PieceImpl of PieceTrait {
     fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool {
         let n_x = next_position.x;
         let n_y = next_position.y;
-        assert(!(n_x == *self.position.x && n_y == *self.position.y), 'Cannot move same position');
-        match self.piece_type {
+        assert!(
+            !(n_x == *self.position.x && n_y == *self.position.y), "Cannot move same position "
+        );        match self.piece_type {
             PieceType::Pawn => {
                 match self.color {
                     Color::White => {
