@@ -113,16 +113,16 @@ mod tests {
         //get game
         let game = get!(world, game_id, (Game));
         let game_turn = get!(world, game_id, (GameTurn));
-        assert!(game_turn.player_color == Color::White, "should be white turn ");
-        assert!(game.white == white, "white address is incorrect ");
-        assert!(game.black == black, "black address is incorrect ");
+        assert!(game_turn.player_color == Color::White, "should be white turn");
+        assert!(game.white == white, "white address is incorrect");
+        assert!(game.black == black, "black address is incorrect");
 
         //get a1 piece
         let curr_pos = Vec2 { x: 0, y: 0 };
         let a1 = get!(world, (game_id, curr_pos), (Piece));
-        assert!(a1.piece_type == PieceType::Rook, "should be Rook ");
-        assert!(a1.color == Color::White, "should be white color ");
-        assert!(a1.piece_type != PieceType::None, "should have piece ");
+        assert!(a1.piece_type == PieceType::Rook, "should be Rook");
+        assert!(a1.color == Color::White, "should be white color");
+        assert!(a1.piece_type != PieceType::None, "should have piece");
     }
 
     #[test]
@@ -135,23 +135,23 @@ mod tests {
         let game_id = actions_system.spawn(white, black);
         let curr_pos = Vec2 { x: 0, y: 1 };
         let a2 = get!(world, (game_id, curr_pos), (Piece));
-        assert!(a2.piece_type == PieceType::Pawn, "should be Pawn ");
-        assert!(a2.color == Color::White, "should be white color piece 1 ");
-        assert!(a2.piece_type != PieceType::None, "should have piece ");
+        assert!(a2.piece_type == PieceType::Pawn, "should be Pawn");
+        assert!(a2.color == Color::White, "should be white color piece 1");
+        assert!(a2.piece_type != PieceType::None, "should have piece");
 
         let next_pos = Vec2 { x: 0, y: 2 };
         let game_turn = get!(world, game_id, (GameTurn));
-        assert!(game_turn.player_color == Color::White, "should be white player turn ");
+        assert!(game_turn.player_color == Color::White, "should be white player turn");
         actions_system.move(curr_pos, next_pos, white.into(), game_id);
 
         let curr_pos = next_pos;
         let c3 = get!(world, (game_id, curr_pos), (Piece));
-        assert!(c3.piece_type == PieceType::Pawn, "should be Pawn ");
-        assert!(c3.color == Color::White, "should be white color piece 2 ");
-        assert!(c3.piece_type != PieceType::None, "should have piece ");
+        assert!(c3.piece_type == PieceType::Pawn, "should be Pawn");
+        assert!(c3.color == Color::White, "should be white color piece 2");
+        assert!(c3.piece_type != PieceType::None, "should have piece");
 
         let game_turn = get!(world, game_id, (GameTurn));
-        assert!(game_turn.player_color == Color::Black, "should be black player turn ");
+        assert!(game_turn.player_color == Color::Black, "should be black player turn");
     }
 }
 ```
@@ -206,9 +206,9 @@ Then we check if the players got their setup address. After that we check if a W
     //get a1 square
     let curr_pos = Vec2 { x: 0, y: 0 };
     let a1 = get!(world, (game_id, curr_pos), (Piece));
-    assert!(a1.piece_type == PieceType::Rook, "should be Rook ");
-    assert!(a1.color == Color::White, "should be white color ");
-    assert!(a1.piece_type != PieceType::None, "should have piece ");
+    assert!(a1.piece_type == PieceType::Rook, "should be Rook");
+    assert!(a1.color == Color::White, "should be white color");
+    assert!(a1.piece_type != PieceType::None, "should have piece");
 ```
 
 ### test_move
@@ -225,9 +225,9 @@ Then we check if a White Pawn is at the new position.
 ```rust
     let curr_pos = next_pos;
     let c3 = get!(world, (game_id, curr_pos), (Piece));
-    assert!(c3.piece_type == PieceType::Pawn, "should be Pawn ");
-    assert!(c3.color == Color::White, "should be white color piece 2 ");
-    assert!(c3.piece_type != PieceType::None, "should have piece ");
+    assert!(c3.piece_type == PieceType::Pawn, "should be Pawn");
+    assert!(c3.color == Color::White, "should be white color piece 2");
+    assert!(c3.piece_type != PieceType::None, "should have piece");
 ```
 
 ## Need help?
