@@ -23,17 +23,32 @@ dojoup
 
 For full `dojoup` reference and debugging see [Dojoup](/toolchain/dojoup.md).
 
-### Install scarb (optional)
+### Install Scarb (optional)
 
-To ensure the proper functioning of the language server, your local Scarb version must be equal to or higher than the Dojo's Cairo version. To accomplish this, first check your local Scarb version:
+To ensure the proper functioning of the language server, your local `Scarb` version must be equal to or higher than the Dojo's Cairo version. To accomplish this, first check your Dojo's Cairo version. To achieve this, run the following command:
+
+```bash
+sozo --version
+```
+
+You might expect an output similar to this:
+
+```console
+sozo 0.6.0-alpha.9
+scarb: 2.5.4
+cairo: 2.5.4
+sierra: 1.4.0
+```
+
+After that, check your local `Scarb` version:
 
 ```sh
 scarb --version
 ```
 
-If your local Scarb version is lower than the Dojo's Cairo version, you have install Scarb
+If your local `Scarb` version is lower than the Dojo's Cairo version, you have to install `Scarb`.
 
-To install Scarb, please refer to the [installation instructions](https://docs.swmansion.com/scarb/download).
+To accomplish it, please refer to the [installation instructions](https://docs.swmansion.com/scarb/download).
 We strongly recommend that you install
 Scarb via [asdf](https://docs.swmansion.com/scarb/download.html#install-via-asdf), a CLI tool that can manage
 multiple language runtime versions on a per-project basis.
