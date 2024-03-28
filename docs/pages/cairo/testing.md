@@ -29,14 +29,14 @@ mod tests {
     #[test]
     #[available_gas(100000)]
     fn test_vec_is_zero() {
-        assert(Vec2Trait::is_zero(Vec2 { x: 0, y: 0 }), 'not zero');
+        assert!(Vec2Trait::is_zero(Vec2 { x: 0, y: 0 }), "not zero");
     }
 
     #[test]
     #[available_gas(100000)]
     fn test_vec_is_equal() {
         let position = Vec2 { x: 420, y: 0 };
-        assert(position.is_equal(Vec2 { x: 420, y: 0 }), 'not equal');
+        assert!(position.is_equal(Vec2 { x: 420, y: 0 }), "not equal");
     }
 }
 ```
@@ -93,16 +93,16 @@ mod tests {
 
         // check moves
         let moves = get!(world, caller, (Moves));
-        assert(moves.remaining == 99, 'moves is wrong');
+        assert!(moves.remaining == 99, "moves is wrong");
 
         // get new_position
         let new_position = get!(world, caller, Position);
 
         // check new position x
-        assert(new_position.vec.x == 11, 'position x is wrong');
+        assert!(new_position.vec.x == 11, "position x is wrong");
 
         // check new position y
-        assert(new_position.vec.y == 10, 'position y is wrong');
+        assert!(new_position.vec.y == 10, "position y is wrong");
     }
 }
 ```
