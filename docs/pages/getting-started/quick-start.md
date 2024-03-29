@@ -91,6 +91,12 @@ will install the latest stable release of Scarb.
 curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
 ```
 
+If you want to install a specific version of Scarb (such as a preview or nightly version), run the following with the desired version number.
+
+```basf
+curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh -s -- -v 2.5.4
+```
+
 ## Next steps
 
 > Head to [Hello Dojo](/cairo/hello-dojo.md) to get create your first Dojo world.
