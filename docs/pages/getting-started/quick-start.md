@@ -25,7 +25,7 @@ For full `dojoup` reference and debugging see [Dojoup](/toolchain/dojoup.md).
 
 ### Install Scarb (optional)
 
-To ensure the proper functioning of the language server, your local `Scarb` version must be equal to or higher than the Dojo's Cairo version. To accomplish this, first check your Dojo's Cairo version. To achieve this, run the following command:
+To ensure the proper functioning of the language server, your local `Scarb` version must be equal to or higher than the Dojo's Cairo version. To accomplish this, first check your Dojo's Cairo version running the following command:
 
 ```bash
 sozo --version
