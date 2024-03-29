@@ -46,7 +46,7 @@ After that, check your local `Scarb` version:
 scarb --version
 ```
 
-If your local `Scarb` version is lower than the Dojo's Cairo version, you have to install `Scarb`.
+If your local `Scarb` version is lower than the Dojo's Cairo version, you have to install a newer version `Scarb`.
 
 To accomplish it, please refer to the [installation instructions](https://docs.swmansion.com/scarb/download).
 We strongly recommend that you install
