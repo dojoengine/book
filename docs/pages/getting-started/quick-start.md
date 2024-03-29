@@ -31,7 +31,7 @@ To ensure the proper functioning of the language server, your local `Scarb` vers
 sozo --version
 ```
 
-You might expect an output similar to this:
+You should have an output similar to this:
 
 ```console
 sozo 0.6.0-alpha.9
