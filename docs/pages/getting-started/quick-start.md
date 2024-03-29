@@ -46,6 +46,14 @@ After that, check your local `Scarb` version:
 scarb --version
 ```
 
+You should have an output similar to this:
+
+```console
+scarb 2.5.4 (28dee92c8 2024-02-14)
+cairo: 2.5.4 (https://crates.io/crates/cairo-lang-compiler/2.5.4)
+sierra: 1.4.0
+```
+
 If your local `Scarb` version is lower than the Dojo's Cairo version, you have to install a newer version `Scarb`.
 
 To accomplish it, please refer to the [installation instructions](https://docs.swmansion.com/scarb/download).
@@ -64,7 +72,7 @@ Once you have `asdf` installed locally, you can download Scarb plugin with the f
 asdf plugin add scarb
 ```
 
-This will allow you to download specific versions. You can choose the same version as the Dojo's Cairo version, for example, 2.5.4, with the following command:
+This will allow you to download specific versions. You can choose the same version as the Dojo's Cairo version, for example, `2.5.4`, with the following command:
 
 ```bash
 asdf install scarb 2.5.4
