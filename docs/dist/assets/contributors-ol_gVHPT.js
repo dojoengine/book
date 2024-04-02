@@ -1,0 +1,4 @@
+import{u as i,j as e}from"./index-KZ_aprDi.js";const a=void 0;function o(t){const n={a:"a",div:"div",h2:"h2",p:"p",...i(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"contributing-to-dojo-book",children:["Contributing to Dojo Book",e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#contributing-to-dojo-book",children:e.jsx(n.div,{"data-autolink-icon":!0})})]}),`
+`,e.jsx(n.p,{children:"As the Dojo engine progresses and develops, it is essential for the Dojo book to keep pace with these advancements."}),`
+`,e.jsx(n.p,{children:"Updating and refining the book ensures that it remains a relevant and valuable resource for those interested in understanding and utilizing the latest Dojo engine features and capabilities."}),`
+`,e.jsx(n.p,{children:"All help is welcome!"})]})}function r(t={}){const{wrapper:n}={...i(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(o,{...t})}):o(t)}export{r as default,a as frontmatter};
