@@ -35,7 +35,8 @@ Deploying your project to Katana involves a few simple steps.\
    To migrate, run:
 
    ```bash
-   sozo migrate
+   sozo migrate plan
+   sozo migrate apply
    ```
 
 Success! You have now migrated your world. You will be able to interact with the world using [sozo](/toolchain/sozo/overview.md).
