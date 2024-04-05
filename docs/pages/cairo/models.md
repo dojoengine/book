@@ -232,9 +232,7 @@ mod spawnHuman {
     // impl: implement functions specified in trait
     #[abi(embed_v0)]
     impl GoblinActionsImpl of IGoblinActions<ContractState> {
-        fn goblin_actions(self: @ContractState, entity_id: u32) {
-            let world = self.world_dispatcher.read();
-
+        fn goblin_actions(world: IWorldDispatcher, entity_id: u32) {
             let counter = get!(world, COUNTER_ID, (Counter));
 
             let human_count = counter.human_count + 1;

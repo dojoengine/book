@@ -6,10 +6,10 @@
 
 Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](/cairo/models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework. This framework promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
 
-To start, let's set up a project to run locally on your machine. From an empty directory, execute:
+To start, let's create a new project to run locally on your machine. Execute:
 
 ```bash
-sozo init
+sozo init dojo-starter
 ```
 
 Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory. It's the ideal starting point for a new project and equips you with everything you need to begin.

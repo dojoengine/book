@@ -16,9 +16,7 @@ Building games is hard enough, but building games onchain is even harder. Dojo s
 The following is an example of a dojo function and contains the macros `get!` and `set!` which are used to read and write to the world state.
 
 ```rust
-fn spawn(self: @ContractState) {
-    // Access the world dispatcher for reading.
-    let world = self.world_dispatcher.read();
+fn spawn(world: IWorldDispatcher) {
 
     // Get the address of the current caller, possibly the player's address.
     let player = get_caller_address();

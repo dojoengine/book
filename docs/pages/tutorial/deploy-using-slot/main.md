@@ -6,11 +6,10 @@ Welcome to this tutorial where we'll guide you through deploying a project using
 
 Before we start, make sure you are using the latest dojo version. Run `dojoup` to have the latest version installed.
 
-Now, let's create a new folder and initialize it with sozo.
+Now, let's create a new project and initialize it with sozo.
 
 ```sh
-mkdir dojo-starter && cd dojo-starter
-sozo init
+sozo init dojo-starter && cd dojo-starter
 ```
 
 First, we need to set up our configuration, starting by authenticating with Cartridge. To do this, run the following command, which will then prompt a new screen where you will need to go through the authentication process.
