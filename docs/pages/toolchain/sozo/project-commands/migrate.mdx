@@ -8,12 +8,23 @@ import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
 
 `migrate` is used to perform the migration (deployment) process, declaring and deploying contracts as necessary to deploy or update the World.
 
-Changes made to the local World after the initial deployment, can easily be pushed to the remote counterpart by running `sozo migrate --world <WORLD_ADDRESS>` with `WORLD_ADDRESS` being the address of the remote World. In the background, `migrate` will compute the diffs of the local and remote World, then, start constructing a migration strategy to determine, if any, which part of the local World needs to be pushed upstream.
+Changes made to the local World after the initial deployment, can easily be pushed to the remote counterpart by running `sozo migrate [SUB-COMMAND] --world <WORLD_ADDRESS>` with `WORLD_ADDRESS` being the address of the remote World. In the background, `migrate` will compute the diffs of the local and remote World, then, start constructing a migration strategy to determine, if any, which part of the local World needs to be pushed upstream.
+
+The `migrate` command has two subcommands: `plan` and `apply`.
+* `plan`: With this subcommand nothing is send on-chain. `sozo` retrieves the remote world and computes the diffs between the remote world and the local world. It outputs the manifests files into the `manifests/<profile_name>/deployments` folder and the two manifest files `manifests/<profile_name>/manifest.[json,toml]`.
+* `apply`: This subcommand will apply the diffs on the remote world and update the manifests files to contain the on-chain data like transaction hash, block number, etc.
+
+__Note__: You can directly run `sozo migrate apply` without the need of running `sozo migrate plan`. You should run `sozo migrate plan` if you want to generate the manifests file only and do a dry run without sending transactions to the chain.
 
 ### USAGE
 
 ```sh
-sozo migrate [OPTIONS]
+Usage: sozo migrate [OPTIONS] <COMMAND>
+
+Commands:
+  plan   Plan the migration and output the manifests.
+  apply  Apply the migration on-chain.
+  help   Print this message or the help of the given subcommand(s)
 ```
 
 ### OPTIONS
@@ -48,17 +59,17 @@ sozo migrate [OPTIONS]
 1. Deploying your World for the first time to a local Katana node
 
 ```sh
-sozo migrate --name ohayo --rpc-url http://localhost:5050
+sozo migrate apply --name ohayo --rpc-url http://localhost:5050
 ```
 
 2. Updating a remote World after making some changes
 
 ```sh
-sozo migrate --world 0x123456
+sozo migrate apply --world 0x123456
 ```
 
-3. Deploying your World using [profile options](../common-options/profile.md)
+3. Deploying your World using [profile options](../common-options/profile.md), where configuration like `rpc-url` are set in the profile.
 
 ```sh
-sozo --profile dev migrate
+sozo --profile my_profile migrate apply
 ```

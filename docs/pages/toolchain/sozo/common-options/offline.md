@@ -1,10 +1,8 @@
-# offline
-
-## use sozo offline
+## Sozo `--offline` option
 
 `--offline`  
 &nbsp;&nbsp;&nbsp;&nbsp;Run without accessing the network.  
-&nbsp;&nbsp;&nbsp;&nbsp;[env: SOZO_OFFLINE=]
+&nbsp;&nbsp;&nbsp;&nbsp;ENV: `SOZO_OFFLINE`
 
 ### USAGE
 
