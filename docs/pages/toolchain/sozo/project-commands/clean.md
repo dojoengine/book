@@ -3,6 +3,7 @@
 `clean` is used to remove the build artifacts to ensure you're not keeping old files that are not overwritten by the [build](/toolchain/sozo/project-commands/build.md) command.
 
 Sozo produces two kinds of artifacts when `build` command is issued:
+
 1. Scarb artifacts: which are present into `target/<profile_name>` folder.
 2. Manifests: which are present into `manifests/<profile_name>/base` folder.
 

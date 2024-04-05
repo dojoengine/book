@@ -287,14 +287,17 @@ mod spawnHuman {
 > A complete example can be found in the [Dojo Starter](https://github.com/dojoengine/dojo-starter)
 
 # Upgrading Models and Data Migration
+
 When upgrading a system, especially one that involves data storage, it’s essential to consider the impact on existing models. Here are some key points to keep in mind:
+
 # Risk-Free Upgrades:
+
 Upgrading a system is generally safe from a storage perspective if the changes do not affect the existing data layout.
 For example, adding new fields to a model (without modifying existing fields) won’t disrupt the stored data. Retrieving existing data remains straightforward.
 
 Suppose we have a basic model called Player that represents player information:
 
-``` rust
+```rust
 #[derive(Model)]
 struct Player {
     #[key]
@@ -302,11 +305,12 @@ struct Player {
     username: String,
     score: u32,
 }
-``` 
+```
+
 In this model: `player_id`, serves as the primary key. We store the player’s `username` and their `score`.
 Now, let’s say we want to enhance our system by adding a new field called level to the Player model. We’ll do this without modifying the existing fields (player_id, username, and score).
 
-``` rust
+```rust
 #[derive(Model)]
 struct Player {
     #[key]
@@ -316,14 +320,16 @@ struct Player {
     level: u8, // New field
 }
 ```
+
 Our existing data remains intact. Retrieving player information using the original fields (player_id, username, and score) continues to work seamlessly.
 For example, querying Player 1 (ID: 123) with username “Alice” and score 100 still provides accurate results.
 so this is for risk free upgrade.
 
 # Risk of Data Corruption
+
 You have a User model with three fields: user_id, username, and age. The age field is initially stored as an integer (e.g., 30).
 
-``` rust
+```rust
 struct User {
     user_id: u64,
     username: String,
@@ -331,15 +337,17 @@ struct User {
 }
 
 ```
+
 Later, you decide to modify the age field and store it as a string instead of an integer:
 
-``` rust
+```rust
 struct User {
     user_id: u64,
     username: String,
     age: String, // Now a string
 }
 ```
+
 This change involves altering the data type of the age field from numeric (integer) to textual (string).
 
 When you modify the data type of an existing field, you introduce the risk of data corruption.
@@ -348,6 +356,7 @@ Retrieving ages as integers won’t work directly because they are now stored as
 To handle this situation, you’ll need to convert the string representation of age back to integers when necessary.
 
 # Conversion Process:
-When retrieving the age, you’ll need to parse the string value  `(e.g., "30")` and convert it back to an integer  `(e.g., 30)` for any calculations or comparisons.
+
+When retrieving the age, you’ll need to parse the string value `(e.g., "30")` and convert it back to an integer `(e.g., 30)` for any calculations or comparisons.
 This conversion process ensures that the data remains consistent despite the change in data type.
 In summary, data corruption occurs when existing data doesn’t align with the new data type after modifying a field. Proper handling, such as converting values during retrieval, is essential to maintain data integrity.

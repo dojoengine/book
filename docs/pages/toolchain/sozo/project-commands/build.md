@@ -10,8 +10,9 @@ The `build` command will also generate the manifests files into `manifests/<prof
 Those files contains the information about the contracts at compile time.
 
 The `build` command can also generate the bindings for different backends. Currently, two backends are supported:
-* typescript
-* unity
+
+- typescript
+- unity
 
 You do so by passing the flag associated to each backend.
 For example, to generate the unity bindings, you can do:

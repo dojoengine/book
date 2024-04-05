@@ -15,7 +15,7 @@ This section guides you through:
 In your Unity project, navigate to the scene where you want to integrate the Dojo SDK.
 
 - From the `Project` window, locate the `Assets/Dojo/Prefabs` folder.
-Drag the `WorldManager` prefab into your scene. This prefab acts as the central hub for managing entities in your Dojo world.
+  Drag the `WorldManager` prefab into your scene. This prefab acts as the central hub for managing entities in your Dojo world.
 - Additionally, navigate to the `Assets/Dojo/Runtime` folder and drag the `UnityMainThreadDispatcher` prefab into your scene.
 
 ### Configuring the World Manager
@@ -63,7 +63,7 @@ We have two options for creating an account: a simple account or a burner accoun
 
 To create a simple account, follow this code:
 
-``` cs
+```cs
 using Dojo;
 using Dojo.Starknet;
 using UnityEngine;
@@ -80,7 +80,7 @@ void Start()
 
 For a burner account, execute the following code:
 
-``` cs
+```cs
 using Dojo;
 using Dojo.Starknet;
 using UnityEngine;
@@ -102,7 +102,7 @@ private async Task<Account> CreateBurnerAccount(string rpcUrl, string masterAddr
 ```
 
 > Replace `masterAddress` and `masterPrivateKey` with the **account Address** and **private key** of the prefunded Katana account.
-![bindings-example](/unity/prefunded-account-address.png)
+> ![bindings-example](/unity/prefunded-account-address.png)
 
 ### Contract assembly and execution
 
@@ -168,7 +168,7 @@ public async Task<FieldElement> ExecuteCalls(Account account, dojo.Call[] calls)
 
 ## Building your Dojo Game
 
-The final stage is building your onchain game for deployment. Dojo currently supports building for both *desktop* and *WebGL* platforms.
+The final stage is building your onchain game for deployment. Dojo currently supports building for both _desktop_ and _WebGL_ platforms.
 
 ### Building for Desktop (Windows, macOS, Linux)
 

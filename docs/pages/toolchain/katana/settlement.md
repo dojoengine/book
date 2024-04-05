@@ -1,3 +1,3 @@
 ## Settlement
 
-*Coming soon*
+_Coming soon_

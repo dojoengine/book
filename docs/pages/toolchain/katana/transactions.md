@@ -9,4 +9,3 @@ Katana aims to follow the Starknet specifications as closely as possible, and mi
 | DEPLOY_ACCOUNT | 1, 3    |
 
 To learn more about the different transaction types, you can refer to the [Starknet documentation](https://docs.starknet.io/documentation/architecture_and_concepts/Network_Architecture/transactions).
-

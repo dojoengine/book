@@ -14,8 +14,8 @@ During initialization, the World Manager receives WorldManagerData, which define
 
 In Unity, entities are represented by GameObject instances. The World Manager simplifies their management by offering methods to:
 
-* Add and remove entities
-* Access entities by name or list all entities
+- Add and remove entities
+- Access entities by name or list all entities
 
 ## Synchronization Master
 
@@ -25,14 +25,15 @@ The Synchronization Master acts as the bridge between Unity and your Dojo world,
 
 Key Features:
 
-* Control synchronization: Set the maximum number of entities to synchronize.
-* Event-driven communication:
-  * OnSynchronized: Notifies you when entities were successfully synchronized from Dojo world to Unity.
-  * OnEntitySpawned: Triggered whenever a new entity is spawned in the Unity environment.
+- Control synchronization: Set the maximum number of entities to synchronize.
+- Event-driven communication:
 
-* Dynamic entity management:
-  * SynchronizeEntities: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
-  * HandleEntityUpdate: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
+  - OnSynchronized: Notifies you when entities were successfully synchronized from Dojo world to Unity.
+  - OnEntitySpawned: Triggered whenever a new entity is spawned in the Unity environment.
+
+- Dynamic entity management:
+  - SynchronizeEntities: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
+  - HandleEntityUpdate: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
 
 ## Models
 
@@ -43,11 +44,11 @@ While you have the flexibility to incorporate as many models as necessary, it's 
 
 > 💡 Explore the following sections to gain insights:
 
-* [Models Definition](/cairo/models.md): Understand the structure and functionality of models within Dojo.
+- [Models Definition](/cairo/models.md): Understand the structure and functionality of models within Dojo.
 
-* [Entity Definition](/cairo/entities.md): Learn about entities in the context of Dojo.
+- [Entity Definition](/cairo/entities.md): Learn about entities in the context of Dojo.
 
-* [Dojo as an ECS in 15 Minutes](/cairo/hello-dojo.md): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
+- [Dojo as an ECS in 15 Minutes](/cairo/hello-dojo.md): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
 
 ### Bingen
 
@@ -55,19 +56,19 @@ While you have the flexibility to incorporate as many models as necessary, it's 
 
 To use this feature, execute the following command within your Cairo project:
 
-``` rust
+```rust
   sozo build --unity
 ```
 
 Once executed, you can proceed by either moving the files generated in the `bindings/unity` directory to your Unity project, or specify a custom output directory using:
 
-``` rust
+```rust
   sozo build --unity --output-bindings ./your/unity/project/folder
 ```
 
 > ⚠️ The version of dojo must be >= `0.6.0-alpha.0`. To install it run:
 
-``` rust
+```rust
   dojoup --version v0.6.0-alpha.0
 ```
 
@@ -75,7 +76,7 @@ Once executed, you can proceed by either moving the files generated in the `bind
 
 > Model in Dojo:
 
-``` rust
+```rust
 #[derive(Model, Drop, Serde)]
 struct Moves {
     #[key]
@@ -97,7 +98,7 @@ enum Direction {
 
 > Representation in Unity:
 
-``` cs
+```cs
 using System.Numerics;
 using Dojo;
 using Dojo.Starknet;

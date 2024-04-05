@@ -18,4 +18,3 @@ The RPC methods are categorized into the following namespaces:
 | [`dev`](/toolchain/katana/rpc/dev)           | -           |
 
 Each RPC methods can be invoked by prefixing the method name with the namespace name and an underscore. For example, the `getTransactions` method in the `torii` namespace can be invoked as `torii_getTransactions`.
-
