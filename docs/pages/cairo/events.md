@@ -2,7 +2,13 @@
 
 Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a `Model`, the `World` contract emits these events. What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to [Torii](/toolchain/torii/overview.md), all these events are seamlessly indexed, ensuring easy and efficient querying.
 
-### Model Events
+
+### Core Events
+
+-  Model Events: to synchronize torii state with on-chain state
+-  World Events: world lifecycle events 
+
+#### Model Events
 
 Consider this example of a `Moves` model:
 
@@ -19,10 +25,9 @@ When this model is updated, the `World` contract will emit an event with the fol
 ```rust
 #[derive(Drop, starknet::Event)]
 struct StoreSetRecord {
-    table: felt252, // Moves
-    keys: Span<felt252>, // [player]
-    offset: u8, // offset for the value in the table
-    value: Span<felt252>, // [remaining]
+    table: felt252,        // Moves
+    keys: Span<felt252>,   // [player]
+    values: Span<felt252>, // [remaining]
 }
 ```
 
@@ -33,12 +38,12 @@ Similarly, when a model is deleted, the `World` contract will emit an event with
 ```rust
 #[derive(Drop, starknet::Event)]
 struct StoreDelRecord {
-    table: felt252,
-    keys: Span<felt252>,
+    table: felt252,      // Moves
+    keys: Span<felt252>, // [player]
 }
 ```
 
-### World Events
+#### World Events
 
 The `World` contract also emits events when it's initialized and when new models and contracts are registered. These events are emitted with the following structures:
 
@@ -46,20 +51,18 @@ The `World` contract also emits events when it's initialized and when new models
 #[derive(Drop, starknet::Event)]
 struct WorldSpawned {
     address: ContractAddress,
-    caller: ContractAddress
+    creator: ContractAddress
 }
-```
 
-```rust
 #[derive(Drop, starknet::Event)]
 struct ModelRegistered {
     name: felt252,
     class_hash: ClassHash,
-    prev_class_hash: ClassHash
+    prev_class_hash: ClassHash,
+    address: ContractAddress,
+    prev_address: ContractAddress,
 }
-```
 
-```rust
 #[derive(Drop, starknet::Event)]
 struct ContractDeployed {
     salt: felt252,
@@ -76,37 +79,93 @@ struct ContractUpgraded {
 
 These events are also captured by [Torii](/toolchain/torii/overview.md) and indexed for querying.
 
+You can find all the world events in [world.cairo](https://github.com/dojoengine/dojo/blob/94fbe540de31f0ba7f59685aeffef2c695fb170d/crates/dojo-core/src/world.cairo#L93)
+
 ### Custom Events
 
 Within your game, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` command that lets you release events directly from your world. These events are indexed by [Torii](/toolchain/torii/overview.md).
 
-Use it like so:
+There is two kind of Custom Events with different use-cases.
+
+#### with #[dojo::Event]
+
+This events are acting like 'off-chain' storage and derive [Model](/cairo/models) which allow Torii to easily parse this events.
+Since it's a [Model](/cairo/models) it must have a least a #[key]
+
+How to use : 
+
+For example we will declare a PlayerStatus struct to keep track of player mood. 
+
+-We don't need this information on-chain.
+
+-We don't want to historize PlayerMood changes, just keep track of the current/latest PlayerMood
 
 ```rust
-emit!(world, Moved { address, direction });
+#[derive(Model, Copy, Drop, Serde)]
+#[dojo::event]
+struct PlayerMood {
+    #[key]
+    player: ContractAddress,
+    mood: Mood,
+ }
 ```
 
-Include this in your contract and it will emit an event with the following structure:
+Emit the `PlayerMood` event
 
 ```rust
+emit!(world, ( PlayerMood { player, mood: Mood::Happy } ));
+```
+
+Each time a PlayerMood event is emitted, the PlayerMood Model indexed by Torii will reflect the lasted mood.
+
+
+#### with starknet::Event
+
+This events are acting like classic starknet events, allowing historization.
+
+Torii index this events in a raw format ( ex : [here](/toolchain/torii/graphql#susbcription-to-events))
+
+How to use : 
+
+Declare the starknet Event enum for you contract with a `Moved` variant
+
+```rust
+#[event]
 #[derive(Drop, starknet::Event)]
+enum Event {
+    Moved: Moved,
+}
+```
+
+Declare the `Moved` struct 
+
+```rust
+#[derive(Drop, Serde, starknet::Event)]
 struct Moved {
     address: felt252,
     direction: felt252,
 }
 ```
 
+Emit the `Moved` event
+
+```rust
+emit!(world, (Event::Moved( Moved { address, direction } )) );
+```
+
 Now a full example using a custom event:
 
 ```rust
-fn move(ctx: Context, direction: Direction) {
-    let (mut position, mut moves) = get !(world, caller, (Position, Moves));
+fn move(world: IWorldDispatcher, direction: Direction) {
+    let player = get_caller_address();
+    let (mut position, mut moves) = get!(world, player, (Position, Moves));
     moves.remaining -= 1;
-
+    moves.last_direction = direction;
     let next = next_position(position, direction);
-    set !(world, (moves, next));
-    emit !(world, Moved { address: caller, direction });
+    set!(world, (moves, next));
+    emit!(world, (Event::Moved( Moved { player, direction } )) );
 }
 ```
+
 
 > Note: Read about the `get!` and `set!` macros in [Commands](/cairo/commands.md).
