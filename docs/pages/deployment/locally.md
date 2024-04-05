@@ -32,10 +32,15 @@ Deploying your project to Katana involves a few simple steps.\
 
 2. **Migrate your Project:**
 
-   To migrate, run:
+    To migrate, plan the migration and output the manifests:
 
    ```bash
    sozo migrate plan
+   ```
+
+   Apply the migration on-chain
+
+   ```bash
    sozo migrate apply
    ```
 

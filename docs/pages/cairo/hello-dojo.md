@@ -238,7 +238,11 @@ katana --disable-fee
 Success! [Katana](/toolchain/katana/overview.md) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
 
 ```bash
-sozo migrate
+sozo migrate plan
+```
+
+```bash
+sozo migrate apply
 ```
 
 This command will deploy the artifact to [Katana](/toolchain/katana/overview.md). You should see terminal output similar to this:

@@ -118,7 +118,7 @@ query{
 }
 ```
 
-If you execute this query after you applied `sozo migrate` in your [`hello-dojo`](/cairo/hello-dojo.md) example. You will get an output similar to this.
+If you execute this query after you applied `sozo migrate plan` and `sozo migrate apply` in your [`hello-dojo`](/cairo/hello-dojo.md) example. You will get an output similar to this.
 
 ```json
 {
