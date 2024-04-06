@@ -1,0 +1,95 @@
+import WorldOptions from '../common/world-options.mdx'
+import StarknetOptions from '../common/starknet-options.mdx'
+import AccountOptions from '../common/account-options.mdx'
+import SignerOptionsRaw from '../common/signer-options-raw.mdx'
+import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
+
+## sozo auth
+
+`auth` is used to manage world authorization. In the world, authorizations are given on resources, which are identified by a `resource_id`.
+In the case of the models, the `resource_id` is the name of the model `struct` you have into your code.
+In the case of a dojo contract with systems, the `resource_id` is the address of the contract.
+Finally, the world itself is a resource, and its `resource_id` is `0`.
+
+Authorizations are separated in two categories:
+* _Ownership_: when the world / dojo contract is deployed, or a model registered, the deployer becomes the owner of such resource. Ownership can be granted to others.
+* _Writer_: to give write access on models, you must explicitely grant the writer role to a system.
+
+With `sozo auth`, you can grant or revoke ownership or writer roles.
+
+This command sends the transaction to the world contract using a multicall. So independently of the number of resources you want to update, this command will only send one transaction.
+
+### USAGE
+
+```sh
+Usage: sozo auth [OPTIONS] <COMMAND>
+
+Commands:
+  grant   Grant an auth role.
+  revoke  Revoke an auth role.
+  help    Print this message or the help of the given subcommand(s)
+```
+
+The syntax changes depending on the authorization you want to grant / revoke.
+
+#### `ownership`
+
+```sh
+sozo auth grant/revoke owner [OPTIONS] <resource,owner_address>...
+```
+
+* _`resource`_
+&nbsp;&nbsp;&nbsp;&nbsp;The resource can be a model or a contract, and must be identified as follow:  
+&nbsp;&nbsp;&nbsp;&nbsp;- For a model, `model:model_name`.  
+&nbsp;&nbsp;&nbsp;&nbsp;- For a contract, `contract:0x1234` or `contract:fully::qualified::name`.
+
+* _`owner_address`_
+&nbsp;&nbsp;&nbsp;&nbsp;The address of the owner to grant/revoke ownership to.
+
+#### `writer`
+
+```sh
+sozo auth grant/revoke writer [OPTIONS] <model,contract_address>...
+```
+
+* _`model`_
+&nbsp;&nbsp;&nbsp;&nbsp;The name of the model to grant/revoke writer access to.
+
+* _`contract_address`_
+&nbsp;&nbsp;&nbsp;&nbsp;The address of the contract to grant/revoke writer access to.
+
+#### World Options
+
+<WorldOptions/>
+
+#### Starknet Options
+
+<StarknetOptions/>
+
+#### Account Options
+
+<AccountOptions/>
+
+#### Signer Options - Raw
+
+<SignerOptionsRaw/>
+
+#### Signer Options - Keystore
+
+<SignerOptionsKeystore/>
+
+### EXAMPLES
+```sh
+# example: writer - auth a system with the given calldata
+# This will auth the spawn system with the writer role for Position model.
+sozo auth grant writer Moves,0x3539c9b89b08095ba914653fb0f20e55d4b172a415beade611bc260b346d0f7
+```
+
+```sh
+# example: owner - gives ownership to an account contract on a model
+sozo auth grant owner model:Moves,0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
+```
+```sh
+# example: owner - gives ownership to an account contract on a dojo contract
+sozo auth grant owner contract:0x3539c9b89b08095ba914653fb0f20e55d4b172a415beade611bc260b346d0f7,0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
+```

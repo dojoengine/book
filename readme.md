@@ -13,6 +13,7 @@ Peruse our [contributing guidelines](docs/pages/misc/contributors.md). From mino
 ### Setup
 
 1. Install Vocs dependencies
+
 ```bash
     npm install -g pnpm
     nvm install --lts
@@ -21,6 +22,7 @@ Peruse our [contributing guidelines](docs/pages/misc/contributors.md). From mino
 ```
 
 2. Running the Book locally
+
 ```bash
     pnpm run dev
 ```

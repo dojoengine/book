@@ -1,0 +1,48 @@
+import WorldOptions from '../common/world-options.mdx'
+import StarknetOptions from '../common/starknet-options.mdx'
+import AccountOptions from '../common/account-options.mdx'
+import SignerOptionsRaw from '../common/signer-options-raw.mdx'
+import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
+import TransactionOptions from '../common/transaction-options.mdx'
+
+## sozo register
+
+`register` is used to register new models to the world. Registering a model ensures that the model is included into the world with it's associated permissions, and can be used by systems.
+
+### USAGE
+
+```sh
+Usage: sozo register [OPTIONS] <COMMAND>
+
+Commands:
+  model  Register a model to a world.
+  help   Print this message or the help of the given subcommand(s)
+```
+
+#### World Options
+
+<WorldOptions/>
+
+#### Starknet Options
+
+<StarknetOptions/>
+
+#### Account Options
+
+<AccountOptions/>
+
+#### Signer Options - Raw
+
+<SignerOptionsRaw/>
+
+#### Signer Options - Keystore
+
+<SignerOptionsKeystore/>
+
+#### Transaction Options
+
+<TransactionOptions/>
+
+```sh
+sozo register model 0x764906a97ff3e532e82b154908b25711cdec1c692bf68e3aba2a3dd9964a15c
+```

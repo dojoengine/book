@@ -14,65 +14,65 @@ The genesis configuration provides a convenient way to customize the chain's sta
 The genesis config file is a JSON file that contains the following fields:
 
 - `number`  
-*The block number of the genesis block.*
+  _The block number of the genesis block._
 - `parentHash`  
-*The parent hash of the genesis block.*
+  _The parent hash of the genesis block._
 - `timestamp`  
-*The timestamp of the genesis block.*
+  _The timestamp of the genesis block._
 - `stateRoot`  
-*The state root of the genesis block.*
+  _The state root of the genesis block._
 - `sequencerAddress`  
-*The sequencer address.*
-- `gasPrices` *The gas prices for the L1 tokens at the genesis block.*  
-    - `ETH`   
-  	*The price of ETH in wei.*
-    - `STRK`  
-	*The price of STRK in fri.*
-- `feeToken` *The network fee token configuration. (optional)* 
-	- `name`  
-	*The name of the fee token.*
-	- `symbol`  
-	*The symbol of the fee token.*  
-	- `decimals`  
-	*The number of decimal places for the fee token.*
+  _The sequencer address._
+- `gasPrices` _The gas prices for the L1 tokens at the genesis block._
+  - `ETH`  
+    _The price of ETH in wei._
+  - `STRK`  
+    _The price of STRK in fri._
+- `feeToken` _The network fee token configuration. (optional)_
+  - `name`  
+    _The name of the fee token._
+  - `symbol`  
+    _The symbol of the fee token._
+  - `decimals`  
+    _The number of decimal places for the fee token._
     - `address` (optional)  
-  	*The fee token contract address.* 
-	- `class`  (optional)  
-  	*The class of the fee token.* 
-	- `storage` (optional)  
-    *Key-value pairs for the fee token's storage.*
-- `universalDeployer` *The universal deployer configuration. (optional)*
-	- `address` (optional)  
-	*The universal deployer contract address.* 
-	- `storage` (optional)  
-	*Key-value pairs for the universal deployer's storage.* 
-- `accounts` *The genesis allocations.*
-	- <CONTRACT_ADDRESS> *The address of the account contract.* 
-		- `publicKey`  
-		*The public key associated with the account.*  
-		- `privateKey` (optional)  
-		*The private key associated with publicKey.* 
-		- `balance` (optional)  
-		*The initial balance of the account.* 
-		- `nonce` (optional)  
-		*The nonce of the account.* 
-		- `class` (optional)  
-		*The class to be used for the account contract.* 
-		- `storage` (optional)  
-		*Key-value pairs for the account's storage.* 
-- `contracts` *Genesis contract deployments.*  
-    - <CONTRACT_ADDRESS> *The address of the contract.* 
-		- `class`  
-		*The class of the contract.*  
-		- `balance` (optional)    
-		 *The balance allocated to the contract.*  
-		- `storage` (optional)  
-		*Key-value pairs for the contract's storage.*  
-- `classes`  *Classes to declare at genesis.*  
+      _The fee token contract address._
+  - `class` (optional)  
+    _The class of the fee token._
+  - `storage` (optional)  
+    _Key-value pairs for the fee token's storage._
+- `universalDeployer` _The universal deployer configuration. (optional)_
+  - `address` (optional)  
+    _The universal deployer contract address._
+  - `storage` (optional)  
+    _Key-value pairs for the universal deployer's storage._
+- `accounts` _The genesis allocations._
+  - <CONTRACT_ADDRESS> _The address of the account contract._
+    - `publicKey`  
+      _The public key associated with the account._
+    - `privateKey` (optional)  
+      _The private key associated with publicKey._
+    - `balance` (optional)  
+      _The initial balance of the account._
+    - `nonce` (optional)  
+      _The nonce of the account._
+    - `class` (optional)  
+      _The class to be used for the account contract._
+    - `storage` (optional)  
+      _Key-value pairs for the account's storage._
+- `contracts` _Genesis contract deployments._
+  - <CONTRACT_ADDRESS> _The address of the contract._
     - `class`  
-    *The path to the class artifact file relative to the genesis config file, or the full class artifact object.*  
-    - `classHash` (optional)
-    *The hash of the class. To override the actual class hash that will be computed from the class definition itself.*  
+      _The class of the contract._
+    - `balance` (optional)  
+      _The balance allocated to the contract._
+    - `storage` (optional)  
+      _Key-value pairs for the contract's storage._
+- `classes` _Classes to declare at genesis._
+  - `class`  
+    _The path to the class artifact file relative to the genesis config file, or the full class artifact object._
+  - `classHash` (optional)
+    _The hash of the class. To override the actual class hash that will be computed from the class definition itself._
 
 ### Example
 

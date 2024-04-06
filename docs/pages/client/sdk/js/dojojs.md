@@ -13,6 +13,7 @@ Ensure that you're using the latest supported Dojo [version](https://github.com/
 All start projets are based on the [dojo-starter](https://github.com/dojoengine/dojo-starter) project.
 
 There are currently 4 starter projects available:
+
 - react-app: simple react app
 - react-phaser-example: react app using Phaser.js
 - react-pwa-app: React Progressive Web App
@@ -39,13 +40,15 @@ React hooks are used to manage the states. Whenever Torii receives a new entity,
 To retrieve entities, use the `useEntityQuery` hook. This returns an array of entity ids, not directly the entities themselves. See `useComponentValue` for more information.
 
 ```ts
-const players = useEntityQuery([Has(Player)])
+const players = useEntityQuery([Has(Player)]);
 ```
 
 If you want to filter values, use `HasValue` with an object containing the fields to filter and the values for each filter.
 
 ```ts
-const filteredPlayers = useEntityQuery([HasValue(Player, { address: account.address })])
+const filteredPlayers = useEntityQuery([
+  HasValue(Player, { address: account.address }),
+]);
 ```
 
 ### useComponentValue
@@ -54,10 +57,10 @@ This hook is used to retrieve the value of a component. It returns the value of 
 
 ```ts
 // Retrieve the entity ids of all players model
-const players = useEntityQuery([Has(Player)])
+const players = useEntityQuery([Has(Player)]);
 
 // Retrieve the player entity
-const player = useComponentValue(players[0], Player)
+const player = useComponentValue(players[0], Player);
 ```
 
 If you need to use all the entities retrieved, you need to pass the entityId to another component and use `useComponentValue` to retrieve the value inside this component.
@@ -94,9 +97,9 @@ We first initialize the torii client.
 
 ```ts
 const toriiClient = await torii.createClient([], {
-    rpcUrl: config.rpcUrl, // Katana url
-    toriiUrl: config.toriiUrl, // Torii url
-    worldAddress: config.manifest.world.address || "", // World contract address
+  rpcUrl: config.rpcUrl, // Katana url
+  toriiUrl: config.toriiUrl, // Torii url
+  worldAddress: config.manifest.world.address || "", // World contract address
 });
 ```
 
@@ -127,12 +130,12 @@ import { SetupNetworkResult } from "./setupNetwork";
 export type ClientComponents = ReturnType<typeof createClientComponents>;
 
 export function createClientComponents({
-    contractComponents,
+  contractComponents,
 }: SetupNetworkResult) {
-    return {
-        ...contractComponents,
-        Position: overridableComponent(contractComponents.Position),
-    };
+  return {
+    ...contractComponents,
+    Position: overridableComponent(contractComponents.Position),
+  };
 }
 ```
 
@@ -148,21 +151,21 @@ You can add and remove overrides using the addOverride and removeOverride functi
 // Extract from createSystemCalls.tsx
 const positionId = uuid();
 Position.addOverride(positionId, {
-    entity: entityId,
-    value: {
-        player: BigInt(entityId),
-        vec: updatePositionWithDirection(
-            direction,
-            getComponentValue(Position, entityId) as any
-        ).vec,
-    },
+  entity: entityId,
+  value: {
+    player: BigInt(entityId),
+    vec: updatePositionWithDirection(
+      direction,
+      getComponentValue(Position, entityId) as any,
+    ).vec,
+  },
 });
 
 // ...
 // Send transaction
 // ...
 
-Position.removeOverride(positionId)
+Position.removeOverride(positionId);
 ```
 
 You can check the [`createSystemCalls`]("https://github.com/dojoengine/dojo.js/blob/main/examples/react/react-app/src/dojo/createSystemCalls.ts") file to see this full example of the addOverride and removeOverride functions in action.

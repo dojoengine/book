@@ -168,6 +168,10 @@ export default defineConfig({
                   link: "/toolchain/sozo/project-commands/build",
                 },
                 {
+                  text: "clean",
+                  link: "/toolchain/sozo/project-commands/clean",
+                },
+                {
                   text: "test",
                   link: "/toolchain/sozo/project-commands/test",
                 },
@@ -180,12 +184,12 @@ export default defineConfig({
                   link: "/toolchain/sozo/world-commands/execute",
                 },
                 {
-                  text: "register",
-                  link: "/toolchain/sozo/world-commands/register",
+                  text: "call",
+                  link: "/toolchain/sozo/world-commands/call",
                 },
                 {
-                  text: "system",
-                  link: "/toolchain/sozo/world-commands/system",
+                  text: "register",
+                  link: "/toolchain/sozo/world-commands/register",
                 },
                 {
                   text: "model",
