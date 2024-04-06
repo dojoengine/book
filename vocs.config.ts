@@ -30,7 +30,7 @@ export default defineConfig({
     { text: "Katana", link: "/toolchain/katana/overview", match: "/katana" },
     { text: "Blog", link: "https://www.dojoengine.org/en/articles" },
     {
-      text: "0.5.0",
+      text: "0.6.0",
       items: [
         {
           text: "Releases",
