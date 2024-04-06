@@ -34,7 +34,7 @@ sozo --version
 You should have an output similar to this:
 
 ```console
-sozo 0.6.0-alpha.9
+sozo 0.6.0
 scarb: 2.5.4
 cairo: 2.5.4
 sierra: 1.4.0
