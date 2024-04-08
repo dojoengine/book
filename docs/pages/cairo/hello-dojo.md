@@ -39,6 +39,7 @@ Next, open the `src/models/moves.cairo` file to continue."
 
 ```rust
 #[derive(Model, Drop, Serde)]
+#[dojo::event] // A model with `dojo::event` is able to be emitted with the `emit!` macro.
 struct Moves {
     #[key]
     player: ContractAddress,
@@ -48,9 +49,11 @@ struct Moves {
 ...rest of code
 ```
 
-Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
+Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model. 
 
-Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this model using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields
+Then, we have `#[dojo::event]`, which is a custom attribute that allows the model to be emitted with the `emit!` macro. This is one kind of Custom Events that dojo provides.
+
+Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this model using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields. The `#[key]` attribute also informs Dojo that this event is indexed by the `player` field.
 
 Next, open the `src/models/position.cairo` file to continue.
 
@@ -93,20 +96,20 @@ mod actions {
     use starknet::{ContractAddress, get_caller_address};
     use dojo_starter::models::{position::{Position, Vec2}, moves::{Moves, Direction}};
 
-    // declaring custom event struct
-    #[event]
-    #[derive(Drop, starknet::Event)]
-    enum Event {
-        Moved: Moved,
-    }
+    // declaring custom starknet event
+    // #[event]
+    // #[derive(Drop, starknet::Event)]
+    // enum Event {
+    //     Moved: Moved,
+    // }
 
-    // declaring custom event struct
-    #[derive(starknet::Event, Model, Copy, Drop, Serde)]
-    struct Moved {
-        #[key]
-        player: ContractAddress,
-        direction: Direction
-    }
+    // declaring custom starknet event struct
+    // #[derive(starknet::Event, Model, Copy, Drop, Serde)]
+    // struct Moved {
+    //     #[key]
+    //     player: ContractAddress,
+    //     direction: Direction
+    // }
 
     // impl: implement functions specified in trait
     #[abi(embed_v0)]
@@ -116,18 +119,14 @@ mod actions {
             let player = get_caller_address();
             // Retrieve the player's current position from the world.
             let position = get!(world, player, (Position));
-            // Retrieve the player's move data, e.g., how many moves they have left.
-            let moves = get!(world, player, (Moves));
 
             // Update the world state with the new data.
-            // 1. Set players moves to 100
-            // 2. Initialize player's position to (10,10)
+            // 1. Set the player's remaining moves by 100.
+            // 2. Move the player's position 10 units in both the x and y direction.
             set!(
                 world,
                 (
-                    Moves {
-                        player, remaining: moves.remaining + 1, last_direction: Direction::None(())
-                    },
+                    Moves { player, remaining: 100, last_direction: Direction::None(()) },
                     Position {
                         player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
                     },
@@ -144,7 +143,8 @@ mod actions {
             let (mut position, mut moves) = get!(world, player, (Position, Moves));
 
             // Deduct one from the player's remaining moves.
-            moves.remaining -= 1;
+            let remaining = moves.remaining - 1;
+            moves.remaining = remaining;
 
             // Update the last direction the player moved in.
             moves.last_direction = direction;
@@ -152,11 +152,11 @@ mod actions {
             // Calculate the player's next position based on the provided direction.
             let next = next_position(position, direction);
 
-            // // Update the world state with the new moves data and position.
+            // Update the world state with the new moves data and position.
             set!(world, (moves, next));
-
             // Emit an event to the world to notify about the player's move.
-            emit!(world, Moved { player, direction });
+            // emit!(world, Moved { player, direction });
+            emit!(world,( Moves { player, remaining, last_direction: direction }));
         }
     }
 }
@@ -183,27 +183,22 @@ As you can see a `System` is like a regular function of a Dojo(Starknet) contrac
 ```rust
 // Retrieve the player's current position from the world.
 let position = get!(world, player, (Position));
-
-// Retrieve the player's move data, e.g., how many moves they have left.
-let moves = get!(world, player, (Moves));
 ```
 
-Here we use `get!` [command](/cairo/commands.md) to retrieve the `Position` and `Moves` model for the `player` entity, which is the address of the caller.
+Here we use `get!` [command](/cairo/commands.md) to retrieve the `Position` model for the `player` entity, which is the address of the caller.
 
 Now the next line:
 
 ```rust
 // Update the world state with the new data.
-// 1. Increase the player's remaining moves by 1.
+// 1. Set the player's remaining moves by 100.
 // 2. Move the player's position 10 units in both the x and y direction.
 set!(
     world,
     (
-        Moves {
-            player, remaining: moves.remaining + 1, last_direction: Direction::None
-        },
+        Moves { player, remaining: 100, last_direction: Direction::None(()) },
         Position {
-            player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10}
+            player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
         },
     )
 );
@@ -238,13 +233,13 @@ katana --disable-fee
 Success! [Katana](/toolchain/katana/overview.md) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
 
 ```bash
-sozo migrate
+sozo migrate apply
 ```
 
-This command will deploy the artifact to [Katana](/toolchain/katana/overview.md). You should see terminal output similar to this:
+This command will deploy the artifact to `Katana`. You should see terminal output similar to this:
 
 ```console
-Migration account: 0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
+Migration account: 0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca
 
 World name: dojo_starter
 
@@ -253,24 +248,22 @@ Chain ID: KATANA
 [1] 🌎 Building World state....
   > No remote World found
 [2] 🧰 Evaluating Worlds diff....
-  > Total diffs found: 5
+  > Total diffs found: 4
 [3] 📦 Preparing for migration....
-  > Total items to be migrated (5): New 5 Update 0
-
+  > Total items to be migrated (4): New 4 Update 0
+  
 # Base Contract
   > Class Hash: 0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76
 # World
   > Contract address: 0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8
-  > Set Metadata transaction: 0x2acbbe239dae2d122c18b3efb0698c00ceb25d7ef9103e63879dce593f8afee
-  > Metadata uri: ipfs://QmcgVv9FGthd1TSm7fUh2dzyQ9Son8EBmntRC1UmKsFuTx
-# Models (3)
-dojo_starter::systems::actions::actions::moved
-  > Class hash: 0xf00737ffe57c5c931bfec9a7ea66f76d5eaae12cacca6952dcee0c2e3d8038
+  > Set Metadata transaction: 0x5cab33effb796861b5624a392c6c9e77beb7b6d6867a9169d9cd87d4117bd05
+  > Metadata uri: ipfs://Qmbx6D7ERFjF8q6zBpoJnvcBHfh8qRvyzxwNghDi9eegGR
+# Models (2)
 dojo_starter::models::moves::moves
   > Class hash: 0x23c28dcfad6be01ca6509fdb35fd2bed6622238397613c60da5d387a43c38d0
 dojo_starter::models::position::position
   > Class hash: 0x2e9c42b868b520d54bff1b7f4c9b91f39bb2e2ad1c39d6484fb5d8a95382e01
-All models are registered at: 0x2c8998d162d40e9313fd2f7d3e0a8898db1ceb25bb9de1ec463686286c010cd
+All models are registered at: 0x1125a469633da39a5c1ec4d1e4735fa82c6c0fd906b46724ac4b43fec81e46e
 # Contracts (1)
 dojo_starter::systems::actions::actions
   > Contract address: 0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3
@@ -292,8 +285,8 @@ Let's discuss the `Scarb.toml` file in the project. This file contains environme
 [tool.dojo.env]
 rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0
-account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
-private_key = "0x1800000000300000180000000000030000000000003006001800006600"
+account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
+private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a"
 world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8" # Update this line with your world address
 ```
 
@@ -315,37 +308,29 @@ torii --world 0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8
 Running the command mentioned above starts a [Torii](/toolchain/torii/overview.md) server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. `Torii` will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
 
 ```console
-2024-03-24T07:01:07.305489Z  INFO torii::relay::server: Relay peer id peer_id=12D3KooWF2CrpqMsHveDqVLtuiGfQur5zTwSFXgu4izK4gFVoCJX
-2024-03-24T07:01:07.311246Z  INFO libp2p_swarm: local_peer_id=12D3KooWF2CrpqMsHveDqVLtuiGfQur5zTwSFXgu4izK4gFVoCJX
-2024-03-24T07:01:07.314052Z  INFO torii::cli: Starting torii endpoint: http://0.0.0.0:8080
-2024-03-24T07:01:07.314065Z  INFO torii::cli: Serving Graphql playground: http://0.0.0.0:8080/graphql
-2024-03-24T07:01:07.314070Z  INFO torii::cli: World Explorer is available on: https://worlds.dev/torii?url=http%3A%2F%2Flocalhost%3A8080%2Fgraphql
+2024-04-08T04:59:51.165468Z  INFO torii::relay::server: Relay peer id. peer_id=12D3KooWQuidwFrvRrhzZ78UG6hTqUHh1TwzeR4J33M9qmJhMKeG
+2024-04-08T04:59:51.170245Z  INFO libp2p_swarm: local_peer_id=12D3KooWQuidwFrvRrhzZ78UG6hTqUHh1TwzeR4J33M9qmJhMKeG
+2024-04-08T04:59:51.172485Z  INFO torii::cli: Starting torii endpoint. endpoint=http://0.0.0.0:8080
+2024-04-08T04:59:51.172496Z  INFO torii::cli: Serving Graphql playground. endpoint=http://0.0.0.0:8080/graphql
+2024-04-08T04:59:51.172498Z  INFO torii::cli: Serving World Explorer. url=https://worlds.dev/torii?url=http%3A%2F%2Flocalhost%3A8080%2Fgraphql
+2024-04-08T04:59:51.174014Z  INFO torii::relay::server: New listen address. address=/ip4/127.0.0.1/tcp/9090
+2024-04-08T04:59:51.174029Z  INFO torii::relay::server: New listen address. address=/ip4/10.0.43.105/tcp/9090
+2024-04-08T04:59:51.174032Z  INFO torii::relay::server: New listen address. address=/ip4/172.17.0.1/tcp/9090
+2024-04-08T04:59:51.174053Z  INFO torii::relay::server: New listen address. address=/ip4/127.0.0.1/udp/9090/quic-v1
+2024-04-08T04:59:51.174059Z  INFO torii::relay::server: New listen address. address=/ip4/10.0.43.105/udp/9090/quic-v1
+2024-04-08T04:59:51.174064Z  INFO torii::relay::server: New listen address. address=/ip4/172.17.0.1/udp/9090/quic-v1
+2024-04-08T04:59:51.174307Z  INFO torii::relay::server: New listen address. address=/ip4/127.0.0.1/udp/9091/webrtc-direct/certhash/uEiAEYOqrpEJc3g77i_aR295QUNiTK9bJZSrjmDYKsV8O7g
+2024-04-08T04:59:51.174319Z  INFO torii::relay::server: New listen address. address=/ip4/10.0.43.105/udp/9091/webrtc-direct/certhash/uEiAEYOqrpEJc3g77i_aR295QUNiTK9bJZSrjmDYKsV8O7g
+2024-04-08T04:59:51.174325Z  INFO torii::relay::server: New listen address. address=/ip4/172.17.0.1/udp/9091/webrtc-direct/certhash/uEiAEYOqrpEJc3g77i_aR295QUNiTK9bJZSrjmDYKsV8O7g
+2024-04-08T04:59:51.180017Z  INFO tori_core::engine: Processed block. block_number=3
+2024-04-08T04:59:51.181230Z  INFO tori_core::engine: Processed block. block_number=4
+2024-04-08T04:59:51.182020Z  INFO torii_core::processors::metadata_update: Resource metadata set. resource=0x0 uri=ipfs://Qmbx6D7ERFjF8q6zBpoJnvcBHfh8qRvyzxwNghDi9eegGR/
+2024-04-08T04:59:51.182244Z  INFO tori_core::engine: Processed block. block_number=7
+2024-04-08T04:59:51.192041Z  INFO torii_core::processors::register_model: Registered model. name=Moves
+2024-04-08T04:59:51.198165Z  INFO torii_core::processors::register_model: Registered model. name=Position
+2024-04-08T04:59:51.200032Z  INFO tori_core::engine: Processed block. block_number=9
+2024-04-08T04:59:55.302098Z  INFO torii_core::processors::metadata_update: Updated resource metadata from ipfs. resource=0x0
 
-2024-03-24T07:01:07.315318Z  INFO torii::relay::server: New listen address address=/ip4/127.0.0.1/tcp/9090
-2024-03-24T07:01:07.315336Z  INFO torii::relay::server: New listen address address=/ip4/192.168.100.28/tcp/9090
-2024-03-24T07:01:07.315340Z  INFO torii::relay::server: New listen address address=/ip4/172.17.0.1/tcp/9090
-2024-03-24T07:01:07.315374Z  INFO torii::relay::server: New listen address address=/ip4/127.0.0.1/udp/9090/quic-v1
-2024-03-24T07:01:07.315379Z  INFO torii::relay::server: New listen address address=/ip4/192.168.100.28/udp/9090/quic-v1
-2024-03-24T07:01:07.315383Z  INFO torii::relay::server: New listen address address=/ip4/172.17.0.1/udp/9090/quic-v1
-2024-03-24T07:01:07.315555Z  INFO torii::relay::server: New listen address address=/ip4/127.0.0.1/udp/9091/webrtc-direct/certhash/uEiBNe_o7CBNfrOrx0yDPdKlGN8ODgfdG6VcJnNUGt5EXKQ
-2024-03-24T07:01:07.315563Z  INFO torii::relay::server: New listen address address=/ip4/192.168.100.28/udp/9091/webrtc-direct/certhash/uEiBNe_o7CBNfrOrx0yDPdKlGN8ODgfdG6VcJnNUGt5EXKQ
-2024-03-24T07:01:07.315746Z  INFO torii::relay::server: New listen address address=/ip4/172.17.0.1/udp/9091/webrtc-direct/certhash/uEiBNe_o7CBNfrOrx0yDPdKlGN8ODgfdG6VcJnNUGt5EXKQ
-2024-03-24T07:01:07.321750Z  INFO torii_core::engine: processed block: 0
-2024-03-24T07:01:07.323093Z  INFO torii_core::engine: processed block: 1
-2024-03-24T07:01:07.323538Z  INFO torii_core::engine: processed block: 2
-2024-03-24T07:01:07.324375Z  INFO torii_core::engine: processed block: 3
-2024-03-24T07:01:07.325597Z  INFO torii_core::processors::metadata_update: Resource 0x0 metadata set: ipfs://QmcgVv9FGthd1TSm7fUh2dzyQ9Son8EBmntRC1UmKsFuTx/
-2024-03-24T07:01:07.325648Z  INFO torii_core::engine: processed block: 4
-2024-03-24T07:01:07.326382Z  INFO torii_core::engine: processed block: 5
-2024-03-24T07:01:07.326812Z  INFO torii_core::engine: processed block: 6
-2024-03-24T07:01:07.327265Z  INFO torii_core::engine: processed block: 7
-2024-03-24T07:01:07.332613Z  INFO torii_core::processors::register_model: Registered model name="Moved"
-2024-03-24T07:01:07.339471Z  INFO torii_core::processors::register_model: Registered model name="Moves"
-2024-03-24T07:01:07.346717Z  INFO torii_core::processors::register_model: Registered model name="Position"
-2024-03-24T07:01:07.348367Z  INFO torii_core::engine: processed block: 8
-2024-03-24T07:01:07.349451Z  INFO torii_core::engine: processed block: 9
-2024-03-24T07:01:07.350306Z  INFO torii_core::engine: processed block: 10
-2024-03-24T07:01:11.359573Z  INFO torii_core::processors::metadata_update: Updated resource 0x0 metadata from ipfs
 ```
 
 You can observe that our `Moves` and `Position` models have been successfully registered.
@@ -417,13 +402,13 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 {
   "data": {
     "entityUpdated": {
-      "id": "0x2038e0daba5c3948a6289e91e2a68dfc28e734a281c753933b8bd331e6d3dae",
+      "id": "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666",
       "keys": [
-        "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
+        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
       ],
-      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0000",
-      "createdAt": "2024-03-24T07:06:52Z",
-      "updatedAt": "2024-03-24T07:06:52Z"
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000a:0x4b26441ad51e51517c45c703579bd41e99401815d5dd12eadb7b1ef65242f2a:0x00",
+      "createdAt": "2024-04-08T09:00:41Z",
+      "updatedAt": "2024-04-08T09:00:41Z"
     }
   }
 }
@@ -431,13 +416,13 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 {
   "data": {
     "entityUpdated": {
-      "id": "0x2038e0daba5c3948a6289e91e2a68dfc28e734a281c753933b8bd331e6d3dae",
+      "id": "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666",
       "keys": [
-        "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
+        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
       ],
-      "eventId": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0001",
-      "createdAt": "2024-03-24T07:06:52Z",
-      "updatedAt": "2024-03-24T07:06:52Z"
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000a:0x4b26441ad51e51517c45c703579bd41e99401815d5dd12eadb7b1ef65242f2a:0x01",
+      "createdAt": "2024-04-08T09:00:41Z",
+      "updatedAt": "2024-04-08T09:00:41Z"
     }
   }
 }
