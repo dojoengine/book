@@ -66,10 +66,10 @@ Once executed, you can proceed by either moving the files generated in the `bind
   sozo build --unity --output-bindings ./your/unity/project/folder
 ```
 
-> ⚠️ The version of dojo must be >= `0.6.0-alpha.0`. To install it run:
+> ⚠️ The version of dojo must be >= `0.6.0`. To install it run:
 
 ```rust
-  dojoup --version v0.6.0-alpha.0
+  dojoup --version v0.6.0
 ```
 
 ### Example

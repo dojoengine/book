@@ -91,10 +91,10 @@ called Result::unwrap() on an Err value: ConversionFailed("Can't convert token i
 note: run with RUST_BACKTRACE=1 environment variable to display a backtrace
 ```
 
-> To resolve this issue, it's recommended to upgrade your Dojo version to at least `v0.6.0-alpha`. You can achieve this by running the following command in your terminal:
+> To resolve this issue, it's recommended to upgrade your Dojo version to at least `v0.6.0`. You can achieve this by running the following command in your terminal:
 
 ```rust
-dojoup --version v0.6.0-alpha
+dojoup --version v0.6.0
 ```
 
 ## Torii Communication Error

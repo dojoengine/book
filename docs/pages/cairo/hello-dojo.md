@@ -297,11 +297,11 @@ private_key = "0x1800000000300000180000000000030000000000003006001800006600"
 world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8" # Update this line with your world address
 ```
 
-At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `0.6.0-alpha.7`.
+At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `0.6.0`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.7" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0" }
 ```
 
 ### Indexing
