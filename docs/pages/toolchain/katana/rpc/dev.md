@@ -2,7 +2,7 @@
 
 The `dev` API provides a way to manipulate the blockchain state at runtime. This namespace is only accessible when the `--dev` flag is enabled.
 
-### `generateBlock`  
+### `generateBlock`
 
 Mines a new block which includes all currently pending transactions.
 
@@ -10,7 +10,7 @@ Mines a new block which includes all currently pending transactions.
 | ------------------------------------------------- |
 | `{ "method": "dev_generateBlock", "params": [] }` |
 
-### `nextBlockTimestamp`  
+### `nextBlockTimestamp`
 
 Get the timestamp for the next block.
 
@@ -18,7 +18,7 @@ Get the timestamp for the next block.
 | ------------------------------------------------------ |
 | `{ "method": "dev_nextBlockTimestamp", "params": [] }` |
 
-### `increaseNextBlockTimestamp`  
+### `increaseNextBlockTimestamp`
 
 Increase the time for the block by a given amount of time, in seconds.
 
@@ -26,7 +26,7 @@ Increase the time for the block by a given amount of time, in seconds.
 | ---------------------------------------------------------------------- |
 | `{ "method": "dev_increaseNextBlockTimestamp", "params": [ amount ] }` |
 
-### `setNextBlockTimestamp`  
+### `setNextBlockTimestamp`
 
 Similar to `dev_increaseNextBlockTimestamp` but takes the exact timestamp that you want in the next block.
 

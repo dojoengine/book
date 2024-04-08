@@ -6,10 +6,10 @@
 
 Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](/cairo/models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework. This framework promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
 
-To start, let's set up a project to run locally on your machine. From an empty directory, execute:
+To start, let's create a new project to run locally on your machine. Execute:
 
 ```bash
-sozo init
+sozo init dojo-starter
 ```
 
 Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory. It's the ideal starting point for a new project and equips you with everything you need to begin.
@@ -297,11 +297,11 @@ private_key = "0x1800000000300000180000000000030000000000003006001800006600"
 world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8" # Update this line with your world address
 ```
 
-At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `0.6.0-alpha.7`.
+At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `0.6.0`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.7" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0" }
 ```
 
 ### Indexing

@@ -30,7 +30,7 @@ export default defineConfig({
     { text: "Katana", link: "/toolchain/katana/overview", match: "/katana" },
     { text: "Blog", link: "https://www.dojoengine.org/en/articles" },
     {
-      text: "0.5.0",
+      text: "0.6.0",
       items: [
         {
           text: "Releases",
@@ -168,6 +168,10 @@ export default defineConfig({
                   link: "/toolchain/sozo/project-commands/build",
                 },
                 {
+                  text: "clean",
+                  link: "/toolchain/sozo/project-commands/clean",
+                },
+                {
                   text: "test",
                   link: "/toolchain/sozo/project-commands/test",
                 },
@@ -180,12 +184,12 @@ export default defineConfig({
                   link: "/toolchain/sozo/world-commands/execute",
                 },
                 {
-                  text: "register",
-                  link: "/toolchain/sozo/world-commands/register",
+                  text: "call",
+                  link: "/toolchain/sozo/world-commands/call",
                 },
                 {
-                  text: "system",
-                  link: "/toolchain/sozo/world-commands/system",
+                  text: "register",
+                  link: "/toolchain/sozo/world-commands/register",
                 },
                 {
                   text: "model",
@@ -281,7 +285,11 @@ export default defineConfig({
           text: "SDKs",
           collapsed: true,
           items: [
-            { text: "dojo.js", link: "/client/dojojs" },
+            {
+              text: "dojo.js",
+              link: "/client/sdk/js/dojojs",
+              collapsed: true,
+            },
             {
               text: "dojo.unity",
               link: "/client/sdk/unity/overview",

@@ -10,13 +10,13 @@ Scarb.toml
 [package]
 name = "ohayoo"
 version = "0.1.0"
-cairo-version = "0.3.15"
+cairo-version = "0.6.0"
 
 [cairo]
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.3.15" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0" }
 
 # KATANA on slot
 # rpc_url = "https://api.cartridge.gg/x/example/katana"

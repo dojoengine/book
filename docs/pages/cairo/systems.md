@@ -48,7 +48,7 @@ mod player_actions {
     // implementation of the PlayerActions interface
     #[abi(embed_v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
-        fn spawn(self: @ContractState, world: IWorldDispatcher) {
+        fn spawn(world: IWorldDispatcher) {
             let player = get_caller_address();
             let position = get!(world, player, (Position));
             set!(
@@ -106,10 +106,7 @@ mod player_actions {
     #[abi(embed_v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         // ContractState is defined by system decorator expansion
-        fn spawn(self: @ContractState) {
-            // world dispatcher
-            let world = self.world_dispatcher.read();
-
+        fn spawn(world: IWorldDispatcher) {
             // player
             let player = get_caller_address();
 
@@ -126,10 +123,7 @@ mod player_actions {
             );
         }
 
-        fn move(self: @ContractState, direction: Direction) {
-            // world dispatcher
-            let world = self.world_dispatcher.read();
-
+        fn move(world: IWorldDispatcher, direction: Direction) {
             // player
             let player = get_caller_address();
 

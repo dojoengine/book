@@ -65,8 +65,17 @@ Here we are updating the `Moves` and `Position` models in the world state using 
 The `emit!` command is used to emit custom events. These events are indexed by [Torii](/toolchain/torii/overview.md).
 
 ```rust
-emit!(world, Moved { address: caller, direction });
+emit!(world, (Moved { address: caller, direction })); // dojo::Event
+emit!(world, (Event::Moved (Moved { address: caller, direction } ))); // starknet::Event
+
+// emit multiple events
+emit!(world, (
+    Moved { address: caller, direction },
+    AnotherEvent { address: caller, value1, value2 }
+    )
+); 
 ```
+More infos on `dojo::Event` & `starknet::Event` [here](/cairo/events#custom-events)
 
 This will emit these values which could be captured by a client or you could query these via [Torii](/toolchain/torii/overview.md).
 

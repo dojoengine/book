@@ -6,4 +6,4 @@ _TL;DR_
 - You can subscribe to entity and model events via the gRPC
 - Read more - [gRPC](https://grpc.io/docs/what-is-grpc/introduction/)
 
-You can use the gRPC directly or you can use it through a developed client. A great way to use it is via [dojo.js](/client/dojojs.md) torii-client package.
+You can use the gRPC directly or you can use it through a developed client. A great way to use it is via [dojo.js](/client/sdk/js/dojojs.md) torii-client package.

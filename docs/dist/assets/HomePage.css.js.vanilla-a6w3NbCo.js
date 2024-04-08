@@ -1,0 +1,1 @@
+import{j as a,d as c,c as e}from"./index-KZ_aprDi.js";var r="vocs_Button_button",u="vocs_Button_button_accent";function _({children:t,className:n,href:s,variant:o}){return a.jsx(c,{className:e(n,r,o==="accent"&&u),href:s,variant:"styleless",children:t})}export{_ as B};

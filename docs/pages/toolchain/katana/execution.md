@@ -12,7 +12,7 @@ As mentioned earlier, the `starknet_in_rust` engine is not the default execution
 If you want to install Katana with the `starknet_in_rust` engine, you can do so by running the following command, without having to clone the Dojo repository locally (provided that you have `rustc` and `cargo` already installed):
 
 ```console
-cargo install --git https://github.com/dojoengine/dojo katana --no-default-features --features sir --locked --force 
+cargo install --git https://github.com/dojoengine/dojo katana --no-default-features --features sir --locked --force
 ```
 
 ::::note
@@ -27,5 +27,3 @@ TODO: Add more information about Cairo Native and how to build it
 ## Benchmarks
 
 TODO: Add benchmarks for the different execution engines
-
-

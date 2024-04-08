@@ -43,8 +43,8 @@ struct Vec2 {
 
 // interface
 #[starknet::interface]
-trait IPlayerActions<TContractState> {
-    fn spawn(self: @TContractState);
+trait IPlayerActions {
+    fn spawn();
 }
 
 // contract
@@ -59,10 +59,7 @@ mod player_actions {
         //
         // This is how we interact with the world contract.
         //
-        fn spawn(self: @ContractState) {
-            // Access the world dispatcher for reading.
-            let world = self.world_dispatcher.read();
-
+        fn spawn(world: IWorldDispatcher) {
             // get player address
             let player = get_caller_address();
 

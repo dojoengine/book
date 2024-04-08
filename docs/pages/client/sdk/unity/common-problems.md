@@ -44,20 +44,22 @@ Encountering the following error during a WebGL build?
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
-    - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
-    ![webgl-error](/unity/webgl-build-fail.png)
-    > Example without `Dojo` template selected
-    - Select the WebGL tab.
-    - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
-    - If the Dojo template is missing, proceed to `step 2`.
+
+   - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
+     ![webgl-error](/unity/webgl-build-fail.png)
+     > Example without `Dojo` template selected
+   - Select the WebGL tab.
+   - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
+   - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
-    - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
-    - Download the `WebGL templates` folder.
-    - Add this folder to your project's Assets directory.
+
+   - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
+   - Download the `WebGL templates` folder.
+   - Add this folder to your project's Assets directory.
 
 3. **Rebuild Your Project**:
-After ensuring the Dojo template is selected or added, try rebuilding your project for WebGL.
+   After ensuring the Dojo template is selected or added, try rebuilding your project for WebGL.
 
 ## Async calls not Working
 
@@ -69,7 +71,7 @@ return await account.ExecuteRaw(new dojo.Call[] {
             }
 ```
 
-If you don't have it, add it to your scene. 
+If you don't have it, add it to your scene.
 
 > The `UnityMainThreadDispatcher` can be found in `Assets/Dojo/Runtime directory`.
 
@@ -89,10 +91,10 @@ called Result::unwrap() on an Err value: ConversionFailed("Can't convert token i
 note: run with RUST_BACKTRACE=1 environment variable to display a backtrace
 ```
 
-> To resolve this issue, it's recommended to upgrade your Dojo version to at least `v0.6.0-alpha`. You can achieve this by running the following command in your terminal:
+> To resolve this issue, it's recommended to upgrade your Dojo version to at least `v0.6.0`. You can achieve this by running the following command in your terminal:
 
 ```rust
-dojoup --version v0.6.0-alpha
+dojoup --version v0.6.0
 ```
 
 ## Torii Communication Error

@@ -1,6 +1,6 @@
 ## `katana` Namespace
 
-### `predeployedAccounts`  
+### `predeployedAccounts`
 
 Get the info for all of the predeployed accounts.
 

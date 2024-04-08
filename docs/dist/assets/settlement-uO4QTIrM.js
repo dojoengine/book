@@ -1,0 +1,2 @@
+import{u as s,j as e}from"./index-KZ_aprDi.js";const i=void 0;function o(t){const n={a:"a",div:"div",em:"em",h2:"h2",p:"p",...s(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.h2,{id:"settlement",children:["Settlement",e.jsx(n.a,{"aria-hidden":"true",tabIndex:"-1",href:"#settlement",children:e.jsx(n.div,{"data-autolink-icon":!0})})]}),`
+`,e.jsx(n.p,{children:e.jsx(n.em,{children:"Coming soon"})})]})}function a(t={}){const{wrapper:n}={...s(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(o,{...t})}):o(t)}export{a as default,i as frontmatter};

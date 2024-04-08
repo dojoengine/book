@@ -1,4 +1,4 @@
-![katana](/sozo-icon-word.png)
+![sozo](/sozo-icon-word.png)
 
 ## Sozo
 

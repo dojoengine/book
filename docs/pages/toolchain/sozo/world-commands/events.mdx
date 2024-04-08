@@ -1,0 +1,46 @@
+import WorldOptions from '../common/world-options.mdx'
+import StarknetOptions from '../common/starknet-options.mdx'
+
+## sozo events
+
+`events` is used to queries world events.
+
+### USAGE
+
+```sh
+Usage: sozo events [OPTIONS] --chunk-size <CHUNK_SIZE> [EVENTS]...
+```
+
+### Arguments
+
+_`EVENTS`_  
+&nbsp;&nbsp;&nbsp;&nbsp;List of specific events to be filtered.
+
+### OPTIONS
+
+`--from-block [-f]` _FROM_BLOCK_  
+&nbsp;&nbsp;&nbsp;&nbsp;Block number from where to look for events.
+
+`--manifest-path` _MANIFEST_PATH_  
+&nbsp;&nbsp;&nbsp;&nbsp;Override path to a directory containing a Scarb.toml file.  
+&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_MANIFEST_PATH`
+
+`--to-block [-t]` _TO_BLOCK_  
+&nbsp;&nbsp;&nbsp;&nbsp;Block number until where to look for events.
+
+`--chunk-size [-c]` _CHUNK_SIZE_  
+&nbsp;&nbsp;&nbsp;&nbsp;Number of events to return per page.
+
+`--continuation-token` _CONTINUATION_TOKEN_  
+&nbsp;&nbsp;&nbsp;&nbsp;Continuation string to be passed for rpc request.
+
+`--json`  
+&nbsp;&nbsp;&nbsp;&nbsp;Print values as raw json.
+
+#### World Options
+
+<WorldOptions/>
+
+#### Starknet Options
+
+<StarknetOptions/>
