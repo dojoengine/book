@@ -60,13 +60,13 @@ Make sure your `Scarb.toml` looks like this:
 [package]
 cairo-version = "2.5.4"
 name = "chess"
-version = "0.6.0-alpha.7"
+version = "0.6.0"
 
 [cairo]
 sierra-replace-ids = true
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.7" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0" }
 
 [[target.dojo]]
 
