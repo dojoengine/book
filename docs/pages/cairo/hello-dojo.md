@@ -49,9 +49,9 @@ struct Moves {
 ...rest of code
 ```
 
-Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model. 
+Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
-Then, we have `#[dojo::event]`, which is a custom attribute that allows the model to be emitted with the `emit!` macro. This is one kind of Custom Events that dojo provides.
+Next, there's #[dojo::event], a custom attribute enabling the model to be emitted using the emit! macro. This attribute represents one type of Custom Event offered by Dojo.
 
 Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this model using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields. The `#[key]` attribute also informs Dojo that this event is indexed by the `player` field.
 
@@ -121,7 +121,7 @@ mod actions {
             let position = get!(world, player, (Position));
 
             // Update the world state with the new data.
-            // 1. Set the player's remaining moves by 100.
+            // 1. Set the player's remaining moves to 100.
             // 2. Move the player's position 10 units in both the x and y direction.
             set!(
                 world,
@@ -191,7 +191,7 @@ Now the next line:
 
 ```rust
 // Update the world state with the new data.
-// 1. Set the player's remaining moves by 100.
+// 1. Set the player's remaining moves to 100.
 // 2. Move the player's position 10 units in both the x and y direction.
 set!(
     world,
@@ -251,7 +251,7 @@ Chain ID: KATANA
   > Total diffs found: 4
 [3] 📦 Preparing for migration....
   > Total items to be migrated (4): New 4 Update 0
-  
+
 # Base Contract
   > Class Hash: 0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76
 # World
