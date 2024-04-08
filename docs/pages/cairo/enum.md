@@ -5,11 +5,10 @@ Enums, short for "enumerations," are a way to define a custom data type that con
 ```rust
 # [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
 enum PlayerCharacter {
-    Godzilla
-    Dragon
-    Fox
+    Godzilla,
+    Dragon,
+    Fox,
     Rhyno
-
 }
 
 ```
@@ -163,6 +162,7 @@ enum PowerUp {
     DoubleDamage,
 }
 ```
+
  enums serve as powerful tools for creating expressive, self-documenting code. They enhance readability, prevent errors, and facilitate better software design.
 
 > Read more about Cairo enums [here](https://book.cairo-lang.org/ch06-00-enums-and-pattern-matching.html)
