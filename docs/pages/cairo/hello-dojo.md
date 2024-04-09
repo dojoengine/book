@@ -51,7 +51,7 @@ struct Moves {
 
 Notice the `#[derive(Model, Drop, Serde)]` attributes. For a model to be recognized, we _must_ include `Model`. This signals to the Dojo compiler that this struct should be treated as a model.
 
-Next, there's #[dojo::event], a custom attribute enabling the model to be emitted using the emit! macro. This attribute represents one type of Custom Event offered by Dojo.
+Next, there's #[dojo::event], a custom attribute enabling the model to be emitted using the `emit!` macro. This attribute represents one type of custom event offered by Dojo.
 
 Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you can query this model using the `player` field. Our `Moves` model also contains the `remaining` and `last_direction` fields. The `#[key]` attribute also informs Dojo that this event is indexed by the `player` field.
 
