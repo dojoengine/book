@@ -38,7 +38,7 @@ Since we're crafting an ECS, it's essential to adhere to the specific terminolog
 Next, open the `src/models/moves.cairo` file to continue."
 
 ```rust
-#[derive(Model, Drop, Serde)]
+#[derive(Model, Copy, Drop, Serde)]
 #[dojo::event] // A model with `dojo::event` is able to be emitted with the `emit!` macro.
 struct Moves {
     #[key]
@@ -143,8 +143,7 @@ mod actions {
             let (mut position, mut moves) = get!(world, player, (Position, Moves));
 
             // Deduct one from the player's remaining moves.
-            let remaining = moves.remaining - 1;
-            moves.remaining = remaining;
+            moves.remaining -= 1;
 
             // Update the last direction the player moved in.
             moves.last_direction = direction;
@@ -156,7 +155,7 @@ mod actions {
             set!(world, (moves, next));
             // Emit an event to the world to notify about the player's move.
             // emit!(world, Moved { player, direction });
-            emit!(world,( Moves { player, remaining, last_direction: direction }));
+            emit!(world, (moves));
         }
     }
 }
