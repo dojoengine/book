@@ -198,7 +198,7 @@ Before you move on, implement traits for models so we can use them in the next c
 
 ### Requirements
 
-Firt we have to define the following traits for `Game`, `Player`, `Piece` models respectively.
+First, we have to define the following traits for `Game`, `Player`, `Piece` models respectively.
 
 ```rust
 trait GameTurnTrait {
@@ -215,7 +215,7 @@ fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool;
 }
 ```
 
-Try to implement this code by yourself, Otherwise
+Try to implement this code by yourself. Otherwise
 
 <details>
 <summary>Click to see full `models.cairo` code</summary>
