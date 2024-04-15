@@ -2,53 +2,60 @@
 
 ## What is Enum
 Enums, short for "enumerations," are a way to define a custom data type that consists of a fixed set of named values, called variants. Enums are useful for representing a collection of related values where each value is distinct and has a specific meaning. Enums are particularly useful in game development for representing game states, player actions, or any other set of related constants that a game might need to track.
-```rust
-# [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
-enum PlayerCharacter {
-    Godzilla,
-    Dragon,
-    Fox,
-    Rhyno
-}
 
-```
-In this example, we've defined an enum called PlayerCharacter with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`. The naming convention is to use PascalCase for enum variants. Each variant represents a distinct value of the PlayerCharacter type. In this particular example, variants don't have any associated value. 
+In this example, we've defined an enum called PlayerCharacter with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`. The naming convention is to use `PascalCase` for enum variants. Each variant represents a distinct value of the `PlayerCharacter` type. In this particular example, variants don't have any associated value. 
 Now let's imagine that our variants have associated values, We can define a new PlayerCharacter enum:
 
 ```rust
 # [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
 enum PlayerCharacter {
-    Godzilla :u128,
-    Dragon : u128,
-    Fox : u128,
-    Rhyno : u128
+    Godzilla: u128,
+    Dragon:   u128,
+    Fox:      u128,
+    Rhyno:    u128
 }
 
 ```
+However, in Dojo, all enum variants must share the same type. This limitation poses a challenge when we want to associate different data types with each variant, as is often the case in game development where characters, items, or enemies may have unique attributes.
+To work around this limitation, we can use a struct to encapsulate the attributes of each character type. This allows us to maintain the unique characteristics of each character while adhering to the constraints.
 
-In the next example, we will see that it is also possible to associate different data types with each variant. The PlayerCharacter enum we will define serves as a blueprint for creating various types of characters, each with their unique attributes. This design choice is particularly useful in game development, where you often need to manage different types of entities (like characters, items, or enemies) that share some common properties but also have unique characteristics.
-
-``` rust 
+```rust
 # [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
 enum PlayerCharacter {
-    Godzilla ,
-    Fox  : felt252,
+    Godzilla(CharacterAttributes),
+    Fox(CharacterAttributes),
+    Rhyno(CharacterAttributes),
 }
 
-    // Instantiate some characters with associated values
-let godzilla = PlayerCharacter::Godzilla;
-let fox = PlayerCharacter::Fox(90);
-```
+# [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
+struct CharacterAttributes {
+    is_godzilla: bool,
+    fox_value: Option<u32>, // Assuming felt252 is represented as u32 for simplicity
+    rhyno_values: Option<(u128, u128)>,
+}
 
-In this example, the PlayerCharacter enum has three variants: `Godzilla`, `Fox`, and `Rhyno`, all with different types:
-`Godzilla` doesn't have any associated value.
-`Fox ` is a single felt252.
-`Rhyno` is a tuple of two u128 values.
-You could even use a Struct or another enum you defined inside one of your enum variants.
+let godzilla = PlayerCharacter::Godzilla(CharacterAttributes {
+    is_godzilla: true,
+    fox_value: None,
+    rhyno_values: None,
+})
+
+let fox = PlayerCharacter::Fox(CharacterAttributes {
+    is_godzilla: false,
+    fox_value: Some(90), // Assuming felt252 is represented as u32 for simplicity
+    rhyno_values: None,
+});
+```
+For the `Godzilla` variant, since it doesn't require any additional data, you would instantiate it with a `CharacterAttributes` struct, where the `is_godzilla` flag is set to true, and the other fields are set to None or their default values. This approach effectively addresses the limitation where enum variants must share the same type.
+the `PlayerCharacter` enum has three variants: `Godzilla`, `Fox`, and `Rhyno`. Each variant takes a `CharacterAttributes` struct as its associated value. The `CharacterAttributes` struct contains fields to represent the unique attributes of each character type:
+
+`is_godzilla`: A boolean flag to indicate if the character is Godzilla.
+`fox_value: An`  `optional u32` value to represent the `felt252` value for Fox.
+`rhyno_values`: An optional tuple of two  `u128` values to represent the two `u128` values for `Rhyno`.
 
 ## Trait Implementations for Enums
 
- traits are a way to define shared behavior across types. By defining traits and implementing them for your custom enums, you can encapsulate common behaviors and methods that are relevant to the enum. This approach enhances code reusability and maintainability, especially in complex systems like game development.
+ Traits are a way to define shared behavior across types. By defining traits and implementing them for your custom enums, you can encapsulate common behaviors and methods that are relevant to the enum. This approach enhances code reusability and maintainability, especially in complex systems like game development.
 
 Consider the GameStatus enum, which represents the various states a game can be in. This enum is a simple yet powerful example of how enums can be used to model game states.
 
@@ -106,11 +113,11 @@ Regarding the placement of the enum, it's generally best practice to define enum
 Given that Eternum has one enum in each system, it suggests a design where each system is self-contained and has its own set of related events or states. This design can help to encapsulate the logic of each system, making the codebase easier to navigate and understand.
 
 ## Important Of Enums 
-1 Semantic Clarity:
+1. Semantic Clarity:
 Enums provide semantic clarity by giving meaningful names to specific values. Instead of using arbitrary integers or strings, you can use descriptive identifiers.
 For example, consider an enum representing different player states: `IDLE`, `RUNNING`, `JUMPING`, and `ATTACKING`. These names convey the purpose of each state more effectively than raw numeric values.
 
-2 Avoiding Magic Numbers:
+2. Avoiding Magic Numbers:
 Magic numbers (hard-coded numeric values) in your code can be confusing and error-prone. Enums help you avoid this pitfall.
 Suppose you have an event system where different events trigger specific actions. Instead of using 0, 1, 2, etc., you can define an enum like this:
 
@@ -123,9 +130,9 @@ enum Event {
 Now, when handling events, you can use Event::PlayerSpawned instead of an arbitrary number.
 ```
 
-3 Type Safety:
+3. Type Safety:
 Enums provide type safety. Each enum variant has a distinct type, preventing accidental mixing of incompatible values.
-For instance, if you have an enum representing different power-ups:
+For instance, if you have an enum representing different power-ups. you can’t mistakenly assign a PowerUp value to a variable expecting a different type.
 
 ```rust
 enum PowerUp {
@@ -133,12 +140,10 @@ enum PowerUp {
     SpeedBoost,
     Invincibility,
 }
-You can’t mistakenly assign a PowerUp value to a variable expecting a different type.
 ```
-4 Pattern Matching:
+4. Pattern Matching:
 Enums shine when used in pattern matching (also known as switch/case statements).
-You can handle different cases based on the enum variant, making your code more expressive and concise. example
-
+You can handle different cases based on the enum variant, making your code more expressive and concise. Example:
 ``` rust 
 fn handle_power_up(power_up: PowerUp) {
     match power_up {
@@ -150,7 +155,7 @@ fn handle_power_up(power_up: PowerUp) {
 
 ```
 
-5 Extensibility:
+5. Extensibility:
 Enums allow you to add new variants without breaking existing code.
 Suppose you later introduce a DoubleDamage power-up. You can simply extend the PowerUp enum:
 
