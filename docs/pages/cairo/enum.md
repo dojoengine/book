@@ -6,7 +6,7 @@ Enums, short for "enumerations," are a way to define a custom data type that con
 In this example, we've defined an enum called PlayerCharacter with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`. The naming convention is to use `PascalCase` for enum variants. Each variant represents a distinct value of the `PlayerCharacter` type. In this particular example, variants don't have any associated value. 
 Now let's imagine that our variants have associated values, We can define a new PlayerCharacter enum:
 ```rust
-# [derive(Serde, Copy, Drop, Introspect)]
+// PlayerCharacter enum representing different characters withassociated u128 values.
 enum PlayerCharacter {
     Godzilla: u128,
     Dragon:   u128,
@@ -169,7 +169,6 @@ enum PowerUp {
 ```
 
  enums serve as powerful tools for creating expressive, self-documenting code. They enhance readability, prevent errors, and facilitate better software design.
-
 Read more about Cairo enums [here](https://book.cairo-lang.org/ch06-00-enums-and-pattern-matching.html)
 
 
