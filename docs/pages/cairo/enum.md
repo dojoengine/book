@@ -6,7 +6,7 @@ Enums, short for "enumerations," are a way to define a custom data type that con
 In this example, we've defined an enum called PlayerCharacter with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`. The naming convention is to use `PascalCase` for enum variants. Each variant represents a distinct value of the `PlayerCharacter` type. In this particular example, variants don't have any associated value. 
 Now let's imagine that our variants have associated values, We can define a new PlayerCharacter enum:
 ```rust
-// PlayerCharacter enum representing different characters withassociated u128 values.
+// PlayerCharacter enum representing different characters with associated u128 values.
 enum PlayerCharacter {
     Godzilla: u128,
     Dragon:   u128,
