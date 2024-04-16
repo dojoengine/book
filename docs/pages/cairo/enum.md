@@ -5,17 +5,17 @@ Enums, short for "enumerations," are a way to define a custom data type that con
 
 In this example, we've defined an enum called PlayerCharacter with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`. The naming convention is to use `PascalCase` for enum variants. Each variant represents a distinct value of the `PlayerCharacter` type. In this particular example, variants don't have any associated value. 
 Now let's imagine that our variants have associated values, We can define a new PlayerCharacter enum:
-
 ```rust
-# [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
+# [derive(Serde, Copy, Drop, Introspect)]
 enum PlayerCharacter {
     Godzilla: u128,
     Dragon:   u128,
     Fox:      u128,
     Rhyno:    u128
 }
-
 ```
+[Explore more about enums, including variants with associated values. Click here for detailed examples and insights](https://book.cairo-lang.org/ch06-01-enums.html)
+
 However, in Dojo, all enum variants must share the same type. This limitation poses a challenge when we want to associate different data types with each variant, as is often the case in game development where characters, items, or enemies may have unique attributes.
 To work around this limitation, we can use a struct to encapsulate the attributes of each character type. This allows us to maintain the unique characteristics of each character while adhering to the constraints.
 
@@ -46,11 +46,11 @@ let fox = PlayerCharacter::Fox(CharacterAttributes {
     rhyno_values: None,
 });
 ```
-For the `Godzilla` variant, since it doesn't require any additional data, you would instantiate it with a `CharacterAttributes` struct, where the `is_godzilla` flag is set to true, and the other fields are set to None or their default values. This approach effectively addresses the limitation where enum variants must share the same type.
-the `PlayerCharacter` enum has three variants: `Godzilla`, `Fox`, and `Rhyno`. Each variant takes a `CharacterAttributes` struct as its associated value. The `CharacterAttributes` struct contains fields to represent the unique attributes of each character type:
+For the `Godzilla` variant, since it doesn't require any additional data, you would instantiate it with a `CharacterAttributes` struct, where the `is_godzilla` flag is set to true, and the other fields are set to `None` or their default values. This approach effectively addresses the limitation where enum variants must share the same type.
+The `PlayerCharacter` enum has three variants: `Godzilla`, `Fox`, and `Rhyno`. Each variant takes a `CharacterAttributes` struct as its associated value. The `CharacterAttributes` struct contains fields to represent the unique attributes of each character type:
 
-`is_godzilla`: A boolean flag to indicate if the character is Godzilla.
-`fox_value: An`  `optional u32` value to represent the `felt252` value for Fox.
+`is_godzilla`: A boolean flag to indicate if the character is Godzilla.      
+`fox_value`:  An optional `u32` value to represent the `felt252` value for Fox.  
 `rhyno_values`: An optional tuple of two  `u128` values to represent the two `u128` values for `Rhyno`.
 
 ## Trait Implementations for Enums
@@ -170,7 +170,7 @@ enum PowerUp {
 
  enums serve as powerful tools for creating expressive, self-documenting code. They enhance readability, prevent errors, and facilitate better software design.
 
-> Read more about Cairo enums [here](https://book.cairo-lang.org/ch06-00-enums-and-pattern-matching.html)
+Read more about Cairo enums [here](https://book.cairo-lang.org/ch06-00-enums-and-pattern-matching.html)
 
 
 
