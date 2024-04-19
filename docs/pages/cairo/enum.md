@@ -72,6 +72,7 @@ enum GameStatus {
 <!-- We define an into trait -->
  ``` rust
 impl GameStatusFelt252 of Into<GameStatus, felt252> {
+
     fn into(self: GameStatus) -> felt252 {
         match self {
             GameStatus::NotStarted => 0,
@@ -85,24 +86,26 @@ impl GameStatusFelt252 of Into<GameStatus, felt252> {
 
 # Structuring Game Logic with Traits and enum
 Building upon the GameStatus enum, we can define a Game struct that includes a GameStatus field. By implementing a custom trait for the Game struct, we can encapsulate game-specific logic and assertions.
-```rust
+
+``` rust
 #[derive(Model, Copy, Drop, Serde)]
 struct Game {
     status: GameStatus,
 }
 
 
-
+// Implement the trait for the Game struct
 #[generate_trait]
-impl GameImpl of GameTrait {
-    fn assert_in_progress(self: Game) {
-        assert(self.status == GameStatus::InProgress, "Game not started");
+impl GameImpl of GameTrait{
+
+    fn assert_in_progress(self: Game) {	
+            assert(self.status == GameStatus::InProgress, "Game not started");
     }
-    fn assert_lobby(self: Game) {
-        assert(self.status == GameStatus::Lobby, "Game not in lobby");
+
+    fn assert_lobby(self: Game) {	  
+        assert(self.status == GameStatus::Lobby, "Game not in lobby");	        
     }
-   
-}
+}   
 ```
 
 ## Enum Placement
