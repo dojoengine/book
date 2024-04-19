@@ -88,12 +88,12 @@ Building upon the GameStatus enum, we can define a Game struct that includes a G
 ```rust
 #[derive(Model, Copy, Drop, Serde)]
 struct Game {
-    #[key]
-    game_id: u32,
     status: GameStatus,
 }
 
-# [generate_trait]
+
+
+#[generate_trait]
 impl GameImpl of GameTrait {
     fn assert_in_progress(self: Game) {
         assert(self.status == GameStatus::InProgress, "Game not started");
@@ -101,9 +101,7 @@ impl GameImpl of GameTrait {
     fn assert_lobby(self: Game) {
         assert(self.status == GameStatus::Lobby, "Game not in lobby");
     }
-    fn assert_not_started(self: Game) {
-        assert(self.status == GameStatus::NotStarted, "Game already started");
-    }
+   
 }
 ```
 
@@ -169,6 +167,7 @@ enum PowerUp {
 ```
 
  enums serve as powerful tools for creating expressive, self-documenting code. They enhance readability, prevent errors, and facilitate better software design.
+ 
 Read more about Cairo enums [here](https://book.cairo-lang.org/ch06-00-enums-and-pattern-matching.html)
 
 
