@@ -89,6 +89,7 @@ Building upon the GameStatus enum, we can define a Game struct that includes a G
 
 ``` rust
 #[derive(Model, Copy, Drop, Serde)]
+// Define the Game struct to represent a game object
 struct Game {
     status: GameStatus,
 }
