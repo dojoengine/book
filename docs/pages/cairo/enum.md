@@ -21,6 +21,7 @@ To work around this limitation, we can use a struct to encapsulate the attribute
 
 ```rust
 # [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
+// Define an enum representing different player characters
 enum PlayerCharacter {
     Godzilla(CharacterAttributes),
     Fox(CharacterAttributes),
@@ -28,18 +29,21 @@ enum PlayerCharacter {
 }
 
 # [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
+// Define a struct representing the attributes of a character
 struct CharacterAttributes {
     is_godzilla: bool,
     fox_value: Option<u32>, // Assuming felt252 is represented as u32 for simplicity
     rhyno_values: Option<(u128, u128)>,
 }
 
+// Create an instance of the Godzilla character
 let godzilla = PlayerCharacter::Godzilla(CharacterAttributes {
     is_godzilla: true,
     fox_value: None,
     rhyno_values: None,
 })
 
+// Create an instance of the Fox character
 let fox = PlayerCharacter::Fox(CharacterAttributes {
     is_godzilla: false,
     fox_value: Some(90), // Assuming felt252 is represented as u32 for simplicity
