@@ -19,7 +19,7 @@ export default defineConfig({
   ],
   editLink: {
     pattern:
-      "https://github.com/dojoengine/book/blob/main/dojo-book/docs/pages/:path",
+      "https://github.com/dojoengine/book/blob/main/docs/pages/:path",
     text: "Edit on GitHub",
   },
   ogImageUrl:
