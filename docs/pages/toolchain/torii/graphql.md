@@ -28,17 +28,19 @@ After the torii server starts on your local machine, you're ready to make query 
 
 Torii generates both the schema and queries at runtime specific to your world. There are mainly two groups of queries, predefined queries and dynamically generated custom queries.
 
-Predefined queries like `entities` provide a generic entry point to the entities data of the world. Custom queries on the other hand are built according to the models of the world. Each model has a correpsonding `{name}Models` query and retrieves the associated model data. For example: `positionModels`.
+Predefined queries like `entities` provide a generic entry point to the entities data of the world. Custom queries on the other hand are built according to the models of the world. Each model has a correpsonding `{model_name}Models` query and retrieves the associated model data. For example: `positionModels`.
 
 The benefit of custom queries becomes apparent when filtering and sorting is needed. They allow much more finer control of the returned dataset.
 
 ### Query operation
 
-In [`hello-dojo`](/cairo/hello-dojo.md#next-steps) we fetched some data from the `Moves` model. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model .
+In [`hello-dojo`](/cairo/hello-dojo.md#next-steps) we fetched some data from all the registered models. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model. To accomplish this, you have to pass the `id` of the model as an argument to the query operation.
 
 ```graphql
 query {
-  model(id: "Position") {
+  model(
+    id: "0x28b9aeb6b19af1454b16ce28c1ee6909e3946e4552ed09886a06ebe1e158fc"
+  ) {
     id
     name
     classHash
@@ -52,9 +54,9 @@ After you run the query, you will receive an output like this:
 {
   "data": {
     "model": {
-      "id": "Position",
+      "id": "0x28b9aeb6b19af1454b16ce28c1ee6909e3946e4552ed09886a06ebe1e158fc",
       "name": "Position",
-      "classHash": "0x6ffc643cbc4b2fb9c424242b18175a5e142269b45f4463d1cd4dddb7a2e5095"
+      "classHash": "0x2e9c42b868b520d54bff1b7f4c9b91f39bb2e2ad1c39d6484fb5d8a95382e01"
     }
   }
 }
@@ -87,8 +89,8 @@ After you run the query, you will receive an output like this:
       "edges": [
         {
           "node": {
-            "player": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
-            "remaining": 10,
+            "player": "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
+            "remaining": 100,
             "last_direction": "None"
           }
         }
@@ -127,65 +129,112 @@ If you execute this query after you applied `sozo migrate` in your [`hello-dojo`
       "edges": [
         {
           "node": {
-            "id": "0x000000000000000000000000000000000000000000000000000000000000000a:0x0000",
-            "transactionHash": "0x2da3d65e223362c72906f97663a4e7dc81ab0bbd04bbde5532a230c1e97d93e",
-            "senderAddress": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "id": "0x0000000000000000000000000000000000000000000000000000000000000a:0x4b26441ad51e51517c45c703579bd41e99401815d5dd12eadb7b1ef65242f2a",
+            "transactionHash": "0x4b26441ad51e51517c45c703579bd41e99401815d5dd12eadb7b1ef65242f2a",
+            "senderAddress": "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
             "calldata": [
               "0x1",
-              "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
+              "0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3",
+              "0x217c73ea9ef26581623f20edd45571c1d024612b70d0af3e0842c5b0dc253cd",
+              "0x0"
+            ]
+          }
+        },
+        {
+          "node": {
+            "id": "0x00000000000000000000000000000000000000000000000000000000000009:0x5e0ffaf422fed0753ab479c6236bf2e5b1a4206830f19073c68ea46daca918f",
+            "transactionHash": "0x5e0ffaf422fed0753ab479c6236bf2e5b1a4206830f19073c68ea46daca918f",
+            "senderAddress": "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
+            "calldata": [
+              "0x4",
+              "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8",
+              "0x3f253dbf9dbb8599c8500e1a9eebeaef9c64c07e566c29fbaafec4dccca3a1a",
+              "0x5",
+              "0x0",
+              "0x3",
+              "0x697066733a2f2f516d646a4d555466616f6d43776d6a6765413962514d3746",
+              "0x74637838413975664b345972564b44514339486a424d2f",
+              "0x0",
+              "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8",
+              "0x3f253dbf9dbb8599c8500e1a9eebeaef9c64c07e566c29fbaafec4dccca3a1a",
+              "0x5",
+              "0x23a5929b01fe8ac7a5c4ac078445d94c81ecdc23ae2c5c8555b3a4e0280964a",
+              "0x3",
+              "0x697066733a2f2f516d646b364532506f54794c6d514a666e5a647732656f69",
+              "0x354b31644d567561447763645675734a4765356f74672f",
+              "0x0",
+              "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8",
+              "0x3f253dbf9dbb8599c8500e1a9eebeaef9c64c07e566c29fbaafec4dccca3a1a",
+              "0x5",
+              "0x19a4478427ad87dac878352f7b5c33354395e17e7041e759f9581174962fe72",
+              "0x3",
+              "0x697066733a2f2f516d527934437067784b5247686d62647a6466664e77746a",
+              "0x69646e6b6a63444d39487571565263617a7669735a6f2f",
+              "0x0",
+              "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8",
+              "0x3f253dbf9dbb8599c8500e1a9eebeaef9c64c07e566c29fbaafec4dccca3a1a",
+              "0x5",
+              "0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3",
+              "0x3",
+              "0x697066733a2f2f516d5977674258754e736a79477876635236546e4d57676f",
+              "0x763845354248457835756b6e414175666e32763954792f",
+              "0x0"
+            ]
+          }
+        },
+        {
+          "node": {
+            "id": "0x00000000000000000000000000000000000000000000000000000000000008:0x381f944a6fa5d5fe756574fad1d1d44a5f5b612adef2dbc6c2773ebd123fa8e",
+            "transactionHash": "0x381f944a6fa5d5fe756574fad1d1d44a5f5b612adef2dbc6c2773ebd123fa8e",
+            "senderAddress": "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
+            "calldata": [
+              "0x1",
+              "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8",
               "0x2730079d734ee55315f4f141eaed376bddd8c2133523d223a344c5604e0f7f8",
-              "0x0",
               "0x2",
-              "0x2",
-              "0x35ec9fd22092dc0c8fc9341e94d5f361924d921c128fa46a0648f2dac519ce4",
-              "0x2ffecbe8de6c7c10c785a6eb964ee6489f8dcf139000adbe2c0f12d249be7d8"
+              "0x7cf8d2b741abd5436f3cda5e7e3d3948462c9caa256311dd352cee5be4f5b23",
+              "0x7d17f102164e9f0dc5450b33b19e2a52d17665ddb089b8dc40d3552d36bfaf2"
             ]
           }
         },
         {
           "node": {
-            "id": "0x0000000000000000000000000000000000000000000000000000000000000008:0x0000",
-            "transactionHash": "0x2aa02de0e3fa582b3cb6cf9e4371051f44ae2e0d6c94f5c936338ffc8c2ac12",
-            "senderAddress": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "id": "0x00000000000000000000000000000000000000000000000000000000000006:0x5d4c0d1184853a6162a3cc94f06e4e1115d23f0245f50f821d556145ab9b39d",
+            "transactionHash": "0x5d4c0d1184853a6162a3cc94f06e4e1115d23f0245f50f821d556145ab9b39d",
+            "senderAddress": "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
             "calldata": [
               "0x2",
-              "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
-              "0x1e7875674bcb09daaf984cbf77264ac98120cb39e6d17522520defcdc347476",
-              "0x0",
-              "0x1",
-              "0x405a3c5421ca7e23052abce78057e27384ba9db5e4feff7b4041a74e769a98a",
+              "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8",
               "0x1e7875674bcb09daaf984cbf77264ac98120cb39e6d17522520defcdc347476",
               "0x1",
+              "0x23c28dcfad6be01ca6509fdb35fd2bed6622238397613c60da5d387a43c38d0",
+              "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8",
+              "0x1e7875674bcb09daaf984cbf77264ac98120cb39e6d17522520defcdc347476",
               "0x1",
-              "0x2",
-              "0x2e5174b54aef0b99d4685827ffa51488447e1f5607908293d5c715d6bd22433",
-              "0x6a11b5b3003a3aa0ae7f8f443e48314cc0bc51eaea7c3ed1c19beb909f5dda3"
+              "0x2e9c42b868b520d54bff1b7f4c9b91f39bb2e2ad1c39d6484fb5d8a95382e01"
             ]
           }
         },
         {
           "node": {
-            "id": "0x0000000000000000000000000000000000000000000000000000000000000005:0x0000",
-            "transactionHash": "0x1f03fa7dc5a673f96d53b728785a98d6ff089c182a7bb32735b150e91817e5b",
-            "senderAddress": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
+            "id": "0x00000000000000000000000000000000000000000000000000000000000003:0x7f1456c94b5cc20a043c7acb7e183a31b57b6de82699b062498189f8aae9d0b",
+            "transactionHash": "0x7f1456c94b5cc20a043c7acb7e183a31b57b6de82699b062498189f8aae9d0b",
+            "senderAddress": "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
             "calldata": [
               "0x1",
               "0x41a78e741e5af2fec34b695679bc6891742439f7afb8484ecd7766661ad02bf",
               "0x1987cbd17808b9a23693d4de7e246a443cfe37e6e7fbaeabd7d7e6532b07c3d",
+              "0x5",
+              "0x799bc4e9da10bfb3dd88e6f223c9cfbf7745435cd14f5d69675ea448e578cd",
+              "0x71131a3c2bf0edb426793dade03cf88da0639eb70e6e178d18aba022f913802",
               "0x0",
-              "0x6",
-              "0x6",
-              "0xb3e374b8087dca92601afbb9881fed855ac0d568e3bf878a876fca5ffcb479",
-              "0x41d7f42bf7a362f0420aaae66d7a91df981100a039ac116a1d9cb632c74ad27",
-              "0x0",
-              "0x2",
-              "0x59f31686991d7cac25a7d4844225b9647c89e3e1e2d03460dbc61e3fbfafc59",
-              "0x77638e9a645209ac1e32e143bfdbfe9caf723c4f7645fcf465c38967545ea2f"
+              "0x1",
+              "0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76"
             ]
           }
         }
       ],
-      "totalCount": 3
+      "totalCount": 5
     }
   }
 }
@@ -211,12 +260,12 @@ Query for first page of 2 entities
 
 ```graphql
 query {
-  entities (first: 2) {
+  entities(first: 2) {
     totalCount
     edges {
       cursor
       node {
-        ...
+        id
       }
     }
   }
@@ -232,11 +281,15 @@ Result shows there are 5 entities and returns the first two
     "edges" [
       {
         "cursor": "Y3Vyc29yX29uZQ==",
-        "node" : { }
+        "node": {
+            "id": "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666"
+          }
       },
       {
         "cursor": "Y3Vyc29yX3R3bw==",
-        "node" : { }
+        "node": {
+            "id": "0x2c2ed100c1bc7031693cfec277303497d64376b57108ef82ef3b76f6c4d96f6"
+          }
       },
     ]
   }
@@ -285,12 +338,12 @@ subscription modelRegistered {
 
 Graphql also supports subscription to a targeted entity or model, for this we have to pass its id as an argument
 
-In this example, our server provides a `entityUpdated` subscription, which should notify clients whenever an entity with id `0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20` is updated. On the same subscription we can get the model(components) values of the updated entity . A client can execute a subscription that looks like this:
+In this example, our server provides a `entityUpdated` subscription, which should notify clients whenever an entity with id `0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666` is updated. On the same subscription we can get the model(components) values of the updated entity . A client can execute a subscription that looks like this:
 
 ```graphql
 subscription {
   entityUpdated(
-    id: "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20"
+    id: "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666"
   ) {
     id
     keys
@@ -320,25 +373,25 @@ According to your input, you will receive an output like this:
 {
   "data": {
     "entityUpdated": {
-      "id": "0x28cd7ee02d7f6ec9810e75b930e8e607793b302445abbdee0ac88143f18da20",
+      "id": "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666",
       "keys": [
-        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
       ],
-      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000013:0x0000:0x0000",
-      "createdAt": "2023-10-17 11:39:42",
-      "updatedAt": "2023-10-17 11:52:48",
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000f:0x1d37ab2448ecb69aa4beb36dd47f8e793d59c605d565ab88b527d8ef2a15a3:0x00",
+      "createdAt": "2024-05-03T15:24:42Z",
+      "updatedAt": "2024-05-03T15:24:42Z",
       "models": [
-        {
-          "__typename": "Moves",
-          "remaining": 10,
-          "player": "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
-        },
         {
           "__typename": "Position",
           "vec": {
-            "x": 10,
-            "y": 10
+            "x": 41,
+            "y": 40
           }
+        },
+        {
+          "__typename": "Moves",
+          "remaining": 100,
+          "player": "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
         }
       ]
     }
@@ -367,20 +420,19 @@ If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT
 {
   "data": {
     "eventEmitted": {
-      "id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0000",
+      "id": "0x00000000000000000000000000000000000000000000000000000000000011:0x140b59e6a4b707e33eb2634a7358892ade98cd374a67a44fcfb792928920e0:0x00",
       "keys": [
         "0x1a2f334228cee715f1f0f54053bb6b5eac54fa336e0bc1aacf7516decb0471d"
       ],
       "data": [
         "0x4d6f766573",
         "0x1",
-        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
-        "0x0",
+        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
         "0x2",
         "0x64",
         "0x0"
       ],
-      "transactionHash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
+      "transactionHash": "0x140b59e6a4b707e33eb2634a7358892ade98cd374a67a44fcfb792928920e0"
     }
   }
 }
@@ -388,20 +440,19 @@ If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT
 {
   "data": {
     "eventEmitted": {
-      "id": "0x000000000000000000000000000000000000000000000000000000000000000b:0x0000:0x0001",
+      "id": "0x00000000000000000000000000000000000000000000000000000000000011:0x140b59e6a4b707e33eb2634a7358892ade98cd374a67a44fcfb792928920e0:0x01",
       "keys": [
         "0x1a2f334228cee715f1f0f54053bb6b5eac54fa336e0bc1aacf7516decb0471d"
       ],
       "data": [
         "0x506f736974696f6e",
         "0x1",
-        "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973",
-        "0x0",
+        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca",
         "0x2",
-        "0xa",
-        "0xa"
+        "0x47",
+        "0x46"
       ],
-      "transactionHash": "0x3b7b034a087355c996abb52e363932c1135f8dd49587bc9a05902d3cf0650b"
+      "transactionHash": "0x140b59e6a4b707e33eb2634a7358892ade98cd374a67a44fcfb792928920e0"
     }
   }
 }
