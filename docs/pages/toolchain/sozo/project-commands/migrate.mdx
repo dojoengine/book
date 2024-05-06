@@ -73,3 +73,23 @@ sozo migrate apply --world 0x123456
 ```sh
 sozo --profile my_profile migrate apply
 ```
+
+### MANIFESTS and OVERLAYS
+Manifest with Overlays in Dojo
+
+Overview
+In Dojo, the manifest system with overlays provides a flexible way to configure and customize the behavior of how sozo will migrate teh world. Overlays in Dojo allow developers to apply configurations or modifications to base manifest files without directly modifying them. This helps maintain separation of concerns and simplifies the management of configurations, especially in complex environments while the number of systems and models in a world grow.
+
+Manifest
+A manifest in Dojo is a base configuration file that define a system and a model after the compilation. It serves as the foundation upon which overlays are applied. Manifest files typically include data like class hash, name of the contract/model, a reference to the ABI, etc....
+
+Overlays
+Overlays in Dojo are supplementary configuration files that are applied on top of base manifest files to customize or extend their functionality. These overlays contain specific configuration settings tailored to a particular use case or environment. By using overlays, developers can override the base manifest, add new configurations, without directly modifying the base manifest files that are auto generated at compiled time.
+
+When using Sozo, the Dojo compiler, it searches for overlay files corresponding to base files using a specific path structure. For example, if you have a base file located at manifests/dev/base/contract/c1.toml, Sozo expects to find the corresponding overlay file at manifests/dev/overlays/contract/c1.toml. This structured approach ensures that overlays are applied correctly to their respective base configurations. Make sure to organize your overlay files accordingly to ensure correct integration with Sozo and to achieve the desired configuration for your systems and models.
+
+You have [an example here for the file path here](https://github.com/dojoengine/dojo/tree/d6c3080c7c41552323c86387fcb51c68de076ec4/examples/spawn-and-move/manifests/dev), and [here for the auto-write use case](https://github.com/dojoengine/dojo/blob/d6c3080c7c41552323c86387fcb51c68de076ec4/examples/spawn-and-move/manifests/dev/overlays/contracts/dojo_examples_actions_actions.toml#L4).
+
+Currently it's the name of the model only, **this is subject to change**.
+
+@0x-lambda: if you could help on the list of keys and some details of the required keys (name is?).
