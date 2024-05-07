@@ -34,7 +34,7 @@ The benefit of custom queries becomes apparent when filtering and sorting is nee
 
 ### Query operation
 
-In [`hello-dojo`](/cairo/hello-dojo.md#next-steps) we fetched some data from all the registered models. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model. To accomplish this, you have to pass the `id` of the model as an argument to the query operation.
+In [`hello-dojo`](../../cairo/hello-dojo.md#next-steps) we fetched some data from all the registered models. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model. To accomplish this, you have to pass the `id` of the model as an argument to the query operation.
 
 ```graphql
 query {
