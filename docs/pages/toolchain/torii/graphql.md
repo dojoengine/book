@@ -34,7 +34,7 @@ The benefit of custom queries becomes apparent when filtering and sorting is nee
 
 ### Query operation
 
-In [`hello-dojo`](/cairo/hello-dojo.md#next-steps) we fetched some data from the `Moves` model. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model .
+In [`hello-dojo`](/tutorial/dojo-starter.md#next-steps) we fetched some data from the `Moves` model. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model .
 
 ```graphql
 query {
@@ -118,7 +118,7 @@ query {
 }
 ```
 
-If you execute this query after you applied `sozo migrate` in your [`hello-dojo`](/cairo/hello-dojo.md) example. You will get an output similar to this.
+If you execute this query after you applied `sozo migrate` in your [`hello-dojo`](/tutorial/dojo-starter.md) example. You will get an output similar to this.
 
 ```json
 {
@@ -361,7 +361,7 @@ subscription {
 }
 ```
 
-If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT_ADDRESS> spawn` in your [`hello-dojo`](/cairo/hello-dojo.md) example. You will get an output similar to this.
+If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT_ADDRESS> spawn` in your [`hello-dojo`](/tutorial/dojo-starter.md) example. You will get an output similar to this.
 
 ```json
 {
