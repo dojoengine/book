@@ -4,15 +4,19 @@
 
 ::::steps
 
-### Install Dojoup
+### Install Dojo
 
-Dojo is built around a set of development tools - Katana, Torii and Sozo. Install them all easily with Dojoup.
+Dojo is built around a set of development tools - Katana, Torii and Sozo. To install them, you can choose between using
+the [Dojoup](/toolchain/dojoup.md) utility or the [asdf-dojo](https://github.com/dojoengine/asdf-dojo) plugin. Both methods are effective but cater to different needs.
+Dojoup provides a direct installation method, while asdf-dojo allows version management through the asdf version manager.
+
+#### Option 1: Using Dojoup
 
 ```sh
 curl -L https://install.dojoengine.org | bash
 ```
 
-### Run dojoup
+##### Run dojoup
 
 This will install Dojoup, then simply follow the instructions on-screen,
 which will make the `dojoup` command available in your CLI.
@@ -22,6 +26,45 @@ dojoup
 ```
 
 For full `dojoup` reference and debugging see [Dojoup](/toolchain/dojoup.md).
+
+#### Option 2: Using ASDF with asdf-dojo plugin
+
+1. Ensure you have asdf installed. If not, follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html).
+2. Add the asdf-dojo plugin:
+
+```sh
+asdf plugin add dojo https://github.com/dojoengine/asdf-dojo
+```
+
+3. Install the latest version of Dojo or a specific version you need:
+
+```sh
+asdf install dojo latest      # For the latest version
+asdf install dojo 1.2.3       # For a specific version
+```
+4. Set the global or local version:
+
+```sh
+asdf global dojo latest       # Set globally
+asdf local dojo 1.2.3         # Set locally in your project directory
+```
+
+### List available Dojo versions
+
+If using asdf, to see all available versions of Dojo that you can install, use:
+
+```sh
+asdf list-all dojo
+```
+
+### Switching between installed Dojo versions
+
+If using asdf, switch between different installed versions of Dojo using:
+
+```sh
+asdf global dojo 1.2.3       # Switch globally
+asdf local dojo 2.0.0        # Switch locally in your project directory
+```
 
 ### Install Scarb (optional)
 
@@ -58,8 +101,7 @@ If your local `Scarb` version is lower than the Dojo's Cairo version, you have t
 
 To accomplish it, please refer to the [installation instructions](https://docs.swmansion.com/scarb/download).
 We strongly recommend that you install
-Scarb via [asdf](https://docs.swmansion.com/scarb/download.html#install-via-asdf), a CLI tool that can manage
-multiple language runtime versions on a per-project basis.
+Scarb via [asdf](https://docs.swmansion.com/scarb/download.html#install-via-asdf).
 This will ensure that the version of Scarb you use to work on a project always matches the one defined in the
 project settings, avoiding problems related to version mismatches.
 
