@@ -1,36 +1,25 @@
-# What is Dojo?
+## Getting Started
 
-Ohayo Sensei!
+::::steps
 
-Dojo is an open-source, provable game engine built with Cairo, designed to be the ultimate toolchain for creating onchain games.
+### Install Dojo Package Manager
 
-Dojo enables developers to go from concept to a fully realized onchain game in days.
+Dojo is built around a set of development tools - Katana, Torii and Sozo. Dojoup enables you to easily update and manage them. Install it with:
 
-TLDR Dojo is;
+```sh
+curl -L https://install.dojoengine.org | bash
+```
 
-- Cairo framework for building onchain games
-- Rust based indexing for your games
-- Rust based CLI tooling for improved development flow
-- Apache 2.0 Open source - always has been, always will be
-- Built by a vibrant community of engineers and gamers
-- Join the Sensei - [join us!](https://discord.gg/vUN4Xq9Qv6)
+### Install Dojo
 
----
+This will install the latest version of Dojo:
 
-### How to use these docs?
+```sh
+dojoup
+```
 
-This book is dedicated to familiarizing you with the Dojo engine and the potential of Provable games. A special section on the [Theory](/theory/autonomous-worlds.md) elucidates this emergent concept of autonomous worlds and Provable games.
+For more information on advanced usage, such as installing a particular version or building from source, run `dojoup --help`.
 
-- [Quickstart](/getting-started/quick-start.md)
-- [What is Dojo? ](/theory/what-is-dojo.mdx)
-- [Explore the Architecture](/cairo/overview.md)
+::::
 
----
-
-### Organizational Structure
-
-Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promoting and advancing the concept of Autonomous Worlds (AWs). It is spearheaded by [Cartridge](https://cartridge.gg/), [Realms & BibliothecaDAO](https://bibliothecadao.xyz/), [briq](https://briq.construction/) and many more [contributors](https://github.com/orgs/dojoengine/people).
-
-### How do I get involved?
-
-Check out our [Github](https://github.com/dojoengine), our [Twitter](https://twitter.com/dojostarknet), [Discord](https://discord.gg/vUN4Xq9Qv6) and [contribution guide](getting-started/contributing.md)
+Once you're up and running, check out the [Dojo Starter tutorial](/tutorial/dojo-starter)!

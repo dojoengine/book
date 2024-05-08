@@ -1,6 +1,6 @@
 # Development Setup
 
-> This is a guide to setting up a development environment for Dojo. It is not suggested to follow this guide if you are just wanting to play with the toolchain. We strongly suggest following the [Quick Start](/getting-started/quick-start.md) guide.
+> This is a guide to setting up a development environment for Dojo. It is not suggested to follow this guide if you are just wanting to play with the toolchain. We strongly suggest following the [Quick Start](/getting-started.md) guide.
 
 ### Prerequisites
 
