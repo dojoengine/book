@@ -18,7 +18,7 @@ Peruse our [contributing guidelines](docs/pages/misc/contributors.md). From mino
     npm install -g pnpm
     nvm install --lts
     nvm use --lts
-    npm install
+    pnpm install
 ```
 
 2. Running the Book locally
