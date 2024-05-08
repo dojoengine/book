@@ -91,7 +91,7 @@ A manifest in Dojo is a base configuration file that define a system and a model
 It serves as the foundation upon which overlays are applied. Manifest files typically include data like class hash, 
 name of the contract/model, a reference to the ABI, etc....
 
-Base manifest files are written by compiler in `manifests` folder at root of your project. 
+Base manifest files are written by Sozo in `manifests/<profile_name>/base` folder at root of your project. 
 
 #### Overlays
 
@@ -100,7 +100,7 @@ These overlays contain specific configuration settings tailored to a particular 
 the base manifest, add new configurations, without directly modifying the base manifest files that are auto generated at compiled time.
 
 When using Sozo, the Dojo compiler, it searches for overlay files corresponding to base files using a specific path structure. For example, if you 
-have a base file located at `manifests/dev/base/contract/c1.toml`, `sozo` expects to find the corresponding overlay file at 
+have a base file located at `manifests/dev/base/contract/c1.toml`, Sozo expects to find the corresponding overlay file at 
 `manifests/dev/overlays/contract/c1.toml`. This structured approach ensures that overlays are applied correctly to their respective base configurations.
 
 Make sure to organize your overlay files accordingly to ensure correct integration with Sozo and to achieve the desired configuration for your systems
@@ -112,10 +112,9 @@ You have [an example here for the file path here](https://github.com/dojoengine/
 
 `name` is used as an identifier for the overlay manifest. It should be same as the base manifest name.
 
-`original_class_hash` should be set in Overlay manifest if you need to upgrade any existing contract. If this is not properly set then it would need to
-lead to a new contract deployment instead of an upgrade.
+`original_class_hash` may be set in Overlay manifest if you need to upgrade any existing contract. If this is not properly set then it would lead to a new contract deployment instead of an upgrade.
 
-`writes` is used to automatically authorize specific models to a given system. It is specified as list of model names for now.
+`writes` is used to automatically grant writer permissions for models to a given system. It is specified as list of model names for now.
 
 For world: `original_class_hash`
 
