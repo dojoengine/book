@@ -77,19 +77,46 @@ sozo --profile my_profile migrate apply
 ### MANIFESTS and OVERLAYS
 Manifest with Overlays in Dojo
 
-Overview
-In Dojo, the manifest system with overlays provides a flexible way to configure and customize the behavior of how sozo will migrate teh world. Overlays in Dojo allow developers to apply configurations or modifications to base manifest files without directly modifying them. This helps maintain separation of concerns and simplifies the management of configurations, especially in complex environments while the number of systems and models in a world grow.
+#### Overview
+In Dojo, the manifest system with overlays provides a flexible way to configure and customize the behavior of how sozo will migrate the world. 
 
-Manifest
-A manifest in Dojo is a base configuration file that define a system and a model after the compilation. It serves as the foundation upon which overlays are applied. Manifest files typically include data like class hash, name of the contract/model, a reference to the ABI, etc....
+Overlays in Dojo allow developers to apply configurations or modifications to base manifest files without directly modifying them. 
+This helps maintain separation of concerns and simplifies the management of configurations, especially in complex environments while 
+the number of systems and models in a world grow.
 
-Overlays
-Overlays in Dojo are supplementary configuration files that are applied on top of base manifest files to customize or extend their functionality. These overlays contain specific configuration settings tailored to a particular use case or environment. By using overlays, developers can override the base manifest, add new configurations, without directly modifying the base manifest files that are auto generated at compiled time.
 
-When using Sozo, the Dojo compiler, it searches for overlay files corresponding to base files using a specific path structure. For example, if you have a base file located at manifests/dev/base/contract/c1.toml, Sozo expects to find the corresponding overlay file at manifests/dev/overlays/contract/c1.toml. This structured approach ensures that overlays are applied correctly to their respective base configurations. Make sure to organize your overlay files accordingly to ensure correct integration with Sozo and to achieve the desired configuration for your systems and models.
+#### Manifest structure
+
+A manifest in Dojo is a base configuration file that define a system and a model after the compilation. 
+It serves as the foundation upon which overlays are applied. Manifest files typically include data like class hash, 
+name of the contract/model, a reference to the ABI, etc....
+
+Base manifest files are written by compiler in `manifests` folder at root of your project. 
+
+#### Overlays
+
+Overlays in Dojo are supplementary configuration files that are applied on top of base manifest files to customize or extend their functionality. 
+These overlays contain specific configuration settings tailored to a particular use case or environment. By using overlays, developers can override 
+the base manifest, add new configurations, without directly modifying the base manifest files that are auto generated at compiled time.
+
+When using Sozo, the Dojo compiler, it searches for overlay files corresponding to base files using a specific path structure. For example, if you 
+have a base file located at `manifests/dev/base/contract/c1.toml`, `sozo` expects to find the corresponding overlay file at 
+`manifests/dev/overlays/contract/c1.toml`. This structured approach ensures that overlays are applied correctly to their respective base configurations.
+
+Make sure to organize your overlay files accordingly to ensure correct integration with Sozo and to achieve the desired configuration for your systems
+and models.
 
 You have [an example here for the file path here](https://github.com/dojoengine/dojo/tree/d6c3080c7c41552323c86387fcb51c68de076ec4/examples/spawn-and-move/manifests/dev), and [here for the auto-write use case](https://github.com/dojoengine/dojo/blob/d6c3080c7c41552323c86387fcb51c68de076ec4/examples/spawn-and-move/manifests/dev/overlays/contracts/dojo_examples_actions_actions.toml#L4).
 
-Currently it's the name of the model only, **this is subject to change**.
+##### Keys in Overlay manifest
 
-@0x-lambda: if you could help on the list of keys and some details of the required keys (name is?).
+`name` is used as an identifier for the overlay manifest. It should be same as the base manifest name.
+
+`original_class_hash` should be set in Overlay manifest if you need to upgrade any existing contract. If this is not properly set then it would need to
+lead to a new contract deployment instead of an upgrade.
+
+`writes` is used to automatically authorize specific models to a given system. It is specified as list of model names for now.
+
+For world: `original_class_hash`
+
+For contracts/systems: `original_class_hash`, `writes`
