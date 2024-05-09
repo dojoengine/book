@@ -44,9 +44,9 @@ While you have the flexibility to incorporate as many models as necessary, it's 
 
 > 💡 Explore the following sections to gain insights:
 
-- [Models Definition](/toolchain/framework/models.md): Understand the structure and functionality of models within Dojo.
+- [Models Definition](/framework/models): Understand the structure and functionality of models within Dojo.
 
-- [Entity Definition](/toolchain/framework/entities.md): Learn about entities in the context of Dojo.
+- [Entity Definition](/framework/models/entities.md): Learn about entities in the context of Dojo.
 
 - [Dojo as an ECS in 15 Minutes](/tutorial/dojo-starter.md): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
 

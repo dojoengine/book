@@ -4,7 +4,7 @@
 
 ## Dojo as an ECS in 15 Minutes
 
-Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](/toolchain/framework/models.md)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework. This framework promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
+Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components ([models](/framework/models)) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework. This framework promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
 
 To start, let's create a new project to run locally on your machine. Execute:
 
@@ -168,7 +168,7 @@ As you can see a `System` is like a regular function of a Dojo(Starknet) contrac
 let position = get!(world, player, (Position));
 ```
 
-Here we use `get!` [command](/toolchain/framework/macros.md) to retrieve the `Position` model for the `player` entity, which is the address of the caller.
+Here we use `get!` [command](/framework/contracts/macros.md) to retrieve the `Position` model for the `player` entity, which is the address of the caller.
 
 Now the next line:
 
@@ -187,7 +187,7 @@ set!(
 );
 ```
 
-Here we use the `set!` [macro](/toolchain/framework/macros.md) to set the `Moves` and `Position` models for the `player` entity.
+Here we use the `set!` [macro](/framework/contracts/macros.md) to set the `Moves` and `Position` models for the `player` entity.
 
 We covered a lot here in a short time. Let's recap:
 
@@ -262,7 +262,7 @@ Your 🌎 is now deployed at `0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/toolchain/framework/config.md)). On this file, you have to update the value of `world_address` with the address we got from the output of `sozo migrate`.
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/framework/config.md)). On this file, you have to update the value of `world_address` with the address we got from the output of `sozo migrate`.
 
 ```toml
 [tool.dojo.env]

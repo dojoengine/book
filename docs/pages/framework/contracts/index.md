@@ -16,7 +16,7 @@
 
 Within dojo we define systems as functions within a Dojo Contract that act on the world.
 
-Systems play a pivotal role in your world's logic, directly mutating its component states. It's important to understand that to enact these mutations, a system needs explicit permission from the [`models`](/toolchain/framework/models.md) owner.
+Systems play a pivotal role in your world's logic, directly mutating its component states. It's important to understand that to enact these mutations, a system needs explicit permission from the [`models`](/framework/models) owner.
 
 ### System Permissions
 
@@ -26,7 +26,7 @@ Since the whole contract is given write access to the model, it is important to 
 
 ### System Structure
 
-Every system function starts with a [`world`](/toolchain/framework/world.md) address as its initial parameter. This design permits these functions to alter the world's state. Notably, this structure also makes systems adaptable and reusable across multiple worlds!
+Every system function starts with a [`world`](/framework/world) address as its initial parameter. This design permits these functions to alter the world's state. Notably, this structure also makes systems adaptable and reusable across multiple worlds!
 
 Let's look at the simplest possible system which mutates the state of the `Moves` component.
 

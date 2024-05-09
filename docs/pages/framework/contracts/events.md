@@ -89,8 +89,8 @@ There is two kind of Custom Events with different use-cases.
 
 #### with #[dojo::Event]
 
-This events are acting like 'off-chain' storage and derive [Model](/toolchain/framework/models) which allow Torii to easily parse this events.
-Since it's a [Model](/toolchain/framework/models) it must have a least a #[key]
+This events are acting like 'off-chain' storage and derive [Model](/framework/models) which allow Torii to easily parse this events.
+Since it's a [Model](/framework/models) it must have a least a #[key]
 
 How to use : 
 

@@ -58,7 +58,7 @@ set!(
 );
 ```
 
-To retrieve a model with a composite key using the [get!](/toolchain/framework/macros.md#the-get-command) command, you must provide a value for each key as follow:
+To retrieve a model with a composite key using the [get!](/framework/contracts/macros.md#the-get-command) command, you must provide a value for each key as follow:
 
 ```rust
 let player = get_caller_address();

@@ -74,33 +74,49 @@ export default defineConfig({
       link: "/faq",
     },
     {
-      text: "Toolchain",
+      text: "Framework",
+      link: "/framework",
       items: [
         {
-          text: "Architecture",
-          link: "/toolchain/framework",
+          text: "World",
           collapsed: true,
           items: [
-            { text: "World", link: "/toolchain/framework/world" },
-            { text: "Systems", link: "/toolchain/framework/systems" },
-            { text: "Models", link: "/toolchain/framework/models" },
-            { text: "Macros", link: "/toolchain/framework/macros" },
-            { text: "Config", link: "/toolchain/framework/config" },
-            { text: "Events", link: "/toolchain/framework/events" },
+            { text: "Overview", link: "/framework/world" },
             {
               text: "Authorization",
-              link: "/toolchain/framework/authorization",
+              link: "/framework/world/authorization",
             },
-            { text: "Metadata", link: "/toolchain/framework/metadata" },
-            { text: "Enum", link: "/toolchain/framework/enum" },
-            { text: "Entities", link: "/toolchain/framework/entities" },
-            { text: "Testing", link: "/toolchain/framework/testing" },
+            { text: "Metadata", link: "/framework/world/metadata" },
           ],
         },
         {
+          text: "Contracts",
+          collapsed: true,
+          items: [
+            { text: "Overview", link: "/framework/contracts" },
+            { text: "Events", link: "/framework/contracts/events" },
+            { text: "Macros", link: "/framework/contracts/macros" },
+          ],
+        },
+        {
+          text: "Models",
+          collapsed: true,
+          items: [
+            { text: "Overview", link: "/framework/models" },
+            { text: "Enum", link: "/framework/models/enum" },
+            { text: "Entities", link: "/framework/models/entities" },
+          ],
+        },
+        { text: "Config", link: "/framework/config" },
+        { text: "Testing", link: "/framework/testing" },
+      ],
+    },
+    {
+      text: "Toolchain",
+      items: [
+        {
           text: "Katana",
           collapsed: true,
-          link: "/toolchain/katana",
           items: [
             {
               text: "Overview",
@@ -158,7 +174,6 @@ export default defineConfig({
         {
           text: "Torii",
           collapsed: true,
-          link: "/toolchain/torii",
           items: [
             {
               text: "Overview",
@@ -172,7 +187,6 @@ export default defineConfig({
         {
           text: "Sozo",
           collapsed: true,
-          link: "/toolchain/sozo",
           items: [
             {
               text: "Overview",
@@ -242,8 +256,8 @@ export default defineConfig({
         {
           text: "Slot",
           collapsed: true,
-          link: "/toolchain/slot",
           items: [
+            { text: "Overview", link: "/toolchain/slot" },
             { text: "Reference", link: "/toolchain/slot/reference" },
             {
               text: "Deployments",
@@ -307,51 +321,6 @@ export default defineConfig({
           text: "Katana-Starkli-Scarb: Advanced example",
           link: "/tutorial/katana-starkli-scarb/main",
         },
-      ],
-    },
-  ],
-  sponsors: [
-    {
-      name: "Built in collaboration with",
-      height: 60,
-      items: [
-        [
-          {
-            name: "Cartridge",
-            link: "https://cartridge.gg/",
-            image: "/Cartridge.svg",
-          },
-        ],
-        [
-          {
-            name: "Starkware",
-            link: "https://starkware.co/",
-            image: "/Starkware.svg",
-          },
-          {
-            name: "Starknet",
-            link: "https://starknet.io/",
-            image: "/Starknet.svg",
-          },
-        ],
-      ],
-    },
-    {
-      name: "Powering Worlds",
-      height: 60,
-      items: [
-        [
-          {
-            name: "Realms World",
-            link: "https://realms.world",
-            image: "/RealmsWorld.svg",
-          },
-          {
-            name: "Dope World",
-            link: "https://dopewars.xyz/",
-            image: "/Dope.svg",
-          },
-        ],
       ],
     },
   ],

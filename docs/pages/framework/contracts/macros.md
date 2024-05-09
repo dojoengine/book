@@ -28,7 +28,7 @@ Here we are retrieving the `Position` and `Moves` models from the world state. W
 
 You can then use `position` and `moves` as you would as any other Cairo struct.
 
-In the case that your model defines several keys as the [resource example](/toolchain/framework/models.md#the-key-attribute), you must provide a value for each key.
+In the case that your model defines several keys as the [resource example](/framework/models#the-key-attribute), you must provide a value for each key.
 
 ```rust
 let player = get_caller_address();
@@ -74,7 +74,7 @@ emit!(world, (
     )
 ); 
 ```
-More infos on `dojo::Event` & `starknet::Event` [here](/toolchain/framework/events#custom-events)
+More infos on `dojo::Event` & `starknet::Event` [here](/framework/contracts/events.md#custom-events)
 
 This will emit these values which could be captured by a client or you could query these via [Torii](/toolchain/torii).
 
