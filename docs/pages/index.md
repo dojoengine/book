@@ -10,7 +10,7 @@ Dojo is an [open source](https://github.com/dojoengine/dojo) framework for build
 
 Dojo includes:
 
-- [Framework](toolchain/framework): a set of contracts and a protocol for building applications that are natively provable, extensible and composable.
+- [Framework](framework): a set of contracts and a protocol for building applications that are natively provable, extensible and composable.
 - [Katana](toolchain/katana): a modular and extensible sequencer designed for high performance applications.
 - [Torii](toolchain/torii): a indexer exposing an automatically generated GraphQL and gRPC api for real-time state synchronization.
 - [Sozo](toolchain/sozo): a declarative migration planning tool for deploying, upgrading, and maintaining smart contracts.

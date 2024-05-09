@@ -1,4 +1,4 @@
-## Architecture
+## Framework
 
 Dojo provides an advanced abstraction layer over Cairo, mirroring React's relationship with JavaScript. Its specialized architecture simplifies game design and development.
 

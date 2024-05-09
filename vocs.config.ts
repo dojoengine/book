@@ -75,8 +75,8 @@ export default defineConfig({
     },
     {
       text: "Framework",
-      link: "/framework",
       items: [
+        { text: "Overview", link: "/framework" },
         {
           text: "World",
           collapsed: true,
