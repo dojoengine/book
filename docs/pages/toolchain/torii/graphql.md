@@ -34,7 +34,7 @@ The benefit of custom queries becomes apparent when filtering and sorting is nee
 
 ### Query operation
 
-In [`hello-dojo`](../../cairo/hello-dojo.md#indexing) we fetched some data from all the registered models. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model. To accomplish this, you have to pass the `id` of the model as an argument to the query operation.
+In [`hello-dojo`](../../cairo/hello-dojo.md#indexing) we fetched some data from all the registered models. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model. To accomplish this, you have to pass the `id` of the model as an argument to the query operation. The id is generated as the selector from the model's names. This selector is computed by applying the `sn_keccak` hash function to the string representation of the function name. To obtain this value, you can utilize the [stark-utils](https://www.stark-utils.xyz/). Alternatively, you may opt to use the `starkli` command line tool.
 
 ```graphql
 query {
