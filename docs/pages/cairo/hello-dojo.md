@@ -317,7 +317,7 @@ Running the command mentioned above starts a [Torii](/toolchain/torii/overview.m
 ```
 
 You can observe that our `Moves` and `Position` models have been successfully registered.
-Next, let's use the GraphiQL IDE to retrieve data from all the model that has been registered. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
+Next, let's use the GraphiQL IDE to retrieve data from all the models that have been registered. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
 
 ```graphql
 query {
@@ -429,7 +429,7 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 }
 ```
 
-In the GraphiQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema.. In order to know more about query and subscription, you can jump to [GraphQL](../toolchain/torii/graphql.md) section.
+In the GraphiQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema. In order to know more about query and subscription, you can jump to [GraphQL](../toolchain/torii/graphql.md) section.
 We've covered quite a bit! Here's a recap:
 
 - Built a Dojo world
