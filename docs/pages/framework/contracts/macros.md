@@ -1,0 +1,89 @@
+## Macros
+
+**_TL;DR_**
+
+- Macros are shorthand ways to write function calls
+- Macros abstract complex queries into shorthands
+
+Understanding macros is key to understanding Dojo. You will leverage them heavily within the systems you design.
+
+Macros in Dojo are generalized functions that are expanded at compile time to facilitate system execution. They provide a convenient way for systems to interact with the world state by abstracting common operations, such as retrieving or updating models, and generating unique IDs. By leveraging these macros, developers can streamline their system implementations and improve code readability.
+
+### Using macros
+
+Macros are used within systems to interact with the world state. They are called using the following syntax:
+
+### The `get!` macro
+
+The `get!` macro is used to retrieve models from the world state:
+
+```rust
+// world = calling world
+// caller = key of the entity that called the system
+// (Position, Moves) = tuple of models to retrieve
+let (position, moves) = get!(world, caller, (Position, Moves));
+```
+
+Here we are retrieving the `Position` and `Moves` models from the world state. We are also using the `caller` to retrieve the models for the current entity.
+
+You can then use `position` and `moves` as you would as any other Cairo struct.
+
+In the case that your model defines several keys as the [resource example](/framework/models#the-key-attribute), you must provide a value for each key.
+
+```rust
+let player = get_caller_address();
+let location = 0x1234;
+
+let resource = get!(world, (player, location), (Resource));
+```
+
+If you use the `get!` macro on a model that has never been set before, all the fields that are not `#[key]` are equal to 0 in the returned model, which is the default value in the storage.
+
+### The `set!` macro
+
+The `set!` macro is used to update models state.
+
+```rust
+set !(world, (
+    Moves {
+        player: caller, remaining: 10
+    },
+    Position {
+        player: caller, x: position.x + 10, y: position.y + 10
+    },
+));
+
+// If the structs are already defined it can also be written as:
+set!(world, (moves, position));
+```
+
+Here we are updating the `Moves` and `Position` models in the world state using the `caller` as the entity id.
+
+### The `emit!` macro
+
+The `emit!` macro is used to emit custom events. These events are indexed by [Torii](/toolchain/torii).
+
+```rust
+emit!(world, (Moved { address: caller, direction })); // dojo::Event
+emit!(world, (Event::Moved (Moved { address: caller, direction } ))); // starknet::Event
+
+// emit multiple events
+emit!(world, (
+    Moved { address: caller, direction },
+    AnotherEvent { address: caller, value1, value2 }
+    )
+); 
+```
+More infos on `dojo::Event` & `starknet::Event` [here](/framework/contracts/events.md#custom-events)
+
+This will emit these values which could be captured by a client or you could query these via [Torii](/toolchain/torii).
+
+### The `delete!` macro
+
+The `delete!` macro deletes a model from the db.
+
+```rust
+let player = get_caller_address();
+let moves = get!(world, player, (Moves));
+delete!(world, (moves));
+```

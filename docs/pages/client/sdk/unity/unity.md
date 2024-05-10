@@ -51,11 +51,11 @@ Building on-chain games and worlds with Unity involves understanding several key
 
 ![models](/unity/models.png)
 
-You should have a deep understanding of models in dojo if not checkout out models [here](/cairo/models.md) before continuing.
+You should have a deep understanding of models in dojo if not checkout out models [here](/framework/models) before continuing.
 
 ### What are Models in Dojo?
 
-1. **Definition**: In Dojo, [models](/cairo/models.md) are essential state that represent various parts of [entities](/cairo/entities.md) within your game. They are the building blocks that make up the content of your game world. Read about [ECS](/cairo/hello-dojo.md).
+1. **Definition**: In Dojo, [models](/framework/models) are essential state that represent various parts of [entities](/framework/models/entities.md) within your game. They are the building blocks that make up the content of your game world. Read about [ECS](/tutorial/dojo-starter.md).
 
 2. **Synchronization Role**:
 
@@ -64,19 +64,19 @@ You should have a deep understanding of models in dojo if not checkout out model
 
 3. **Flexibility in Adding Models**:
 
-   - You have the freedom to add as many [models](/cairo/models.md) as needed for your game's design and functionality.
-   - It's vital, however, to ensure that these [models](/cairo/models.md) are consistent across both the Dojo and Unity. This means that for every model you have in Unity, there should be a corresponding model in your Dojo world.
+   - You have the freedom to add as many [models](/framework/models) as needed for your game's design and functionality.
+   - It's vital, however, to ensure that these [models](/framework/models) are consistent across both the Dojo and Unity. This means that for every model you have in Unity, there should be a corresponding model in your Dojo world.
 
 4. **Future Developments**:
 
-   - An important aspect to note is that in future versions of the Dojo-Unity integration, the process of adding and synchronizing [models](/cairo/models.md) will be further streamlined.
-   - The plan is to have these [models](/cairo/models.md) auto-generated, which would significantly simplify the development process and reduce the manual effort required for synchronization.
+   - An important aspect to note is that in future versions of the Dojo-Unity integration, the process of adding and synchronizing [models](/framework/models) will be further streamlined.
+   - The plan is to have these [models](/framework/models) auto-generated, which would significantly simplify the development process and reduce the manual effort required for synchronization.
 
 5. **Importance of Understanding Models**:
-   - Before diving into game development with Dojo in Unity, it’s recommended to have a solid understanding of how [models](/cairo/models.md) work in the Dojo environment.
+   - Before diving into game development with Dojo in Unity, it’s recommended to have a solid understanding of how [models](/framework/models) work in the Dojo environment.
    - This knowledge is crucial for effectively designing and implementing game elements that interact seamlessly between the blockchain and the game's user interface.
 
-In summary, [models](/cairo/models.md) are the bridge between the onchain (Dojo) and off-chain (Unity) aspects of your game.
+In summary, [models](/framework/models) are the bridge between the onchain (Dojo) and off-chain (Unity) aspects of your game.
 
 ### Adding Models
 
@@ -91,7 +91,7 @@ The process to add models is:
 
 ### Entities
 
-Via toriiClient [models](/cairo/entities.md) are synced to Unity and are comprised of the models that you defined.
+Via toriiClient [models](/framework/models/entities.md) are synced to Unity and are comprised of the models that you defined.
 
 ### Starter Project
 
