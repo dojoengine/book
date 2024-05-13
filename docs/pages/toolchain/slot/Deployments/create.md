@@ -14,7 +14,7 @@ This command configures and launches new instances of specified services. Each s
 
 ### **Usage**
 
-```
+```sh
 slot deployments create <Project Name> [service] [options]
 ```
 
@@ -35,12 +35,12 @@ slot deployments create <Project Name> [service] [options]
 
 1. **Create a Katana Deployment:**
     
-    ```
+    ```sh
     slot deployments create "MyProject" katana --version "1.0" --block-time 10
     ```
     
 2. **Initialize a Torii Service with a World:**
     
-    ```
+    ```sh
     slot deployments create "MyProject" torii --world 0x3fa481f41522b90b3684ecfab7650c259a76387fab9c380b7a959e3d4ac69f
     ```

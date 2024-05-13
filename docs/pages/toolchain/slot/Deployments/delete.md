@@ -14,7 +14,7 @@ This command is crucial for managing the lifecycle of services by allowing users
 
 ### **Usage**
 
-```
+```sh
 slot deployments delete <Project Name> <Service>
 ```
 
@@ -27,13 +27,13 @@ slot deployments delete <Project Name> <Service>
 
 1. **Delete a Katana Deployment:**
     
-    ```
+    ```sh
     slot deployments delete "MyProject" Katana
     
     ```
     
 2. **Remove a Torii Service Deployment:**
     
-    ```
+    ```sh
     slot deployments delete "MyProject" Torii
     ```

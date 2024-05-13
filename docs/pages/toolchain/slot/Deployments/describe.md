@@ -14,7 +14,7 @@ This command facilitates the ongoing maintenance and enhancement of service depl
 
 ### Usage
 
-```
+```sh
 slot deployments update <Project Name> [service] [options]
 ```
 
@@ -46,12 +46,12 @@ slot deployments update <Project Name> [service] [options]
 
 1. **Update a Katana Deployment:**
     
-    ```
+    ```sh
     slot deployments update "MyProject" Katana --version "1.2" --block-time 15 --disable-fee true
     ```
     
 2. **Update a Torii Service Deployment:**
     
-    ```
+    ```sh
     slot deployments update "MyProject" Torii --world 0x4fa481f41522b90b3684ecfab7650c259a76387fab9c380b7a959e3d4ac70f --start-block 500
     ```

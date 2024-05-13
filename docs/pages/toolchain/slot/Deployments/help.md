@@ -8,7 +8,7 @@ This command serves as a quick reference to help users understand and effectivel
 
 ### Usage
 
-```
+```sh
 slot help [command]
 ```
 
@@ -20,13 +20,13 @@ slot help [command]
 
 1. **General Help:**
     
-    ```
+    ```sh
     slot help
     ```
     
 2. **Help for a Specific Command (e.g., `logs`):**
     
-    ```
+    ```sh
     slot help logs
     ```
     

@@ -14,7 +14,7 @@ This command is essential for maintaining and optimizing the deployment lifecycl
 
 ### **Usage**
 
-```
+```sh
 slot deployments update <Project Name> [service] [options]
 ```
 
@@ -37,12 +37,12 @@ slot deployments update <Project Name> [service] [options]
 
 1. **Update a Katana Deployment:**
     
-    ```
+    ```sh
     slot deployments update "MyProject" Katana --version "1.2" --block-time 12
     ```
     
 2. **Update a Torii Service Deployment:**
     
-    ```
+    ```sh
     slot deployments update "MyProject" Torii --version "2.0" --world 0x4fa481f41522b90b3684ecfab7650c259a76387fab9c380b7a959e3d4ac70f
     ```

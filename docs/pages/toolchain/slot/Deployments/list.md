@@ -8,7 +8,7 @@ This command allows users to quickly view all active deployments, facilitating a
 
 ### Usage
 
-```
+```sh
 slot deployments list
 ```
 
@@ -18,7 +18,7 @@ This command does not require any parameters or options. It is designed to fetch
 
 ### Examples
 
-```
+```sh
 slot deployments list
 ```
 
