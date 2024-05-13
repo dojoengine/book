@@ -280,6 +280,9 @@ At the same time, make sure your file specifies the version of Dojo you have ins
 dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0" }
 ```
 
+By default the systems don't have write permission to the models, you can run `scripts/default_auth.sh` to grant those permission. From version
+`0.7.0-alpha.1` this can be automatically done using overlay system.
+
 ### Indexing
 
 With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your `world address` from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
