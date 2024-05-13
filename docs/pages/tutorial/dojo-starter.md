@@ -317,7 +317,7 @@ Running the command mentioned above starts a [Torii](/toolchain/torii) server on
 ```
 
 You can observe that our `Moves` and `Position` models have been successfully registered.
-Next, let's use the GraphiQL IDE to retrieve data from all the models that have been registered. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
+Next, let's use the GraphQL IDE to retrieve data from all the models that have been registered. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
 
 ```graphql
 query {
@@ -365,7 +365,7 @@ After you run the query, you will receive an output like this:
 }
 ```
 
-Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphiQL IDE and input the following subscription:
+Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphQL IDE and input the following subscription:
 
 ```graphql
 subscription {
@@ -397,7 +397,7 @@ sozo execute 0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3 s
 
 By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
 
-Now, go back to your GraphiQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
+Now, go back to your GraphQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
 
 ```json
 {
@@ -429,7 +429,7 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 }
 ```
 
-In the GraphiQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema. In order to know more about query and subscription, you can jump to [GraphQL](../toolchain/torii/graphql.md) section.
+In the GraphQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema. In order to know more about query and subscription, you can jump to [GraphQL](../toolchain/torii/graphql.md) section.
 We've covered quite a bit! Here's a recap:
 
 - Built a Dojo world
