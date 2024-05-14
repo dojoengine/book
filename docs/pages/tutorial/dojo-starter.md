@@ -320,16 +320,20 @@ Running the command mentioned above starts a [Torii](/toolchain/torii) server on
 ```
 
 You can observe that our `Moves` and `Position` models have been successfully registered.
-Next, let's use the GraphiQL IDE to retrieve data from the `Moves` model. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
+Next, let's use the GraphQL IDE to retrieve data from all the models that have been registered. In your web browser, navigate to `http://0.0.0.0:8080/graphql`, and enter the following query:
 
 ```graphql
 query {
-  model(id: "Moves") {
-    id
-    name
-    classHash
-    transactionHash
-    createdAt
+  models {
+    edges {
+      node {
+        id
+        name
+        classHash
+        contractAddress
+      }
+    }
+    totalCount
   }
 }
 ```
@@ -339,18 +343,32 @@ After you run the query, you will receive an output like this:
 ```json
 {
   "data": {
-    "model": {
-      "id": "Moves",
-      "name": "Moves",
-      "classHash": "0x23c28dcfad6be01ca6509fdb35fd2bed6622238397613c60da5d387a43c38d0",
-      "transactionHash": "",
-      "createdAt": "2024-03-24T07:01:07+00:00"
+    "models": {
+      "edges": [
+        {
+          "node": {
+            "id": "0xfca8c67c1565ba003e0b460c4707b70c7e3179689528a0b502a6dd5df7d5a7",
+            "name": "Moves",
+            "classHash": "0x23c28dcfad6be01ca6509fdb35fd2bed6622238397613c60da5d387a43c38d0",
+            "contractAddress": "0x4715b03ad3b22f6e078c3bddeb3e53ba431cd5648811ed7f4bb1aeda2fa6a82"
+          }
+        },
+        {
+          "node": {
+            "id": "0x28b9aeb6b19af1454b16ce28c1ee6909e3946e4552ed09886a06ebe1e158fc",
+            "name": "Position",
+            "classHash": "0x2e9c42b868b520d54bff1b7f4c9b91f39bb2e2ad1c39d6484fb5d8a95382e01",
+            "contractAddress": "0x77a78d8f32a65518588dd26cea8ef5355eb46aeae505f9a93f7cc437e122cd1"
+          }
+        }
+      ],
+      "totalCount": 2
     }
   }
 }
 ```
 
-Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphiQL IDE and input the following subscription:
+Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphQL IDE and input the following subscription:
 
 ```graphql
 subscription {
@@ -382,7 +400,7 @@ sozo execute 0x7ec42d76c6d876b8f219c20b6a152fe35fe2afc62c471b29ba689c2f6a075b3 s
 
 By running this command, you've activated the spawn system, resulting in the creation of a new entity. This action establishes a local world that you can interact with.
 
-Now, go back to your GraphiQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
+Now, go back to your GraphQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
 
 ```json
 {
@@ -414,7 +432,7 @@ Now, go back to your GraphiQL IDE, and you will notice that you have received th
 }
 ```
 
-In the GraphiQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema.. In order to know more about query and subscription, you can jump to [GraphQL](/toolchain/torii/graphql.md) section.
+In the GraphQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema. In order to know more about query and subscription, you can jump to [GraphQL](../toolchain/torii/graphql.md) section.
 We've covered quite a bit! Here's a recap:
 
 - Built a Dojo world
