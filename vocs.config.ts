@@ -248,6 +248,10 @@ export default defineConfig({
                   text: "auth",
                   link: "/toolchain/sozo/world-commands/auth",
                 },
+                {
+                  text: "account",
+                  link: "/toolchain/sozo/world-commands/account",
+                },
               ],
             },
           ],

@@ -1,0 +1,62 @@
+import WorldOptions from '../common/world-options.mdx'
+import StarknetOptions from '../common/starknet-options.mdx'
+
+## Sozo Account 
+
+The `sozo account` command allows managing accounts for the Sozo platform. 
+It provides functionalities to create new account configurations, deploy account contracts, and fetch 
+existing account configurations.
+## Usage
+
+```bash
+sozo account [OPTIONS] <COMMAND>
+
+Commands:
+  new     Create a new account configuration without actually deploying.
+  deploy  Deploy account contract with a DeployAccount transaction.
+  fetch   Fetch account config from an already deployed account contract.
+  help    Print this message or the help of the given subcommand(s).
+
+```
+### Options
+
+- `-v, --verbose`: Increase logging verbosity.
+- `-q, --quiet`: Decrease logging verbosity.
+- `-h, --help`: Print help (see more with '--help').
+- `-V, --version`: Print version.
+
+### Subcommands
+
+#### `new`
+
+Create a new account configuration without actually deploying.
+
+- **Options:**
+  - `signer`: Options for specifying the signer.
+  - `force`: Overwrite the account config file if it already exists.
+  - `file`: Path to save the account config file.
+
+#### `deploy`
+
+Deploy account contract with a `DeployAccount` transaction.
+
+- **Options:**
+  - `starknet`: Options for specifying StarkNet configuration.
+  - `signer`: Options for specifying the signer.
+  - `transaction`: Options for specifying transaction details.
+  - `simulate`: Simulate the transaction only.
+  - `estimate_only`: Only estimate transaction fee without sending transaction.
+  - `nonce`: Provide transaction nonce manually.
+  - `poll_interval`: Transaction result poll interval in milliseconds.
+  - `file`: Path to the account config file.
+  - `no_confirmation`: Don't wait for user confirmation.
+
+#### `fetch`
+
+Fetch account config from an already deployed account contract.
+
+- **Options:**
+  - `starknet`: Options for specifying StarkNet configuration.
+  - `force`: Overwrite the file if it already exists.
+  - `output`: Path to save the account config file.
+  - `address`: Contract address.
