@@ -39,5 +39,5 @@ The configuration system follows the following priority order:
 ### Use a keystore file for account configuration
 
    ```bash
-   sozo --keystore-path /path/to/keystore.json --keystore-password mypassword
+   sozo  <some subcommand> --keystore /path/to/keystore.json --password mypassword
    ```
