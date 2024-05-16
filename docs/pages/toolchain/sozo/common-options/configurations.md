@@ -11,14 +11,9 @@ The configuration system follows the following priority order:
 
 ## Account Options
 
-- `account_address`: Starknet account address. Can be specified via command-line arguments or environment variables.
+- `account_address`: Starknet account address.
 - `signer`: Options related to signer configuration.
 - `legacy`: Enables the use of a legacy account (cairo0 account).
-
-## Public Methods
-
-- `account(provider, env_metadata)`: Creates a Starknet account using the specified options. Takes into account the configuration priorities to determine the account address and other settings.
-- `account_address(env_metadata)`: Returns the Starknet account address. Takes into account the configuration priorities.
 
 ## Usage Examples
 
