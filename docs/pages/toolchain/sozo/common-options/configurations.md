@@ -35,3 +35,9 @@ The configuration system follows the following priority order:
    ```bash
    sozo --rpc-url http://localhost:7474/
    ```
+
+### Use a keystore file for account configuration
+
+   ```bash
+   sozo --keystore-path /path/to/keystore.json --keystore-password mypassword
+   ```
