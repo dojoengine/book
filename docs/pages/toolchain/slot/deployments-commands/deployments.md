@@ -13,6 +13,9 @@ It allows you the manage your slot deployments.
 `update`
 &nbsp;&nbsp;&nbsp;&nbsp;Update a deployment.
 
+`fork`
+&nbsp;&nbsp;&nbsp;&nbsp;Fork a deployment.
+
 `describe`
 &nbsp;&nbsp;&nbsp;&nbsp;Describe a deployment's configuration.
 
