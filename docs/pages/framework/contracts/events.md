@@ -85,11 +85,11 @@ You can find all the world events in [world.cairo](https://github.com/dojoengine
 
 Within your game, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit!` command that lets you release events directly from your world. These events are indexed by [Torii](/toolchain/torii).
 
-There is two kind of Custom Events with different use-cases.
+There are two kind of Custom Events with different use-cases.
 
 #### with #[dojo::Event]
 
-This events are acting like 'off-chain' storage and derive [Model](/framework/models) which allow Torii to easily parse this events.
+These events are acting like 'off-chain' storage and derive [Model](/framework/models) which allows Torii to easily parse them.
 Since it's a [Model](/framework/models) it must have a least a #[key]
 
 How to use : 
