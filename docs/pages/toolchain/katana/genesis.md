@@ -63,7 +63,7 @@ The genesis config file is a JSON file that contains the following fields:
 - `contracts` _Genesis contract deployments._
   - <CONTRACT_ADDRESS> _The address of the contract._
     - `class`  
-      _The class of the contract._
+      _The name of the class._
     - `balance` (optional)  
       _The balance allocated to the contract._
     - `storage` (optional)  
@@ -71,8 +71,8 @@ The genesis config file is a JSON file that contains the following fields:
 - `classes` _Classes to declare at genesis._
   - `class`  
     _The path to the class artifact file relative to the genesis config file, or the full class artifact object._
-  - `classHash` (optional)
-    _The hash of the class. To override the actual class hash that will be computed from the class definition itself._
+  - `name` (optional)
+    _The name of the class._
 
 ### Example
 
@@ -131,7 +131,7 @@ The genesis config file is a JSON file that contains the following fields:
 	"contracts": {
 		"0x29873c310fbefde666dc32a1554fea6bb45eecc84f680f8a2b0a8fbb8cb89af": {
 			"balance": "0xD3C21BCECCEDA1000000",
-			"class": "0x8",
+			"class": "myClass",
 			"storage": {
 				"0x1": "0x1",
 				"0x2": "0x2"
@@ -149,11 +149,11 @@ The genesis config file is a JSON file that contains the following fields:
 	"classes": [
 		{
 			"class": "path/to/file/erc20.json",
-			"classHash": "0x8"
+			"name": "MyClass"
 		},
 		{
 			"class": "path/to/file/universal_deployer.json",
-			"classHash": "0x444"
+			"classHash": "AnotherClass"
 		},
 		{
 			"class": {
