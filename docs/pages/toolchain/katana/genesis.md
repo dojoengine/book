@@ -38,7 +38,11 @@ The genesis config file is a JSON file that contains the following fields:
     - `address` (optional)  
       _The fee token contract address._
   - `class` (optional)  
-    _The class of the fee token._
+    _The class of the fee token. It is has a value of either a classHash or a name._
+	- `classHash` (option)  
+      _The hash of the fee token class represented with a 0x- prefixed hex value._
+	- `name` (option)  
+      _The name of the fee token class._
   - `storage` (optional)  
     _Key-value pairs for the fee token's storage._
 - `universalDeployer` _The universal deployer configuration. (optional)_
@@ -57,13 +61,13 @@ The genesis config file is a JSON file that contains the following fields:
     - `nonce` (optional)  
       _The nonce of the account._
     - `class` (optional)  
-      _The class to be used for the account contract._
+      _The class to be used for the account contract. This can be a classHash(0x- prefixed hex vale) or a name._
     - `storage` (optional)  
       _Key-value pairs for the account's storage._
 - `contracts` _Genesis contract deployments._
   - <CONTRACT_ADDRESS> _The address of the contract._
     - `class`  
-      _The name of the class._
+      _The class of the contract. This can be a classHash(0x- prefixed hex vale) or a name._
     - `balance` (optional)  
       _The balance allocated to the contract._
     - `storage` (optional)  
@@ -71,7 +75,9 @@ The genesis config file is a JSON file that contains the following fields:
 - `classes` _Classes to declare at genesis._
   - `class`  
     _The path to the class artifact file relative to the genesis config file, or the full class artifact object._
-  - `name` (optional)
+	 - `classHash` (optional)
+    _The hash of the class. To override the actual class hash that will be computed from the class definition itself._
+ 	 - `name` (optional)
     _The name of the class._
 
 ### Example
@@ -92,7 +98,7 @@ The genesis config file is a JSON file that contains the following fields:
 		"name": "ETHER",
 		"symbol": "ETH",
 		"decimals": 18,
-		"class": "0x8",
+		"class": "0x8", //or feeToken class
 		"storage": {
 			"0x111": "0x1",
 			"0x222": "0x2"
@@ -109,7 +115,7 @@ The genesis config file is a JSON file that contains the following fields:
 			"publicKey": "0x1",
 			"balance": "0xD3C21BCECCEDA1000000",
 			"nonce": "0x1",
-			"class": "0x444",
+			"class": "0x444", //or account name
 			"storage": {
 				"0x1": "0x1",
 				"0x2": "0x2"
@@ -131,7 +137,7 @@ The genesis config file is a JSON file that contains the following fields:
 	"contracts": {
 		"0x29873c310fbefde666dc32a1554fea6bb45eecc84f680f8a2b0a8fbb8cb89af": {
 			"balance": "0xD3C21BCECCEDA1000000",
-			"class": "myClass",
+			"class": "0x13", //or contract name
 			"storage": {
 				"0x1": "0x1",
 				"0x2": "0x2"
@@ -153,7 +159,7 @@ The genesis config file is a JSON file that contains the following fields:
 		},
 		{
 			"class": "path/to/file/universal_deployer.json",
-			"classHash": "AnotherClass"
+			"classHash": "0x444" //or ("name": "className")
 		},
 		{
 			"class": {
