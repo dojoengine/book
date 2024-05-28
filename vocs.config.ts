@@ -192,6 +192,10 @@ export default defineConfig({
               text: "Overview",
               link: "/toolchain/sozo",
             },
+            //{
+             // text: "Deployments",
+             // link: "/toolchain/slot/deployments-commands/deployments",
+           // },
             {
               text: "Reference",
               collapsed: true,
