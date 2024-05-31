@@ -192,10 +192,6 @@ export default defineConfig({
               text: "Overview",
               link: "/toolchain/sozo",
             },
-            //{
-             // text: "Deployments",
-             // link: "/toolchain/slot/deployments-commands/deployments",
-           // },
             {
               text: "Reference",
               collapsed: true,
@@ -266,42 +262,44 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Overview", link: "/toolchain/slot" },
-            { text: "Reference", link: "/toolchain/slot/reference" },
             {
-              text: "Deployments",
-              collapsed: true,
-              items: [
-                {
-                  text: "create",
-                  link: "/toolchain/slot/deployments/create",
-                },
-                {
-                  text: "delete",
-                  link: "/toolchain/slot/deployments/delete",
-                },
-                {
-                  text: "update",
-                  link: "/toolchain/slot/deployments/update",
-                },
-                {
-                  text: "describe",
-                  link: "/toolchain/slot/deployments/describe",
-                },
-
-                {
-                  text: "list",
-                  link: "/toolchain/slot/deployments/list",
-                },
-                {
-                  text: "logs",
-                  link: "/toolchain/slot/deployments/logs",
-                },
-                {
-                  text: "help",
-                  link: "/toolchain/slot/deployments/help",
-                },
-              ],
-            },
+	            text:"Reference",
+	            link: "/toolchain/slot/reference",
+	            collapsed:true,
+	            items: [
+		            {
+		              text: "deployments",
+		              collapsed: true,
+					link: "/toolchain/slot/deployment-commands",
+		              items: [
+		                {
+		                  text: "create",
+		                  link: "/toolchain/slot/deployment-commands/create",
+		                },
+		                {
+		                  text: "delete",
+		                  link: "/toolchain/slot/deployment-commands/delete",
+		                },
+		                {
+		                  text: "update",
+		                  link: "/toolchain/slot/deployment-commands/update",
+		                },
+		                {
+		                  text: "describe",
+		                  link: "/toolchain/slot/deployment-commands/describe",
+		                },
+		                {
+		                  text: "list",
+		                  link: "/toolchain/slot/deployment-commands/list",
+		                },
+		                {
+		                  text: "logs",
+		                  link: "/toolchain/slot/deployment-commands/logs",
+		                },
+		              ],
+		            },
+            	]
+            }
           ],
         },
       ],
