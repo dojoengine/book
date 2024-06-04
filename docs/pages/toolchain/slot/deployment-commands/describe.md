@@ -1,12 +1,12 @@
 # describe
 
-The `update` command allows users to modify configurations of existing deployments within the Slot ecosystem, including Katana, Torii, and Madara services. This command supports various configuration options tailored to each service, ensuring deployments are kept up-to-date with the latest operational requirements and features.
+The **`describe`** command provides detailed information about the configurations of existing deployments in the Slot ecosystem, including Katana, Torii, and Madara services. It retrieves various configuration details, ensuring that users can view and verify the current settings of their deployments.
 
 
 ### Usage
 
 ```sh
-slot deployments update <Project Name> [service] [options]
+slot deployments describe <Project Name> [service] [options]
 ```
 
 ### Parameters
@@ -63,20 +63,15 @@ Set the block time for the deployment.
 
 ### Examples
 
-1. **Update a Katana Deployment:**
+1. **Describe a Katana Deployment:**
     
     ```sh
-    slot deployments update "MyProject" Katana --version "1.2" --block-time 15 --disable-fee true
+    slot deployments describe "MyProject" Katana --version "1.2"
     ```
     
-2. **Update a Torii Service Deployment:**
+2. **Describe a Torii Service Deployment:**
     
     ```sh
-    slot deployments update "MyProject" Torii --world 0x4fa481f41522b90b3684ecfab7650c259a76387fab9c380b7a959e3d4ac70f --start-block 500
+   slot deployments describe "MyProject" Torii --world 0x4fa481f41522b90b3684ecfab7650c259a76387fab9c380b7a959e3d4ac70f
     ```
 
-### Supported Services:
-
-- **Katana**
-- **Torii**
-- **Madara**

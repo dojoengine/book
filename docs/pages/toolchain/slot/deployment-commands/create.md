@@ -1,6 +1,6 @@
 # create
 
-The **`create`** command in Slot is designed to initialize and configure new deployments for services like Katana, Torii, and Madara. This command facilitates the setup of specific configurations tailored to each service, enabling rapid deployment and testing environments.
+The **`create`** command initializes and configures new deployments for services like Katana, Torii, and Madara. It sets up specific configurations for each service, enabling rapid deployment and testing environments.
 
 ### **Usage**
 
