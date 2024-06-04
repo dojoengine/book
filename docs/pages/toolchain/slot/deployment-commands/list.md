@@ -2,10 +2,6 @@
 
 The `list` command provides an overview of all the current deployments across various projects and teams within the Slot environment. It's an essential tool for managing and auditing service deployments.
 
-### Purpose
-
-This command allows users to quickly view all active deployments, facilitating an understanding of the scope and status of deployed services within their organization.
-
 ### Usage
 
 ```sh

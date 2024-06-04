@@ -270,7 +270,6 @@ export default defineConfig({
 		            {
 		              text: "deployments",
 		              collapsed: true,
-					link: "/toolchain/slot/deployment-commands",
 		              items: [
 		                {
 		                  text: "create",

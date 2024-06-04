@@ -2,10 +2,6 @@
 
 The `logs` command is used to fetch and display logs from a specified deployment service within the Slot environment. This command supports real-time log streaming as well as querying historical logs, making it an essential tool for monitoring and debugging deployment activities.
 
-### Purpose
-
-This command allows users to review operational logs from specific services, aiding in troubleshooting and ensuring smooth operation of deployed services.
-
 ### Usage
 
 ```sh
