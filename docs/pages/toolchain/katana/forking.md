@@ -1,27 +1,35 @@
-# Forking
+**Forking in Dojo**
 
-## State Forking
+Forking in Dojo revolutionizes the way developers interact with Starknet networks by providing a seamless mechanism to replicate the state of live networks locally. This feature empowers developers to conduct thorough testing and development activities without the need for deploying new contracts or configuring test accounts.
 
-Katana offers a powerful feature called "_forking_," which allows you to interact with the state of another Starknet network as if it were a local network. This feature enables developers to test and interact with smart contracts deployed on live networks without the need to deploy their own contracts or set up test accounts on those networks.
+**Understanding Forking**
 
-To enable the forking feature, you can configure your Katana node by providing a valid RPC provider using the `--rpc-url <URL>` flag. By default, Katana will fork the latest block of the specified network. However, if you wish to fork from a specific block, you can use the `--fork-block-number <BLOCK_NUMBER>` flag to specify the desired block number.
+When you fork a network in Dojo, you create a localized replica of the target network's state, encompassing critical components such as contract storage, class definitions, and transaction nonces. This replica enables developers to simulate interactions with the live network in an isolated environment, facilitating rigorous testing and development workflows.
 
-Once the forking feature is enabled, you can interact with the forked network through Katana as if it were a separate, isolated environment. You can deploy your own smart contracts to the local Katana node and have them interact with the contracts that exist on the forked network. You can then use the accounts predeployed by Katana to simulate interactions with the external network, making it convenient for testing and development purposes.
+**Configuring Forking**
 
-The forking feature is particularly useful for smart contract developers who want to perform end-to-end tests against contracts already deployed on mainnet or testnet. It eliminates the need to deploy your own contracts on those networks and avoids the hassle of setting up test accounts and funding them, especially when working with the mainnet. By forking the state of the desired network, you can create a local testing environment that closely mimics the live network, allowing you to test your contracts and interactions with confidence.
+To enable forking in Dojo, configure your Katana node with a valid RPC provider using the `--rpc-url <URL>` flag. Optionally, specify a specific block number to fork from using the `--fork-block-number <BLOCK_NUMBER>` flag. This granular control allows developers to precisely tailor the state of the forked network to their testing requirements.
 
-With Katana's forking feature, developers can streamline their testing and development process, saving time and resources while ensuring the integrity and compatibility of their smart contracts with existing networks.
+**Interacting with Forked Network**
 
-:::note
-💡 **NOTE**  
-Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network through the RPC will be added in the future.
-:::
+Once forking is enabled, developers can seamlessly interact with the forked network using familiar Starknet APIs and tools. Deploy custom smart contracts to the local Katana node and validate their interactions with existing contracts on the forked network. Leverage predeployed accounts provided by Katana to simulate transactions and verify contract behavior with confidence.
 
-### Examples
+**Examples**
 
-The following command forks the Starknet mainnet at exactly the 1200th block. All the states of the mainnet up until block 1200 will be accessible on your local Katana node. It will then start producing new blocks starting from block 1201.
-
-```sh
+```bash
 # Forks the network at block 1200
 katana --rpc-url https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY> --fork-block-number 1200
 ```
+
+This command initializes forking of the Starknet mainnet at the specified block number, establishing a dedicated local environment for comprehensive testing and development activities.
+
+**Best Practices**
+
+- **Environment Isolation**: Establish separate instances of Katana for distinct testing scenarios to prevent conflicts and ensure the integrity of test results.
+- **Automated Testing**: Integrate forking into automated testing pipelines to facilitate continuous integration and delivery (CI/CD) processes, enhancing testing efficiency and reliability.
+- **Resource Management**: Monitor resource utilization when running forked networks to optimize performance and prevent resource exhaustion.
+- **Continuous Improvement**: Stay informed about updates and enhancements to the forking feature in Dojo, incorporating them into your development workflow to leverage the latest capabilities and improvements.
+
+*Future Enhancements*
+
+We remain committed to enhancing the forking feature in Dojo to provide developers with unparalleled testing and development capabilities. Expect ongoing updates and improvements that further elevate the usability and flexibility of forking in Dojo.
