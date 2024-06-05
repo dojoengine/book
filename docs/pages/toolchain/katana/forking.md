@@ -18,12 +18,62 @@ Once forking is enabled, developers can seamlessly interact with the forked netw
 
 ### Examples
 
+#### Basic Forking Command
+
 ```bash
 # Forks the network at block 1200
 katana --rpc-url https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY> --fork-block-number 1200
 ```
 
 This command initializes forking of the Starknet mainnet at the specified block number, establishing a dedicated local environment for comprehensive testing and development activities.
+
+#### Specifying Different Networks
+
+You can fork from various networks (mainnet, testnet) by adjusting the RPC URL.
+
+```bash
+# Forks the Starknet testnet at the latest block
+katana --rpc-url https://starknet-goerli.infura.io/v3/<YOUR_API_KEY>
+```
+
+#### Using Environment Variables
+
+For convenience, you can use environment variables to store your RPC URL and API key.
+
+```bash
+# Using environment variables for RPC URL and API key
+export STARKNET_RPC_URL=https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY>
+katana --rpc-url $STARKNET_RPC_URL --fork-block-number 1200
+```
+
+#### Forking from a Specific Block Range
+
+Forking from a specific block range can be useful for replaying transactions or testing historical states.
+
+```bash
+# Forks the network from block 1000 to 1200
+katana --rpc-url https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY> --fork-start-block 1000 --fork-end-block 1200
+```
+
+### Interacting with the Forked Network
+
+#### Deploying Contracts
+
+Deploy a custom smart contract to the local forked network.
+
+```bash
+# Deploy a contract to the forked network
+starknet deploy --network local --contract my_contract.json
+```
+
+#### Simulating Transactions
+
+Use predeployed accounts to simulate transactions.
+
+```bash
+# Simulate a transaction using a predeployed account
+starknet invoke --network local --address <CONTRACT_ADDRESS> --abi my_contract_abi.json --function my_function --inputs <INPUTS>
+```
 
 ### Best Practices
 
@@ -35,3 +85,36 @@ This command initializes forking of the Starknet mainnet at the specified block 
 ### Future Enhancements
 
 We remain committed to enhancing the forking feature in Dojo to provide developers with unparalleled testing and development capabilities. Expect ongoing updates and improvements that further elevate the usability and flexibility of forking in Dojo.
+
+### Advanced Use Cases
+
+#### Debugging Smart Contracts
+
+Forking allows you to debug smart contracts in a controlled environment.
+
+```bash
+# Deploy a contract and attach a debugger
+starknet deploy --network local --contract my_contract.json
+starknet debug --network local --contract my_contract.json
+```
+
+#### Performance Testing
+
+Evaluate the performance of your contracts under different network conditions by adjusting the forking parameters.
+
+```bash
+# Simulate high transaction volume
+katana --rpc-url https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY> --fork-block-number 1200 --tx-rate 100
+```
+
+#### Security Audits
+
+Use forking to conduct security audits by testing various attack vectors on a replica of the live network.
+
+```bash
+# Test security vulnerabilities
+katana --rpc-url https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY> --fork-block-number 1200
+starknet test --network local --vulnerability-scan
+```
+
+By leveraging these advanced examples and best practices, you can maximize the potential of forking in Dojo for your development and testing needs.
