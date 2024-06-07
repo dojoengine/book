@@ -35,3 +35,5 @@ The messaging config file is a JSON file that contains the following fields:
   "from_block": 0
 }
 ```
+
+For a comprehensive example demonstrating how to implement and test message passing between Starknet and Ethereum in a local development environment, please refer to the code and setup instructions provided in the [starknet-messaging-dev](https://github.com/glihm/starknet-messaging-dev) repository.
