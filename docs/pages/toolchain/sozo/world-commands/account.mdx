@@ -1,5 +1,9 @@
 import WorldOptions from '../common/world-options.mdx'
 import StarknetOptions from '../common/starknet-options.mdx'
+import AccountOptions from '../common/account-options.mdx'
+import SignerOptionsRaw from '../common/signer-options-raw.mdx'
+import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
+import TransactionOptions from '../common/transaction-options.mdx'
 
 ## Sozo Account 
 
@@ -34,35 +38,46 @@ Commands:
 
 Create a new account configuration without actually deploying.
 
-- **Options:**
-  - `signer`: Options for specifying the signer.
-  - `force`: Overwrite the account config file if it already exists.
-  - `file`: Path to save the account config file.
-
 #### `deploy`
 
 Deploy account contract with a `DeployAccount` transaction.
-
-- **Options:**
-  - `starknet`: Options for specifying StarkNet configuration.
-  - `signer`: Options for specifying the signer.
-  - `transaction`: Options for specifying transaction details.
-  - `simulate`: Simulate the transaction only.
-  - `estimate_only`: Only estimate transaction fee without sending transaction.
-  - `nonce`: Provide transaction nonce manually.
-  - `poll_interval`: Transaction result poll interval in milliseconds.
-  - `file`: Path to the account config file.
-  - `no_confirmation`: Don't wait for user confirmation.
 
 #### `fetch`
 
 Fetch account config from an already deployed account contract.
 
-- **Options:**
-  - `starknet`: Options for specifying StarkNet configuration.
-  - `force`: Overwrite the file if it already exists.
-  - `output`: Path to save the account config file.
-  - `address`: Contract address.
+### OPTIONS
+
+#### Starknet Options
+
+<StarknetOptions/>
+
+#### Signer Options - Raw
+
+<SignerOptionsRaw/>
+
+#### Signer Options - Keystore
+
+<SignerOptionsKeystore/>
+
+#### Transaction Options
+
+<TransactionOptions/>
+
+#### Specific Options:
+
+--simulate: Simulate the transaction without sending it.
+
+--estimate_only: Only estimate the transaction fee without sending the transaction.
+
+--nonce: Manually provide a nonce for the transaction.
+
+--poll_interval: Set the interval (in milliseconds) for polling the transaction result. [default: 1000]
+
+--file: Path to the account config file.
+
+--no_confirmation: Skip the user confirmation step.
+
 
 ### Example
 
