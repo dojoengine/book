@@ -34,6 +34,8 @@ Inspect the contents of the `dojo-starter` project, and you'll notice the follow
 
 As Dojo projects bear a strong resemblance to typical Cairo projects, the primary difference lies in the inclusion of a Dojo specific macros.
 
+The scarb manifest (`Scarb.toml`) is a configuration file where project dependencies, metadata and other configurations are defined.
+
 ### Models
 
 Since we're crafting an ECS, it's essential to adhere to the specific terminology associated with Entity Component Systems. In the context of Dojo, `Component` is named `Model`, to not conflict with existing Cairo terminology.
@@ -49,7 +51,6 @@ struct Moves {
     #[key]
     player: ContractAddress,
     remaining: u8,
-    last_direction: Direction
 }
 
 // ...

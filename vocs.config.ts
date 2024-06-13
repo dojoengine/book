@@ -82,6 +82,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Overview", link: "/framework/world" },
+            { text: "Events", link: "/framework/world/events" },
             {
               text: "Authorization",
               link: "/framework/world/authorization",
