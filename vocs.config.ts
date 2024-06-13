@@ -94,9 +94,10 @@ export default defineConfig({
           text: "Contracts",
           collapsed: true,
           items: [
-            { text: "Overview", link: "/framework/contracts" },
-            { text: "Events", link: "/framework/contracts/events" },
-            { text: "Macros", link: "/framework/contracts/macros" },
+            { text: "Overview", link: "/framework/contracts/" },
+            { text: "Systems", link: "/framework/contracts/systems" },
+            { text: "Events", link: "/framework/systems/events" },
+            { text: "Macros", link: "/framework/systems/macros" },
           ],
         },
         {

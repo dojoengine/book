@@ -2,6 +2,39 @@
 
 Anytime a state change occurs, the world emits an event to notify the [Torii indexer](/toolchain/torii) about the change.
 
+Consider this example of a `Moves` model:
+
+```rust
+struct Moves {
+    #[key]
+    player: Address,
+    remaining: u32,
+}
+```
+
+When this model is updated, the `World` contract will emit an event with the following structure:
+
+```rust
+#[derive(Drop, starknet::Event)]
+struct StoreSetRecord {
+    table: felt252,        // Moves
+    keys: Span<felt252>,   // [player]
+    values: Span<felt252>, // [remaining]
+}
+```
+
+This will then be captured by [Torii](/toolchain/torii) and indexed for querying. This will allow you to then reconstruct the state of your world.
+
+Similarly, when a model is deleted, the `World` contract will emit an event with the following structure:
+
+```rust
+#[derive(Drop, starknet::Event)]
+struct StoreDelRecord {
+    table: felt252,      // Moves
+    keys: Span<felt252>, // [player]
+}
+```
+
 Here's a breakdown of the events emitted by the world:
 
 ```rust
