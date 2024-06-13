@@ -72,8 +72,9 @@ emit!(world, (
     Moved { address: caller, direction },
     AnotherEvent { address: caller, value1, value2 }
     )
-); 
+);
 ```
+
 More infos on `dojo::Event` & `starknet::Event` [here](/framework/contracts/events.md#custom-events)
 
 This will emit these values which could be captured by a client or you could query these via [Torii](/toolchain/torii).

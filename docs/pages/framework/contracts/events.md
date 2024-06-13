@@ -2,11 +2,10 @@
 
 Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a `Model`, the `World` contract emits these events. What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to [Torii](/toolchain/torii), all these events are seamlessly indexed, ensuring easy and efficient querying.
 
-
 ### Core Events
 
--  Model Events: to synchronize torii state with on-chain state
--  World Events: world lifecycle events 
+- Model Events: to synchronize torii state with on-chain state
+- World Events: world lifecycle events
 
 #### Model Events
 
@@ -92,9 +91,9 @@ There are two kind of Custom Events with different use-cases.
 These events are acting like 'off-chain' storage and derive [Model](/framework/models) which allows Torii to easily parse them.
 Since it's a [Model](/framework/models) it must have a least a #[key]
 
-How to use : 
+How to use :
 
-For example we will declare a PlayerStatus struct to keep track of player mood. 
+For example we will declare a PlayerStatus struct to keep track of player mood.
 
 -We don't need this information on-chain.
 
@@ -118,14 +117,13 @@ emit!(world, ( PlayerMood { player, mood: Mood::Happy } ));
 
 Each time a PlayerMood event is emitted, the PlayerMood Model indexed by Torii will reflect the lasted mood.
 
-
 #### with starknet::Event
 
 This events are acting like classic starknet events, allowing historization.
 
 Torii index this events in a raw format ( ex : [here](/toolchain/torii/graphql#susbcription-to-events))
 
-How to use : 
+How to use :
 
 Declare the starknet Event enum for you contract with a `Moved` variant
 
@@ -137,7 +135,7 @@ enum Event {
 }
 ```
 
-Declare the `Moved` struct 
+Declare the `Moved` struct
 
 ```rust
 #[derive(Drop, Serde, starknet::Event)]

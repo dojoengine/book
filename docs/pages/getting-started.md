@@ -5,6 +5,7 @@ Windows it not natively supported, we suggest using [WSL](https://learn.microsof
 :::
 
 Let's get started building on **Dojo**! This guide will walk you through installing the Dojo toolchain and preparing your environment for development. Dojo is built around a set of development tools - [Katana](/toolchain/katana), [Torii](/toolchain/torii) and [Sozo](/toolchain/sozo).
+
 <!-- TODO: Add link to the Saya page when available. -->
 
 ## Install dependencies

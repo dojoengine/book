@@ -11,6 +11,7 @@ let game_id = world.uuid();
 ```
 
 Here's the full [world's API](https://github.com/dojoengine/dojo/blob/main/crates/dojo-core/src/world.cairo):
+
 ```rust
 #[starknet::interface]
 trait IWorld<T> {

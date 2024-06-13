@@ -100,6 +100,7 @@ trait IActions {
 ```
 
 The `world` parameter is a special parameter to inject the world into the system.
+
 <!-- Add link to the page dedicated to the world injection. -->
 
 Now, let's examine a `system` implementation of the `src/systems/actions.cairo` file.

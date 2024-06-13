@@ -56,5 +56,6 @@ fn revoke_writer(ref self: T, model: felt252, contract: ContractAddress);
 <!-- TODO: we may add some macros to actually allow systems to interact with permission? -->
 
 To provide authorization you have multiple choices:
+
 - Using [Sozo auth command](/toolchain/sozo/world-commands/auth.mdx) to set permissions from the command line.
 - Leveraging the overlay system to set permissions automatically when you migrate your project. (TODO: PAGE + LINK).
