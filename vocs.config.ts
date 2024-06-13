@@ -96,8 +96,8 @@ export default defineConfig({
           items: [
             { text: "Overview", link: "/framework/contracts/" },
             { text: "Systems", link: "/framework/contracts/systems" },
-            { text: "Events", link: "/framework/systems/events" },
-            { text: "Macros", link: "/framework/systems/macros" },
+            { text: "Events", link: "/framework/contracts/events" },
+            { text: "Macros", link: "/framework/contracts/macros" },
           ],
         },
         {

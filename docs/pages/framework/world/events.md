@@ -12,7 +12,7 @@ struct Moves {
 }
 ```
 
-When this model is updated, the `World` contract will emit an event with the following structure:
+When this model is updated with the `set!` [macro](/framework/contracts/macros.md#set), the world contract will emit an event with the following structure:
 
 ```rust
 #[derive(Drop, starknet::Event)]
@@ -25,7 +25,7 @@ struct StoreSetRecord {
 
 This will then be captured by [Torii](/toolchain/torii) and indexed for querying. This will allow you to then reconstruct the state of your world.
 
-Similarly, when a model is deleted, the `World` contract will emit an event with the following structure:
+Similarly, when a model is deleted with the `delete!` [macro](/framework/contracts/macros.md#delete), the world contract will emit an event with the following structure:
 
 ```rust
 #[derive(Drop, starknet::Event)]
@@ -84,7 +84,7 @@ The `StoreSetRecord` event is emitted when a model is updated in the world's sto
 
 ## StoreDelRecord
 
-The `StoreDelRecord` event is emitted when a model is deleted from the world's store using the `del!` [macro](/framework/contracts/macros.md).
+The `StoreDelRecord` event is emitted when a model is deleted from the world's store using the `delete!` [macro](/framework/contracts/macros.md).
 
 ## WriterUpdated
 

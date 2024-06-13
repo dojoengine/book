@@ -62,6 +62,10 @@ Notice the `#[dojo::model]` attribute. For a model to be recognized, we _must_ a
 
 Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you must provide the `player` field to query this model. Our `Moves` model also contains the `remaining` and `last_direction` fields.
 
+:::warning
+A model **must** have at least **one** key.
+:::
+
 Next, open the `src/models/position.cairo` file to continue.
 
 ```rust
