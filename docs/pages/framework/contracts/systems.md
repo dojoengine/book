@@ -8,7 +8,7 @@
 - Systems ought to be concise and specific.
 - In most scenarios, systems are stateless.
 
-## What are Systems?
+## What are systems?
 
 Within Dojo we define systems as functions within a Dojo contract that act on the world.
 

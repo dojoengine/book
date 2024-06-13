@@ -2,8 +2,8 @@
 
 **_TL;DR_**
 
-- Macros abstract complex queries into shorthands
-- Macros in Dojo expand code that interacts with the world
+- Macros abstract complex queries into shorthands.
+- Macros in Dojo expand code that interacts with the world.
 
 Understanding macros is key to understand Dojo. You will leverage them heavily within the systems you design.
 

@@ -87,7 +87,7 @@ struct Vec2 {
 // ...
 ```
 
-Similarly, we have a `Position` model that is also indexed by the `player` field and includes a `Vec2` data structure. The `Vec2` structure holds `x` and `y` values. It is important to note that a model can contain any Cairo struct, provided the `Introspect` trait is derived. This trait informs the Dojo storage engine on how to handle the struct.
+Similarly, we have a `Position` model that is also indexed by the `player` field and includes a `Vec2` data structure. The `Vec2` structure holds `x` and `y` values. It is important to note that a model can contain any Cairo struct, provided the [`Introspect`](/framework/models/introspect) trait is derived. This trait informs the Dojo storage engine on how to handle the struct.
 
 ### Systems
 
