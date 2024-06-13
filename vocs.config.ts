@@ -305,7 +305,7 @@ export default defineConfig({
     {
       text: "Guides",
       items: [
-        { text: "ECS in 15 minutes", link: "/tutorial/dojo-starter" },
+        { text: "Dojo starter", link: "/tutorial/dojo-starter" },
         // {
         //   text: "Onchain Chess",
         //   link: "/tutorial/onchain-chess/README",

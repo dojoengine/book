@@ -2,7 +2,7 @@
 
 Dojo provides an advanced abstraction layer over Cairo, mirroring React's relationship with JavaScript. Its specialized architecture simplifies game design and development.
 
-By leveraging Dojo, developers can use succinct [macros](/framework/contracts/macros.md) that transform into comprehensive queries at compile time.
+By having it's very own Cairo compiler plugin, Dojo proposes to developers a set of [macros](/framework/contracts/macros.md) that transform into comprehensive queries at compile time.
 
 #### Delving into the Architecture
 
@@ -24,48 +24,47 @@ Lets take a look at the `main.cairo`:
 ```rust
 use starknet::ContractAddress;
 
-// dojo data models
-#[derive(Model, Copy, Drop, Serde)]
+// Dojo model.
+#[derive(Drop, Serde)]
+#[dojo::model]
 struct Position {
-    #[key] // primary key
+    #[key]
     player: ContractAddress,
     vec: Vec2,
 }
 
-// regular cairo struct
-#[derive(Copy, Drop, Serde, Introspect)]
+// A regular cairo struct, deriving Introspect
+// to be usable inside a dojo model.
+#[derive(Drop, Serde, Introspect)]
 struct Vec2 {
     x: u32,
     y: u32
 }
 
-// interface
-#[starknet::interface]
+// Dojo interface.
+#[dojo::interface]
 trait IPlayerActions {
-    fn spawn();
+    fn spawn(ref world: IWorldDispatcher);
 }
 
-// contract
+// Dojo contract.
 #[dojo::contract]
 mod player_actions {
     use starknet::{ContractAddress, get_caller_address};
-    use super::{Position, Vec2};
-    use super::IPlayerActions;
+    use super::{IPlayerActions, Position, Vec2};
 
     #[abi(embed_v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
-        //
-        // This is how we interact with the world contract.
-        //
-        fn spawn(world: IWorldDispatcher) {
-            // get player address
+        // The world is injected by dojo at compile time.
+        // All the data are stored inside the world's storage.
+        fn spawn(ref world: IWorldDispatcher) {
             let player = get_caller_address();
 
-            // dojo command - get player position
-            let position = get!(world, player, (Position));
-
-            // dojo command - set player position
+            // Dojo macro to set the player position in the world.
             set!(world, (Position { player, vec: Vec2 { x: 10, y: 10 } }));
+
+            // Dojo macro to get the player position from the world.
+            let position = get!(world, player, (Position));
         }
     }
 }
@@ -73,9 +72,9 @@ mod player_actions {
 
 ### Breakdown
 
-Dojo contract is just a regular Cairo contract, with some dojo specifics.
+Dojo contract is just a regular Cairo contract, with some Dojo specifics.
 
-#### `Position` struct - the dojo model
+#### `Position` - a Dojo model
 
 In a Dojo world, state is defined using models. These are structs marked with the `#[derive(Model)]` attribute, functioning similarly to a key-pair store. The primary key for a model is indicated using the `#[key]` attribute; for instance, the `player` field serves as the primary key in this context.
 
