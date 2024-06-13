@@ -1,6 +1,6 @@
 # Introspection
 
-Within Dojo, all the models implement the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/database/introspect.cairo#L57). This trait is used to describe the layout of the model's data, which is both used by the world database engine and [Torii](/toolchain/torii) to automatically index the data.
+In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/database/introspect.cairo#L57). This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
 
 The `dojo-core` library already implements the `Introspect` trait for Cairo built-in types.
 
@@ -109,4 +109,33 @@ impl MovesIntrospect of dojo::database::introspect::Introspect<Moves> {
 Use `#[inline(always)]` wisely to avoid hidden bugs during the cairo to sierra compilation. Usually it's fine to use it with dojo utils functions. In case you're using a function you don't know the complexity of, you should avoid using it.
 :::
 
-<!-- TODO: add more details on some specific cases -->
+## IntrospectPacked trait
+
+In some situations, you might need to store a model in a packed way. This is useful when you know the size of the model and want to save some storage space.
+
+For this, you can derive the `IntrospectPacked` trait, which will force the use of the [`Fixed` layout](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/database/introspect.cairo#L9).
+
+```rust
+// [!code word:IntrospectPacked]
+#[derive(Drop, Serde, IntrospectPacked)]
+struct Stats {
+    atk: u8,
+    def: u8,
+}
+```
+
+Dynamic types such as `ByteArray` and `Array` are prohibited in a packed model. However, you can include other Cairo structs within a packed model, provided these structs also implement the `IntrospectPacked` trait.
+
+:::tip
+Old Dojo versions (before `0.7.0`) used to implement only the `IntrospectPacked` trait. Hence, you should use this trait if you're upgrading from an old version of Dojo.
+:::
+
+## Storage and layout
+
+The [`Layout`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/database/introspect.cairo#L8) enum describes the storage layout of the model in the Dojo database engine.
+
+When the `Fixed` layout is used, all the fields of the model are stored in a single storage location, in the order of the fields in the struct. This has the advantage of saving storage space, but it also means that the fields are stored contiguously in memory, which can be a disadvantage if you need to upgrade your model ending up with a new storage layout.
+
+For other layouts, each field is stored independently in a different storage location, computed from the field's selector (like Starknet does with regular contract's storage). This has the advantage of allowing for more flexible storage layouts, but it also means more gas to compute the storage location of a field as hash computation is involved.
+
+<!-- TODO: add more details on the storage related to introspect. -->

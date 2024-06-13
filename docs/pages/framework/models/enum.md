@@ -1,4 +1,4 @@
-## Enum
+# Enum
 
 ## What is Enum
 

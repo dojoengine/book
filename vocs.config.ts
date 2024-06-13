@@ -106,8 +106,8 @@ export default defineConfig({
           items: [
             { text: "Overview", link: "/framework/models" },
             { text: "Introspection", link: "/framework/models/introspect" },
-            { text: "Enum", link: "/framework/models/enum" },
             { text: "Entities", link: "/framework/models/entities" },
+            { text: "Enum", link: "/framework/models/enum" },
           ],
         },
         { text: "Config", link: "/framework/config" },

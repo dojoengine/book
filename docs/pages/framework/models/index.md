@@ -1,5 +1,7 @@
 # Models
 
+> Models = Data
+
 **_TL;DR_**
 
 - Models store structured data in your world.

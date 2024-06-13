@@ -1,5 +1,7 @@
 # Systems
 
+> Systems = Functions in a Dojo contract
+
 **_TL;DR_**
 
 - Systems are Dojo contract functions.
