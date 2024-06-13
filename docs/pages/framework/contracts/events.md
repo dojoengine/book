@@ -3,6 +3,7 @@
 Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a model, the world contract emits [events](/framework/world/events).
 
 What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to model's introspection and [Torii](/toolchain/torii), all these events are seamlessly indexed, ensuring easy and efficient querying.
+
 <!-- TODO: add link about model's introspection. -->
 
 ## Custom Events
@@ -43,6 +44,7 @@ Emit the `PlayerMood` event:
 ```rust
 emit!(world, (PlayerMood { player, mood: Mood::Happy }));
 ```
+
 Each time a `PlayerMood` event is emitted, the `PlayerMood` Model indexed by [Torii](/toolchain/torii) will reflect the lasted mood.
 
 ## Using `starknet::Event`

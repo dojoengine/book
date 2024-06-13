@@ -26,6 +26,7 @@ struct Stats {
 ## Implement the trait
 
 The trait has this signature:
+
 ```rust
 trait Introspect<T> {
     fn size() -> Option<usize>;

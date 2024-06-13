@@ -41,6 +41,7 @@ trait IActions {
     fn move(ref world: IWorldDispatcher, direction: Direction);
 }
 ```
+
 We can note here the very first parameter, called the `world` param, which is a special parameter that injects the world dispatcher into the system.
 
 The two `world` param forms are:
@@ -95,4 +96,5 @@ mod actions {
     }
 }
 ```
+
 Inside the system's implementation, you can use the Dojo [macros](/framework/contracts/macros) to easily interact with the world.

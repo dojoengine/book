@@ -14,6 +14,7 @@ Macros can be use anywhere in your code that is compiled with the Dojo compiler,
 :::
 
 For the examples, consider the following models:
+
 ```rust
 #[derive(Drop, Copy, Serde)]
 #[dojo::model]
