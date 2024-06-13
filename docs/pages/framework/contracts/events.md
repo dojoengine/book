@@ -94,7 +94,7 @@ Since it's a [Model](/framework/models) it must have a least a #[key]
 
 How to use : 
 
-For example we will declare a PlayerStatus struct to keep track of player mood. 
+For example we will declare a PlayerMood struct to keep track of player mood. 
 
 -We don't need this information on-chain.
 
