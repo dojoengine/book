@@ -1,6 +1,6 @@
 # dojo.js
 
-Dojo.js is the official javascript package for dojo. It contains modular packages for building games and dapps.
+Dojo.js is the official JavaScript package for dojo. It contains modular packages for building games and dapps.
 
 #### Install Dojo
 
