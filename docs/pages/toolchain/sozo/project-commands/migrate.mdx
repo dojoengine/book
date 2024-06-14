@@ -1,8 +1,8 @@
-import WorldOptions from '../common/world-options.mdx'
-import StarknetOptions from '../common/starknet-options.mdx'
-import AccountOptions from '../common/account-options.mdx'
-import SignerOptionsRaw from '../common/signer-options-raw.mdx'
-import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
+import WorldOptions from "../common/world-options.mdx";
+import StarknetOptions from "../common/starknet-options.mdx";
+import AccountOptions from "../common/account-options.mdx";
+import SignerOptionsRaw from "../common/signer-options-raw.mdx";
+import SignerOptionsKeystore from "../common/signer-options-keystore.mdx";
 
 ## sozo migrate
 
@@ -11,10 +11,11 @@ import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
 Changes made to the local World after the initial deployment, can easily be pushed to the remote counterpart by running `sozo migrate [SUB-COMMAND] --world <WORLD_ADDRESS>` with `WORLD_ADDRESS` being the address of the remote World. In the background, `migrate` will compute the diffs of the local and remote World, then, start constructing a migration strategy to determine, if any, which part of the local World needs to be pushed upstream.
 
 The `migrate` command has two subcommands: `plan` and `apply`.
-* `plan`: With this subcommand nothing is send on-chain. `sozo` retrieves the remote world and computes the diffs between the remote world and the local world. It outputs the manifests files into the `manifests/<profile_name>/deployments` folder and the two manifest files `manifests/<profile_name>/manifest.[json,toml]`.
-* `apply`: This subcommand will apply the diffs on the remote world and update the manifests files to contain the on-chain data like transaction hash, block number, etc.
 
-__Note__: You can directly run `sozo migrate apply` without the need of running `sozo migrate plan`. You should run `sozo migrate plan` if you want to generate the manifests file only and do a dry run without sending transactions to the chain.
+- `plan`: With this subcommand nothing is send on-chain. `sozo` retrieves the remote world and computes the diffs between the remote world and the local world. It outputs the manifests files into the `manifests/<profile_name>/deployments` folder and the two manifest files `manifests/<profile_name>/manifest.[json,toml]`.
+- `apply`: This subcommand will apply the diffs on the remote world and update the manifests files to contain the on-chain data like transaction hash, block number, etc.
+
+**Note**: You can directly run `sozo migrate apply` without the need of running `sozo migrate plan`. You should run `sozo migrate plan` if you want to generate the manifests file only and do a dry run without sending transactions to the chain.
 
 ### USAGE
 
@@ -36,23 +37,23 @@ Commands:
 
 #### World Options
 
-<WorldOptions/>
+<WorldOptions />
 
 #### Starknet Options
 
-<StarknetOptions/>
+<StarknetOptions />
 
 #### Account Options
 
-<AccountOptions/>
+<AccountOptions />
 
 #### Signer Options - Raw
 
-<SignerOptionsRaw/>
+<SignerOptionsRaw />
 
 #### Signer Options - Keystore
 
-<SignerOptionsKeystore/>
+<SignerOptionsKeystore />
 
 ### EXAMPLES
 
@@ -75,32 +76,33 @@ sozo --profile my_profile migrate apply
 ```
 
 ### MANIFESTS and OVERLAYS
+
 Manifest with Overlays in Dojo
 
 #### Overview
-In Dojo, the manifest system with overlays provides a flexible way to configure and customize the behavior of how sozo will migrate the world. 
 
-Overlays in Dojo allow developers to apply configurations or modifications to base manifest files without directly modifying them. 
-This helps maintain separation of concerns and simplifies the management of configurations, especially in complex environments while 
+In Dojo, the manifest system with overlays provides a flexible way to configure and customize the behavior of how sozo will migrate the world.
+
+Overlays in Dojo allow developers to apply configurations or modifications to base manifest files without directly modifying them.
+This helps maintain separation of concerns and simplifies the management of configurations, especially in complex environments while
 the number of systems and models in a world grow.
-
 
 #### Manifest structure
 
-A manifest in Dojo is a base configuration file that define a system and a model after the compilation. 
-It serves as the foundation upon which overlays are applied. Manifest files typically include data like class hash, 
+A manifest in Dojo is a base configuration file that define a system and a model after the compilation.
+It serves as the foundation upon which overlays are applied. Manifest files typically include data like class hash,
 name of the contract/model, a reference to the ABI, etc....
 
-Base manifest files are written by Sozo in `manifests/<profile_name>/base` folder at root of your project. 
+Base manifest files are written by Sozo in `manifests/<profile_name>/base` folder at root of your project.
 
 #### Overlays
 
-Overlays in Dojo are supplementary configuration files that are applied on top of base manifest files to customize or extend their functionality. 
-These overlays contain specific configuration settings tailored to a particular use case or environment. By using overlays, developers can override 
+Overlays in Dojo are supplementary configuration files that are applied on top of base manifest files to customize or extend their functionality.
+These overlays contain specific configuration settings tailored to a particular use case or environment. By using overlays, developers can override
 the base manifest, add new configurations, without directly modifying the base manifest files that are auto generated at compiled time.
 
-When using Sozo, the Dojo compiler, it searches for overlay files corresponding to base files using a specific path structure. For example, if you 
-have a base file located at `manifests/dev/base/contract/c1.toml`, Sozo expects to find the corresponding overlay file at 
+When using Sozo, the Dojo compiler, it searches for overlay files corresponding to base files using a specific path structure. For example, if you
+have a base file located at `manifests/dev/base/contract/c1.toml`, Sozo expects to find the corresponding overlay file at
 `manifests/dev/overlays/contract/c1.toml`. This structured approach ensures that overlays are applied correctly to their respective base configurations.
 
 Make sure to organize your overlay files accordingly to ensure correct integration with Sozo and to achieve the desired configuration for your systems

@@ -12,7 +12,7 @@ Dojo includes:
 
 - [Framework](framework): a set of contracts and a protocol for building applications that are natively provable, extensible and composable.
 - [Katana](toolchain/katana): a modular and extensible sequencer designed for high performance applications.
-- [Torii](toolchain/torii): a indexer exposing an automatically generated GraphQL and gRPC api for real-time state synchronization.
+- [Torii](toolchain/torii): an indexer exposing an automatically generated GraphQL and gRPC api for real-time state synchronization.
 - [Sozo](toolchain/sozo): a declarative migration planning tool for deploying, upgrading, and maintaining smart contracts.
 
 In addition, [Cartridge](https://cartridge.gg) provides tools and services for productionalizing provable applications:
@@ -20,4 +20,8 @@ In addition, [Cartridge](https://cartridge.gg) provides tools and services for p
 - [Slot](toolchain/slot): a managed infrastructure service for deploying and scaling provable applications in seconds.
 <!-- - [World Explorer](toolchain/world-explorer): a Dojo-native blockchain explorer for understanding and interacting with your application. -->
 
-[Get started](/getting-started.md) with Dojo in only a few minutes!
+:::note
+Before diving into the Dojo book, if you are new to cairo we highly recommend you to [learn Cairo](https://book.cairo-lang.org) first.
+:::
+
+[Get started](/getting-started.md) by installing Dojo in only a few minutes!

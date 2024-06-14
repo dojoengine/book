@@ -4,17 +4,19 @@
 
 Different ECS systems handle entities in various ways. In Dojo, entities are treated as a primary key value within the world, to which models can be attached. To illustrate this concept, consider a simple example of a character in a game that has a `Moves` and a `Position` model.
 
-When defining the models for this entity, it is important to note that we do not reference the entity directly. Instead, we simply provide two structs that the entity will contain.
+When defining the models for the character entity, it is important to note that we do not reference the entity directly. Instead, we simply provide two structs that the entity will be related with.
 
 ```rust
-#[derive(Models, Drop, Serde)]
+#[derive(Drop, Serde)]
+#[dojo::model]
 struct Moves {
     #[key]
     player: ContractAddress,
     remaining: u8,
 }
 
-#[derive(Models, Drop, Serde)]
+#[derive(Drop, Serde)]
+#[dojo::model]
 struct Health {
     #[key]
     player: ContractAddress,

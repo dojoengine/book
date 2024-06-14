@@ -1,24 +1,25 @@
-## Models
+# Models
 
 > Models = Data
 
 **_TL;DR_**
 
 - Models store structured data in your world.
-- Models are Cairo structs with additional features.
-- Models can implement traits.
-- Use the `#[derive(Model)]` decorator to define them.
-- Custom enums and types are supported.
-- Define the primary key using the `#[key]` attribute.
+- Models are Cairo structs with automatic on-chain introspection.
+- Use the `#[dojo::model]` attribute to define them.
+- Custom enums and types are supported if they implement [`Introspect` trait](/framework/models/introspect).
+- Define the key(s) using the `#[key]` attribute.
+- Models must have at least one key.
 
-### Models are Structs
+## What are models?
 
-Models are structs annotated with the `#[derive(Model)]` attribute. Consider these models as a key-value store, where the `#[key]` attribute is utilized to define the primary key. While models can contain any number of fields, adhering to best practices in Entity-Component-System (ECS) design involves maintaining small, isolated models.
+Models are Cairo structs annotated with the `#[dojo::model]` attribute. Consider these models as a key-value store, where the `#[key]` attribute is utilized to define the key. While models can contain any number of fields, adhering to best practices in Entity-Component-System (ECS) design involves maintaining small, isolated models.
 
 This approach fosters modularity and composability, enabling you to reuse models across various entity types.
 
 ```rust
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Drop, Serde)]
+#[dojo::model]
 struct Moves {
     #[key]
     player: ContractAddress,
@@ -26,72 +27,36 @@ struct Moves {
 }
 ```
 
-#### The #[key] attribute
+:::tip
+The `#[derive(Drop, Serde)]` are required and must be included to avoid compilation error. You can add additional trait as you may require, for example the `Copy` trait.
+:::
 
-The `#[key]` attribute indicates to Dojo that this model is indexed by the `player` field. A field that is identified as a `#[key]` is not stored. It is used by the dojo database system to uniquely identify the storage location that contains your model.
+## The #[key] attribute
 
-You need to define at least one key for each model, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys. If you define multiple keys, they must **all** be provided to query the model.
+The `#[key]` attribute indicates to Dojo which fields must be used to index the model. In the previous example, the model is indexed by the `player` field. A field that is identified as a `#[key]` is not stored. It is used by the Dojo database system to uniquely identify the storage location of the model.
+
+**You need to define at least one key for each model**, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys. If you define multiple keys, they must **all** be provided to query the model.
 
 ```rust
 #[derive(Model, Copy, Drop, Serde)]
 struct Resource {
-    #[key]
+    #[key] // [!code hl]
     player: ContractAddress,
-    #[key]
+    #[key] // [!code hl]
     location: ContractAddress,
     balance: u8,
 }
 ```
 
-In this case you then would set the model with both the player and location fields:
-
-```rust
-set!(
-    world,
-    (
-        Resource {
-            player: caller,
-            location: 12,
-            balance: 10
-        },
-    )
-);
-```
-
-To retrieve a model with a composite key using the [get!](/framework/contracts/macros.md#the-get-command) command, you must provide a value for each key as follow:
+In this case you would then use the [`get!` macro](/framework/contracts/macros.md#the-get-macro) with both the player and location fields:
 
 ```rust
 let player = get_caller_address();
 let location = 0x1234;
-
-let resource = get!(world, (player, location), (Resource));
+let resource = get!(world, (player, location), (Resource)); // [!code focus]
 ```
 
-#### Implementing Traits
-
-Models can implement traits. This is useful for defining common functionality across models. For example, you may want to define a `Position` model that implements a `PositionTrait` trait. This trait could define functions such as `is_zero` and `is_equal` which could be used when accessing the model.
-
-```rust
-trait PositionTrait {
-    fn is_zero(self: Position) -> bool;
-    fn is_equal(self: Position, b: Position) -> bool;
-}
-
-impl PositionImpl of PositionTrait {
-    fn is_zero(self: Position) -> bool {
-        if self.x - self.y == 0 {
-            return true;
-        }
-        false
-    }
-
-    fn is_equal(self: Position, b: Position) -> bool {
-        self.x == b.x && self.y == b.y
-    }
-}
-```
-
-#### Custom Setting models
+## Example Game Setting models
 
 Suppose we need a place to keep a global value with the flexibility to modify it in the future. Take, for instance, a global `combat_cool_down` parameter that defines the duration required for an entity to be primed for another attack. To achieve this, we can craft a model dedicated to storing this value, while also allowing for its modification via a decentralized governance model.
 
@@ -105,70 +70,6 @@ struct GameSettings {
     #[key]
     game_settings_id: u32,
     combat_cool_down: u32,
-}
-```
-
-#### Types
-
-Support model types:
-
-- `u8`
-- `u16`
-- `u32`
-- `u64`
-- `u128`
-- `u256`
-- `ContractAddress`
-- Enums
-- Custom Types
-
-It is currently not possible to use Arrays.
-
-#### Custom Types + Enums
-
-For models containing complex types, it's crucial to implement the `SchemaIntrospection` trait.
-
-Consider the model below:
-
-```rust
-struct Card {
-    #[key]
-    token_id: u256,
-    /// The card's designated role.
-    role: Roles,
-}
-```
-
-For complex types, like `Roles` in the above example, you need to implement `SchemaIntrospection`. Here's how:
-
-```rust
-impl RolesSchemaIntrospectionImpl for SchemaIntrospection<Roles> {
-    #[inline(always)]
-    fn size() -> usize {
-        1 // Represents the byte size of the enum.
-    }
-
-    #[inline(always)]
-    fn layout(ref layout: Array<u8>) {
-        layout.append(8); // Specifies the layout byte size;
-    }
-
-    #[inline(always)]
-    fn ty() -> Ty {
-        Ty::Enum(
-            Enum {
-                name: 'Roles',
-                attrs: array![].span(),
-                children: array![
-                    ('Goalkeeper', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('Defender', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('Midfielder', serialize_member_type(@Ty::Tuple(array![].span()))),
-                    ('Attacker', serialize_member_type(@Ty::Tuple(array![].span()))),
-                ]
-                .span()
-            }
-        )
-    }
 }
 ```
 

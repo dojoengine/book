@@ -82,6 +82,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Overview", link: "/framework/world" },
+            { text: "Events", link: "/framework/world/events" },
             {
               text: "Authorization",
               link: "/framework/world/authorization",
@@ -93,7 +94,8 @@ export default defineConfig({
           text: "Contracts",
           collapsed: true,
           items: [
-            { text: "Overview", link: "/framework/contracts" },
+            { text: "Overview", link: "/framework/contracts/" },
+            { text: "Systems", link: "/framework/contracts/systems" },
             { text: "Events", link: "/framework/contracts/events" },
             { text: "Macros", link: "/framework/contracts/macros" },
           ],
@@ -103,8 +105,9 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Overview", link: "/framework/models" },
-            { text: "Enum", link: "/framework/models/enum" },
+            { text: "Introspection", link: "/framework/models/introspect" },
             { text: "Entities", link: "/framework/models/entities" },
+            { text: "Enum", link: "/framework/models/enum" },
           ],
         },
         { text: "Config", link: "/framework/config" },
@@ -305,7 +308,7 @@ export default defineConfig({
     {
       text: "Guides",
       items: [
-        { text: "ECS in 15 minutes", link: "/tutorial/dojo-starter" },
+        { text: "Dojo starter", link: "/tutorial/dojo-starter" },
         // {
         //   text: "Onchain Chess",
         //   link: "/tutorial/onchain-chess/README",

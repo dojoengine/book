@@ -1,6 +1,7 @@
 # Configuration Priorities
 
 The configuration system follows the following priority order:
+
 1. Command-line arguments
 2. Environment variables
 3. Configuration in `Scarb.toml`
