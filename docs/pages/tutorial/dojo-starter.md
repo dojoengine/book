@@ -211,7 +211,7 @@ Chain ID: KATANA
 [3] 📦 Preparing for migration....
   > Total items to be migrated (5): New 5 Update 0
 [4] 🛠 Migrating....
- 
+
 # Base Contract
   > Class Hash: 0x22f3e55b61d86c2ac5239fa3b3b8761f26b9a5c0b5f61ddbd5d756ced498b46
 # World
@@ -233,15 +233,15 @@ dojo_starter::systems::actions::actions
 [5] ✨ Updating manifests....
 
 ✨ Done.
- 
+
 [6] 🖋️ Authorizing Models to Systems (based on overlay)....
- 
+
   > Authorizing dojo_starter::systems::actions::actions for Models: ["Position", "Moves"]
 Transaction hash: 0x1c6bb2f6f7978d32751c42d527b94b4f6644c34404cf8faeedfa4efe25da73
   > Auto authorize completed successfully
- 
+
 [7] 🌐 Uploading metadata....
- 
+
   > world: ipfs://QmPVJzGEcj9Buy1mxTaXf43Fsv8CAzAwLNrjAN8JbigNQE
   > dojo_starter::models::moves::moves: ipfs://QmeEbEAi3yr8Rxzi5TWc3MBncj295waxgeftQwbhNzrWnz
   > dojo_starter::models::moves::directions_available: ipfs://QmbfMea3hDYMsS4gKpHjWW1h7RTPZv86Ua9BwEsHGzoZiH

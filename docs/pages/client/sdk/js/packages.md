@@ -156,7 +156,7 @@ Position.addOverride(positionId, {
     player: BigInt(entityId),
     vec: updatePositionWithDirection(
       direction,
-      getComponentValue(Position, entityId) as any
+      getComponentValue(Position, entityId) as any,
     ).vec,
   },
 });
