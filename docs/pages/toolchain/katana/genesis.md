@@ -47,7 +47,7 @@ The genesis config file is a JSON file that contains the following fields:
   - `storage` (optional)  
     _Key-value pairs for the universal deployer's storage._
 - `accounts` _The genesis allocations._
-  - <CONTRACT_ADDRESS> _The address of the account contract._
+  - <CONTRACT*ADDRESS> \_The address of the account contract.*
     - `publicKey`  
       _The public key associated with the account._
     - `privateKey` (optional)  
@@ -61,7 +61,7 @@ The genesis config file is a JSON file that contains the following fields:
     - `storage` (optional)  
       _Key-value pairs for the account's storage._
 - `contracts` _Genesis contract deployments._
-  - <CONTRACT_ADDRESS> _The address of the contract._
+  - <CONTRACT*ADDRESS> \_The address of the contract.*
     - `class`  
       _The class of the contract._
     - `balance` (optional)  
