@@ -2,9 +2,7 @@
 
 Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a model, the world contract emits [events](/framework/world/events).
 
-What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to model's introspection and [Torii](/toolchain/torii), all these events are seamlessly indexed, ensuring easy and efficient querying.
-
-<!-- TODO: add link about model's introspection. -->
+What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to model's [introspection](/framework/models/introspect) and [Torii](/toolchain/torii), all these events are seamlessly indexed, ensuring easy and efficient querying.
 
 ## Custom Events
 
