@@ -27,7 +27,7 @@ export default defineConfig({
   topNav: [
     { text: "Blog", link: "https://www.dojoengine.org/en/articles" },
     {
-      text: "0.6.0",
+      text: "0.7.0",
       items: [
         {
           text: "Releases",
@@ -82,6 +82,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Overview", link: "/framework/world" },
+            { text: "Events", link: "/framework/world/events" },
             {
               text: "Authorization",
               link: "/framework/world/authorization",
@@ -93,7 +94,8 @@ export default defineConfig({
           text: "Contracts",
           collapsed: true,
           items: [
-            { text: "Overview", link: "/framework/contracts" },
+            { text: "Overview", link: "/framework/contracts/" },
+            { text: "Systems", link: "/framework/contracts/systems" },
             { text: "Events", link: "/framework/contracts/events" },
             { text: "Macros", link: "/framework/contracts/macros" },
           ],
@@ -103,8 +105,9 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Overview", link: "/framework/models" },
-            { text: "Enum", link: "/framework/models/enum" },
+            { text: "Introspection", link: "/framework/models/introspect" },
             { text: "Entities", link: "/framework/models/entities" },
+            { text: "Enum", link: "/framework/models/enum" },
           ],
         },
         { text: "Config", link: "/framework/config" },
@@ -252,6 +255,10 @@ export default defineConfig({
                   text: "account",
                   link: "/toolchain/sozo/world-commands/account",
                 },
+                {
+                  text: "configruations",
+                  link: "/toolchain/sozo/common-options/configurations",
+                },
               ],
             },
           ],
@@ -278,6 +285,25 @@ export default defineConfig({
           text: "dojo.js",
           link: "/client/sdk/js/dojojs",
           collapsed: true,
+          items: [
+            {
+              text: "Get Started",
+              link: "/client/sdk/js/getting-started",
+            },
+            {
+              text: "Packages",
+              link: "/client/sdk/js/packages",
+            },
+            {
+              text: "Dojo.js Concepts",
+              link: "/client/sdk/js/concepts",
+            },
+            {
+              text: "Common Problems",
+              link: "/client/sdk/js/common-problems",
+            },
+            { text: "Example", link: "/client/sdk/js/example" },
+          ],
         },
         {
           text: "dojo.unity",
@@ -305,7 +331,7 @@ export default defineConfig({
     {
       text: "Guides",
       items: [
-        { text: "ECS in 15 minutes", link: "/tutorial/dojo-starter" },
+        { text: "Dojo starter", link: "/tutorial/dojo-starter" },
         // {
         //   text: "Onchain Chess",
         //   link: "/tutorial/onchain-chess/README",

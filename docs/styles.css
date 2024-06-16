@@ -1,25 +1,30 @@
-@layer vocs_preflight { @tailwind base; }
+@layer vocs_preflight {
+  @tailwind base;
+}
 @tailwind components;
 @tailwind utilities;
 
 .vocs_ExternalLink::after {
-    width: 0;
-    margin: 0;
+  width: 0;
+  margin: 0;
 }
 
 .vocs_Sidebar_divider {
-    display: none;
+  display: none;
 }
 
 .vocs_Header {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .vocs_Header:not(:last-child) {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 :not(.vocs_Header) + .vocs_H2:not(:only-child),
-.vocs_Sidebar_navigation > .vocs_Sidebar_group > .vocs_Sidebar_section + .vocs_Sidebar_section {
-    border-top: none;
+.vocs_Sidebar_navigation
+  > .vocs_Sidebar_group
+  > .vocs_Sidebar_section
+  + .vocs_Sidebar_section {
+  border-top: none;
 }
