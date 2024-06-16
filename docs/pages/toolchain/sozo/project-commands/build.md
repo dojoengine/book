@@ -20,3 +20,9 @@ For example, to generate the unity bindings, you can do:
 ```sh
 sozo build --unity
 ```
+
+If you encounter the error message `<error: could not execute process>`, this indicates that Cargo experienced an issue while attempting to retrieve the project's dependencies. Use the command, as this  resolve the problem.
+
+```sh
+cargo fetch
+```
