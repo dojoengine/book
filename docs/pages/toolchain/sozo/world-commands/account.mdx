@@ -33,7 +33,7 @@ Create a new account configuration without actually deploying.
 
 #### `deploy`
 
-Deploy account contract with a `DeployAccount` transaction.
+Deploy account contract
 
 #### `fetch`
 
@@ -74,9 +74,15 @@ Fetch account config from an already deployed account contract.
 
 ### Example
 
+#### Create a New Keystore file
+
+```sh
+sozo keystore new <keystore>.json
+```
+
 #### Create a New Account Configuration
 
 ```sh
-sozo account new --signer <signer_options> --file path/to/config/file --force
+sozo account new --keystore <keystore>.json <account_name>.json
 ```
 
