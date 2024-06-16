@@ -1,0 +1,88 @@
+import WorldOptions from '../common/world-options.mdx'
+import StarknetOptions from '../common/starknet-options.mdx'
+import AccountOptions from '../common/account-options.mdx'
+import SignerOptionsRaw from '../common/signer-options-raw.mdx'
+import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
+import TransactionOptions from '../common/transaction-options.mdx'
+
+## Sozo Account 
+
+The `sozo account` command allows managing account contracts. 
+It provides functionalities to create new account configurations, deploying them, and fetch 
+account configuration for already existing account.
+
+Note that we currently only support the OpenZeppelin account variant. For more advanced use cases, consider using [starkli](https://book.starkli.rs/accounts).
+
+## Usage
+
+```bash
+sozo account [OPTIONS] <COMMAND>
+
+Commands:
+  new     Create a new account configuration without actually deploying.
+  deploy  Deploy account contract with a DeployAccount transaction.
+  fetch   Fetch account config from an already deployed account contract.
+  help    Print this message or the help of the given subcommand(s).
+
+```
+### Subcommands
+
+#### `new`
+
+Create a new account configuration without actually deploying.
+
+#### `deploy`
+
+Deploy account contract
+
+#### `fetch`
+
+Fetch account config from an already deployed account contract.
+
+### OPTIONS
+
+#### Starknet Options
+
+<StarknetOptions/>
+
+#### Signer Options - Raw
+
+<SignerOptionsRaw/>
+
+#### Signer Options - Keystore
+
+<SignerOptionsKeystore/>
+
+#### Transaction Options
+
+<TransactionOptions/>
+
+#### Specific Options:
+
+`--simulate`: Simulate the transaction without sending it.
+
+`--estimate_only`: Only estimate the transaction fee without sending the transaction.
+
+`--nonce`: Manually provide a nonce for the transaction.
+
+`--poll_interval`: Set the interval (in milliseconds) for polling the transaction result. [default: 1000]
+
+`--file`: Path to the account config file.
+
+`--no_confirmation`: Skip the user confirmation step.
+
+
+### Example
+
+#### Create a New Keystore file
+
+```sh
+sozo keystore new <keystore>.json
+```
+
+#### Create a New Account Configuration
+
+```sh
+sozo account new --keystore <keystore>.json <account_name>.json
+```
+
