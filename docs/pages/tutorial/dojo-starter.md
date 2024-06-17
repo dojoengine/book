@@ -186,7 +186,7 @@ That compiled the models and systems into artifacts that can be deployed. Simple
 Now, let's deploy it to [Katana](/toolchain/katana)! First, we need to get Katana running. Open a second terminal and execute:
 
 ```bash
-katana --disable-fee
+katana --disable-fee  --allowed-origins "*"
 ```
 
 Success! [Katana](/toolchain/katana) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
