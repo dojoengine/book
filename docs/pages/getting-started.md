@@ -10,7 +10,7 @@ Let's get started building on **Dojo**! This guide will walk you through install
 
 ## Prerequisites
 
-To work with Dojo, you need to have Rust installed on your PC. You can install Rust using the following steps:
+To work with Dojo, you need to have Git and Rust installed on your PC. You can install Rust using the following steps:
 
 ### Install Rust
 
@@ -25,12 +25,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 After installing Rust, ensure your `PATH` environment variable includes the Cargo bin directory (usually `$HOME/.cargo/bin`).
 
-## Install dependencies
+### Install Git
 
-The Dojo toolchain integrates [scarb](https://docs.swmansion.com/scarb/), the cairo package manager, which have the following dependencies:
+- Go to the [Git installation page](https://git-scm.com/downloads) and follow the instructions for your operating system to install Git.
 
-- [git](https://www.git-scm.com/about)
-- [cargo](https://doc.rust-lang.org/stable/cargo/getting-started/installation.html)
+## Install scarb
+
+- The Dojo toolchain integrates [scarb](https://docs.swmansion.com/scarb/) to build and run Dojo projects.
 
 ## Install using `dojoup`
 
