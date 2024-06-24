@@ -8,14 +8,25 @@ Let's get started building on **Dojo**! This guide will walk you through install
 
 <!-- TODO: Add link to the Saya page when available. -->
 
-## Install dependencies
+## Prerequisites
 
-The Dojo toolchain integrates [scarb](https://docs.swmansion.com/scarb/), the cairo package manager, which have the following dependencies:
+To work with Dojo, you need to have Git, Rust and Scarb installed on your PC to satisfy Dojo dependencies. You can install them with the following steps:
 
-- [git](https://www.git-scm.com/about)
-- [cargo](https://doc.rust-lang.org/stable/cargo/getting-started/installation.html)
+### Install Rust
 
-## Install using `dojoup`
+Go to the [Rust installation page](https://doc.rust-lang.org/book/ch01-01-installation.html#installing-rustup-on-linux-or-macos).
+
+After installing Rust, ensure your `PATH` environment variable includes the Cargo bin directory (usually `$HOME/.cargo/bin`).
+
+### Install Git
+
+Go to the [Git installation page](https://git-scm.com/downloads) and follow the instructions for your operating system to install Git.
+
+### Install Scarb
+
+The Dojo toolchain integrates [Scarb](https://docs.swmansion.com/scarb/) to build and run Dojo projects, installation instructions are [here](https://docs.swmansion.com/scarb/download.html).
+
+## Install Dojo using `dojoup`
 
 You can install with the `dojoup` version manager which enables you to easily install, update and manage your Dojo installation.
 
@@ -37,7 +48,7 @@ For more information on advanced usage, such as installing a particular version 
 
 ::::
 
-## Install using `asdf`
+## Install Dojo using `asdf`
 
 You can alternatively use the `asdf` package manager to install and manage your Dojo installation.
 
