@@ -1,6 +1,6 @@
 # Cairo Testing Cheat Codes: A Comprehensive Guide
 
-The Cairo Testing Cheat Codes allow you to set and manipulate various parameters, such as block number, caller address, contract address, to test your contracts in different scenarios. In this guide, we will explore each cheat code in detail, providing explanations and examples to help you understand how to use them effectively in your tests.
+The Cairo Testing Cheat Codes allow you to set and manipulate various execution context variables, such as block number, caller address, contract address, to test your contracts in different scenarios. In this guide, we will explore each cheat code in detail, providing explanations and examples to help you understand how to use them effectively in your tests.
 
 Here is a breakdown of the cheat codes, along with their explanations and examples.
 
@@ -25,7 +25,7 @@ assert_eq!(get_block_number(), 100);.
 2. `set_caller_address`: this cheat code helps one set the caller address to the provided contract address, enabling you to test contract interactions with different callers. You can apply this cheat code when:
 
 - Testing a contract's access control mechanisms, such as only allowing certain addresses to call specific functions.
-- Simulating a scenario where a contract is called by a different address, such as a multisig wallet.
+- Simulating a scenario where a contract is called by a different address.
 
 #### Example:
 
@@ -54,23 +54,9 @@ set_contract_address(contract_address);
 assert_eq!(get_contract_address(), contract_address);
 ```
 
-4. `set_sequencer_address`: this cheat code helps one set the sequencer address to the provided value, enabling you to test contract interactions with different sequencers. You can apply this code when:
-
-- Testing a contract's interaction with a specific sequencer, such as a decentralized oracle.
-- Simulating a scenario where a contract is called by a different sequencer.
-
-#### Examples:
-
-```
-(a) `set_sequencer_address(ContractAddress::from([7, 8, 9]));`
-
-(b) Set the sequencer address to a specific address;
-let sequencer_address = ContractAddress::from([7, 8, 9]);
-set_sequencer_address(sequencer_address);
-assert_eq!(get_sequencer_address(), sequencer_address);
 ```
 
-5. `set_block_timestamp`: this cheat code helps one set the block timestamp to the specified value, allowing you to test contract behavior at different points in time. You can apply this code when:
+4. `set_block_timestamp`: this cheat code helps one set the block timestamp to the specified value, allowing you to test contract behavior at different points in time. You can apply this code when:
 
 - Testing a contract's behavior at a specific point in time, such as checking if a certain function is only callable during a certain time period.
 - Simulating a scenario where a contract is deployed at a different point in time.
@@ -85,7 +71,7 @@ set_block_timestamp(1643723419);
 assert_eq!(get_block_timestamp(), 1643723419);
 ```
 
-6. `set_version`: this cheat code helps one set the version to the provided value, enabling you to test contract behavior with different versions. You can apply this when:
+5. `set_version`: this cheat code helps one set the version to the provided value, enabling you to test contract behavior with different versions. You can apply this when:
 
 - Testing a contract's behavior with different versions, such as checking if a certain function is only callable in a specific version.
 - Simulating a scenario where a contract is upgraded to a different version.
@@ -100,7 +86,7 @@ set_version(2);
 assert_eq!(get_version(), 2);
 ```
 
-7. `set_account_contract_address`: this cheat code helps one set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply this when:
+6. `set_account_contract_address`: this cheat code helps one set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply this when:
 
 - Testing a contract's interaction with a specific account contract, such as a wallet contract.
 - Simulating a scenario where a contract is called by a different account contract.
@@ -116,7 +102,7 @@ set_account_contract_address(account_contract_address);
 assert_eq!(get_account_contract_address(), account_contract_address);
 ```
 
-8. `set_max_fee`: this cheat code helps one set the maximum fee to the provided value, enabling you to test contract behavior with different fee structures. You can apply this when:
+7. `set_max_fee`: this cheat code helps one set the maximum fee to the provided value, enabling you to test contract behavior with different fee structures. You can apply this when:
 
 - Testing a contract's behavior with different fee structures, such as checking if a certain function is only callable with a specific fee.
 - Simulating a scenario where a contract is deployed with a different fee structure.
@@ -131,7 +117,7 @@ set_max_fee(1000);
 assert_eq!(get_max_fee(), 1000);
 ```
 
-9. `set_transaction_hash`: this cheat code helps one set the transaction hash to the provided value, allowing you to test contract behavior with different transaction hashes. You can apply this when:
+8. `set_transaction_hash`: this cheat code helps one set the transaction hash to the provided value, allowing you to test contract behavior with different transaction hashes. You can apply this when:
 
 - Testing a contract's behavior with different transaction hashes, such as checking if a certain function is only callable with a specific transaction hash.
 - Simulating a scenario where a contract is called with a different transaction hash.
@@ -147,7 +133,7 @@ set_transaction_hash(transaction_hash);
 assert_eq!(get_transaction_hash(), transaction_hash);
 ```
 
-10. `set_chain_id`: this cheat code helps one set the chain ID to the provided value, enabling you to test contract behavior on different chains. You can apply this when:
+9. `set_chain_id`: this cheat code helps one set the chain ID to the provided value, enabling you to test contract behavior on different chains. You can apply this when:
 
 - Testing a contract's behavior on different chains, such as checking if a certain function is only callable on a specific chain.
 - Simulating a scenario where a contract is deployed on a different chain.
@@ -162,7 +148,7 @@ set_chain_id(123);
 assert_eq!(get_chain_id(), 123);
 ```
 
-11. `set_nonce`: this cheat code helps one set the nonce to the provided value, allowing you to test contract behavior with different nonces. You can apply this when:
+10. `set_nonce`: this cheat code helps one set the nonce to the provided value, allowing you to test contract behavior with different nonces. You can apply this when:
 
 - Testing a contract's behavior with different nonces, such as checking if a certain function is only callable with a specific nonce.
 - Simulating a scenario where a contract is called with a different nonce.
@@ -176,7 +162,7 @@ set_nonce(5);
 assert_eq!(get_nonce(), 5);
 ```
 
-12. `set_signature`: this cheat code helps one set the signature to the provided value, enabling you to test contract behavior with different signatures. You can apply this when:
+11. `set_signature`: this cheat code helps one set the signature to the provided value, enabling you to test contract behavior with different signatures. You can apply this when:
 
 - Testing a contract's behavior with different signatures, such as checking if a certain function is only callable with a specific signature.
 - Simulating a scenario where a contract is called with a different signature.
@@ -192,7 +178,7 @@ set_signature(signature);
 assert_eq!(get_signature(), signature);
 ```
 
-13. `set_block_hash`: this cheat code helps one set the block hash for a specific block number, allowing you to test contract behavior with different block hashes. You can apply this when:
+12. `set_block_hash`: this cheat code helps one set the block hash for a specific block number, allowing you to test contract behavior with different block hashes. You can apply this when:
 
 - Testing a contract's behavior with different block hashes, such as checking if a certain function is only callable with a specific block hash.
 - Simulating a scenario where a contract is deployed with a different block hash.
@@ -208,7 +194,7 @@ set_block_hash(100, block_hash);
 assert_eq!(get_block_hash(100), block_hash);
 ```
 
-14. `pop_log_raw`: this cheat code helps one pop the earliest unpopped logged event for the contract, returning the event data and keys. You can apply this when:
+13. `pop_log_raw`: this cheat code helps one pop the earliest unpopped logged event for the contract, returning the event data and keys. You can apply this when:
 
 - Testing a contract's logging mechanism, such as checking if a certain event is logged correctly.
 - Debugging a contract's behavior by inspecting the logged events.
@@ -223,7 +209,7 @@ let log = pop_log_raw(ContractAddress::from([1, 2, 3]));
 assert_eq!(log, Some(([1, 2, 3], [4, 5, 6])));
 ```
 
-15. `pop_log`: this cheat code helps one pop the earliest unpopped logged event for the contract as the requested type, deserializing the event data into the specified type. You can apply this when:
+14. `pop_log`: this cheat code helps one pop the earliest unpopped logged event for the contract as the requested type, deserializing the event data into the specified type. You can apply this when:
 
 - Testing a contract's event handling mechanism, such as checking if a certain event is handled correctly.
 - Debugging a contract's behavior by inspecting the handled events.
@@ -238,7 +224,7 @@ let event = pop_log<MyEvent>(ContractAddress::from([1, 2, 3]));
 assert_eq!(event, Some(MyEvent { data: [4, 5, 6] })
 ```
 
-16. `pop_l2_to_l1_message`: this cheat code helps one pop the earliest unpopped L2 to L1 message for the contract, returning the message data and keys. You can apply this when:
+15. `pop_l2_to_l1_message`: this cheat code helps one pop the earliest unpopped L2 to L1 message for the contract, returning the message data and keys. You can apply this when:
     -Testing a contract's L2 to L1 messaging mechanism, such as checking if a certain message is sent correctly.
 
 - Debugging a contract's behavior by inspecting the sent messages.
