@@ -295,6 +295,17 @@ export default defineConfig({
               link: "/client/sdk/js/packages",
             },
             {
+              text: "State Providers",
+
+              collapsed: true,
+              items: [
+                {
+                  text: "Recs",
+                  link: "/client/sdk/js/recs",
+                },
+              ],
+            },
+            {
               text: "Dojo.js Concepts",
               link: "/client/sdk/js/concepts",
             },

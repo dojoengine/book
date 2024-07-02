@@ -4,6 +4,6 @@
 
 Often type errors happen due to upgrades in packages. Restart your IDE and run the following.
 
-```
-pnpm clean
+```bash
+pnpm clean && pnpm i
 ```
