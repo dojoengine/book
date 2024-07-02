@@ -4,9 +4,8 @@ RECS is a powerful library for managing game state in Dojo-powered applications.
 
 Key features:
 
-- Generate RECS bindings based on your Dojo world definition
 - Efficiently manage and query game state
-- Seamlessly integrate with React applications
+- Seamlessly integrate with React applications or pure js
 
 RECS is a [state library developed by Lattice](https://mud.dev/state-query/typescript/recs), with minimal modifications for Dojo compatibility. For comprehensive documentation, refer to the [official RECS documentation](https://mud.dev/state-query/typescript/recs).
 
