@@ -2,13 +2,13 @@
 
 ### Generating Bindings
 
-Dojo clients are based on a single C interface. This can be found here [dojo.c](https://github.com/dojoengine/dojo.c).
+Dojo clients are based on a single C interface, which can be found in [dojo.c](https://github.com/dojoengine/dojo.c). This interface is then wrapped and consumed within dojo.js.
 
-#### Generate Recs bindings
+## Autogen Components based on your world
 
 From your project define the recs bindings by (replace the parameters with appropriate information):
 
-`npx @dojoengine/core ../../dojo-starter/manifests/dev/manifest.json src/dojo/generated/contractComponents.ts http://localhost:5050 0x559e9e223d83b6a3121ba33b1339323a3bdf4c7c302078fb3e755fddc68a2fb`
+`npx @dojoengine/core <PATH TO MANIFEST> <PATH TO GENERATE COMPONENTS> <RPC URL> <WORLD ADDRESS>`
 
 This will output a file like:
 
