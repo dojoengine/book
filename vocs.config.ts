@@ -27,7 +27,7 @@ export default defineConfig({
   topNav: [
     { text: "Blog", link: "https://www.dojoengine.org/en/articles" },
     {
-      text: "0.7.0",
+      text: "0.7.3",
       items: [
         {
           text: "Releases",
