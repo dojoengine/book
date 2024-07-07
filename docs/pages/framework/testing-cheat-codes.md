@@ -4,6 +4,10 @@ The Cairo Testing Cheat Codes allow you to set and manipulate various execution 
 
 ### Usage
 
+pub extern fn cheatcode<const selector: felt252>(
+    input: Span<felt252>
+) -> Span<felt252> implicits() nopanic;
+
 1. `set_block_number`
 
 This cheat code helps you set the current block number to the specified value, allowing you to simulate different block heights for testing purposes.
@@ -12,10 +16,11 @@ This cheat code helps you set the current block number to the specified value, a
 - Simulating a fork or replay attack to test a contract's resilience.
 
 ```
-// Set the block number to 100
+/// Set the block number to the provided value.
 
-set_block_number(100);
-assert_eq!(get_block_number(), 100);
+pub fn set_block_number(block_number: u64) {
+    cheatcode::<'set_block_number'>([block_number.into()].span());
+}
 
 ```
 
@@ -27,11 +32,11 @@ This cheat code helps you set the caller address to the provided contract addres
 - Simulating a scenario where a contract is called by a different address.
 
 ```
-// Set the caller address to a specific contract address
+/// Set the caller address to a specific contract address.
 
-let caller_address = ContractAddress::from([1, 2, 3]);
-set_caller_address(caller_address);
-assert_eq!(get_caller_address(), caller_address);
+pub fn set_caller_address(address: ContractAddress) {
+    cheatcode::<'set_caller_address'>([address.into()].span());
+}
 
 ```
 
@@ -43,7 +48,7 @@ This cheat code helps you set the contract address to the provided value, allowi
 - Testing a contract's behavior when deployed to a different address.
 
 ```
-// Set the contract address to a specific address
+// Set the contract address to a specific address.
 
 let contract_address = ContractAddress::from([4, 5, 6]);
 set_contract_address(contract_address);
@@ -59,10 +64,11 @@ This cheat code helps you set the block timestamp to the specified value, allowi
 - Simulating a scenario where a contract is deployed at a different point in time.
 
 ```
-// Set the block timestamp to a specific value
+/// Set the block timestamp to a specific value.
 
-set_block_timestamp(1643723419);
-assert_eq!(get_block_timestamp(), 1643723419);
+pub fn set_block_timestamp(block_timestamp: u64) {
+    cheatcode::<'set_block_timestamp'>([block_timestamp.into()].span());
+}
 
 ```
 
@@ -74,10 +80,11 @@ This cheat code helps one set the version to the provided value, enabling you to
 - Simulating a scenario where a contract is upgraded to a different version.
 
 ```
-// Set the version to a specific value
+/// Set the version to the provided value.
 
-set_version(2);
-assert_eq!(get_version(), 2);
+pub fn set_version(version: felt252) {
+    cheatcode::<'set_version'>([version].span());
+}
 
 ```
 
@@ -89,11 +96,11 @@ This cheat code helps you set the account contract address to the provided value
 - Simulating a scenario where a contract is called by a different account contract.
 
 ```
-// Set the account contract address to a specific address
+/// Set the account contract address.
 
-let account_contract_address = ContractAddress::from([10, 11, 12]);
-set_account_contract_address(account_contract_address);
-assert_eq!(get_account_contract_address(), account_contract_address);
+pub fn set_account_contract_address(address: ContractAddress) {
+    cheatcode::<'set_account_contract_address'>([address.into()].span());
+}
 
 ```
 
@@ -105,10 +112,11 @@ This cheat code helps you set the maximum fee to the provided value, enabling yo
 - Simulating a scenario where a contract is deployed with a different fee structure.
 
 ```
-// Set the max fee to a specific value
+/// Set the max fee to a specific value.
 
-set_max_fee(1000);
-assert_eq!(get_max_fee(), 1000);
+pub fn set_max_fee(fee: u128) {
+    cheatcode::<'set_max_fee'>([fee.into()].span());
+}
 
 ```
 
@@ -120,11 +128,11 @@ This cheat code helps one set the transaction hash to the provided value, allowi
 - Simulating a scenario where a contract is called with a different transaction hash.
 
 ```
-// Set the transaction hash to a specific value
+/// Set the transaction hash.
 
-let transaction_hash = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-set_transaction_hash(transaction_hash);
-assert_eq!(get_transaction_hash(), transaction_hash);
+pub fn set_transaction_hash(hash: felt252) {
+    cheatcode::<'set_transaction_hash'>([hash].span());
+}
 
 ```
 
@@ -136,10 +144,11 @@ This cheat code helps one set the chain ID to the provided value, enabling you t
 - Simulating a scenario where a contract is deployed on a different chain.
 
 ```
-// Set the chain id to a specific value
+/// Set the chain id.
 
-set_chain_id(123);
-assert_eq!(get_chain_id(), 123);
+pub fn set_chain_id(chain_id: felt252) {
+    cheatcode::<'set_chain_id'>([chain_id].span());
+}
 
 ```
 
@@ -151,10 +160,11 @@ This cheat code helps one set the nonce to the provided value, allowing you to t
 - Simulating a scenario where a contract is called with a different nonce.
 
 ```
-// Set the nonce to a specific value
+/// Set the nonce to a specific value.
 
-set_nonce(5);
-assert_eq!(get_nonce(), 5);
+pub fn set_nonce(nonce: felt252) {
+    cheatcode::<'set_nonce'>([nonce].span());
+}
 
 ```
 
@@ -166,11 +176,11 @@ This cheat code helps one set the signature to the provided value, enabling you 
 - Simulating a scenario where a contract is called with a different signature.
 
 ```
-// Set the signature to a specific value
+/// Set the signature.
 
-let signature = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-set_signature(signature);
-assert_eq!(get_signature(), signature);
+pub fn set_signature(signature: Span<felt252>) {
+    cheatcode::<'set_signature'>(signature);
+}
 
 ```
 
@@ -182,11 +192,11 @@ This cheat code helps one set the block hash for a specific block number, allowi
 - Simulating a scenario where a contract is deployed with a different block hash.
 
 ```
-// Set the block hash to a specific value
+/// Set the block hash to a specific value.
 
-let block_hash = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-set_block_hash(100, block_hash);
-assert_eq!(get_block_hash(100), block_hash);
+pub fn set_block_hash(block_number: u64, value: felt252) {
+    cheatcode::<'set_block_hash'>([block_number.into(), value].span());
+};
 
 ```
 
@@ -198,10 +208,12 @@ This cheat code helps one pop the earliest unpopped logged event for the contrac
 - Debugging a contract's behavior by inspecting the logged events.
 
 ```
-// Pop the earliest unpopped logged event for the contract
+/// Pop the earliest unpopped logged event for the contract.
 
-let log = pop_log_raw(ContractAddress::from([1, 2, 3]));
-assert_eq!(log, Some(([1, 2, 3], [4, 5, 6])));
+pub fn pop_log_raw(address: ContractAddress) -> Option<(Span<felt252>, Span<felt252>)> {
+    let mut log = cheatcode::<'pop_log'>([address.into()].span());
+    Option::Some((Serde::deserialize(ref log)?, Serde::deserialize(ref log)?,))
+}
 
 ```
 
@@ -213,10 +225,12 @@ This cheat code helps one pop the earliest unpopped logged event for the contrac
 - Debugging a contract's behavior by inspecting the handled events.
 
 ```
-// Pop the earliest unpopped logged event for the contract as a specific type
+/// Pop the earliest unpopped logged event for the contract as a specific type.
 
-let event = pop_log<MyEvent>(ContractAddress::from([1, 2, 3]));
-assert_eq!(event, Some(MyEvent { data: [4, 5, 6] }));
+pub fn pop_log<T, +starknet::Event<T>>(address: ContractAddress) -> Option<T> {
+    let (mut keys, mut data) = pop_log_raw(address)?;
+    starknet::Event::deserialize(ref keys, ref data)
+}
 
 ```
 
@@ -228,10 +242,14 @@ This cheat code helps one pop the earliest unpopped L2 to L1 message for the con
 - Debugging a contract's behavior by inspecting the sent messages.
 
 ```
-// Pop the earliest unpopped L2 to L1 message for the contract
+/// Pop the earliest unpopped L2 to L1 message for the contract.
 
-let message = pop_l2_to_l1_message(ContractAddress::from([1, 2, 3]));
-assert_eq!(message, Some((1, [4, 5, 6])));
+pub fn pop_l2_to_l1_message(address: ContractAddress) -> Option<(felt252, Span<felt252>)> {
+    let mut l2_to_l1_message = cheatcode::<'pop_l2_to_l1_message'>([address.into()].span());
+    Option::Some(
+        (Serde::deserialize(ref l2_to_l1_message)?, Serde::deserialize(ref l2_to_l1_message)?,)
+    )
+}
 
 ```
 
