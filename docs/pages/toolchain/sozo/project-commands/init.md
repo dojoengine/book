@@ -5,3 +5,9 @@
 ```sh
 sozo init new_project
 ```
+
+To initialize a new project with git, pass in the `--git` flag.
+
+```sh
+sozo init new_project --git
+```
