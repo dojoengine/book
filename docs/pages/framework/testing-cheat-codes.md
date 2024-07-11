@@ -7,7 +7,7 @@ The Cairo Testing Cheat Codes allow you to set and manipulate various execution 
 
 This cheat code helps you set the current block number to the specified value, allowing you to simulate different block heights for testing purposes.
 
-- Testing a contract's behavior at a specific block height, such as checking if a certain function is only callable after a certain block number.
+This one is helpful to test a contract's behavior at a specific block height, such as checking if a certain function is only callable after a certain block number.
 
 ```
 use starknet::{testing, get_block_number};
