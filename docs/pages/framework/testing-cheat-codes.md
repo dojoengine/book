@@ -41,7 +41,6 @@ This cheat code helps you set the contract address to the provided value, allowi
 - Testing a contract's behavior when deployed to a different address.
 
 ```
-use core::traits::{TryInto, Into};
 use starknet::{testing, get_contract_address};
 
 const HUB_ADDRESS: ContractAddress = 0x05d17402d2d9b07fda1fe50570e6e13cdb019352a1be63b1be588e6e3087d08e;
