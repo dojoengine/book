@@ -39,13 +39,13 @@ This cheat code helps you set the contract address to the provided value, allowi
 It is important to note that any test function is considered a contract, which by default uses the `0` address. Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
 
 ```
-use starknet::{testing, get_contract_address};
+use starknet::{testing, get_contract_address, contract_address_const};
 
-const HUB_ADDRESS: ContractAddress = 0x05d17402d2d9b07fda1fe50570e6e13cdb019352a1be63b1be588e6e3087d08e;
+const HUB_ADDRESS: ContractAddress = contract_address_const::<'hub'>()
 
 testing::set_contract_address(HUB_ADDRESS);
 
-get_contract_address(); // returns HUB_ADDRESS
+assert(get_contract_address() == HUB_ADDRESS, 'BAD ADDRESS');
 ```
 
 4. `set_block_timestamp`
@@ -56,9 +56,11 @@ This cheat code helps you set the block timestamp to the specified value, allowi
 - Simulating a scenario where a contract is deployed at a different point in time.
 
 ```
-use starknet::{testing};
+use starknet::{testing, get_block_timestamp};
 
 testing::set_block_timestamp(123456);
+
+assert(get_block_timestamp == 123456, 'bad timestamp');
 
 ```
 
@@ -70,9 +72,11 @@ This cheat code helps one set the version to the provided value, enabling you to
 - Simulating a scenario where a contract is upgraded to a different version.
 
 ```
-use starknet::{testing};
+use starknet::{testing, get_version};
 
 testing::set_version('0.1.0');
+
+assert(get_version == '0.1.0', 'wrong version')
 
 ```
 
@@ -84,15 +88,13 @@ This cheat code helps you set the account contract address to the provided value
 - Simulating a scenario where a contract is called by a different account contract.
 
 ```
-use starknet::{testing, get_account_contract_address};
-use core::traits::{TryInto, Into};
+use starknet::{testing, get_account_contract_address, contract_address_const};
 
-const USER_ONE: felt252 = 'USER1';
+const contract: ContractAddress = contract_address_const::<'contract'>();
 
-testing::set_account_contract_address(USER_ONE.try_into().unwrap());
+testing::set_account_contract_address(contract);
 
-
-get_account_contract_address(); // returns USER_ONE.try_into().unwrap()
+assert(get_account_contract_address() == contract, 'wrong contract address');
 ```
 
 7. `set_max_fee`
@@ -103,9 +105,11 @@ This cheat code helps you set the maximum fee to the provided value, enabling yo
 - Simulating a scenario where a contract is deployed with a different fee structure.
 
 ```
-use starknet::{testing};
+use starknet::{testing, get_max_fee};
 
 testing::set_max_fee(123456);
+
+assert(get_max_fee()==123456, 'bad max fee');
 
 ```
 
@@ -117,9 +121,11 @@ This cheat code helps one set the transaction hash to the provided value, allowi
 - Simulating a scenario where a contract is called with a different transaction hash.
 
 ```
-use starknet::{testing};
+use starknet::{testing, get_transcation_hash};
 
 testing::set_transaction_hash('12345678');
+
+assert(get_transcation_hash() == '12345678', 'bad transcation hash');
 
 ```
 
@@ -131,9 +137,11 @@ This cheat code helps one set the chain ID to the provided value, enabling you t
 - Simulating a scenario where a contract is deployed on a different chain.
 
 ```
-use starknet::{testing};
+use starknet::{testing, get_chain_id};
 
 testing::set_chain_id('test_chain_id');
+
+assert(get_chain_id() == 'test_chain_id', 'bad chain id');
 
 ```
 
@@ -149,7 +157,7 @@ use starknet::{testing, get_nonce};
 
 testing::set_nonce('test_nonce');
 
-get_nonce(); // returns 'test_nonce'
+assert(get_nonce() == 'test_nonce', 'bad nonce');
 
 ```
 
@@ -165,7 +173,7 @@ use starknet::{testing, get_signature};
 
 testing::set_signature('signature');
 
-get_signature(); // 'signature'
+assert(get_signature() == 'signature', 'bad signature');
 
 ```
 
@@ -181,7 +189,7 @@ use starknet::{testing, get_block_hash};
 
 testing::set_block_hash(12345678, 'value');
 
-get_block_hash();
+assert(get_block_hash() == 12345678, 'bad block hash);as
 
 ```
 
