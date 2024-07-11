@@ -26,14 +26,11 @@ This cheat code helps you set the caller address to the provided contract addres
 - Simulating a scenario where a contract is called by a different address.
 
 ```
-use core::traits::{TryInto, Into};
-use starknet::{testing, get_caller_address};
+use starknet::{testing, get_caller_address, contract_address_const};
 
-const USER_ONE: felt252 = 'USER1';
-testing::set_caller_address(USER_ONE.try_into().unwrap()); // Sets user to USER_ONE
-
-get_caller_address(); // returns USER_ONE.try_into().unwrap()
-
+let user_one = contract_address_const::<'user1'>();
+testing::set_caller_address(user_one);
+assert(get_caller_address() == user_one, 'bad caller';
 ```
 
 3. `set_contract_address`
