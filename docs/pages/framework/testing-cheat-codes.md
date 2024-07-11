@@ -34,7 +34,7 @@ assert(get_caller_address() == user_one, 'bad caller';
 
 3. `set_contract_address`
 
-This cheat code helps you set the contract address to the provided value, allowing you to test contract deployment and interactions. You can apply this code when:
+This cheat code helps you set the contract address to the provided value, allowing you to test contract deployment and interactions.
 
 - Deploying a contract to a specific address for testing purposes.
 - Testing a contract's behavior when deployed to a different address.
