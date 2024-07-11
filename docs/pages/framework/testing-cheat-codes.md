@@ -36,8 +36,7 @@ assert(get_caller_address() == user_one, 'bad caller';
 
 This cheat code helps you set the contract address to the provided value, allowing you to test contract deployment and interactions.
 
-- Deploying a contract to a specific address for testing purposes.
-- Testing a contract's behavior when deployed to a different address.
+It is important to note that any test function is considered a contract, which by default uses the `0` address. Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
 
 ```
 use starknet::{testing, get_contract_address};
