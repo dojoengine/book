@@ -14,7 +14,7 @@ use starknet::{testing, get_block_number};
 
 testing::set_block_number(1234567);
 
-get_block_nunmber(); // returns 1234567
+assert!(get_block_number() == 1234567, 'bad block number');
 ```
 
 2. `set_caller_address`
