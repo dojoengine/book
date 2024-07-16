@@ -8,33 +8,18 @@ The **`update`** command in Slot is utilized to modify and reconfigure existing 
 slot deployments update <Project Name> [service] [options]
 ```
 
-### **Parameters**
-
-- **`<Project Name>`** The name of the project associated with the deployment.
-- **`[service]`** The specific service to update. Options include **`Katana`**, **`Madara`**, and **`Torii`**.
-
-### **Options**
-
-- **`-version <version>`** Specify the new version of the service to apply.
-- **Service-Specific Options**:
-    - **Katana**:
-        - **`-block-time <time>`** Update the block time for the blockchain instance.
-        - **`-fork-rpc-url <URL>`** Update the URL to fork from an existing blockchain.
-    - **Torii**:
-        - **`-world <world_id>`** Update the world identifier for the Torii service.
-
 ### **Examples**
 
 1. **Update a Katana Deployment:**
     
     ```sh
-    slot deployments update "MyProject" Katana --version "1.2" --block-time 12
+    slot deployments update 'MyProject' Katana --version "1.2" --block-time 12
     ```
     
 2. **Update a Torii Service Deployment:**
     
     ```sh
-    slot deployments update "MyProject" Torii --version "2.0" --world 0x4fa481f41522b90b3684ecfab7650c259a76387fab9c380b7a959e3d4ac70f
+    slot deployments update 'MyProject' Torii --version "2.0" --world 0x4fa481f41522b90b3684ecfab7650c259a76387fab9c380b7a959e3d4ac70f
     ```
 
 ### **Supported Services:**

@@ -8,29 +8,19 @@ The **`logs`** command is used to fetch and display logs from a specified deploy
 slot deployments logs <Project Name> <Service> [options]
 ```
 
-### Parameters
-
-- **`<Project Name>`**: The name of the project associated with the deployment.
-- **`<Service>`**: The specific service from which to fetch logs. Valid options are `Katana`, `Madara`, and `Torii`.
-
-### Options
-
-- **`-since <RFC3339 timestamp>`**: Fetch logs starting after this timestamp. If omitted, logs are fetched from the latest available entry.
-- **`-limit <n>`**: Limits the number of log entries returned. Default is 25.
-- **`-follow`**: Continuously stream logs. If set, logs will be streamed until the command is manually stopped.
 
 ### Examples
 
 1. **Fetch the last 50 logs from a Katana service:**
     
     ```sh
-    slot deployments logs "MyProject" Katana --limit 50
+    slot deployments logs 'MyProject' Katana --limit 50
     ```
     
 2. **Stream logs from a Torii service:**
     
     ```sh
-    slot deployments logs "MyProject" Torii --follow
+    slot deployments logs 'MyProject' Torii --follow
     ```
     
 
