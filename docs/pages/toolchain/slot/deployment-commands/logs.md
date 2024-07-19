@@ -2,25 +2,25 @@
 
 The **`logs`** command is used to fetch and display logs from a specified deployment service within the Slot environment. This command supports real-time log streaming as well as querying historical logs, making it an essential tool for monitoring and debugging deployment activities.
 
-### Usage
+## Usage
 
 ```sh
 slot deployments logs <Project Name> <Service> [options]
 ```
 
 
-### Examples
+## Examples
 
 1. **Fetch the last 50 logs from a Katana service:**
     
     ```sh
-    slot deployments logs 'MyProject' Katana --limit 50
+    slot deployments logs example_project Katana --limit 50
     ```
     
 2. **Stream logs from a Torii service:**
     
     ```sh
-    slot deployments logs 'MyProject' Torii --follow
+    slot deployments logs example_project Torii --follow
     ```
     
 
@@ -44,7 +44,6 @@ Upon execution, logs are printed directly to the console. For historical log que
 2023-01-01T12:00:00Z INFO Starting new deployment...
 2023-01-01T12:01:00Z WARN High memory usage detected...
 2023-01-01T12:02:00Z ERROR Failed to connect to database...
----
 ```
 
 This structured approach ensures users are well-equipped to use the `logs` command effectively, facilitating better management and oversight of their deployments within the Slot CLI tool.

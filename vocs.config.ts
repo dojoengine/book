@@ -268,7 +268,7 @@ export default defineConfig({
 	            collapsed:true,
 	            items: [
 		            {
-		              text: "deployments",
+		              text: "Deployments",
 		              collapsed: true,
 		              items: [
 		                {

@@ -2,7 +2,7 @@
 
 The **`list`** command provides an overview of all the current deployments across various projects and teams within Slot. It's an essential tool for managing and auditing service deployments.
 
-### Usage
+## Usage
 
 ```sh
 slot deployments list
