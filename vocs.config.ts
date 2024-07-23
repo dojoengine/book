@@ -269,11 +269,43 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Overview", link: "/toolchain/slot" },
-            { text: "Reference", link: "/toolchain/slot/reference" },
             {
-              text: "Deployments",
-              link: "/toolchain/slot/deployments-commands/deployments",
-            },
+	            text:"Reference",
+	            link: "/toolchain/slot/reference",
+	            collapsed:true,
+	            items: [
+		            {
+		              text: "Deployments",
+		              collapsed: true,
+		              items: [
+		                {
+		                  text: "create",
+		                  link: "/toolchain/slot/deployment-commands/create",
+		                },
+		                {
+		                  text: "delete",
+		                  link: "/toolchain/slot/deployment-commands/delete",
+		                },
+		                {
+		                  text: "update",
+		                  link: "/toolchain/slot/deployment-commands/update",
+		                },
+		                {
+		                  text: "describe",
+		                  link: "/toolchain/slot/deployment-commands/describe",
+		                },
+		                {
+		                  text: "list",
+		                  link: "/toolchain/slot/deployment-commands/list",
+		                },
+		                {
+		                  text: "logs",
+		                  link: "/toolchain/slot/deployment-commands/logs",
+		                },
+		              ],
+		            },
+            	]
+            }
           ],
         },
       ],

@@ -2,7 +2,7 @@
 
 It allows you the manage your slot deployments.
 
-### Commands
+## Commands
 
 `create`
 &nbsp;&nbsp;&nbsp;&nbsp;Create a new deployment.
