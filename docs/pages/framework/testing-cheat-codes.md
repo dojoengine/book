@@ -66,35 +66,29 @@ assert(get_block_timestamp == 123456, 'bad timestamp');
 
 5. `set_version`
 
-This cheat code helps one set the version to the provided value, enabling you to test contract behavior with different versions. You can apply this when:
-
-- Testing a contract's behavior with different versions, such as checking if a certain function is only callable in a specific version.
-- Simulating a scenario where a contract is upgraded to a different version.
+This cheat code helps one set the transcation version to the provided value.
 
 ```
-use starknet::{testing, get_version};
+use starknet::{testing, get_tx_info};
 
 testing::set_version('0.1.0');
 
-assert(get_version == '0.1.0', 'wrong version')
+assert_eq!(get_tx_info().unbox().version, 1_felt252);
 
 ```
 
 6. `set_account_contract_address`
 
-This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply this when:
-
-- Testing a contract's interaction with a specific account contract, such as a wallet contract.
-- Simulating a scenario where a contract is called by a different account contract.
+This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply when simulating a scenario where a contract is called by a different account contract.
 
 ```
-use starknet::{testing, get_account_contract_address, contract_address_const};
+use starknet::{testing, get_tx_info, contract_address_const};
 
-const contract: ContractAddress = contract_address_const::<'contract'>();
+const contract = contract_address_const::<'contract'>(); 
 
 testing::set_account_contract_address(contract);
 
-assert(get_account_contract_address() == contract, 'wrong contract address');
+assert_eq!(get_tx_info().unbox().account_contract_address.into(), contract);
 ```
 
 7. `set_max_fee`
@@ -105,11 +99,11 @@ This cheat code helps you set the maximum fee to the provided value, enabling yo
 - Simulating a scenario where a contract is deployed with a different fee structure.
 
 ```
-use starknet::{testing, get_max_fee};
+use starknet::{testing, get_tx_info};
 
 testing::set_max_fee(123456);
 
-assert(get_max_fee()==123456, 'bad max fee');
+assert_eq!(get_tx_info().unbox().max_fee.into(), 123456);
 
 ```
 
@@ -121,11 +115,11 @@ This cheat code helps one set the transaction hash to the provided value, allowi
 - Simulating a scenario where a contract is called with a different transaction hash.
 
 ```
-use starknet::{testing, get_transcation_hash};
+use starknet::{testing, get_tx_info};
 
 testing::set_transaction_hash('12345678');
 
-assert(get_transcation_hash() == '12345678', 'bad transcation hash');
+assert_eq!(get_tx_info().unbox().transcation_hash.into(), '12345678');
 
 ```
 
@@ -137,11 +131,11 @@ This cheat code helps one set the chain ID to the provided value, enabling you t
 - Simulating a scenario where a contract is deployed on a different chain.
 
 ```
-use starknet::{testing, get_chain_id};
+use starknet::{testing, get_tx_info};
 
 testing::set_chain_id('test_chain_id');
 
-assert(get_chain_id() == 'test_chain_id', 'bad chain id');
+assert_eq!(get_tx_info().unbox().chain_id.into(), 'test_chain_id');
 
 ```
 
@@ -153,27 +147,24 @@ This cheat code helps one set the nonce to the provided value, allowing you to t
 - Simulating a scenario where a contract is called with a different nonce.
 
 ```
-use starknet::{testing, get_nonce};
+use starknet::{testing, get_tx_info};
 
 testing::set_nonce('test_nonce');
 
-assert(get_nonce() == 'test_nonce', 'bad nonce');
+assert_eq!(get_tx_info().unbox().nonce(), 'test_nonce');
 
 ```
 
 11. `set_signature`
 
-This cheat code helps one set the signature to the provided value, enabling you to test contract behavior with different signatures. You can apply this when:
-
-- Testing a contract's behavior with different signatures, such as checking if a certain function is only callable with a specific signature.
-- Simulating a scenario where a contract is called with a different signature.
+This cheat code helps one set the signature to the provided value, enabling you to test contract behavior with different signatures.
 
 ```
-use starknet::{testing, get_signature};
+use starknet::{testing, get_tx_info};
 
 testing::set_signature('signature');
 
-assert(get_signature() == 'signature', 'bad signature');
+assert_eq!(get_tx_info().unbox().signature, 'signature');
 
 ```
 
@@ -185,20 +176,17 @@ This cheat code helps one set the block hash for a specific block number, allowi
 - Simulating a scenario where a contract is deployed with a different block hash.
 
 ```
-use starknet::{testing, get_block_hash};
+use starknet::{testing, get_tx_info};
 
 testing::set_block_hash(12345678, 'value');
 
-assert(get_block_hash() == 12345678, 'bad block hash);as
+assert_eq!(get_tx_info().unbox().block_hash(), 12345678);
 
 ```
 
 13. `pop_log_raw`
 
-This cheat code helps one pop the earliest unpopped logged event for the contract, returning the event data and keys. You can apply this when:
-
-- Testing a contract's logging mechanism, such as checking if a certain event is logged correctly.
-- Debugging a contract's behavior by inspecting the logged events.
+This cheat code helps one pop the earliest unpopped logged event for the contract, returning the event data and keys.
 
 ```
 use starknet::{testing};
