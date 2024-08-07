@@ -12,9 +12,12 @@ This one is helpful to test a contract's behavior at a specific block height, su
 ```
 use starknet::{testing, get_block_number};
 
-testing::set_block_number(1234567);
+#[test]
+fn f1() {
+    testing::set_block_number(1234567);
+    assert!(get_block_number() == 1234567, 'bad block number');
+}
 
-assert!(get_block_number() == 1234567, 'bad block number');
 ```
 
 2. `set_caller_address`
@@ -27,9 +30,12 @@ This cheat code helps you set the caller address to the provided contract addres
 ```
 use starknet::{testing, get_caller_address, contract_address_const};
 
-let user_one = contract_address_const::<'user1'>();
-testing::set_caller_address(user_one);
-assert(get_caller_address() == user_one, 'bad caller';
+#[test]
+fn f2() {
+    let user_one = contract_address_const::<'user1'>();
+    testing::set_caller_address(user_one);
+    assert(get_caller_address() == user_one, 'bad caller';
+}
 ```
 
 3. `set_contract_address`
@@ -41,11 +47,12 @@ It is important to note that any test function is considered a contract, which b
 ```
 use starknet::{testing, get_contract_address, contract_address_const};
 
-const HUB_ADDRESS: ContractAddress = contract_address_const::<'hub'>()
-
-testing::set_contract_address(HUB_ADDRESS);
-
-assert(get_contract_address() == HUB_ADDRESS, 'BAD ADDRESS');
+#[test]
+fn f3() {
+    const HUB_ADDRESS: ContractAddress = contract_address_const::<'hub'>()
+    testing::set_contract_address(HUB_ADDRESS);
+    assert(get_contract_address() == HUB_ADDRESS, 'BAD ADDRESS');
+}
 ```
 
 4. `set_block_timestamp`
@@ -58,9 +65,11 @@ This cheat code helps you set the block timestamp to the specified value, allowi
 ```
 use starknet::{testing, get_block_timestamp};
 
-testing::set_block_timestamp(123456);
-
-assert(get_block_timestamp == 123456, 'bad timestamp');
+#[test]
+fn f4() {
+    testing::set_block_timestamp(123456);
+    assert(get_block_timestamp == 123456, 'bad timestamp');
+}
 
 ```
 
@@ -71,9 +80,11 @@ This cheat code helps one set the transcation version to the provided value.
 ```
 use starknet::{testing, get_tx_info};
 
-testing::set_version('0.1.0');
-
-assert_eq!(get_tx_info().unbox().version, 1_felt252);
+#[test]
+fn f5() {
+    testing::set_version('0.1.0');
+    assert_eq!(get_tx_info().unbox().version, 1_felt252);
+}
 
 ```
 
@@ -84,11 +95,13 @@ This cheat code helps you set the account contract address to the provided value
 ```
 use starknet::{testing, get_tx_info, contract_address_const};
 
-const contract = contract_address_const::<'contract'>(); 
+#[test]
+fn f6() {
+    const contract = contract_address_const::<'contract'>(); 
+    testing::set_account_contract_address(contract);
+    assert_eq!(get_tx_info().unbox().account_contract_address.into(), contract);
+}
 
-testing::set_account_contract_address(contract);
-
-assert_eq!(get_tx_info().unbox().account_contract_address.into(), contract);
 ```
 
 7. `set_max_fee`
@@ -101,9 +114,11 @@ This cheat code helps you set the maximum fee to the provided value, enabling yo
 ```
 use starknet::{testing, get_tx_info};
 
-testing::set_max_fee(123456);
-
-assert_eq!(get_tx_info().unbox().max_fee.into(), 123456);
+#[test]
+fn f7() {
+    testing::set_max_fee(123456);
+    assert_eq!(get_tx_info().unbox().max_fee.into(), 123456);
+}
 
 ```
 
@@ -117,9 +132,11 @@ This cheat code helps one set the transaction hash to the provided value, allowi
 ```
 use starknet::{testing, get_tx_info};
 
-testing::set_transaction_hash('12345678');
-
-assert_eq!(get_tx_info().unbox().transcation_hash.into(), '12345678');
+#[test]
+fn f8() {
+    testing::set_transaction_hash('12345678');
+    assert_eq!(get_tx_info().unbox().transcation_hash.into(), '12345678');
+}
 
 ```
 
@@ -133,9 +150,11 @@ This cheat code helps one set the chain ID to the provided value, enabling you t
 ```
 use starknet::{testing, get_tx_info};
 
-testing::set_chain_id('test_chain_id');
-
-assert_eq!(get_tx_info().unbox().chain_id.into(), 'test_chain_id');
+#[test]
+fn f9() {
+    testing::set_chain_id('test_chain_id');
+    assert_eq!(get_tx_info().unbox().chain_id.into(), 'test_chain_id');
+}
 
 ```
 
@@ -149,9 +168,11 @@ This cheat code helps one set the nonce to the provided value, allowing you to t
 ```
 use starknet::{testing, get_tx_info};
 
-testing::set_nonce('test_nonce');
-
-assert_eq!(get_tx_info().unbox().nonce(), 'test_nonce');
+#[test]
+fn f10() {
+    testing::set_nonce('test_nonce');
+    assert_eq!(get_tx_info().unbox().nonce(), 'test_nonce');
+}
 
 ```
 
@@ -162,25 +183,28 @@ This cheat code helps one set the signature to the provided value, enabling you 
 ```
 use starknet::{testing, get_tx_info};
 
-testing::set_signature('signature');
-
-assert_eq!(get_tx_info().unbox().signature, 'signature');
-
-```
-
-12. `set_block_hash`
-
-This cheat code helps one set the block hash for a specific block number, allowing you to test contract behavior with different block hashes. You can apply this when:
-
-- Testing a contract's behavior with different block hashes, such as checking if a certain function is only callable with a specific block hash.
-- Simulating a scenario where a contract is deployed with a different block hash.
+#[test]
+fn f11() {
+    testing::set_signature(array!['r', 's'].span());
+    let s = get_tx_info().unbox().signature;
+    assert_eq!(*s[0], 'r');
+    assert_eq!(*s[1], 's');
+}
 
 ```
-use starknet::{testing, get_tx_info};
 
-testing::set_block_hash(12345678, 'value');
+12. `set_block_number`
 
-assert_eq!(get_tx_info().unbox().block_hash(), 12345678);
+This cheat code helps one set a specific block number, allowing you to test contract behavior with different block numbers.
+
+```
+use starknet::{testing, get_block_info};
+
+#[test]
+fn f12() {
+    testing::set_block_number(12345678);
+    assert_eq!(get_block_info().unbox().block_number, 12345678);
+}
 
 ```
 
@@ -190,9 +214,12 @@ This cheat code helps one pop the earliest unpopped logged event for the contrac
 
 ```
 use starknet::{testing};
-let contract_address = starknet::contract_address_const::<0x42>();
 
-testing::pop_log_raw(contract_address);
+#[test]
+fn f13() {
+    let contract_address = starknet::contract_address_const::<0x42>();
+    let _log = testing::pop_log_raw(contract_address);
+}
 
 ```
 
@@ -205,9 +232,18 @@ This cheat code helps one pop the earliest unpopped logged event for the contrac
 
 ```
 use starknet::{testing};
-let contract_address = starknet::contract_address_const::<0x42>();
+#[derive(Drop, starknet::Event)]
+struct TestEvent {
+    #[key]
+    id: u32,
+    data: felt252,
+}
 
-testing::pop_log(contract_address);
+#[test]
+fn f14() {
+    let contract_address = starknet::contract_address_const::<0x42>();
+    let _log = testing::pop_log::<TestEvent>(contract_address);
+}
 
 ```
 
@@ -220,11 +256,13 @@ This cheat code helps one pop the earliest unpopped L2 to L1 message for the con
 
 ```
 use starknet::{testing};
-let contract_address = starknet::contract_address_const::<0x42>();
 
-testing::pop_l2_to_l1_message(contract_address)
+#[test]
+fn f15() {
+    let contract_address = starknet::contract_address_const::<0x42>();
+    let _msg = testing::pop_l2_to_l1_message(contract_address);
+}
 
 ```
 
-In conclusion, the Cairo cheat codes provide a powerful toolset for testing and debugging Starknet contracts. By mastering these cheat codes, you can simulate various scenarios, test edge cases, and ensure the correctness of your contracts. With this guide, you are now well-equipped to tackle dojo testing which heavily uses those cheat codes.
-
+In conclusion, the Cairo cheat codes provide a powerful toolset for testing and debugging Starknet contracts. By mastering these cheat codes, you can simulate various scenarios, test edge cases, and ensure the correctness of your contracts. Remember to use them wisely and in conjunction with other testing techniques to achieve comprehensive coverage. With this guide, you are now well-equipped to tackle complex testing challenges and build robust contracts on the Starknet network. Happy testing!
