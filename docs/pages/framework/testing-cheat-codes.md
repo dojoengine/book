@@ -231,18 +231,51 @@ This cheat code helps one pop the earliest unpopped logged event for the contrac
 - Debugging a contract's behavior by inspecting the handled events.
 
 ```
-use starknet::{testing};
+use starknet::{testing, get_caller_address};
+use core::starknet::SyscallResultTrait;
+
+#[starknet::interface]
+pub trait IContract<T> {
+    fn post(ref self: T);
+}
+
+#[event]
 #[derive(Drop, starknet::Event)]
-struct TestEvent {
-    #[key]
-    id: u32,
-    data: felt252,
+pub enum Event {
+    Post: Post,
+}
+
+#[derive(Drop, starknet::Event)]
+pub struct Post {
+    post_id: u256,
+    transaction_executor: ContractAddress,
+    block_timestamp: u64,
+}
+
+#[starknet::contract]
+pub mod MyContract {
+    #[abi(embed_v0)]
+    impl IContractImpl of IContract<ContractState> {
+        fn post(ref self: ContractState) {
+            starknet::emit(
+                Post {
+                       post_id: pub_id_assigned,
+                       transaction_executor: get_caller_address(),
+                       block_timestamp: get_block_timestamp(),
+                   }
+            );
+        }
+    }
 }
 
 #[test]
 fn f14() {
     let contract_address = starknet::contract_address_const::<0x42>();
-    let _log = testing::pop_log::<TestEvent>(contract_address);
+    let my_contract = declare("MyContract").unwrap();
+    let (my_contract_address, _) = my_contract.deploy().unwrap_syscall();
+    let dispatcher = IContractDispatcher { contract_address: my_contract_address };
+    dispatcher.post();
+    let _log = testing::pop_log::<Post>(contract_address);
 }
 
 ```
