@@ -112,6 +112,7 @@ export default defineConfig({
         },
         { text: "Config", link: "/framework/config" },
         { text: "Testing", link: "/framework/testing" },
+        { text: "Testing cheat codes", link: "/framework/testing-cheat-codes" },
       ],
     },
     {
