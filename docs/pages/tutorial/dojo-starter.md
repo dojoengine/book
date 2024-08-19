@@ -20,12 +20,11 @@ Inspect the contents of the `dojo-starter` project, and you'll notice the follow
 
 ```bash
 .
+├── dojo_dev.toml
 ├── Scarb.toml
 └── src
     ├── lib.cairo
-    ├── models
-    │   ├── moves.cairo
-    │   └── position.cairo
+    ├── models.cairo
     ├── systems
     │   └── actions.cairo
     └── tests
@@ -47,10 +46,12 @@ Next, open the `src/models/moves.cairo` file to continue.
 
 #[derive(Copy, Drop, Serde)]
 #[dojo::model]
-struct Moves {
+pub struct Moves {
     #[key]
-    player: ContractAddress,
-    remaining: u8,
+    pub player: ContractAddress,
+    pub remaining: u8,
+    pub last_direction: Direction,
+    pub can_move: bool,
 }
 
 // ...
@@ -60,28 +61,28 @@ Notice the `#[dojo::model]` attribute. For a model to be recognized, we _must_ a
 
 <!-- Here we don't show the dojo::event, as first the user must understand that dojo already emit events that are processed by Torii when a model is set. -->
 
-Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you must provide the `player` field to query this model. Our `Moves` model also contains the `remaining` and `last_direction` fields.
+Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you must provide the `player` field to query this model. Our `Moves` model also contains the `remaining`, `last_direction` and `can_move` fields.
 
 :::warning
 A model **must** have at least **one** key.
 :::
 
-Next, open the `src/models/position.cairo` file to continue.
+Next, we check out the `Position` model.
 
 ```rust
 // ...
-#[derive(Drop, Copy, Serde)]
+#[derive(Copy, Drop, Serde)]
 #[dojo::model]
-struct Position {
+pub struct Position {
     #[key]
-    player: ContractAddress,
-    vec: Vec2,
+    pub player: ContractAddress,
+    pub vec: Vec2,
 }
 
-#[derive(Drop, Copy, Serde, Introspect)]
-struct Vec2 {
-    x: u32,
-    y: u32
+#[derive(Copy, Drop, Serde, Introspect)]
+pub struct Vec2 {
+    pub x: u32,
+    pub y: u32
 }
 
 // ...
@@ -112,16 +113,20 @@ Now, let's examine a `system` implementation of the `src/systems/actions.cairo` 
 ```rust
 /// Spawn system, in which the world is injected.
 fn spawn(ref world: IWorldDispatcher) {
+    // Get the address of the current caller, possibly the player's address.
     let player = get_caller_address();
-
     // Retrieve the player's current position from the world.
     let position = get!(world, player, (Position));
-
     // Update the world state with the new data.
+    // 1. Set the player's remaining moves to 100.
+    // 2. Move the player's position 10 units in both the x and y direction.
+
     set!(
         world,
         (
-            Moves { player, remaining: 100, last_direction: Direction::None },
+            Moves {
+                player, remaining: 100, last_direction: Direction::None(()), can_move: true
+            },
             Position {
                 player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
             },
@@ -149,7 +154,9 @@ Now the next line:
 set!(
     world,
     (
-        Moves { player, remaining: 100, last_direction: Direction::None },
+        Moves {
+            player, remaining: 100, last_direction: Direction::None(()), can_move: true
+        },
         Position {
             player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
         },
@@ -207,72 +214,92 @@ Chain ID: KATANA
 [1] 🌎 Building World state....
   > No remote World found
 [2] 🧰 Evaluating Worlds diff....
-  > Total diffs found: 5
+  > Total diffs found: 6
 [3] 📦 Preparing for migration....
-  > Total items to be migrated (5): New 5 Update 0
+  > Total items to be migrated (6): New 6 Update 0
+  > Declarers: 10
 [4] 🛠 Migrating....
 
 # Base Contract
-  > Class Hash: 0x22f3e55b61d86c2ac5239fa3b3b8761f26b9a5c0b5f61ddbd5d756ced498b46
+  > Class Hash: 0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2
 # World
-  > Contract address: 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18
-# Models (3)
-dojo_starter::models::moves::directions_available
-  > Class hash: 0x13fc796dd2d767ca4051ee20d673074f74b6e6b072bef1926ba429e427c8080
-dojo_starter::models::moves::moves
-  > Class hash: 0x4cccc308e899b0db11f3e47bcc3bf555d348102e1d89c85e8ba72f5f1098107
-dojo_starter::models::position::position
-  > Class hash: 0x4312e0e9fa6d912c293311798591e5022744a5fbebefc5ddfcfcc9b7c0c9be1
-All models are registered at: 0x5e70615c3c6ab984233cd1c6164640edff183965d684ea24e134d5c45558c83
-# Contracts (1)
-dojo_starter::systems::actions::actions
-  > Contract address: 0x3610b797baec740e2fa25ae90b4a57d92b04f48a1fdbae1ae203eaf9723c1a0
+  > Contract address: 0x403b5f047b8c4797139e30801e310473d99ca6877d19e0f27506f353f8f70f7
+# Namespaces (1)
+dojo_starter
+All namespaces are registered at: 0x37c6e486c0760f1dadb8de1470fd5ae05a1e5db0bee933c1bcab60dfc103f8d
 
-🎉 Successfully migrated World on block #3 at address 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18 // [!code focus]
+# Models (4)
+dojo_starter-Position
+  > Selector: 0x02ac8b4c190f7031b9fc44312e6b047a1dce0b3f2957c33a935ca7846a46dd5b
+dojo_starter-Moves
+  > Selector: 0x02a29373f1af8348bd366a990eb3a342ef2cbe5e85160539eaca3441a673f468
+dojo_starter-DirectionsAvailable
+  > Selector: 0x077844f1facb51e60e546a9832d56c6bd04fa23be4fd5b57290caae5e9a3c1e4
+dojo_starter-Moved
+  > Selector: 0x0504403e5c02b6442527721fc464d9ea5fc8f1ee600ab5ccd5c0845d36fd45f1
+All models are registered at: 0xf917a6f806fc45547b77d7a3a2e0bc2ea6c034643c0dfd5b46635e8a7638eb
+
+# Contracts (1)
+dojo_starter-actions
+  > Selector: 0x07a1c71029f2d0b38e3ac89b09931d08b6e48417e079c289ff19a8698d0cba33
+dojo_starter-actions
+  > dojo_starter-actions deployed at 0x0036e4506b35e6dfb301d437c95f74b3e1f4f82da5d8841bec894bb8de29ec13
+All contracts are deployed at: 0x105cb76624c56a6ba339f350ef667d317e75a7fd78dba2d66f3b74e907aebb1
+
+
+🎉 Successfully migrated World on block #3 at address 0x403b5f047b8c4797139e30801e310473d99ca6877d19e0f27506f353f8f70f7
 
 [5] ✨ Updating manifests....
 
 ✨ Done.
 
-[6] 🖋️ Authorizing Models to Systems (based on overlay)....
+[6] 🖋️ Authorizing systems based on overlay....
+  > Granting write access to dojo_starter-actions for resources: [Model("dojo_starter-Moves"), Model("dojo_starter-Position"), Model("dojo_starter-DirectionsAvailable")]
 
-  > Authorizing dojo_starter::systems::actions::actions for Models: ["Position", "Moves"]
-Transaction hash: 0x1c6bb2f6f7978d32751c42d527b94b4f6644c34404cf8faeedfa4efe25da73
+  > Transaction hash: 0x0472b776a712c422ae390860ae7b77aa126706635c99a0794b76a84c84279015
   > Auto authorize completed successfully
 
-[7] 🌐 Uploading metadata....
+[7] 🏗️ Initializing contracts....
+  > All contracts are initialized at: 0x40d181fd3668dcba8ec2837eb17f934f2e23e69abf09b403b3406d9ca1d7484
 
-  > world: ipfs://QmPVJzGEcj9Buy1mxTaXf43Fsv8CAzAwLNrjAN8JbigNQE
-  > dojo_starter::models::moves::moves: ipfs://QmeEbEAi3yr8Rxzi5TWc3MBncj295waxgeftQwbhNzrWnz
-  > dojo_starter::models::moves::directions_available: ipfs://QmbfMea3hDYMsS4gKpHjWW1h7RTPZv86Ua9BwEsHGzoZiH
-  > dojo_starter::systems::actions::actions: ipfs://Qmb9xTtZ7seVpmBj3vMdv4ox9PJMypAzzXdYgm9TpXR5cX
-  > dojo_starter::models::position::position: ipfs://QmV3jymZLP6HJe26m9JchTogDY6xNedmT4h88xAvPfAroT
+
+[8] 🌐 Uploading metadata....
+
+  > world: ipfs://QmQ9Diuy7pdRSGe7PpyWKBCSaWyUhmQ3tdbZqAGTXt745S
+  > dojo_starter-Position: ipfs://QmfLHkZsRaacbjJu9RavwCXHKSEB4Noxu688pSg4ahmnke
+  > dojo_starter-DirectionsAvailable: ipfs://QmXWVb9fseGjEsn61XGV8rZk7Kat8MCUiMFEebjkpb388D
+  > dojo_starter-Moves: ipfs://QmefijvZRxY1rPc8DXaghjLxnhVYJ4etQmXNwrvM2iiVX6
+  > dojo_starter-actions: ipfs://QmQeXiUNhLgwoBjXiV6wk8FECYsa3s11Ek9WABeDabhom4
+  > dojo_starter-Moved: ipfs://QmZLVkYkeHwfCaQCkuU8j8Deejfaoi71Uo4rq3WjamuzRd
 > All IPFS artifacts have been successfully uploaded.
-> All metadata have been registered in the resource registry (tx hash: 0x3335da62b94248264c220035f6fadee728328a181a9bdb2caad851f3da247ac)
+> All metadata have been registered in the resource registry (tx hash: 0x2e8e98a20736b0cecf86c2cfdc47d4ade45bf30bbd8c933fdc7b465dc2aacf)
 
 ✨ Done.
 ```
 
-Your 🌎 is now deployed at `0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18`!
+Your 🌎 is now deployed at `0x403b5f047b8c4797139e30801e310473d99ca6877d19e0f27506f353f8f70f7`!
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/framework/config.md)). On this file, you have to update the value of `world_address` with the address we got from the output of `sozo migrate`.
+Let's discuss the `dojo_dev.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/framework/config.md)). On this file, you have to update the value of `world_address` with the address we got from the output of `sozo migrate`.
 
 ```toml
-[tool.dojo.env]
+[namespace]
+default = "dojo_starter"
+
+[env]
 rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0
 account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
 private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a"
-world_address = "0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18"
+world_address = "0x403b5f047b8c4797139e30801e310473d99ca6877d19e0f27506f353f8f70f7"
 ```
 
-At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `0.7.0`.
+At the same time, make sure your `Scarb.toml` specifies the version of Dojo you have installed! In this case version `1.0.0-alpha.6`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.7.0" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-alpha.6" }
 ```
 
 ### Indexing
@@ -345,30 +372,38 @@ After you run the query, you will receive an output like this:
       "edges": [
         {
           "node": {
-            "id": "0xfca8c67c1565ba003e0b460c4707b70c7e3179689528a0b502a6dd5df7d5a7",
-            "name": "Moves", // [!code focus]
-            "classHash": "0x4d6f766573",
-            "contractAddress": "0x4cccc308e899b0db11f3e47bcc3bf555d348102e1d89c85e8ba72f5f1098107"
+            "id": "0x77844f1facb51e60e546a9832d56c6bd04fa23be4fd5b57290caae5e9a3c1e4",
+            "name": "DirectionsAvailable",
+            "classHash": "0x72c6666cfeebc41544f502cfe9c32ad7b91fce12881709420335794dfcb324a",
+            "contractAddress": "0x22b8e785874a484dfd2c7f0d8cf4022f83437a4b487b0770325141306fa8aa5"
           }
         },
         {
           "node": {
-            "id": "0x3b87b389f49db996832881ced84132a8ebeae71459c96a65b85deb95710e14d",
-            "name": "DirectionsAvailable", // [!code focus]
-            "classHash": "0x446972656374696f6e73417661696c61626c65",
-            "contractAddress": "0x13fc796dd2d767ca4051ee20d673074f74b6e6b072bef1926ba429e427c8080"
+            "id": "0x504403e5c02b6442527721fc464d9ea5fc8f1ee600ab5ccd5c0845d36fd45f1",
+            "name": "Moved",
+            "classHash": "0x2e06be7cf406eb3161fedf460a47faca68855eb9dad7d505c1b1f1875192ccd",
+            "contractAddress": "0x41fca6e3b33c7f7c56fdb195b089539cdd192398d42e4f9d8d92ac43cf6fb9f"
           }
         },
         {
           "node": {
-            "id": "0x28b9aeb6b19af1454b16ce28c1ee6909e3946e4552ed09886a06ebe1e158fc",
-            "name": "Position", // [!code focus]
-            "classHash": "0x506f736974696f6e",
-            "contractAddress": "0x4312e0e9fa6d912c293311798591e5022744a5fbebefc5ddfcfcc9b7c0c9be1"
+            "id": "0x2ac8b4c190f7031b9fc44312e6b047a1dce0b3f2957c33a935ca7846a46dd5b",
+            "name": "Position",
+            "classHash": "0x6531637b0bbd741f8823b127d8958ed10a483dd1f2d7654975c1d7d7cbdab65",
+            "contractAddress": "0x285c5c04f1481b5cbe099b4468ede734afc6e0a3573a29509ebbf84b1b5a6f3"
+          }
+        },
+        {
+          "node": {
+            "id": "0x2a29373f1af8348bd366a990eb3a342ef2cbe5e85160539eaca3441a673f468",
+            "name": "Moves",
+            "classHash": "0x4eac0db062821cc05485ba088b0bb748de83e901116216da171744dfc5ec6fa",
+            "contractAddress": "0x6412c0cca558376ca4cf39e7ee5424fee5318af0ea4d7b3e8b79eee83949bf1"
           }
         }
       ],
-      "totalCount": 3
+      "totalCount": 4
     }
   }
 }
@@ -394,14 +429,17 @@ To accomplish this, we have to go back to our primary terminal and check the con
 
 ```bash
 # Contracts (1)
-dojo_starter::systems::actions::actions
-  > Contract address: 0x3610b797baec740e2fa25ae90b4a57d92b04f48a1fdbae1ae203eaf9723c1a0
+dojo_starter-actions
+  > Selector: 0x07a1c71029f2d0b38e3ac89b09931d08b6e48417e079c289ff19a8698d0cba33
+dojo_starter-actions
+  > dojo_starter-actions deployed at 0x0036e4506b35e6dfb301d437c95f74b3e1f4f82da5d8841bec894bb8de29ec13
+All contracts are deployed at: 0x105cb76624c56a6ba339f350ef667d317e75a7fd78dba2d66f3b74e907aebb1
 ```
 
 We have to use `actions` contract address to start to create entities. In your main local terminal, run the following command:
 
 ```bash
-sozo execute dojo_starter::systems::actions::actions spawn
+sozo execute dojo_starter-actions spawn
 ```
 
 By running this command, you've executed the spawn system, resulting in the creation of a new entity.
@@ -416,9 +454,9 @@ Now, go back to your GraphQL IDE, and you will notice that you have received the
       "keys": [
         "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
       ],
-      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000f:0x6b2680bb8a14ca0d1ba05131069dfec2c0e9525c8d3c4773f345c9ad5ebf198:0x00",
-      "createdAt": "2024-06-14T04:46:44Z",
-      "updatedAt": "2024-06-14T04:46:44Z"
+      "eventId": "0x00000000000000000000000000000000000000000000000000000000000012:0x1d2f2786ed8b6df578b7c8320a84373d53cd55ffe9a7e3417ec9bbf38ddf455:0x01",
+      "createdAt": "2024-08-19T02:30:28Z",
+      "updatedAt": "2024-08-19T02:31:45Z"
     }
   }
 }
@@ -430,9 +468,9 @@ Now, go back to your GraphQL IDE, and you will notice that you have received the
       "keys": [
         "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
       ],
-      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000f:0x6b2680bb8a14ca0d1ba05131069dfec2c0e9525c8d3c4773f345c9ad5ebf198:0x01",
-      "createdAt": "2024-06-14T04:46:44Z",
-      "updatedAt": "2024-06-14T04:46:44Z"
+      "eventId": "0x00000000000000000000000000000000000000000000000000000000000013:0x3979232585d8e560506f9bc5d4242e8d54843d4b99515ebbf57fddcc7528a5f:0x01",
+      "createdAt": "2024-08-19T02:30:28Z",
+      "updatedAt": "2024-08-19T02:32:02Z"
     }
   }
 }
@@ -444,9 +482,9 @@ Now, go back to your GraphQL IDE, and you will notice that you have received the
       "keys": [
         "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
       ],
-      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000f:0x6b2680bb8a14ca0d1ba05131069dfec2c0e9525c8d3c4773f345c9ad5ebf198:0x02",
-      "createdAt": "2024-06-14T04:46:44Z",
-      "updatedAt": "2024-06-14T04:46:44Z"
+      "eventId": "0x00000000000000000000000000000000000000000000000000000000000014:0x5c1d9f4c6e594a96084dc39053691aa529a23a415388020871e46b662e4ff81:0x01",
+      "createdAt": "2024-08-19T02:30:28Z",
+      "updatedAt": "2024-08-19T02:32:59Z"
     }
   }
 }

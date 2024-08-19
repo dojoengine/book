@@ -27,7 +27,7 @@ Once successful, you can create a new deployment with a unique `DEPLOYMENT_NAME`
 slot deployments create DEPLOYMENT_NAME katana
 ```
 
-After that, you should receive the RPC endpoint for the katana slot. Now, you can use that and update your `Scarb.toml` file with the new RPC endpoint as follows:
+After that, you should receive the RPC endpoint for the katana slot. Now, you can use that and update your `dojo_dev.toml` file with the new RPC endpoint as follows:
 
 ```toml
 [tool.dojo.env]
@@ -40,7 +40,7 @@ Now, you can stream katana in a new terminal. Open a new terminal and run the fo
 slot deployments logs DEPLOYMENT_NAME katana -f
 ```
 
-Then, copy the account address and the private key from the first account into the `Scarb.toml` file and replace the existing ones as follows:
+Then, copy the account address and the private key from the first account into the `dojo_dev.toml` file and replace the existing ones as follows:
 
 ```toml
 account_address = "YOUR_NEW_ACCOUNT_ADDRESS"
