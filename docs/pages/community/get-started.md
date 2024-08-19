@@ -6,7 +6,7 @@ Dojo is a thriving community of builders, artists, and deep thinkers, pushing th
 - [Discord](https://discord.gg/KG9w9BmDrV)
 - [Twitter](https://twitter.com/dojostarknet)
 - [Awesome Dojo](https://github.com/dojoengine/awesome-dojo)
-- [Dojo Blog](https://www.dojoengine.org/en/articles/)
+- [Dojo Blog](https://www.dojoengine.org/posts)
 
 ## Ecosystem & Studios powered by Dojo
 
