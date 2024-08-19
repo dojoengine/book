@@ -25,7 +25,7 @@ export default defineConfig({
   description:
     "Dojo | A Toolchain for Building Provable Games and Applications",
   topNav: [
-    { text: "Blog", link: "https://www.dojoengine.org/en/articles" },
+    { text: "Blog", link: "https://www.dojoengine.org/posts" },
     {
       text: "v1.0.0-alpha.4",
       items: [
