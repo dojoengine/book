@@ -30,6 +30,13 @@ The Dojo toolchain integrates [Scarb](https://docs.swmansion.com/scarb/) to buil
 
 You can install with the `dojoup` version manager which enables you to easily install, update and manage your Dojo installation.
 
+::::warning
+
+### System Requirements
+```sh
+Katana, a core component of Dojo, requires glibc version 2.33 or higher. This version is not available on Ubuntu 20.04 LTS, Debian 10 Buster, CentOS 7, and their older versions. To successfully install Dojo, you need to use a newer version of these operating systems.
+```
+
 ::::steps
 
 ### Install dojoup
