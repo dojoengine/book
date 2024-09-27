@@ -3,11 +3,11 @@
 Dojo provides an advanced abstraction layer over Cairo. We highly suggest understanding Cairo before diving into this book.
 :::
 
-# Dojo: The Cairo Framework
+# The Cairo Framework
 
 ## Introduction
 
-This section covers the three core components essential for building robust onchain applications:
+This section covers the three core components essential for building onchain apps:
 
 - **Models**: Define your application's state using the `#[dojo::model]` attribute. Models act like structured database entries, managing and organizing your onchain data.
 
@@ -15,7 +15,7 @@ This section covers the three core components essential for building robust onch
 
 - **World**: The central hub that connects all models and systems. The World contract ensures consistency, manages authorization, and orchestrates interactions between different parts of your application.
 
-Mastering these components will enable you to create scalable and maintainable onchain applications with the Dojo Cairo Framework.
+Mastering these components will enable you to create scalable and maintainable onchain applications.
 
 ## Simplifying State
 

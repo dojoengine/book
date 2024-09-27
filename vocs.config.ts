@@ -52,8 +52,8 @@ export default defineConfig({
     variables: {
       color: {
         textAccent: "#ee2d3f",
-        background: "#0a0a0a",
-        backgroundDark: "#0a0a0a",
+        background: "#121212",
+        backgroundDark: "#121212",
         noteBackground: "#1a1a1a",
       },
       // content: {
