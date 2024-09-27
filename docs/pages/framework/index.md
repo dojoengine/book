@@ -93,6 +93,8 @@ By having it's very own Cairo compiler plugin, Dojo proposes to developers a set
 
 ## The World
 
+<!-- TODO: This needs work -->
+
 Models and contracts are the foundation of your application. We encapsulate them within the **World** contract, which serves as a container for all models, systems, and authorization management.
 
 ![overview](/world-map.png)
