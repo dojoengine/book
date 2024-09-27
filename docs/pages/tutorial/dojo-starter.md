@@ -394,14 +394,16 @@ To accomplish this, we have to go back to our primary terminal and check the con
 
 ```bash
 # Contracts (1)
-dojo_starter::systems::actions::actions
-  > Contract address: 0x3610b797baec740e2fa25ae90b4a57d92b04f48a1fdbae1ae203eaf9723c1a0
+dojo_starter-actions
+  > Selector: 0x07a1c71029f2d0b38e3ac89b09931d08b6e48417e079c289ff19a8698d0cba33
+dojo_starter-actions
+  > dojo_starter-actions deployed at 0x05e8df8a235031ba8e66e590a7289d27d7d54c026bcdbda62b791c0a69055225
 ```
 
 We have to use `actions` contract address to start to create entities. In your main local terminal, run the following command:
 
 ```bash
-sozo execute dojo_starter::systems::actions::actions spawn
+sozo execute dojo_starter-actions spawn
 ```
 
 By running this command, you've executed the spawn system, resulting in the creation of a new entity.
