@@ -27,7 +27,7 @@ export default defineConfig({
   topNav: [
     { text: "Blog", link: "https://www.dojoengine.org/posts" },
     {
-      text: "v1.0.0-alpha.4",
+      text: "v1.0.0-alpha.13",
       items: [
         {
           text: "Releases",
@@ -45,19 +45,20 @@ export default defineConfig({
     },
   ],
   font: {
-    google: "Poppins",
+    google: "Open Sans",
   },
   theme: {
     colorScheme: "dark",
     variables: {
       color: {
-        textAccent: "#A7C9F8",
-        background: "#0D1D3D",
-        backgroundDark: "#041028",
+        textAccent: "#ee2d3f",
+        background: "#0a0a0a",
+        backgroundDark: "#0a0a0a",
+        noteBackground: "#1a1a1a",
       },
-      content: {
-        horizontalPadding: "40px",
-      },
+      // content: {
+      //   horizontalPadding: "40px",
+      // },
     },
   },
   sidebar: [
@@ -69,6 +70,7 @@ export default defineConfig({
       text: "Getting Started",
       link: "/getting-started",
     },
+
     {
       text: "FAQ",
       link: "/faq",

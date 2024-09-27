@@ -4,31 +4,33 @@
 Windows it not natively supported, we suggest using [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to develop with Dojo on Windows.
 :::
 
-Let's get started building on **Dojo**! This guide will walk you through installing the Dojo toolchain and preparing your environment for development. Dojo is built around a set of development tools - [Katana](/toolchain/katana), [Torii](/toolchain/torii) and [Sozo](/toolchain/sozo).
-
 <!-- TODO: Add link to the Saya page when available. -->
 
 ## Prerequisites
 
 To work with Dojo, you need to have Git, Rust and Scarb installed on your PC to satisfy Dojo dependencies. You can install them with the following steps:
 
-### Install Rust
+#### Install Rust
 
 Go to the [Rust installation page](https://doc.rust-lang.org/book/ch01-01-installation.html#installing-rustup-on-linux-or-macos).
 
 After installing Rust, ensure your `PATH` environment variable includes the Cargo bin directory (usually `$HOME/.cargo/bin`).
 
-### Install Git
+#### Install Git
 
 Go to the [Git installation page](https://git-scm.com/downloads) and follow the instructions for your operating system to install Git.
 
-### Install Scarb
+#### Install Scarb
 
 The Dojo toolchain integrates [Scarb](https://docs.swmansion.com/scarb/) to build and run Dojo projects, installation instructions are [here](https://docs.swmansion.com/scarb/download.html).
 
 ## Install Dojo using `dojoup`
 
 You can install with the `dojoup` version manager which enables you to easily install, update and manage your Dojo installation.
+
+:::note
+Dojo is built around a set of development tools - [Katana](/toolchain/katana), [Torii](/toolchain/torii) and [Sozo](/toolchain/sozo), which are all installed with dojoup.
+:::
 
 ::::steps
 
@@ -68,14 +70,14 @@ asdf plugin add dojo https://github.com/dojoengine/asdf-dojo
 
 ```sh
 asdf install dojo latest      # For the latest version
-asdf install dojo 0.7.0       # For a specific version
+asdf install dojo v1.0.0-alpha.13       # For a specific version
 ```
 
 ### Set the global or local version
 
 ```sh
 asdf global dojo latest       # Set globally
-asdf local dojo 0.7.0         # Set locally in your project directory
+asdf local dojo v1.0.0-alpha.13        # Set locally in your project directory
 ```
 
 ::::
