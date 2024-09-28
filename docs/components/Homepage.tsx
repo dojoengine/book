@@ -13,7 +13,7 @@ import Torii from "../public/torii-icon.svg?react";
 import Katana from "../public/katana-icon.svg?react";
 import Origami from "../public/origami-icon.svg?react";
 
-import { Link, type LinkProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const cardContent = [
   {
