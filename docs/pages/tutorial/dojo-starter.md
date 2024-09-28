@@ -1,6 +1,6 @@
 # Dojo starter guide
 
-> This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](/getting-started.md) section and the [Cairo book](https://book.cairo-lang.org).
+> This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](/getting-started.mdx) section and the [Cairo book](https://book.cairo-lang.org).
 
 ## Dojo as an ECS in 15 Minutes
 

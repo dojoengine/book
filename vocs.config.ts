@@ -4,7 +4,13 @@ export default defineConfig({
   vite: {
     plugins: [svgr()],
   },
-  banner: "Join us in [Discord](https://discord.gg/dojoengine)!",
+  banner: {
+    dismissable: false,
+    backgroundColor: "red",
+    content: "Join us in [Discord](https://discord.gg/dojoengine)!",
+    height: "28px",
+    textColor: "white",
+  },
   title: "Dojo Documentation",
   iconUrl: "/dojo-favicon.svg",
   logoUrl: "/dojo-icon.svg",
@@ -87,12 +93,28 @@ export default defineConfig({
       link: "/faq",
     },
     {
-      text: "Fullstack Quickstarts",
+      text: "Quickstarts",
+
       items: [
+        { text: "Overview", link: "/quickstarts" },
         { text: "Javascript", link: "/quickstarts/javascript" },
         { text: "Godot", link: "/quickstarts/godot" },
         { text: "Unity", link: "/quickstarts/unity" },
         { text: "Bevy", link: "/quickstarts/bevy" },
+      ],
+    },
+    {
+      text: "Tutorials",
+      items: [
+        { text: "Dojo starter", link: "/tutorial/dojo-starter" },
+        {
+          text: "Deploy using Slot",
+          link: "/tutorial/deploy-using-slot/main",
+        },
+        {
+          text: "Katana-Starkli-Scarb: Advanced example",
+          link: "/tutorial/katana-starkli-scarb/main",
+        },
       ],
     },
     {
@@ -132,9 +154,24 @@ export default defineConfig({
             { text: "Enum", link: "/framework/models/enum" },
           ],
         },
-        { text: "Config", link: "/framework/config" },
-        { text: "Testing", link: "/framework/testing" },
-        { text: "Testing cheat codes", link: "/framework/testing-cheat-codes" },
+        {
+          text: "Config",
+          link: "/framework/config",
+          collapsed: true,
+          // TODO: Add more items
+          items: [{ text: "dojo.toml", link: "/framework/config" }],
+        },
+        {
+          text: "Testing",
+          link: "/framework/testing",
+          collapsed: true,
+          items: [
+            {
+              text: "Testing cheat codes",
+              link: "/framework/testing-cheat-codes",
+            },
+          ],
+        },
       ],
     },
     {
@@ -392,31 +429,8 @@ export default defineConfig({
           ],
         },
         { text: "dojo.c", link: "/client/sdk/c" },
-      ],
-    },
-    {
-      text: "Guides",
-      items: [
-        { text: "Dojo starter", link: "/tutorial/dojo-starter" },
-        // {
-        //   text: "Onchain Chess",
-        //   link: "/tutorial/onchain-chess/README",
-        //   collapsed: true,
-        //   items: [
-        //     { text: "0. Setup", link: "/tutorial/onchain-chess/0-setup" },
-        //     { text: "1. Initiate", link: "/tutorial/onchain-chess/1-action" },
-        //     { text: "2. Move", link: "/tutorial/onchain-chess/2-move" },
-        //     { text: "3. Test Chess", link: "/tutorial/onchain-chess/3-test" },
-        //   ],
-        // },
-        {
-          text: "Deploy using Slot",
-          link: "/tutorial/deploy-using-slot/main",
-        },
-        {
-          text: "Katana-Starkli-Scarb: Advanced example",
-          link: "/tutorial/katana-starkli-scarb/main",
-        },
+        { text: "dojo.godot", link: "/client/sdk/godot" },
+        { text: "dojo.rust", link: "/client/sdk/rust" },
       ],
     },
   ],

@@ -1,3 +1,5 @@
+import {LinkCard} from "../components/LinkCard";
+
 # Getting Started
 
 Dojo has two major components:
@@ -81,4 +83,18 @@ asdf local dojo v1.0.0-alpha.13        # Set locally in your project directory
 
 ::::
 
-Once you're up and running, check out the [Dojo Starter guide](/tutorial/dojo-starter)!
+{/* Once you're up and running, check out the [Dojo Starter guide](/tutorial/dojo-starter)! */}
+
+<div className="grid grid-cols-2 gap-8">
+  <LinkCard
+    title="Introduction to Dojo"
+    description="Build your first application with Dojo."
+    link="/getting-started"
+  />
+
+    <LinkCard
+    title="See Quickstarts"
+    description="See the quickstarts to get started with Dojo."
+    link="/framework"
+  />
+</div>

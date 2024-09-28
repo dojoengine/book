@@ -16,7 +16,7 @@ In production mode, Katana provides a high performance sequencer optimized for g
 
 ## Installation
 
-`katana` binary is available via [`dojoup`](/getting-started.md).
+`katana` binary is available via [`dojoup`](/getting-started.mdx).
 
 ### Installing from source
 

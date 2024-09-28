@@ -96,10 +96,11 @@ export function HomePage() {
             <Dojo className="w-16 sm:w-24" />
           </div>
           <div>
-            <h1 className="text-3xl sm:text-4xl">Dojo</h1>
-            <p className="text-lg sm:text-xl mt-4">
-              Dojo simplifies provable and onchain application development.
-            </p>
+            <h1 className="text-3xl sm:text-4xl">
+              Dojo simplifies <span className="text-primary">provable</span> and{" "}
+              <br /> onchain application development
+            </h1>
+
             <div className="mt-6 relative">
               <pre className="p-4 border border-[#252525] rounded-xl bg-gradient-to-br from-[#181818] to-[#0c0c0c] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden overflow-x-auto">
                 <code className="text-sm sm:text-base ">

@@ -3,6 +3,9 @@ module.exports = {
   content: ["./docs/**/*.{html,md,mdx,tsx,js,jsx}"],
   theme: {
     extend: {
+      colors: {
+        primary: "#ee2d3f", // Custom primary color
+      },
       keyframes: {
         "gradient-x": {
           "0%, 100%": { "background-position": "0% 50%" },
