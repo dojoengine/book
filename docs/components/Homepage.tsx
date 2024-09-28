@@ -1,3 +1,4 @@
+import React, { useEffect, useState, useCallback } from "react";
 import Dojo from "../public/dojo-icon.svg?react";
 import Cartridge from "../public/Cartridge.svg?react";
 import Starkware from "../public/Starkware.svg?react";
@@ -9,11 +10,28 @@ import Unity from "../public/unity-3d.svg?react";
 import Godot from "../public/godot.svg?react";
 import Bevy from "../public/bevy-icon.svg?react";
 
+import RealmsWorld from "../public/RealmsWorld.svg?react";
+import DopeWars from "../public/Dope.svg?react";
+
 import Torii from "../public/torii-icon.svg?react";
 import Katana from "../public/katana-icon.svg?react";
 import Origami from "../public/origami-icon.svg?react";
 
 import { Link } from "react-router-dom";
+
+interface Contributor {
+  id: number;
+  login: string;
+  avatar_url: string;
+  html_url: string;
+}
+
+interface UsedByRepo {
+  id: number;
+  name: string;
+  html_url: string;
+  description: string;
+}
 
 const cardContent = [
   {
@@ -87,7 +105,63 @@ const sponsorContent = [
   { icon: <Celestia className="w-32" />, link: "https://celestia.org/" },
 ];
 
+const usedBy = [
+  { icon: <RealmsWorld className="w-24" />, link: "https://realms.world/" },
+  { icon: <DopeWars className="w-24" />, link: "https://dopewars.game/" },
+];
+
 export function HomePage() {
+  const [contributors, setContributors] = useState<Contributor[]>([]);
+  const [contributorsPage, setContributorsPage] = useState(1);
+  const [contributorsLoading, setContributorsLoading] = useState(false);
+  const [hasMoreContributors, setHasMoreContributors] = useState(true);
+
+  const CONTRIBUTORS_PER_PAGE = 30;
+
+  const fetchContributors = useCallback(async () => {
+    if (contributorsLoading || !hasMoreContributors) return;
+    setContributorsLoading(true);
+    try {
+      const response = await fetch(
+        `https://api.github.com/repos/dojoengine/dojo/contributors?per_page=${CONTRIBUTORS_PER_PAGE}&page=${contributorsPage}`
+      );
+      if (response.ok) {
+        const data: Contributor[] = await response.json();
+        setContributors((prev) => [...prev, ...data]);
+        if (data.length < CONTRIBUTORS_PER_PAGE) {
+          setHasMoreContributors(false);
+        } else {
+          setContributorsPage((prev) => prev + 1);
+        }
+      } else {
+        console.error("Failed to fetch contributors");
+        setHasMoreContributors(false);
+      }
+    } catch (error) {
+      console.error("Error fetching contributors:", error);
+      setHasMoreContributors(false);
+    } finally {
+      setContributorsLoading(false);
+    }
+  }, [contributorsLoading, contributorsPage, hasMoreContributors]);
+
+  useEffect(() => {
+    fetchContributors();
+  }, [fetchContributors]);
+
+  const handleScroll = useCallback(() => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    // When the user is within 100px of the bottom, load more
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
+      fetchContributors();
+    }
+  }, [fetchContributors]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
   return (
     <div className="">
       <div className="border-y border-white/20 py-20 border-[#252525] ">
@@ -190,6 +264,54 @@ export function HomePage() {
               </a>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Contributors Section */}
+      <div className="container mx-auto p-4 sm:p-6 lg:p-12">
+        <h2 className="text-2xl sm:text-3xl mb-4 text-center">
+          Epic Contributors
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+          {contributors.map((contributor) => (
+            <a
+              key={contributor.id}
+              href={contributor.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className=" flex-col  p-2 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-2 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden flex items-center justify-center"
+            >
+              <img
+                src={contributor.avatar_url}
+                alt={contributor.login}
+                className="w-16 h-16 rounded-full border border-[#252525]"
+              />
+              <span className="text-sm">{contributor.login}</span>
+            </a>
+          ))}
+        </div>
+        {contributorsLoading && (
+          <p className="text-center mt-4">Loading more contributors...</p>
+        )}
+      </div>
+
+      {/* "Used By" Section */}
+      <div className="container mx-auto p-4 sm:p-6 lg:p-12">
+        <h2 className="text-2xl sm:text-3xl mb-4">Used By</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {usedBy.map((repo, index) => (
+            <a
+              key={index}
+              href={repo.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 flex border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer"
+            >
+              <div className="flex items-center justify-center mx-auto">
+                {repo.icon}
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </div>
