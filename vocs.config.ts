@@ -83,7 +83,16 @@ export default defineConfig({
       link: "/faq",
     },
     {
-      text: "Framework",
+      text: "Fullstack Quickstarts",
+      items: [
+        { text: "Javascript", link: "/quickstarts/javascript" },
+        { text: "Godot", link: "/quickstarts/godot" },
+        { text: "Unity", link: "/quickstarts/unity" },
+        { text: "Bevy", link: "/quickstarts/bevy" },
+      ],
+    },
+    {
+      text: "Cairo Framework",
       items: [
         { text: "Overview", link: "/framework" },
         {

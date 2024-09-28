@@ -79,7 +79,7 @@ const sponsorContent = [
   { icon: <Cartridge className="w-48" />, link: "https://cartridge.gg/" },
   { icon: <Starkware className="w-48" />, link: "https://starkware.co/" },
   { icon: <Starknet className="w-48" />, link: "https://starknet.io/" },
-  { icon: <Celestia className="w-48" />, link: "https://celestia.org/" },
+  { icon: <Celestia className="w-32" />, link: "https://celestia.org/" },
 ];
 
 export function HomePage() {
@@ -122,7 +122,7 @@ export function HomePage() {
             <Link
               to={card.link}
               key={index}
-              className="p-6 sm:p-8 border border-red-300/20 rounded-xl bg-black/10 gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/20 duration-150 hover:bg-black/30 cursor-pointer"
+              className="p-6 sm:p-8 border border-white/20 rounded-xl bg-black/10 gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/20 duration-150 hover:bg-black/30 cursor-pointer"
             >
               <div className="flex gap-4 items-center">
                 {card.icon} <h2 className="text-lg sm:text-xl">{card.title}</h2>
@@ -146,7 +146,7 @@ export function HomePage() {
             {sdkContent.map((card, index) => (
               <div
                 key={index}
-                className="p-4 border border-red-300/20 rounded-xl bg-black/10 gap-4 shadow-lg shadow-red-600/5 hover:shadow-red-600/20 duration-150 hover:bg-black/30 cursor-pointer"
+                className="p-4 border border-white/20 rounded-xl bg-black/10 gap-4 shadow-lg shadow-red-600/5 hover:shadow-red-600/20 duration-150 hover:bg-black/30 cursor-pointer"
               >
                 <div className="flex gap-4 items-center">
                   {card.icon}{" "}
