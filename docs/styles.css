@@ -1,8 +1,19 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+
 @layer vocs_preflight {
   @tailwind base;
 }
 @tailwind components;
 @tailwind utilities;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+
+}
 
 .vocs_ExternalLink::after {
   width: 0;

@@ -1,6 +1,9 @@
 import { defineConfig } from "vocs";
-
+import svgr from "vite-plugin-svgr";
 export default defineConfig({
+  vite: {
+    plugins: [svgr()],
+  },
   banner: "Join us in [Discord](https://discord.gg/dojoengine)!",
   title: "Dojo Documentation",
   iconUrl: "/dojo-favicon.svg",
@@ -65,6 +68,10 @@ export default defineConfig({
     {
       text: "Overview",
       link: "/",
+    },
+    {
+      text: "What is Dojo?",
+      link: "/what-is-dojo",
     },
     {
       text: "Getting Started",
