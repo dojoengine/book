@@ -89,20 +89,19 @@ const sponsorContent = [
 
 export function HomePage() {
   return (
-    <div>
-      <div className="border-y border-white/20 py-20 border-[#252525]">
+    <div className="">
+      <div className="border-y border-white/20 py-20 border-[#252525] ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row gap-8 sm:gap-20">
           <div className="self-center p-6 sm:p-8 border border-[#252525] rounded-xl ">
             <Dojo className="w-16 sm:w-24" />
           </div>
           <div>
-            <h1 className="text-3xl sm:text-4xl">Dojo Documentation</h1>
+            <h1 className="text-3xl sm:text-4xl">Dojo</h1>
             <p className="text-lg sm:text-xl mt-4">
-              Dojo is a framework designed to make building provable and onchain
-              games easy.
+              Dojo simplifies provable and onchain application development.
             </p>
             <div className="mt-6 relative">
-              <pre className="p-4 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden overflow-x-auto">
+              <pre className="p-4 border border-[#252525] rounded-xl bg-gradient-to-br from-[#181818] to-[#0c0c0c] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden overflow-x-auto">
                 <code className="text-sm sm:text-base ">
                   curl -L https://install.dojoengine.org | bash
                 </code>
@@ -121,13 +120,13 @@ export function HomePage() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto p-4 sm:p-6 lg:p-12">
+      <div className="container mx-auto p-4 sm:p-6 lg:p-12 ">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {cardContent.map((card, index) => (
             <Link
               to={card.link}
               key={index}
-              className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
+              className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-gradient-to-br from-[#181818] to-[#0c0c0c] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-30"></div>
               <div className="relative z-10">
@@ -150,7 +149,7 @@ export function HomePage() {
           <div className="lg:col-span-3 self-center">
             <h3 className="text-xl sm:text-2xl">Client SDKs</h3>
             <p className="mt-2 text-sm sm:text-base">
-              Works with all your favourite libraries.
+              Build onchain apps in your favorite language.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 lg:col-span-9">
@@ -172,9 +171,9 @@ export function HomePage() {
       <div className="container mx-auto p-4 sm:p-6 lg:p-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-3 self-center">
-            <h3 className="text-xl sm:text-2xl">Sponsors</h3>
+            <h3 className="text-xl sm:text-2xl">Partners</h3>
             <p className="mt-2 text-sm sm:text-base">
-              Supported by the following companies.
+              Supported by the best in the industry.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 lg:col-span-9">

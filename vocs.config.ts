@@ -74,6 +74,10 @@ export default defineConfig({
       link: "/what-is-dojo",
     },
     {
+      text: "Features",
+      link: "/features",
+    },
+    {
       text: "Getting Started",
       link: "/getting-started",
     },
