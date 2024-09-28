@@ -8,6 +8,11 @@ import Rust from "../public/rust.svg?react";
 import Unity from "../public/unity-3d.svg?react";
 import Godot from "../public/godot.svg?react";
 import Bevy from "../public/bevy-icon.svg?react";
+
+import Torii from "../public/torii-icon.svg?react";
+import Katana from "../public/katana-icon.svg?react";
+import Origami from "../public/origami-icon.svg?react";
+
 import { Link, type LinkProps } from "react-router-dom";
 
 const cardContent = [
@@ -22,7 +27,7 @@ const cardContent = [
     title: "Getting Started",
     description:
       "Learn how to get started with Dojo and build your first application.",
-    icon: <Dojo className="w-8" />,
+    icon: <Origami className="w-8" />,
     link: "/getting-started",
   },
 
@@ -30,14 +35,14 @@ const cardContent = [
     title: "Framework",
     description:
       "Deeply understand the Dojo framework and how it can be used to build applications.",
-    icon: <Dojo className="w-8" />,
+    icon: <Torii className="w-8" />,
     link: "/framework",
   },
   {
     title: "Tool Chain",
     description:
       "Learn about the tools that Dojo provides to help you build and deploy applications.",
-    icon: <Dojo className="w-8" />,
+    icon: <Katana className="w-8" />,
     link: "/toolchain/katana",
   },
   {
@@ -85,7 +90,7 @@ const sponsorContent = [
 export function HomePage() {
   return (
     <div>
-      <div className="border-y border-white/20 py-20">
+      <div className="border-y border-white/20 py-20 border-[#252525]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row gap-8 sm:gap-20">
           <div className="self-center">
             <Dojo className="w-16 sm:w-24" />
@@ -97,8 +102,8 @@ export function HomePage() {
               games easy.
             </p>
             <div className="mt-6 relative">
-              <pre className="bg-black/30 p-4 rounded-lg overflow-x-auto">
-                <code className="text-sm sm:text-base text-white">
+              <pre className="bg-[#181818] p-4 rounded-lg overflow-x-auto">
+                <code className="text-sm sm:text-base ">
                   curl -L https://install.dojoengine.org | bash
                 </code>
               </pre>
@@ -122,13 +127,15 @@ export function HomePage() {
             <Link
               to={card.link}
               key={index}
-              className="p-6 sm:p-8 border border-white/20 rounded-xl bg-black/10 gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/20 duration-150 hover:bg-black/30 cursor-pointer"
+              className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-[#181818] gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] cursor-pointer"
             >
               <div className="flex gap-4 items-center">
                 {card.icon} <h2 className="text-lg sm:text-xl">{card.title}</h2>
               </div>
               <div>
-                <p className="mt-4 text-sm sm:text-base">{card.description}</p>
+                <p className="mt-4 text-sm sm:text-base text-white/70">
+                  {card.description}
+                </p>
               </div>
             </Link>
           ))}
@@ -146,7 +153,7 @@ export function HomePage() {
             {sdkContent.map((card, index) => (
               <div
                 key={index}
-                className="p-4 border border-white/20 rounded-xl bg-black/10 gap-4 shadow-lg shadow-red-600/5 hover:shadow-red-600/20 duration-150 hover:bg-black/30 cursor-pointer"
+                className="p-4 border border-[#252525] rounded-xl bg-[#181818] gap-4 shadow-lg  hover:shadow-red-600/20 duration-150 hover:bg-[#0c0c0c] cursor-pointer"
               >
                 <div className="flex gap-4 items-center">
                   {card.icon}{" "}
@@ -171,7 +178,7 @@ export function HomePage() {
               <a
                 href={card.link}
                 key={index}
-                className="p-4 border border-red-300/20 rounded-xl bg-black/10 gap-4 shadow-lg shadow-red-600/5 hover:shadow-red-600/20 duration-150 hover:bg-black/30 cursor-pointer flex items-center justify-center"
+                className="p-4 border border-[#252525] rounded-xl bg-[#181818] gap-4 shadow-lg  hover:shadow-red-600/20 duration-150 hover:bg-[#0c0c0c] cursor-pointer flex items-center justify-center"
               >
                 <div className="flex items-center justify-center">
                   {card.icon}

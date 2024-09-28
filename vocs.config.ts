@@ -7,7 +7,7 @@ export default defineConfig({
   banner: "Join us in [Discord](https://discord.gg/dojoengine)!",
   title: "Dojo Documentation",
   iconUrl: "/dojo-favicon.svg",
-  logoUrl: "/dojo-logo.svg",
+  logoUrl: "/dojo-icon.svg",
   socials: [
     {
       icon: "github",
@@ -54,8 +54,9 @@ export default defineConfig({
     colorScheme: "dark",
     variables: {
       color: {
+        text: "#fff",
         textAccent: "#ee2d3f",
-        background: "#121212",
+        background: "#0c0c0c",
         backgroundDark: "#121212",
         noteBackground: "#1a1a1a",
       },
