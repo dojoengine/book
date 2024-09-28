@@ -54,7 +54,6 @@ export default defineConfig({
     colorScheme: "dark",
     variables: {
       color: {
-        text: "#fff",
         textAccent: "#ee2d3f",
         background: "#0c0c0c",
         backgroundDark: "#121212",

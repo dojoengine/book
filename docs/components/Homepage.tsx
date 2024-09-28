@@ -56,27 +56,27 @@ const cardContent = [
 const sdkContent = [
   {
     icon: <Javascript className="w-6" />,
-    title: "Javascript SDK",
+    title: "Javascript",
   },
   {
     icon: <Rust className="w-6" />,
-    title: "Rust SDK",
+    title: "Rust",
   },
   {
     icon: <Unity className="w-6" />,
-    title: "Unity SDK",
+    title: "Unity",
   },
   {
     icon: <Godot className="w-6" />,
-    title: "Godot SDK",
+    title: "Godot",
   },
   {
     icon: <Bevy className="w-6" />,
-    title: "Bevy SDK",
+    title: "Bevy",
   },
   {
     icon: <Dojo className="w-6" />,
-    title: "C SDK",
+    title: "C",
   },
 ];
 
@@ -92,7 +92,7 @@ export function HomePage() {
     <div>
       <div className="border-y border-white/20 py-20 border-[#252525]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row gap-8 sm:gap-20">
-          <div className="self-center">
+          <div className="self-center p-6 sm:p-8 border border-[#252525] rounded-xl ">
             <Dojo className="w-16 sm:w-24" />
           </div>
           <div>
@@ -102,7 +102,7 @@ export function HomePage() {
               games easy.
             </p>
             <div className="mt-6 relative">
-              <pre className="bg-[#181818] p-4 rounded-lg overflow-x-auto">
+              <pre className="p-4 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden overflow-x-auto">
                 <code className="text-sm sm:text-base ">
                   curl -L https://install.dojoengine.org | bash
                 </code>
@@ -127,15 +127,19 @@ export function HomePage() {
             <Link
               to={card.link}
               key={index}
-              className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-[#181818] gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] cursor-pointer"
+              className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
             >
-              <div className="flex gap-4 items-center">
-                {card.icon} <h2 className="text-lg sm:text-xl">{card.title}</h2>
-              </div>
-              <div>
-                <p className="mt-4 text-sm sm:text-base text-white/70">
-                  {card.description}
-                </p>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-30"></div>
+              <div className="relative z-10">
+                <div className="flex gap-4 items-center">
+                  {card.icon}{" "}
+                  <h2 className="text-lg sm:text-xl">{card.title}</h2>
+                </div>
+                <div>
+                  <p className="mt-4 text-sm sm:text-base text-white/70">
+                    {card.description}
+                  </p>
+                </div>
               </div>
             </Link>
           ))}
@@ -153,7 +157,7 @@ export function HomePage() {
             {sdkContent.map((card, index) => (
               <div
                 key={index}
-                className="p-4 border border-[#252525] rounded-xl bg-[#181818] gap-4 shadow-lg  hover:shadow-red-600/20 duration-150 hover:bg-[#0c0c0c] cursor-pointer"
+                className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
               >
                 <div className="flex gap-4 items-center">
                   {card.icon}{" "}
@@ -178,7 +182,7 @@ export function HomePage() {
               <a
                 href={card.link}
                 key={index}
-                className="p-4 border border-[#252525] rounded-xl bg-[#181818] gap-4 shadow-lg  hover:shadow-red-600/20 duration-150 hover:bg-[#0c0c0c] cursor-pointer flex items-center justify-center"
+                className="p-4 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden flex items-center justify-center"
               >
                 <div className="flex items-center justify-center">
                   {card.icon}
