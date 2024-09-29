@@ -64,6 +64,13 @@ const cardContent = [
     link: "/toolchain/katana",
   },
   {
+    title: "Examples",
+    description:
+      "Explore examples of applications built with Dojo. MMOs, NFTs, and more.",
+    icon: <Dojo className="w-8" />,
+    link: "/docs/getting-started",
+  },
+  {
     title: "Community",
     description: "Join the Dojo community and get help from other developers.",
     icon: <Dojo className="w-8" />,

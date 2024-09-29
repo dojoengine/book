@@ -93,11 +93,13 @@ export default defineConfig({
       link: "/faq",
     },
     {
-      text: "Quickstarts",
+      text: "15 Minute Quickstarts",
 
       items: [
         { text: "Overview", link: "/quickstarts" },
-        { text: "Javascript", link: "/quickstarts/javascript" },
+        { text: "React", link: "/quickstarts/react" },
+        { text: "Threejs", link: "/quickstarts/threejs" },
+        { text: "Phaser", link: "/quickstarts/phaser" },
         { text: "Godot", link: "/quickstarts/godot" },
         { text: "Unity", link: "/quickstarts/unity" },
         { text: "Bevy", link: "/quickstarts/bevy" },
