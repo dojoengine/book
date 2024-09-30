@@ -94,15 +94,20 @@ export default defineConfig({
     },
     {
       text: "15 Minute Quickstarts",
-
       items: [
-        { text: "Overview", link: "/quickstarts" },
-        { text: "React", link: "/quickstarts/react" },
-        { text: "Threejs", link: "/quickstarts/threejs" },
-        { text: "Phaser", link: "/quickstarts/phaser" },
-        { text: "Godot", link: "/quickstarts/godot" },
-        { text: "Unity", link: "/quickstarts/unity" },
-        { text: "Bevy", link: "/quickstarts/bevy" },
+        {
+          text: "Overview",
+          link: "/quickstarts",
+          collapsed: true,
+          items: [
+            { text: "React", link: "/quickstarts/react" },
+            { text: "Threejs", link: "/quickstarts/threejs" },
+            { text: "Phaser", link: "/quickstarts/phaser" },
+            { text: "Godot", link: "/quickstarts/godot" },
+            { text: "Unity", link: "/quickstarts/unity" },
+            { text: "Bevy", link: "/quickstarts/bevy" },
+          ],
+        },
       ],
     },
     {
@@ -399,7 +404,7 @@ export default defineConfig({
       items: [
         {
           text: "dojo.js",
-          link: "/client/sdk/js/dojojs",
+          link: "/client/sdk/javascript",
         },
         {
           text: "dojo.unity",
@@ -424,6 +429,8 @@ export default defineConfig({
         { text: "dojo.c", link: "/client/sdk/c" },
         { text: "dojo.godot", link: "/client/sdk/godot" },
         { text: "dojo.rust", link: "/client/sdk/rust" },
+        { text: "dojo.telegram", link: "/client/sdk/telegram" },
+        { text: "dojo.discord", link: "/client/sdk/discord" },
       ],
     },
   ],

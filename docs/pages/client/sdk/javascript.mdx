@@ -1,11 +1,31 @@
+import {LinkCard} from "../../../components/LinkCard";
+
+
 # dojo.js
 
-Dojo.js is the official JavaScript package for dojo. It contains modular packages for building games and dapps.
+Dojo.js is the official JavaScript package for dojo. It provides a set of tools and utilities to interact with dojo and build JavaScript based apps.
 
-#### Install Dojo
+::::steps
 
-Ensure that you're using the latest supported Dojo [version](https://github.com/dojoengine/dojo/releases).
+### init dojo
+
+This will provide you with a list of templates to choose from which all have the necessary configuration to get started with dojo.js.
 
 ```sh
-curl -L https://install.dojoengine.org | bash
+npx @dojoengine/create-dojo init
 ```
+
+### Install
+
+```sh
+pnpm i
+```
+::::
+
+<div className="grid grid-cols-2 gap-8">
+  <LinkCard
+    title="JavaScript Docs"
+    description="Learn how to get started with Dojo.js and build your first application."
+    href="https://github.com/dojoengine/dojo.js"
+  />
+</div>
