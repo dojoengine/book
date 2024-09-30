@@ -1,23 +1,38 @@
+import {LinkCard} from "../../components/LinkCard";
+
 :::note
 
 Dojo provides an advanced abstraction layer over Cairo. We highly suggest understanding Cairo before diving into this book.
 :::
 
-# The Cairo Framework
+# Cairo Framework
 
-## Introduction
+This section highlights the three core components essential for building dojo apps:
 
-This section covers the three core components essential for building onchain apps:
+- **Models**: Models act like structured database entries, managing and organizing your onchain data. Like a regular ORM.
 
-- **Models**: Define your application's state using the `#[dojo::model]` attribute. Models act like structured database entries, managing and organizing your onchain data.
-
-- **Systems**: Implement business logic and state changes with systems. Using the `#[dojo::contract]` attribute, systems handle operations that modify your models seamlessly.
+- **Systems**: Implement business logic and state changes, which are just like regular Cairo contracts, but with some syntax sugar.
 
 - **World**: The central hub that connects all models and systems. The World contract ensures consistency, manages authorization, and orchestrates interactions between different parts of your application.
 
-Mastering these components will enable you to create scalable and maintainable onchain applications.
+Mastering these will enable you to create scalable and maintainable onchain applications. If you already have a grasp of these - jump to:
 
-## Simplifying State
+<div className="grid grid-cols-2 gap-8">
+  <LinkCard
+    title="Introduction to Dojo"
+    description="Build your first application with Dojo."
+    link="/tutorial/dojo-starter"
+  />
+
+    <LinkCard
+    title="See Quickstarts"
+    description="See the quickstarts to get started with Dojo."
+    link="/quickstarts"
+  />
+</div>
+
+
+## Simplifying State with Dojo Models
 
 Dojo simplifies onchain application development by providing a standardized approach to state management, similar to a regular database.
 
@@ -93,7 +108,7 @@ By having it's very own Cairo compiler plugin, Dojo proposes to developers a set
 
 ## The World
 
-<!-- TODO: This needs work -->
+{/* <!-- TODO: This needs work --> */}
 
 Models and contracts are the foundation of your application. We encapsulate them within the **World** contract, which serves as a container for all models, systems, and authorization management.
 
@@ -106,3 +121,30 @@ Models and contracts are the foundation of your application. We encapsulate them
 - **Systems**: Implement business logic and state transitions using the `#[dojo::contract]` attribute. Systems handle operations that modify models, ensuring seamless and reliable updates to your application's state.
 
 - **World**: Acts as the central orchestrator connecting all models and systems. The World contract maintains consistency, manages authorization, and coordinates interactions between different components, serving as the single source of truth for your application.
+
+
+<div className="grid grid-cols-2 gap-8">
+  <LinkCard
+    title="World"
+    description="Learn about the World contract and how it orchestrates your application."
+    link="/framework/world"
+  />
+
+    <LinkCard
+    title="Models"
+    description="Learn how to define and manage your application's state with Dojo models."
+    link="/framework/models"
+  />
+
+    <LinkCard
+        title="Systems"
+        description="Learn how to implement business logic and state transitions with Dojo systems."
+        link="/framework/contracts"
+    />
+
+        <LinkCard
+        title="Authorization"
+        description="Learn how to manage authorization and access control in your Dojo application."
+        link="/framework/authorization"
+    />
+</div>

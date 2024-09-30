@@ -26,13 +26,6 @@ interface Contributor {
   html_url: string;
 }
 
-interface UsedByRepo {
-  id: number;
-  name: string;
-  html_url: string;
-  description: string;
-}
-
 const cardContent = [
   {
     title: "What is Dojo?",
@@ -202,30 +195,33 @@ export function HomePage() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto p-4 sm:p-6 lg:p-12 ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {cardContent.map((card, index) => (
-            <Link
-              to={card.link}
-              key={index}
-              className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-gradient-to-br from-[#181818] to-[#0c0c0c] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-30"></div>
-              <div className="relative z-10">
-                <div className="flex gap-4 items-center">
-                  {card.icon}{" "}
-                  <h2 className="text-lg sm:text-xl">{card.title}</h2>
+      <div className="border-b border-white/20 bg-gradient-to-br from-[#181818] to-[#0c0c0c]">
+        <div className="container mx-auto p-4 sm:p-6 lg:p-12 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {cardContent.map((card, index) => (
+              <Link
+                to={card.link}
+                key={index}
+                className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-gradient-to-br from-[#181818] to-[#0c0c0c] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-30"></div>
+                <div className="relative z-10">
+                  <div className="flex gap-4 items-center">
+                    {card.icon}{" "}
+                    <h2 className="text-lg sm:text-xl">{card.title}</h2>
+                  </div>
+                  <div>
+                    <p className="mt-4 text-sm sm:text-base text-white/70">
+                      {card.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="mt-4 text-sm sm:text-base text-white/70">
-                    {card.description}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
+
       <div className="container mx-auto p-4 sm:p-6 lg:p-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-3 self-center">

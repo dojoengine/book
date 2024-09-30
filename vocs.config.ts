@@ -108,13 +108,29 @@ export default defineConfig({
     {
       text: "Tutorials",
       items: [
-        { text: "Dojo starter", link: "/tutorial/dojo-starter" },
+        { text: "Dojo 101 Tutorial", link: "/tutorial/dojo-starter" },
+        {
+          text: "Dungeon Crawler",
+          link: "/tutorial/deploy-using-slot/main",
+        },
         {
           text: "Deploy using Slot",
           link: "/tutorial/deploy-using-slot/main",
         },
         {
-          text: "Katana-Starkli-Scarb: Advanced example",
+          text: "Using Graphql",
+          link: "/tutorial/deploy-using-slot/main",
+        },
+        {
+          text: "Using gRPC",
+          link: "/tutorial/deploy-using-slot/main",
+        },
+        {
+          text: "Deploying an NFT",
+          link: "/tutorial/deploy-using-slot/main",
+        },
+        {
+          text: "Katana-Starkli-Scarb",
           link: "/tutorial/katana-starkli-scarb/main",
         },
       ],
@@ -136,12 +152,14 @@ export default defineConfig({
             { text: "Metadata", link: "/framework/world/metadata" },
           ],
         },
+
         {
           text: "Contracts",
           collapsed: true,
           items: [
             { text: "Overview", link: "/framework/contracts/" },
             { text: "Systems", link: "/framework/contracts/systems" },
+
             { text: "Events", link: "/framework/contracts/events" },
             { text: "Macros", link: "/framework/contracts/macros" },
           ],
@@ -156,6 +174,7 @@ export default defineConfig({
             { text: "Enum", link: "/framework/models/enum" },
           ],
         },
+        { text: "Authorization", link: "/framework/authorization" },
         {
           text: "Config",
           link: "/framework/config",
