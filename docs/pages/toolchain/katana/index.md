@@ -8,7 +8,7 @@ In production mode, Katana provides a high performance sequencer optimized for g
 
 ## Features highlight
 
-- [Starknet JSON-RPC v0.6.0](https://github.com/starkware-libs/starknet-specs/tree/v0.6.0) support
+- [Starknet JSON-RPC v0.7.1](https://github.com/starkware-libs/starknet-specs/tree/v0.7.1) support
 - Cross layer communication (L1 <> L2, LN <> LN+1)
 - Development RPC methods for manipulating the blockchain states
 - State forking
@@ -116,6 +116,6 @@ ACCOUNTS SEED
 ```
 
 ::::note
-📚 **CLI Reference**  
+📚 **CLI Reference**
 See the [`katana` Reference](/toolchain/katana/cli-reference.md) for an in depth reference and documentation on all the available subcommands and options.
 ::::
