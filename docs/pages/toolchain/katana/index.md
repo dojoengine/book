@@ -117,5 +117,5 @@ ACCOUNTS SEED
 
 ::::note
 📚 **CLI Reference**
-See the [`katana` Reference](/toolchain/katana/cli-reference.md) for an in depth reference and documentation on all the available subcommands and options.
+See the [`katana` Reference](/toolchain/katana/cli/index.md) for an in depth reference and documentation on all the available subcommands and options.
 ::::

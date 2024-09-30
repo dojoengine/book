@@ -1,6 +1,6 @@
 # `katana db stats`
 
-Database utilities tool for dispaying the database tables information.
+Dispays database tables information.
 
 ## Usage
 

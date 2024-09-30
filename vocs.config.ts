@@ -128,6 +128,7 @@ export default defineConfig({
             },
             {
               text: "CLI references",
+              link: "/toolchain/katana/cli",
               collapsed: true,
               items: [
                 {
@@ -136,6 +137,7 @@ export default defineConfig({
                 },
                 {
                   text: "katana db",
+                  link: "/toolchain/katana/cli/db/",
                   collapsed: true,
                   items: [
                     {
