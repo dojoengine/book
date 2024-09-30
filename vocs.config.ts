@@ -264,7 +264,6 @@ export default defineConfig({
             },
           ],
         },
-        { text: "Origami", link: "/toolchain/origami" },
         {
           text: "Slot",
           collapsed: true,
@@ -312,6 +311,31 @@ export default defineConfig({
       ],
     },
     {
+      text: "Libraries",
+      items: [
+        {
+          text: "Origami",
+          collapsed: true,
+          items: [
+            { text: "Overview", link: "/libraries/origami" },
+            { text: "Algebra", link: "/libraries/origami/algebra" },
+            { text: "Defi", link: "/libraries/origami/defi" },
+            { text: "Map", link: "/libraries/origami/map" },
+            { text: "Random", link: "/libraries/origami/random" },
+            { text: "Rating", link: "/libraries/origami/rating" },
+            { text: "Security", link: "/libraries/origami/security" },
+          ],
+        },
+        {
+          text: "Alexandria",
+          collapsed: true,
+          items: [
+            { text: "Overview", link: "/libraries/alexandria" },
+          ],
+        },
+      ],
+    },
+    {
       text: "SDKs",
       items: [
         {
@@ -329,7 +353,6 @@ export default defineConfig({
             },
             {
               text: "State Providers",
-
               collapsed: true,
               items: [
                 {
