@@ -1,17 +1,8 @@
 import {LinkCard} from "../components/LinkCard";
 
-# Getting Started
-
-Dojo has two major components:
-
-- Dojo toolchain (installation instructions provided here)
-- SDKs: Libraries to interact with your onchain state
-
-Follow this guide to install the CLI, then proceed to the guides and starters.
-
 ### Prerequisites
 
-To work with Dojo, you need to have Git, Rust and Scarb installed on your PC to satisfy Dojo dependencies.
+To work with Dojo, you need to have Git, Rust and Scarb installed.
 
 #### Rust
 
@@ -21,13 +12,16 @@ To work with Dojo, you need to have Git, Rust and Scarb installed on your PC to 
 
 The Dojo toolchain integrates [Scarb](https://docs.swmansion.com/scarb/) to build and run Dojo projects, installation instructions are [here](https://docs.swmansion.com/scarb/download.html).
 
-:::note
-Windows it not natively supported, we suggest using [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to develop with Dojo on Windows.
-:::
+
 
 ## Install Dojo using `dojoup`
 
-You can install with the `dojoup` version manager which enables you to easily install, update and manage your Dojo installation.
+Dojo has two major components:
+
+- `dojoup` toolchain (installation instructions provided here)
+- SDKs: Libraries to interact with your onchain state
+
+
 
 :::note
 Dojo is built around a set of development tools - [Katana](/toolchain/katana), [Torii](/toolchain/torii) and [Sozo](/toolchain/sozo), which are all installed with dojoup.
@@ -48,6 +42,10 @@ dojoup
 ```
 
 For more information on advanced usage, such as installing a particular version or building from source, run `dojoup --help`.
+
+:::note
+Windows it not natively supported, we suggest using [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to develop with Dojo on Windows.
+:::
 
 ::::
 

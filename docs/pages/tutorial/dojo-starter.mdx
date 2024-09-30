@@ -1,10 +1,12 @@
-# Dojo starter guide
+import {LinkCard} from "../../components/LinkCard";
 
-> This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](/getting-started.mdx) section and the [Cairo book](https://book.cairo-lang.org).
+# Dojo 101 Tutorial
 
-## Dojo as an ECS in 15 Minutes
+:::note
+This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [Getting Started](/getting-started.mdx) section and the [Cairo book](https://book.cairo-lang.org).
+:::
 
-Although Dojo isn't exclusively an Entity Component System (ECS) framework, we recommend adopting this robust design pattern. In this context, systems shape the environment's logic, while components (called [models](/framework/models) in Dojo) mirror the state of the world. By taking this route, you'll benefit from a structured and modular framework. This framework promises both flexibility and scalability in a continuously evolving world. If this seems a bit intricate at first, hang tight; we'll delve into the details shortly.
+## Dojo in 15 minutes or less
 
 To start, let's create a new project to run locally on your machine.
 
@@ -12,33 +14,30 @@ To start, let's create a new project to run locally on your machine.
 sozo init dojo-starter
 ```
 
-Congratulations! You now have a local Dojo project. This command creates a `dojo-starter` project in your current directory from the [Dojo starter template](https://github.com/dojoengine/dojo-starter). It's the ideal starting point for a new project and equips you with everything you need to begin.
+Congratulations! You now have a local Dojo project!
+
+This command creates a `dojo-starter` project in your current directory from the [Dojo starter template](https://github.com/dojoengine/dojo-starter). It's the ideal starting point for a new project and equips you with everything you need to begin hacking.
 
 ### Anatomy of a Dojo Project
 
 Inspect the contents of the `dojo-starter` project, and you'll notice the following structure (excluding the non-Cairo files):
 
 ```bash
-.
 ├── Scarb.toml
+├── dojo_dev.toml
+├── dojo_release.toml
 └── src
     ├── lib.cairo
-    ├── models
-    │   ├── moves.cairo
-    │   └── position.cairo
+    ├── models.cairo
     ├── systems
     │   └── actions.cairo
     └── tests
         └── test_world.cairo
 ```
 
-As Dojo projects bear a strong resemblance to typical Cairo projects, the primary difference lies in the inclusion of a Dojo specific macros.
-
 The scarb manifest (`Scarb.toml`) is a configuration file where project dependencies, metadata and other configurations are defined.
 
-### Models
-
-Since we're crafting an ECS, it's essential to adhere to the specific terminology associated with Entity Component Systems. In the context of Dojo, `Component` is named `Model`, to not conflict with existing Cairo terminology.
+## Models
 
 Next, open the `src/models/moves.cairo` file to continue.
 
@@ -56,28 +55,28 @@ struct Moves {
 // ...
 ```
 
-Notice the `#[dojo::model]` attribute. For a model to be recognized, we _must_ add this attribute to a Cairo struct. This signals to the Dojo compiler that this struct should be treated as a model.
+Notice the `#[dojo::model]` attribute.
 
-<!-- Here we don't show the dojo::event, as first the user must understand that dojo already emit events that are processed by Torii when a model is set. -->
+For a model to be recognized, we _must_ add this attribute to a Cairo struct. This tells to the Dojo compiler that this struct should be treated as a model.
 
-Our `Moves` model houses a `player` field. At the same time, we have the `#[key]` attribute, it informs Dojo that this model is indexed by the `player` field. If this is unfamiliar to you, we'll clarify its importance later in the chapter. Essentially, it implies that you must provide the `player` field to query this model. Our `Moves` model also contains the `remaining` and `last_direction` fields.
+### Understanding the `#[key]` Attribute in the Moves Model
 
-:::warning
-A model **must** have at least **one** key.
-:::
+Our Moves model includes a `player` field, which is crucial for how Dojo manages and queries data. Models act like structured database entries, managing and organizing your onchain data. Like a regular ORM - but onchain!
 
-Next, open the `src/models/position.cairo` file to continue.
+Next, lets have a look at the `src/models/position.cairo` file.
 
 ```rust
 // ...
 #[derive(Drop, Copy, Serde)]
 #[dojo::model]
 struct Position {
+    // Define a Key. This acts like a primary key does in a regular ORM
     #[key]
     player: ContractAddress,
     vec: Vec2,
 }
 
+// define Introspect struct
 #[derive(Drop, Copy, Serde, Introspect)]
 struct Vec2 {
     x: u32,
@@ -87,13 +86,22 @@ struct Vec2 {
 // ...
 ```
 
-Similarly, we have a `Position` model that is also indexed by the `player` field and includes a `Vec2` data structure. The `Vec2` structure holds `x` and `y` values. It is important to note that a model can contain any Cairo struct, provided the [`Introspect`](/framework/models/introspect) trait is derived. This trait informs the Dojo storage engine on how to handle the struct.
+The `Position` model, like `Moves`, is indexed by the `player` field and includes a `Vec2` struct for x and y coordinates. Models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspect) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
 
-### Systems
+<div className="grid grid-cols-2 gap-8">
+  <LinkCard
+    title="Deeper into Models"
+    description="Learn more about models and how they are used in Dojo."
+    link="/framework/models"
+  />
+</div>
 
-A `system` is a function in a Dojo contract, which is defined with the `#[dojo::contract]` attribute.
 
-First, a contract must define one (or more) Dojo interface that defines the systems it exposes.
+## Contract Systems
+
+A dojo contract is just a regular Starknet contract which is defined with the `#[dojo::contract]` attribute.
+
+First, a dojo contract must define one (or more) Dojo interfaces.
 
 ```rust
 #[dojo::interface]
@@ -103,49 +111,102 @@ trait IActions {
 }
 ```
 
-The `world` parameter is a special parameter to inject the world into the system.
-
-<!-- Add link to the page dedicated to the world injection. -->
-
-Now, let's examine a `system` implementation of the `src/systems/actions.cairo` file.
+Now, let's examine a contract implementation of the `src/systems/actions.cairo` file.
 
 ```rust
-/// Spawn system, in which the world is injected.
-fn spawn(ref world: IWorldDispatcher) {
-    let player = get_caller_address();
+use dojo_starter::models::Direction;
+use dojo_starter::models::Position;
 
-    // Retrieve the player's current position from the world.
-    let position = get!(world, player, (Position));
+// define the interface
+#[dojo::interface]
+trait IActions {
+    fn spawn(ref world: IWorldDispatcher);
+    fn move(ref world: IWorldDispatcher, direction: Direction);
+}
 
-    // Update the world state with the new data.
-    set!(
-        world,
-        (
-            Moves { player, remaining: 100, last_direction: Direction::None },
-            Position {
-                player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
-            },
-        )
-    );
+// dojo decorator
+#[dojo::contract]
+mod actions {
+    use super::{IActions, next_position};
+    use starknet::{ContractAddress, get_caller_address};
+    use dojo_starter::models::{Position, Vec2, Moves, Direction, DirectionsAvailable};
+
+    #[derive(Copy, Drop, Serde)]
+    #[dojo::model]
+    #[dojo::event]
+    struct Moved {
+        #[key]
+        player: ContractAddress,
+        direction: Direction,
+    }
+
+    #[abi(embed_v0)]
+    impl ActionsImpl of IActions<ContractState> {
+        fn spawn(ref world: IWorldDispatcher) {
+            // Get the address of the current caller, possibly the player's address.
+            let player = get_caller_address();
+            // Retrieve the player's current position from the world.
+            let position = get!(world, player, (Position));
+            // Update the world state with the new data.
+            // 1. Set the player's remaining moves to 100.
+            // 2. Move the player's position 10 units in both the x and y direction.
+
+            set!(
+                world,
+                (
+                    Moves {
+                        player, remaining: 100, last_direction: Direction::None(()), can_move: true
+                    },
+                    Position {
+                        player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
+                    },
+                )
+            );
+        }
+
+        // Implementation of the move function for the ContractState struct.
+        fn move(ref world: IWorldDispatcher, direction: Direction) {
+            // Get the address of the current caller, possibly the player's address.
+            let player = get_caller_address();
+
+            // Retrieve the player's current position and moves data from the world.
+            let (mut position, mut moves) = get!(world, player, (Position, Moves));
+
+            // Deduct one from the player's remaining moves.
+            moves.remaining -= 1;
+
+            // Update the last direction the player moved in.
+            moves.last_direction = direction;
+
+            // Calculate the player's next position based on the provided direction.
+            let next = next_position(position, direction);
+
+            // Update the world state with the new moves data and position.
+            set!(world, (moves, next));
+            // Emit an event to the world to notify about the player's move.
+            emit!(world, (Moved { player, direction }));
+        }
+    }
+}
+
+// Define function like this:
+fn next_position(mut position: Position, direction: Direction) -> Position {
+    match direction {
+        Direction::None => { return position; },
+        Direction::Left => { position.vec.x -= 1; },
+        Direction::Right => { position.vec.x += 1; },
+        Direction::Up => { position.vec.y -= 1; },
+        Direction::Down => { position.vec.y += 1; },
+    };
+    position
 }
 ```
 
-As you can see a `system` is like a regular function of a Dojo contract. It uses the Models we defined earlier. This `system` is called when a player spawns into the world.
-In a `system`, you can inject the world by using the `world` parameter.
+Let's break down the code above:
 
-<!-- TODO: add a link to the injection detailed page. -->
-
-```rust
-// Retrieve the player's current position from the world.
-let position = get!(world, player, (Position));
-```
-
-Here we use `get!` [macro](/framework/contracts/macros.md) to retrieve the `Position` model for the `player` entity, which is the address of the caller.
-
-Now the next line:
+Here we use the `set!` [macro](/framework/contracts/macros.md) to set the `Moves` and `Position` models for the `player` entity. As you can see, like the `get!` macro, you can pass several models in the tuple to interact with several models in an atomic manner.
 
 ```rust
-// Update the world state with the new data.
 set!(
     world,
     (
@@ -157,25 +218,30 @@ set!(
 );
 ```
 
-Here we use the `set!` [macro](/framework/contracts/macros.md) to set the `Moves` and `Position` models for the `player` entity.
-As you've seen, like the `get!` macro, you can pass several model in the tuple to interact with several models in an atomic manner.
-
-:::tip[Systems are stateless]
-The systems are the only way to interact with the world. They can read and write to the world, where data is stored.
-Systems are expected to be stateless.
-:::
+<div className="grid grid-cols-2 gap-8">
+  <LinkCard
+    title="Deeper into Systems"
+    description="Learn more about systems and how they are used in Dojo."
+    link="/framework/systems"
+  />
+    <LinkCard
+    title="Deeper into Macros"
+    description="Learn more about the macros used in Dojo contracts."
+    link="/framework/contracts/macros"
+  />
+</div>
 
 We covered a lot here in a short time. Let's recap:
 
 - Explained the anatomy of a Dojo project
 - Explained the importance of the `#[dojo::model]`attribute and how models are defined
-- Explained how systems are defined and implemented inside a Dojo contract
+- Explained how `#[dojo::contract]` are used to define systems
 - Explained how to inject the world into a system
 - Touched on the `get!` and `set!` macros to interact with the world
 
-### Run it locally!
+## Deploy it locally
 
-Now that we've covered some theory, let's build the Dojo project! In your primary terminal:
+Enough theory! Let's build the Dojo project! In your primary terminal:
 
 ```bash
 sozo build
@@ -262,20 +328,19 @@ Let's discuss the `Scarb.toml` file in the project. This file contains environme
 ```toml
 [tool.dojo.env]
 rpc_url = "http://localhost:5050/"
-# Default account for katana with seed = 0
 account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
 private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a"
 world_address = "0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18"
 ```
 
-At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `0.7.0`.
+At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `v1.0.0-alpha.13`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.7.0" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-alpha.13" }
 ```
 
-### Indexing
+## Indexing
 
 With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your `world address` from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
 
@@ -318,6 +383,9 @@ Running the command mentioned above starts a [Torii](/toolchain/torii) server on
 ```
 
 You can observe that our `Moves` and `Position` models have been successfully registered.
+
+### GraphQL Queries
+
 Next, let's use the GraphQL IDE to retrieve data from all the models that have been registered. In your web browser, navigate to `http://localhost:8080/graphql`, and enter the following query:
 
 ```graphql
@@ -465,3 +533,17 @@ We've covered quite a bit! Here's a recap:
 ### Next Steps
 
 This overview provides a rapid end-to-end glimpse of Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and models, Dojo is equipped for expansive creativity. So, what will you craft next?
+
+
+<div className="grid grid-cols-2 gap-8">
+  <LinkCard
+    title="Quick Start"
+    description="See the quickstarts."
+    link="/quickstarts"
+  />
+    <LinkCard
+    title="Advanced Tutorials"
+    description="Explore all tutorials."
+    link="/tutorials"
+  />
+</div>
