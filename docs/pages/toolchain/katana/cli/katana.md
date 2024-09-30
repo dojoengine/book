@@ -1,5 +1,3 @@
-# CLI References
-
 ## NAME
 
 `katana` - Create a local Starknet sequencer for deploying and developing Starknet smart contracts.
@@ -14,94 +12,74 @@ katana [OPTIONS] [COMMAND]
 
 ### General Options
 
-`--silent`  
+`--silent`
 &nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup.
 
-`--no-mining`  
+`--no-mining`
 &nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on demand instead.
 
-`-b, --block-time <MILLISECONDS>`  
+`-b, --block-time <MILLISECONDS>`
 &nbsp;&nbsp;&nbsp;&nbsp; Block time in milliseconds for interval mining.
 
-`--db-dir <PATH>`  
+`--db-dir <PATH>`
 &nbsp;&nbsp;&nbsp;&nbsp; Directory path of the database to initialize from. The path must either be an empty directory or a directory which already contains a previously initialized Katana database.
 
-`--json-log`  
+`--json-log`
 &nbsp;&nbsp;&nbsp;&nbsp; Output logs in JSON format.
 
-`--rpc-url <URL>`  
+`--rpc-url <URL>`
 &nbsp;&nbsp;&nbsp;&nbsp; The Starknet RPC provider to fork the network from.
 
-`--fork-block-number <BLOCK_NUMBER>`  
+`--fork-block-number <BLOCK_NUMBER>`
 &nbsp;&nbsp;&nbsp;&nbsp; Fork the network at a specific block.
 
-`--messaging <PATH>`  
+`--messaging <PATH>`
 &nbsp;&nbsp;&nbsp;&nbsp; Configure the messaging service to allow Katana to listen/send messages on a settlement chain that can be either Ethereum or another Starknet sequencer (experimental).
 
-`-h, --help`  
+`-h, --help`
 &nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h').
 
-`-V, --version`  
+`-V, --version`
 &nbsp;&nbsp;&nbsp;&nbsp; Print version information.
 
 ### Server Options
 
-`-p, --port <PORT>`  
+`-p, --port <PORT>`
 &nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on. [default: 5050]
 
-`--host <HOST>`  
+`--host <HOST>`
 &nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on.
 
-`--max-connections <MAX_CONNECTIONS>`  
+`--max-connections <MAX_CONNECTIONS>`
 &nbsp;&nbsp;&nbsp;&nbsp; Maximum number of concurrent connections allowed. [default: 100]
 
 ### Starknet Options
 
-`--seed <SEED>`  
+`--seed <SEED>`
 &nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be predeployed.
 
-`--accounts <NUM>`  
+`--accounts <NUM>`
 &nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate. [default: 10]
 
-`--disable-fee`  
+`--disable-fee`
 &nbsp;&nbsp;&nbsp;&nbsp; Disable charging fee for transactions.
 
-`--disable-validate`  
+`--disable-validate`
 &nbsp;&nbsp;&nbsp;&nbsp; Disable validation when executing transactions. Allowing transaction to be executed even with invalid signature.
 
 #### Environment Options
 
-`--chain-id <CHAIN_ID>`  
+`--chain-id <CHAIN_ID>`
 &nbsp;&nbsp;&nbsp;&nbsp; The chain ID. [default: KATANA]
 
-`--gas-price <GAS_PRICE>`  
+`--gas-price <GAS_PRICE>`
 &nbsp;&nbsp;&nbsp;&nbsp; The gas price.
 
-`--validate-max-steps <VALIDATE_MAX_STEPS>`  
+`--validate-max-steps <VALIDATE_MAX_STEPS>`
 &nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the account validation logic.
 
-`--invoke-max-steps <INVOKE_MAX_STEPS>`  
+`--invoke-max-steps <INVOKE_MAX_STEPS>`
 &nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the account execution logic.
 
-`--genesis <GENESIS>`  
+`--genesis <GENESIS>`
 &nbsp;&nbsp;&nbsp;&nbsp; The genesis configuration file.
-
-## SUBCOMMANDS
-
-### `completions`
-
-Generates a shell completions script for the given supported shells:
-
-- bash
-- elvish
-- fish
-- powershell
-- zsh
-
-#### EXAMPLES
-
-Generate shell completions script for `bash` and appends it to a `.bashrc` file:
-
-```bash
-katana completions bash >> ~/.bashrc
-```
