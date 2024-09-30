@@ -145,10 +145,6 @@ export default defineConfig({
           items: [
             { text: "Overview", link: "/framework/world" },
             { text: "Events", link: "/framework/world/events" },
-            {
-              text: "Authorization",
-              link: "/framework/world/authorization",
-            },
             { text: "Metadata", link: "/framework/world/metadata" },
           ],
         },
@@ -159,7 +155,6 @@ export default defineConfig({
           items: [
             { text: "Overview", link: "/framework/contracts/" },
             { text: "Systems", link: "/framework/contracts/systems" },
-
             { text: "Events", link: "/framework/contracts/events" },
             { text: "Macros", link: "/framework/contracts/macros" },
           ],
@@ -174,7 +169,15 @@ export default defineConfig({
             { text: "Enum", link: "/framework/models/enum" },
           ],
         },
-        { text: "Authorization", link: "/framework/authorization" },
+        {
+          text: "Authorization",
+          link: "/framework/authorization",
+          collapsed: true,
+          // TODO: Add more items
+          items: [
+            { text: "overlays", link: "/framework/authorization/overlays" },
+          ],
+        },
         {
           text: "Config",
           link: "/framework/config",
@@ -397,37 +400,6 @@ export default defineConfig({
         {
           text: "dojo.js",
           link: "/client/sdk/js/dojojs",
-          collapsed: true,
-          items: [
-            {
-              text: "Get Started",
-              link: "/client/sdk/js/getting-started",
-            },
-            {
-              text: "Packages",
-              link: "/client/sdk/js/packages",
-            },
-            {
-              text: "State Providers",
-
-              collapsed: true,
-              items: [
-                {
-                  text: "Recs",
-                  link: "/client/sdk/js/recs",
-                },
-              ],
-            },
-            {
-              text: "Dojo.js Concepts",
-              link: "/client/sdk/js/concepts",
-            },
-            {
-              text: "Common Problems",
-              link: "/client/sdk/js/common-problems",
-            },
-            { text: "Example", link: "/client/sdk/js/example" },
-          ],
         },
         {
           text: "dojo.unity",

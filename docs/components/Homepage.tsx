@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Dojo from "../public/dojo-icon.svg?react";
 import Cartridge from "../public/Cartridge.svg?react";
 import Starkware from "../public/Starkware.svg?react";
@@ -9,6 +9,9 @@ import Rust from "../public/rust.svg?react";
 import Unity from "../public/unity-3d.svg?react";
 import Godot from "../public/godot.svg?react";
 import Bevy from "../public/bevy-icon.svg?react";
+import Discord from "../public/discord.svg?react";
+import Telegram from "../public/telegram.svg?react";
+import C from "../public/c.svg?react";
 
 import RealmsWorld from "../public/RealmsWorld.svg?react";
 import DopeWars from "../public/Dope.svg?react";
@@ -75,26 +78,42 @@ const sdkContent = [
   {
     icon: <Javascript className="w-6" />,
     title: "Javascript",
+    link: "/client/sdk/javascript",
   },
   {
     icon: <Rust className="w-6" />,
     title: "Rust",
+    link: "/client/sdk/rust",
   },
   {
     icon: <Unity className="w-6" />,
     title: "Unity",
+    link: "/client/sdk/unity",
   },
   {
     icon: <Godot className="w-6" />,
     title: "Godot",
+    link: "/client/sdk/godot",
   },
   {
     icon: <Bevy className="w-6" />,
     title: "Bevy",
+    link: "/client/sdk/bevy",
   },
   {
-    icon: <Dojo className="w-6" />,
+    icon: <C className="w-6" />,
     title: "C",
+    link: "/client/sdk/c",
+  },
+  {
+    icon: <Discord className="w-6" />,
+    title: "Discord",
+    link: "/client/sdk/discord",
+  },
+  {
+    icon: <Telegram className="w-6" />,
+    title: "Telegram",
+    link: "/client/sdk/telegram",
   },
 ];
 
@@ -225,14 +244,16 @@ export function HomePage() {
       <div className="container mx-auto p-4 sm:p-6 lg:p-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-3 self-center">
-            <h3 className="text-xl sm:text-2xl">Client SDKs</h3>
+            <h3 className="text-xl sm:text-2xl">Clients</h3>
             <p className="mt-2 text-sm sm:text-base">
-              Build onchain apps in your favorite language.
+              Build onchain apps in your favorite language, on your favourite
+              platform.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 lg:col-span-9">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 lg:col-span-9">
             {sdkContent.map((card, index) => (
-              <div
+              <Link
+                to={card.link}
                 key={index}
                 className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
               >
@@ -240,7 +261,7 @@ export function HomePage() {
                   {card.icon}{" "}
                   <h2 className="text-lg sm:text-xl">{card.title}</h2>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
