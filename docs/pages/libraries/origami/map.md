@@ -1,18 +1,7 @@
-![origami](/origami.png)
+# Map
 
-> The magic of origami is in seeing a single piece of cairo evolve into a masterpiece through careful folds.
+The Map crate provides utilities for generating and manipulating game maps and terrains. It includes algorithms for:
 
-## What is Origami?
-
-Origami is the native dojo collection of primitives that can be imported into your game.
-
-It contains:
-
-- algebra
-- defi
-- hex map
-- random
-- security
-- ERC tokens
-
-Find the [Origami repo](https://github.com/dojoengine/origami)
+- Cave generation
+- Random walks
+- Pathfinding

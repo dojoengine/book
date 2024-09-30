@@ -321,6 +321,7 @@ export default defineConfig({
             { text: "Algebra", link: "/libraries/origami/algebra" },
             { text: "Defi", link: "/libraries/origami/defi" },
             { text: "Map", link: "/libraries/origami/map" },
+            { text: "Physics", link: "/libraries/origami/physics" },
             { text: "Random", link: "/libraries/origami/random" },
             { text: "Rating", link: "/libraries/origami/rating" },
             { text: "Security", link: "/libraries/origami/security" },

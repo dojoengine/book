@@ -1,0 +1,47 @@
+![origami](/origami.png)
+
+> The magic of origami is in seeing a single piece of cairo evolve into a masterpiece through careful folds.
+
+## Origami
+
+### Primitives for Onchain Gaming
+
+Origami is a collection of essential primitives designed to facilitate the development of onchain games using the Dojo engine. It provides a set of powerful tools and libraries that enable game developers to create complex, engaging, and secure blockchain-based games.
+
+### Overview
+
+Origami offers a range of crates, each focusing on specific aspects of game development:
+
+- [Algebra](/libraries/origami/algebra.md)
+- [DeFi](/libraries/origami/defi.md)
+- [Map](/libraries/origami/map.md)
+- [Physics](/libraries/origami/physics.md)
+- [Random](/libraries/origami/random.md)
+- [Rating](/libraries/origami/rating.md)
+- [Security](/libraries/origami/security.md)
+
+These crates work together seamlessly to provide a comprehensive toolkit for building sophisticated onchain games.
+
+### Key Features
+
+#### Modular Architecture
+
+Origami is designed with modularity in mind. Each crate can be used independently or in combination with others, allowing developers to pick and choose the components they need for their specific game requirements.
+
+#### Cairo Language
+
+Origami is built using Cairo, a programming language designed for creating provable programs. This ensures that games developed with Origami can leverage the security and transparency benefits of blockchain technology.
+
+#### Easy Integration
+
+Integrating Origami into your project is straightforward. Simply add the desired crates to your Scarb.toml file:
+
+```toml
+[dependencies]
+origami_map = { git = "https://github.com/dojoengine/origami" }
+origami_random = { git = "https://github.com/dojoengine/origami" }
+```
+
+### References
+
+Find the [Origami repo](https://github.com/dojoengine/origami)
