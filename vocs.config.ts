@@ -224,8 +224,30 @@ export default defineConfig({
               link: "/toolchain/katana",
             },
             {
-              text: "CLI Reference",
-              link: "/toolchain/katana/cli-reference",
+              text: "CLI references",
+              link: "/toolchain/katana/cli",
+              collapsed: true,
+              items: [
+                {
+                  text: "katana",
+                  link: "/toolchain/katana/cli/katana",
+                },
+                {
+                  text: "katana db",
+                  link: "/toolchain/katana/cli/db/",
+                  collapsed: true,
+                  items: [
+                    {
+                      text: "katana db stats",
+                      link: "/toolchain/katana/cli/db/stats",
+                    },
+                  ],
+                },
+                {
+                  text: "katana completions",
+                  link: "/toolchain/katana/cli/completions",
+                },
+              ],
             },
             {
               text: "JSON-RPC",
