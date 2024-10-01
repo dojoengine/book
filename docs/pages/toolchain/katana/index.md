@@ -14,6 +14,12 @@ In production mode, Katana provides a high performance sequencer optimized for g
 - State forking
 - Highly configurable
 
+## System Requirements
+
+```sh
+Katana requires glibc version 2.33 or higher. This version is not available on Ubuntu 20.04 LTS, Debian 10 Buster, CentOS 7, and their older versions. To successfully install Dojo, you need to use a newer version of these operating systems.
+```
+
 ## Installation
 
 `katana` binary is available via [`dojoup`](/getting-started.mdx).
