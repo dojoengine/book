@@ -1,3 +1,0 @@
-# Dojo.js 101 example
-
-Coming soon...

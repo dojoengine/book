@@ -10,6 +10,12 @@
   "dependencies": {
     "react": "latest",
     "react-dom": "latest",
+    "react-router-dom": "^6.26.2",
+    "vite-tsconfig-paths": "^5.0.1",
     "vocs": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.10",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

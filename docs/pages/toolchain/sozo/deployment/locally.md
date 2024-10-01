@@ -6,7 +6,7 @@ Experience the power of rapid development with Dojo, featuring the ultra-fast lo
 
 Deploying to Katana is straightforward and efficient.
 
-> **Pre-requisite:** Ensure you've completed the [Quick Start](/getting-started.md) guide and have your project set up.
+> **Pre-requisite:** Ensure you've completed the [Quick Start](/getting-started.mdx) guide and have your project set up.
 
 To initiate Katana from your project directory, execute:
 
