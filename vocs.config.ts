@@ -3,6 +3,15 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
   vite: {
     plugins: [svgr()],
+    server: {
+      proxy: {
+        "/api": {
+          target: "https://website-production-bc1a.up.railway.app",
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
   },
   banner: {
     dismissable: false,
