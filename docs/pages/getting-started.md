@@ -1,14 +1,10 @@
 # Getting Started
 
-:::note
-Windows it not natively supported, we suggest using [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to develop with Dojo on Windows.
-:::
+:::note Windows it not natively supported, we suggest using [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to develop with Dojo on Windows. :::
 
-:::Alternitively you can use our [WSL install](/getting-started-1/wsl) instructions:::
+:::Alternitively you can use our [WSL install](getting-started/wsl.md) instructions:::
 
-Let's get started building on **Dojo**! This guide will walk you through installing the Dojo toolchain and preparing your environment for development. Dojo is built around a set of development tools - [Katana](/toolchain/katana), [Torii](/toolchain/torii) and [Sozo](/toolchain/sozo).
-
-<!-- TODO: Add link to the Saya page when available. -->
+Let's get started building on **Dojo**! This guide will walk you through installing the Dojo toolchain and preparing your environment for development. Dojo is built around a set of development tools - [Katana](../../toolchain/katana/), [Torii](../../toolchain/torii/) and [Sozo](../../toolchain/sozo/).
 
 ## Prerequisites
 
@@ -82,4 +78,4 @@ asdf local dojo 0.7.0         # Set locally in your project directory
 
 ::::
 
-Once you're up and running, check out the [Dojo Starter guide](/tutorial/dojo-starter)!
+Once you're up and running, check out the [Dojo Starter guide](../../tutorial/dojo-starter/)!

@@ -1,85 +1,65 @@
-## NAME
+# katana
+
+### NAME
 
 `katana` - Create a local Starknet sequencer for deploying and developing Starknet smart contracts.
 
-## USAGE
+### USAGE
 
 ```sh
 katana [OPTIONS] [COMMAND]
 ```
 
-## OPTIONS
+### OPTIONS
 
-### General Options
+#### General Options
 
-`--silent`
-&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup.
+`--silent`      Don't print anything on startup.
 
-`--no-mining`
-&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on demand instead.
+`--no-mining`      Disable auto and interval mining, and mine on demand instead.
 
-`-b, --block-time <MILLISECONDS>`
-&nbsp;&nbsp;&nbsp;&nbsp; Block time in milliseconds for interval mining.
+`-b, --block-time <MILLISECONDS>`      Block time in milliseconds for interval mining.
 
-`--db-dir <PATH>`
-&nbsp;&nbsp;&nbsp;&nbsp; Directory path of the database to initialize from. The path must either be an empty directory or a directory which already contains a previously initialized Katana database.
+`--db-dir <PATH>`      Directory path of the database to initialize from. The path must either be an empty directory or a directory which already contains a previously initialized Katana database.
 
-`--json-log`
-&nbsp;&nbsp;&nbsp;&nbsp; Output logs in JSON format.
+`--json-log`      Output logs in JSON format.
 
-`--rpc-url <URL>`
-&nbsp;&nbsp;&nbsp;&nbsp; The Starknet RPC provider to fork the network from.
+`--rpc-url <URL>`      The Starknet RPC provider to fork the network from.
 
-`--fork-block-number <BLOCK_NUMBER>`
-&nbsp;&nbsp;&nbsp;&nbsp; Fork the network at a specific block.
+`--fork-block-number <BLOCK_NUMBER>`      Fork the network at a specific block.
 
-`--messaging <PATH>`
-&nbsp;&nbsp;&nbsp;&nbsp; Configure the messaging service to allow Katana to listen/send messages on a settlement chain that can be either Ethereum or another Starknet sequencer (experimental).
+`--messaging <PATH>`      Configure the messaging service to allow Katana to listen/send messages on a settlement chain that can be either Ethereum or another Starknet sequencer (experimental).
 
-`-h, --help`
-&nbsp;&nbsp;&nbsp;&nbsp; Print help (see a summary with '-h').
+`-h, --help`      Print help (see a summary with '-h').
 
-`-V, --version`
-&nbsp;&nbsp;&nbsp;&nbsp; Print version information.
+`-V, --version`      Print version information.
 
-### Server Options
+#### Server Options
 
-`-p, --port <PORT>`
-&nbsp;&nbsp;&nbsp;&nbsp; Port number to listen on. [default: 5050]
+`-p, --port <PORT>`      Port number to listen on. \[default: 5050]
 
-`--host <HOST>`
-&nbsp;&nbsp;&nbsp;&nbsp; The IP address the server will listen on.
+`--host <HOST>`      The IP address the server will listen on.
 
-`--max-connections <MAX_CONNECTIONS>`
-&nbsp;&nbsp;&nbsp;&nbsp; Maximum number of concurrent connections allowed. [default: 100]
+`--max-connections <MAX_CONNECTIONS>`      Maximum number of concurrent connections allowed. \[default: 100]
 
-### Starknet Options
+#### Starknet Options
 
-`--seed <SEED>`
-&nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be predeployed.
+`--seed <SEED>`      Specify the seed for randomness of accounts to be predeployed.
 
-`--accounts <NUM>`
-&nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate. [default: 10]
+`--accounts <NUM>`      Number of pre-funded accounts to generate. \[default: 10]
 
-`--disable-fee`
-&nbsp;&nbsp;&nbsp;&nbsp; Disable charging fee for transactions.
+`--disable-fee`      Disable charging fee for transactions.
 
-`--disable-validate`
-&nbsp;&nbsp;&nbsp;&nbsp; Disable validation when executing transactions. Allowing transaction to be executed even with invalid signature.
+`--disable-validate`      Disable validation when executing transactions. Allowing transaction to be executed even with invalid signature.
 
-#### Environment Options
+**Environment Options**
 
-`--chain-id <CHAIN_ID>`
-&nbsp;&nbsp;&nbsp;&nbsp; The chain ID. [default: KATANA]
+`--chain-id <CHAIN_ID>`      The chain ID. \[default: KATANA]
 
-`--gas-price <GAS_PRICE>`
-&nbsp;&nbsp;&nbsp;&nbsp; The gas price.
+`--gas-price <GAS_PRICE>`      The gas price.
 
-`--validate-max-steps <VALIDATE_MAX_STEPS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the account validation logic.
+`--validate-max-steps <VALIDATE_MAX_STEPS>`      The maximum number of steps available for the account validation logic.
 
-`--invoke-max-steps <INVOKE_MAX_STEPS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the account execution logic.
+`--invoke-max-steps <INVOKE_MAX_STEPS>`      The maximum number of steps available for the account execution logic.
 
-`--genesis <GENESIS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The genesis configuration file.
+`--genesis <GENESIS>`      The genesis configuration file.
