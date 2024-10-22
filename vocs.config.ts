@@ -45,7 +45,7 @@ export default defineConfig({
   topNav: [
     { text: "Blog", link: "https://www.dojoengine.org/posts" },
     {
-      text: "v1.0.0-alpha.13",
+      text: "v1.0.0-alpha.17",
       items: [
         {
           text: "Releases",
@@ -101,52 +101,52 @@ export default defineConfig({
       text: "FAQ",
       link: "/faq",
     },
-    {
-      text: "15 Minute Quickstarts",
-      items: [
-        {
-          text: "Overview",
-          link: "/quickstarts",
-          collapsed: true,
-          items: [
-            { text: "React", link: "/quickstarts/react" },
-            { text: "Threejs", link: "/quickstarts/threejs" },
-            { text: "Phaser", link: "/quickstarts/phaser" },
-            { text: "Godot", link: "/quickstarts/godot" },
-            { text: "Unity", link: "/quickstarts/unity" },
-            { text: "Bevy", link: "/quickstarts/bevy" },
-          ],
-        },
-      ],
-    },
+    // {
+    //   text: "15 Minute Quickstarts",
+    //   items: [
+    //     {
+    //       text: "Overview",
+    //       link: "/quickstarts",
+    //       collapsed: true,
+    //       items: [
+    //         { text: "React", link: "/quickstarts/react" },
+    //         { text: "Threejs", link: "/quickstarts/threejs" },
+    //         { text: "Phaser", link: "/quickstarts/phaser" },
+    //         { text: "Godot", link: "/quickstarts/godot" },
+    //         { text: "Unity", link: "/quickstarts/unity" },
+    //         { text: "Bevy", link: "/quickstarts/bevy" },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       text: "Tutorials",
       items: [
         { text: "Dojo 101 Tutorial", link: "/tutorial/dojo-starter" },
-        {
-          text: "Dungeon Crawler",
-          link: "/tutorial/deploy-using-slot/main",
-        },
-        {
-          text: "Deploy using Slot",
-          link: "/tutorial/deploy-using-slot/main",
-        },
-        {
-          text: "Using Graphql",
-          link: "/tutorial/deploy-using-slot/main",
-        },
-        {
-          text: "Using gRPC",
-          link: "/tutorial/deploy-using-slot/main",
-        },
-        {
-          text: "Deploying an NFT",
-          link: "/tutorial/deploy-using-slot/main",
-        },
-        {
-          text: "Katana-Starkli-Scarb",
-          link: "/tutorial/katana-starkli-scarb/main",
-        },
+        // {
+        //   text: "Dungeon Crawler",
+        //   link: "/tutorial/deploy-using-slot/main",
+        // },
+        // {
+        //   text: "Deploy using Slot",
+        //   link: "/tutorial/deploy-using-slot/main",
+        // },
+        // {
+        //   text: "Using Graphql",
+        //   link: "/tutorial/deploy-using-slot/main",
+        // },
+        // {
+        //   text: "Using gRPC",
+        //   link: "/tutorial/deploy-using-slot/main",
+        // },
+        // {
+        //   text: "Deploying an NFT",
+        //   link: "/tutorial/deploy-using-slot/main",
+        // },
+        // {
+        //   text: "Katana-Starkli-Scarb",
+        //   link: "/tutorial/katana-starkli-scarb/main",
+        // },
       ],
     },
     {
