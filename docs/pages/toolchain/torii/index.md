@@ -26,7 +26,7 @@ You'll have a GraphQL API running at `http://localhost:8080/graphql` and a gRPC 
 
 ## Installation
 
-The `torii` binary can be installed via [`dojoup`](/getting-started.md), our dedicated installation package manager.
+The `torii` binary can be installed via [`dojoup`](/getting-started.mdx), our dedicated installation package manager.
 
 ### Installing from Source
 
