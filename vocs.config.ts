@@ -445,6 +445,15 @@ export default defineConfig({
       ],
     },
     {
+      text: "Architectures",
+      items: [
+        {
+          text: "Soverign Rollups",
+          link: "/architecture/soverign-rollups",
+        },
+      ],
+    },
+    {
       text: "SDKs",
       items: [
         {
