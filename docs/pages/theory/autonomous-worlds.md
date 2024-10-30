@@ -24,13 +24,13 @@ We're firm believers in the potential for Autonomous Worlds to catalyze the expl
 
 ### Homework
 
-- [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-worlds-aim-to-free-online-games-from-corporate-control/)
-- [0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-worlds)
-- [Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack.com/p/the-strongest-crypto-gaming-thesis)
-- [Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/mud-an-engine-for-autonomous-worlds)
-- [Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)
-- [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/composable-engineering)
-- [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-up-worlds/)
-- [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/on-chain-realities-and-autonomous-worlds)
-- [Tarrence - Provable Games](https://www.dojoengine.org/en/articles/provable-games/)
-- [Loaf - Provable Goblins](https://loaf.coffee/posts/provable-goblins)
+-   [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-worlds-aim-to-free-online-games-from-corporate-control/)
+-   [0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-worlds)
+-   [Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack.com/p/the-strongest-crypto-gaming-thesis)
+-   [Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/mud-an-engine-for-autonomous-worlds)
+-   [Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)
+-   [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/composable-engineering)
+-   [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-up-worlds/)
+-   [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/on-chain-realities-and-autonomous-worlds)
+-   [Tarrence - Provable Games](https://www.dojoengine.org/en/articles/provable-games/)
+-   [Loaf - Provable Goblins](https://loaf.coffee/posts/provable-goblins)

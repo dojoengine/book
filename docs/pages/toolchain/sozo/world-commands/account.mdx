@@ -1,14 +1,14 @@
-import WorldOptions from '../common/world-options.mdx'
-import StarknetOptions from '../common/starknet-options.mdx'
-import AccountOptions from '../common/account-options.mdx'
-import SignerOptionsRaw from '../common/signer-options-raw.mdx'
-import SignerOptionsKeystore from '../common/signer-options-keystore.mdx'
-import TransactionOptions from '../common/transaction-options.mdx'
+import WorldOptions from "../common/world-options.mdx";
+import StarknetOptions from "../common/starknet-options.mdx";
+import AccountOptions from "../common/account-options.mdx";
+import SignerOptionsRaw from "../common/signer-options-raw.mdx";
+import SignerOptionsKeystore from "../common/signer-options-keystore.mdx";
+import TransactionOptions from "../common/transaction-options.mdx";
 
-## Sozo Account 
+## Sozo Account
 
-The `sozo account` command allows managing account contracts. 
-It provides functionalities to create new account configurations, deploying them, and fetch 
+The `sozo account` command allows managing account contracts.
+It provides functionalities to create new account configurations, deploying them, and fetch
 account configuration for already existing account.
 
 Note that we currently only support the OpenZeppelin account variant. For more advanced use cases, consider using [starkli](https://book.starkli.rs/accounts).
@@ -25,6 +25,7 @@ Commands:
   help    Print this message or the help of the given subcommand(s).
 
 ```
+
 ### Subcommands
 
 #### `new`
@@ -43,19 +44,19 @@ Fetch account config from an already deployed account contract.
 
 #### Starknet Options
 
-<StarknetOptions/>
+<StarknetOptions />
 
 #### Signer Options - Raw
 
-<SignerOptionsRaw/>
+<SignerOptionsRaw />
 
 #### Signer Options - Keystore
 
-<SignerOptionsKeystore/>
+<SignerOptionsKeystore />
 
 #### Transaction Options
 
-<TransactionOptions/>
+<TransactionOptions />
 
 #### Specific Options:
 
@@ -71,7 +72,6 @@ Fetch account config from an already deployed account contract.
 
 `--no_confirmation`: Skip the user confirmation step.
 
-
 ### Example
 
 #### Create a New Keystore file
@@ -85,4 +85,3 @@ sozo keystore new <keystore>.json
 ```sh
 sozo account new --keystore <keystore>.json <account_name>.json
 ```
-

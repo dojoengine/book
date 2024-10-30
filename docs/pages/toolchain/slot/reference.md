@@ -1,24 +1,25 @@
 ## slot reference
 
-
 slot - a toolchain developed for rapidly spinning up Katana and Torii instances.
 
 ### Usage
 
 To interact with Slot via the command line, use the following syntax:
+
 ```sh
 slot [COMMANDS] [OPTIONS]
 ```
 
-
 ### Commands
+
 Here’s a breakdown of the primary commands available in Slot, each tailored for specific functions:
 
 `auth`  
 &nbsp;&nbsp;&nbsp;&nbsp; Manage authentication credentials for the Slot CLI, ensuring secure access and operations.
 
 #### deployments
- Sub commands tools for managing your `Slot deployments:`
+
+Sub commands tools for managing your `Slot deployments:`
 
 [`create`](/toolchain/slot/deployment-commands/create.md): Initialize a new deployment for services like Katana or Torii.
 

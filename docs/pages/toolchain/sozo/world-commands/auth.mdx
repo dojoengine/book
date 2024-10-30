@@ -13,8 +13,8 @@ Finally, the world itself is a resource, and its `resource_id` is `0`.
 
 Authorizations are separated in two categories:
 
-- _Ownership_: when the world / dojo contract is deployed, or a model registered, the deployer becomes the owner of such resource. Ownership can be granted to others.
-- _Writer_: to give write access on models, you must explicitely grant the writer role to a system.
+-   _Ownership_: when the world / dojo contract is deployed, or a model registered, the deployer becomes the owner of such resource. Ownership can be granted to others.
+-   _Writer_: to give write access on models, you must explicitely grant the writer role to a system.
 
 With `sozo auth`, you can grant or revoke ownership or writer roles.
 
@@ -39,13 +39,13 @@ The syntax changes depending on the authorization you want to grant / revoke.
 sozo auth grant/revoke owner [OPTIONS] <resource,owner_address>...
 ```
 
-- _`resource`_
-  &nbsp;&nbsp;&nbsp;&nbsp;The resource can be a model or a contract, and must be identified as follow:  
-  &nbsp;&nbsp;&nbsp;&nbsp;- For a model, `model:model_name`.  
-  &nbsp;&nbsp;&nbsp;&nbsp;- For a contract, `contract:0x1234` or `contract:fully::qualified::name`.
+-   _`resource`_
+    &nbsp;&nbsp;&nbsp;&nbsp;The resource can be a model or a contract, and must be identified as follow:  
+    &nbsp;&nbsp;&nbsp;&nbsp;- For a model, `model:model_name`.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- For a contract, `contract:0x1234` or `contract:fully::qualified::name`.
 
-- _`owner_address`_
-  &nbsp;&nbsp;&nbsp;&nbsp;The address of the owner to grant/revoke ownership to.
+-   _`owner_address`_
+    &nbsp;&nbsp;&nbsp;&nbsp;The address of the owner to grant/revoke ownership to.
 
 #### `writer`
 
@@ -53,11 +53,11 @@ sozo auth grant/revoke owner [OPTIONS] <resource,owner_address>...
 sozo auth grant/revoke writer [OPTIONS] <model,contract_address>...
 ```
 
-- _`model`_
-  &nbsp;&nbsp;&nbsp;&nbsp;The name of the model to grant/revoke writer access to.
+-   _`model`_
+    &nbsp;&nbsp;&nbsp;&nbsp;The name of the model to grant/revoke writer access to.
 
-- _`contract_address`_
-  &nbsp;&nbsp;&nbsp;&nbsp;The address of the contract to grant/revoke writer access to.
+-   _`contract_address`_
+    &nbsp;&nbsp;&nbsp;&nbsp;The address of the contract to grant/revoke writer access to.
 
 #### World Options
 

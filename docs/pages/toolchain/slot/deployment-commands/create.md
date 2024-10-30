@@ -35,6 +35,6 @@ Deployment created successfully with version 1.0.0-alpha.1.
 
 ### **Services Supported:**
 
-- **Katana**
-- **Madara**
-- **Torii**
+-   **Katana**
+-   **Madara**
+-   **Torii**

@@ -14,8 +14,8 @@ During initialization, the World Manager receives WorldManagerData, which define
 
 In Unity, entities are represented by GameObject instances. The World Manager simplifies their management by offering methods to:
 
-- Add and remove entities
-- Access entities by name or list all entities
+-   Add and remove entities
+-   Access entities by name or list all entities
 
 ## Synchronization Master
 
@@ -25,15 +25,15 @@ The Synchronization Master acts as the bridge between Unity and your Dojo world,
 
 Key Features:
 
-- Control synchronization: Set the maximum number of entities to synchronize.
-- Event-driven communication:
+-   Control synchronization: Set the maximum number of entities to synchronize.
+-   Event-driven communication:
 
-  - OnSynchronized: Notifies you when entities were successfully synchronized from Dojo world to Unity.
-  - OnEntitySpawned: Triggered whenever a new entity is spawned in the Unity environment.
+    -   OnSynchronized: Notifies you when entities were successfully synchronized from Dojo world to Unity.
+    -   OnEntitySpawned: Triggered whenever a new entity is spawned in the Unity environment.
 
-- Dynamic entity management:
-  - SynchronizeEntities: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
-  - HandleEntityUpdate: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
+-   Dynamic entity management:
+    -   SynchronizeEntities: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
+    -   HandleEntityUpdate: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
 
 ## Models
 
@@ -44,11 +44,11 @@ While you have the flexibility to incorporate as many models as necessary, it's 
 
 > 💡 Explore the following sections to gain insights:
 
-- [Models Definition](/framework/models): Understand the structure and functionality of models within Dojo.
+-   [Models Definition](/framework/models): Understand the structure and functionality of models within Dojo.
 
-- [Entity Definition](/framework/models/entities.md): Learn about entities in the context of Dojo.
+-   [Entity Definition](/framework/models/entities.md): Learn about entities in the context of Dojo.
 
-- [Dojo as an ECS in 15 Minutes](/tutorial/dojo-starter.mdx): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
+-   [Dojo as an ECS in 15 Minutes](/tutorial/dojo-starter.mdx): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
 
 ### Bingen
 

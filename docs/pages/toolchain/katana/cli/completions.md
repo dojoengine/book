@@ -2,11 +2,11 @@
 
 Generates a shell completions script for the `katana` cli for the given supported shells:
 
-- bash
-- elvish
-- fish
-- powershell
-- zsh
+-   bash
+-   elvish
+-   fish
+-   powershell
+-   zsh
 
 ## USAGE
 

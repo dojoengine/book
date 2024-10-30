@@ -8,21 +8,19 @@ The **`logs`** command is used to fetch and display logs from a specified deploy
 slot deployments logs <Project Name> <Service> [options]
 ```
 
-
 ## Examples
 
 1. **Fetch the last 50 logs from a Katana service:**
-    
+
     ```sh
     slot deployments logs example_project Katana --limit 50
     ```
-    
+
 2. **Stream logs from a Torii service:**
-    
+
     ```sh
     slot deployments logs example_project Torii --follow
     ```
-    
 
 ### Response and Output
 
@@ -30,13 +28,13 @@ Upon execution, logs are printed directly to the console. For historical log que
 
 ### Detailed Description
 
-- **Fetching Logs**: The command queries the Slot backend to retrieve logs associated with the specified service and project. Logs can be filtered by time using the `-since` option.
-- **Streaming Logs**: When `-follow` is used, the command enters a streaming mode where new log entries are printed as they become available, similar to tailing a log file in many traditional operating systems.
+-   **Fetching Logs**: The command queries the Slot backend to retrieve logs associated with the specified service and project. Logs can be filtered by time using the `-since` option.
+-   **Streaming Logs**: When `-follow` is used, the command enters a streaming mode where new log entries are printed as they become available, similar to tailing a log file in many traditional operating systems.
 
 ### Handling Large Volumes of Logs
 
-- To prevent excessive data usage or console overflow, use the `-limit` option judiciously.
-- For continuous monitoring, the `-follow` mode provides a live view of the service's operational status.
+-   To prevent excessive data usage or console overflow, use the `-limit` option judiciously.
+-   For continuous monitoring, the `-follow` mode provides a live view of the service's operational status.
 
 ### Sample Output
 

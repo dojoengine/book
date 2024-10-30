@@ -13,80 +13,80 @@ The genesis configuration provides a convenient way to customize the chain's sta
 
 The genesis config file is a JSON file that contains the following fields:
 
-- `number`  
-  _The block number of the genesis block._
-- `parentHash`  
-  _The parent hash of the genesis block._
-- `timestamp`  
-  _The timestamp of the genesis block._
-- `stateRoot`  
-  _The state root of the genesis block._
-- `sequencerAddress`  
-  _The sequencer address._
-- `gasPrices` _The gas prices for the L1 tokens at the genesis block._
-  - `ETH`  
-    _The price of ETH in wei._
-  - `STRK`  
-    _The price of STRK in fri._
-- `feeToken` _The network fee token configuration. (optional)_
-  - `name`  
-    _The name of the fee token._
-  - `symbol`  
-    _The symbol of the fee token._
-  - `decimals`  
-    _The number of decimal places for the fee token._
-  - `address` (optional)  
-    _The fee token contract address._
-  - `class` (optional)  
-    _The class of the fee token. It is has a value of either a `classHash` or a `name`._
-    - `classHash` (option)  
-       _The hash of the fee token class hash (`0x` prefixed hex value)._
-    - `name` (option)  
-       _The name of the fee token class defined in `classes`._
-  - `storage` (optional)  
-    _Key-value pairs for the fee token's storage._
-- `universalDeployer` _The universal deployer configuration. (optional)_
-  - `address` (optional)  
-    _The universal deployer contract address._
-  - `storage` (optional)  
-    _Key-value pairs for the universal deployer's storage._
-- `accounts` _The genesis allocations._
-  - <CONTRACT*ADDRESS> \_The address of the account contract.*
-    - `publicKey`  
-      _The public key associated with the account._
-    - `privateKey` (optional)  
-      _The private key associated with publicKey._
-    - `balance` (optional)  
-      _The initial balance of the account._
-    - `nonce` (optional)  
-      _The nonce of the account._
-    - `class` (optional)  
-      _The class to be used for the account contract. It is has a value of either a `classHash` or a `name`._
-      - `classHash` (option)  
-        _The hash of the contract class (`0x` prefixed hex value)._
-      - `name` (option)  
-        _The name of contract class defined in `classes`._
-    - `storage` (optional)  
-      _Key-value pairs for the account's storage._
-- `contracts` _Genesis contract deployments._
-  - <CONTRACT*ADDRESS> \_The address of the contract.*
-    - `class`  
-      _The class of the contract. It is has a value of either a `classHash` or a `name`._
-      - `classHash` (option)  
-        _The hash of the contract class (`0x` prefixed hex value)._
-      - `name` (option)  
-        _The name of the contract class defined in `classes`._
-    - `balance` (optional)  
-      _The balance allocated to the contract._
-    - `storage` (optional)  
-      _Key-value pairs for the contract's storage._
-- `classes` _Classes to declare at genesis._
-  - `class`  
-    _The path to the class artifact file relative to the genesis config file, or the full class artifact object._
-  - `classHash` (optional)  
-    _The hash of the class. To override the actual class hash that will be computed from the class definition itself._
-  - `name` (optional)  
-    _The name of the class to be used as a reference for the class hash._
+-   `number`  
+    _The block number of the genesis block._
+-   `parentHash`  
+    _The parent hash of the genesis block._
+-   `timestamp`  
+    _The timestamp of the genesis block._
+-   `stateRoot`  
+    _The state root of the genesis block._
+-   `sequencerAddress`  
+    _The sequencer address._
+-   `gasPrices` _The gas prices for the L1 tokens at the genesis block._
+    -   `ETH`  
+        _The price of ETH in wei._
+    -   `STRK`  
+        _The price of STRK in fri._
+-   `feeToken` _The network fee token configuration. (optional)_
+    -   `name`  
+        _The name of the fee token._
+    -   `symbol`  
+        _The symbol of the fee token._
+    -   `decimals`  
+        _The number of decimal places for the fee token._
+    -   `address` (optional)  
+        _The fee token contract address._
+    -   `class` (optional)  
+        _The class of the fee token. It is has a value of either a `classHash` or a `name`._
+        -   `classHash` (option)  
+             _The hash of the fee token class hash (`0x` prefixed hex value)._
+        -   `name` (option)  
+             _The name of the fee token class defined in `classes`._
+    -   `storage` (optional)  
+        _Key-value pairs for the fee token's storage._
+-   `universalDeployer` _The universal deployer configuration. (optional)_
+    -   `address` (optional)  
+        _The universal deployer contract address._
+    -   `storage` (optional)  
+        _Key-value pairs for the universal deployer's storage._
+-   `accounts` _The genesis allocations._
+    -   <CONTRACT*ADDRESS> \_The address of the account contract.*
+        -   `publicKey`  
+            _The public key associated with the account._
+        -   `privateKey` (optional)  
+            _The private key associated with publicKey._
+        -   `balance` (optional)  
+            _The initial balance of the account._
+        -   `nonce` (optional)  
+            _The nonce of the account._
+        -   `class` (optional)  
+            _The class to be used for the account contract. It is has a value of either a `classHash` or a `name`._
+            -   `classHash` (option)  
+                _The hash of the contract class (`0x` prefixed hex value)._
+            -   `name` (option)  
+                _The name of contract class defined in `classes`._
+        -   `storage` (optional)  
+            _Key-value pairs for the account's storage._
+-   `contracts` _Genesis contract deployments._
+    -   <CONTRACT*ADDRESS> \_The address of the contract.*
+        -   `class`  
+            _The class of the contract. It is has a value of either a `classHash` or a `name`._
+            -   `classHash` (option)  
+                _The hash of the contract class (`0x` prefixed hex value)._
+            -   `name` (option)  
+                _The name of the contract class defined in `classes`._
+        -   `balance` (optional)  
+            _The balance allocated to the contract._
+        -   `storage` (optional)  
+            _Key-value pairs for the contract's storage._
+-   `classes` _Classes to declare at genesis._
+    -   `class`  
+        _The path to the class artifact file relative to the genesis config file, or the full class artifact object._
+    -   `classHash` (optional)  
+        _The hash of the class. To override the actual class hash that will be computed from the class definition itself._
+    -   `name` (optional)  
+        _The name of the class to be used as a reference for the class hash._
 
 ### Example
 
