@@ -1,5 +1,7 @@
 # Sovereign Rollup Using Celestia and Dojo
 
+![Sovereign Rollup Architecture](/celestia-architecture.png)
+
 ## Introduction
 
 This documentation outlines the design and implementation of a sovereign rollup project built on Celestia and Starknet, specifically leveraging Dojo stack. The rollup aims to provide scalable and decentralized execution by using Celestia's modular data availability layer and Starknet's cryptographic proofs.
