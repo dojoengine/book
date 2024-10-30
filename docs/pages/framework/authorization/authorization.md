@@ -27,7 +27,7 @@ In the current version, the deployer of the world has permissions on everything.
 
 In order to write data into the world, in other term to update the state of a model, a system must have the appropriate authorization.
 
-In Dojo, to write data to the world the `set!` [macro](/framework/contracts/macros.md) is used.
+In Dojo, to write data to the world the `set!` [macro](/framework/world/api.md) is used.
 
 Every time a `set!` is called, the world checks if the system has authorization to update the model state. First the `writer` permission is checked, and then the `owner` permission.
 
@@ -52,8 +52,6 @@ fn is_writer(self: @T, model: felt252, contract: ContractAddress) -> bool;
 fn grant_writer(ref self: T, model: felt252, contract: ContractAddress);
 fn revoke_writer(ref self: T, model: felt252, contract: ContractAddress);
 ```
-
-<!-- TODO: we may add some macros to actually allow systems to interact with permission? -->
 
 To provide authorization you have multiple choices:
 

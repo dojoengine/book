@@ -48,7 +48,7 @@ struct Resource {
 }
 ```
 
-In this case you would then use the [`get!` macro](/framework/contracts/macros.md#the-get-macro) with both the player and location fields:
+In this case you would then use the [`get!` macro](/framework/world/api.md#the-get-macro) with both the player and location fields:
 
 ```rust
 let player = get_caller_address();

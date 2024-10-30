@@ -97,4 +97,4 @@ mod actions {
 }
 ```
 
-Inside the system's implementation, you can use the Dojo [macros](/framework/contracts/macros) to easily interact with the world.
+Inside the system's implementation, you can use the Dojo [commands](/framework/contracts/world/api) to easily interact with the world.

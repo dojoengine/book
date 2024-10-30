@@ -77,19 +77,10 @@ export const routes = [
                 collapsed: true,
                 items: [
                     { text: "Overview", link: "/framework/world" },
+                    { text: "API", link: "/framework/world/api" },
+                    { text: "Systems", link: "/framework/world/systems" },
                     { text: "Events", link: "/framework/world/events" },
                     { text: "Metadata", link: "/framework/world/metadata" },
-                ],
-            },
-
-            {
-                text: "Contracts",
-                collapsed: true,
-                items: [
-                    { text: "Overview", link: "/framework/contracts/" },
-                    { text: "Systems", link: "/framework/contracts/systems" },
-                    { text: "Events", link: "/framework/contracts/events" },
-                    { text: "Macros", link: "/framework/contracts/macros" },
                 ],
             },
             {
@@ -109,13 +100,6 @@ export const routes = [
                 text: "Authorization",
                 link: "/framework/authorization",
                 collapsed: true,
-                // TODO: Add more items
-                items: [
-                    {
-                        text: "overlays",
-                        link: "/framework/authorization/overlays",
-                    },
-                ],
             },
             {
                 text: "Config",
