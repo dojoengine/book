@@ -4,9 +4,9 @@
 
 ### Prerequisites
 
-- [Rust](https://github.com/rust-lang/rust)
-- [Cairo](https://github.com/starkware-libs/cairo)
-- [protoc](https://github.com/protocolbuffers/protobuf)
+-   [Rust](https://github.com/rust-lang/rust)
+-   [Cairo](https://github.com/starkware-libs/cairo)
+-   [protoc](https://github.com/protocolbuffers/protobuf)
 
 ## Guide
 

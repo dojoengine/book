@@ -3,89 +3,90 @@ import svgr from "vite-plugin-svgr";
 import { routes } from "./routes";
 
 export default defineConfig({
-  title: "Dojo Documentation",
-  description:
-    "Dojo | A Toolchain for Building Provable Games and Applications",
-  iconUrl: "/dojo-favicon.svg",
-  logoUrl: "/dojo-icon.svg",
-  ogImageUrl:
-    "https://vocs.dev/api/og?logo=%logo&title=%title&description=%description",
+    title: "Dojo Documentation",
+    description:
+        "Dojo | A Toolchain for Building Provable Games and Applications",
+    iconUrl: "/dojo-favicon.svg",
+    logoUrl: "/dojo-icon.svg",
+    ogImageUrl:
+        "https://vocs.dev/api/og?logo=%logo&title=%title&description=%description",
 
-  // Theme configuration
-  font: {
-    google: "Open Sans",
-  },
-  theme: {
-    colorScheme: "dark",
-    variables: {
-      color: {
-        textAccent: "#ee2d3f",
-        background: "#0c0c0c",
-        backgroundDark: "#121212",
-        noteBackground: "#1a1a1a",
-      },
+    // Theme configuration
+    font: {
+        google: "Open Sans",
     },
-  },
+    theme: {
+        colorScheme: "dark",
+        variables: {
+            color: {
+                textAccent: "#ee2d3f",
+                background: "#0c0c0c",
+                backgroundDark: "#121212",
+                noteBackground: "#1a1a1a",
+            },
+        },
+    },
 
-  // Navigation
-  sidebar: routes,
-  topNav: [
-    // { text: "Blog", link: "https://www.dojoengine.org/posts" },
-    {
-      text: "v1.0.0-rc.0",
-      items: [
+    // Navigation
+    sidebar: routes,
+    topNav: [
+        // { text: "Blog", link: "https://www.dojoengine.org/posts" },
         {
-          text: "Releases",
-          link: "https://github.com/dojoengine/dojo/releases",
+            text: "v1.0.0-rc.0",
+            items: [
+                {
+                    text: "Releases",
+                    link: "https://github.com/dojoengine/dojo/releases",
+                },
+                {
+                    text: "Changelog",
+                    link: "https://github.com/dojoengine/dojo/releases",
+                },
+                {
+                    text: "Contributing",
+                    link: "https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md",
+                },
+            ],
+        },
+    ],
+
+    // Social links and edit options
+    socials: [
+        {
+            icon: "github",
+            link: "https://github.com/dojoengine/dojo",
         },
         {
-          text: "Changelog",
-          link: "https://github.com/dojoengine/dojo/releases",
+            icon: "x",
+            link: "https://x.com/ohayo_dojo",
         },
-        {
-          text: "Contributing",
-          link: "https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md",
+    ],
+    editLink: {
+        pattern:
+            "https://github.com/dojoengine/book/blob/main/docs/pages/:path",
+        text: "Edit on GitHub",
+    },
+
+    // Banner configuration
+    banner: {
+        dismissable: false,
+        backgroundColor: "red",
+        content: "Join us in [Discord](https://discord.gg/dojoengine)!",
+        height: "28px",
+        textColor: "white",
+    },
+
+    // Vite configuration
+    vite: {
+        plugins: [svgr()],
+        server: {
+            proxy: {
+                "/api": {
+                    target: "https://website-production-bc1a.up.railway.app",
+                    changeOrigin: true,
+                    secure: false,
+                },
+            },
         },
-      ],
     },
-  ],
-
-  // Social links and edit options
-  socials: [
-    {
-      icon: "github",
-      link: "https://github.com/dojoengine/dojo",
-    },
-    {
-      icon: "x",
-      link: "https://x.com/ohayo_dojo",
-    },
-  ],
-  editLink: {
-    pattern: "https://github.com/dojoengine/book/blob/main/docs/pages/:path",
-    text: "Edit on GitHub",
-  },
-
-  // Banner configuration
-  banner: {
-    dismissable: false,
-    backgroundColor: "red",
-    content: "Join us in [Discord](https://discord.gg/dojoengine)!",
-    height: "28px",
-    textColor: "white",
-  },
-
-  // Vite configuration
-  vite: {
-    plugins: [svgr()],
-    server: {
-      proxy: {
-        "/api": {
-          target: "https://website-production-bc1a.up.railway.app",
-          changeOrigin: true,
-          secure: false,
-        },
-      },
-    },
-  },
 });

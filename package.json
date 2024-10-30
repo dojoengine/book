@@ -1,21 +1,24 @@
 {
-  "name": "dojo-book",
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vocs dev",
-    "build": "vocs build",
-    "preview": "vocs preview"
-  },
-  "dependencies": {
-    "react": "latest",
-    "react-dom": "latest",
-    "react-router-dom": "^6.26.2",
-    "vite-tsconfig-paths": "^5.0.1",
-    "vocs": "latest"
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.10",
-    "vite-plugin-svgr": "^4.2.0"
-  }
+    "name": "dojo-book",
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vocs dev",
+        "build": "vocs build",
+        "preview": "vocs preview",
+        "prettier-check": "npx prettier --check .",
+        "prettier": "npx prettier --write ."
+    },
+    "dependencies": {
+        "prettier": "^3.3.3",
+        "react": "latest",
+        "react-dom": "latest",
+        "react-router-dom": "^6.26.2",
+        "vite-tsconfig-paths": "^5.0.1",
+        "vocs": "latest"
+    },
+    "devDependencies": {
+        "@types/react": "^18.3.10",
+        "vite-plugin-svgr": "^4.2.0"
+    }
 }

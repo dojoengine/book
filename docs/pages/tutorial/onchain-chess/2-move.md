@@ -54,20 +54,20 @@
 
 2. Run `sozo build` to compile the code.
 
-   Great, Now we can start testing our functions
+    Great, Now we can start testing our functions
 
 ## Test Flow
 
-- Spawn the test world (`spawn_test_world`) that imports the models in testing.
-- Deploy actions contract
-- Interact with `spawn` function in the `actions` contract by providing white and black player's wallet addresses as inputs.
-- Retrieve the game entity and piece entity created in `actions` contract.
-- Ensure the game has been correctly created.
-- Verify that each `Piece` is located in the correct position.
+-   Spawn the test world (`spawn_test_world`) that imports the models in testing.
+-   Deploy actions contract
+-   Interact with `spawn` function in the `actions` contract by providing white and black player's wallet addresses as inputs.
+-   Retrieve the game entity and piece entity created in `actions` contract.
+-   Ensure the game has been correctly created.
+-   Verify that each `Piece` is located in the correct position.
 
 ## Unit Tests
 
-- Copy the test below and add it to your `tests/units.cairo` file.
+-   Copy the test below and add it to your `tests/units.cairo` file.
 
 ```rust
 #[cfg(test)]

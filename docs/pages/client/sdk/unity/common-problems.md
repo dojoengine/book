@@ -45,18 +45,18 @@ Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
 
-   - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
-     ![webgl-error](/unity/webgl-build-fail.png)
-     > Example without `Dojo` template selected
-   - Select the WebGL tab.
-   - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
-   - If the Dojo template is missing, proceed to `step 2`.
+    - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
+      ![webgl-error](/unity/webgl-build-fail.png)
+        > Example without `Dojo` template selected
+    - Select the WebGL tab.
+    - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
+    - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
 
-   - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
-   - Download the `WebGL templates` folder.
-   - Add this folder to your project's Assets directory.
+    - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
+    - Download the `WebGL templates` folder.
+    - Add this folder to your project's Assets directory.
 
 3. **Rebuild Your Project**:
    After ensuring the Dojo template is selected or added, try rebuilding your project for WebGL.
@@ -146,6 +146,6 @@ Execution failed. Failure reason: 0x6e6f7420777269746572 ('not writer').
 
 > 💡Solution:
 
-- **Execute default_auth.sh**: Navigate to the `src` directory within your Dojo project. Run the script `default_auth`.sh using your terminal.
+-   **Execute default_auth.sh**: Navigate to the `src` directory within your Dojo project. Run the script `default_auth`.sh using your terminal.
 
 ![auth](/unity/auth.png)

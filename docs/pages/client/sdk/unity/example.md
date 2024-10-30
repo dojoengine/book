@@ -6,8 +6,8 @@ This section provides a walkthrough for running the example from the dojo.unity 
 
 ## Prerequisites
 
-- Clone the [Dojo.unity]("https://github.com/dojoengine/dojo.unity") repository.
-- Clone the [Dojo Starter]("https://github.com/dojoengine/dojo-starter") repository.
+-   Clone the [Dojo.unity]("https://github.com/dojoengine/dojo.unity") repository.
+-   Clone the [Dojo Starter]("https://github.com/dojoengine/dojo-starter") repository.
 
 ## Setting up Dojo Starter
 
@@ -22,8 +22,8 @@ Follow the steps outlined in the [Dojo Starter setup guide](/tutorial/dojo-start
 1. Open the scene: In the `Project tab`, navigate to `Assets/Spawn And Move/Scenes/Sample scene`
 2. Adjusting Scriptable Objects:
 
-   - Verify that the `player address` and `player private` key in `Assets/Spawn And Move/Dojo5.0Data` match the output of the Katana terminal.
-   - Verify that the `world address` in the Scriptable Object located at `Assets/Dojo/Runtime/Config/WorldManagerLocalConfig` matches the output of the Sozo migrate command.
+    - Verify that the `player address` and `player private` key in `Assets/Spawn And Move/Dojo5.0Data` match the output of the Katana terminal.
+    - Verify that the `world address` in the Scriptable Object located at `Assets/Dojo/Runtime/Config/WorldManagerLocalConfig` matches the output of the Sozo migrate command.
 
 ## Running the Example
 

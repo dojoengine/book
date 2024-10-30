@@ -14,7 +14,7 @@ To place the pieces, use our `spawn` function in our `actions` contract. For mov
 
 Before we get to the code, set up your integration test like this:
 
-- Copy the test below and add it to your `tests/integration.cairo` file.
+-   Copy the test below and add it to your `tests/integration.cairo` file.
 
 ## Full Code
 
@@ -91,8 +91,8 @@ Keep moving pieces and checking if they're in the right places.
 
 You've made the basic contracts for a chess game using the Dojo engine! This tutorial was just the beginning. There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases. If you want to do more with this chess game, try these challenges:
 
-- Add a checkmate feature. Our game doesn't end now, so decide when it should!
-- Include special moves like castling, En Passant Capture, or Pawn Promotion.
-- Make your own chess rules! You could even create your own version of the [immortal game](https://immortal.game/)
+-   Add a checkmate feature. Our game doesn't end now, so decide when it should!
+-   Include special moves like castling, En Passant Capture, or Pawn Promotion.
+-   Make your own chess rules! You could even create your own version of the [immortal game](https://immortal.game/)
 
 Lastly, share your project with others in the [Dojo community](https://discord.gg/akd2yfuRS3)!

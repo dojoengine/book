@@ -102,5 +102,5 @@ mod tests {
 
 ## Useful Dojo Test Functions
 
-- [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L43) - This function will deploy a new world and register the models passed in.
-- [`deploy_contract`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L24) - This function will deploy a new contract and return the contract address.
+-   [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L43) - This function will deploy a new world and register the models passed in.
+-   [`deploy_contract`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L24) - This function will deploy a new contract and return the contract address.

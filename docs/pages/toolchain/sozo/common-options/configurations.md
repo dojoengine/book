@@ -8,9 +8,9 @@ The configuration system follows the following priority order:
 
 ## Account Options
 
-- `account_address`: Starknet account address.
-- `signer`: Options related to signer configuration.
-- `legacy`: Enables the use of a legacy account (cairo0 account).
+-   `account_address`: Starknet account address.
+-   `signer`: Options related to signer configuration.
+-   `legacy`: Enables the use of a legacy account (cairo0 account).
 
 ### Usage Examples
 
@@ -22,7 +22,7 @@ sozo --account-address 0x123456789
 
 ## Starknet Options
 
-- `rpc_url`: The URL of the Starknet RPC endpoint. Can be specified via command-line arguments or environment variables.
+-   `rpc_url`: The URL of the Starknet RPC endpoint. Can be specified via command-line arguments or environment variables.
 
 ### Usage Examples
 

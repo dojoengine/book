@@ -4,37 +4,37 @@ Katana supports version **v0.6.0** of the Starknet JSON-RPC specifications. The 
 
 ### Read API
 
-- `starknet_blockNumber`
-- `starknet_blockHashAndNumber`
-- `starknet_getBlockWithTxs`
-- `starknet_getBlockWithTxHashes`
-- `starknet_getBlockTransactionCount`
-- `starknet_getStateUpdate`
-- `starknet_getTransactionByHash`
-- `starknet_getTransactionStatus`
-- `starknet_getTransactionReceipt`
-- `starknet_getTransactionByBlockIdAndIndex`
+-   `starknet_blockNumber`
+-   `starknet_blockHashAndNumber`
+-   `starknet_getBlockWithTxs`
+-   `starknet_getBlockWithTxHashes`
+-   `starknet_getBlockTransactionCount`
+-   `starknet_getStateUpdate`
+-   `starknet_getTransactionByHash`
+-   `starknet_getTransactionStatus`
+-   `starknet_getTransactionReceipt`
+-   `starknet_getTransactionByBlockIdAndIndex`
 
-- `starknet_call`
-- `starknet_estimateFee`
-- `starknet_estimateMessageFee`
+-   `starknet_call`
+-   `starknet_estimateFee`
+-   `starknet_estimateMessageFee`
 
-- `starknet_chainId`
-- `starknet_syncStatus`
+-   `starknet_chainId`
+-   `starknet_syncStatus`
 
-- `starknet_getNonce`
-- `starknet_getEvents`
-- `starknet_getStorageAt`
-- `starknet_getClassHashAt`
-- `starknet_getClass`
-- `starknet_getClassAt`
+-   `starknet_getNonce`
+-   `starknet_getEvents`
+-   `starknet_getStorageAt`
+-   `starknet_getClassHashAt`
+-   `starknet_getClass`
+-   `starknet_getClassAt`
 
 ### Write API
 
-- `starknet_addInvokeTransaction`
-- `starknet_addDeclareTransaction`
-- `starknet_addDeployAccountTransaction`
+-   `starknet_addInvokeTransaction`
+-   `starknet_addDeclareTransaction`
+-   `starknet_addDeployAccountTransaction`
 
 ### Trace API
 
-- `starknet_simulateTransactions`
+-   `starknet_simulateTransactions`

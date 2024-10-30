@@ -20,8 +20,8 @@ The GraphQL and gRPC API endpoints run in tandem with the indexer, providing cus
 
 `torii` uses a sqlite database to store indexed data. The database can be stored either in-memory or persistently on the filesystem.
 
-- The in-memory database is ephemeral and only lasts as long as the indexer is running. This is a fast and simple option to start the indexer for development/testing.
-- Persistent storage should be used in production. It relies on the local filesystem for storage.
+-   The in-memory database is ephemeral and only lasts as long as the indexer is running. This is a fast and simple option to start the indexer for development/testing.
+-   Persistent storage should be used in production. It relies on the local filesystem for storage.
 
 Note: If using in-memory db, the memory will be garbage collected after a period of inactivity, causing queries to result in errors. Workaround is to use a persistent database.
 

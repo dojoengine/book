@@ -26,6 +26,6 @@ Upon successful execution, the command outputs a list of deployments. Each entry
 
 When executed, the `list` command queries the Slot backend to retrieve all deployments associated with the user's teams and projects. It organizes the information by team and project, ensuring that users can easily navigate through their deployments. The output is structured to provide clear and concise details about each deployment:
 
-- **Project**: Name of the project.
-- **Branch**: Specific branch of the project deployed.
-- **Service ID**: Identifier of the service deployed.
+-   **Project**: Name of the project.
+-   **Branch**: Specific branch of the project deployed.
+-   **Service ID**: Identifier of the service deployed.

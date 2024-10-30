@@ -1,4 +1,4 @@
-import {LinkCard} from "../../components/LinkCard";
+import { LinkCard } from "../../components/LinkCard";
 
 :::note
 
@@ -9,11 +9,11 @@ Dojo provides an advanced abstraction layer over Cairo. We highly suggest unders
 
 This section highlights the three core components essential for building dojo apps:
 
-- **Models**: Models act like structured database entries, managing and organizing your onchain data. Like a regular ORM.
+-   **Models**: Models act like structured database entries, managing and organizing your onchain data. Like a regular ORM.
 
-- **Systems**: Implement business logic and state changes, which are just like regular Cairo contracts, but with some syntax sugar.
+-   **Systems**: Implement business logic and state changes, which are just like regular Cairo contracts, but with some syntax sugar.
 
-- **World**: The central hub that connects all models and systems. The World contract ensures consistency, manages authorization, and orchestrates interactions between different parts of your application.
+-   **World**: The central hub that connects all models and systems. The World contract ensures consistency, manages authorization, and orchestrates interactions between different parts of your application.
 
 Mastering these will enable you to create scalable and maintainable onchain applications. If you already have a grasp of these - jump to:
 
@@ -28,9 +28,10 @@ Mastering these will enable you to create scalable and maintainable onchain appl
     title="See Quickstarts"
     description="See the quickstarts to get started with Dojo."
     link="/quickstarts"
-  />
-</div>
 
+/>
+
+</div>
 
 ## Simplifying State with Dojo Models
 
@@ -116,12 +117,11 @@ Models and contracts are the foundation of your application. We encapsulate them
 
 ## Takeaways
 
-- **Models**: Utilize the `#[dojo::model]` attribute to define structured data representing your application's state. Models function similarly to database entries, organizing and managing onchain data effectively.
+-   **Models**: Utilize the `#[dojo::model]` attribute to define structured data representing your application's state. Models function similarly to database entries, organizing and managing onchain data effectively.
 
-- **Systems**: Implement business logic and state transitions using the `#[dojo::contract]` attribute. Systems handle operations that modify models, ensuring seamless and reliable updates to your application's state.
+-   **Systems**: Implement business logic and state transitions using the `#[dojo::contract]` attribute. Systems handle operations that modify models, ensuring seamless and reliable updates to your application's state.
 
-- **World**: Acts as the central orchestrator connecting all models and systems. The World contract maintains consistency, manages authorization, and coordinates interactions between different components, serving as the single source of truth for your application.
-
+-   **World**: Acts as the central orchestrator connecting all models and systems. The World contract maintains consistency, manages authorization, and coordinates interactions between different components, serving as the single source of truth for your application.
 
 <div className="grid grid-cols-2 gap-8">
   <LinkCard
@@ -134,7 +134,8 @@ Models and contracts are the foundation of your application. We encapsulate them
     title="Models"
     description="Learn how to define and manage your application's state with Dojo models."
     link="/framework/models"
-  />
+
+/>
 
     <LinkCard
         title="Systems"
@@ -147,4 +148,5 @@ Models and contracts are the foundation of your application. We encapsulate them
         description="Learn how to manage authorization and access control in your Dojo application."
         link="/framework/authorization"
     />
+
 </div>

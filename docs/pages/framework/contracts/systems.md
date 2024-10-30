@@ -4,11 +4,11 @@
 
 **_TL;DR_**
 
-- Systems are Dojo contract functions.
-- Systems can pass a `world` param as their first parameter to access it.
-- Systems engage the world contract to alter models' state.
-- Systems ought to be concise and specific.
-- In most scenarios, systems are stateless.
+-   Systems are Dojo contract functions.
+-   Systems can pass a `world` param as their first parameter to access it.
+-   Systems engage the world contract to alter models' state.
+-   Systems ought to be concise and specific.
+-   In most scenarios, systems are stateless.
 
 ## What are systems?
 
@@ -46,8 +46,8 @@ We can note here the very first parameter, called the `world` param, which is a 
 
 The two `world` param forms are:
 
-- `ref world: IWorldDispatcher` - This form will generate a function with the `external` state mutability in the ABI.
-- `world: @IWorldDispatcher` - This form will generate a function with the `view` state mutability in the ABI.
+-   `ref world: IWorldDispatcher` - This form will generate a function with the `external` state mutability in the ABI.
+-   `world: @IWorldDispatcher` - This form will generate a function with the `view` state mutability in the ABI.
 
 Usually, systems are using `ref world` to write data to the world models. However, keep in mind that you are not forced to.
 

@@ -12,8 +12,8 @@ Changes made to the local World after the initial deployment, can easily be push
 
 The `migrate` command has two subcommands: `plan` and `apply`.
 
-- `plan`: With this subcommand nothing is send on-chain. `sozo` retrieves the remote world and computes the diffs between the remote world and the local world. It outputs the manifests files into the `manifests/<profile_name>/deployments` folder and the two manifest files `manifests/<profile_name>/manifest.[json,toml]`.
-- `apply`: This subcommand will apply the diffs on the remote world and update the manifests files to contain the on-chain data like transaction hash, block number, etc.
+-   `plan`: With this subcommand nothing is send on-chain. `sozo` retrieves the remote world and computes the diffs between the remote world and the local world. It outputs the manifests files into the `manifests/<profile_name>/deployments` folder and the two manifest files `manifests/<profile_name>/manifest.[json,toml]`.
+-   `apply`: This subcommand will apply the diffs on the remote world and update the manifests files to contain the on-chain data like transaction hash, block number, etc.
 
 **Note**: You can directly run `sozo migrate apply` without the need of running `sozo migrate plan`. You should run `sozo migrate plan` if you want to generate the manifests file only and do a dry run without sending transactions to the chain.
 

@@ -2,9 +2,9 @@
 
 This section guides you through:
 
-- Dojo Unity SDK Setup: Learn how to integrate the Dojo.unity SDK into your Unity scene for seamless development.
-- Calling Dojo Systems: Discover how to interact with various systems within your Dojo world directly from Unity.
-- Building for Desktop & WebGL: Master the steps for building your onchain game for both desktop and WebGL platforms(using the Slot framework).
+-   Dojo Unity SDK Setup: Learn how to integrate the Dojo.unity SDK into your Unity scene for seamless development.
+-   Calling Dojo Systems: Discover how to interact with various systems within your Dojo world directly from Unity.
+-   Building for Desktop & WebGL: Master the steps for building your onchain game for both desktop and WebGL platforms(using the Slot framework).
 
 ## Setting up Unity Scene
 
@@ -14,9 +14,9 @@ This section guides you through:
 
 In your Unity project, navigate to the scene where you want to integrate the Dojo SDK.
 
-- From the `Project` window, locate the `Assets/Dojo/Prefabs` folder.
-  Drag the `WorldManager` prefab into your scene. This prefab acts as the central hub for managing entities in your Dojo world.
-- Additionally, navigate to the `Assets/Dojo/Runtime` folder and drag the `UnityMainThreadDispatcher` prefab into your scene.
+-   From the `Project` window, locate the `Assets/Dojo/Prefabs` folder.
+    Drag the `WorldManager` prefab into your scene. This prefab acts as the central hub for managing entities in your Dojo world.
+-   Additionally, navigate to the `Assets/Dojo/Runtime` folder and drag the `UnityMainThreadDispatcher` prefab into your scene.
 
 ### Configuring the World Manager
 
@@ -43,9 +43,9 @@ Drag the desired ScriptableObject (either the default one or your custom configu
 
 ### Adding Binding Models
 
-- Generate Models: If you haven't already created your model bindings, please refer to the [Bingen section](/client/sdk/unity/important-concepts#bingen) for step-by-step instructions on how to do so.
+-   Generate Models: If you haven't already created your model bindings, please refer to the [Bingen section](/client/sdk/unity/important-concepts#bingen) for step-by-step instructions on how to do so.
 
-- Import Models: Locate the `bindings/unity/Models` folder within your Dojo project. Simply drag the desired `model` files from this folder into your Unity project. The `Synchronization Master` will automatically detect and load these models for seamless data exchange.
+-   Import Models: Locate the `bindings/unity/Models` folder within your Dojo project. Simply drag the desired `model` files from this folder into your Unity project. The `Synchronization Master` will automatically detect and load these models for seamless data exchange.
 
 ![bindings-example](/unity/bindings-example.png)
 
@@ -153,9 +153,9 @@ public class Player_system : MonoBehaviour {
 
 Let's break down the concepts:
 
-- `public string contractAddress;`: This indicates the contract address of the `Player_system`, obtained as output from `sozo migrate`.
-- `new dojo.Call{ ... }`: This section creates a new call, where the `selector` is the name of the system to call, and the `calldata` represents the parameters. It's crucial to note that strings, uints and ulongs must be converted into hexadecimal representation.
-- `account.ExecuteRaw(new dojo.Call[] { ... })`: This method executes the call, where `account` can be either a simple account or a burner account.
+-   `public string contractAddress;`: This indicates the contract address of the `Player_system`, obtained as output from `sozo migrate`.
+-   `new dojo.Call{ ... }`: This section creates a new call, where the `selector` is the name of the system to call, and the `calldata` represents the parameters. It's crucial to note that strings, uints and ulongs must be converted into hexadecimal representation.
+-   `account.ExecuteRaw(new dojo.Call[] { ... })`: This method executes the call, where `account` can be either a simple account or a burner account.
 
 > It's possible to execute an array of calls simultaneously by passing multiple calls to this method. For example:
 
@@ -172,10 +172,10 @@ The final stage is building your onchain game for deployment. Dojo currently sup
 
 ### Building for Desktop (Windows, macOS, Linux)
 
-- Navigate to `File/Build Settings`.
-- From the right menu choose `Windows, Mac, Linux` option.
-- From the Platform dropdown, select the target desktop platform (Windows, macOS, or Linux) based on your needs.
-- Click the Build button to initiate the build process.
+-   Navigate to `File/Build Settings`.
+-   From the right menu choose `Windows, Mac, Linux` option.
+-   From the Platform dropdown, select the target desktop platform (Windows, macOS, or Linux) based on your needs.
+-   Click the Build button to initiate the build process.
 
 ![build-desktop](/unity/build-desktop.png)
 
@@ -183,26 +183,26 @@ The final stage is building your onchain game for deployment. Dojo currently sup
 
 > Ensure the WebGL module is installed for your current Unity version. If not:
 
-- Open the `Unity Hub`.
-- Go to `Installs`.
-- Select the Unity version matching your project.
-- Click `Add Modules`.
-- Under the Modules tab, locate and install the `WebGL` module.
+-   Open the `Unity Hub`.
+-   Go to `Installs`.
+-   Select the Unity version matching your project.
+-   Click `Add Modules`.
+-   Under the Modules tab, locate and install the `WebGL` module.
 
 ![unityhub-add-module](/unity/webgl-module.png)
 
 > Configure WebGL Player Settings:
 
-- Go to `Edit/Project Settings/Player` (or navigate directly using the Project Settings window).
-- Select the `WebGL` tab.
-- Under `Resolution and Presentation`, ensure the `Dojo Template` is selected.
+-   Go to `Edit/Project Settings/Player` (or navigate directly using the Project Settings window).
+-   Select the `WebGL` tab.
+-   Under `Resolution and Presentation`, ensure the `Dojo Template` is selected.
 
 ![unityhub-add-module](/unity/webgl-player-settings.png)
 
 Build Steps:
 
-- Navigate to `File/Build Settings`.
-- From the right menu choose `WebGL` option.
-- Click the Build button to build your game for WebGL.
+-   Navigate to `File/Build Settings`.
+-   From the right menu choose `WebGL` option.
+-   Click the Build button to build your game for WebGL.
 
 ![build-webgl](/unity/build-webgl.png)

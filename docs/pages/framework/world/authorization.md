@@ -8,8 +8,8 @@ As discussed in the [theory](/theory/autonomous-worlds.md) chapter, Autonomous W
 
 In Dojo, the following permissions are available:
 
-- `writer`: The ability to update the state of a resource.
-- `owner`: The ownership of a resource. The owner has the ability to grant or revoke other permissions (including `owner`) on a resource.
+-   `writer`: The ability to update the state of a resource.
+-   `owner`: The ownership of a resource. The owner has the ability to grant or revoke other permissions (including `owner`) on a resource.
 
 :::warning[Permission verification]
 The `writer` permission is verified at the **caller level**. This means you usually grant `writer` permission to a system, and not to an account.
@@ -57,5 +57,5 @@ fn revoke_writer(ref self: T, model: felt252, contract: ContractAddress);
 
 To provide authorization you have multiple choices:
 
-- Using [Sozo auth command](/toolchain/sozo/world-commands/auth.mdx) to set permissions from the command line.
-- Leveraging the overlay system to set permissions automatically when you migrate your project. (TODO: PAGE + LINK).
+-   Using [Sozo auth command](/toolchain/sozo/world-commands/auth.mdx) to set permissions from the command line.
+-   Leveraging the overlay system to set permissions automatically when you migrate your project. (TODO: PAGE + LINK).

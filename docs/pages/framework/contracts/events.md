@@ -17,8 +17,8 @@ Since it's a [Model](/framework/models) it must have a least a `#[key]` and any 
 
 For example we will declare a `PlayerStatus` struct to keep track of player mood.
 
-- We don't need this information on-chain.
-- We don't want to historize `PlayerStatus` changes, just keep track of the current/latest `PlayerStatus`.
+-   We don't need this information on-chain.
+-   We don't want to historize `PlayerStatus` changes, just keep track of the current/latest `PlayerStatus`.
 
 ```rust
 #[derive(Copy, Drop, Introspect)]

@@ -1,4 +1,4 @@
-import {LinkCard} from "../../components/LinkCard";
+import { LinkCard } from "../../components/LinkCard";
 
 # Dojo 101 Tutorial
 
@@ -89,13 +89,12 @@ struct Vec2 {
 The `Position` model, like `Moves`, is indexed by the `player` field and includes a `Vec2` struct for x and y coordinates. Models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspect) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
 
 <div className="grid grid-cols-2 gap-8">
-  <LinkCard
-    title="Deeper into Models"
-    description="Learn more about models and how they are used in Dojo."
-    link="/framework/models"
-  />
+    <LinkCard
+        title="Deeper into Models"
+        description="Learn more about models and how they are used in Dojo."
+        link="/framework/models"
+    />
 </div>
-
 
 ## Contract Systems
 
@@ -219,25 +218,25 @@ set!(
 ```
 
 <div className="grid grid-cols-2 gap-8">
-  <LinkCard
-    title="Deeper into Systems"
-    description="Learn more about systems and how they are used in Dojo."
-    link="/framework/systems"
-  />
     <LinkCard
-    title="Deeper into Macros"
-    description="Learn more about the macros used in Dojo contracts."
-    link="/framework/contracts/macros"
-  />
+        title="Deeper into Systems"
+        description="Learn more about systems and how they are used in Dojo."
+        link="/framework/systems"
+    />
+    <LinkCard
+        title="Deeper into Macros"
+        description="Learn more about the macros used in Dojo contracts."
+        link="/framework/contracts/macros"
+    />
 </div>
 
 We covered a lot here in a short time. Let's recap:
 
-- Explained the anatomy of a Dojo project
-- Explained the importance of the `#[dojo::model]`attribute and how models are defined
-- Explained how `#[dojo::contract]` are used to define systems
-- Explained how to inject the world into a system
-- Touched on the `get!` and `set!` macros to interact with the world
+-   Explained the anatomy of a Dojo project
+-   Explained the importance of the `#[dojo::model]`attribute and how models are defined
+-   Explained how `#[dojo::contract]` are used to define systems
+-   Explained how to inject the world into a system
+-   Touched on the `get!` and `set!` macros to interact with the world
 
 ## Deploy it locally
 
@@ -390,17 +389,17 @@ Next, let's use the GraphQL IDE to retrieve data from all the models that have b
 
 ```graphql
 query {
-  models {
-    edges {
-      node {
-        id
-        name
-        classHash
-        contractAddress
-      }
+    models {
+        edges {
+            node {
+                id
+                name
+                classHash
+                contractAddress
+            }
+        }
+        totalCount
     }
-    totalCount
-  }
 }
 ```
 
@@ -408,37 +407,37 @@ After you run the query, you will receive an output like this:
 
 ```json
 {
-  "data": {
-    "models": {
-      "edges": [
-        {
-          "node": {
-            "id": "0xfca8c67c1565ba003e0b460c4707b70c7e3179689528a0b502a6dd5df7d5a7",
-            "name": "Moves", // [!code focus]
-            "classHash": "0x4d6f766573",
-            "contractAddress": "0x4cccc308e899b0db11f3e47bcc3bf555d348102e1d89c85e8ba72f5f1098107"
-          }
-        },
-        {
-          "node": {
-            "id": "0x3b87b389f49db996832881ced84132a8ebeae71459c96a65b85deb95710e14d",
-            "name": "DirectionsAvailable", // [!code focus]
-            "classHash": "0x446972656374696f6e73417661696c61626c65",
-            "contractAddress": "0x13fc796dd2d767ca4051ee20d673074f74b6e6b072bef1926ba429e427c8080"
-          }
-        },
-        {
-          "node": {
-            "id": "0x28b9aeb6b19af1454b16ce28c1ee6909e3946e4552ed09886a06ebe1e158fc",
-            "name": "Position", // [!code focus]
-            "classHash": "0x506f736974696f6e",
-            "contractAddress": "0x4312e0e9fa6d912c293311798591e5022744a5fbebefc5ddfcfcc9b7c0c9be1"
-          }
+    "data": {
+        "models": {
+            "edges": [
+                {
+                    "node": {
+                        "id": "0xfca8c67c1565ba003e0b460c4707b70c7e3179689528a0b502a6dd5df7d5a7",
+                        "name": "Moves", // [!code focus]
+                        "classHash": "0x4d6f766573",
+                        "contractAddress": "0x4cccc308e899b0db11f3e47bcc3bf555d348102e1d89c85e8ba72f5f1098107"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x3b87b389f49db996832881ced84132a8ebeae71459c96a65b85deb95710e14d",
+                        "name": "DirectionsAvailable", // [!code focus]
+                        "classHash": "0x446972656374696f6e73417661696c61626c65",
+                        "contractAddress": "0x13fc796dd2d767ca4051ee20d673074f74b6e6b072bef1926ba429e427c8080"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x28b9aeb6b19af1454b16ce28c1ee6909e3946e4552ed09886a06ebe1e158fc",
+                        "name": "Position", // [!code focus]
+                        "classHash": "0x506f736974696f6e",
+                        "contractAddress": "0x4312e0e9fa6d912c293311798591e5022744a5fbebefc5ddfcfcc9b7c0c9be1"
+                    }
+                }
+            ],
+            "totalCount": 3
         }
-      ],
-      "totalCount": 3
     }
-  }
 }
 ```
 
@@ -446,13 +445,13 @@ Awesome, now let's work with subscriptions to get real-time updates. Let's clean
 
 ```graphql
 subscription {
-  entityUpdated {
-    id
-    keys
-    eventId
-    createdAt
-    updatedAt
-  }
+    entityUpdated {
+        id
+        keys
+        eventId
+        createdAt
+        updatedAt
+    }
 }
 ```
 
@@ -526,26 +525,25 @@ In the GraphQL IDE, by clicking the `DOCS`-button on the right, you can open the
 
 We've covered quite a bit! Here's a recap:
 
-- Built a Dojo world
-- Deployed the project to Katana
-- Indexed the world with Torii
-- Executed the `spawn` system locally
-- Interacted with GraphQL
+-   Built a Dojo world
+-   Deployed the project to Katana
+-   Indexed the world with Torii
+-   Executed the `spawn` system locally
+-   Interacted with GraphQL
 
 ### Next Steps
 
 This overview provides a rapid end-to-end glimpse of Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and models, Dojo is equipped for expansive creativity. So, what will you craft next?
 
-
 <div className="grid grid-cols-2 gap-8">
-  <LinkCard
-    title="Quick Start"
-    description="See the quickstarts."
-    link="/quickstarts"
-  />
     <LinkCard
-    title="Advanced Tutorials"
-    description="Explore all tutorials."
-    link="/tutorials"
-  />
+        title="Quick Start"
+        description="See the quickstarts."
+        link="/quickstarts"
+    />
+    <LinkCard
+        title="Advanced Tutorials"
+        description="Explore all tutorials."
+        link="/tutorials"
+    />
 </div>
