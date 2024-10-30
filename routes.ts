@@ -20,24 +20,24 @@ export const routes = [
     text: "FAQ",
     link: "/faq",
   },
-  // {
-  //   text: "15 Minute Quickstarts",
-  //   items: [
-  //     {
-  //       text: "Overview",
-  //       link: "/quickstarts",
-  //       collapsed: true,
-  //       items: [
-  //         { text: "React", link: "/quickstarts/react" },
-  //         { text: "Threejs", link: "/quickstarts/threejs" },
-  //         { text: "Phaser", link: "/quickstarts/phaser" },
-  //         { text: "Godot", link: "/quickstarts/godot" },
-  //         { text: "Unity", link: "/quickstarts/unity" },
-  //         { text: "Bevy", link: "/quickstarts/bevy" },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    text: "5 Minute Quickstarts",
+    items: [
+      {
+        text: "Overview",
+        link: "/quickstarts",
+        collapsed: true,
+        items: [
+          { text: "React", link: "/quickstarts/react" },
+          //   { text: "Threejs", link: "/quickstarts/threejs" },
+          //   { text: "Phaser", link: "/quickstarts/phaser" },
+          //   { text: "Godot", link: "/quickstarts/godot" },
+          //   { text: "Unity", link: "/quickstarts/unity" },
+          //   { text: "Bevy", link: "/quickstarts/bevy" },
+        ],
+      },
+    ],
+  },
   {
     text: "Tutorials",
     items: [
