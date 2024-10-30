@@ -66,35 +66,65 @@ mod actions {
 
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
-        fn spawn(ref world: IWorldDispatcher) {
-            let player = get_caller_address();
-            let position = get!(world, player, (Position));
+        fn spawn(ref self: ContractState) {
+            // Get the default world.
+            let mut world = self.world(@"dojo_starter");
 
-            set!(
-                world,
-                (
-                    Moves { player, remaining: 100, last_direction: Direction::None(()) },
-                    Position {
-                        player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
-                    },
-                )
-            );
+            // Get the address of the current caller, possibly the player's address.
+            let player = get_caller_address();
+            // Retrieve the player's current position from the world.
+            let mut position: Position = world.read_model(player);
+
+            // Update the world state with the new data.
+
+            // 1. Move the player's position 10 units in both the x and y direction.
+            let new_position = Position {
+                player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
+            };
+
+            // Write the new position to the world.
+            world.write_model(@new_position);
+
+            // 2. Set the player's remaining moves to 100.
+            let moves = Moves {
+                player, remaining: 100, last_direction: Direction::None(()), can_move: true
+            };
+
+            // Write the new moves to the world.
+            world.write_model(@moves);
         }
 
-        fn move(ref world: IWorldDispatcher, direction: Direction) {
+        fn move(ref self: ContractState, direction: Direction) {
+            // Get the address of the current caller, possibly the player's address.
+
+            let mut world = self.world(@"dojo_starter");
+
             let player = get_caller_address();
 
-            let (mut position, mut moves) = get!(world, player, (Position, Moves));
+            // Retrieve the player's current position and moves data from the world.
+            let mut position: Position = world.read_model(player);
+            let mut moves: Moves = world.read_model(player);
 
+            // Deduct one from the player's remaining moves.
             moves.remaining -= 1;
+
+            // Update the last direction the player moved in.
             moves.last_direction = direction;
 
+            // Calculate the player's next position based on the provided direction.
             let next = next_position(position, direction);
 
-            set!(world, (moves, next));
+            // Write the new position to the world.
+            world.write_model(@next);
+
+            // Write the new moves to the world.
+            world.write_model(@moves);
+
+            // Emit an event to the world to notify about the player's move.
+            world.emit_event(@Moved { player, direction });
         }
     }
 }
 ```
 
-Inside the system's implementation, you can use the Dojo [commands](/framework/contracts/world/api) to easily interact with the world.
+Inside the system's implementation, you can use the Dojo [api](/framework/contracts/world/api) to easily interact with the world.

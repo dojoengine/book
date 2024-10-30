@@ -14,7 +14,7 @@ Each project utilizing the same version of Dojo employs an identical world contr
 
 Dive into the world contract details:
 
+-   [API](/framework/world/api) the full API of the world contract and some utilities functions.
 -   [Events](/framework/world/events) emitted by the world to notify the indexer about state changes of the world.
 -   [Authorization](/framework/authorization) how to grant and revoke permissions to define who can write and read to the world's models.
 -   [Metadata](/framework/world/metadata) how to set and get metadata for the world.
--   [API](/framework/world/api) the full API of the world contract and some utilities functions.

@@ -48,12 +48,13 @@ struct Resource {
 }
 ```
 
-In this case you would then use the [`get!` macro](/framework/world/api.md#the-get-macro) with both the player and location fields:
+In this case you would then use the [`read_model` command](/framework/world/api.md#read_model) with both the player and location fields:
 
 ```rust
 let player = get_caller_address();
 let location = 0x1234;
-let resource = get!(world, (player, location), (Resource)); // [!code focus]
+
+world.read_model(@Resource { player, location, balance: 10 });
 ```
 
 ## Example Game Setting models
@@ -133,51 +134,29 @@ mod spawnHuman {
     // impl: implement functions specified in trait
     #[abi(embed_v0)]
     impl GoblinActionsImpl of IGoblinActions<ContractState> {
-        fn goblin_actions(world: IWorldDispatcher, entity_id: u32) {
-            let counter = get!(world, COUNTER_ID, (Counter));
+        fn goblin_actions(ref self: ContractState, entity_id: u32) {
+
+
+            let mut world = self.world(@"dojo_starter");
+
+            let counter: Counter = world.read_model(COUNTER_ID);
 
             let human_count = counter.human_count + 1;
             let goblin_count = counter.goblin_count + 1;
 
-            // spawn a human
-            set!(
-                world,
-                (
-                    Health {
-                        entity_id: human_count, health: 100
-                        },
-                    Position {
-                        entity_id: human_count, x: position.x + 10, y: position.y + 10,
-                        },
-                    Potions {
-                        entity_id: human_count, quantity: 10
 
-                    },
-                )
-            );
+            // spawn a human
+
+            world.write_model(@Health { entity_id, health: 100 });
+            world.write_model(@Position { entity_id, x: 0, y: 0 });
+            world.write_model(@Potions { entity_id, quantity: 10 });
 
             // spawn a goblin
-            set!(
-                world,
-                (
-                    Health {
-                        entity_id: goblin_count, health: 100
-                        },
-                    Position {
-                        entity_id: goblin_count, x: position.x + 10, y: position.y + 10,
-                        },
-                )
-            );
+            world.write_model(@Health { entity_id: goblin_count, health: 100 });
+            world.write_model(@Position { entity_id: goblin_count, x: position.x + 10, y: position.y + 10 });
 
             // increment the counter
-            set!(
-                world,
-                (
-                    Counter {
-                        counter: COUNTER_ID, human_count: human_count, goblin_count: goblin_count
-                    },
-                )
-            );
+            world.write_model(@Counter { counter: COUNTER_ID, human_count, goblin_count });
         }
     }
 }

@@ -1,3 +1,5 @@
+<!-- TODO: @ghilm -->
+
 # Events
 
 Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a model, the world contract emits [events](/framework/world/events).
