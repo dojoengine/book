@@ -69,6 +69,15 @@ export const routes = [
         ],
     },
     {
+        text: "Architectures",
+        items: [
+            {
+                text: "Soverign Rollups",
+                link: "/architecture/soverign-rollups",
+            },
+        ],
+    },
+    {
         text: "Cairo Framework",
         items: [
             { text: "Overview", link: "/framework" },
