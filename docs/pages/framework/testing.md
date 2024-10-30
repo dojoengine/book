@@ -12,7 +12,7 @@ This will search for all tests within your project and run them.
 
 ## Writing Unit Tests
 
-It is best practise to include unit tests in the same file as the [model](/framework/models/) / [system](/framework/contracts/systems/) you are writing.
+It is best practise to include unit tests in the same file as the [model](/framework/models/) / [system](/framework/world/systems/) you are writing.
 
 Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
@@ -44,7 +44,7 @@ In this test we are testing the `is_zero` and `is_equal` functions of the `Posit
 
 ## Writing Integration Tests
 
-Integration tests are e2e tests that test the entire [system](/framework/contracts/systems/). You can write integration tests for your world by creating a `tests` directory in your project root. Then create a file for each integration test you want to write.
+Integration tests are e2e tests that test the entire [system](/framework/world/systems/). You can write integration tests for your world by creating a `tests` directory in your project root. Then create a file for each integration test you want to write.
 
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 

@@ -127,4 +127,4 @@ mod actions {
 }
 ```
 
-Inside the system's implementation, you can use the Dojo [api](/framework/contracts/world/api) to easily interact with the world.
+Inside the system's implementation, you can use the Dojo [api](/framework/world/api) to easily interact with the world.

@@ -78,7 +78,7 @@ Here we are updating the `Position` model in the world state using the `player` 
 
 ## `emit_event`
 
-The `emit_event` command is used to emit [custom events](/framework/contracts/events.md#custom-events). These events are indexed by [Torii](/toolchain/torii).
+The `emit_event` command is used to emit [custom events](/framework/world/events.md#custom-events). These events are indexed by [Torii](/toolchain/torii).
 
 ```rust
 world.emit_event(@Moved { address, direction });
