@@ -9,7 +9,7 @@ export default defineConfig({
     iconUrl: "/dojo-favicon.svg",
     logoUrl: "/dojo-icon.svg",
     ogImageUrl:
-        "https://vocs.dev/api/og?logo=%logo&title=%title&description=%description",
+        "https://og-image.preview.cartridge.gg/api/og?logo=%https://www.dojoengine.org/dojo-icon.svg&title=%title&description=%description",
 
     // Theme configuration
     font: {
