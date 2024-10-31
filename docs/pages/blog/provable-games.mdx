@@ -1,0 +1,58 @@
+---
+layout: minimal
+authors:
+  - "[tarrence](https://twitter.com/tarrence)"
+date: 2023-11-27
+---
+
+# Provable Games
+
+Autonomous Worlds (AWs) are digitally native worlds, defined and governed by their smart contracts, existing entirely onchain and inheriting the unique affordances of the blockchain: composable, extensible, permissionless and persistent. Unencumbered by platform risks, AWs promise a new medium for our collective expression, a natural extension of our digital culture, with a credible commitment to neutrality. They represent a new paradigm in game design: where core mechanics can be openly defined, where primitives can be permissionlessly extended, and where a world’s substrate can be continually reinterpreted into new experiences.
+
+An AW’s super power is its hardness. Its ability to credibly commit to future states: that it will exist according to its rules and that it will exist as long as it is desired. Blockchains accomplish this trivially, providing a credibly neutral, persistent shared computing environment for the AWs smart contracts; however, achieving these properties at the scale necessary for complex, interactive onchain worlds, without making significant tradeoffs, is a fundamental challenge.
+
+Introducing Dojo: the provable game engine
+Illustration depicting the Dojo stack
+
+Our solution is Dojo, a provable game engine, enabling games execution to be proved and attested to by a validity proof, a capability stemming from its implementation in Cairo. Dojo serves as the world's engine, empowering developers to concentrate on creating games without the burden of developing all of the auxiliary infrastructure required to realize them. It presents a solution to the challenge of fully deploying complex, immersive experiences, such as MMORPGs, on the blockchain.
+
+We achieve this by moving computation out of a blockchain’s shared execution context to specialized "micro-rollups", complemented by fractal scaling techniques, to provide cheap and abundant computation. This is enabled through zero-knowledge proofs, which are ideally suited for balkanized execution and long tail computation typical of games, allowing the use of powerful centralized sequencers to achieve the performance necessary for immersive real-time games. During the execution of a Dojo game, execution and sequencing can be done natively, significantly out performing vm based execution, and then asynchronously proved to generate and settle a zero-knowledge proof that attests to the validity of the execution onchain, inheriting the full security of a base layer, like Ethereum.
+
+Execution sharding with proofs
+Illustration depicting a fractal scaling heirarchy
+
+A core insight is that gaming experiences, outside of their shared economy provided by a decentralized blockchain, can be naturally sharded into more narrowly scoped execution contexts, removing the necessity to compete for computational resources in a zero-sum execution context. Consider this World of Warcraft example, where there exists several layers:
+
+Cities (Orgrimmar, Stormwind) with their global execution context (auction house, messaging, trading) for thousands of players with low frequency actions (no combat, etc).
+Regions (Barrens, Strangle Thorn Vale) with their own regional execution shard for hundreds of players with sparse, average frequency actions (fighting mobs, turning in quests).
+Instances (Scarlet Monastery, Molten Core) with their own instance specific execution shard for up to tens of players, with high frequency actions (fighting bosses).
+This is something uniquely enabled by zero-knowledge technology, since the security assumptions of optimistic approaches (that some honest party will validate the chain through re-execution) breaks down as the number of participants reduces and economic incentives scatter. In particular, it is not possible to shard to the instance level with an optimistic rollup and maintain the security guarantees from the base layer, where there is no incentive for a third party to re-execute.
+
+Approximately, this tradeoff looks something like this:
+
+Chart depicting the security tradeoff of optimistic vs zk rollups vs number of participants
+
+Towards cheap, abundant compute
+In addition, we get several other nice properties:
+
+Proof recursion enables temporal compression of an entire sequence of actions from an instance run into a single attestation, massively reducing the data availability cost and enabling us to cheaply settle on robust data availability layers like Ethereum. In contrast to optimistic approaches, where the input calldata for every action inside a game needs to be provided to the data availability layer to enable re-execution, forcing these approaches to make security tradeoffs in order to scale data availability bandwidth. Another cool side effect is it allows players to keep their strategies secret, by not revealing the intermediate steps in a sequence that led to the defeat of a final boss, while still credibly convincing everyone that they accomplished the task and allowing them to unlock the reward.
+
+Proof aggregation enables proofs from every execution shard to be combined and the settlement cost amortized across those players, reducing transaction costs as the number of players increases (!). This is possible not only across a particular game, but globally, across all Cairo based proving systems (starknets, katanas, coprocessors, etc), by leveraging shared proving infrastructure provided by SHARP.
+
+Chart depicting the security tradeoff of optimistic vs zk rollups vs number of participants
+
+What are the tradeoffs vs Optimistic approaches?
+While this approach is incredibly well suited for the type of workload we are targeting, it does introduce some limitations compared to optimistic approaches:
+
+Maintaining provability gives us less flexibility to use tools such as precompiles and in-node modifications to enshrine game logic into the sequencer itself. While we are able to introduce our own syscalls (similar to precompiles), their outputs are untrusted and need to be verified in the provable program. However, our opinion is that in-node modifications should be limited to the extent possible anyways, since in-node changes add significant distribution overhead to sequencer binaries in order to maintain the optimistic security model and introduce a two-tiered development model, where node contributors are significantly more influential than smart contract developers, compromising on platform neutrality.
+
+Optimistic rollups with large execution contexts and many shared stakeholders, where the honest actor assumption is compelling, can maintain a strong security model and in some cases, can provide cheaper execution costs than a provable network where every execution needs to be proved. In this regard, I believe there is an opportunity for engines like MUD and Dojo to be complementary (more on that in the future).
+
+Conclusion
+Dojo provides a developer friendly framework for developing and scaling onchain games and autonomous worlds that are composable, extensible, permissionless and persistent. We do so by providing a ~zero-cost abstraction for developers to succinctly define their onchain world using Cairo and a robust toolchain for building, migrating, deploying, proving and settling these worlds in production. Leveraging execution sharding and fractal scaling, we're able to scale computation to meet the needs of complex, interactive experiences, while maintaining the security properties of Ethereum.
+
+Stay tuned as we delve into the depths of the Dojo stack, sharing insights on what we’ve built and what we plan to build, including exciting developments in client side proving, hidden information, fractal scaling, randomness, cross-chain messaging, and real-time communication.
+
+In the meantime, checkout our website, read our book, and dig into the code for more info!
+
+Special thanks to Sylve, Loaf, and Gabe for feedback and review

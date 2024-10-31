@@ -1,6 +1,6 @@
 # Sovereign Rollup Using Celestia and Dojo
 
-![Sovereign Rollup Architecture](/celestia-architecture.png)
+![Sovereign Worlds](/architecture/sw.png)
 
 ## Introduction
 
@@ -13,6 +13,8 @@ Celestia acts as the storage layer for these proofs, with the data posted as blo
 It's worth noting that the project described in this overview is conceptually similar to an existing open-source framework for building sovereign rollup, Rollkit. Like Rollkit, our project aims to enable developers to deploy customizable sovereign rollups that leverage modular blockchain architecture. A key difference, however, is that our project is based on the infrastructures that we have built around the Dojo stack. While the specific technologies and implementation details may differ, the core concept of creating scalable, sovereign rollups using a modular approach is shared between these projects. Therefore, the scope of this project will be largely similar to that of the Rollkit project.
 
 ## Technical Architecture
+
+![Sovereign Rollup Architecture](/architecture/celestia-sw-diagram.png)
 
 ### 1. Katana - Block Producer (Starknet Sequencer)
 
