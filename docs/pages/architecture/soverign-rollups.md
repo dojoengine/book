@@ -38,19 +38,19 @@ Celestia provides the data availability layer for the rollup, storing the proofs
 
 The proof blobs posted to Celestia contain crucial metadata in their headers, allowing the rollup to maintain state continuity and ensure proof validity. The current header format includes the following fields:
 
--   **prev_state_root**: This is the state root of the previous state that was posted on Celestia. It represents the state of the rollup at the time of the last proof, ensuring continuity in the state transitions.
--   **state_root**: This represents the state root of the current state, as reflected by the block(s) and state update(s) data present in the proof. It is the outcome of the state transition verified by the STARK proof.
--   **prev_height**: The height in Celestia's blockchain where the previous proof blob was posted. This allows easy tracking and retrieval of the previous proof from Celestia's storage.
--   **prev_commitment**: The Celestia commitment corresponding to the previous proof blob. The commitment is required along the height to retrieve a blob on Celestia.
--   **proof**: The STARK proof itself, which contains a validated state transition. Within the proof, an output segment includes the specific state update(s) that has been proven, which can be used to verify the integrity of the rollup's and reconstruct the state.
+-   `**prev_state_root**`: This is the state root of the previous state that was posted on Celestia. It represents the state of the rollup at the time of the last proof, ensuring continuity in the state transitions.
+-   `**state_root**`: This represents the state root of the current state, as reflected by the block(s) and state update(s) data present in the proof. It is the outcome of the state transition verified by the STARK proof.
+-   `**prev_height**`: The height in Celestia's blockchain where the previous proof blob was posted. This allows easy tracking and retrieval of the previous proof from Celestia's storage.
+-   `**prev_commitment**`: The Celestia commitment corresponding to the previous proof blob. The commitment is required along the height to retrieve a blob on Celestia.
+-   `**proof**`: The STARK proof itself, which contains a validated state transition. Within the proof, an output segment includes the specific state update(s) that has been proven, which can be used to verify the integrity of the rollup's and reconstruct the state.
 
-## Proof of Concept (POC) Shortcuts
+## Proof of Concept (alpha) Shortcuts
 
-Given the POC nature of the project, certain aspects have been simplified for this initial phase:
+Given the alpha nature of the integration, certain aspects have been simplified for this initial phase:
 
 ### Absence of Peer-to-Peer (P2P) Network
 
-The POC does not yet implement a peer-to-peer network to propagate new heads of the chain or block updates across nodes. As seen in the project's description, only the latest Celestia height and commitment are required to keep track of the chain progress, as the namespace is considered known. This would ideally be communicated using p2p networking.
+The alpha does not yet implement a peer-to-peer network to propagate new heads of the chain or block updates across nodes. As seen in the project's description, only the latest Celestia height and commitment are required to keep track of the chain progress, as the namespace is considered known. This would ideally be communicated using p2p networking.
 
 ### String-Based Proof Format
 

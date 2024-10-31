@@ -72,16 +72,7 @@ export const routes = [
         ],
     },
     {
-        text: "Architectures",
-        items: [
-            {
-                text: "Soverign Rollups",
-                link: "/architecture/soverign-rollups",
-            },
-        ],
-    },
-    {
-        text: "Cairo Framework",
+        text: "Framework",
         items: [
             { text: "Overview", link: "/framework" },
             {
@@ -394,6 +385,15 @@ export const routes = [
             { text: "dojo.rust", link: "/client/sdk/rust" },
             { text: "dojo.telegram", link: "/client/sdk/telegram" },
             { text: "dojo.discord", link: "/client/sdk/discord" },
+        ],
+    },
+    {
+        text: "Architectures",
+        items: [
+            {
+                text: "Soverign Rollups",
+                link: "/architecture/soverign-rollups",
+            },
         ],
     },
 ];
