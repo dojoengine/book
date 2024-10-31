@@ -15,11 +15,10 @@ When you work with Dojo, you have two main configuration files:
 To add a new profile, you must:
 
 1. Add a `[profile.<PROFILE>]` section in your `Scarb.toml` file.
+
     ```toml
     # Scarb.toml
-
     # ... other configs ...
-
     [profile.my_profile]
     ```
 

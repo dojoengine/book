@@ -15,7 +15,10 @@ export const routes = [
         text: "Getting Started",
         link: "/getting-started",
     },
-
+    {
+        text: "Welcome to Dojo 1.0.0-rc.0",
+        link: "/welcome-1-rc0",
+    },
     {
         text: "FAQ",
         link: "/faq",
@@ -113,9 +116,6 @@ export const routes = [
             {
                 text: "Config",
                 link: "/framework/config",
-                collapsed: true,
-                // TODO: Add more items
-                items: [{ text: "dojo.toml", link: "/framework/config" }],
             },
             {
                 text: "Testing",
