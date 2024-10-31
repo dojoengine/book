@@ -106,3 +106,88 @@ mappings = { "ns" = ["c1", "M"], "ns2" = ["c1", "M"] }
 order_inits = ["ns-c2", "ns-c1"]
 skip_contracts = ["ns-c3"]
 ```
+
+### `[env]`
+
+The environment variables for your development, the supported keys are:
+
+- `rpc_url`: The RPC url of the network you want to connect to.
+- `account_address`: The address of the account used to migrate the world.
+- `private_key`: The private key of the account used to migrate the world.
+- `keystore_path`: The path to the keystore file containing encrypted account's private key.
+
+### `[namespace]`
+
+The namespace configuration, the supported keys are:
+
+- `default`: The default namespace. It's always required. The default namespace is the one used to map every contract/model/event that is not explicitly mapped to another namespace using `mappings`.
+- `mappings`: Explicit mappings of namespaces for contracts/models/events. Let's take an example:
+
+    ```toml
+    [namespace]
+    default = "ns"
+    mappings = { "ns" = ["c1", "M"], "ns2" = ["c1", "M"] }
+    ```
+
+    In this example, the `ns` namespace will be used for contracts/models/events that are not explicitly mapped to another namespace. The `ns2` namespace will be used for contract `c1` and model `M`. Namespace `ns2` will be used for contract `c1` and model `M`.
+
+    In this example, since `c1` and `M` are mapped to `ns2`, they are not automatically mapped to `ns`. This is the reason why they are also mapped to `ns` explicitly.
+    The contracts `c2` and `c3` for instance, if not mentioned in the `mappings` section, will be mapped to the `ns` namespace by default.
+    ```
+
+### `[init_call_args]`
+
+The initialization call arguments for the contracts.
+By default, a `dojo::contract` doesn't have any initialization arguments. But using `dojo_init` function, you can decide otherwise and make some initialization during this `dojo_init` call.
+
+```rust
+#[dojo::contract]
+mod my_contract {
+    // The only requirement is that the function is named `dojo_init`.
+    fn dojo_init(ref self: ContractState, arg1: felt252, arg2: u32) {
+        // ...
+    }
+}
+```
+
+To initialize this contract, you need to add the following to your `dojo_<PROFILE>.toml` file:
+
+```toml
+[init_call_args]
+"ns-my_contract" = ["0xfffe", "0x1"]
+```
+
+Remember that a resource is always namespaced. So you need to specify the `tag` (which is `<NAMESPACE>-<CONTRACT_NAME>`) in the `init_call_args` section to identify it.
+
+### `[writers]`/`[owners]`
+
+The writers/owners configuration allows you to specify permissions directly from the configuration file for the given profile.
+The syntax for the writers/owners is the following:
+
+```toml
+[writers]
+"<TARGET_TAG>" = ["<GRANTEE_TAG>"]
+```
+
+If we get back to `my_contract` mentioned just above, we can give to it the writer permission for the `ns` namespace like this:
+
+```toml
+[writers]
+"ns" = ["ns-my_contract"]
+```
+
+As a note, we may change this in the future, and instead having the contract tag first, and then the target resources.
+
+### `[migration]`
+
+The migration configuration allows you to alter the behavior of the `sozo` migration command.
+
+The supported keys are:
+
+- `order_inits`: The order used to initialize the contracts. Identifies the contract by their tag.
+- `skip_contracts`: The resources to skip during the migration. You can still build those resources, but they will be skipped during the migration (not deployed onchain).
+- `disable_multicall`: By default `sozo` multicalls everything that could be multicalled. You can disable this behavior using this flag, to debug resources registration, contracts initialization, etc.
+
+### `[world]`
+
+The metadata related to your world. They are purely informative.
