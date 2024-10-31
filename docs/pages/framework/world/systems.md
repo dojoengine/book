@@ -35,10 +35,10 @@ A simple way to think about system design for permissions:
 In a Dojo contract, you must first define a Dojo interface to declare the systems that your contract will expose.
 
 ```rust
-#[dojo::interface]
-trait IActions {
-    fn spawn(ref world: IWorldDispatcher);
-    fn move(ref world: IWorldDispatcher, direction: Direction);
+#[starknet::interface]
+trait IActions<T> {
+    fn spawn(ref self: T);
+    fn move(ref self: T, direction: Direction);
 }
 ```
 
