@@ -116,9 +116,6 @@ export const routes = [
             {
                 text: "Config",
                 link: "/framework/config",
-                collapsed: true,
-                // TODO: Add more items
-                items: [{ text: "dojo.toml", link: "/framework/config" }],
             },
             {
                 text: "Testing",
