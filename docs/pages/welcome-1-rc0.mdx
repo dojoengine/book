@@ -1,0 +1,106 @@
+# Welcome to Dojo 1.0.0-rc.0
+
+This first release candidate of Dojo 1.0.0 includes a number of changes. This document aims to provide a summary of the changes providing an overview of the new features and improvements.
+
+## Dojo basics
+
+Dojo is composed of 5 basic resources:
+
+-   `world`: The smart contract that manages the state of your game, everything is stored here.
+-   `namespace`: Every resource that is not world or namespace must be namespaced when registered into the world. Namespaces are logical groups of resources, and allow you to organize your resources and permissions.
+-   `model` (namespaced): A model defines data that can be stored in the world.
+-   `event` (namespaced): An event also defines data, but meant to be stored offchain.
+-   `contract` (namespaced): Where you define your business logic, and interact with the world to write/read models and emit events. A function into a contract is called a `System`, which is an entrypoint for users to interact with the world.
+
+Namespaced resources are identified by what's called a `Tag`, which is a combination of the namespace and the resource name:
+`namespace-resource_name`.
+
+A single resource can be registered multiple times into the world using different namespaces.
+
+## Interacting with the world and its data
+
+First, when you are inside a dojo contract (define with `#[dojo::contract]`), you have to retrieve the world's instance. As mentioned previously, all the resources are namespaced, so you have to specify the default namespace to use:
+
+```rust
+// Get the world instance, using the namespace "ns":
+let world = self.world(@"ns");
+```
+
+This `world` instance provides you some functionalities to interact with the world and its data.
+
+```rust
+// Using the DNS to get a contract address and class hash from it's tag.
+// Since the default namespace has been set to "ns", the tag identifying the resource will be "ns-my_contract".
+let (contract_address, class_hash) = world.dns("my_contract");
+```
+
+To change the namespace you want to write/read from, you can use the `using_namespace` method:
+
+```rust
+world.set_namespace(@"ns2");
+
+// At this point, using the DNS will return the resource from the "ns2" namespace, if it exists.
+let (contract_address, class_hash) = world.dns("my_contract");
+```
+
+To read/write data to models, you have to import the `ModelStorage` trait:
+
+```rust
+use dojo::model::ModelStorage;
+
+#[dojo::model]
+struct MyModel {
+    #[key]
+    id: u32,
+    value: u32,
+}
+
+let mut world = self.world(@"ns");
+// Note here the type specified for the compiler, this ensures the compiler can infere which data to retrieve:
+let id = 1;
+let mut model: MyModel = world.read_model(id);
+model.value = 123;
+world.write_model(@model);
+```
+
+The full API of the `ModelStorage` can be found [here](https://github.com/dojoengine/dojo/blob/126292e64afb0a1d507800b42cf0e6582e6c13cb/crates/dojo/core/src/model/storage.cairo#L19) before more documentation is written.
+
+Events are only emitted by the world, and never stored onchain. Instead, Torii will index them and store them in the SQL database.
+However, they are subjected to the same namespace rules as models.
+
+To emit an event, you have to import the `EventStorage` trait:
+
+```rust
+use dojo::event::EventStorage;
+
+#[dojo::event]
+struct MyEvent {
+    #[key]
+    id: u32,
+    value: u32,
+}
+
+let mut world = self.world(@"ns");
+let e = MyEvent { id: 1, value: 123 };
+world.emit_event(e);
+```
+
+By default Torii only keeps the latest update of the emitted event. If you want to keep the history of the event, you have to set the `historical` flag to `true`:
+
+```rust
+#[dojo::event(historical: true)]
+struct MyEvent {
+    #[key]
+    id: u32,
+    value: u32,
+}
+```
+
+This way, Torii will keeps track of all the emitted events, and you will be able to query them.
+
+## Configuration
+
+The configuration of your dojo project is now fully managed by a dojo configuration file alongside the `Scarb.toml` manifest file.
+This ease the profile management and regroup all the functionalities at the same place.
+
+You can find detailed information about the configuration file [here](/framework/config).
