@@ -50,7 +50,7 @@ In the case that your model defines several [keys](/framework/models#the-key-att
 let player = get_caller_address();
 let location = 0x1234;
 
-let mut position: Position = world.read_model(player, location);
+let mut position: Position = world.read_model((player, location));
 ```
 
 If you use the `read_model` command on a model that has never been set before, all the fields that are not `#[key]` are equal to 0 in the returned model, which is the default value in the storage. As you provide the keys, even if the model has never been written, the returned struct will contain the keys you provided.
@@ -64,7 +64,7 @@ let player = get_caller_address();
 let location = 0x1234;
 
 // Read the model from the world state.
-let mut position: Position = world.read_model(player, location);
+let mut position: Position = world.read_model((player, location));
 
 // Update the model.
 position.vec.x = 10;
