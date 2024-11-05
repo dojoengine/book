@@ -32,7 +32,7 @@ export default defineConfig({
     topNav: [
         // { text: "Blog", link: "https://www.dojoengine.org/posts" },
         {
-            text: "v1.0.0-rc.0",
+            text: "v1.0.0-rc.1",
             items: [
                 {
                     text: "Releases",

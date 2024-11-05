@@ -50,6 +50,7 @@ struct Moves {
     #[key]
     player: ContractAddress,
     remaining: u8,
+	...
 }
 
 // ...
@@ -116,12 +117,11 @@ pub trait IActions<T> {
 Now, let's examine a contract implementation of the `src/systems/actions.cairo` file.
 
 ```rust
-use dojo_starter::models::Direction;
-use dojo_starter::models::Position;
+use dojo_starter::models::{Direction, Position};
 
 // define the interface
 #[starknet::interface]
-pub trait IActions<T> {
+trait IActions<T> {
     fn spawn(ref self: T);
     fn move(ref self: T, direction: Direction);
 }
@@ -129,9 +129,9 @@ pub trait IActions<T> {
 // dojo decorator
 #[dojo::contract]
 pub mod actions {
-    use super::{IActions, next_position};
+    use super::{IActions, Direction, Position, next_position};
     use starknet::{ContractAddress, get_caller_address};
-    use dojo_starter::models::{Position, Vec2, Moves, Direction, DirectionsAvailable};
+    use dojo_starter::models::{Vec2, Moves, DirectionsAvailable};
 
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
@@ -147,13 +147,13 @@ pub mod actions {
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
         fn spawn(ref self: ContractState) {
-            // Get the default world. 
-            let mut world = self.world(@"dojo_starter");
+            // Get the default world.
+            let mut world = self.world_default();
 
             // Get the address of the current caller, possibly the player's address.
             let player = get_caller_address();
             // Retrieve the player's current position from the world.
-            let mut position: Position = world.read_model(player);
+            let position: Position = world.read_model(player);
 
             // Update the world state with the new data.
 
@@ -164,9 +164,9 @@ pub mod actions {
 
             // Write the new position to the world.
             world.write_model(@new_position);
-            
+
             // 2. Set the player's remaining moves to 100.
-            let moves = Moves { 
+            let moves = Moves {
                 player, remaining: 100, last_direction: Direction::None(()), can_move: true
             };
 
@@ -178,12 +178,12 @@ pub mod actions {
         fn move(ref self: ContractState, direction: Direction) {
             // Get the address of the current caller, possibly the player's address.
 
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world_default();
 
             let player = get_caller_address();
 
             // Retrieve the player's current position and moves data from the world.
-            let mut position: Position = world.read_model(player);
+            let position: Position = world.read_model(player);
             let mut moves: Moves = world.read_model(player);
 
             // Deduct one from the player's remaining moves.
@@ -200,9 +200,18 @@ pub mod actions {
 
             // Write the new moves to the world.
             world.write_model(@moves);
-          
+
             // Emit an event to the world to notify about the player's move.
             world.emit_event(@Moved { player, direction });
+        }
+    }
+
+    #[generate_trait]
+    impl InternalImpl of InternalTrait {
+        /// Use the default namespace "dojo_starter". This function is handy since the ByteArray
+        /// can't be const.
+        fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
+            self.world(@"dojo_starter")
         }
     }
 }
@@ -219,8 +228,6 @@ fn next_position(mut position: Position, direction: Direction) -> Position {
     position
 }
 ```
-
-Let's break down the code above:
 
 ### Using the `world.write_model` method
 
@@ -275,86 +282,38 @@ katana --disable-fee  --allowed-origins "*"
 Success! [Katana](/toolchain/katana) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
 
 ```bash
-sozo migrate apply
+sozo migrate
 ```
 
 This command will deploy the artifact to `Katana`. You should see terminal output similar to this:
 
 ```console
-Migration account: 0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca
+ profile | chain_id | rpc_url                
+---------+----------+------------------------
+ dev     | KATANA   | http://localhost:5050/ 
 
-World name: dojo_starter
-
-Chain ID: KATANA
-
-[1] 🌎 Building World state....
-  > No remote World found
-[2] 🧰 Evaluating Worlds diff....
-  > Total diffs found: 5
-[3] 📦 Preparing for migration....
-  > Total items to be migrated (5): New 5 Update 0
-[4] 🛠 Migrating....
-
-# Base Contract
-  > Class Hash: 0x22f3e55b61d86c2ac5239fa3b3b8761f26b9a5c0b5f61ddbd5d756ced498b46
-# World
-  > Contract address: 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18
-# Models (3)
-dojo_starter::models::moves::directions_available
-  > Class hash: 0x13fc796dd2d767ca4051ee20d673074f74b6e6b072bef1926ba429e427c8080
-dojo_starter::models::moves::moves
-  > Class hash: 0x4cccc308e899b0db11f3e47bcc3bf555d348102e1d89c85e8ba72f5f1098107
-dojo_starter::models::position::position
-  > Class hash: 0x4312e0e9fa6d912c293311798591e5022744a5fbebefc5ddfcfcc9b7c0c9be1
-All models are registered at: 0x5e70615c3c6ab984233cd1c6164640edff183965d684ea24e134d5c45558c83
-# Contracts (1)
-dojo_starter::systems::actions::actions
-  > Contract address: 0x3610b797baec740e2fa25ae90b4a57d92b04f48a1fdbae1ae203eaf9723c1a0
-
-🎉 Successfully migrated World on block #3 at address 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18 // [!code focus]
-
-[5] ✨ Updating manifests....
-
-✨ Done.
-
-[6] 🖋️ Authorizing Models to Systems (based on overlay)....
-
-  > Authorizing dojo_starter::systems::actions::actions for Models: ["Position", "Moves"]
-Transaction hash: 0x1c6bb2f6f7978d32751c42d527b94b4f6644c34404cf8faeedfa4efe25da73
-  > Auto authorize completed successfully
-
-[7] 🌐 Uploading metadata....
-
-  > world: ipfs://QmPVJzGEcj9Buy1mxTaXf43Fsv8CAzAwLNrjAN8JbigNQE
-  > dojo_starter::models::moves::moves: ipfs://QmeEbEAi3yr8Rxzi5TWc3MBncj295waxgeftQwbhNzrWnz
-  > dojo_starter::models::moves::directions_available: ipfs://QmbfMea3hDYMsS4gKpHjWW1h7RTPZv86Ua9BwEsHGzoZiH
-  > dojo_starter::systems::actions::actions: ipfs://Qmb9xTtZ7seVpmBj3vMdv4ox9PJMypAzzXdYgm9TpXR5cX
-  > dojo_starter::models::position::position: ipfs://QmV3jymZLP6HJe26m9JchTogDY6xNedmT4h88xAvPfAroT
-> All IPFS artifacts have been successfully uploaded.
-> All metadata have been registered in the resource registry (tx hash: 0x3335da62b94248264c220035f6fadee728328a181a9bdb2caad851f3da247ac)
-
-✨ Done.
+                                
+⛩️  Migration successful with world at address 0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab4691053ee8ab69d7
 ```
 
-Your 🌎 is now deployed at `0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18`!
+Your 🌎 is now deployed at `0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab4691053ee8ab69d7`!
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/framework/config.md)). On this file, you have to update the value of `world_address` with the address we got from the output of `sozo migrate`.
+Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/framework/config.md)).
 
 ```toml
-[tool.dojo.env]
-rpc_url = "http://localhost:5050/"
-account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
-private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a"
-world_address = "0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18"
+[scripts]
+migrate = "sozo build && sozo migrate"                      # scarb run migrate
+spawn = "sozo execute dojo_starter-actions spawn --wait"    # scarb run spawn
+move = "sozo execute dojo_starter-actions move -c 1 --wait" # scarb run move
 ```
 
-At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `v1.0.0-alpha.13`.
+At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `v1.0.0-rc.1`.
 
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-alpha.13" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-rc.1" }
 ```
 
 ## Indexing
@@ -473,19 +432,9 @@ subscription {
 }
 ```
 
-Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it, and proceed to create a new entity.
+Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it, and proceed to create a new entities.
 
-To accomplish this, we have to go back to our primary terminal and check the contracts section.
-
-```bash
-# Contracts (1)
-dojo_starter-actions
-  > Selector: 0x07a1c71029f2d0b38e3ac89b09931d08b6e48417e079c289ff19a8698d0cba33
-dojo_starter-actions
-  > dojo_starter-actions deployed at 0x05e8df8a235031ba8e66e590a7289d27d7d54c026bcdbda62b791c0a69055225
-```
-
-We have to use `actions` contract address to start to create entities. In your main local terminal, run the following command:
+To accomplish this, we have to execute `spawn` function from `actions` contract. In your main local terminal, run the following command:
 
 ```bash
 sozo execute dojo_starter-actions spawn

@@ -16,8 +16,8 @@ export const routes = [
         link: "/getting-started",
     },
     {
-        text: "Welcome to Dojo 1.0.0-rc.0",
-        link: "/welcome-1-rc0",
+        text: "Welcome to Dojo 1.0.0-rc.1",
+        link: "/welcome-1-rc1",
     },
     {
         text: "FAQ",
