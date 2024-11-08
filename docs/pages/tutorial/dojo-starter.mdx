@@ -279,7 +279,14 @@ Now, let's deploy it to [Katana](/toolchain/katana)! First, we need to get Katan
 katana --disable-fee  --allowed-origins "*"
 ```
 
-Success! [Katana](/toolchain/katana) should now be running locally on your machine. Now, let's deploy! In your primary terminal, execute:
+Success! [Katana](/toolchain/katana) should now be running locally on your machine. Now, let's inspect the world. In your primary terminal, execute:
+
+```bash
+sozo inspect
+```
+
+This command provides a preview of your World's state and contract addresses. It performs a read-only comparison between local and remote resources without sending any transactions.
+Now, let's deploy! In your primary terminal, execute:
 
 ```bash
 sozo migrate
