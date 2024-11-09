@@ -1,6 +1,7 @@
 import { defineConfig } from "vocs";
 import svgr from "vite-plugin-svgr";
 import { routes } from "./routes";
+import { version } from "./package.json";
 
 export default defineConfig({
     title: "Dojo Documentation",
@@ -32,7 +33,7 @@ export default defineConfig({
     topNav: [
         // { text: "Blog", link: "https://www.dojoengine.org/posts" },
         {
-            text: "v1.0.0-rc.0",
+            text: `${version}`,
             items: [
                 {
                     text: "Releases",

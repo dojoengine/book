@@ -1,6 +1,6 @@
 {
     "name": "dojo-book",
-    "version": "0.0.0",
+    "version": "v1.0.0-rc.0",
     "type": "module",
     "scripts": {
         "dev": "vocs dev",
