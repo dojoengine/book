@@ -4,28 +4,29 @@ import { LinkCard } from "../../../components/LinkCard";
 
 Dojo.js is the official JavaScript package for dojo. It provides a set of tools and utilities to interact with dojo and build JavaScript based apps.
 
-::::steps
-
-### init dojo
+### Start dojo
 
 This will provide you with a list of templates to choose from which all have the necessary configuration to get started with dojo.js.
 
-```sh
-npx @dojoengine/create-dojo init
+```bash
+npx @dojoengine/create-dojo start
 ```
 
-### Install
+### Recommended Setup - Using the SDK with React
 
-```sh
-pnpm i
+This will provide you with a starter template for building a React application using the Dojo SDK.
+
+```bash
+npx @dojoengine/create-dojo start -t example-vite-react-sdk
 ```
 
-::::
+Read about the offical SDK [here](/client/sdk/javascript/overview).
 
-<div className="grid grid-cols-2 gap-8">
-    <LinkCard
-        title="JavaScript Docs"
-        description="Learn how to get started with Dojo.js and build your first application."
-        href="https://github.com/dojoengine/dojo.js"
-    />
-</div>
+
+### Advanced Setup - Using the SDK with RECS
+
+This will provide you with a starter template for building a React application using the Dojo SDK and RECS state management.
+
+```bash
+npx @dojoengine/create-dojo start -t example-vite-react-app-recs
+```
