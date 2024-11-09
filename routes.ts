@@ -368,6 +368,13 @@ export const routes = [
             {
                 text: "dojo.js",
                 link: "/client/sdk/javascript",
+                collapsed: true,
+                items: [
+                    {
+                        text: "Overview",
+                        link: "/client/sdk/javascript/overview",
+                    },
+                ],
             },
             {
                 text: "dojo.unity",
