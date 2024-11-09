@@ -60,7 +60,6 @@ sozo build
 Now, let's migrate the project to our new katana slot:
 
 ```sh
-sozo migrate plan
 sozo migrate
 ```
 

@@ -35,7 +35,6 @@ Deploying your project to Katana involves a few simple steps.\
     To migrate, run:
 
     ```bash
-    sozo migrate plan
     sozo migrate
     ```
 
