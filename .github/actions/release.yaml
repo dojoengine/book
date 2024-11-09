@@ -1,0 +1,43 @@
+name: Release
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Version to release (e.g., v1.0.0)"
+                required: true
+                type: string
+            dojo_version:
+                description: "Dojo version to use"
+                required: true
+                type: string
+
+jobs:
+    create-release:
+        runs-on: ubuntu-latest
+        env:
+            DOJO_VERSION: ${{ inputs.dojo_version }}
+        steps:
+            - uses: actions/checkout@v3
+
+            # Setup and test with specified Dojo version
+            - run: curl -L https://install.dojoengine.org | bash
+            - run: /home/runner/.config/.dojo/bin/dojoup -v ${{ env.DOJO_VERSION }}
+            - run: |
+                  /home/runner/.config/.dojo/bin/sozo build
+                  /home/runner/.config/.dojo/bin/sozo test
+
+            # Create tag and release
+            - name: Create Tag
+              run: |
+                  git tag ${{ inputs.version }}
+                  git push origin ${{ inputs.version }}
+
+            - name: Create Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  tag_name: ${{ inputs.version }}
+                  name: Release ${{ inputs.version }}
+                  draft: false
+                  prerelease: false
+                  generate_release_notes: true

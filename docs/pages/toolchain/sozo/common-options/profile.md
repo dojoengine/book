@@ -36,7 +36,7 @@ sozo --profile dev migrate
 is equivalent to
 
 ```sh
-sozo migrate apply --rpc-url http://localhost:5050 --account-address 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973 --private-key 0x1800000000300000180000000000030000000000003006001800006600
+sozo migrate --rpc-url http://localhost:5050 --account-address 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973 --private-key 0x1800000000300000180000000000030000000000003006001800006600
 ```
 
 Note that the `--profile` flag should always be placed before the command name.
