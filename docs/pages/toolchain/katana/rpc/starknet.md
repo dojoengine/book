@@ -1,6 +1,6 @@
 ## `starknet` Namespace
 
-Katana supports version **v0.6.0** of the Starknet JSON-RPC specifications. The full documentations for the RPC methods can be found [here](https://github.com/starkware-libs/starknet-specs/tree/v0.6.0).
+Katana supports version **v0.7.1** of the Starknet JSON-RPC specifications. The full documentations for the RPC methods can be found [here](https://github.com/starkware-libs/starknet-specs/tree/v0.7.1).
 
 ### Read API
 
@@ -9,6 +9,7 @@ Katana supports version **v0.6.0** of the Starknet JSON-RPC specifications. The 
 -   `starknet_getBlockWithTxs`
 -   `starknet_getBlockWithTxHashes`
 -   `starknet_getBlockTransactionCount`
+-   `starknet_getBlockWithReceipts`
 -   `starknet_getStateUpdate`
 -   `starknet_getTransactionByHash`
 -   `starknet_getTransactionStatus`
@@ -37,4 +38,6 @@ Katana supports version **v0.6.0** of the Starknet JSON-RPC specifications. The 
 
 ### Trace API
 
+-   `starknet_traceTransaction`
 -   `starknet_simulateTransactions`
+-   `starknet_traceBlockTransactions`
