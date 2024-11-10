@@ -275,6 +275,73 @@ sozo migrate
 If you change an permission, you just have to run `sozo migrate` again and the permissions will be updated.
 We recommend using `sozo inspect` instead of reading output of migration or the build. The `inspect` commands gives you summary of the world or specific resource. Use it at your advantage.
 
+## Sozo useful commands
+
+Sozo provides different commands to help you manage your world.
+
+```bash
+# Inspect the current state of the project by comparing local and remote resources.
+sozo inspect
+```
+
+```bash
+# Computes selectors on the fly and different hashes results, useful for entity_id computation too.
+sozo hash ns-actions
+sozo hash 1,2,3,4
+sozo hash hello
+```
+
+```bash
+# Gathers all the events of the world and output the changes in model storage in the terminal + transaction hash and block number.
+sozo events
+```
+
+```bash
+# Sometimes, you may want to introspect a model from the chain without using Torii indexed data.
+# You can inspect the schema of a model from the chain directly by using the following command:
+sozo model schema dojo_starter-Position
+
+struct Position {
+  #[key]
+  player: ContractAddress,
+  vec: Vec2,
+}
+
+struct Vec2 {
+  x: u32,
+  y: u32,
+}
+```
+
+```bash
+# You can also inspect the storage state of a model providing the keys, as you remember the keys are used to identify the entity_id
+# which defined the storage slot of the model.
+sozo model get dojo_starter-Position 0x123
+{
+    player          : 0x0000000000000000000000000000000000000000000000000000000000000123,
+    vec             : {
+        x               : 0,
+        y               : 0
+    }
+}
+
+# As a reminder, keys are never stored! For this reason, the value of the key will ALWAYS be the same as the one provided.
+```
+
+```bash
+# Manage the permissions of the world from the command line, start by listing them:
+sozo auth list
+
+# Grant/revoke a owner/writer to any resource:
+sozo auth grant owner ns,0x1234 ns-Position,ns-c1
+
+# Clone all the resources `0xa` has to `0xb`:
+sozo auth clone --from 0xa --to 0xb
+
+# You can optionally revoke all the resource of `from` while doing the clone:
+sozo auth clone --from 0xa --to 0xb --revoke-from
+```
+
 ## Road to mainnet
 
 Mainnet is a network with a huge history and thousands of blocks. Currently, some nodes are not supported syncing the events providing block ranges that are too wide.
@@ -303,41 +370,6 @@ Also, once the first migration of your world is done and you have a world addres
 # .. other configs
 world_block = 821000
 world_address = 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
-```
-
-## Sozo useful commands
-
-Sozo provides different commands to help you manage your world.
-
-```bash
-# Inspect the current state of the project by comparing local and remote resources.
-sozo inspect
-```
-
-```bash
-# Computes selectors on the fly and different hashes results, useful for entity_id computation too.
-sozo hash ns-actions
-sozo hash 1,2,3,4
-sozo hash hello
-```
-
-```bash
-# Gathers all the events of the world and output the changes in model storage in the terminal + transaction hash and block number.
-sozo events
-```
-
-```bash
-# Manage the permissions of the world from the command line, start by listing them:
-sozo auth list
-
-# Grant/revoke a owner/writer to any resource:
-sozo auth grant owner ns,0x1234 ns-Position,ns-c1
-
-# Clone all the resources `0xa` has to `0xb`:
-sozo auth clone --from 0xa --to 0xb
-
-# You can optionally revoke all the resource of `from` while doing the clone:
-sozo auth clone --from 0xa --to 0xb --revoke-from
 ```
 
 ## Breaking changes
