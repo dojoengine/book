@@ -119,6 +119,35 @@ fn system_1(ref self: ContractState) {
 }
 ```
 
+## Events and Torii
+
+Events are not stored onchain, they are indexed by Torii. And by default, events behave like models, which means only the latest state is kept.
+However, you may want sometimes to keep events historical as it's regurlarly for blockchain events.
+
+To do so, nothing to change onchain, only one way to define events:
+
+```rust
+#[dojo::event]
+struct MyEvent {
+    #[key]
+    id: u32,
+    data: felt252,
+}
+```
+
+On the torii side, you can start it from the CLI or using a configuration file with the `historical_events` options, by providing tags of events you want to keep historical.
+
+```bash
+torii start --historical_events ns-MyEvent,ns-MyOtherEvent --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
+```
+
+Or using a configuration file in `toml` format:
+
+```toml
+world_address = "0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d"
+historical_events = ["ns-MyEvent", "ns-MyOtherEvent"]
+```
+
 ## Testing
 
 Currently, Dojo is still only supporting the `cairo-test` test runner. Soon `starknet-foundry` will be unlocked once `scarb` and `cairo-lang` merge some missing features.
@@ -323,3 +352,4 @@ Currently those are the breaking changes:
 - The `Model` API has changed, please refer to the new one [here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core/src/model/model.cairo#L31).
 - Katana has a different CLI arguments, please refer to `katana --help` for more details at the moment.
 - Use transaction v3 by default paying in STRK, you must specify `--fee eth` if you want to use transaction v1 paying in ETH.
+- Event messages are toggles historical from Torii, no longer from the chain using `#[dojo::event(historical = true)]`.
