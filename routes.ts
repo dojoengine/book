@@ -201,6 +201,10 @@ export const routes = [
                         link: "/toolchain/katana/messaging",
                     },
                     { text: "Interact", link: "/toolchain/katana/interact" },
+                    {
+                        text: "Configuration file",
+                        link: "/toolchain/katana/config_file",
+                    },
                 ],
             },
             {
@@ -214,6 +218,10 @@ export const routes = [
                     { text: "Reference", link: "/toolchain/torii/reference" },
                     { text: "Graphql", link: "/toolchain/torii/graphql" },
                     { text: "gRPC", link: "/toolchain/torii/grpc" },
+                    {
+                        text: "Configuration file",
+                        link: "/toolchain/torii/config_file",
+                    },
                 ],
             },
             {
