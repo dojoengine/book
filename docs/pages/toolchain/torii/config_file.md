@@ -12,8 +12,11 @@ rpc = ":5050"
 # Database filepath. Empty string defaults to in-memory database.
 database = ""
 
-# Address to serve api endpoints at.
-addr = "0.0.0.0:8080"
+# Server configuration for API endpoints of Torii.
+[server]
+http_addr = "0.0.0.0"
+http_port = 8080
+http_cors_origins = ["*"]
 
 # Ports for different Libp2p transport protocols.
 relay_port = 9090            # TCP & UDP Quic
@@ -32,8 +35,12 @@ allowed_origins = []
 external_url = ""  # Optional
 
 # Prometheus metrics configuration.
-# Set socket address to enable metrics.
-metrics = ""  # Optional
+[metrics]
+# This one is required to enable metrics without arguments.
+metrics = true
+# Configure metrics address and port for the metrics server to start. Doesn't start by default.
+metrics_addr = "0.0.0.0"
+metrics_port = 9000
 
 # Whether to open World Explorer in browser on start.
 explorer = false
