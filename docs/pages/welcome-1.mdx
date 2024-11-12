@@ -96,7 +96,7 @@ struct MyEvent {
 
 let mut world = self.world(@"ns");
 let e = MyEvent { id: 1, value: 123 };
-world.emit_event(e);
+world.emit_event(@e);
 ```
 
 ## Permissions
@@ -104,6 +104,8 @@ world.emit_event(e);
 As mentioned previously, all the resources are permissioned. Some examples of the permission API:
 
 ```rust
+use dojo::world::IWorldDispatcherTrait;
+
 // How to check that the caller is a owner of the current contract executing code:
 fn system_1(ref self: ContractState) {
     let mut world = self.world(@"ns");
