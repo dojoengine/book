@@ -4,62 +4,35 @@
 
 Enums, short for "enumerations," are a way to define a custom data type that consists of a fixed set of named values, called variants. Enums are useful for representing a collection of related values where each value is distinct and has a specific meaning. Enums are particularly useful in game development for representing game states, player actions, or any other set of related constants that a game might need to track.
 
-In this example, we've defined an enum called PlayerCharacter with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`. The naming convention is to use `PascalCase` for enum variants. Each variant represents a distinct value of the `PlayerCharacter` type. In this particular example, variants don't have any associated value.
-Now let's imagine that our variants have associated values, We can define a new PlayerCharacter enum:
+In this example, we've defined an enum called `PlayerCharacter` with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`. The naming convention is to use `PascalCase` for enum variants. Each variant represents a distinct value of the `PlayerCharacter` type. In this particular example, variants don't have any associated value.
 
 ```rust
-// PlayerCharacter enum representing different characters with associated u128 values.
+#[derive(Serde, Drop, Introspect)]
+enum PlayerCharacter {
+    Godzilla,
+    Dragon,
+    Fox,
+    Rhyno
+}
+```
+
+Now let's imagine that our variants have associated values, We can define a new `PlayerCharacter` enum:
+
+```rust
+#[derive(Serde, Drop, Introspect)]
 enum PlayerCharacter {
     Godzilla: u128,
-    Dragon:   u128,
-    Fox:      u128,
-    Rhyno:    u128
+    Dragon:   u32,
+    Fox:      (u8, u8),
+    Rhyno:    ByteArray
 }
 ```
 
-[Explore more about enums, including variants with associated values. Click here for detailed examples and insights](https://book.cairo-lang.org/ch06-01-enums.html)
+:::tip
+Explore more about enums, including variants with associated values. Click [here](https://book.cairo-lang.org/ch06-01-enums.html) for detailed examples and insights.
+:::
 
-However, in Dojo, all enum variants must share the same type. This limitation poses a challenge when we want to associate different data types with each variant, as is often the case in game development where characters, items, or enemies may have unique attributes.
-To work around this limitation, we can use a struct to encapsulate the attributes of each character type. This allows us to maintain the unique characteristics of each character while adhering to the constraints.
-
-```rust
-# [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
-// Define an enum representing different player characters
-enum PlayerCharacter {
-    Godzilla(CharacterAttributes),
-    Fox(CharacterAttributes),
-    Rhyno(CharacterAttributes),
-}
-
-# [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
-// Define a struct representing the attributes of a character
-struct CharacterAttributes {
-    is_godzilla: bool,
-    fox_value: Option<u32>, // Assuming felt252 is represented as u32 for simplicity
-    rhyno_values: Option<(u128, u128)>,
-}
-
-// Create an instance of the Godzilla character
-let godzilla = PlayerCharacter::Godzilla(CharacterAttributes {
-    is_godzilla: true,
-    fox_value: None,
-    rhyno_values: None,
-})
-
-// Create an instance of the Fox character
-let fox = PlayerCharacter::Fox(CharacterAttributes {
-    is_godzilla: false,
-    fox_value: Some(90), // Assuming felt252 is represented as u32 for simplicity
-    rhyno_values: None,
-});
-```
-
-For the `Godzilla` variant, since it doesn't require any additional data, you would instantiate it with a `CharacterAttributes` struct, where the `is_godzilla` flag is set to true, and the other fields are set to `None` or their default values. This approach effectively addresses the limitation where enum variants must share the same type.
-The `PlayerCharacter` enum has three variants: `Godzilla`, `Fox`, and `Rhyno`. Each variant takes a `CharacterAttributes` struct as its associated value. The `CharacterAttributes` struct contains fields to represent the unique attributes of each character type:
-
-`is_godzilla`: A boolean flag to indicate if the character is Godzilla.  
-`fox_value`: An optional `u32` value to represent the `felt252` value for Fox.  
-`rhyno_values`: An optional tuple of two `u128` values to represent the two `u128` values for `Rhyno`.
+In Dojo, all enum variants can use different variant data types. In this case, as variant data have different sizes, the enum cannot derive `IntrospectPacked` but must derive `Introspect`. If all variant data share the same type, the enum can be packed using the `IntrospectPacked` derive attribute.  
 
 ## Trait Implementations for Enums
 
@@ -71,10 +44,10 @@ Consider the `GameStatus` enum, which represents the various states a game can b
 # [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
 // Define an enum representing different states of a game
 enum GameStatus {
-   NotStarted: (),
-   Lobby: (),
-   InProgress: (),
-   Finished: (),
+   NotStarted,
+   Lobby,
+   InProgress,
+   Finished
 }
 ```
 
@@ -100,16 +73,19 @@ impl GameStatusFelt252 of Into<GameStatus, felt252> {
 Building upon the `GameStatus` enum, we can define a Game struct that includes a `GameStatus` field. By implementing a custom trait for the Game struct, we can encapsulate game-specific logic and assertions.
 
 ```rust
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
 // Define the Game struct to represent a game object
 struct Game {
+    #[key]
+    id: u64,
     status: GameStatus,
 }
 
 
 // Implement the trait for the Game struct
 #[generate_trait]
-impl GameImpl of GameTrait{
+impl GameImpl of GameTrait {
 
     // Asserts that the game is in progress
     fn assert_in_progress(self: Game) {
