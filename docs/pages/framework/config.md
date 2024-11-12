@@ -42,12 +42,12 @@ build-external-contracts = ["dojo::world::world_contract::world"]
 
 [dependencies]
 # Adding the dojo core crate with the world and dojo traits.
-dojo = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0-rc.0" }
+dojo = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
 starknet = "2.8.4"
 
 [dev-dependencies]
 # This package is required to run tests and add dojo utilities to your project in test only.
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0-rc.0" }
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
 
 [features]
 default = []
