@@ -36,8 +36,9 @@ let world = self.world(@"ns");
 This `world` instance provides you some functionalities to interact with the world and its data.
 
 ```rust
-// Using the DNS to get a contract address and class hash from it's tag.
-// Since the default namespace has been set to "ns", the tag identifying the resource will be "ns-my_contract".
+// Using the DNS to get a contract address and class hash from its tag.
+// Since the default namespace has been set to "ns", the tag identifying
+// the resource will be "ns-my_contract".
 if let Some((contract_address, class_hash)) = world.dns("my_contract") {
     // Do something with the contract address and class hash.
 }
@@ -48,7 +49,8 @@ To change the namespace you want to write/read from, you can use the `set_namesp
 ```rust
 world.set_namespace(@"ns2");
 
-// At this point, using the DNS will return the resource from the "ns2" namespace, if it exists.
+// At this point, using the DNS will return the resource from the "ns2"
+// namespace, if it exists.
 if let Some((contract_address, class_hash)) = world.dns("my_contract") {
     // Do something with the contract address and class hash.
 }
@@ -67,7 +69,8 @@ struct MyModel {
 }
 
 let mut world = self.world(@"ns");
-// Note here the type specified for the compiler, this ensures the compiler can infere which data to retrieve:
+// Note here the type specified for the compiler, this ensures the
+// compiler can infer which data to retrieve:
 let id = 1;
 let mut model: MyModel = world.read_model(id);
 model.value = 123;
@@ -106,18 +109,26 @@ As mentioned previously, all the resources are permissioned. Some examples of th
 ```rust
 use dojo::world::IWorldDispatcherTrait;
 
-// How to check that the caller is a owner of the current contract executing code:
+// How to check that the caller is a owner of the current contract
+// executing code:
 fn system_1(ref self: ContractState) {
     let mut world = self.world(@"ns");
 
-    // A dojo selector is computed from namespace and name. The namespace is already
-    // set by the `world` instance, so we just have to use the dojo name of the contract.
+    // A dojo selector is computed from namespace and name. 
+    // The namespace is already set by the `world` instance,
+    // so we just have to use the dojo name of the contract.
     // Every contract has a `dojo_name` function available.
-    let current_contract_selector = world.contract_selector(@self.dojo_name());
+    let current_contract_selector = world.contract_selector(
+        @self.dojo_name()
+    );
 
-    // Using the world dispatcher to call the world contract and verify that the resource (the current contract)
+    // Using the world dispatcher to call the world contract
+    // and verify that the resource (the current contract)
     // is owned by the caller.
-    world.dispatcher.is_owner(current_contract_selector, starknet::get_caller_address())
+    world.dispatcher.is_owner(
+        current_contract_selector, 
+        starknet::get_caller_address()
+    );
 }
 ```
 
@@ -172,25 +183,30 @@ Now, let's move on to testing. First, you have to use the `dojo_cairo_test` crat
 dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
 ```
 
-To define some namespace configuration you will use the [NamespaceDef](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core-cairo-test/src/world.cairo#L51) and associated definitions:
+To define some namespace configurations you will use the [NamespaceDef](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core-cairo-test/src/world.cairo#L51) and associated definitions:
 
 ```rust
 use dojo::model::{ModelStorage, ModelValueStorage, ModelStorageTest};
 use dojo::world::WorldStorageTrait;
 use dojo_cairo_test::{
-    spawn_test_world, NamespaceDef, TestResource, ContractDefTrait, ContractDef,
-    WorldStorageTestTrait
+    spawn_test_world, NamespaceDef, TestResource, ContractDefTrait,
+    ContractDef, WorldStorageTestTrait
 };
 
-// First to note here, Dojo is generating contracts for each model and event.
-// The name of this generated contract is always the resource name, prefixed by "m_" or "e_" respectively.
-use dojo_starter::models::{Position, m_Position, Moves, m_Moves, Direction};
+// First to note here, Dojo is generating contracts for each model
+// and event.
+// The name of this generated contract is always the resource name,
+// prefixed by "m_" or "e_" respectively.
+use dojo_starter::models::{
+    Position, m_Position, Moves, m_Moves, Direction
+};
 ```
 
 Then, for each resource, you can add them to a specific namespace. Once again, the same model or event type can be registered multiple times into different namespaces, which will yield different resources.
 
 ```rust
-// Here we map the resource to the namespace "ns". They will be used to register the resources to the world.
+// Here we map the resource to the namespace "ns".
+// They will be used to register the resources to the world.
 fn namespace_def() -> NamespaceDef {
     let ndef = NamespaceDef {
         namespace: "ns", resources: [
@@ -208,7 +224,8 @@ fn namespace_def() -> NamespaceDef {
 Let's then prepare some contracts definitions [defined here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core-cairo-test/src/world.cairo#L57):
 
 ```rust
-// Here, we have one contract, and we define at this step the permission of the contract and initialization data (if any).
+// Here, we have one contract, and we define at this step
+// the permission of the contract and initialization data (if any).
 fn contract_defs() -> Span<ContractDef> {
     [
         ContractDefTrait::new(@"ns", @"actions")
@@ -227,11 +244,14 @@ fn test_world_test_set() {
     let ndef = namespace_def();
     let mut world = spawn_test_world([ndef].span());
 
-    // At this point, the resources are registered, but permissions are not set and contracts are not initialized (dojo_init has not be called).
+    // At this point, the resources are registered, but permissions 
+    // are not set and contracts are not initialized
+    // (dojo_init has not be called).
 
     world.sync_perms_and_inits(contract_defs());
 
-    // At this point, permissions are synchronized and contracts are initialized.
+    // At this point, permissions are synchronized and 
+    // contracts are initialized.
 }
 ```
 
@@ -264,17 +284,20 @@ Basic commands:
 # Builds a project.
 sozo build
 
-# Inspects the current state of the project by comparing local and remote resources.
+# Inspects the current state of the project by comparing local
+# and remote resources.
+
 # Inspect the full world.
 sozo inspect
 # Inspect a specific resource.
 sozo inspect <RESOURCE_TAG>
 
-# Migrate all the resources to the remote state. Generates a `manifest_<PROFILE>.json` file.
+# Migrate all the resources to the remote state.
+# Generates a `manifest_<PROFILE>.json` file.
 sozo migrate
 ```
 
-If you change an permission, you just have to run `sozo migrate` again and the permissions will be updated.
+If you change a permission, you just have to run `sozo migrate` again and the permissions will be updated.
 We recommend using `sozo inspect` instead of reading output of migration or the build. The `inspect` commands gives you summary of the world or specific resource. Use it at your advantage.
 
 ## Sozo useful commands
@@ -282,25 +305,30 @@ We recommend using `sozo inspect` instead of reading output of migration or the 
 Sozo provides different commands to help you manage your world.
 
 ```bash
-# Inspect the current state of the project by comparing local and remote resources.
+# Inspect the current state of the project by comparing local
+# and remote resources.
 sozo inspect
 ```
 
 ```bash
-# Computes selectors on the fly and different hashes results, useful for entity_id computation too.
+# Computes selectors on the fly and different hashes results,
+# useful for entity_id computation too.
 sozo hash ns-actions
 sozo hash 1,2,3,4
 sozo hash hello
 ```
 
 ```bash
-# Gathers all the events of the world and output the changes in model storage in the terminal + transaction hash and block number.
+# Gathers all the events of the world and output the changes in
+# model storage in the terminal + transaction hash and block number.
 sozo events
 ```
 
 ```bash
-# Sometimes, you may want to introspect a model from the chain without using Torii indexed data.
-# You can inspect the schema of a model from the chain directly by using the following command:
+# Sometimes, you may want to introspect a model from the chain without
+# using Torii indexed data.
+# You can inspect the schema of a model from the chain directly by using
+# the following command:
 sozo model schema dojo_starter-Position
 
 struct Position {
@@ -316,7 +344,8 @@ struct Vec2 {
 ```
 
 ```bash
-# You can also inspect the storage state of a model providing the keys, as you remember the keys are used to identify the entity_id
+# You can also inspect the storage state of a model providing the keys,
+# as you remember the keys are used to identify the entity_id
 # which defined the storage slot of the model.
 sozo model get dojo_starter-Position 0x123
 {
@@ -327,11 +356,13 @@ sozo model get dojo_starter-Position 0x123
     }
 }
 
-# As a reminder, keys are never stored! For this reason, the value of the key will ALWAYS be the same as the one provided.
+# As a reminder, keys are never stored! For this reason,
+# the value of the key will ALWAYS be the same as the one provided.
 ```
 
 ```bash
-# Manage the permissions of the world from the command line, start by listing them:
+# Manage the permissions of the world from the command line,
+# start by listing them:
 sozo auth list
 
 # Grant/revoke a owner/writer to any resource:
@@ -340,7 +371,8 @@ sozo auth grant owner ns,0x1234 ns-Position,ns-c1
 # Clone all the resources `0xa` has to `0xb`:
 sozo auth clone --from 0xa --to 0xb
 
-# You can optionally revoke all the resource of `from` while doing the clone:
+# You can optionally revoke all the resource of `from`
+# while doing the clone:
 sozo auth clone --from 0xa --to 0xb --revoke-from
 ```
 
@@ -379,7 +411,7 @@ world_address = 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da
 Currently those are the breaking changes:
 
 - Macros `set/get/delete` are currently not supported. They may be added again in the future.
-- When working with contracts, the `world` injection no longer world. You must use regular starknet interfaces and `self` with `ContractState`.
+- When working with contracts, the `world` is no longer automatically injected. You must use regular starknet interfaces and `self` with `ContractState`.
 - World's metadata are not uploaded yet, this should be added back soon.
 - You must remove `[[target.dojo]]` and use `[[target.starknet-contract]]` instead, not forgetting to add the dojo world in the `build-external-contracts`.
 - Overlays files and intermediate manifests that were before produced can be deleted, they are no longer used.

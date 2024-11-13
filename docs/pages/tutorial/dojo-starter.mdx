@@ -176,10 +176,10 @@ pub mod actions {
 
         // Implementation of the move function for the ContractState struct.
         fn move(ref self: ContractState, direction: Direction) {
-            // Get the address of the current caller, possibly the player's address.
-
+            // Get the default world.
             let mut world = self.world_default();
 
+            // Get the address of the current caller, possibly the player's address.
             let player = get_caller_address();
 
             // Retrieve the player's current position and moves data from the world.
@@ -208,8 +208,8 @@ pub mod actions {
 
     #[generate_trait]
     impl InternalImpl of InternalTrait {
-        /// Use the default namespace "dojo_starter". This function is handy since the ByteArray
-        /// can't be const.
+        // Use the default namespace "dojo_starter".
+        // This function is handy since the ByteArray can't be const.
         fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
             self.world(@"dojo_starter")
         }
@@ -276,7 +276,7 @@ That compiled the models and systems into artifacts that can be deployed. Simple
 Now, let's deploy it to [Katana](/toolchain/katana)! First, we need to get Katana running. Open a second terminal and execute:
 
 ```bash
-katana --disable-fee  --allowed-origins "*"
+katana --dev --dev.no-fee
 ```
 
 Success! [Katana](/toolchain/katana) should now be running locally on your machine. Now, let's inspect the world. In your primary terminal, execute:
@@ -328,7 +328,7 @@ dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0" }
 With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your `world address` from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
 
 ```bash
-torii --world 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18 --allowed-origins "*"
+torii --world 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18 --http.cors_origins "*"
 ```
 
 Running the command mentioned above starts a [Torii](/toolchain/torii) server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. `Torii` will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
@@ -391,37 +391,45 @@ After you run the query, you will receive an output like this:
 
 ```json
 {
-    "data": {
-        "models": {
-            "edges": [
-                {
-                    "node": {
-                        "id": "0xfca8c67c1565ba003e0b460c4707b70c7e3179689528a0b502a6dd5df7d5a7",
-                        "name": "Moves", // [!code focus]
-                        "classHash": "0x4d6f766573",
-                        "contractAddress": "0x4cccc308e899b0db11f3e47bcc3bf555d348102e1d89c85e8ba72f5f1098107"
-                    }
-                },
-                {
-                    "node": {
-                        "id": "0x3b87b389f49db996832881ced84132a8ebeae71459c96a65b85deb95710e14d",
-                        "name": "DirectionsAvailable", // [!code focus]
-                        "classHash": "0x446972656374696f6e73417661696c61626c65",
-                        "contractAddress": "0x13fc796dd2d767ca4051ee20d673074f74b6e6b072bef1926ba429e427c8080"
-                    }
-                },
-                {
-                    "node": {
-                        "id": "0x28b9aeb6b19af1454b16ce28c1ee6909e3946e4552ed09886a06ebe1e158fc",
-                        "name": "Position", // [!code focus]
-                        "classHash": "0x506f736974696f6e",
-                        "contractAddress": "0x4312e0e9fa6d912c293311798591e5022744a5fbebefc5ddfcfcc9b7c0c9be1"
-                    }
-                }
-            ],
-            "totalCount": 3
+  "data": {
+    "models": {
+      "edges": [
+        {
+          "node": {
+            "id": "0x77844f1facb51e60e546a9832d56c6bd04fa23be4fd5b57290caae5e9a3c1e4",
+            "name": "DirectionsAvailable",
+            "classHash": "0x7deb48ccf95cc441a0489cfefdae54aeb6f8ec462ba13ff25e23f080e66cc2f",
+            "contractAddress": "0x410c3b01e8209f1bb0c6591283efebddd5034b4baed4f0e9ea3c318d9fbae0b"
+          }
+        },
+        {
+          "node": {
+            "id": "0x504403e5c02b6442527721fc464d9ea5fc8f1ee600ab5ccd5c0845d36fd45f1",
+            "name": "Moved",
+            "classHash": "0x5be0a05a5df3bd3b4fc17f8b1feb395cb463ced20ea41d4fbb9b86a4d7efc66",
+            "contractAddress": "0x47d654cf2ea600e9689219b1b8545c742c1229ac948c87a01787462f3e93f96"
+          }
+        },
+        {
+          "node": {
+            "id": "0x2ac8b4c190f7031b9fc44312e6b047a1dce0b3f2957c33a935ca7846a46dd5b",
+            "name": "Position",
+            "classHash": "0x2283c68ecba5c60bbbbd3b00659808a02244468e41a1d2cdba1312d65b83594",
+            "contractAddress": "0x6e2770c9bbcf3f4f11529780fc04c2041f186225634541da225b93fe98b5bfd"
+          }
+        },
+        {
+          "node": {
+            "id": "0x2a29373f1af8348bd366a990eb3a342ef2cbe5e85160539eaca3441a673f468",
+            "name": "Moves",
+            "classHash": "0x70edf8f3be0b118e78f856f3ea9ebb652cba3684abaf7f299bfa6f93bf907c9",
+            "contractAddress": "0x554606894a9be2241c0dc3735c0f322c8d4816bfe292165614ca9a455b47503"
+          }
         }
+      ],
+      "totalCount": 4
     }
+  }
 }
 ```
 
@@ -455,13 +463,13 @@ Now, go back to your GraphQL IDE, and you will notice that you have received the
 {
   "data": {
     "entityUpdated": {
-      "id": "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666",
+      "id": "0x43ebbfee0476dcc36cae36dfa9b47935cc20c36cb4dc7d014076e5f875cf164",
       "keys": [
-        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
+        "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec"
       ],
-      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000f:0x6b2680bb8a14ca0d1ba05131069dfec2c0e9525c8d3c4773f345c9ad5ebf198:0x00",
-      "createdAt": "2024-06-14T04:46:44Z",
-      "updatedAt": "2024-06-14T04:46:44Z"
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000b:0x3baa02ae902388ed39ba124d1538e889d8265cfc99d461dc30781c478f4799:0x01",
+      "createdAt": "2024-11-12T13:23:35Z",
+      "updatedAt": "2024-11-12T13:23:35Z"
     }
   }
 }
@@ -469,27 +477,13 @@ Now, go back to your GraphQL IDE, and you will notice that you have received the
 {
   "data": {
     "entityUpdated": {
-      "id": "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666",
+      "id": "0x43ebbfee0476dcc36cae36dfa9b47935cc20c36cb4dc7d014076e5f875cf164",
       "keys": [
-        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
+        "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec"
       ],
-      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000f:0x6b2680bb8a14ca0d1ba05131069dfec2c0e9525c8d3c4773f345c9ad5ebf198:0x01",
-      "createdAt": "2024-06-14T04:46:44Z",
-      "updatedAt": "2024-06-14T04:46:44Z"
-    }
-  }
-}
---------------------------------------------------------------------------------------------------------
-{
-  "data": {
-    "entityUpdated": {
-      "id": "0x54f58c4a92809851a5e76be80aeeb01a3cf35db8479d83468b4e7467703f666",
-      "keys": [
-        "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
-      ],
-      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000f:0x6b2680bb8a14ca0d1ba05131069dfec2c0e9525c8d3c4773f345c9ad5ebf198:0x02",
-      "createdAt": "2024-06-14T04:46:44Z",
-      "updatedAt": "2024-06-14T04:46:44Z"
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000b:0x3baa02ae902388ed39ba124d1538e889d8265cfc99d461dc30781c478f4799:0x00",
+      "createdAt": "2024-11-12T13:23:35Z",
+      "updatedAt": "2024-11-12T13:23:35Z"
     }
   }
 }
