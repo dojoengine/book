@@ -82,7 +82,7 @@ mod actions {
             // 2. Set the player's remaining moves to 100.
             let moves = Moves {
                 player, remaining: 100,
-                last_direction: Direction::None(()), can_move: true
+                last_direction: Direction::None, can_move: true
             };
 
             // Write the new moves to the world.
