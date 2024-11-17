@@ -47,6 +47,30 @@ Commands:
 
 <AccountOptions />
 
+#### IPFS Options
+
+If you provide your IPFS credentials, `sozo` can automatically upload metadata
+of the world and its resources to IPFS, and register IPFS URIs to the `ResourceMetadata`
+model of the world.
+
+You can either provide these credentials through command-line arguments, through environment variables
+or through your `dojo_<profile>.toml`.
+
+`--ipfs-url` URL  
+&nbsp;&nbsp;&nbsp;&nbsp;The URL of the IPFS client to use.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;_or `DOJO_IPFS_URL` environment variable, or `ipfs_url` in your profile configuration file._
+
+`--ipfs-username` USERNAME  
+&nbsp;&nbsp;&nbsp;&nbsp;The username to use for the IPFS client.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;_or `DOJO_IPFS_USERNAME` environment variable, or `ipfs_username` in your profile configuration file._
+
+`--ipfs-password` PASSWORD  
+&nbsp;&nbsp;&nbsp;&nbsp;The password to use for the IPFS client.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;_or `DOJO_IPFS_PASSWORD` environment variable, or `ipfs_password` in your profile configuration file._
+
 #### Signer Options - Raw
 
 <SignerOptionsRaw />
