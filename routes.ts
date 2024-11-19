@@ -407,7 +407,7 @@ export const routes = [
         items: [
             {
                 text: "Soverign Rollups",
-                link: "/architecture/soverign-rollups",
+                link: "/architecture/sovereign-rollups",
             },
         ],
     },
