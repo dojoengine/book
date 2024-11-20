@@ -53,6 +53,7 @@ export const routes = [
             //   text: "Deploy using Slot",
             //   link: "/tutorial/deploy-using-slot/main",
             // },
+            { text: "Deploy to Mainnet", link: "/tutorial/deploy-to-mainnet/main" },
             // {
             //   text: "Using Graphql",
             //   link: "/tutorial/deploy-using-slot/main",
