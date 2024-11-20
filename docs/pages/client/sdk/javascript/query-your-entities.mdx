@@ -1,3 +1,107 @@
 # Query your entities
 
 Before going further be sure you completed [Getting started](./getting-started.mdx)
+
+## Using the QueryBuilder
+
+The QueryBuilder provides a fluent interface to construct queries for your entities. It allows you to organize your queries by namespace and entity, making it easy to build complex queries in a type-safe manner.
+
+### Basic Usage
+
+Here's a simple example of how to use the QueryBuilder:
+
+```typescript
+const query = new QueryBuilder()
+    .namespace("world", (n) =>
+        n.entity("player", (e) => e.eq("id", "1").eq("name", "Alice"))
+    )
+    .build();
+```
+
+### Structure
+
+The QueryBuilder follows a hierarchical structure:
+
+1. Namespaces - logical groupings for your entities
+2. Entities - the specific types you want to query
+3. Conditions - the filters you want to apply
+
+### Query Operators
+
+Currently supported operators:
+
+- `is()` - Strict equality comparison
+- `eq()` - Equality comparison
+- `neq()` - Not equal comparison
+- `gt()` - Greater than comparison
+- `gte()` - Greater than or equal comparison
+- `lt()` - Less than comparison
+- `lte()` - Less than or equal comparison
+
+### Complete Example
+
+Here's a more complex example showing multiple namespaces and entities:
+
+```typescript
+const query = new QueryBuilder()
+    .namespace("world", (n) =>
+        n.entity("player", (e) => e.eq("id", "1").eq("name", "Alice"))
+    )
+    .namespace("universe", (n) =>
+        n.entity("galaxy", (e) => e.is("name", "Milky Way"))
+    )
+    .build();
+```
+
+This will generate a query object with the following structure:
+
+```javascript
+{
+  world: {
+    player: {
+      $: {
+        where: {
+          id: { $eq: "1" },
+          name: { $eq: "Alice" }
+        }
+      }
+    }
+  },
+  universe: {
+    galaxy: {
+      $: {
+        where: {
+          name: { $is: "Milky Way" }
+        }
+      }
+    }
+  }
+}
+```
+
+### Best Practices
+
+1. Always chain your queries using the fluent interface
+2. Group related entities under the same namespace
+3. Use the appropriate operator for your comparisons (`eq` vs `is`)
+4. Call `build()` at the end of your query to generate the final query object
+
+### Type Safety
+
+The QueryBuilder is designed to be type-safe, helping you catch potential errors at compile time when using TypeScript.
+
+```
+
+This documentation provides a clear overview of the QueryBuilder's functionality, including:
+- Basic usage
+- Structure explanation
+- Available operators
+- Complete examples
+- Generated query format
+- Best practices
+- Type safety mention
+
+Would you like me to expand on any particular section or add more examples?
+
+**Generation complete!** Please review the code suggestions above.
+```
