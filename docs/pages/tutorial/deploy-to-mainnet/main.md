@@ -70,7 +70,7 @@ source .env.sepolia
 cd dojo
 sozo -P sepolia clean
 sozo -P sepolia build
-sozo -P sepolia migrate plan
+sozo -P sepolia migrate
 ```
 
 * Execute migration using the [`migrate`](https://github.com/rsodre/512karat/blob/main/dojo/migrate) script...
