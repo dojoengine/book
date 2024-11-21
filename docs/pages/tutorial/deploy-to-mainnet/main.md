@@ -118,7 +118,7 @@ slot auth login
 
 * Create Torii service with this command, replacing...
   * `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
-  * `DOJO_VERSION`: your Dojo version (ex: `v1.0.0-alpha.11`)
+  * `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
   * `WORLD_ADDRESS`: from your Dojo config file [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml)
   * `RPC_URL`: your RPC provider url
   * `STARTING_BLOCK`: the deployment transaction block we just found before
