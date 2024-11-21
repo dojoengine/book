@@ -56,5 +56,5 @@ curl "0.0.0.0:8080/sql?q=SELECT%20*%20FROM%20models;" | jq
 The query is sent as the body of the request.
 
 ```bash
-curl -X POST "0.0.0.0:8080/sql" -d "SELECT * FROM 'ns-Position';" | jq
+curl -X POST "0.0.0.0:8080/sql" -d "SELECT * FROM [ns-Position];" | jq
 ```
