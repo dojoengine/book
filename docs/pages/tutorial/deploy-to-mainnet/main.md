@@ -68,7 +68,6 @@ source .env.sepolia
 
 ```sh
 cd dojo
-sozo -P sepolia clean
 sozo -P sepolia build
 sozo -P sepolia migrate
 ```
