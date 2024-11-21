@@ -29,10 +29,10 @@ By default, Torii creates the following tables:
 
 ## Model and Event Tables
 
-When a model is registered, Torii creates a table with the model tag `<NAMESPACE>_<MODEL_NAME>`. The fields of the model are prefixed with `external_` in the table.
+When a model is registered, Torii creates a table with the model tag `<NAMESPACE>-<MODEL_NAME>`. The fields of the model are prefixed with `external_` in the table.
 Since currently `Sqlite` is used, the model tag as a table name must be escaped using double quotes when sending a query.
 
-In the current implementation, Torii will store all the fields that are a primitive type (that can be stored in a felt or converted to string like `ByteArray`). For the other types (including arrays or enums), a new table is created with the name `<NAMESPACE>_<MODEL_NAME>$<FIELD_NAME>`. This is about to change for an easier querying.
+In the current implementation, Torii will store all the fields that are a primitive type (that can be stored in a felt or converted to string like `ByteArray`). For the other types (including arrays or enums), a new table is created with the name `<NAMESPACE>-<MODEL_NAME>$<FIELD_NAME>`. This is about to change for an easier querying.
 
 ## Endpoint queries
 
