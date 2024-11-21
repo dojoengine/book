@@ -397,7 +397,12 @@ export const routes = [
             },
             { text: "dojo.c", link: "/client/sdk/c" },
             { text: "dojo.godot", link: "/client/sdk/godot" },
-            { text: "dojo.rust", link: "/client/sdk/rust" },
+            {
+                text: "dojo.rust",
+                link: "/client/sdk/rust",
+                collapsed: true,
+                items: [{ text: "Example", link: "/client/sdk/rust/example" }],
+            },
             { text: "dojo.telegram", link: "/client/sdk/telegram" },
             { text: "dojo.discord", link: "/client/sdk/discord" },
         ],

@@ -1,0 +1,223 @@
+# Discord Bot connected to a Dojo World
+
+This example explains how to use the Dojo Rust library to connect a discord bot to a Dojo World. This example uses the shuttle runtime to deploy the bot.
+
+You will need to have a discord bot token to use this example. You can get one by creating an application and bot in the discord developer portal.
+
+## Prerequisites
+
+-   Download and install the rust compiler [Rust]("https://doc.rust-lang.org/beta/book/ch01-01-installation.html").
+-   Setup a Rust project : 
+
+-   Install the shuttle cli [Shuttle]("https://docs.shuttle.rs/getting-started/installation#install-script")
+
+## Setup
+
+-   Create a `Secrets.toml` file in the root of the project with the following:
+
+```toml
+DISCORD_TOKEN = "your_discord_token_here"
+TORII_URL = "your_torii_url_here"
+NODE_URL = "your_node_url_here"
+TORII_RELAY_URL = "your_torii_relay_url_here"
+WORLD_ADDRESS = "your_world_address_here"
+CHANNEL_ID = "your_discord_channel_id_here"
+```
+
+-   Add the following to your `Cargo.toml` file:
+
+```toml
+[dependencies]
+poise = { version = "0.6.1" }
+toml = { version = "0.7", default-features = false, features = ["parse", "display"] }
+starknet = "0.12.0"
+starknet-crypto = "0.7.0"
+starknet-types-core = "~0.1.4"
+dojo-types = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-rc.1" }
+torii-client = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-rc.1" }
+torii-grpc = { git = "https://github.com/dojoengine/dojo", features = [
+    "client",
+], tag = "v1.0.0-rc.1" }
+torii-relay = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-rc.1" }
+dojo-world = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-rc.1" }
+
+cainome = { git = "https://github.com/cartridge-gg/cainome", tag = "v0.4.7", features = ["abigen-rs"] }
+cainome-cairo-serde = { git = "https://github.com/cartridge-gg/cainome", tag = "v0.4.7" }
+cairo-lang-filesystem = "=2.8.4"
+scarb = { git = "https://github.com/software-mansion/scarb", tag = "v2.8.4" }
+shuttle-runtime = { version = "0.48.0" }
+shuttle-serenity = { version = "0.48.0" }
+shuttle-rocket = { version = "0.48.0" }
+serenity = { version = "0.12.0", default-features = false, features = ["client", "gateway", "rustls_backend", "model"] }
+tokio = "1.26.0"
+```
+
+## Code
+
+```rust
+use std::{num::NonZero, sync::Arc, time::Duration};
+
+use serenity::{
+    all::{ChannelId, CreateMessage, GatewayIntents, Http},
+    futures::StreamExt,
+    Client,
+};
+use shuttle_runtime::SecretStore;
+use starknet_crypto::Felt;
+use torii_grpc::types::{EntityKeysClause, KeysClause};
+
+pub type Error = Box<dyn std::error::Error + Send + Sync>;
+pub type Context<'a> = poise::Context<'a, Data, Error>;
+
+pub struct Data {}
+
+#[poise::command(slash_command)]
+pub async fn hello(ctx: Context<'_>) -> Result<(), Error> {
+    // Add any logic here, fetch user in database (https://docs.shuttle.rs/resources/shuttle-shared-db)
+
+    ctx.say("Hello, world!").await?;
+    Ok(())
+}
+
+struct Config {
+    discord_token: String,
+    channel_id: NonZero<u64>,
+    torii_url: String,
+    node_url: String,
+    torii_relay_url: String,
+    world_address: String,
+}
+
+impl Config {
+    pub fn from_secrets(secret_store: SecretStore) -> Self {
+        let discord_token = secret_store.get("DISCORD_TOKEN").unwrap();
+        let channel_id = NonZero::new(
+            secret_store
+                .get("CHANNEL_ID")
+                .unwrap()
+                .parse::<u64>()
+                .unwrap(),
+        )
+        .unwrap();
+        let torii_url = secret_store.get("TORII_URL").unwrap();
+        let node_url = secret_store.get("NODE_URL").unwrap();
+        let torii_relay_url = secret_store.get("TORII_RELAY_URL").unwrap();
+        let world_address = secret_store.get("WORLD_ADDRESS").unwrap();
+
+        Config {
+            discord_token,
+            channel_id,
+            torii_url,
+            node_url,
+            torii_relay_url,
+            world_address,
+        }
+    }
+}
+
+#[shuttle_runtime::main]
+async fn main(
+    #[shuttle_runtime::Secrets] secret_store: SecretStore,
+) -> shuttle_serenity::ShuttleSerenity {
+    let intents = GatewayIntents::non_privileged();
+
+    let config = Config::from_secrets(secret_store);
+
+    let framework = poise::Framework::builder()
+        .options(poise::FrameworkOptions {
+            commands: vec![hello()],
+            ..Default::default()
+        })
+        .setup(|ctx, _ready, framework| {
+            Box::pin(async move {
+                poise::builtins::register_globally(ctx, &framework.options().commands).await?;
+
+                Ok(Data {})
+            })
+        })
+        .build();
+
+    let client = Client::builder(config.discord_token.clone(), intents)
+        .framework(framework)
+        .await
+        .expect("Failed to build client");
+
+    tokio::spawn(async move {
+        let client = torii_client::client::Client::new(
+            config.torii_url.clone(),
+            config.node_url.clone(),
+            config.torii_relay_url.clone(),
+            Felt::from_hex_unchecked(&config.world_address.clone()),
+        )
+        .await
+        .expect("Failed to create Torii client");
+
+        subscribe(client, config).await;
+    });
+
+    Ok(client.into())
+}
+
+async fn subscribe(client: torii_client::client::Client, config: Config) {
+    let mut tries = 0;
+    let max_num_tries = 200;
+
+    let mut backoff = Duration::from_secs(1);
+    let max_backoff = Duration::from_secs(60);
+
+    let http = Arc::new(Http::new(&config.discord_token.clone()));
+
+    loop {
+        let rcv: Result<
+            torii_grpc::client::EntityUpdateStreaming,
+            torii_client::client::error::Error,
+        > = client
+            .on_event_message_updated(
+                vec![EntityKeysClause::Keys(KeysClause {
+                    keys: vec![],
+                    pattern_matching: torii_grpc::types::PatternMatching::VariableLen,
+                    models: vec![],
+                })],
+                true,
+            )
+            .await;
+
+        match rcv {
+            Ok(mut rcv) => {
+                backoff = Duration::from_secs(1);
+
+                while let Some(Ok((_, entity))) = rcv.next().await {
+                    // Do something with your events entity here
+                    let entity_string = format!("{:?}", entity);
+                    let content = CreateMessage::new().content(entity_string);
+
+                    ChannelId::from(config.channel_id)
+                        .send_message(http.clone(), content)
+                        .await
+                        .unwrap();
+                }
+            }
+            Err(_) => {
+                println!("Subscription was lost, attempting to reconnect");
+                tries += 1;
+            }
+        }
+
+        tokio::time::sleep(backoff).await;
+        backoff = std::cmp::min(backoff * 2, max_backoff);
+
+        if tries >= max_num_tries {
+            println!("Max number of tries reached, exiting");
+            break;
+        }
+    }
+
+    println!("Torii client disconnected");
+}
+```
+
+## Deploy and local testing
+
+`shuttle deploy`
+
+`shuttle run`
