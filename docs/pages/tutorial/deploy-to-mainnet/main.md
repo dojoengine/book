@@ -47,8 +47,10 @@ SN_SEPOLIA
 # rpc_url = ""         # env: STARKNET_RPC_URL
 # account_address = "" # env: DOJO_ACCOUNT_ADDRESS
 # private_key = ""     # env: DOJO_PRIVATE_KEY
-world_address = "0x30ce813d2c4d55298764d676bbc1f37fb8b6337e29337692c7133f52d106878"
+# world_address = "<World Address>"
 ```
+
+* It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script. Then you should expose it.
 
 * Clone the [`dev`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/dev/) overlays to [`sepolia`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/sepolia/)
 
