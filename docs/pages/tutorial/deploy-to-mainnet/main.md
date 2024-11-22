@@ -84,7 +84,7 @@ sozo -P sepolia migrate
 ⛩️  Migration successful with world at address <WORLD_ADDRESS>
 ```
 
-Your world is deployed! Store the block number and the world address for later use.
+Your world is deployed! 
 
 
 ### Cleanup env !!!!!!!
@@ -124,11 +124,10 @@ slot auth login
   * `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
   * `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
   * `RPC_URL`: your RPC provider url
-  * `STARTING_BLOCK`: the deployment transaction block we just found before
   * Take a note of the endpoints after it is deployed...
 
 ```sh
-slot deployments create <SERVICE_NAME> torii --version <DOJO_VERSION> --world <WORLD_ADDRESS> --rpc <RPC_URL> --start-block <STARTING_BLOCK> --index-pending true
+slot deployments create <SERVICE_NAME> torii --version <DOJO_VERSION> --world <WORLD_ADDRESS> --rpc <RPC_URL>
 ```
 
 * slot will output something like this. Save it for later, you will need the endpoints on your client.
@@ -136,17 +135,7 @@ slot deployments create <SERVICE_NAME> torii --version <DOJO_VERSION> --world <W
 ```
 Deployment success 🚀
 
-Configuration:
-  World: 0x4c0970c9f52045ef8eeedd1e11265ebb69ed90fce58c96ad103aecf7f91302a
-  RPC: <RPC_PROVIDER_URL>
-  Start Block: 155777
-  Index Pending: false
-
-Endpoints:
-  GRAPHQL: https://api.cartridge.gg/x/512karat-sepolia/torii/graphql
-  GRPC: https://api.cartridge.gg/x/512karat-sepolia/torii
-
-Stream logs with `slot deployments logs 512karat-sepolia torii -f`
+Stream logs with `slot deployments logs <SERVICE_NAME> torii -f`
 ```
 
 * If for any reasons we need to recreate Torii, we can just delete it and run the create command again. This is safe, all your data is on-chain.
