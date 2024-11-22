@@ -6,7 +6,17 @@ The steps for Mainnet are exactly the same, just replace the chain name and ID w
 
 ### Setup
 
-* You need a [Starknet RPC Provider](https://www.starknet.io/fullnodes-rpc-services/) to deploy contracts on-chain. After you get yours, check if it works and is on the chain you want to deploy (`SN_SEPOLIA` or `SN_MAIN`)
+* You need a [Starknet RPC Provider](https://www.starknet.io/fullnodes-rpc-services/) to deploy contracts on-chain.
+
+You can use the *Cartridge RPC provider* for this.
+
+```sh
+https://api.cartridge.gg/x/starknet/mainnet # mainnet
+https://api.cartridge.gg/x/starknet/sepolia # sepolia
+```
+
+
+ After you get yours, you can check if it works and is on the correct chain (`SN_SEPOLIA` or `SN_MAIN`)
 
 ```sh
 # run this...
