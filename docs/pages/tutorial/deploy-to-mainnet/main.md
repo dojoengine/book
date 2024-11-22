@@ -65,22 +65,52 @@ export DOJO_PRIVATE_KEY=<YOUR_ACCOUNT_PRIVATE_KEY>
 
 ### Deployment
 
-* Load `.env.sepolia`.
+* To load the env variables and deploy to the chain you can use this script (for mainnet, just replace `sepolia` with `mainnet`):
 
-**IF FOR ANY REASON YOU ABORT THE DEPLOYMENT, JUMP TO THE CLEANUP STEP TO UNDO THIS**
+```bash
+# Stop script on error
+set -e
 
-```sh
-cd dojo
-source .env.sepolia
-```
+# Load environment variables from the appropriate file
+ENV_FILE=".env.sepolia"
 
-* Build and check for errors.
+if [ -f "$ENV_FILE" ]; then
+  echo "Loading environment variables from $ENV_FILE..."
+  export $(grep -v '^#' "$ENV_FILE" | xargs)
+else
+  echo "Environment file $ENV_FILE not found!"
+  exit 1
+fi
 
-```sh
-cd dojo
+# Define a cleanup function to clear environment variables
+cleanup_env() {
+  echo "Cleaning up environment variables..."
+  unset STARKNET_RPC_URL
+  unset DOJO_ACCOUNT_ADDRESS
+  unset DOJO_PRIVATE_KEY
+  echo "Environment variables cleared."
+}
+
+# Set the trap to execute cleanup on script exit or error
+trap cleanup_env EXIT
+
+# Build the project
+echo "Building the project..."
 sozo -P sepolia build
+
+# Deploy the project
+echo "Deploying to Sepolia..."
 sozo -P sepolia migrate
+
+# Deployment succeeded message
+echo "Deployment completed successfully."
 ```
+
+* For this script to work don't forget to give it execution permissions:
+ `chmod +x <script_name>.sh`
+
+* This localises the env variables to the deployment script, so if for any reason the deployment is aborted, it cleans up the env variables.
+
 
 * sozo will output the rpc url, account address and deployed block.
 
@@ -95,20 +125,6 @@ sozo -P sepolia migrate
 ```
 
 Your world is deployed! 
-
-
-### Cleanup env !!!!!!!
-
-Clear env after all is done...
-
-**THIS IS VERY IMPORTANT, OR YOUR NEXT LOCAL DEPLOYMENT MAY GO TO SEPOLIA OR MAINNET!**
-
-```sh
-cd dojo
-source .env.clear
-```
-
-
 
 ### Torii Indexer
 
