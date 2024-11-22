@@ -64,7 +64,7 @@ cd dojo
 source .env.sepolia
 ```
 
-* Build and check for errors. If the `migrate plan` command raises any errors, fix and try again before continuing.
+* Build and check for errors.
 
 ```sh
 cd dojo
@@ -72,14 +72,19 @@ sozo -P sepolia build
 sozo -P sepolia migrate
 ```
 
-* Execute migration using the [`migrate`](https://github.com/rsodre/512karat/blob/main/dojo/migrate) script...
+* sozo will output the rpc url, account address and deployed block.
 
 ```sh
-cd dojo
-./migrate sepolia
+ profile | chain_id | rpc_url
+---------+----------+------------------------
+ sepolia | SN_SEPOLIA | <RPC_PROVIDER_URL>
+
+
+🌍 World deployed at block <DEPLOYED_BLOCK> with txn hash: <DEPLOYMENT_TXN_HASH>
+⛩️  Migration successful with world at address <WORLD_ADDRESS>
 ```
 
-Your world is deployed!
+Your world is deployed! Store the block number and the world address for later use.
 
 
 ### Cleanup env !!!!!!!
@@ -111,14 +116,13 @@ slotup
 slot auth login
 ```
 
-* Find your world starting block. Replace your world address on the following link, clink on **Deployed At Transaction Hash** and write down the **Block Number**. (it may take a while before the link works if you use it right after deployment)
+* use your world starting block outputed during the world deployment. 
 
-[https://sepolia.starkscan.co/contract/0x04c0970c9f52045ef8eeedd1e11265ebb69ed90fce58c96ad103aecf7f91302a](https://sepolia.starkscan.co/contract/0x04c0970c9f52045ef8eeedd1e11265ebb69ed90fce58c96ad103aecf7f91302a)
 
 * Create Torii service with this command, replacing...
   * `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
   * `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
-  * `WORLD_ADDRESS`: from your Dojo config file [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml)
+  * `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
   * `RPC_URL`: your RPC provider url
   * `STARTING_BLOCK`: the deployment transaction block we just found before
   * Take a note of the endpoints after it is deployed...
@@ -154,8 +158,6 @@ slot deployments delete <SERVICE_NAME> torii
 ### Some notes on the client side
 
 * The `migrate` script is copying manifests to `/client/src/dojo/generated/<PROFILE>`, each chain needs to use their own manifest!
-
-* Take a look at [`dojoConfig.ts`](/client/src/dojo/dojoConfig.ts) to create different setups for each chain, adding the torii endpoint.
 
 * The client needs the env variable `VITE_PUBLIC_CHAIN_ID` to be set to your chain id. Configure on your sever and add it to your `.env` to access your deployment localy:
 
