@@ -116,9 +116,6 @@ slotup
 slot auth login
 ```
 
-* use your world starting block outputed during the world deployment. 
-
-
 * Create Torii service with this command, replacing...
   * `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
   * `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
