@@ -1,0 +1,154 @@
+# Getting Started
+
+Using dojo.js client side is pretty easy. We have your back with those two methods:
+
+## Senpai mode (easiest)
+
+Use this if you want a seamless easy and fast experience to access your contracts.
+
+::::steps
+
+### Init dojo
+
+This will provide you with a list of templates to choose from which all have the necessary configuration to get started with dojo.js.
+
+```sh
+pnpx @dojoengine/create-dojo start
+```
+
+#### Recommended Setup - Using the SDK with React
+
+This will provide you with a starter template for building a React application using the Dojo SDK.
+
+```bash
+npx @dojoengine/create-dojo start -t example-vite-react-sdk
+```
+
+Read about the offical SDK [here](/client/sdk/javascript/overview).
+
+#### Advanced Setup - Using the SDK with RECS
+
+This will provide you with a starter template for building a React application using the Dojo SDK and RECS state management.
+
+```bash
+npx @dojoengine/create-dojo start -t example-vite-react-app-recs
+```
+
+### Install
+
+```sh
+cd {project_name}
+pnpm i
+```
+
+::::
+
+## Sensei mode (more flexible)
+
+Use this if you want to have full control of the structure of your project.
+
+::::steps
+
+### Create a project
+
+You can use any library, all you need is to use a package manager. We recommend using [pnpm](https://pnpm.io/).
+Think of dojo.js as a thin wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that is a wasm library to expose client features in wasm.
+
+### Installing dojo.js stack
+
+```sh
+cd {project_name}
+pnpm add @dojoengine/core @dojoengine/sdk @dojoengine/torii-client
+```
+
+### Setup dojo
+
+Once you have the required libraries installed, you will need to scaffold some files.
+
+- dojo.config.ts (tells dojo.js where your manifest are located)
+- models and contracts (those will be generated with sozo)
+
+#### dojo.config.ts
+
+```ts filename="./src/dojo/dojo.config.ts"
+import { createDojoConfig } from "@dojoengine/core";
+
+import manifest from "../path/to/your/manifests/release/deployment/manifest.json";
+
+export const dojoConfig = createDojoConfig({
+    manifest,
+});
+```
+
+#### Generate models and contracts
+
+```sh
+DOJO_MANIFEST_PATH="../relative/path/to/Scarb.toml" sozo build --typescript --bindings-output ./src/dojo/
+```
+
+### Mapping dojo to your framework
+
+When your code is setup and generated, you can now start binding dojo to your UI
+
+```ts filename="./src/dojo/init.ts"
+import { init } from "@dojoengine/sdk";
+// ModelNameInteface is exported from ./models.generated.ts
+// This file contains mapping of your cairo contracts to torii client
+import { ModelNameInterface, schema } from "./models.generated.ts";
+import { env, getRpcUrl } from "@/env";
+import { dojoConfig } from "./dojo.config";
+
+const db = await init<ModelNameInterface>(
+    {
+        client: {
+            // This is local katana
+            rpcUrl: "http://localhost:5050",
+            // This is local torii
+            toriiUrl: "http://localhost:8080",
+            relayUrl: "/ip4/127.0.0.1/tcp/9090/tcp/80",
+            worldAddress: dojoConfig.manifest.world.address,
+        },
+        // Those values are used
+        domain: {
+            name: "MyDojoProject",
+            revision: "vx.x.x",
+            chainId: "vx.x.x",
+            version: "vx.x.x",
+        },
+    },
+    schema
+);
+```
+
+#### Important note
+
+The previous function must be called once to avoid creating wasm grpc clients over and over.
+We suggest you to call it in your main.ts file and give this to your component tree as a dependency
+
+Example using react and vite :
+
+```ts filename="./src/main.ts"
+
+export const DojoContext = createContext<SDK<ModelNameInterface> | null>(
+    null
+);
+
+async function main() {
+  // Function init defined above
+    const db = await init<ModelNameInterface>(...);
+
+    createRoot(document.getElementById("root")!).render(
+        <StrictMode>
+            <DojoContext.Provider value={db}>
+                <RootLayout>
+                    <Home />
+                </RootLayout>
+            </DojoContext.Provider>
+        </StrictMode>
+    );
+}
+
+main();
+```
+
+::::
