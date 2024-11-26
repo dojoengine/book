@@ -151,7 +151,7 @@ slot auth login
   * `RPC_URL`: your RPC provider url
 
 ```sh
-slot deployments create <SERVICE_NAME> torii --version <DOJO_VERSION> --world <WORLD_ADDRESS> --rpc <RPC_URL>
+slot deployments create <PROJECT_NAME> torii --version <DOJO_VERSION> --world <WORLD_ADDRESS> --rpc <RPC_URL>
 ```
 
 * slot will output something like this. Save it for later, you will need the endpoints on your client.
