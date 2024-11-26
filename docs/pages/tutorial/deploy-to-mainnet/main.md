@@ -149,7 +149,6 @@ slot auth login
   * `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
   * `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
   * `RPC_URL`: your RPC provider url
-  * Take a note of the endpoints after it is deployed...
 
 ```sh
 slot deployments create <SERVICE_NAME> torii --version <DOJO_VERSION> --world <WORLD_ADDRESS> --rpc <RPC_URL>
