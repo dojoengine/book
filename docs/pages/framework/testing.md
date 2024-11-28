@@ -61,19 +61,21 @@ mod tests {
     use dojo_starter::models::{Position, m_Position, Moves, m_Moves, Direction};
 
     fn namespace_def() -> NamespaceDef {
-        let ndef = NamespaceDef {
+        NamespaceDef {
             namespace: "dojo_starter", resources: [
-                TestResource::Model(m_Position::TEST_CLASS_HASH.try_into().unwrap()),
-                TestResource::Model(m_Moves::TEST_CLASS_HASH.try_into().unwrap()),
-                TestResource::Event(actions::e_Moved::TEST_CLASS_HASH.try_into().unwrap()),
-                TestResource::Contract(
-                    ContractDefTrait::new(actions::TEST_CLASS_HASH, "actions")
-                        .with_writer_of([dojo::utils::bytearray_hash(@"dojo_starter")].span())
-                )
+                TestResource::Model(m_Position::TEST_CLASS_HASH),
+                TestResource::Model(m_Moves::TEST_CLASS_HASH),
+                TestResource::Event(actions::e_Moved::TEST_CLASS_HASH),
+                TestResource::Contract(actions::TEST_CLASS_HASH)
             ].span()
-        };
+        }
+    }
 
-        ndef
+    fn contract_defs() -> Span<ContractDef> {
+        [
+            ContractDefTrait::new(@"dojo_starter", @"actions")
+                .with_writer_of([dojo::utils::bytearray_hash(@"dojo_starter")].span())
+        ].span()
     }
 
     #[test]
@@ -109,6 +111,8 @@ mod tests {
 
         let ndef = namespace_def();
         let mut world = spawn_test_world([ndef].span());
+        // Ensures permissions and initializations are synced.
+        world.sync_perms_and_inits(contract_defs());
 
         let (contract_address, _) = world.dns(@"actions").unwrap();
         let actions_system = IActionsDispatcher { contract_address };
@@ -140,5 +144,5 @@ mod tests {
 
 ## Useful Dojo Test Functions
 
--   [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L43) - This function will deploy a new world and register the models passed in.
--   [`deploy_contract`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L24) - This function will deploy a new contract and return the contract address.
+- [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L43) - This function will deploy a new world and register the models passed in.
+- [`deploy_contract`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L24) - This function will deploy a new contract and return the contract address.
