@@ -6,16 +6,23 @@ import SignerOptionsKeystore from "../common/signer-options-keystore.mdx";
 
 ## sozo migrate
 
-`migrate` is used to perform the migration (deployment) process, declaring and deploying contracts as necessary to deploy or update the World.
+The `migrate` command handles the deployment and updating process for your World, including contract declaration and deployment. It automatically manages the migration of your local World changes to remote environments.
 
-Changes made to the local World after the initial deployment, can easily be pushed to the remote counterpart by running `sozo migrate [SUB-COMMAND] --world <WORLD_ADDRESS>` with `WORLD_ADDRESS` being the address of the remote World. In the background, `migrate` will compute the diffs of the local and remote World, then, start constructing a migration strategy to determine, if any, which part of the local World needs to be pushed upstream.
+## World Address Configuration
 
-The `migrate` command has two subcommands: `plan` and `apply`.
+To update an existing World, configure the world address in your profile configuration (e.g., `dojo_dev.toml`):
 
--   `plan`: With this subcommand nothing is send on-chain. `sozo` retrieves the remote world and computes the diffs between the remote world and the local world. It outputs the manifests files into the `manifests/<profile_name>/deployments` folder and the two manifest files `manifests/<profile_name>/manifest.[json,toml]`.
--   `apply`: This subcommand will apply the diffs on the remote world and update the manifests files to contain the on-chain data like transaction hash, block number, etc.
+```toml
+[env]
+world_address = "0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab4691053ee8ab69d7"
+```
 
-**Note**: You can directly run `sozo migrate apply` without the need of running `sozo migrate plan`. You should run `sozo migrate plan` if you want to generate the manifests file only and do a dry run without sending transactions to the chain.
+When sozo migrate is executed, it:
+
+1. Detects the world_address from your profile configuration
+2. Compares local and remote World states
+3. Generates migration strategy
+4. Deploys necessary updates upstream
 
 ### USAGE
 
@@ -23,17 +30,10 @@ The `migrate` command has two subcommands: `plan` and `apply`.
 Usage: sozo migrate [OPTIONS] <COMMAND>
 
 Commands:
-  plan   Plan the migration and output the manifests.
-  apply  Apply the migration on-chain.
   help   Print this message or the help of the given subcommand(s)
 ```
 
 ### OPTIONS
-
-#### General Options
-
-`--name` _NAME_  
-&nbsp;&nbsp;&nbsp;&nbsp;Name of the World. At the moment, the only usage for this option is to be used as a salt when deploying the World contract to avoid address conflicts. This option is **required** when performing the initial migration of the World.
 
 #### World Options
 
@@ -60,64 +60,31 @@ Commands:
 1. Deploying your World for the first time to a local Katana node
 
 ```sh
-sozo migrate apply --name ohayo --rpc-url http://localhost:5050
+sozo migrate
 ```
 
-2. Updating a remote World after making some changes
+2. Updating existing World (requires world_address in profile):
+
+```toml
+[env]
+world_address = "0x123456..."
+```
 
 ```sh
-sozo migrate apply --world 0x123456
+sozo migrate
 ```
 
 3. Deploying your World using [profile options](../common-options/profile.md), where configuration like `rpc-url` are set in the profile.
 
 ```sh
-sozo --profile my_profile migrate apply
+sozo --profile my_profile migrate
 ```
 
-### MANIFESTS and OVERLAYS
+### MANIFESTS
 
-Manifest with Overlays in Dojo
+The `migrate` command will generate the manifests in `manifest_<profile_name>.json` at your project root.
+This file contains essential information about the contracts at compile time.
 
-#### Overview
-
-In Dojo, the manifest system with overlays provides a flexible way to configure and customize the behavior of how sozo will migrate the world.
-
-Overlays in Dojo allow developers to apply configurations or modifications to base manifest files without directly modifying them.
-This helps maintain separation of concerns and simplifies the management of configurations, especially in complex environments while
-the number of systems and models in a world grow.
-
-#### Manifest structure
-
-A manifest in Dojo is a base configuration file that define a system and a model after the compilation.
-It serves as the foundation upon which overlays are applied. Manifest files typically include data like class hash,
-name of the contract/model, a reference to the ABI, etc....
-
-Base manifest files are written by Sozo in `manifests/<profile_name>/base` folder at root of your project.
-
-#### Overlays
-
-Overlays in Dojo are supplementary configuration files that are applied on top of base manifest files to customize or extend their functionality.
-These overlays contain specific configuration settings tailored to a particular use case or environment. By using overlays, developers can override
-the base manifest, add new configurations, without directly modifying the base manifest files that are auto generated at compiled time.
-
-When using Sozo, the Dojo compiler, it searches for overlay files corresponding to base files using a specific path structure. For example, if you
-have a base file located at `manifests/dev/base/contract/c1.toml`, Sozo expects to find the corresponding overlay file at
-`manifests/dev/overlays/contract/c1.toml`. This structured approach ensures that overlays are applied correctly to their respective base configurations.
-
-Make sure to organize your overlay files accordingly to ensure correct integration with Sozo and to achieve the desired configuration for your systems
-and models.
-
-You have [an example here for the file path here](https://github.com/dojoengine/dojo/tree/d6c3080c7c41552323c86387fcb51c68de076ec4/examples/spawn-and-move/manifests/dev), and [here for the auto-write use case](https://github.com/dojoengine/dojo/blob/d6c3080c7c41552323c86387fcb51c68de076ec4/examples/spawn-and-move/manifests/dev/overlays/contracts/dojo_examples_actions_actions.toml#L4).
-
-##### Keys in Overlay manifest
-
-`name` is used as an identifier for the overlay manifest. It should be same as the base manifest name.
-
-`original_class_hash` may be set in Overlay manifest if you need to upgrade any existing contract. If this is not properly set then it would lead to a new contract deployment instead of an upgrade.
-
-`writes` is used to automatically grant writer permissions for models to a given system. It is specified as list of model names for now.
-
-For world: `original_class_hash`
-
-For contracts/systems: `original_class_hash`, `writes`
+- It shows the state of the world onchain.
+- It's designed to be consumed by SDKs.
+- It maintains declarative information about the world, tracked in Git to monitor changes.

@@ -59,7 +59,8 @@ Think of the model here as an entry into your onchain database and the `#[key]` 
 
 ```rust
 #[derive(Copy, Drop, Serde)]
-// This defines the model attribute. Indicating to the compile that this struct is a Model.
+// This defines the model attribute. Indicating to the compile that
+// this struct is a Model.
 #[dojo::model]
 pub struct Moves {
     // Define a Key. This acts like a primary key does in a regular ORM
@@ -77,7 +78,8 @@ pub struct Moves {
 Once you have your state designed, you want it to be effectively mutated via contracts. Dojo simplifies this by exposing an interface to interact with the world state, allowing fast queries and mutations. (It does this by extending the Cairo compiler!)
 
 ```rust
-// the dojo decorator indicating to the compiler that this is a dojo contract
+// the dojo decorator indicating to the compiler that this is a dojo
+// contract.
 #[dojo::contract]
 mod actions {
     use starknet::{ContractAddress, get_caller_address};
@@ -88,7 +90,8 @@ mod actions {
     #[abi(embed_v0)]
     impl ActionsImpl of super::IActions<ContractState> {
 
-        // You have to pass in the world as the first param, which then allows you to set the models state.
+        // You have to pass in the world as the first param,
+        // which then allows you to set the models state.
         fn spawn(ref self: ContractState) {
             // Get the default world. 
             let mut world = self.world(@"dojo_starter");

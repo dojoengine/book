@@ -38,7 +38,8 @@ The `#[key]` attribute indicates to Dojo which fields must be used to index the 
 **You need to define at least one key for each model**, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys. If you define multiple keys, they must **all** be provided to query the model.
 
 ```rust
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
 struct Resource {
     #[key] // [!code hl]
     player: ContractAddress,
@@ -54,7 +55,7 @@ In this case you would then use the [`read_model` command](/framework/world/api.
 let player = get_caller_address();
 let location = 0x1234;
 
-world.read_model(@Resource { player, location, balance: 10 });
+world.read_model((player, location));
 ```
 
 ## Example Game Setting models
@@ -66,7 +67,8 @@ To establish these models, you'd follow the usual creation method. However, when
 ```rust
 const GAME_SETTINGS_ID: u32 = 9999999999999;
 
-#[derive(model, Copy, Drop, Serde)]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
 struct GameSettings {
     #[key]
     game_settings_id: u32,
@@ -79,30 +81,34 @@ struct GameSettings {
 Consider a tangible analogy: Humans and Goblins. While they possess intrinsic differences, they share common traits, such as having a position and health. However, humans possess an additional model. Furthermore, we introduce a Counter model, a distinct feature that tallies the numbers of humans and goblins.
 
 ```rust
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
 struct Potions {
     #[key]
-    entity_id: u32,
+    id: u32,
     quantity: u8,
 }
 
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
 struct Health {
     #[key]
-    entity_id: u32,
+    id: u32,
     health: u8,
 }
 
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
 struct Position {
     #[key]
-    entity_id: u32,
+    id: u32,
     x: u32,
     y: u32
 }
 
 // Special counter model
-#[derive(Model, Copy, Drop, Serde)]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
 struct Counter {
     #[key]
     counter: u32,
@@ -121,6 +127,7 @@ mod spawnHuman {
     use array::ArrayTrait;
     use box::BoxTrait;
     use traits::Into;
+    use core::poseidon::poseidon_hash_span;
     use dojo::world::Context;
 
     use dojo_examples::models::Position;
@@ -128,15 +135,22 @@ mod spawnHuman {
     use dojo_examples::models::Potions;
     use dojo_examples::models::Counter;
 
-    // we can set the counter value as a const, then query it easily! This pattern is useful for settings.
+    // we can set the counter value as a const, then query it easily!
+    // This pattern is useful for settings.
     const COUNTER_ID: u32 = 9999999999999;
+
+    // As `human_count` and `goblin_count` may have the same value, 
+    // we can have a same id for models like `Health` and `Position`, 
+    // leading to a same storage location for both goblin and human.
+    // To avoid this storage location conflict, we compute an unique
+    // id by hashing the id with one of these constants.
+    const HUMAN : felt252 = 'HUMAN';
+    const GOBLIN : felt252 = 'GOBLIN';
 
     // impl: implement functions specified in trait
     #[abi(embed_v0)]
     impl GoblinActionsImpl of IGoblinActions<ContractState> {
-        fn goblin_actions(ref self: ContractState, entity_id: u32) {
-
-
+        fn goblin_actions(ref self: ContractState, id: u32) {
             let mut world = self.world(@"dojo_starter");
 
             let counter: Counter = world.read_model(COUNTER_ID);
@@ -144,19 +158,33 @@ mod spawnHuman {
             let human_count = counter.human_count + 1;
             let goblin_count = counter.goblin_count + 1;
 
-
             // spawn a human
-
-            world.write_model(@Health { entity_id, health: 100 });
-            world.write_model(@Position { entity_id, x: 0, y: 0 });
-            world.write_model(@Potions { entity_id, quantity: 10 });
+            let human_id = poseidon_hash_span([id, HUMAN].span());
+            world.write_model(@Health { id: human_id, health: 100 });
+            world.write_model(@Position { id: human_id, x: 0, y: 0 });
+            world.write_model(@Potions { id: human_id, quantity: 10 });
 
             // spawn a goblin
-            world.write_model(@Health { entity_id: goblin_count, health: 100 });
-            world.write_model(@Position { entity_id: goblin_count, x: position.x + 10, y: position.y + 10 });
+            let goblin_id = poseidon_hash_span(
+                [goblin_count, GOBLIN].span()
+            );
+            world.write_model(
+                @Health { id: goblin_id, health: 100 }
+            );
+            world.write_model(
+                @Position {
+                    id: goblin_id,
+                    x: position.x + 10,
+                    y: position.y + 10
+                }
+            );
 
             // increment the counter
-            world.write_model(@Counter { counter: COUNTER_ID, human_count, goblin_count });
+            world.write_model(
+                @Counter {
+                    counter: COUNTER_ID, human_count, goblin_count
+                }
+            );
         }
     }
 }
@@ -166,17 +194,12 @@ mod spawnHuman {
 
 # Upgrading Models and Data Migration
 
-When upgrading a system, especially one that involves data storage, it’s essential to consider the impact on existing models. Here are some key points to keep in mind:
+Upgrading a model is safe from a storage perspective as soon as the changes do not affect the existing data layout and schema. If the layout or the schema has changed, the upgrade will fail.
 
-# Risk-Free Upgrades:
-
-Upgrading a system is generally safe from a storage perspective if the changes do not affect the existing data layout.
-For example, adding new fields to a model (without modifying existing fields) won’t disrupt the stored data. Retrieving existing data remains straightforward.
-
-Suppose we have a basic model called Player that represents player information:
+Suppose we have a basic model called `Player` that represents player information:
 
 ```rust
-#[derive(Model)]
+#[dojo::model]
 struct Player {
     #[key]
     player_id: u64,
@@ -186,10 +209,10 @@ struct Player {
 ```
 
 In this model: `player_id`, serves as the primary key. We store the player’s `username` and their `score`.
-Now, let’s say we want to enhance our system by adding a new field called level to the Player model. We’ll do this without modifying the existing fields (player_id, username, and score).
+Now, let’s say we want to enhance our system by adding a new field called level to the `Player` model. We’ll do this without modifying the existing fields (player_id, username, and score).
 
 ```rust
-#[derive(Model)]
+#[dojo::model]
 struct Player {
     #[key]
     player_id: u64,
@@ -202,39 +225,3 @@ struct Player {
 Our existing data remains intact. Retrieving player information using the original fields (player_id, username, and score) continues to work seamlessly.
 For example, querying Player 1 (ID: 123) with username “Alice” and score 100 still provides accurate results.
 so this is for risk free upgrade.
-
-# Risk of Data Corruption
-
-You have a User model with three fields: user_id, username, and age. The age field is initially stored as an integer (e.g., 30).
-
-```rust
-struct User {
-    user_id: u64,
-    username: String,
-    age: u32, // Now a string
-}
-
-```
-
-Later, you decide to modify the age field and store it as a string instead of an integer:
-
-```rust
-struct User {
-    user_id: u64,
-    username: String,
-    age: String, // Now a string
-}
-```
-
-This change involves altering the data type of the age field from numeric (integer) to textual (string).
-
-When you modify the data type of an existing field, you introduce the risk of data corruption.
-In our example, the existing data `(e.g., age 30)` stored in the age field will no longer fit the new format (string).
-Retrieving ages as integers won’t work directly because they are now stored as strings.
-To handle this situation, you’ll need to convert the string representation of age back to integers when necessary.
-
-# Conversion Process:
-
-When retrieving the age, you’ll need to parse the string value `(e.g., "30")` and convert it back to an integer `(e.g., 30)` for any calculations or comparisons.
-This conversion process ensures that the data remains consistent despite the change in data type.
-In summary, data corruption occurs when existing data doesn’t align with the new data type after modifying a field. Proper handling, such as converting values during retrieval, is essential to maintain data integrity.

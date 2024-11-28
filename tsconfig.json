@@ -20,5 +20,5 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["**/*.ts", "**/*.tsx", "docs/pages/tutorial/index.mdx"]
+    "include": ["**/*.ts", "**/*.tsx"]
 }

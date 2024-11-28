@@ -5,7 +5,7 @@
 **_TL;DR_**
 
 -   Systems are Dojo contract functions.
--   Systems can pass a `world` param as their first parameter to access it.
+-   Systems can access to the world using the `self.world(<NAMESPACE>)` function.
 -   Systems engage the world contract to alter models' state.
 -   Systems ought to be concise and specific.
 -   In most scenarios, systems are stateless.
@@ -42,19 +42,6 @@ trait IActions<T> {
 }
 ```
 
-We can note here the very first parameter, called the `world` param, which is a special parameter that injects the world dispatcher into the system.
-
-The two `world` param forms are:
-
--   `ref world: IWorldDispatcher` - This form will generate a function with the `external` state mutability in the ABI.
--   `world: @IWorldDispatcher` - This form will generate a function with the `view` state mutability in the ABI.
-
-Usually, systems are using `ref world` to write data to the world models. However, keep in mind that you are not forced to.
-
-:::tip
-The `world` parameter is removed at the compilation time. If you don't need to call the world in a system, you can remove this parameter.
-:::
-
 ## System implementation
 
 To implement the code related to the system, you must be placed inside a `#[dojo::contract]` and implement the interface you've defined.
@@ -70,16 +57,23 @@ mod actions {
             // Get the default world.
             let mut world = self.world(@"dojo_starter");
 
-            // Get the address of the current caller, possibly the player's address.
+            // Get the address of the current caller, possibly
+            // the player's address.
             let player = get_caller_address();
+
             // Retrieve the player's current position from the world.
             let mut position: Position = world.read_model(player);
 
             // Update the world state with the new data.
 
-            // 1. Move the player's position 10 units in both the x and y direction.
+            // 1. Move the player's position 10 units in both
+            // the x and y direction.
             let new_position = Position {
-                player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
+                player,
+                vec: Vec2 { 
+                    x: position.vec.x + 10,
+                    y: position.vec.y + 10
+                }
             };
 
             // Write the new position to the world.
@@ -87,7 +81,8 @@ mod actions {
 
             // 2. Set the player's remaining moves to 100.
             let moves = Moves {
-                player, remaining: 100, last_direction: Direction::None(()), can_move: true
+                player, remaining: 100,
+                last_direction: Direction::None, can_move: true
             };
 
             // Write the new moves to the world.
@@ -95,13 +90,16 @@ mod actions {
         }
 
         fn move(ref self: ContractState, direction: Direction) {
-            // Get the address of the current caller, possibly the player's address.
 
+            // Get the default world.
             let mut world = self.world(@"dojo_starter");
 
+            // Get the address of the current caller, possibly
+            // the player's address.
             let player = get_caller_address();
 
-            // Retrieve the player's current position and moves data from the world.
+            // Retrieve the player's current position and moves data
+            // from the world.
             let mut position: Position = world.read_model(player);
             let mut moves: Moves = world.read_model(player);
 
@@ -111,7 +109,8 @@ mod actions {
             // Update the last direction the player moved in.
             moves.last_direction = direction;
 
-            // Calculate the player's next position based on the provided direction.
+            // Calculate the player's next position based on
+            // the provided direction.
             let next = next_position(position, direction);
 
             // Write the new position to the world.
@@ -120,7 +119,8 @@ mod actions {
             // Write the new moves to the world.
             world.write_model(@moves);
 
-            // Emit an event to the world to notify about the player's move.
+            // Emit an event to the world to notify about
+            // the player's move.
             world.emit_event(@Moved { player, direction });
         }
     }

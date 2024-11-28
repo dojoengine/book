@@ -16,7 +16,52 @@ Prerequisites:
 npx @dojoengine/create-dojo start -t example-vite-react-sdk
 ```
 
-2. Setup client
+2. Run development network with `katana`
+
+```bash
+# In new terminal
+katana --dev --dev.no-fee --http.cors_origins "*"
+```
+
+3. Build and deploy contracts
+
+```bash
+cd dojo-starter
+sozo build
+sozo migrate
+```
+
+From the `sozo migrate` command output, find the deployed world address. For example:
+
+```log
+ profile | chain_id | rpc_url
+---------+----------+------------------------
+ dev     | KATANA   | http://localhost:5050/
+
+
+🌍 World deployed at block 2 with txn hash: 0x038e984efa3e91e045b33d14e63c5e9f765e5a8fe2b3546fc3ab872f608e37a2
+⛩️   Migration successful with world at address 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
+```
+
+The world address in this case would be `0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d`.
+
+4. Run indexer with `torii`
+
+Start the indexer `torii` with the world address from the last step:
+
+```bash
+# In new terminal
+torii --http.cors_origins "*" --world YOUR_WORLD_ADDRESS
+```
+
+The command for the example world address above would be:
+
+```bash
+# Example command only. Use your own world address.
+torii --http.cors_origins "*" --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
+```
+
+5. Setup client
 
 ```bash
 cd client
@@ -24,33 +69,26 @@ pnpm i
 pnpm dev
 ```
 
-Visit `http://localhost:5173` to view the project. It will not be connected to the network yet.
+Visit `http://localhost:5173` to view the project. You should now see the project connected to the network and indexed!
 
-3. Setup contracts
+### Next Steps
 
-```bash
-# In contracts directory
-sozo build
-
-# In new terminal
-katana --disable-fee --allowed-origins "*"
-```
-
-4. Connect to the development network and indexer
-
-```bash
-# In new terminal
-sozo migrate apply
-```
-
-5. Return to the client and refresh the page. You should now see the project connected to the network and indexed!
+This should have given you a good starting point to build your first application with Dojo. Here are some next steps to take:
 
 <div className="grid grid-cols-2 gap-8">
-
-
-    <LinkCard
-    title="Architecture Overview"
-    description="Learn about Dojo's architecture."
-    link="/framework"
-    />
+<LinkCard
+title="Architecture Overview"
+description="Learn about Dojo's architecture."
+link="/framework"
+/>
+<LinkCard
+title="JavaScript Docs"
+description="Learn how to get started with Dojo.js and build your first application."
+link="https://github.com/dojoengine/dojo.js"
+/>
+<LinkCard
+title="Awesome Dojo"
+description="A curated list of awesome Dojo resources."
+link="https://github.com/dojoengine/awesome-dojo"
+/>
 </div>

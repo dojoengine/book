@@ -60,8 +60,7 @@ sozo build
 Now, let's migrate the project to our new katana slot:
 
 ```sh
-sozo migrate plan
-sozo migrate apply
+sozo migrate
 ```
 
 If the migrations have been successful, you will receive the `WORLD_ADDRESS`, which then you can use to interact with your world.

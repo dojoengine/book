@@ -3,9 +3,9 @@
 The World contract acts as a central database that stores all models and systems while managing permissions. Think of it as a global store for your application's state.
 
 :::tip[Resource]
-In the Dojo world, we define the term `resource` to refer to any model or system that can be registered in the world. The world itself is a special resource, with the value `0`.
+In the Dojo world, we define the term `resource` to refer to any model or system that can be registered in the world. The world itself is a special resource, with the resource selector `0`.
 
-The type used to define a resource is `felt252`, the most basic type in Starknet.
+The type used to define a resource selector is `felt252`, the most basic type in Starknet.
 :::
 
 By abstracting these details with the World [API](/framework/world/api.md), developers can focus on building rich, interactive systems without worrying about the underlying data management intricacies.

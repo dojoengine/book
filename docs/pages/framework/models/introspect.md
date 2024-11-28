@@ -59,7 +59,7 @@ struct Stats {
 ```
 
 ```rust
-impl MovesIntrospect of dojo::database::introspect::Introspect<Moves> {
+impl StatsIntrospect of dojo::database::introspect::Introspect<Stats> {
     #[inline(always)]
     fn size() -> Option<usize> {
         Option::Some(2)
