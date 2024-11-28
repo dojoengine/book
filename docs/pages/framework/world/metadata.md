@@ -50,3 +50,15 @@ For each type of resource, the toolchain supports the `description` and `icon_ur
 
 `*_uri` attributes can point to an asset in the repo using the `file://` schema or to remote resouces using either `ipfs://` or `https://`. For local assets, `sozo` wil upload them to IPFS and replace the corresponding URIs by a IPFS URI.
 
+## Defining IPFS configuration in profile
+
+The toolchain supports the following IPFS configuration options in the profile configuration file `dojo_<PROFILE>.toml`:
+
+```toml
+[env]
+ipfs_config.url = "https://ipfs.infura.io:5001"
+ipfs_config.username = "2EBrzr7ZASQZKH32sl2xWauXPSA"
+ipfs_config.password = "12290b883db9138a8ae3363b6739d220"
+```
+
+If those configurations are not provided, metadata will not be uploaded to IPFS and a warning will be displayed.
