@@ -128,11 +128,20 @@ echo "Deployment completed successfully."
 
 Your world is deployed! 
 
+* Once the world is deployed, you need to add the world_block in the dojo_<PROFILE>.toml file.
+```toml
+rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"  
+# account_address = "" # env: DOJO_ACCOUNT_ADDRESS
+# private_key = ""     # env: DOJO_PRIVATE_KEY
+world_address = <world address>
+world_block = 42069 # Here you add the block number where the world was deployed
+```
+
 ### Torii Indexer
 
 Now, if you're building a Dojo client, you will need a Torii service to index our world...
 
-* Install [slot](https://github.com/cartridge-gg/slot) or update it
+* Install [slot](https://github.com/cartridge-gg/slot) or update it. You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
 
 ```sh
 slotup
