@@ -10,7 +10,7 @@ The type used to define a resource selector is `felt252`, the most basic type in
 
 By abstracting these details with the World [API](/framework/world/api.md), developers can focus on building rich, interactive systems without worrying about the underlying data management intricacies.
 
-Each project utilizing the same version of Dojo employs an identical world contract, which is part of the [dojo-core](https://github.com/dojoengine/dojo/tree/main/crates/dojo-core) library.
+Each project utilizing the same version of Dojo employs an identical world contract, which is part of the [dojo-core]( https://github.com/dojoengine/dojo/tree/main/crates/dojo/core) library.
 
 Dive into the world contract details:
 
