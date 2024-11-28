@@ -110,7 +110,7 @@ However, you can interact with the world contract directly if you need to for in
 let game_id = world.uuid();
 ```
 
-Here's the full [world's API](https://github.com/dojoengine/dojo/blob/main/crates/dojo-core/src/world.cairo):
+Here's the full [world's API](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/world/iworld.cairo):
 
 ```rust
 #[starknet::interface]
