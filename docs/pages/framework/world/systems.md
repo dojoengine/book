@@ -4,11 +4,11 @@
 
 **_TL;DR_**
 
--   Systems are Dojo contract functions.
--   Systems can access to the world using the `self.world(<NAMESPACE>)` function.
--   Systems engage the world contract to alter models' state.
--   Systems ought to be concise and specific.
--   In most scenarios, systems are stateless.
+- Systems are Dojo contract functions.
+- Systems can access to the world using the `self.world(<NAMESPACE>)` function.
+- Systems engage the world contract to alter models' state.
+- Systems ought to be concise and specific.
+- In most scenarios, systems are stateless.
 
 ## What are systems?
 
@@ -50,6 +50,7 @@ To implement the code related to the system, you must be placed inside a `#[dojo
 #[dojo::contract]
 mod actions {
     use super::IActions;
+    use dojo::model::{ModelStorage, ModelValueStorage};
 
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
@@ -70,7 +71,7 @@ mod actions {
             // the x and y direction.
             let new_position = Position {
                 player,
-                vec: Vec2 { 
+                vec: Vec2 {
                     x: position.vec.x + 10,
                     y: position.vec.y + 10
                 }
