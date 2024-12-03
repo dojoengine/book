@@ -6,8 +6,8 @@ This section provides a walkthrough for running the example from the dojo.unity 
 
 ## Prerequisites
 
--   Clone the [Dojo.unity]("https://github.com/dojoengine/dojo.unity") repository.
--   Clone the [Dojo Starter]("https://github.com/dojoengine/dojo-starter") repository.
+-   Clone the [Dojo.unity](https://github.com/dojoengine/dojo.unity) repository.
+-   Clone the [Dojo Starter](https://github.com/dojoengine/dojo-starter) repository.
 
 ## Setting up Dojo Starter
 
