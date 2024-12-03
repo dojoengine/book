@@ -68,12 +68,12 @@ Once you have the required libraries installed, you will need to scaffold some f
 - dojo.config.ts (tells dojo.js where your manifest are located)
 - models and contracts (those will be generated with sozo)
 
-#### dojo.config.ts
+#### dojoConfig.ts
 
-```ts filename="./src/dojo/dojo.config.ts"
+```ts filename="./src/dojo/dojoConfig.ts"
 import { createDojoConfig } from "@dojoengine/core";
 
-import manifest from "../path/to/your/manifests/release/deployment/manifest.json";
+import manifest from "../path/to/your/contracts/manifest_dev.json";
 
 export const dojoConfig = createDojoConfig({
     manifest,
@@ -96,7 +96,7 @@ import { init } from "@dojoengine/sdk";
 // This file contains mapping of your cairo contracts to torii client
 import { ModelNameInterface, schema } from "./models.generated.ts";
 import { env, getRpcUrl } from "@/env";
-import { dojoConfig } from "./dojo.config";
+import { dojoConfig } from "./dojoConfig";
 
 const db = await init<ModelNameInterface>(
     {
@@ -149,6 +149,34 @@ async function main() {
 }
 
 main();
+```
+
+::::
+
+## Run the app
+
+To run the app locally, you need to have your world deployed. Follow those steps to make this work.
+
+::::steps
+
+### Run katana
+
+```bash
+katana --dev --dev.no-fee --http.cors_origins '*'
+```
+
+### Migrate the world
+
+In your contract folder
+
+```bash
+sozo migrate
+```
+
+### Run torii
+
+```bash
+torii -w {world_address-output of previous command} --http.cors_origins '*'
 ```
 
 ::::
