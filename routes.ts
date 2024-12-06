@@ -423,6 +423,10 @@ export const routes = [
         text: "Sovereign Rollups",
         link: "/architecture/sovereign-rollups",
       },
+      {
+        text: "Execution Sharding",
+        link: "/architecture/execution-sharding",
+      },
     ],
   },
 ];
