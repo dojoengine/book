@@ -45,6 +45,7 @@ export const routes = [
     text: "Tutorials",
     items: [
       { text: "Dojo 101 Tutorial", link: "/tutorial/dojo-starter" },
+      { text: "Deploy to Mainnet", link: "/tutorial/deploy-to-mainnet/main" },
       // {
       //   text: "Dungeon Crawler",
       //   link: "/tutorial/deploy-using-slot/main",
