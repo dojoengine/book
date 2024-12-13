@@ -265,7 +265,7 @@ const subscription = await sdk.subscribeEntityQuery(
 
 **NOTE**: If you want messages to be actually sent and broadcasted to all of your torii client instance,
 you'll have to properly set `relayUrl` in the `init` function.
-`relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot: `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fonchain-dash%2Ftorii%2Fwss`
+`relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot: `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
 
 ```typescript
 // onchain_dash-Message is a composition of the ${namespace}-${Model} type you want to sign.
