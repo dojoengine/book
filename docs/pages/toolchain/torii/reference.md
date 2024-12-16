@@ -27,7 +27,7 @@ Note: If using in-memory db, the memory will be garbage collected after a period
 
 ```sh
 # Persistent database storage using file indexer.db
-torii --database indexer.db
+torii --db-dir indexer.db
 ```
 
 ### Quick help reference:
