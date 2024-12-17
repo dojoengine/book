@@ -1,3 +1,8 @@
+---
+title: "Dojo Unity Example Project"
+description: "Step-by-step guide for running the example project using Dojo Starter and dojo.unity"
+---
+
 # Example with Dojo Starter and dojo.unity
 
 This section provides a walkthrough for running the example from the dojo.unity repository using the `Dojo Starter` repository.

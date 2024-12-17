@@ -1,3 +1,8 @@
+---
+title: gRPC in Torii
+description: Overview of using gRPC with Torii for efficient data fetching and entity/model event subscriptions.
+---
+
 ## gRPC
 
 _TL;DR_

@@ -1,3 +1,8 @@
+---
+title: Understanding Autonomous Worlds
+description: Explore the evolution from onchain games to provable games, and learn about the key characteristics and principles of Autonomous Worlds in blockchain gaming.
+---
+
 ## Onchain games to provable games
 
 Onchain games promise us freedom of expression and sovereignty over our information. They possess these properties because they run on a blockchain verified by consensus. Provable games, using zk proofs, allow for the verification of game state and computations without large consensus schemes. Written in languages like Cairo, Noir or running RISC-Zero, these games can operate independently on an isolated zkVM like a browser, with verifiable outputs ensuring truthful execution. This broadens our possibilities in the onchain gaming industry.

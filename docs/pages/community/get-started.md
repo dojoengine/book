@@ -1,3 +1,8 @@
+---
+title: Join the Dojo Community
+description: Connect with the Dojo community, explore ecosystem projects, studios, templates, libraries, and awesome projects built with Dojo.
+---
+
 ## Get Started
 
 Dojo is a thriving community of builders, artists, and deep thinkers, pushing the frontier of what is possible.

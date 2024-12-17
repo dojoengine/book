@@ -1,3 +1,8 @@
+---
+title: Torii Configuration Guide
+description: Comprehensive guide to configuring Torii using TOML configuration files, including server, relay, indexing, and event options.
+---
+
 # Torii configuration file
 
 Torii configuration file is a TOML file that contains the configuration for the Torii server.

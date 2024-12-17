@@ -1,3 +1,8 @@
+---
+title: Dojo Development Setup Guide
+description: A comprehensive guide for setting up a Dojo development environment, including prerequisites and installation steps for different operating systems.
+---
+
 # Development Setup
 
 > This is a guide to setting up a development environment for Dojo. It is not suggested to follow this guide if you are just wanting to play with the toolchain. We strongly suggest following the [Quick Start](/getting-started.mdx) guide.

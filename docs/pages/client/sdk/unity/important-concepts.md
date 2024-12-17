@@ -1,3 +1,8 @@
+---
+title: "Important Dojo Unity Concepts"
+description: "Core concepts and components for building games with the Dojo Unity SDK"
+---
+
 # Dojo Unity Concepts
 
 To dive into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:

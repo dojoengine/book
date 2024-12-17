@@ -1,3 +1,8 @@
+---
+title: SQL Queries in Torii
+description: Learn how to use SQL queries with Torii's database, including table structure, model tables, and endpoint query examples.
+---
+
 # SQL
 
 :::warning

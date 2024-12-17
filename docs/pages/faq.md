@@ -1,3 +1,8 @@
+---
+title: Frequently Asked Questions
+description: Find answers to common questions about Dojo, onchain games, Autonomous Worlds, and how to get involved.
+---
+
 # FAQ
 
 #### Why Dojo?

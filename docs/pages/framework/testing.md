@@ -1,3 +1,8 @@
+---
+title: Testing in Dojo
+description: Learn how to write and run unit tests and integration tests for your Dojo smart contracts and models.
+---
+
 # Testing
 
 Testing is a crucial part of any software development process. Dojo provides a testing framework that allows you to write tests for your smart contracts. Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.

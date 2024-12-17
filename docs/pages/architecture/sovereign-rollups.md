@@ -1,3 +1,8 @@
+---
+title: Sovereign Rollups with Celestia and Dojo
+description: Learn about implementing sovereign rollups using Celestia's data availability layer and Dojo's stack, including Katana sequencer and Saya proving service.
+---
+
 # Sovereign Rollup Using Celestia and Dojo
 
 ![Sovereign Worlds](/architecture/sw.png)

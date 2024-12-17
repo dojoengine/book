@@ -1,3 +1,8 @@
+---
+title: Dojo Configuration
+description: Learn how to configure your Dojo project using Scarb.toml and profile-specific configuration files for different environments.
+---
+
 # Config
 
 The first thing to know about Dojo configuration is that, it's a **profile** based system.

@@ -1,4 +1,7 @@
-<!-- TODO: @ghilm -->
+---
+title: "World Events"
+description: "Understanding and working with events in Dojo worlds, including custom events and core world events"
+---
 
 # Events
 

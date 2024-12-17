@@ -1,3 +1,8 @@
+---
+title: Using Enums in Dojo
+description: Learn how to use enums in Dojo for game state management, including trait implementations and best practices.
+---
+
 # Enum
 
 ## What is Enum

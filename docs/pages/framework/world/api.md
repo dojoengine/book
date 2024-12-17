@@ -1,3 +1,8 @@
+---
+title: "World API Reference"
+description: "Complete reference for the Dojo World API, including model operations and event handling"
+---
+
 # World API
 
 **_TL;DR_**
