@@ -1,3 +1,8 @@
+---
+title: "Dojo Unity SDK"
+description: "Introduction to the official Unity SDK for building Dojo-powered games"
+---
+
 # Dojo.unity
 
 ## Overview

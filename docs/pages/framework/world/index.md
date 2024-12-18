@@ -1,3 +1,8 @@
+---
+title: "Dojo World Contract"
+description: "Overview of the World contract, the central database for managing models and systems in Dojo"
+---
+
 # World Contract
 
 The World contract acts as a central database that stores all models and systems while managing permissions. Think of it as a global store for your application's state.

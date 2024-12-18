@@ -1,3 +1,8 @@
+---
+title: Torii Reference Guide
+description: Complete reference documentation for Torii, including usage, configuration options, database setup, and command-line parameters.
+---
+
 ## torii reference
 
 ### Name

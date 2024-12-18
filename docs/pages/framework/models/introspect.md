@@ -1,3 +1,8 @@
+---
+title: Model Introspection
+description: Learn about Dojo's model introspection system, including how to implement the Introspect trait and handle custom types.
+---
+
 # Introspection
 
 In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/database/introspect.cairo#L57). This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.

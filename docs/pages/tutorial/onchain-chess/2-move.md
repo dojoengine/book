@@ -1,3 +1,8 @@
+---
+title: Implementing Chess Piece Movement
+description: Learn how to implement and test chess piece movement logic, including move validation and turn management.
+---
+
 # 2 Move function
 
 1. Write a `move` function that accepts the `current position`, `next position`, `caller address`, and `game_id`. The `move` function should look like this:

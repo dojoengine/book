@@ -1,3 +1,8 @@
+---
+title: "Dojo Unity Integration"
+description: "Detailed guide to integrating Dojo with Unity for building onchain games"
+---
+
 # dojo.unity
 
 ### Prerequisites

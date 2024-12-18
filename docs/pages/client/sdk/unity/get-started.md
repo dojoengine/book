@@ -1,3 +1,8 @@
+---
+title: "Getting Started with Dojo Unity"
+description: "Complete guide to setting up, configuring, and building games with the Dojo Unity SDK"
+---
+
 # Getting Started
 
 This section guides you through:

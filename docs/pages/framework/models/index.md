@@ -1,3 +1,8 @@
+---
+title: Dojo Models
+description: Learn about Dojo models, their role in data storage, key attributes, and best practices for model design and upgrades.
+---
+
 # Models
 
 > Models = Data

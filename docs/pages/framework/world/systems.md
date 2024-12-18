@@ -1,3 +1,8 @@
+---
+title: "Dojo Systems"
+description: "Understanding and implementing systems in Dojo contracts for world state management"
+---
+
 # Systems
 
 > Systems = Functions in a Dojo contract

@@ -1,3 +1,8 @@
+---
+title: Setting Up an Onchain Chess Game
+description: Learn how to set up a Dojo chess game project, including project structure, basic models, and system implementation.
+---
+
 # 0. Setup
 
 _Before starting recommend following the [`hello-dojo`](/tutorial/dojo-starter.mdx) chapter to gain a basic understanding of the Dojo game._

@@ -1,3 +1,8 @@
+---
+title: Cairo Testing Cheat Codes
+description: A comprehensive guide to using Cairo testing cheat codes for manipulating execution context in contract tests.
+---
+
 # Cairo Testing Cheat Codes: A Comprehensive Guide
 
 The Cairo Testing Cheat Codes allow you to set and manipulate various execution context variables, such as block number, caller address, contract address, to test your contracts in different scenarios. In this guide, we will explore each cheat code in detail, providing explanations and examples to help you understand how to use them effectively in your tests.

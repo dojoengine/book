@@ -1,3 +1,8 @@
+---
+title: Testing the Chess Game
+description: Learn how to write integration tests for your onchain chess game, including piece movement and capture scenarios.
+---
+
 # 3 Test Contract
 
 In this chapter, we'll use everything we've learned to run a full chess game scenario.

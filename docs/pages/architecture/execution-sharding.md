@@ -1,3 +1,8 @@
+---
+title: Execution Sharding on Starknet
+description: A comprehensive guide to execution sharding on Starknet, including shard initialization, execution flow, completion detection, and concurrency management with CRDTs.
+---
+
 # Execution sharding on Starknet
 
 ## Overview of execution sharding

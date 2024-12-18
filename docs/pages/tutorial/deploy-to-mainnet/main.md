@@ -1,3 +1,8 @@
+---
+title: Deploying to Sepolia and Mainnet
+description: Learn how to deploy your Dojo world to Sepolia testnet or Mainnet, including RPC setup, environment configuration, and Torii indexer deployment.
+---
+
 ## Sepolia / Mainnet Deployment
 
 This is a guide to deploy a Dojo world to Sepolia.

@@ -1,3 +1,8 @@
+---
+title: GraphQL in Torii
+description: Guide to using Torii's GraphQL API, including schema definitions, queries, transactions, and pagination features.
+---
+
 ## Torii - GraphQL
 
 ### Name

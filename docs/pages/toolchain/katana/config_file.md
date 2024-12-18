@@ -1,3 +1,8 @@
+---
+title: Katana Configuration Guide
+description: Comprehensive guide to configuring Katana using TOML configuration files, including server, Starknet, gas oracle, forking, and development options.
+---
+
 # Katana configuration file
 
 Katana has now the possibility to be initialized with a configuration file. This file is a TOML file that contains the configuration for the Katana sequencer.

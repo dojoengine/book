@@ -1,3 +1,8 @@
+---
+title: Implementing Game Actions
+description: Learn how to implement the core game actions for an onchain chess game, including spawning pieces and handling moves.
+---
+
 # 1. Actions
 
 This chapter will address implementing `actions.cairo`, which spawns the game & squares containing pieces and also allow players to move pieces.

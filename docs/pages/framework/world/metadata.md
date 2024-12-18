@@ -1,3 +1,8 @@
+---
+title: "World and Resource Metadata"
+description: "Guide to configuring and managing metadata for Dojo worlds and resources"
+---
+
 # Metadata
 
 Dojo supports associating offchain metadata with the world and its resources. This can provide additional context about the world and their resources, such as their name, description, icon URI, ... Enabling external services to easily index and distribute worlds and experiences built on them.

@@ -420,12 +420,12 @@ export const routes = [
     text: "Architectures",
     items: [
       {
-        text: "Sovereign Rollups",
-        link: "/architecture/sovereign-rollups",
-      },
-      {
         text: "Execution Sharding",
         link: "/architecture/execution-sharding",
+      },
+      {
+        text: "Sovereign Rollups",
+        link: "/architecture/sovereign-rollups",
       },
     ],
   },

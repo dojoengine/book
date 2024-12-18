@@ -1,3 +1,8 @@
+---
+title: Katana Genesis Configuration
+description: Guide to configuring the initial state of your Katana blockchain network, including token setup, account allocation, and smart contract deployment.
+---
+
 # Genesis Configuration
 
 Katana's genesis configuration feature allows you to define the **initial state** and settings of your blockchain network. This feature enables you to **customize** the chain's starting point and set up some aspects of the network according to your specific requirements. With this feature, you can:

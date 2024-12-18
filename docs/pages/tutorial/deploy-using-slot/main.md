@@ -1,3 +1,8 @@
+---
+title: Deploying with Slot
+description: Learn how to deploy your Dojo project using Slot, including authentication, configuration, and setting up a Torii indexer.
+---
+
 # Deploy your game using Slot
 
 Welcome to this tutorial where we'll guide you through deploying a project using the Slot.

@@ -1,3 +1,8 @@
+---
+title: Entities in Dojo
+description: Understand how entities work in Dojo's ECS architecture and how they relate to models through primary keys.
+---
+
 ## Entities
 
 > Entities are the primary key value within the world, to which models can be attached.

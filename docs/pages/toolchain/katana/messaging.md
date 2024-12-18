@@ -1,3 +1,8 @@
+---
+title: Katana Messaging System
+description: Guide to Katana's cross-layer messaging capabilities, including Ethereum and experimental Starknet messaging services configuration and implementation.
+---
+
 # Messaging
 
 Katana also allows users to perform L1 <-> L2 integration using the messaging feature. There are two types of messaging service supported by Katana:
