@@ -131,6 +131,10 @@ echo "Deployment completed successfully."
 ⛩️  Migration successful with world at address <WORLD_ADDRESS>
 ```
 
+> Note: If the world already deployed by other user,you should change you `seed` in `dojo_sepolia.toml` config file.
+
+
+
 Your world is deployed! 
 
 * Once the world is deployed, you need to add the world_block in the dojo_<PROFILE>.toml file.
