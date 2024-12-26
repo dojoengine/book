@@ -68,6 +68,18 @@ torii --http.cors_origins "*" --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d60
 
 5. Setup client
 
+# Update dojoConfig.ts
+```bash
+import { createDojoConfig } from "@dojoengine/core";
+
+import manifest from "../contract/manifest_dev.json";
+
+export const dojoConfig = createDojoConfig({
+    manifest,
+});
+dojoConfig.toriiUrl="http://localhost:8080"
+```
+
 ```bash
 cd client
 pnpm i
