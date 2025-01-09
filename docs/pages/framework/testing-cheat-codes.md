@@ -38,7 +38,7 @@ use starknet::{testing, get_caller_address, contract_address_const};
 fn f2() {
     let user_one = contract_address_const::<'user1'>();
     testing::set_caller_address(user_one);
-    assert(get_caller_address() == user_one, 'bad caller';
+    assert(get_caller_address() == user_one, 'bad caller');
 }
 ```
 
