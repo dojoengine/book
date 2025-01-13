@@ -13,14 +13,15 @@ import Discord from "../public/discord.svg?react";
 import Telegram from "../public/telegram.svg?react";
 import C from "../public/c.svg?react";
 
-import RealmsWorld from "../public/RealmsWorld.svg?react";
-import DopeWars from "../public/Dope.svg?react";
-
 import Torii from "../public/torii-icon.svg?react";
 import Katana from "../public/katana-icon.svg?react";
 import Origami from "../public/origami-icon.svg?react";
 
 import { Link } from "react-router-dom";
+import { Header } from "./Header";
+import { Ecosystem } from "./Ecosystem";
+
+import { controllerConfigs, type ControllerTheme } from "@cartridge/presets";
 
 interface Contributor {
     id: number;
@@ -125,127 +126,119 @@ const sponsorContent = [
     { icon: <Celestia className="w-32" />, link: "https://celestia.org/" },
 ];
 
-const usedBy = [
-    { icon: <RealmsWorld className="w-24" />, link: "https://realms.world/" },
-    { icon: <DopeWars className="w-24" />, link: "https://dopewars.game/" },
-];
+const PresetCard = ({ theme }: { theme: ControllerTheme }) => {
+    return (
+        <div className="p-4 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer">
+            <div className="aspect-video w-full relative mb-4 rounded-lg overflow-hidden">
+                {/* Cover image */}
+                <img
+                    src={
+                        typeof theme.cover === "string"
+                            ? theme.cover
+                            : theme.cover.dark
+                    }
+                    alt={`${theme.name} cover`}
+                    className="w-full h-full object-cover"
+                />
+                {/* Icon overlay */}
+                <div className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm p-1">
+                    <img
+                        src={theme.icon}
+                        alt={`${theme.name} icon`}
+                        className="w-full h-full object-contain"
+                    />
+                </div>
+            </div>
+            <h3 className="text-lg font-medium">{theme.name}</h3>
+        </div>
+    );
+};
 
 export function HomePage() {
     const [contributors, setContributors] = useState<Contributor[]>([]);
-    const [contributorsPage, setContributorsPage] = useState(1);
     const [contributorsLoading, setContributorsLoading] = useState(false);
-    const [hasMoreContributors, setHasMoreContributors] = useState(true);
-
-    const CONTRIBUTORS_PER_PAGE = 30;
+    const [totalContributors, setTotalContributors] = useState(0);
 
     const fetchContributors = useCallback(async () => {
-        if (contributorsLoading || !hasMoreContributors) return;
+        if (contributorsLoading) return;
         setContributorsLoading(true);
         try {
+            // First make a HEAD request to get total count from Link header
+            const countResponse = await fetch(
+                "https://api.github.com/repos/dojoengine/dojo/contributors?per_page=1",
+                { method: "HEAD" }
+            );
+
+            const linkHeader = countResponse.headers.get("Link");
+            if (linkHeader) {
+                const matches = linkHeader.match(/page=(\d+)>; rel="last"/);
+                if (matches) {
+                    setTotalContributors(parseInt(matches[1]));
+                }
+            }
+
+            // Then fetch the first 5 contributors for display
             const response = await fetch(
-                `https://api.github.com/repos/dojoengine/dojo/contributors?per_page=${CONTRIBUTORS_PER_PAGE}&page=${contributorsPage}`
+                `https://api.github.com/repos/dojoengine/dojo/contributors?per_page=5`
             );
             if (response.ok) {
                 const data: Contributor[] = await response.json();
-                setContributors((prev) => [...prev, ...data]);
-                if (data.length < CONTRIBUTORS_PER_PAGE) {
-                    setHasMoreContributors(false);
-                } else {
-                    setContributorsPage((prev) => prev + 1);
-                }
+                setContributors(data);
             } else {
                 console.error("Failed to fetch contributors");
-                setHasMoreContributors(false);
             }
         } catch (error) {
             console.error("Error fetching contributors:", error);
-            setHasMoreContributors(false);
         } finally {
             setContributorsLoading(false);
         }
-    }, [contributorsLoading, contributorsPage, hasMoreContributors]);
+    }, [contributorsLoading]);
 
     useEffect(() => {
         fetchContributors();
-    }, [fetchContributors]);
+    }, []);
 
-    const handleScroll = useCallback(() => {
-        const { scrollTop, scrollHeight, clientHeight } =
-            document.documentElement;
-        // When the user is within 100px of the bottom, load more
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-            fetchContributors();
-        }
-    }, [fetchContributors]);
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [handleScroll]);
+    const presets = Object.entries(controllerConfigs).map(([key, config]) => ({
+        ...config.theme,
+        key,
+    }));
 
     return (
-        <div className="">
-            <div className="border-y border-white/20 py-20 border-[#252525] ">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row gap-8 sm:gap-20">
-                    <div className="self-center p-6 sm:p-8 border border-[#252525] rounded-xl ">
-                        <Dojo className="w-16 sm:w-24" />
-                    </div>
-                    <div>
-                        <h1 className="text-3xl sm:text-4xl">
-                            Dojo simplifies{" "}
-                            <span className="text-primary">provable</span> and{" "}
-                            <br /> onchain application development
-                        </h1>
-
-                        <div className="mt-6 relative">
-                            <pre className="p-4 border border-[#252525] rounded-xl bg-gradient-to-br from-[#181818] to-[#0c0c0c] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden overflow-x-auto">
-                                <code className="text-sm sm:text-base ">
-                                    curl -L https://install.dojoengine.org |
-                                    bash
-                                </code>
-                            </pre>
-                            <button
-                                className="absolute top-2 right-2  hover:bg-white/20 text-xs uppercase p-2 rounded"
-                                onClick={() =>
-                                    navigator.clipboard.writeText(
-                                        "curl -L https://install.dojoengine.org | bash"
-                                    )
-                                }
-                            >
-                                Copy
-                            </button>
+        <div
+            style={{
+                paddingLeft:
+                    "calc(var(--vocs_DocsLayout_leftGutterWidth) - var(--vocs-sidebar_width) + var(--vocs-sidebar_horizontalPadding))",
+                paddingRight:
+                    "calc(var(--vocs_DocsLayout_leftGutterWidth) - var(--vocs-sidebar_width) + var(--vocs-sidebar_horizontalPadding))",
+            }}
+        >
+            <Header />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                {cardContent.map((card, index) => (
+                    <Link
+                        to={card.link}
+                        key={index}
+                        className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-30"></div>
+                        <div className="relative z-10">
+                            <div className="flex gap-4 items-center">
+                                {card.icon}{" "}
+                                <h2 className="text-lg sm:text-xl">
+                                    {card.title}
+                                </h2>
+                            </div>
+                            <div>
+                                <p className="mt-4 text-sm sm:text-base text-white/70">
+                                    {card.description}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </Link>
+                ))}
             </div>
-            <div className="border-b border-white/20 bg-gradient-to-br from-[#181818] to-[#0c0c0c]">
-                <div className="container mx-auto p-4 sm:p-6 lg:p-12 ">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                        {cardContent.map((card, index) => (
-                            <Link
-                                to={card.link}
-                                key={index}
-                                className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-gradient-to-br from-[#181818] to-[#0c0c0c] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-30"></div>
-                                <div className="relative z-10">
-                                    <div className="flex gap-4 items-center">
-                                        {card.icon}{" "}
-                                        <h2 className="text-lg sm:text-xl">
-                                            {card.title}
-                                        </h2>
-                                    </div>
-                                    <div>
-                                        <p className="mt-4 text-sm sm:text-base text-white/70">
-                                            {card.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </div>
+
+            <Ecosystem />
 
             <div className="container mx-auto p-4 sm:p-6 lg:p-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -304,14 +297,14 @@ export function HomePage() {
                 <h2 className="text-2xl sm:text-3xl mb-4 text-center">
                     Epic Contributors
                 </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                     {contributors.map((contributor) => (
                         <a
                             key={contributor.id}
                             href={contributor.html_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className=" flex-col  p-2 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-2 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden flex items-center justify-center"
+                            className="flex-col p-2 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-2 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden flex items-center justify-center"
                         >
                             <img
                                 src={contributor.avatar_url}
@@ -321,31 +314,17 @@ export function HomePage() {
                             <span className="text-sm">{contributor.login}</span>
                         </a>
                     ))}
-                </div>
-                {contributorsLoading && (
-                    <p className="text-center mt-4">
-                        Loading more contributors...
-                    </p>
-                )}
-            </div>
-
-            {/* "Used By" Section */}
-            <div className="container mx-auto p-4 sm:p-6 lg:p-12">
-                <h2 className="text-2xl sm:text-3xl mb-4">Used By</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {usedBy.map((repo, index) => (
-                        <a
-                            key={index}
-                            href={repo.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-4 flex border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer"
-                        >
-                            <div className="flex items-center justify-center mx-auto">
-                                {repo.icon}
-                            </div>
-                        </a>
-                    ))}
+                    <a
+                        href="https://github.com/dojoengine/dojo/graphs/contributors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-col p-2 border border-[#252525] rounded-xl bg-[#181818] bg-opacity-30 backdrop-filter backdrop-blur-lg gap-2 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden flex items-center justify-center"
+                    >
+                        <div className="w-16 h-16 rounded-full border border-[#252525] flex items-center justify-center text-2xl font-bold">
+                            +{totalContributors - 5}
+                        </div>
+                        <span className="text-sm">More</span>
+                    </a>
                 </div>
             </div>
         </div>
