@@ -2,9 +2,11 @@ import Dojo from "../public/dojo-icon.svg?react";
 import Origami from "../public/origami-icon.svg?react";
 import Torii from "../public/torii-icon.svg?react";
 import Katana from "../public/katana-icon.svg?react";
+import Discord from "../public/discord.svg?react";
+
 import { Link } from "react-router-dom";
 
-const cardContent = [
+const cards = [
     {
         title: "What is Dojo?",
         description:
@@ -43,29 +45,30 @@ const cardContent = [
     {
         title: "Community",
         description:
-            "Join the Dojo community and get help from other developers.",
-        icon: <Dojo className="w-8" />,
+            "Join the Dojo Discord and get help from other developers.",
+        icon: <Discord className="w-8" />,
         link: "https://discord.gg/dojoengine",
     },
 ];
 
-export function HomeCards() {
+export function Featured() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {cardContent.map((card, index) => (
+            {cards.map((card, index) => (
                 <Link
                     to={card.link}
                     key={index}
-                    className="p-6 sm:p-8 border border-[#252525] rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg gap-4 sm:gap-8 shadow-lg hover:shadow-red-600/5 duration-150 hover:bg-[#0c0c0c] hover:bg-opacity-50 cursor-pointer relative overflow-hidden"
+                    className="group block transform transition-all duration-200 hover:scale-105"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-30"></div>
-                    <div className="relative z-10">
+                    <div className="p-5 rounded-xl bg-[#181818] backdrop-filter backdrop-blur-lg shadow-lg group-hover:shadow-red-600/5 duration-150 group-hover:bg-[#202020] transition-colors relative overflow-hidden">
                         <div className="flex gap-4 items-center">
-                            {card.icon}{" "}
-                            <h2 className="text-lg sm:text-xl">{card.title}</h2>
+                            {card.icon}
+                            <h2 className="text-lg sm:text-xl font-bold">
+                                {card.title}
+                            </h2>
                         </div>
                         <div>
-                            <p className="mt-4 text-sm sm:text-base text-white/70">
+                            <p className="mt-4 text-sm sm:text-base text-gray-400">
                                 {card.description}
                             </p>
                         </div>
@@ -74,4 +77,4 @@ export function HomeCards() {
             ))}
         </div>
     );
-} 
+}

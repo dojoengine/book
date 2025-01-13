@@ -1,6 +1,6 @@
 import { Header } from "./Header";
 import { Ecosystem } from "./Ecosystem";
-import { HomeCards } from "./HomeCards";
+import { Featured } from "./Featured";
 import { Partners } from "./Partners";
 
 export function HomePage() {
@@ -15,7 +15,7 @@ export function HomePage() {
         >
             <Header />
             <div className="flex flex-col gap-24">
-                <HomeCards />
+                <Featured />
                 <Ecosystem />
                 <Partners />
             </div>

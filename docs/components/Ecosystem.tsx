@@ -3,13 +3,13 @@ import { Card } from "./Card";
 
 const FEATURED_GAMES = [
     "Dark Shuffle",
-    "Blob Arena",
     "Eternum",
     "Dope Wars",
     "FlippyFlop",
     "Jokers of Neon",
     "Loot Survivor",
     "Savage Summit",
+    "Blob Arena",
 ];
 
 const GameCard = ({ config }: { config: ControllerConfig }) => {
@@ -18,8 +18,8 @@ const GameCard = ({ config }: { config: ControllerConfig }) => {
             <a
                 href={
                     Array.isArray(config.origin)
-                        ? config.origin[0]
-                        : config.origin
+                        ? `https://${config.origin[0]}`
+                        : `https://${config.origin}`
                 }
                 target="_blank"
                 rel="noopener noreferrer"
@@ -55,14 +55,15 @@ const GameCard = ({ config }: { config: ControllerConfig }) => {
 };
 
 export function Ecosystem() {
-    const games = Object.entries(controllerConfigs)
-        .filter(([_, config]) =>
-            FEATURED_GAMES.includes(config.theme?.name || "")
-        )
-        .map(([key, config]) => ({
-            ...config,
-            key,
-        }));
+    const games = FEATURED_GAMES.map((name) => {
+        const [key, config] =
+            Object.entries(controllerConfigs).find(
+                ([_, config]) => config.theme?.name === name
+            ) || [];
+        return config ? { ...config, key } : null;
+    }).filter(
+        (game): game is ControllerConfig & { key: string } => game !== null
+    );
 
     return (
         <div className="container mx-auto">
@@ -70,7 +71,7 @@ export function Ecosystem() {
                 <div className="text-center">
                     <h3 className="text-xl sm:text-2xl">Built with Dojo</h3>
                     <p className="mt-2 text-sm sm:text-base text-gray-400">
-                        Join a vibrant ecosystem of teams building fully onchain
+                        Join a vibrant ecosystem of teams building provable
                         games and applications
                     </p>
                 </div>

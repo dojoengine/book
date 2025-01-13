@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export function Header() {
+    const [showCopied, setShowCopied] = useState(false);
+
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText(
+            "curl -L https://install.dojoengine.org | bash"
+        );
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2000);
+    };
+
     return (
         <div className="bg-[--vocs-color-background] text-white">
             <div className="container py-16">
@@ -14,20 +25,15 @@ export function Header() {
                         </h1>
 
                         <p className="text-lg mb-8 text-gray-400">
-                            Ship onchain games faster by focusing on what
-                            matters: novel new game mechanics and distribution
-                            models enabled by blockchains. Dojo provides a
-                            comprehensive toolchain for developing provable
-                            games, applications and autonomous worlds.
+                            Build decentralized games and applications faster by
+                            focusing on what matters: novel game mechanics and
+                            distribution models enabled by blockchains and
+                            zero-knowledge proofs.
                         </p>
 
-                        <div className="mb-8">
+                        <div className="mb-8 transform transition-all duration-200 hover:scale-105 relative">
                             <button
-                                onClick={() =>
-                                    navigator.clipboard.writeText(
-                                        "curl -L https://install.dojoengine.org | bash"
-                                    )
-                                }
+                                onClick={handleCopy}
                                 className="w-full text-left group"
                             >
                                 <pre className="p-5 rounded-xl bg-[#181818] backdrop-filter backdrop-blur-lg shadow-lg group-hover:shadow-red-600/5 duration-150 group-hover:bg-[#202020] transition-colors relative overflow-hidden overflow-x-auto flex justify-between items-center">
@@ -59,6 +65,14 @@ export function Header() {
                                     </svg>
                                 </pre>
                             </button>
+                            {showCopied && (
+                                <div
+                                    className="absolute top-1/2 right-0 mr-4 transform -translate-y-1/2 px-3 py-1 bg-[#FF4136] text-white text-sm rounded-md opacity-0 transition-all duration-200 ease-in-out"
+                                    style={{ opacity: showCopied ? 1 : 0 }}
+                                >
+                                    Copied!
+                                </div>
+                            )}
                         </div>
 
                         <div className="flex gap-4">
