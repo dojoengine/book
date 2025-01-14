@@ -266,6 +266,10 @@ export const routes = [
                 link: "/toolchain/sozo/project-commands/migrate",
               },
               {
+                text: "hash",
+                link: "/toolchain/sozo/project-commands/hash",
+              },
+              {
                 text: "execute",
                 link: "/toolchain/sozo/world-commands/execute",
               },

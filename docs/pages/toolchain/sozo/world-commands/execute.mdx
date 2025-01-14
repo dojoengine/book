@@ -16,25 +16,32 @@ As `sozo` has access to the manifests generated at compile time, you can provide
 ### USAGE
 
 ```sh
-# you can use the name or address of the contract
-sozo execute <CONTRACT> <ENTRYPOINT>
+# Multicall is supported so you can batch several calls.
+# Call format: <CONTRACT>,<ENTRYPOINT>[,<CALLDATA>]
+
+sozo execute <CALL_1> ... <CALL_N>
 ```
 
 ##### Arguments
 
 _`CONTRACT`_
-&nbsp;&nbsp;&nbsp;&nbsp;The fully qualified name of the contract or it's address.
+&nbsp;&nbsp;&nbsp;&nbsp;The tag of the contract (dojo-Actions for example) or its address.
 
 _`ENTRYPOINT`_
 &nbsp;&nbsp;&nbsp;&nbsp;The name of the system to be executed.
 
+_`CALLDATA`_
+&nbsp;&nbsp;&nbsp;&nbsp; _(optional)_ The calldata to be passed to the system that you want to execute. Comma separated values e.g., 0x12345,0x69420.
+
+Sozo supports some prefixes that you can use to automatically parse some types.\
+The supported prefixes are:
+- `u256`: A 256-bit unsigned integer.
+- `sstr`: A cairo short string.
+- `str`: A cairo string (ByteArray).
+- `int`: A signed integer.
+- no prefix: A cairo felt or any type that fit into one felt.
+
 ### OPTIONS
-
-#### General Options
-
-`--calldata [-c]` _CALLDATA_  
-&nbsp;&nbsp;&nbsp;&nbsp;The calldata to be passed to the system that you want to execute.  
-&nbsp;&nbsp;&nbsp;&nbsp;Comma separated values e.g., 0x12345,0x69420.
 
 #### World Options
 
@@ -65,5 +72,11 @@ _`ENTRYPOINT`_
 1. Executing the _position_ system which takes two values (_x_: 0x77 and _y_: 0x44)
 
 ```sh
-sozo execute moving_contract position --calldata 0x77,0x44
+sozo execute dojo-moving_contract,position,0x77,0x44
+```
+
+1. Executing the _spawn_ system without calldata and the _move_ system which takes two values (_x_: 1 and _y_: 2)
+
+```sh
+sozo execute dojo-Actions,spawn dojo-Actions,move,1,2
 ```
