@@ -77,7 +77,7 @@ export function Header() {
 
                         <div className="flex gap-4">
                             <Link
-                                to="/docs"
+                                to="/overview"
                                 className="px-6 py-2 bg-[#FF4136] hover:bg-[#E63A30] rounded-md transition-colors font-bold"
                             >
                                 Documentation

@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export function Footer() {
     return (
         <div className="footer mx-auto container border-t border-white/10">
