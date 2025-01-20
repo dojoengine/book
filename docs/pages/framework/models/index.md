@@ -33,7 +33,7 @@ struct Moves {
 ```
 
 :::tip
-The `#[derive(Drop, Serde)]` are required and must be included to avoid compilation error. You can add additional trait as you may require, for example the `Copy` trait.
+The `#[derive(Drop, Serde)]` traits are required, respectively used by [cairo ownership system](https://book.cairo-lang.org/ch04-01-what-is-ownership.html) then for [serializing](https://book.cairo-lang.org/appendix-03-derivable-traits.html?#serializing-with-serde) model. Missing them will automatically lead to a compilation error. You can add additional traits as needed, for example, the `Copy` trait.
 :::
 
 ## The #[key] attribute
