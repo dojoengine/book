@@ -132,7 +132,8 @@ echo "Deployment completed successfully."
 ```
 
 :::note
-If the world already deployed by other user, you should change your `seed` in `dojo_sepolia.toml` config file.
+If the world is already deployed by other user, you must change your `seed` in `dojo_<PROFILE>.toml` config file.
+This will yield a different world address.
 :::
 
 
