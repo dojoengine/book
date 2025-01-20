@@ -17,6 +17,11 @@ You can also check out the basic [playground](https://github.com/dojoengine/dojo
 All the proto files can be found at : [https://github.com/dojoengine/dojo/tree/main/crates/torii/grpc/proto](https://github.com/dojoengine/dojo/tree/main/crates/torii/grpc/proto).
 The proto files contains the definition of grpc server capacity.
 
+Lexical Reference:
+
+- **EntityId** the entity id is the hash of the keys (including if there's only one key)
+- **Member name** is a member of a struct (Query.limit -> limit is the member name of query)
+
 ### Query
 
 Query type is basically used in either `Retrieve` or `Subscribe` grpc calls.
@@ -30,10 +35,13 @@ struct Query {
   /// Returned results offset, useful for pagination
   offset: u32,
   /// Wether you want torii to return internal EntityIds. If you want to know your entity ids and work with it you can set this to `false` otherwise, it will return hexadecimal index of the entity returned
+  /// It will always better performance wise to use entityIds if you know them in advance.
+  /// Note that for subscription, only KeysClause & HashedKeysClause are available for subscription queries.
   dont_include_hash_keys: bool,
   /// The way you want your entities to be ordered
   order_by: Vec<OrderBy>,
-  /// Whitelist the models you want to retrieve
+  /// Whitelist the models you want to retrieve. Torii will only include data of those models in response. For instance you can have one big entity that has $player as single key and dozens of models.
+  /// For some display reasons in UI you may only want to get the content of your health model and use this to only get this specific value.
   entity_models: Vec<String>,
   /// Here you can set the latest timestamp of the query you've made. If you've cached some entities you may only want to retrieve those that have changed.
   entity_updated_after: u64,
@@ -67,14 +75,14 @@ struct KeysClause {
 }
 
 struct HashedKeysClause {
-  /// Query over HashedKeys returned by torii
+  /// Query over HashedKeys (which are EntityIds) returned by torii
   hashed_keys: Vec<String>
 }
 
 struct MemberClause {
   /// Model name you want to query
   model: String,
-  /// Member key that you want to use as comparison
+  /// Member name that you want to use as comparison
   member: String,
   /// How to query your model
   operator: ComparisonOperator,
@@ -136,7 +144,7 @@ struct OrderBy {
 
 ### Key-based Query
 
-Get everything that has at least one key
+Get everything that has at least one key. Note that in dojo.js empty string uses 'undefined' as wildcard.
 
 ```json
 {
@@ -148,7 +156,7 @@ Get everything that has at least one key
 }
 ```
 
-Query entities that only have one key
+Query entities that only have one key with a very specific value
 
 ```json
 {
@@ -162,7 +170,7 @@ Query entities that only have one key
 }
 ```
 
-Query entities that have at least "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec" as key
+Query entities that have at least "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec" as the first key
 
 ```json
 {
