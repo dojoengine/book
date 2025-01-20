@@ -35,7 +35,7 @@ struct Query {
   /// Returned results offset, useful for pagination
   offset: u32,
   /// Wether you want torii to return internal EntityIds. If you want to know your entity ids and work with it you can set this to `false` otherwise, it will return hexadecimal index of the entity returned
-  /// It will always better performance wise to use entityIds if you know them in advance.
+  /// Performance wise, setting this to `true` is better as it will not have to compute the entity id.
   /// Note that for subscription, only KeysClause & HashedKeysClause are available for subscription queries.
   dont_include_hash_keys: bool,
   /// The way you want your entities to be ordered
