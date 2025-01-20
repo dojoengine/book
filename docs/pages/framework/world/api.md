@@ -105,6 +105,43 @@ let moves = world.read_model(player);
 world.erase_model(@moves);
 ```
 
+## `read_schema`
+
+The `read_schema` command allows for effient reading of parts of models. To define a schema the members name and type need to match the model, it needs to have `Serde` and `Introspect` derived and the model cannot be packed.
+
+```rust
+#[derive(Copy, Drop, Serde, Debug, Introspect)]
+struct AStruct {
+    a: u8,
+    b: u8,
+    c: u8,
+    d: u8,
+}
+
+#[dojo::model]
+#[derive(Copy, Drop, Serde, Debug)]
+struct Foo4 {
+    #[key]
+    id: felt252,
+    v0: u256,
+    v1: felt252,
+    v2: u128,
+    v3: AStruct,
+}
+
+#[derive(Copy, Drop, Serde, Debug, Introspect)]
+struct Oo {
+    v0: u256,
+    v3: AStruct,
+}
+
+fn something(){
+  let id: felt252 = 12;
+  let values: Oo = world.read_schema(Model::<Foo4>::ptr_from_keys(id));
+  ...
+}
+```
+
 ## World Interface
 
 The world exposes an interface which can be interacted with by any client. It is worth noting here that as a developer you don't deploy this world, it is deployed when you [migrate](/toolchain/sozo) your project as it is part of the `dojo-core` library.
