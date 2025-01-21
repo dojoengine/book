@@ -37,19 +37,11 @@ export function BlogPosts() {
                                 className="flex flex-col h-full"
                             >
                                 <div className="aspect-[1.91/1] w-full bg-[#1a1a1a] overflow-hidden">
-                                    {post.banner ? (
-                                        <img
-                                            src={post.banner}
-                                            alt={post.title}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                        />
-                                    ) : (
-                                        <img
-                                            src="/blog-banner.svg"
-                                            alt="Default banner"
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                        />
-                                    )}
+                                    <img
+                                        src={`${post.path}/cover.png`}
+                                        alt={post.title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    />
                                 </div>
                                 <div className="p-6 flex flex-col flex-1">
                                     <h2 className="text-xl font-semibold mb-2 group-hover:text-red-500 transition-colors duration-300">
