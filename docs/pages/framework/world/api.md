@@ -81,6 +81,16 @@ world.write_model(@position);
 
 Here we are updating the `Position` model in the world state using the `player` as the entity id.
 
+## `read_member` and `read_members`
+
+The `read_member` command is used to read a member in a model.
+
+```rust
+let vec: Vec2 = world.read_member(Model::<Position>::ptr_from_keys(player), selector!("vec"));
+
+let vecs: Array<Vec2> = world.read_members(Model::<Position>::ptr_from_keys([player1, player2].span()), selector!("vec"));
+```
+
 ## `emit_event`
 
 The `emit_event` command is used to emit [custom events](/framework/world/events.md#custom-events). These events are indexed by [Torii](/toolchain/torii).
@@ -105,7 +115,7 @@ let moves = world.read_model(player);
 world.erase_model(@moves);
 ```
 
-## `read_schema`
+## `read_schema` and `read_schemas`
 
 The `read_schema` command allows for effient reading of parts of models. To define a schema the members name and type need to match the model, it needs to have `Serde` and `Introspect` derived and the model cannot be packed.
 
@@ -137,7 +147,11 @@ struct Oo {
 
 fn something(){
   let id: felt252 = 12;
-  let values: Oo = world.read_schema(Model::<Foo4>::ptr_from_keys(id));
+  let schema: Oo = world.read_schema(Model::<Foo4>::ptr_from_keys(id));
+
+  let ids: Span<felt252> = [12, 13].span();
+  let schemas: Array<Oo> = world.read_schemas(Model::<Foo4>::ptrs_from_keys(ids));
+
   ...
 }
 ```
