@@ -93,7 +93,7 @@ m_<ModelName>
 
 ## Common Issues
 1. **Missing Contract Artifacts**: Ensure all external contracts are listed.
-2. **Incorrect Model Name**: Follow the m_<ModelName> convention to avoid naming mismatches.
+2. **Incorrect Model Name**: Follow the `m_<ModelName>` convention for external models to avoid naming mismatches.
 
 
 ## `dojo_<PROFILE>.toml`
