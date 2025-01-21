@@ -2,10 +2,16 @@
 title: "Dojo Blog"
 description: "Collection of articles and writings about Dojo development and concepts"
 layout: minimal
+content:
+    horizontalPadding: 0px
+    width: 100%
+    verticalPadding: 0px
 ---
 
-import { BlogPosts } from "../../components/BlogPosts";
+import { BlogBanner } from '../../components/BlogBanner';
+import { BlogPosts } from '../../components/BlogPosts';
 
-# Dojo Writings
-
-<BlogPosts />
+<BlogBanner />
+<div className="container mx-auto px-4 py-8">
+    <BlogPosts />
+</div>
