@@ -61,6 +61,41 @@ default = []
 You can refer to the profile in [Scarb documentation](https://docs.swmansion.com/scarb/docs/guides/defining-custom-profiles.html) for more information.
 
 
+## `build-external-contracts`
+
+The `build-external-contracts` field in the `[target.starknet-contract]` section is crucial for projects relying on external libraries or contracts.
+
+## Purpose
+By default, Scarb does not build contracts that belong to external libraries unless explicitly defined in this field. Missing these definitions might not cause compilation errors but will lead to runtime issues when:
+- The deployed `world` system queries information about missing models.
+- `Torii` interacts with the blockchain and cannot find the required contracts.
+
+## Configuration
+
+To ensure all external contracts are built, update the `build-external-contracts` field like this:
+
+```toml
+[[target.starknet-contract]]
+build-external-contracts = [
+    "dojo::world::world_contract::world",
+    "armory::m_Flatbow"
+]
+```
+For every `#[dojo::model]` that originates from an external crate, the corresponding contract name follows the pattern:
+```text
+m_<ModelName>
+````
+
+## Best Practices
+1. Always include all required contracts from the external crates your project depends on in `build-external-contracts` to prevent runtime errors.
+2. Test your configuration locally by running `scarb build` and verifying the generated artifacts.
+3. Write integration tests to validate interactions with external models and ensure they function as expected.
+
+## Common Issues
+1. **Missing Contract Artifacts**: Ensure all external contracts are listed.
+2. **Incorrect Model Name**: Follow the `m_<ModelName>` convention for external models to avoid naming mismatches.
+
+
 ## `dojo_<PROFILE>.toml`
 
 The dojo profile configuration file is where you can add your development parameters and world's metadata.
