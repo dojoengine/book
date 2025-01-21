@@ -16,10 +16,9 @@ export function BlogBanner() {
             <div className="absolute left-1/2 -translate-x-1/2 top-36">
                 <div className="w-24 h-24 rounded-full bg-red-500 flex items-center justify-center">
                     <img
-                        src="/dojo-icon.svg"
+                        src="/dojo-navy-icon.svg"
                         alt="Dojo Logo"
                         className="w-12 h-12 mb-[-6px]"
-                        style={{ filter: "brightness(0)" }}
                     />
                 </div>
             </div>
