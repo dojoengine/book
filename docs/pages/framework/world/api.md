@@ -83,13 +83,28 @@ Here we are updating the `Position` model in the world state using the `player` 
 
 ## `read_member` and `read_members`
 
-The `read_member` command is used to read a member in a model.
+The `read_member` and `read_members` commands are used to read members from models.
 
 ```rust
 let vec: Vec2 = world.read_member(Model::<Position>::ptr_from_keys(player), selector!("vec"));
 
 let vecs: Array<Vec2> = world.read_members(Model::<Position>::ptr_from_keys([player1, player2].span()), selector!("vec"));
 ```
+
+## `write_member` and `write_members`
+
+The `write_member` and `write_members` commands are used to write members to models.
+
+```rust
+
+let vec = Vec2{x: 1, y: 2};
+let vec_b = Vec2{x: 3, y: 4}
+world.write_member(Model::<Position>::ptr_from_keys(player), selector!("vec"), vec);
+let vecs = [vec, vec_b].span();
+world.write_members(Model::<Position>::ptr_from_keys([player1, player2].span()), selector!("vec"), vecs);
+```
+
+
 
 ## `emit_event`
 
