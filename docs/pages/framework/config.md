@@ -81,21 +81,19 @@ build-external-contracts = [
     "armory::m_Flatbow"
 ]
 ```
-For every `#[dojo::model]` defined in your project, the corresponding contract name follows the pattern:
+For every `#[dojo::model]` that originates from an external crate, the corresponding contract name follows the pattern:
 ```text
 m_<ModelName>
 ````
 
 ## Best Practices
-1. Always include all required contracts in `build-external-contracts` to prevent runtime errors.
+1. Always include all required contracts from the external crates your project depends on in `build-external-contracts` to prevent runtime errors.
 2. Test your configuration locally by running `scarb build` and verifying the generated artifacts.
-3. Validate interactions with external models to ensure they function as expected.
+3. Write integration tests to validate interactions with external models and ensure they function as expected.
 
 ## Common Issues
 1. **Missing Contract Artifacts**: Ensure all external contracts are listed.
 2. **Incorrect Model Name**: Follow the m_<ModelName> convention to avoid naming mismatches.
-
-Refer to the [Scarb documentation](https://docs.swmansion.com/scarb/docs/guides/defining-custom-profiles.html) for more on managing profiles and configurations.
 
 
 ## `dojo_<PROFILE>.toml`
