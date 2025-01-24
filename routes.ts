@@ -75,6 +75,7 @@ export const routes = [
                     },
                     { text: "Entities", link: "/framework/models/entities" },
                     { text: "Enum", link: "/framework/models/enum" },
+                    { text: "Upgrades", link: "/framework/models/upgrades" },
                 ],
             },
             {
