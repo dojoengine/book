@@ -33,14 +33,14 @@ struct Moves {
 ```
 
 :::tip
-The `#[derive(Drop, Serde)]` are required and must be included to avoid compilation error. You can add additional trait as you may require, for example the `Copy` trait.
+The `#[derive(Drop, Serde)]` traits are required, respectively used by [cairo ownership system](https://book.cairo-lang.org/ch04-01-what-is-ownership.html) then for [serializing](https://book.cairo-lang.org/appendix-03-derivable-traits.html?#serializing-with-serde) model. Missing them will automatically lead to a compilation error. You can add additional traits as needed, for example, the `Copy` trait.
 :::
 
 ## The #[key] attribute
 
 The `#[key]` attribute indicates to Dojo which fields must be used to index the model. In the previous example, the model is indexed by the `player` field. A field that is identified as a `#[key]` is not stored. It is used by the Dojo database system to uniquely identify the storage location of the model.
 
-**You need to define at least one key for each model**, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys. If you define multiple keys, they must **all** be provided to query the model.
+**You need to define at least one key for each model**, as this is how you query the model. However, you can create composite keys by defining multiple fields as keys. If you define multiple keys, they must **all** be provided to query the model. **All keys must come before any non-key members in the struct**
 
 ```rust
 #[derive(Copy, Drop, Serde)]

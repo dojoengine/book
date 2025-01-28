@@ -131,6 +131,12 @@ echo "Deployment completed successfully."
 ⛩️  Migration successful with world at address <WORLD_ADDRESS>
 ```
 
+:::note
+If the world is already deployed by other user, you must change your `seed` in `dojo_<PROFILE>.toml` config file.
+This will yield a different world address.
+:::
+
+
 Your world is deployed! 
 
 * Once the world is deployed, you need to add the world_block in the dojo_<PROFILE>.toml file.

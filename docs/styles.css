@@ -7,6 +7,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --dojo-primary: #FF4136;
+  --dojo-primary-dark: #E63A30;
+}
+
+body {
+  @apply bg-black text-white;
+}
+
 h1,
 h2,
 h3,
@@ -16,12 +25,6 @@ h6 {
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
-}
-
-body {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
 }
 
 .vocs_ExternalLink::after {
@@ -41,6 +44,10 @@ body {
     padding-bottom: 0;
 }
 
+.vocs_DesktopTopNav_withLogo {
+    padding-left: 175px;
+}
+
 :not(.vocs_Header) + .vocs_H2:not(:only-child),
 .vocs_Sidebar_navigation
     > .vocs_Sidebar_group
@@ -48,3 +55,5 @@ body {
     + .vocs_Sidebar_section {
     border-top: none;
 }
+
+/* Add any additional custom styles here */

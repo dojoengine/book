@@ -8,7 +8,7 @@ export default defineConfig({
     description:
         "Dojo | A Toolchain for Building Provable Games and Applications",
     iconUrl: "/dojo-favicon.svg",
-    logoUrl: "/dojo-icon.svg",
+    logoUrl: "/dojo-word.svg",
     ogImageUrl:
         "https://og.cartridge.gg/api/dojo?title=%title&description=%description",
 
