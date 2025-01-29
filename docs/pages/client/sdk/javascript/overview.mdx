@@ -9,33 +9,38 @@ The Dojo SDK provides a powerful, intuitive interface for interacting with oncha
 
 ## Table of Contents
 
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Initializing the SDK](#initializing-the-sdk)
-    -   [Understanding Queries](#understanding-queries)
-    -   [Querying Entities](#querying-entities)
-    -   [Subscribing to Entity Changes](#subscribing-to-entity-changes)
-    -   [Sending Signed Messages](#sending-signed-messages)
-    -   [Using with Zustand](#using-with-zustand)
-    -   [Optimistic Client Rendering](#optimistic-client-rendering)
--   [Advanced Usage](#advanced-usage)
-    -   [Complex Queries](#complex-queries)
--   [Troubleshooting](#troubleshooting)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Initializing the SDK](#initializing-the-sdk)
+  - [Understanding Queries](#understanding-queries)
+  - [Querying Entities](#querying-entities)
+  - [Subscribing to Entity Changes](#subscribing-to-entity-changes)
+  - [Sending Signed Messages](#sending-signed-messages)
+  - [Using with Zustand](#using-with-zustand)
+  - [Optimistic Client Rendering](#optimistic-client-rendering)
+- [Advanced Usage](#advanced-usage)
+  - [Complex Queries](#complex-queries)
+- [Troubleshooting](#troubleshooting)
 
 ## Key Features
 
--   **Type Safety**: Leverage TypeScript for robust, error-resistant code.
--   **Intuitive query syntax**: Write queries that feel natural, similar to popular OrMs.
--   **Flexible subscriptions**: Easily subscribe to specific state changes in your Dojo world.
--   **Signed messages**: Sign off-chain state and send to torii.
--   **Automatic Zustand Support**: Drop in zustand state management
--   **Optimistic Client Rendering**: Set state before a transaction has resolved to improve user experiences
+- **Type Safety**: Leverage TypeScript for robust, error-resistant code.
+- **Intuitive query syntax**: Write queries that feel natural, similar to popular OrMs.
+- **Flexible subscriptions**: Easily subscribe to specific state changes in your Dojo world.
+- **Signed messages**: Sign off-chain state and send to torii.
+- **Automatic Zustand Support**: Drop in zustand state management
+- **Optimistic Client Rendering**: Set state before a transaction has resolved to improve user experiences
 
 ### Understand Entities and Models
 
--   Entities are uniquely identified by Keys defined in associated models
--   Entities can have multiple models, representing complex game states
--   When a subscription or query returns data - it returns the updated Entity and changed models.
+- Entities are uniquely identified by Keys defined in associated models
+- Entities can have multiple models, representing complex game states
+- When a subscription or query returns data - it returns the updated Entity and changed models.
+
+## Torii - a ECS query system powerhouse
+
+**Before going further** be sure to read [this documentation of Torii queries](../../../toolchain/torii/grpc.md)
+Torii provides a grpc server that wraps all required tools to query your entities in a performant manner.
 
 ## Example: Subscribing to Specific Model States
 
@@ -91,73 +96,14 @@ This approach ensures that your code remains in sync with your Dojo world defini
 ### Initializing the SDK
 
 ```typescript
-import { init, SchemaType } from "@dojoengine/sdk";
-
-enum Direction {
-    None,
-    Up,
-    Down,
-    Left,
-    Right,
-}
-
-interface Moves {
-    fieldOrder: string[];
-    player: string;
-    last_direction: Direction;
-    can_move: boolean;
-}
-interface DirectionAvailable {
-    fieldOrder: string[];
-    player: string;
-    direction: Direction[];
-}
-interface Pos {
-    x: number;
-    y: number;
-}
-interface Position {
-    fieldOrder: string[];
-    player: string;
-    vec: Pos;
-}
-
-interface MockSchemaType {
-    dojo_starter: {
-        Moves: Moves;
-        DirectionAvailable: DirectionAvailable;
-        Position: Position;
-    };
-}
-
-// Generate with sozo or define Schema
-const schema: Schema = {
-    // this should match namespace define in dojo
-    dojo_starter: {
-        // this has to match model names
-        Moves: {
-            fieldOrder: ["player", "remaining", "last_direction", "can_move"],
-            player: "",
-            remaining: 0,
-            // properties have to match too.
-            last_direction: Direction.None,
-            can_move: false,
-        },
-        DirectionsAvailable: {
-            fieldOrder: ["player", "directions"],
-            player: "",
-            directions: [],
-        },
-        Position: {
-            fieldOrder: ["player", "vec"],
-            player: "",
-            vec: { x: 0, y: 0 },
-        },
-    },
-};
+import { init } from "@dojoengine/sdk";
+import {
+    SchemaType,
+    schema,
+} from "../where-you-generated-your-models/models.gen";
 
 // Initialize the SDK
-const db = await init<MockSchemaType>(
+const db = await init<SchemaType>(
     {
         client: {
             rpcUrl: "your-rpc-url",
@@ -174,10 +120,39 @@ const db = await init<MockSchemaType>(
     },
     schema
 );
+```
 
+#### Use experimental sdk
+
+**With this version, you can use ClauseBuilder which is an improved version of QueryBuilder**
+
+```typescript
+import { init } from "@dojoengine/sdk/experimental";
+import {
+    SchemaType,
+    schema,
+} from "../where-you-generated-your-models/models.gen";
+
+// Initialize the SDK
+const db = await init<SchemaType>({
+    client: {
+        rpcUrl: "your-rpc-url",
+        toriiUrl: "your-torii-url",
+        relayUrl: "your-relay-url",
+        worldAddress: "your-world-address",
+    },
+    domain: {
+        name: "Example",
+        version: "1.0",
+        chainId: "your-chain-id",
+        revision: "1",
+    },
+});
 ```
 
 ### Understanding Queries
+
+[Here you can find a detailed explanation over how Torii gRPC works](../../../toolchain/torii/grpc.md)
 
 The SDK utilizes two primary types of queries to interact with the Dojo Engine:
 
@@ -186,22 +161,11 @@ The SDK utilizes two primary types of queries to interact with the Dojo Engine:
 
 Both query types enable filtering based on `entityIds` and specific model properties. The key difference lies in the operators supported within the `where` clause:
 
--   **`SubscriptionQueryType`**:
-    -   Supports only the `$is` operator for exact matches.
--   **`QueryType`**:
-
-    -   Supports a variety of operators for more advanced filtering:
-
-                        | Operator | Description              |
-                        | -------- | ------------------------ |
-                        | `$eq`    | Equal to                 |
-                        | `$neq`   | Not equal to             |
-                        | `$gt`    | Greater than             |
-                        | `$gte`   | Greater than or equal to |
-                        | `$lt`    | Less than                |
-                        | `$lte`   | Less than or equal to    |
-
-    -   You combine queries with 'And' with 'Or' from deep queries. See [Advanced Usage](#advanced-usage).
+- **`SubscriptionQueryType`**:
+  - Supports only the `$is` operator for exact matches.
+- **`QueryType`**:
+  - Supports a variety of operators for more advanced filtering:
+  - You combine queries with 'And' with 'Or' from deep queries. See [Advanced Usage](#advanced-usage).
 
 ### Querying Entities
 
@@ -210,8 +174,57 @@ This example fetches `player` entities from the `world` namespace where `id` is 
 Note: `$eq` is for exact matching. Other operators (`$gt`, `$lt`, etc.) are available for complex queries.
 
 ```typescript
+// This is how a raw Torii query would look like.
+{
+    "Composite": {
+        "operator": "And",
+        "clauses": [
+            {
+                "Member": {
+                    "model": "world-Player",
+                    "member": "id",
+                    "operator": "Eq",
+                    "value": {
+                        "Primitive": {
+                            "U32": 1
+                        }
+                    }
+                }
+            },
+            {
+                "Member": {
+                    "model": "world-Player",
+                    "member": "name",
+                    "operator": "Eq",
+                    "value": "Alice",
+                }
+            },
+    ]
+  }
+}
+
+// ClauseBuilder version
 const entities = await sdk.getEntities(
-    {
+  new ToriiQueryBuilder().withClause(
+    new ClauseBuilder().compose().and(
+      new ClauseBuilder().where("world-Player", 'id', 'Eq', 1),
+      new ClauseBuilder().where("world-Player", 'name', 'Eq', "Alice"),
+    ).build();
+  ).build()
+);
+// Or
+const entities = await sdk.getEntities(
+  new ToriiQueryBuilder().withClause(
+    AndComposeClause([
+      MemberClause("world-Player", 'id', 'Eq', 1),
+      MemberClause("world-Player", 'name', 'Eq', "Alice"),
+    ]).build();
+  ).build()
+);
+
+// Simple query version
+const entities = await sdk.getEntities({
+  query: {
         // this is namespace to query models in
         world: {
             // this is model name
@@ -220,29 +233,46 @@ const entities = await sdk.getEntities(
             },
         },
     },
-    (response) => {
+  callback: (response) => {
         if (response.data) {
             console.log("Fetched entities:", response.data);
         } else if (response.error) {
             console.error("Fetch error:", response.error);
         }
     }
-);
+});
+
+// Query builder version
+const entities = await sdk.getEntities({
+  query: new QueryBuilder()
+    .namespace("world", (n) =>
+        n.entity("player", (e) => e.eq("id", "1").eq("name", "Alice"))
+    )
+    .build(),
+  callback: (response) => {
+        if (response.data) {
+            console.log("Fetched entities:", response.data);
+        } else if (response.error) {
+            console.error("Fetch error:", response.error);
+        }
+    }
+});
 ```
 
 ### Subscribing To Entity Changes
 
+Subscribing to entity changes is a bit more trivial. Because Torii subscribe functions only works with `KeysClause` or `HashedKeysClause` **you need first to query your model and then subscribe to those using entityIds**.
 This example subscribes to `item` model updates in the `world` namespace, filtering for swords with durability 5. The callback triggers on matching item changes.
 
 Key points:
 
--   Namespace: `world`, Model: `item`
--   Conditions: type "sword", durability 5
--   Uses `$is` for exact matching
+- Namespace: `world`, Model: `item`
+- Conditions: type "sword", durability 5
+- Uses `$is` for exact matching
 
 ```typescript
-const subscription = await sdk.subscribeEntityQuery(
-    {
+const entities = await sdk.getEntities({
+    query: {
         // this is namespace to query models in
         world: {
             // this is model name
@@ -256,6 +286,48 @@ const subscription = await sdk.subscribeEntityQuery(
             },
         },
     },
+    callback: () => {},
+});
+const subscription = await sdk.subscribeEntityQuery({
+    query: entities.map((e) => e.entityId),
+    callback: (response) => {
+        if (response.data) {
+            console.log("Updated entities:", response.data);
+        } else if (response.error) {
+            console.error("Subscription error:", response.error);
+        }
+    },
+});
+```
+
+#### Experimental version
+
+**Using experimental, you can automatically achieve the same** at the cost of including hashed keys in your query:
+
+```typescript
+const [initialEntities, subscription] = await sdk.subscribeEntities(
+    new ToriiQueryBuilder()
+        .withClause(
+            new ClauseBuilder()
+                .compose()
+                .and([
+                    new ClauseBuilder().where(
+                        "world-item",
+                        "type",
+                        "Eq",
+                        "sword"
+                    ),
+                    new ClauseBuilder().where(
+                        "world-item",
+                        "durability",
+                        "Eq",
+                        5
+                    ),
+                ])
+                .build()
+        )
+        .includeHashedKeys()
+        .build(),
     (response) => {
         if (response.data) {
             console.log("Updated entities:", response.data);
@@ -265,6 +337,8 @@ const subscription = await sdk.subscribeEntityQuery(
     }
 );
 ```
+
+sdk first query entities and then use entityIds for subscription so you only have to care about what you original query was.
 
 ### Sending Signed Messages
 
@@ -306,7 +380,7 @@ This module takes the `Schema` and outputs a typed store you can use around your
 1. Import the module
 
 ```typescript
-import { createDojoStore } from "@dojoengine/sdk";
+import { createDojoStore } from "@dojoengine/sdk/react";
 
 // import this outside of components
 export const useDojoStore = createDojoStore<Schema>();
@@ -342,6 +416,20 @@ const subscription = await sdk.subscribeEntityQuery(
         }
     }
 );
+
+```
+
+#### Zustand vanilla
+
+You can also use a vanilla store which can be imported :
+
+```ts
+import { createDojoStore } from "@dojoengine/sdk/state";
+const store = createDojoStore<Schema>();
+// Contrary to react, zustand vanilla store is not wrapped into a bound store.
+// to use your store :
+const state = store.getState();
+const entities = state.getEntities();
 ```
 
 ### Optimistic Client Rendering
@@ -454,6 +542,87 @@ const entities = await sdk.getEntities(
             },
         },
     },
+    (response) => {
+        if (response.data) {
+            console.log("Fetched entities:", response.data);
+        } else if (response.error) {
+            console.error("Fetch error:", response.error);
+        }
+    }
+);
+```
+
+### Experimental version
+
+```typescript
+const entities = await sdk.getEntities(
+    new ToriiQueryBuilder()
+        .withClause(
+            new ClauseBuilder()
+                .compose()
+                .and([
+                    new ClauseBuilder()
+                        .compose()
+                        .and([
+                            new ClauseBuilder().where(
+                                "world-player",
+                                "score",
+                                "Gt",
+                                100
+                            ),
+                            new ClauseBuilder()
+                                .compose()
+                                .or([
+                                    new ClauseBuilder().where(
+                                        "world-player",
+                                        "name",
+                                        "Eq",
+                                        "Bob"
+                                    ),
+                                    new ClauseBuilder().where(
+                                        "world-player",
+                                        "name",
+                                        "Eq",
+                                        "Alice"
+                                    ),
+                                ]),
+                        ]),
+                    new ClauseBuilder().where(
+                        "world-item",
+                        "durability",
+                        "Lt",
+                        50
+                    ),
+                ])
+                .build()
+        )
+        .build(),
+    (response) => {
+        if (response.data) {
+            console.log("Fetched entities:", response.data);
+        } else if (response.error) {
+            console.error("Fetch error:", response.error);
+        }
+    }
+);
+
+// OR (but only if you're a lazy ninja)
+
+const entities = await sdk.getEntities(
+    new ToriiQueryBuilder()
+        .withClause(
+            AndComposeClause([
+                AndComposeClause([
+                    MemberClause("world-player", "score", "Gt", 100),
+                    OrComposeClause([
+                        MemberClause("world-player", "name", "Eq", "Bob"),
+                        MemberClause("world-player", "name", "Eq", "Alice"),
+                    ]),
+                ]),
+                MemberClause("world-item", "durability", "Lt", 50),
+            ]).build()
+        )
+        .build(),
     (response) => {
         if (response.data) {
             console.log("Fetched entities:", response.data);
