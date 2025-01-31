@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/architecture/soverign-rollups",
+      "destination": "/architecture/sovereign-rollups",
+      "permanent": true
+    }
+  ]
+}
