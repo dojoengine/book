@@ -31,13 +31,14 @@ modified for a key member).
 ## Primitive upgrades
 
 This table lists the allowed upgrades for every primitive types.
+The type `usize` is not supported since it is a architecture-dependent type.
 
 | Current         | Allowed upgrades |
 | --------------- | ---------------- |
 | bool            | bool, felt252 |
 | u8              | u8 to u128, felt252 |
 | u16             | u16 to u128, felt252 |
-| u32 / usize     | u32 to u128, felt252 |
+| u32             | u32 to u128, felt252 |
 | u64             | u64 and u128, felt252 |
 | u128            | u128, felt252 |
 | u256            | u256 |
