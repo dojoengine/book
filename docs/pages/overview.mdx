@@ -156,14 +156,16 @@ struct MyEvent {
 On the torii side, you can start it from the CLI or using a configuration file with the `historical_events` options, by providing tags of events you want to keep historical.
 
 ```bash
-torii start --historical_events ns-MyEvent,ns-MyOtherEvent --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
+torii start --events.historical ns-MyEvent,ns-MyOtherEvent --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
 ```
 
 Or using a configuration file in `toml` format:
 
 ```toml
 world_address = "0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d"
-historical_events = ["ns-MyEvent", "ns-MyOtherEvent"]
+
+[events]
+historical = ["ns-MyEvent", "ns-MyOtherEvent"]
 ```
 
 ## Testing
