@@ -131,6 +131,29 @@ private_key = "0xc5b2fcab997346f3ea1c00b002ecf6f382c5f9c9659a3894eb783c5320f912"
 default = "ns"
 mappings = { "ns" = ["c1", "M"], "ns2" = ["c1", "M"] }
 
+[[models]]
+tag = "ns-Position"
+description = "position of a player in the world"
+
+[[events]]
+tag = "ns-Moved"
+description = "when a player has moved"
+
+[[contracts]]
+tag = "ns-actions"
+description = "set of actions for a player"
+
+[[external_contracts]]
+contract_name = "ERC20Token"
+instance_name = "GoldToken"
+salt = "1"
+constructor_data = ["str:Gold", "str:GOLD", "u256:0x10000000000000", "0x2af9427c5a277474c079a1283c880ee8a6f0f8fbf73ce969c08d88befec1bba"]
+
+[[external_contracts]]
+contract_name = "Saloon"
+constructor_data = []
+salt = "1"
+
 [init_call_args]
 "ns-c1" = ["0xfffe"]
 "ns2-c1" = ["0xfffe"]
@@ -199,6 +222,8 @@ To initialize this contract, you need to add the following to your `dojo_<PROFIL
 
 Remember that a resource is always namespaced. So you need to specify the `tag` (which is `<NAMESPACE>-<CONTRACT_NAME>`) in the `init_call_args` section to identify it.
 
+Must use the Dojo calldata format described [here](/toolchain/sozo/calldata_format).
+
 ### `[writers]`/`[owners]`
 
 The writers/owners configuration allows you to specify permissions directly from the configuration file for the given profile.
@@ -230,4 +255,18 @@ The supported keys are:
 
 ### `[world]`
 
-The metadata related to your world. They are purely informative.
+The metadata related to your world. They are purely informative. More details [here](/framework/world/metadata/#world-metadata).
+
+### `[[models]]`, `[[events]]` and `[[contracts]]`
+
+The metadata related to your world resources. They are purely informative. More details [here](/framework/world/metadata/#resource-metadata).
+
+### `[[external_contracts]]`
+
+To be managed by `sozo`, external Cairo contracts (i.e non Dojo contracts) must be declared in your `dojo_<profile>.toml` file. For each contract instance a `[[external_contracts]]` block must be added with:
+- `contract_name`: the name of the Cairo contract to deploy,
+- `instance_name`: if you want to deploy several instances of a same Cairo contract (for example, `ERC20`), you have to give a specific name to each instance. If you have only one instance, don't provide any value for `instance_name`, it will automatically be set to the `contract_name` value,
+- `salt`: salt value to use to compute the contract address (hashed with the `instance_name` to get the final salt used for contract deployment),
+- `constructor_data`: a list of calldata to give to the Cairo contract constructor. If the constructor does not have any parameter, just omit this parameter. Must use the Dojo calldata format described [here](/toolchain/sozo/calldata_format). 
+
+Then, during the migration, sozo will declare and deploy these external contracts and update the manifest output file.

@@ -212,6 +212,10 @@ export const routes = [
                         link: "/toolchain/sozo",
                     },
                     {
+                        text: "Calldata format",
+                        link: "/toolchain/sozo/calldata_format",
+                    },
+                    {
                         text: "Reference",
                         collapsed: true,
                         items: [
