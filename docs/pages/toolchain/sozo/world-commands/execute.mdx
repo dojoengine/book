@@ -33,13 +33,7 @@ _`ENTRYPOINT`_
 _`CALLDATA`_
 &nbsp;&nbsp;&nbsp;&nbsp; _(optional)_ The calldata to be passed to the system that you want to execute. Comma separated values e.g., 0x12345,0x69420.
 
-Sozo supports some prefixes that you can use to automatically parse some types.\
-The supported prefixes are:
-- `u256`: A 256-bit unsigned integer.
-- `sstr`: A cairo short string.
-- `str`: A cairo string (ByteArray).
-- `int`: A signed integer.
-- no prefix: A cairo felt or any type that fit into one felt.
+Must use the Dojo calldata format described [here](/toolchain/sozo/calldata_format).
 
 ### OPTIONS
 
