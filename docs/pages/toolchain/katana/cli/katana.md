@@ -99,6 +99,17 @@ katana [OPTIONS] [COMMAND]
 `--fork.block <BLOCK>`
 &nbsp;&nbsp;&nbsp;&nbsp; Fork the network at a specific block id, can either be a hash (0x-prefixed) or a block number.
 
+### Explorer Options
+
+`--explorer`
+&nbsp;&nbsp;&nbsp;&nbsp; An explorer will be served for your katana node.
+
+`--explorer.port <PORT>`
+&nbsp;&nbsp;&nbsp;&nbsp; The explorer will be served at the given port. [default: 3001] 
+
+`--explorer.build-dir <DIRECTORY>`
+&nbsp;&nbsp;&nbsp;&nbsp; The explorer will be built from the given build directory path [default: crates/katana/explorer/dist] 
+
 ### Development Options
 
 `--dev`
