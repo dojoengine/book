@@ -104,8 +104,11 @@ katana [OPTIONS] [COMMAND]
 `--explorer`
 &nbsp;&nbsp;&nbsp;&nbsp; An explorer will be served for your katana node.
 
+`--explorer.addr <ADDRESS>`
+&nbsp;&nbsp;&nbsp;&nbsp; The address to run the explorer frontedn on. [default: 127.0.0.1] 
+
 `--explorer.port <PORT>`
-&nbsp;&nbsp;&nbsp;&nbsp; The explorer will be served at the given port. [default: 3001] 
+&nbsp;&nbsp;&nbsp;&nbsp; The port to run the explorer frontend on. [default: 3001] 
 
 ### Development Options
 
