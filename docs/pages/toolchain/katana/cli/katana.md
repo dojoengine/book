@@ -107,9 +107,6 @@ katana [OPTIONS] [COMMAND]
 `--explorer.port <PORT>`
 &nbsp;&nbsp;&nbsp;&nbsp; The explorer will be served at the given port. [default: 3001] 
 
-`--explorer.build-dir <DIRECTORY>`
-&nbsp;&nbsp;&nbsp;&nbsp; The explorer will be built from the given build directory path [default: crates/katana/explorer/dist] 
-
 ### Development Options
 
 `--dev`
