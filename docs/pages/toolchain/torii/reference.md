@@ -67,17 +67,6 @@ Torii general options:
       --config <CONFIG>
           Configuration file to setup Torii.
 
-Database options:
-      --database.page_size <PAGE_SIZE>
-          The page size to use for the database.
-
-          [default: 32768]
-
-      --database.cache_size <CACHE_SIZE>
-          The cache size to use for the database. A positive value determines a number of pages, a negative value determines a number of KiB.
-
-          [default: -500000]
-
 Indexing options:
       --indexing.events_chunk_size <EVENTS_CHUNK_SIZE>
           Chunk size of the events page to fetch from the sequencer.
@@ -146,6 +135,16 @@ SQL options:
 
       --sql.model_indices <MODEL_INDICES>
           Specify which fields should have indices for specific models. Format: "model_name:field1,field2;another_model:field3,field4"
+
+      --sql.page_size <PAGE_SIZE>
+          The page size to use for the database.
+
+          [default: 32768]
+
+      --sql.cache_size <CACHE_SIZE>
+          The cache size to use for the database. A positive value determines a number of pages, a negative value determines a number of KiB.
+
+          [default: -500000]
 
 Metrics options:
       --metrics
