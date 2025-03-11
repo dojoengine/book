@@ -53,6 +53,11 @@ contracts = [                # ERC contracts to index
     "erc721:0x5678"
 ]
 
+# Database Options
+[database]
+page_size = 32768           # Size of internal DB pages
+cache_size = -500000        # Size of DB cache for queries
+
 # Events Options
 [events]
 raw = true                  # Whether to index raw events
