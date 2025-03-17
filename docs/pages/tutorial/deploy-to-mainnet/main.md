@@ -204,3 +204,23 @@ or...
 ```
 VITE_PUBLIC_CHAIN_ID=SN_MAIN
 ```
+
+### Debugging
+
+To start debugging, follow the [Walnut documentation](https://docs.walnut.dev/debug-dojo-with-walnut). Begin by verifying your contracts with command:
+
+```bash
+sozo walnut verify
+```
+
+After execution, you should see an output similar to:
+
+```console
+🌰 Verifying classes with Walnut...
+
+  > "Contract verification has started. You can check the verification status at the following link: https://app.walnut.dev/verification/status/d63363a8-9201-4b6b-b061-7ba2f9255818"
+
+
+```
+
+Once verification is successful, you can use the [Walnut](https://walnut.dev) to debug your transactions.
