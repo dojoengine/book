@@ -1,3 +1,8 @@
+---
+title: Saya and Herodotus
+description: Configure your Herodotus account to work with Saya.
+---
+
 # Herodotus - The proving provider
 
 In order to prove blocks, Saya is currently relying on the Herodotus service. This service can handle trace generation and proof generation, by proxying the proof generations to [SHARP](https://docs.starknet.io/architecture-and-concepts/provers-overview/).

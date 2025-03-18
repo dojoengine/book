@@ -1,3 +1,8 @@
+---
+title: Saya persistent mode
+description: Run an appchain as an L3 on Starknet and more coming soon.
+---
+
 # Saya -- Persistent mode
 
 In persistent mode, Saya will fetch the blocks from Katana and will verify the proof and update the state of the core contract on the settlement layer.
