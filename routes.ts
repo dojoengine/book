@@ -288,6 +288,32 @@ export const routes = [
                 ],
             },
             {
+                text: "Saya",
+                collapsed: true,
+                items: [
+                    {
+                        text: "Overview",
+                        link: "/toolchain/saya",
+                    },
+                    {
+                        text: "Herodotus",
+                        link: "/toolchain/saya/herodotus",
+                    },
+                    {
+                        text: "Persistent mode",
+                        link: "/toolchain/saya/persistent",
+                    },
+                    {
+                        text: "Sovereign mode",
+                        link: "/toolchain/saya/sovereign",
+                    },
+                    {
+                        text: "Slot",
+                        link: "/toolchain/saya/slot",
+                    },
+                ],
+            },
+            {
                 text: "Slot",
                 collapsed: true,
                 items: [
