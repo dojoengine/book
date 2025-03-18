@@ -205,15 +205,17 @@ or...
 VITE_PUBLIC_CHAIN_ID=SN_MAIN
 ```
 
-### Debugging
+### Debug with Walnut
 
-To start debugging, follow the [Walnut documentation](https://docs.walnut.dev/debug-dojo-with-walnut). Begin by verifying your contracts with command:
+Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. To learn more, visit the [Walnut Docs](https://docs.walnut.dev/debug-dojo-with-walnut).
+
+Use the following command to verify your contracts on Walnut to enable the full debugging experience:
 
 ```bash
 sozo walnut verify
 ```
 
-After execution, you should see an output similar to:
+After running the verify command, you should see an output similar to:
 
 ```console
 🌰 Verifying classes with Walnut...
