@@ -4,6 +4,12 @@ In persistent mode, Saya will fetch the blocks from Katana and will verify the p
 
 The core contract currently used on Starknet is [Piltover](https://github.com/keep-starknet-strange/piltover).
 
+::::info
+As a work in progress, it will be soon possible to send the compressed state diff (referred as the DA) to a data availability layer like [Celestia](https://celestia.org/).
+
+Currently the compressed state diff is sent as calldata to the core contract on the settlement layer.
+::::
+
 ## Setup Katana
 
 Katana needs to be configured in provable mode to work with Saya. Katana is available in provable mode with all the new options starting [Dojo `1.3.0`](https://github.com/dojoengine/dojo/releases/tag/v1.3.0).
