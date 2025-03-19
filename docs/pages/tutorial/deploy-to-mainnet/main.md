@@ -207,22 +207,40 @@ VITE_PUBLIC_CHAIN_ID=SN_MAIN
 
 ### Debug with Walnut
 
-Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. To learn more, visit the [Walnut Docs](https://docs.walnut.dev/debug-dojo-with-walnut).
+Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
 
-Use the following command to verify your contracts on Walnut to enable the full debugging experience:
+#### Step 1: Verify your Contracts
+
+To use full debugging capabilities, first verify your contracts using Walnut:
 
 ```bash
 sozo walnut verify
 ```
 
-After running the verify command, you should see an output similar to:
-
+You'll see output similar to:
 ```console
 🌰 Verifying classes with Walnut...
 
-  > "Contract verification has started. You can check the verification status at the following link: https://app.walnut.dev/verification/status/d63363a8-9201-4b6b-b061-7ba2f9255818"
-
-
+  > "Contract verification has started. You can check the verification status at the following link: https://app.walnut.dev/verification/status/c9f415ec-1257-4f34-959c-5ccf51662e53"
 ```
 
-Once verification is successful, you can use the [Walnut](https://walnut.dev) to debug your transactions.
+#### Step 2: Debugging Your Transaction
+
+After successful verification, follow these steps to debug your transaction on Walnut:
+
+**For Starknet Mainnet or Testnet(Sepolia):**
+
+1. Open the [Walnut app](https://app.walnut.dev).
+2. Enter your transaction hash in the search bar.
+3. Click on your transaction to view debug information.
+
+  > Example: View this [example Dojo transaction](https://app.walnut.dev/transactions?chainId=SN_SEPOLIA&txHash=0x06553f6543e0afbfcfa3ba22223a50cd36db75c7be7e53fba38786908a550c9b).
+
+**For Slot Deployments:**
+
+You need to set up your Slot RPC URL in Walnut before debugging:
+
+1. Follow this [custom networks setup guide](https://docs.walnut.dev/custom-networks).
+2. Once set up, use the Walnut app as described above.
+
+For detailed instructions and advanced use cases, visit the official [Walnut Documentation](https://docs.walnut.dev).
