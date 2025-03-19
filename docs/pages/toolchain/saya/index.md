@@ -9,6 +9,8 @@ Saya is the settlement orchestrator for Katana, it is responsible for fetching t
 
 ## Global Architecture
 
+![saya](/saya-overview.png)
+
 Currently, Saya is not generalized, which means that each running Katana node needs to have its own Saya instance. This will change in the future, and Saya will be able to aggregate multiple Katana nodes blocks into a single instance.
 
 The core steps of Saya are:
