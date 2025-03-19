@@ -224,7 +224,7 @@ You'll see output similar to:
   > "Contract verification has started. You can check the verification status at the following link: https://app.walnut.dev/verification/status/c9f415ec-1257-4f34-959c-5ccf51662e53"
 ```
 
-#### Step 2: Debugging Your Transaction
+#### Step 2: Debug Your Transaction
 
 After successful verification, follow these steps to debug your transaction on Walnut:
 
@@ -234,7 +234,7 @@ After successful verification, follow these steps to debug your transaction on W
 2. Enter your transaction hash in the search bar.
 3. Click on your transaction to view debug information.
 
-  > Example: View this [example Dojo transaction](https://app.walnut.dev/transactions?chainId=SN_SEPOLIA&txHash=0x06553f6543e0afbfcfa3ba22223a50cd36db75c7be7e53fba38786908a550c9b).
+  > Example: To see Walnut Debugger in action, open this [example Dojo transaction](https://app.walnut.dev/transactions?chainId=SN_SEPOLIA&txHash=0x06553f6543e0afbfcfa3ba22223a50cd36db75c7be7e53fba38786908a550c9b).
 
 **For Slot Deployments:**
 
