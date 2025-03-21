@@ -117,9 +117,6 @@ Events indexing options:
       --events.raw
           Whether or not to index raw events.
 
-      --events.historical <HISTORICAL>
-          Event messages that are going to be treated as historical during indexing.
-
 ERC options:
       --erc.max_metadata_tasks <MAX_METADATA_TASKS>
           The maximum number of concurrent tasks to use for indexing ERC721 and ERC1155 token metadata.
@@ -136,8 +133,11 @@ SQL options:
       --sql.model_indices <MODEL_INDICES>
           Specify which fields should have indices for specific models. Format: "model_name:field1,field2;another_model:field3,field4"
 
+      --sql.historical <HISTORICAL>
+          Models that are going to be treated as historical during indexing.
+
       --sql.page_size <PAGE_SIZE>
-          The page size to use for the database.
+          The page size to use for the database. The page size must be a power of two between 512 and 65536 inclusive.
 
           [default: 32768]
 
