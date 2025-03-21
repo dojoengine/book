@@ -3,7 +3,7 @@ title: Saya sovereign mode
 description: Run a sovereign rollup with Katana and posting proofs to Celestia.
 ---
 
-# Saya -- Sovereign mode
+# Saya - Sovereign mode
 
 In sovereign mode, Saya will fetch the blocks from Katana and will post the proof and associated compressed state diff to a data availability layer. There is no core contract on a settlement layer.
 
