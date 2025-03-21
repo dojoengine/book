@@ -248,8 +248,8 @@ export const routes = [
                                 link: "/toolchain/sozo/project-commands/migrate",
                             },
                             {
-                                text: "verify",
-                                link: "/toolchain/sozo/project-commands/verify",
+                                text: "verify with walnut",
+                                link: "/toolchain/sozo/project-commands/walnut-verify",
                             },
                             {
                                 text: "hash",
