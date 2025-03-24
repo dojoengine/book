@@ -61,6 +61,8 @@ cache_size = -500000        # Size of DB cache for queries
 # Events Options
 [events]
 raw = true                  # Whether to index raw events
+
+[sql]
 historical = [              # Historical event message tags
     "ns-E",
     "ns-EH"
