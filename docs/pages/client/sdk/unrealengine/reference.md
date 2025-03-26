@@ -7,7 +7,7 @@ description: "Detailed guide to integrating Dojo with Unreal Engine for building
 
 ### Prerequisites
 
-Setup your project by following the instructions [here](./../../unrealengine)
+Setup your project by following the instructions [here](https://book.dojoengine.org/client/sdk/client/sdk/unrealengine)
 ## Dojo Unreal Engine methods
 
 Using the command `sozo build --unreal`, you can add the `DojoHelpers.h` and `DojoHelpers.cpp` files to your project.
