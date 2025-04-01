@@ -47,24 +47,36 @@ Torii provides a grpc server that wraps all required tools to query your entitie
 Here's a concise example demonstrating how to subscribe to the `item` model in the `world` namespace, specifically filtering for items with a durability of 2:
 
 ```typescript
-const subscription = await sdk.subscribeEntityQuery(
-    world: {
-        item: {
-            $: {
-                where: { durability: { $is: 2 } },
-            },
-        },
-    },
-    (response) => {
-        if (response.data) {
-            // return data - pipe into any state management!
-            console.log("Updated entities:", response.data);
-        } else if (response.error) {
-            // return error
-            console.error("Subscription error:", response.error);
-        }
-    }
+// imports 
+import {
+    useDojoSDK,
+    useEntityId,
+    useEntityQuery,
+    // useModels fetches all entities : return an array
+    useModels,
+    // Single model retrieval from store : useful when you know the entityId. Returns a single entity
+    useModel,
+} from "@dojoengine/sdk/react";
+import { KeysClause, ToriiQueryBuilder } from "@dojoengine/sdk";
+
+
+
+// inside a react component
+useEntityQuery(
+    new ToriiQueryBuilder()
+        .withClause(
+            MemberClause("world-Item", "durability", "Eq", 2).build()
+        )
+        .includeHashedKeys()
 );
+
+// Fetch all items from the store
+const items = useModels("world-Item")
+
+// Fetches a single item from the store
+// For instance, if I know my item has an id of 1, I can fetch it like this :
+const entityId = useEntityId(1)
+const item = useModel(entityId, "world-Item")
 ```
 
 ## Usage
@@ -83,6 +95,8 @@ To take advantage of this type safety (You will need [dojo](https://github.com/d
 
     ```bash
     sozo build --typescript
+    # or if you want to specify the output directory
+    sozo build --typescript --bindings-output ./desired-output-path
     ```
 
 2. You will import these and pass into the sdk init function to give your app type. You can see all the options for sozo, like setting the output directory, with the following command:
@@ -101,15 +115,15 @@ import {
     SchemaType,
     schema,
 } from "../where-you-generated-your-models/models.gen";
+import { dojoConfig } from "../your-dojo-config-path";
 
 // Initialize the SDK
 const db = await init<SchemaType>(
     {
         client: {
-            rpcUrl: "your-rpc-url",
-            toriiUrl: "your-torii-url",
-            relayUrl: "your-relay-url",
-            worldAddress: "your-world-address",
+            toriiUrl: dojoConfig.toriiUrl,
+            relayUrl: dojoConfig.relayUrl,
+            worldAddress: dojoConfig.manifest.world.address,
         },
         domain: {
             name: "Example",
@@ -120,34 +134,6 @@ const db = await init<SchemaType>(
     },
     schema
 );
-```
-
-#### Use experimental sdk
-
-**With this version, you can use ClauseBuilder which is an improved version of QueryBuilder**
-
-```typescript
-import { init } from "@dojoengine/sdk/experimental";
-import {
-    SchemaType,
-    schema,
-} from "../where-you-generated-your-models/models.gen";
-
-// Initialize the SDK
-const db = await init<SchemaType>({
-    client: {
-        rpcUrl: "your-rpc-url",
-        toriiUrl: "your-torii-url",
-        relayUrl: "your-relay-url",
-        worldAddress: "your-world-address",
-    },
-    domain: {
-        name: "Example",
-        version: "1.0",
-        chainId: "your-chain-id",
-        revision: "1",
-    },
-});
 ```
 
 ### Understanding Queries
@@ -221,42 +207,6 @@ const entities = await sdk.getEntities(
     ]).build();
   ).build()
 );
-
-// Simple query version
-const entities = await sdk.getEntities({
-  query: {
-        // this is namespace to query models in
-        world: {
-            // this is model name
-            player: {
-                $: { where: { id: { $eq: "1" }, name: { $eq: "Alice" } } },
-            },
-        },
-    },
-  callback: (response) => {
-        if (response.data) {
-            console.log("Fetched entities:", response.data);
-        } else if (response.error) {
-            console.error("Fetch error:", response.error);
-        }
-    }
-});
-
-// Query builder version
-const entities = await sdk.getEntities({
-  query: new QueryBuilder()
-    .namespace("world", (n) =>
-        n.entity("player", (e) => e.eq("id", "1").eq("name", "Alice"))
-    )
-    .build(),
-  callback: (response) => {
-        if (response.data) {
-            console.log("Fetched entities:", response.data);
-        } else if (response.error) {
-            console.error("Fetch error:", response.error);
-        }
-    }
-});
 ```
 
 ### Subscribing To Entity Changes
@@ -271,71 +221,35 @@ Key points:
 - Uses `$is` for exact matching
 
 ```typescript
-const entities = await sdk.getEntities({
-    query: {
-        // this is namespace to query models in
-        world: {
-            // this is model name
-            item: {
-                $: {
-                    where: {
-                        type: { $is: "sword" },
-                        durability: { $is: 5 },
-                    },
-                },
-            },
-        },
-    },
-    callback: () => {},
-});
-const subscription = await sdk.subscribeEntityQuery({
-    query: entities.map((e) => e.entityId),
-    callback: (response) => {
-        if (response.data) {
-            console.log("Updated entities:", response.data);
-        } else if (response.error) {
-            console.error("Subscription error:", response.error);
-        }
-    },
-});
-```
-
-#### Experimental version
-
-**Using experimental, you can automatically achieve the same** at the cost of including hashed keys in your query:
-
-```typescript
-const [initialEntities, subscription] = await sdk.subscribeEntities(
-    new ToriiQueryBuilder()
+const [initialEntities, subscription] = await sdk.subscribeEntities({
+    query: new ToriiQueryBuilder()
         .withClause(
-            new ClauseBuilder()
-                .compose()
-                .and([
-                    new ClauseBuilder().where(
-                        "world-item",
-                        "type",
-                        "Eq",
-                        "sword"
-                    ),
-                    new ClauseBuilder().where(
-                        "world-item",
-                        "durability",
-                        "Eq",
-                        5
-                    ),
-                ])
-                .build()
+            AndComposeClause([
+                MemberClause(
+                    "world-item",
+                    "type",
+                    "Eq",
+                    "sword"
+                ),
+                MemberClause(
+                    "world-item",
+                    "durability",
+                    "Eq",
+                    5
+                ),
+            ])
+            .build()
         )
-        .includeHashedKeys()
-        .build(),
-    (response) => {
-        if (response.data) {
-            console.log("Updated entities:", response.data);
-        } else if (response.error) {
-            console.error("Subscription error:", response.error);
+        .includeHashedKeys(),
+    callback:  ({ data, error}) => {
+        if (data) {
+            console.log("Updated entities:", data);
+        }
+        if (error) {
+            console.error("Subscription error:", error);
         }
     }
-);
+});
 ```
 
 sdk first query entities and then use entityIds for subscription so you only have to care about what you original query was.
@@ -380,10 +294,32 @@ This module takes the `Schema` and outputs a typed store you can use around your
 1. Import the module
 
 ```typescript
-import { createDojoStore } from "@dojoengine/sdk/react";
+import { DojoSdkProvider } from "@dojoengine/sdk/react";
+import { setupWorld } from "../generated/typescript/contracts.gen";
+import { dojoConfig } from "../your-dojo-config-path/dojoConfig.ts";
 
-// import this outside of components
-export const useDojoStore = createDojoStore<Schema>();
+const sdk = await init<SchemaType>(
+    {
+        client: {
+            toriiUrl: dojoConfig.toriiUrl,
+            relayUrl: dojoConfig.relayUrl,
+            worldAddress: dojoConfig.manifest.world.address,
+        },
+        domain: {
+            name: "Example",
+            version: "1.0",
+            chainId: "your-chain-id",
+            revision: "1",
+        },
+    },
+);
+<DojoSdkProvider
+    sdk={sdk}
+    dojoConfig={dojoConfig}
+    clientFn={setupWorld}
+>
+    <App />
+</DojoSdkProvider>
 
 ...
 
@@ -393,30 +329,23 @@ const entities = useDojoStore((state) => state.entities);
 
 ...
 
-// Adding to a callback
-const subscription = await sdk.subscribeEntityQuery(
-    {
-        world: {
-            item: {
-                $: {
-                    where: {
-                        type: { $is: "sword" },
-                        durability: { $is: 5 },
-                    },
-                },
-            },
-        },
-    },
-    (response) => {
-        if (response.error) {
-            console.error("Error setting up entity sync:", response.error);
-        } else if (response.data && response.data[0].entityId !== "0x0") {
-            // You just need to do this!
-            state.setEntities(response.data);
-        }
-    }
+// Fetching entities from torii and binding them into dojo store directly
+useEntityQuery(
+    new ToriiQueryBuilder()
+        .withClause(
+            MemberClause("world-Item", "durability", "Eq", 2).build()
+        )
+        .includeHashedKeys()
 );
 
+// Get all models from the store
+const models = useModels("world-Item")
+
+// Get a single model from the store
+// entityId = values of your model's keys
+// Here Item key = 1
+const entityId = useEntityId(1);
+const model = useModel(entityId, "world-Item")
 ```
 
 #### Zustand vanilla
@@ -515,48 +444,8 @@ Create complex 'And' with 'Or' statements to narrow in on what you want to fetch
 ### Complex Queries
 
 ```typescript
-const entities = await sdk.getEntities(
-    {
-        world: {
-            player: {
-                $: {
-                    where: {
-                        And: [
-                            { score: { $gt: 100 } },
-                            {
-                                Or: [
-                                    { name: { $eq: "Alice" } },
-                                    { name: { $eq: "Bob" } },
-                                ],
-                            },
-                        ],
-                    },
-                },
-            },
-            item: {
-                $: {
-                    where: {
-                        And: [{ durability: { $lt: 50 } }],
-                    },
-                },
-            },
-        },
-    },
-    (response) => {
-        if (response.data) {
-            console.log("Fetched entities:", response.data);
-        } else if (response.error) {
-            console.error("Fetch error:", response.error);
-        }
-    }
-);
-```
-
-### Experimental version
-
-```typescript
-const entities = await sdk.getEntities(
-    new ToriiQueryBuilder()
+const entities = await sdk.getEntities({
+    query: new ToriiQueryBuilder()
         .withClause(
             new ClauseBuilder()
                 .compose()
@@ -595,21 +484,12 @@ const entities = await sdk.getEntities(
                     ),
                 ])
                 .build()
-        )
-        .build(),
-    (response) => {
-        if (response.data) {
-            console.log("Fetched entities:", response.data);
-        } else if (response.error) {
-            console.error("Fetch error:", response.error);
-        }
-    }
-);
+        ),
+});
 
 // OR (but only if you're a lazy ninja)
-
-const entities = await sdk.getEntities(
-    new ToriiQueryBuilder()
+const entities = await sdk.getEntities({
+    query: new ToriiQueryBuilder()
         .withClause(
             AndComposeClause([
                 AndComposeClause([
@@ -622,13 +502,6 @@ const entities = await sdk.getEntities(
                 MemberClause("world-item", "durability", "Lt", 50),
             ]).build()
         )
-        .build(),
-    (response) => {
-        if (response.data) {
-            console.log("Fetched entities:", response.data);
-        } else if (response.error) {
-            console.error("Fetch error:", response.error);
-        }
-    }
-);
+        .build()
+});
 ```

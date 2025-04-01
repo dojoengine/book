@@ -100,17 +100,13 @@ import { init } from "@dojoengine/sdk";
 // ModelNameInteface is exported from ./models.generated.ts
 // This file contains mapping of your cairo contracts to torii client
 import { ModelNameInterface, schema } from "./models.generated.ts";
-import { env, getRpcUrl } from "@/env";
 import { dojoConfig } from "./dojoConfig";
 
 const db = await init<ModelNameInterface>(
     {
         client: {
-            // This is local katana
-            rpcUrl: "http://localhost:5050",
-            // This is local torii
-            toriiUrl: "http://localhost:8080",
-            relayUrl: "/ip4/127.0.0.1/tcp/9090/tcp/80",
+            toriiUrl: dojoConfig.toriiUrl, // defaults to http://localhost:8080
+            relayUrl: dojoConfig.relayUrl, // defaults to /ip4/127.0.0.1/tcp/9090/tcp/80
             worldAddress: dojoConfig.manifest.world.address,
         },
         // Those values are used
@@ -133,22 +129,23 @@ We suggest you to call it in your main.ts file and give this to your component t
 Example using react and vite :
 
 ```ts filename="./src/main.ts"
-
-export const DojoContext = createContext<SDK<ModelNameInterface> | null>(
-    null
-);
+import { DojoSdkProvider } from "@dojoengine/sdk/react";
+import { dojoConfig } from "../dojoConfig.ts";
+// Generated from your contracts `sozo build --typescript `
+// you can change the output path to your desired path `sozo build --typescript --bindings-output ./desired-output-path`
+import { setupWorld } from "./typescript/contracts.gen.ts";
 
 async function main() {
   // Function init defined above
-    const db = await init<ModelNameInterface>(...);
+    const sdk = await init<ModelNameInterface>(...);
 
     createRoot(document.getElementById("root")!).render(
         <StrictMode>
-            <DojoContext.Provider value={db}>
+            <DojoSdkProvider sdk={sdk} dojoConfig={dojoConfig} clientFn={setupWorld}>
                 <RootLayout>
                     <Home />
                 </RootLayout>
-            </DojoContext.Provider>
+            </DojoSdkProvider>
         </StrictMode>
     );
 }
@@ -182,6 +179,27 @@ sozo migrate
 
 ```bash
 torii -w {world_address-output of previous command} --http.cors_origins '*'
+```
+
+::::
+
+## Run the app using Docker
+Using latest dojo-starter version, you can use docker compose to run bundled app which is simpler to run as is.
+Check out the [dojo-starter](https://github.com/dojoengine/dojo-starter) repo for more details.
+
+::::steps
+
+### Install docker
+
+Install docker desktop if you don't have it already.
+[Docker engine](https://docs.docker.com/engine/install/)
+
+
+### Run dojo stack
+
+You should have in your contracts root directory a `Dockerfile` and `compose.yaml` file. If that's not the case, you can use the one in the [dojo-starter](https://github.com/dojoengine/dojo-starter) repo.
+```bash
+docker compose up
 ```
 
 ::::
