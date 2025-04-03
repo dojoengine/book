@@ -1,0 +1,154 @@
+# www.dojoengine.org
+
+> Welcome to the official Dojo documentation - your comprehensive guide to building onchain games and applications.
+
+## TOOLCHAIN FORPROVABLE APPLICATIONS
+
+- [Welcome to Dojo](https://www.dojoengine.org/overview): A comprehensive overview of Dojo features, including core concepts, world interaction, permissions, events, and testing.
+- [Getting Started with Dojo – Dojo Documentation](https://www.dojoengine.org/getting-started): Learn how to install and set up Dojo, including prerequisites and installation methods using dojoup or asdf.
+- [Cairo Framework](https://www.dojoengine.org/framework): Learn about the core components of Dojo - Models, Systems, and World - and how they work together to build scalable onchain applications.
+- [Dojo Features Overview – Dojo Documentation](https://www.dojoengine.org/features): Explore Dojo's key features including Cairo architecture, Katana sequencer, Torii indexer, Sozo CLI, client libraries, and deployment options.
+- [Development Setup](https://www.dojoengine.org/installation): A comprehensive guide for setting up a Dojo development environment, including prerequisites and installation steps for different operating systems.
+- [FAQ](https://www.dojoengine.org/faq): Find answers to common questions about Dojo, onchain games, Autonomous Worlds, and how to get involved.
+- [](https://www.dojoengine.org/quickstarts)
+- [](https://www.dojoengine.org/tutorials)
+- [](https://www.dojoengine.org/get-started)
+- [404: NOT_FOUND](https://www.dojoengine.org/vercel/path0/docs/pages/toolchain/torii/grpc)
+- [Work with Saya on Slot](https://www.dojoengine.org/toolchain/saya/slot)
+- [Dojo 101 Tutorial](https://www.dojoengine.org/tutorial/dojo-starter): Learn the basics of Dojo by building a simple game, including models, systems, and world state management.
+- [404: NOT_FOUND](https://www.dojoengine.org/client/sdk/rust/example/%22https://docs.shuttle.rs/getting-started/installation)
+- [Dojo Client SDKs – Dojo Documentation](https://www.dojoengine.org/client/sdk): Overview of available client SDKs for building Dojo applications
+- [Discord Bot connected to a Dojo World](https://www.dojoengine.org/client/sdk/rust/example): Step-by-step guide for building a Discord bot connected to a Dojo World using Rust
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/slot/reference): Dojo | A Toolchain for Building Provable Games and Applications
+- [Calldata format](https://www.dojoengine.org/toolchain/sozo/calldata_format)
+- [Understanding Autonomous Worlds – Dojo Documentation](https://www.dojoengine.org/theory/autonomous-worlds): Explore the evolution from onchain games to provable games, and learn about the key characteristics and principles of Autonomous Worlds in blockchain gaming.
+- [404: NOT_FOUND](https://www.dojoengine.org/en/articles/provable-games/)
+- [katana db stats](https://www.dojoengine.org/toolchain/katana/cli/db/stats)
+- [404: NOT_FOUND](https://www.dojoengine.org/client/sdk/rust/example/%22https://doc.rust-lang.org/beta/book/ch01-01-installation.html%22)
+- [Deploy your game using Slot](https://www.dojoengine.org/tutorial/deploy-using-slot/main): Learn how to deploy your Dojo project using Slot, including authentication, configuration, and setting up a Torii indexer.
+- [Deploying to Sepolia and Mainnet – Dojo Documentation](https://www.dojoengine.org/tutorial/deploy-to-mainnet/main): Learn how to deploy your Dojo world to Sepolia testnet or Mainnet, including RPC setup, environment configuration, and Torii indexer deployment.
+- [404: NOT_FOUND](https://www.dojoengine.org/vercel/path0/docs/pages/tutorial/dojo-starter)
+
+## /architecture
+
+- [Execution sharding on Starknet](https://www.dojoengine.org/architecture/execution-sharding): A comprehensive guide to execution sharding on Starknet, including shard initialization, execution flow, completion detection, and concurrency management with CRDTs.
+- [Sovereign Rollup Using Celestia and Dojo](https://www.dojoengine.org/architecture/sovereign-rollups): Learn about implementing sovereign rollups using Celestia's data availability layer and Dojo's stack, including Katana sequencer and Saya proving service.
+
+## Dojo Client SDKs – Dojo Documentation
+
+- [Dojo c](https://www.dojoengine.org/client/sdk/c): Low-level C bindings for building Dojo applications and SDKs
+- [dojo.js](https://www.dojoengine.org/client/sdk/javascript): Official JavaScript package for building Dojo applications with JavaScript and TypeScript
+- [Dojo.unity](https://www.dojoengine.org/client/sdk/unity): Introduction to the official Unity SDK for building Dojo-powered games
+- [Dojo Godot](https://www.dojoengine.org/client/sdk/godot): Integration guide for using Dojo with the Godot game engine
+- [Dojo Rust SDK – Dojo Documentation](https://www.dojoengine.org/client/sdk/rust): Native Rust integration for building Dojo applications with Rust
+- [Dojo Telegram Integration – Dojo Documentation](https://www.dojoengine.org/client/sdk/telegram): Guide for building Telegram applications with Dojo and Cartridge Controller
+- [Dojo Discord](https://www.dojoengine.org/client/sdk/discord): Guide for integrating Dojo with Discord bots and applications
+
+## dojo.js
+
+- [Getting Started](https://www.dojoengine.org/client/sdk/javascript/get-started): Step-by-step guide for setting up and using the Dojo JavaScript SDK in your projects
+- [Dojo SDK: Build onchain faster](https://www.dojoengine.org/client/sdk/javascript/overview): Comprehensive guide to using the Dojo SDK for building onchain applications
+- [Query your entities](https://www.dojoengine.org/client/sdk/javascript/query-your-entities): Guide to using the QueryBuilder for fetching and filtering entities in Dojo applications
+
+## Dojo.unity
+
+- [Getting Started](https://www.dojoengine.org/client/sdk/unity/get-started): Complete guide to setting up, configuring, and building games with the Dojo Unity SDK
+- [Dojo Unity Concepts](https://www.dojoengine.org/client/sdk/unity/important-concepts): Core concepts and components for building games with the Dojo Unity SDK
+- [Example with Dojo Starter and dojo.unity](https://www.dojoengine.org/client/sdk/unity/example): Step-by-step guide for running the example project using Dojo Starter and dojo.unity
+- [Common problems and solutions](https://www.dojoengine.org/client/sdk/unity/common-problems)
+
+## Cairo Framework
+
+- [Authorization of Models](https://www.dojoengine.org/framework/authorization): Guide to configuring and managing authorization for model access in Dojo worlds
+- [Config](https://www.dojoengine.org/framework/config): Learn how to configure your Dojo project using Scarb.toml and profile-specific configuration files for different environments.
+- [Testing](https://www.dojoengine.org/framework/testing): Learn how to write and run unit tests and integration tests for your Dojo smart contracts and models.
+- [Cairo Testing Cheat Codes: A Comprehensive Guide](https://www.dojoengine.org/framework/testing-cheat-codes): A comprehensive guide to using Cairo testing cheat codes for manipulating execution context in contract tests.
+- [World Contract](https://www.dojoengine.org/framework/world): Overview of the World contract, the central database for managing models and systems in Dojo
+- [Models](https://www.dojoengine.org/framework/models): Learn about Dojo models, their role in data storage, key attributes, and best practices for model design and upgrades.
+- [404: NOT_FOUND](https://www.dojoengine.org/framework/contracts)
+- [](https://www.dojoengine.org/framework/systems)
+
+## Models
+
+- [Introspection](https://www.dojoengine.org/framework/models/introspect): Learn about Dojo's model introspection system, including how to implement the Introspect trait and handle custom types.
+- [Upgrades](https://www.dojoengine.org/framework/models/upgrades): Learn how to upgrade models in Dojo.
+- [Entities in Dojo – Dojo Documentation](https://www.dojoengine.org/framework/models/entities): Understand how entities work in Dojo's ECS architecture and how they relate to models through primary keys.
+- [Enum](https://www.dojoengine.org/framework/models/enum): Learn how to use enums in Dojo for game state management, including trait implementations and best practices.
+
+## World Contract
+
+- [World API](https://www.dojoengine.org/framework/world/api): Complete reference for the Dojo World API, including model operations and event handling
+- [Metadata](https://www.dojoengine.org/framework/world/metadata): Guide to configuring and managing metadata for Dojo worlds and resources
+- [Systems](https://www.dojoengine.org/framework/world/systems): Understanding and implementing systems in Dojo contracts for world state management
+- [Events](https://www.dojoengine.org/framework/world/events): Understanding and working with events in Dojo worlds, including custom events and core world events
+
+## /libraries
+
+- [Alexandria: Cairo Standard Library – Dojo Documentation](https://www.dojoengine.org/libraries/alexandria): Community-maintained standard library for Cairo 1.0, providing algorithms and data structures
+- [Origami: Game Development Primitives – Dojo Documentation](https://www.dojoengine.org/libraries/origami): Collection of essential primitives and libraries for building onchain games with Dojo
+
+## /toolchain
+
+- [Introduction to Katana – Dojo Documentation](https://www.dojoengine.org/toolchain/katana): Overview of Katana, a high-performance Starknet sequencer designed for both local development and production deployments, featuring JSON-RPC support and cross-layer communication.
+- [Introduction to Torii – Dojo Documentation](https://www.dojoengine.org/toolchain/torii): Overview of Torii, an automatic indexer and client for Dojo worlds, featuring GraphQL and gRPC APIs for efficient world state management.
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/slot): Dojo | A Toolchain for Building Provable Games and Applications
+
+## Introduction to Katana – Dojo Documentation
+
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/cli): Dojo | A Toolchain for Building Provable Games and Applications
+- [Forking](https://www.dojoengine.org/toolchain/katana/forking)
+- [Mining Modes](https://www.dojoengine.org/toolchain/katana/mining)
+- [Execution Engines](https://www.dojoengine.org/toolchain/katana/execution)
+- [Genesis Configuration](https://www.dojoengine.org/toolchain/katana/genesis): Guide to configuring the initial state of your Katana blockchain network, including token setup, account allocation, and smart contract deployment.
+- [JSON-RPC](https://www.dojoengine.org/toolchain/katana/rpc)
+- [Storage Modes](https://www.dojoengine.org/toolchain/katana/storage)
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/transactions): Dojo | A Toolchain for Building Provable Games and Applications
+- [Interact with Katana on Starknet. Deploy a Cairo smart contract using Katana](https://www.dojoengine.org/toolchain/katana/interact)
+- [Messaging](https://www.dojoengine.org/toolchain/katana/messaging): Guide to Katana's cross-layer messaging capabilities, including Ethereum and experimental Starknet messaging services configuration and implementation.
+- [Katana configuration file](https://www.dojoengine.org/toolchain/katana/config_file): Comprehensive guide to configuring Katana using TOML configuration files, including server, Starknet, gas oracle, forking, and development options.
+
+## Dojo Documentation
+
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/cli/katana): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/cli/db/): Dojo | A Toolchain for Building Provable Games and Applications
+- [katana completions](https://www.dojoengine.org/toolchain/katana/cli/completions)
+
+## JSON-RPC
+
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/rpc/starknet): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/rpc/katana): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/rpc/torii): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/katana/rpc/dev): Dojo | A Toolchain for Building Provable Games and Applications
+
+## Dojo Documentation
+
+- [logs](https://www.dojoengine.org/toolchain/slot/deployment-commands/logs)
+- [create](https://www.dojoengine.org/toolchain/slot/deployment-commands/create)
+- [delete](https://www.dojoengine.org/toolchain/slot/deployment-commands/delete)
+- [update](https://www.dojoengine.org/toolchain/slot/deployment-commands/update)
+- [describe](https://www.dojoengine.org/toolchain/slot/deployment-commands/describe)
+- [list](https://www.dojoengine.org/toolchain/slot/deployment-commands/list)
+
+## Dojo Documentation
+
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/common-options/offline): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/common-options/profile): Dojo | A Toolchain for Building Provable Games and Applications
+
+## Dojo Documentation
+
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/project-commands/init): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/project-commands/build): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/project-commands/clean): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/project-commands/test): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/project-commands/migrate): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/project-commands/walnut-verify): Dojo | A Toolchain for Building Provable Games and Applications
+- [Dojo Documentation](https://www.dojoengine.org/toolchain/sozo/project-commands/hash): Dojo | A Toolchain for Building Provable Games and Applications
+
+## Introduction to Torii – Dojo Documentation
+
+- [GraphQL in Torii – Dojo Documentation](https://www.dojoengine.org/toolchain/torii/graphql): Guide to using Torii's GraphQL API, including schema definitions, queries, transactions, and pagination features.
+- [Torii Reference Guide – Dojo Documentation](https://www.dojoengine.org/toolchain/torii/reference): Complete reference documentation for Torii, including usage, configuration options, database setup, and command-line parameters.
+- [gRPC in Torii – Dojo Documentation](https://www.dojoengine.org/toolchain/torii/grpc): Overview of using gRPC with Torii for efficient data fetching and entity/model event subscriptions.
+- [Torii configuration file](https://www.dojoengine.org/toolchain/torii/config_file): Comprehensive guide to configuring Torii using TOML configuration files, including server, relay, indexing, and event options.
+
