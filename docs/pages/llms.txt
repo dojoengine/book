@@ -1,0 +1,2513 @@
+# https://www.dojoengine.org/ llms-full.txt
+
+## Decentralized Game Development
+[Skip to content](https://www.dojoengine.org/#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Dojo Documentation
+
+# TOOLCHAIN FOR  PROVABLE APPLICATIONS
+
+Build decentralized games and applications faster by focusing on what matters: novel game mechanics and distribution models enabled by blockchains and zero-knowledge proofs.
+
+```text-sm sm:text-base
+curl -L https://install.dojoengine.org | bash
+```
+
+[Documentation](https://www.dojoengine.org/overview) [Github](https://github.com/dojoengine/dojo)
+
+![Dojo Engine](https://www.dojoengine.org/dojo-icon.svg)
+
+[**Getting Started**\\
+\\
+Start your journey with Dojo and create your first application from the ground up.](https://www.dojoengine.org/getting-started) [**Tools Overview**\\
+\\
+Discover the Dojo tools designed to streamline your application's build and deployment process.](https://www.dojoengine.org/toolchain/katana) [**Architecture**\\
+\\
+Explore the core architecture powering Dojo's onchain capabilities.](https://www.dojoengine.org/framework) [**Scaling**\\
+\\
+Dive into ephemeral, persistent, and sovereign rollup options to scale your onchain computation.](https://www.dojoengine.org/architecture/execution-sharding) [**Tutorials**\\
+\\
+Check out practical examples built with Dojo, featuring MMOs, NFTs, and more.](https://www.dojoengine.org/tutorial/dojo-starter) [**Community**\\
+\\
+Join our Discord to connect with fellow Dojo developers, ask questions, and share insights.](https://discord.gg/dojoengine)
+
+### Built with Dojo
+
+Join a vibrant ecosystem of teams building provable games and applications
+
+[![Dark Shuffle background](https://static.cartridge.gg/presets/dark-shuffle/cover.png)\\
+\\
+![Dark Shuffle](https://static.cartridge.gg/presets/dark-shuffle/icon.svg)**Dark Shuffle**](https://darkshuffle.dev/)
+
+[![Eternum background](https://static.cartridge.gg/presets/eternum/cover.png)\\
+\\
+![Eternum](https://static.cartridge.gg/presets/eternum/icon.svg)**Eternum**](https://eternum.realms.world/)
+
+[![Dope Wars background](https://static.cartridge.gg/presets/dope-wars/cover.png)\\
+\\
+![Dope Wars](https://static.cartridge.gg/presets/dope-wars/icon.png)**Dope Wars**](https://dopewars.game/)
+
+[![FlippyFlop background](https://static.cartridge.gg/presets/flippyflop/cover.png)\\
+\\
+![FlippyFlop](https://static.cartridge.gg/presets/flippyflop/icon.png)**FlippyFlop**](https://flippyflop.gg/)
+
+[![Jokers of Neon background](https://static.cartridge.gg/presets/jokers-of-neon/cover.png)\\
+\\
+![Jokers of Neon](https://static.cartridge.gg/presets/jokers-of-neon/icon.png)**Jokers of Neon**](https://jokersofneon.com/)
+
+[![Loot Survivor background](https://static.cartridge.gg/presets/loot-survivor/cover.png)\\
+\\
+![Loot Survivor](https://static.cartridge.gg/presets/loot-survivor/icon.png)**Loot Survivor**](https://lootsurvivor.io/)
+
+[![Savage Summit background](https://static.cartridge.gg/presets/savage-summit/cover.png)\\
+\\
+![Savage Summit](https://static.cartridge.gg/presets/savage-summit/icon.png)**Savage Summit**](https://savagesummit.io/)
+
+[![Blob Arena background](https://static.cartridge.gg/presets/blob-arena/cover.png)\\
+\\
+![Blob Arena](https://static.cartridge.gg/presets/blob-arena/icon.png)**Blob Arena**](https://blobarena.xyz/)
+
+### Partners
+
+Supported by the best in the industry.
+
+[Group 3](https://celestia.org/)
+
+## Dojo Overview
+[Skip to content](https://www.dojoengine.org/overview#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Overview
+
+On this page
+Chevron Right
+
+This release of Dojo includes a number of changes. This document aims to provide a summary of the changes providing an overview of the new features and improvements.
+
+## Dojo basics
+
+Dojo is composed of 5 basic resources:
+
+- `world`: The smart contract that manages the state of your game, everything is stored here.
+- `namespace`: Every resource that is not world or namespace must be namespaced when registered into the world. Namespaces are logical groups of resources, and allow you to organize your resources and permissions.
+- `model` (namespaced): A model defines data that can be stored in the world.
+- `event` (namespaced): An event also defines data, but meant to be stored offchain.
+- `contract` (namespaced): Where you define your business logic, and interact with the world to write/read models and emit events. A function into a contract is called a `System`, which is an entrypoint for users to interact with the world.
+
+Every resource in the world is identified by a dojo selector, a single felt identifier obtained by hashing.
+
+For human readability, namespaced resources can also be identified by what's called a `Tag`, which is a combination of the namespace and the resource name:
+`namespace-resource_name`. The tag can be used to obtain the dojo selector of the resource.
+
+A single resource can be registered multiple times into the world using different namespaces.
+
+All the resources without exception in the world are permissioned. This means that only the specified addresses can write/own resources. There's only two permissions in Dojo:
+
+- `writer`: Can write to the resource.
+- `owner`: Can grant/revoke writer permissions, can register/upgrade resources.
+
+## Interacting with the world and its data
+
+First, when you are inside a dojo contract (define with `#[dojo::contract]`), you have to retrieve the world's instance. As mentioned previously, all the resources are namespaced, so you have to specify the default namespace to use:
+
+```vocs_Code
+
+Copy// Get the world instance, using the namespace "ns":
+let world = self.world(@"ns");
+```
+
+This `world` instance provides you some functionalities to interact with the world and its data.
+
+```vocs_Code
+
+Copy// Using the DNS to get a contract address and class hash from its tag.
+// Since the default namespace has been set to "ns", the tag identifying
+// the resource will be "ns-my_contract".
+if let Some((contract_address, class_hash)) = world.dns("my_contract") {
+    // Do something with the contract address and class hash.
+}
+```
+
+To change the namespace you want to write/read from, you can use the `set_namespace` method:
+
+```vocs_Code
+
+Copyworld.set_namespace(@"ns2");
+
+// At this point, using the DNS will return the resource from the "ns2"
+// namespace, if it exists.
+if let Some((contract_address, class_hash)) = world.dns("my_contract") {
+    // Do something with the contract address and class hash.
+}
+```
+
+To read/write data to models, you have to import the `ModelStorage` trait:
+
+```vocs_Code
+
+Copyuse dojo::model::ModelStorage;
+
+#[dojo::model]
+struct MyModel {
+    #[key]
+    id: u32,
+    value: u32,
+}
+
+let mut world = self.world(@"ns");
+// Note here the type specified for the compiler, this ensures the
+// compiler can infer which data to retrieve:
+let id = 1;
+let mut model: MyModel = world.read_model(id);
+model.value = 123;
+world.write_model(@model);
+world.erase_model(@model);
+```
+
+The full API of the `ModelStorage` can be found [here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core/src/model/storage.cairo#L9) before more documentation is written.
+The important concept to keep in mind is that the data stored in the world are identified by the `keys` you are adding using `#[key]` in models and events.
+A model/event can have one or multiple keys. When those keys are hashed, it's called the `entity_id`.
+
+Events are only emitted by the world, and never stored onchain. Instead, Torii will index them and store them in the SQL database.
+However, they are subjected to the same namespace rules as models.
+
+To emit an event, you have to import the `EventStorage` trait:
+
+```vocs_Code
+
+Copyuse dojo::event::EventStorage;
+
+#[dojo::event]
+struct MyEvent {
+    #[key]
+    id: u32,
+    value: u32,
+}
+
+let mut world = self.world(@"ns");
+let e = MyEvent { id: 1, value: 123 };
+world.emit_event(@e);
+```
+
+## Permissions
+
+As mentioned previously, all the resources are permissioned. Some examples of the permission API:
+
+```vocs_Code
+
+Copyuse dojo::world::IWorldDispatcherTrait;
+
+// How to check that the caller is a owner of the current contract
+// executing code:
+fn system_1(ref self: ContractState) {
+    let mut world = self.world(@"ns");
+
+    // A dojo selector is computed from namespace and name.
+    // The namespace is already set by the `world` instance,
+    // so we just have to use the dojo name of the contract.
+    // Every contract has a `dojo_name` function available.
+    let current_contract_selector = world.contract_selector(
+        @self.dojo_name()
+    );
+
+    // Using the world dispatcher to call the world contract
+    // and verify that the resource (the current contract)
+    // is owned by the caller.
+    world.dispatcher.is_owner(
+        current_contract_selector,
+        starknet::get_caller_address()
+    );
+}
+```
+
+## Events and Torii
+
+Events are not stored onchain, they are indexed by Torii. And by default, events behave like models, which means only the latest state is kept.
+However, you may want sometimes to keep events historical as it's regurlarly for blockchain events.
+
+To do so, nothing to change onchain, only one way to define events:
+
+```vocs_Code
+
+Copy#[dojo::event]
+struct MyEvent {
+    #[key]
+    id: u32,
+    data: felt252,
+}
+```
+
+On the torii side, you can start it from the CLI or using a configuration file with the `historical_events` options, by providing tags of events you want to keep historical.
+
+```vocs_Code
+
+Copytorii start --events.historical ns-MyEvent,ns-MyOtherEvent --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
+```
+
+Or using a configuration file in `toml` format:
+
+```vocs_Code
+
+Copyworld_address = "0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d"
+
+[events]
+historical = ["ns-MyEvent", "ns-MyOtherEvent"]
+```
+
+## Testing
+
+Currently, Dojo is still only supporting the `cairo-test` test runner. Soon `starknet-foundry` will be unlocked once `scarb` and `cairo-lang` merge some missing features.
+
+In the meantime, here's how you can test your contracts. As we've seen, resources like contracts, models and events are namespaced, so you have to specify the namespace you want to use when testing.
+
+Before starting to test, here's the flow that `Sozo` follows to migrate a world:
+
+1. First of all, `Sozo` will migrate the world itself.
+2. Then, `Sozo` will register all the resources. Registering the resources means that all models/events/contracts will be declared and deployed onchain. None of those contracts are using constructor calldata, hence `Sozo` can deploy them without prior inputs. All resources are registered to the world and deployed through the world contract.
+3. Once all the resources are registered, `Sozo` will synchronize the permissions that are given in the `dojo_<profile>.json` file.
+4. Finally, `Sozo` will initialize all the contracts. Since the contracts initialization function is very likely to interact with models, at this point all permissions are synchronized and the world is ready to use.
+
+This is important to keep this in mind, since the testing flow must be similar to the migration flow.
+
+Now, let's move on to testing. First, you have to use the `dojo_cairo_test` crate to use dojo utilities in your tests.
+
+```vocs_Code
+
+Copy# Scarb.toml
+[dev-dependencies]
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
+```
+
+To define some namespace configurations you will use the [NamespaceDef](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core-cairo-test/src/world.cairo#L51) and associated definitions:
+
+```vocs_Code
+
+Copyuse dojo::model::{ModelStorage, ModelValueStorage, ModelStorageTest};
+use dojo::world::WorldStorageTrait;
+use dojo_cairo_test::{
+    spawn_test_world, NamespaceDef, TestResource, ContractDefTrait,
+    ContractDef, WorldStorageTestTrait
+};
+
+// First to note here, Dojo is generating contracts for each model
+// and event.
+// The name of this generated contract is always the resource name,
+// prefixed by "m_" or "e_" respectively.
+use dojo_starter::models::{
+    Position, m_Position, Moves, m_Moves, Direction
+};
+```
+
+Then, for each resource, you can add them to a specific namespace. Once again, the same model or event type can be registered multiple times into different namespaces, which will yield different resources.
+
+```vocs_Code
+
+Copy// Here we map the resource to the namespace "ns".
+// They will be used to register the resources to the world.
+fn namespace_def() -> NamespaceDef {
+    let ndef = NamespaceDef {
+        namespace: "ns", resources: [\
+            TestResource::Model(m_Position::TEST_CLASS_HASH),\
+            TestResource::Model(m_Moves::TEST_CLASS_HASH),\
+            TestResource::Event(actions::e_Moved::TEST_CLASS_HASH),\
+            TestResource::Contract(actions::TEST_CLASS_HASH),\
+        ].span()
+    };
+
+    ndef
+}
+```
+
+Let's then prepare some contracts definitions [defined here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core-cairo-test/src/world.cairo#L57):
+
+```vocs_Code
+
+Copy// Here, we have one contract, and we define at this step
+// the permission of the contract and initialization data (if any).
+fn contract_defs() -> Span<ContractDef> {
+    [\
+        ContractDefTrait::new(@"ns", @"actions")\
+            .with_writer_of([dojo::utils::bytearray_hash(@"ns")].span())\
+            // .with_init_calldata\
+            // .with_owner_of\
+    ].span()
+}
+```
+
+Once you have a namespace definition and contracts definitions, you can spawn a test world with it. The function `spawn_test_world` will register all the resources and return a world instance we've seen previously.
+
+```vocs_Code
+
+Copy#[test]
+fn test_world_test_set() {
+    let ndef = namespace_def();
+    let mut world = spawn_test_world([ndef].span());
+
+    // At this point, the resources are registered, but permissions
+    // are not set and contracts are not initialized
+    // (dojo_init has not be called).
+
+    world.sync_perms_and_inits(contract_defs());
+
+    // At this point, permissions are synchronized and
+    // contracts are initialized.
+}
+```
+
+By having the registration of the resources and the synchronization of the permissions/init separated, you can easily separate tests functions to setup the world at your will to test different scenarios.
+
+As you remember, the resources are also permissioned. In some occasions, you may want to interact with the world bypassing the permission check. For this, you can use the `test_only` world:
+
+```vocs_Code
+
+Copylet m = MyModel { id: 1, value: 123 };
+// Bypass any permission check, and will write into the world's storage.
+world.write_model_test(@m);
+```
+
+## Configuration
+
+The configuration of your dojo project is now fully managed by a dojo configuration file alongside the `Scarb.toml` manifest file.
+This ease the profile management and regroup all the functionalities at the same place.
+
+You can find detailed information about the configuration file [here](https://www.dojoengine.org/framework/config).
+
+## Sozo
+
+Sozo has changed to be more robust and 100% stateless for the migration. All the data required to compute diffs and migration strategy are locally built or onchain.
+
+As you remember, Dojo is profile based. Hence, the build and migration must respond to the profile. To specify a profile, use `-P` or `--profile` argument.
+
+Basic commands:
+
+```vocs_Code
+
+Copy# Builds a project.
+sozo build
+
+# Inspects the current state of the project by comparing local
+# and remote resources.
+
+# Inspect the full world.
+sozo inspect
+# Inspect a specific resource.
+sozo inspect <RESOURCE_TAG>
+
+# Migrate all the resources to the remote state.
+# Generates a `manifest_<PROFILE>.json` file.
+sozo migrate
+```
+
+If you change a permission, you just have to run `sozo migrate` again and the permissions will be updated.
+We recommend using `sozo inspect` instead of reading output of migration or the build. The `inspect` commands gives you summary of the world or specific resource. Use it at your advantage.
+
+## Sozo useful commands
+
+Sozo provides different commands to help you manage your world.
+
+```vocs_Code
+
+Copy# Inspect the current state of the project by comparing local
+# and remote resources.
+sozo inspect
+```
+
+```vocs_Code
+
+Copy# To enable the debugging experience on Walnut and verify your project, run:
+sozo walnut verify
+```
+
+```vocs_Code
+
+Copy# Computes selectors on the fly and different hashes results,
+# useful for entity_id computation too.
+sozo hash ns-actions
+sozo hash 1,2,3,4
+sozo hash hello
+```
+
+```vocs_Code
+
+Copy# Gathers all the events of the world and output the changes in
+# model storage in the terminal + transaction hash and block number.
+sozo events
+```
+
+```vocs_Code
+
+Copy# Sometimes, you may want to introspect a model from the chain without
+# using Torii indexed data.
+# You can inspect the schema of a model from the chain directly by using
+# the following command:
+sozo model schema dojo_starter-Position
+
+struct Position {
+  #[key]
+  player: ContractAddress,
+  vec: Vec2,
+}
+
+struct Vec2 {
+  x: u32,
+  y: u32,
+}
+```
+
+```vocs_Code
+
+Copy# You can also inspect the storage state of a model providing the keys,
+# as you remember the keys are used to identify the entity_id
+# which defined the storage slot of the model.
+sozo model get dojo_starter-Position 0x123
+{
+    player          : 0x0000000000000000000000000000000000000000000000000000000000000123,
+    vec             : {
+        x               : 0,
+        y               : 0
+    }
+}
+
+# As a reminder, keys are never stored! For this reason,
+# the value of the key will ALWAYS be the same as the one provided.
+```
+
+```vocs_Code
+
+Copy# Manage the permissions of the world from the command line,
+# start by listing them:
+sozo auth list
+
+# Grant/revoke a owner/writer to any resource:
+sozo auth grant owner ns,0x1234 ns-Position,ns-c1
+
+# Clone all the resources `0xa` has to `0xb`:
+sozo auth clone --from 0xa --to 0xb
+
+# You can optionally revoke all the resource of `from`
+# while doing the clone:
+sozo auth clone --from 0xa --to 0xb --revoke-from
+```
+
+## Road to mainnet
+
+Mainnet is a network with a huge history and thousands of blocks. Currently, some nodes are not supported syncing the events providing block ranges that are too wide.
+For this reason, when you target mainnet, you should do the following:
+
+```vocs_Code
+
+Copy# Build the project.
+sozo build --profile mainnet
+
+# Migrate the project.
+sozo migrate --profile mainnet
+```
+
+During the migration, sozo will output the block at which the world has been migrated and the address of the world at the end of the migration:
+
+```vocs_Code
+
+Copy🌍 World deployed at block 821000 with txn hash: 0x038e984efa3e91e045b33d14e63c5e9f765e5a8fe2b3546fc3ab872f608e37a2
+⛩️  Migration successful with world at address 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
+```
+
+To ensure the nodes serving mainnet data are accepting `Sozo` requests, you must set the `world_block` key in the `dojo_<profile>.json` file.
+Also, once the first migration of your world is done and you have a world address, you must set the `world_address` to ensure `Sozo` can easily detect upgrade of Dojo in the future.
+
+```vocs_Code
+
+Copy[env]
+# .. other configs
+world_block = 821000
+world_address = 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
+```
+
+## Breaking changes
+
+Currently those are the breaking changes:
+
+- Macros `set/get/delete` are currently not supported. They may be added again in the future.
+- When working with contracts, the `world` is no longer automatically injected. You must use regular starknet interfaces and `self` with `ContractState`.
+- World's metadata are not uploaded yet, this should be added back soon.
+- You must remove `[[target.dojo]]` and use `[[target.starknet-contract]]` instead, not forgetting to add the dojo world in the `build-external-contracts`.
+- Overlays files and intermediate manifests that were before produced can be deleted, they are no longer used.
+- The `Model` API has changed, please refer to the new one [here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core/src/model/model.cairo#L31).
+- Katana has a different CLI arguments, please refer to `katana --help` for more details at the moment.
+- Use transaction v3 by default paying in STRK, you must specify `--fee eth` if you want to use transaction v1 paying in ETH.
+- Event messages are toggles historical from Torii, no longer from the chain using `#[dojo::event(historical = true)]`.
+
+## Dojo FAQ
+[Skip to content](https://www.dojoengine.org/faq#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+FAQ
+
+On this page
+Chevron Right
+
+#### Why Dojo?
+
+Dojo was created to solve problems the founders faced when building onchain games. It standardizes the process of building such games and provides a suite of tools to make it easier.
+
+#### What is the Dojo roadmap?
+
+Dojo is rapidly evolving. You can find open issues on the [Dojo Github](https://github.com/dojoengine/dojo/issues) and join the [Discord](https://discord.gg/vUN4Xq9Qv6) to get involved. If you have ideas for the project, please open an issue.
+
+#### What is an onchain game?
+
+Onchain games are games that exist entirely on a public blockchain network; all states and logic are onchain. Clients (like web browsers) do not exist on the chain but exist purely to interact with and interpret the onchain state.
+
+#### What is an Autonomous World?
+
+An autonomous world is one that exists entirely onchain. It's not controlled by any single entity but is instead governed by the rules set within that world. Dive deeper into the topic here: [Autonomous Worlds](https://www.dojoengine.org/theory/autonomous-worlds).
+
+#### What is Cairo?
+
+Cairo is an opensource programming language invented by Starkware. It's a Turing-complete language meant for general-purpose computation. It's a low-level language designed to compile to the Cairo Virtual Machine. Learn more about it here: [Cairo](https://www.cairo-lang.org/).
+
+#### What is a provable game?
+
+Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain. But what does that entail? Consider a game of chess. We aim for an experience where players trust each other's moves. In a straightforward approach — and given the simple rules of chess — if this were in a blockchain environment, every move would be a transaction on the blockchain. This is costly. We just want to know the winner, not every move.
+
+With zk proofs and client communications, players can establish a state channel, sharing moves off-chain and ensuring their validity. At the end, a zk proof can be submitted to the blockchain to confirm the game's fairness. This constitutes a provable game.
+
+#### Can dojo implement client side proofs?
+
+The ability to execute Dojo programs in the browser is entirely plausible and is on our roadmap. Expect Q2 in 2024, or if you are a specalist in this jump into the code and help out!
+
+#### Can I deploy Dojo on Starknet?
+
+Yes! Dojo can run on any StarknetVM including the public blockchains. Within the dojo toolchain exists [Katana](https://www.dojoengine.org/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
+
+## Who maintains Dojo?
+
+Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promoting and advancing the concept of Autonomous Worlds (AWs). It is developement is led by [Cartridge](https://cartridge.gg/), with significant contributions from [Realms & BibliothecaDAO](https://bibliothecadao.xyz/) and many more [contributors](https://github.com/orgs/dojoengine/people).
+
+## How do I get involved?
+
+Check out our [Github](https://github.com/dojoengine), our [Twitter](https://x.com/ohayo_dojo), [Discord](https://discord.gg/vUN4Xq9Qv6) and [contribution guide](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md)
+
+## Dojo Configuration Guide
+[Skip to content](https://www.dojoengine.org/framework/config#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Config
+
+On this page
+Chevron Right
+
+The first thing to know about Dojo configuration is that, it's a **profile** based system.
+Any command you may use to build, migrate or inspect your project, you need to specify the profile you want to use.
+
+By default, the profile is always `dev` if not specified.
+
+When you work with Dojo, you have two main configuration files:
+
+1. First, the `Scarb.toml` manifest. This file is used to reference all Cairo dependencies.
+2. Second, the `dojo_<PROFILE>.toml`, where `<PROFILE>` can be `dev` or any other string (no spaces or special characters).
+
+## Adding a custom profile
+
+To add a new profile, you must:
+
+1. Add a `[profile.<PROFILE>]` section in your `Scarb.toml` file.
+
+
+
+
+
+```vocs_Code
+
+Copy# Scarb.toml
+# ... other configs ...
+[profile.my_profile]
+```
+
+2. Add the `dojo_<PROFILE>.toml` file in the root of your project (alonside the `Scarb.toml` file).
+
+
+## `Scarb.toml`
+
+To work with Dojo, the minimum you need to add to your `Scarb.toml` is:
+
+```vocs_Code
+
+Copy[package]
+cairo-version = "=2.8.4"
+name = "<PROJECT_NAME>"
+version = "0.1.0"
+edition = "2024_07"
+
+[[target.starknet-contract]]
+sierra = true
+# It's important to keep this, since it's used by Sozo to check the world version.
+build-external-contracts = ["dojo::world::world_contract::world"]
+
+[dependencies]
+# Adding the dojo core crate with the world and dojo traits.
+dojo = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
+starknet = "2.8.4"
+
+[dev-dependencies]
+# This package is required to run tests and add dojo utilities to your project in test only.
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
+
+[features]
+default = []
+```
+
+You can refer to the profile in [Scarb documentation](https://docs.swmansion.com/scarb/docs/guides/defining-custom-profiles.html) for more information.
+
+## `build-external-contracts`
+
+The `build-external-contracts` field in the `[target.starknet-contract]` section is crucial for projects relying on external libraries or contracts.
+
+## Purpose
+
+By default, Scarb does not build contracts that belong to external libraries unless explicitly defined in this field. Missing these definitions might not cause compilation errors but will lead to runtime issues when:
+
+- The deployed `world` system queries information about missing models.
+- `Torii` interacts with the blockchain and cannot find the required contracts.
+
+## Configuration
+
+To ensure all external contracts are built, update the `build-external-contracts` field like this:
+
+```vocs_Code
+
+Copy[[target.starknet-contract]]
+build-external-contracts = [\
+    "dojo::world::world_contract::world",\
+    "armory::m_Flatbow"\
+]
+```
+
+For every `#[dojo::model]` that originates from an external crate, the corresponding contract name follows the pattern:
+
+```vocs_Code
+
+Copym_<ModelName>
+```
+
+## Best Practices
+
+1. Always include all required contracts from the external crates your project depends on in `build-external-contracts` to prevent runtime errors.
+2. Test your configuration locally by running `scarb build` and verifying the generated artifacts.
+3. Write integration tests to validate interactions with external models and ensure they function as expected.
+
+## Common Issues
+
+1. **Missing Contract Artifacts**: Ensure all external contracts are listed.
+2. **Incorrect Model Name**: Follow the `m_<ModelName>` convention for external models to avoid naming mismatches.
+
+## `dojo_<PROFILE>.toml`
+
+The dojo profile configuration file is where you can add your development parameters and world's metadata.
+
+```vocs_Code
+
+Copy[world]
+name = "Dojo starter"
+description = "The official Dojo Starter guide, the quickest and most streamlined way to get your Dojo Autonomous World up and running. This guide will assist you with the initial setup, from cloning the repository to deploying your world."
+cover_uri = "file://assets/cover.png"
+icon_uri = "file://assets/icon.png"
+website = "https://github.com/dojoengine/dojo-starter"
+seed = "dojo_starter"
+
+[world.socials]
+x = "https://x.com/ohayo_dojo"
+discord = "https://discord.gg/FB2wR6uF"
+github = "https://github.com/dojoengine/dojo-starter"
+telegram = "https://t.me/dojoengine"
+
+[world]
+description = "Simple world."
+name = "simple"
+seed = "simple"
+
+[env]
+rpc_url = "http://localhost:5050/"
+# Default account for katana with seed = 0
+account_address = "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec"
+private_key = "0xc5b2fcab997346f3ea1c00b002ecf6f382c5f9c9659a3894eb783c5320f912"
+#world_address = "0x077c0dc7c1aba7f8842aff393ce6aa71fa675b4ced1bc927f7fc971b6acd92fc"
+
+[namespace]
+default = "ns"
+mappings = { "ns" = ["c1", "M"], "ns2" = ["c1", "M"] }
+
+[[models]]
+tag = "ns-Position"
+description = "position of a player in the world"
+
+[[events]]
+tag = "ns-Moved"
+description = "when a player has moved"
+
+[[contracts]]
+tag = "ns-actions"
+description = "set of actions for a player"
+
+[[external_contracts]]
+contract_name = "ERC20Token"
+instance_name = "GoldToken"
+salt = "1"
+constructor_data = ["str:Gold", "str:GOLD", "u256:0x10000000000000", "0x2af9427c5a277474c079a1283c880ee8a6f0f8fbf73ce969c08d88befec1bba"]
+
+[[external_contracts]]
+contract_name = "Saloon"
+constructor_data = []
+salt = "1"
+
+[init_call_args]
+"ns-c1" = ["0xfffe"]
+"ns2-c1" = ["0xfffe"]
+
+[writers]
+"ns" = ["ns-c1", "ns-c2"]
+"ns-M" = ["ns-c2",  "ns-c1", "ns2-c1"]
+
+[owners]
+"ns" = ["ns-c1"]
+
+[migration]
+order_inits = ["ns-c2", "ns-c1"]
+skip_contracts = ["ns-c3"]
+```
+
+### `[env]`
+
+The environment variables for your development, the supported keys are:
+
+- `rpc_url`: The RPC url of the network you want to connect to.
+- `account_address`: The address of the account used to migrate the world.
+- `private_key`: The private key of the account used to migrate the world.
+- `keystore_path`: The path to the keystore file containing encrypted account's private key.
+
+### `[namespace]`
+
+The namespace configuration, the supported keys are:
+
+- `default`: The default namespace. It's always required. The default namespace is the one used to map every contract/model/event that is not explicitly mapped to another namespace using `mappings`.
+
+- `mappings`: Explicit mappings of namespaces for contracts/models/events. Let's take an example:
+
+
+
+
+
+```vocs_Code
+
+Copy[namespace]
+default = "ns"
+mappings = { "ns" = ["c1", "M"], "ns2" = ["c1", "M"] }
+```
+
+
+
+
+
+In this example, the `ns` namespace will be used for contracts/models/events that are not explicitly mapped to another namespace. The `ns2` namespace will be used for contract `c1` and model `M`. Namespace `ns2` will be used for contract `c1` and model `M`.
+
+In this example, since `c1` and `M` are mapped to `ns2`, they are not automatically mapped to `ns`. This is the reason why they are also mapped to `ns` explicitly.
+The contracts `c2` and `c3` for instance, if not mentioned in the `mappings` section, will be mapped to the `ns` namespace by default.
+
+
+
+
+
+```vocs_Code
+
+Copy
+```
+
+
+### `[init_call_args]`
+
+The initialization call arguments for the contracts.
+By default, a `dojo::contract` doesn't have any initialization arguments. But using `dojo_init` function, you can decide otherwise and make some initialization during this `dojo_init` call.
+
+```vocs_Code
+
+Copy#[dojo::contract]
+mod my_contract {
+    // The only requirement is that the function is named `dojo_init`.
+    fn dojo_init(ref self: ContractState, arg1: felt252, arg2: u32) {
+        // ...
+    }
+}
+```
+
+To initialize this contract, you need to add the following to your `dojo_<PROFILE>.toml` file:
+
+```vocs_Code
+
+Copy[init_call_args]
+"ns-my_contract" = ["0xfffe", "0x1"]
+```
+
+Remember that a resource is always namespaced. So you need to specify the `tag` (which is `<NAMESPACE>-<CONTRACT_NAME>`) in the `init_call_args` section to identify it.
+
+Must use the Dojo calldata format described [here](https://www.dojoengine.org/toolchain/sozo/calldata_format).
+
+### `[writers]`/ `[owners]`
+
+The writers/owners configuration allows you to specify permissions directly from the configuration file for the given profile.
+The syntax for the writers/owners is the following:
+
+```vocs_Code
+
+Copy[writers]
+"<TARGET_TAG>" = ["<GRANTEE_TAG>"]
+```
+
+If we get back to `my_contract` mentioned just above, we can give to it the writer permission for the `ns` namespace like this:
+
+```vocs_Code
+
+Copy[writers]
+"ns" = ["ns-my_contract"]
+```
+
+As a note, we may change this in the future, and instead having the contract tag first, and then the target resources.
+
+### `[migration]`
+
+The migration configuration allows you to alter the behavior of the `sozo` migration command.
+
+The supported keys are:
+
+- `order_inits`: The order used to initialize the contracts. Identifies the contract by their tag.
+- `skip_contracts`: The resources to skip during the migration. You can still build those resources, but they will be skipped during the migration (not deployed onchain).
+- `disable_multicall`: By default `sozo` multicalls everything that could be multicalled. You can disable this behavior using this flag, to debug resources registration, contracts initialization, etc.
+
+### `[world]`
+
+The metadata related to your world. They are purely informative. More details [here](https://www.dojoengine.org/framework/world/metadata#world-metadata).
+
+### `[[models]]`, `[[events]]` and `[[contracts]]`
+
+The metadata related to your world resources. They are purely informative. More details [here](https://www.dojoengine.org/framework/world/metadata#resource-metadata).
+
+### `[[external_contracts]]`
+
+To be managed by `sozo`, external Cairo contracts (i.e non Dojo contracts) must be declared in your `dojo_<profile>.toml` file. For each contract instance a `[[external_contracts]]` block must be added with:
+
+- `contract_name`: the name of the Cairo contract to deploy,
+- `instance_name`: if you want to deploy several instances of a same Cairo contract (for example, `ERC20`), you have to give a specific name to each instance. If you have only one instance, don't provide any value for `instance_name`, it will automatically be set to the `contract_name` value,
+- `salt`: salt value to use to compute the contract address (hashed with the `instance_name` to get the final salt used for contract deployment),
+- `constructor_data`: a list of calldata to give to the Cairo contract constructor. If the constructor does not have any parameter, just omit this parameter. Must use the Dojo calldata format described [here](https://www.dojoengine.org/toolchain/sozo/calldata_format).
+
+Then, during the migration, sozo will declare and deploy these external contracts and update the manifest output file.
+
+## Getting Started with Dojo
+[Skip to content](https://www.dojoengine.org/getting-started#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Getting Started with Dojo
+
+On this page
+Chevron Right
+
+### Prerequisites
+
+To work with Dojo, you need to have Git, Rust and Scarb installed.
+
+#### Rust
+
+[Rust installation page](https://doc.rust-lang.org/book/ch01-01-installation.html#installing-rustup-on-linux-or-macos)
+
+#### Scarb
+
+The Dojo toolchain integrates [Scarb](https://docs.swmansion.com/scarb/) to build and run Dojo projects, installation instructions are [here](https://docs.swmansion.com/scarb/download.html).
+
+## Install Dojo using `dojoup`
+
+Dojo has two major components:
+
+- `dojoup` toolchain (installation instructions provided here)
+- SDKs: Libraries to interact with your onchain state
+
+### Install dojoup
+
+```vocs_Code
+
+Copycurl -L https://install.dojoengine.org | bash
+```
+
+### Install the latest Dojo release
+
+```vocs_Code
+
+Copydojoup
+```
+
+For more information on advanced usage, such as installing a particular version or building from source, run `dojoup --help`.
+
+## Install Dojo using `asdf`
+
+You can alternatively use the `asdf` package manager to install and manage your Dojo installation.
+
+### Install asdf
+
+Follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html).
+
+### Add the asdf-dojo plugin
+
+```vocs_Code
+
+Copyasdf plugin add dojo https://github.com/dojoengine/asdf-dojo
+```
+
+### Install the latest or a specific version
+
+```vocs_Code
+
+Copyasdf install dojo latest      # For the latest version
+asdf install dojo 1.0.0       # For a specific version
+```
+
+### Set the global or local version
+
+```vocs_Code
+
+Copyasdf global dojo latest       # Set globally
+asdf local dojo 1.0.0        # Set locally in your project directory
+```
+
+[**Introduction to Dojo**\\
+\\
+Build your first application with Dojo.](https://www.dojoengine.org/tutorial/dojo-starter) [**See Quickstarts**\\
+\\
+See the quickstarts to get started with Dojo.](https://www.dojoengine.org/quickstarts)
+
+## Fast Starknet Sequencer
+[Skip to content](https://www.dojoengine.org/toolchain/katana/#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Overview
+
+On this page
+Chevron Right
+
+![katana](https://www.dojoengine.org/katana-icon-word.png)
+
+Katana is a _blazingly fast_ Starknet sequencer, designed to support both local development as well as production deployments.
+
+In development mode, Katana provides the tool necessary for rapid iteration, including custom development RPCs for manipulating the execution context.
+
+In production mode, Katana provides a high performance sequencer optimized for gaming workloads, with support for settlment and cross layer communication.
+
+## Features highlight
+
+- [Starknet JSON-RPC v0.7.1](https://github.com/starkware-libs/starknet-specs/tree/v0.7.1) support
+- Cross layer communication (L1 <> L2, LN <> LN+1)
+- Development RPC methods for manipulating the blockchain states
+- State forking
+- Highly configurable
+
+## System Requirements
+
+```vocs_Code
+
+CopyKatana requires glibc version 2.33 or higher. This version is not available on Ubuntu 20.04 LTS, Debian 10 Buster, CentOS 7, and their older versions. To successfully install Dojo, you need to use a newer version of these operating systems.
+```
+
+## Installation
+
+`katana` binary is available via [`dojoup`](https://www.dojoengine.org/getting-started).
+
+### Installing from source
+
+If you would like to install `katana` from source, you can clone the Dojo repository locally and install it using [`cargo`](https://doc.rust-lang.org/cargo/).
+
+```vocs_Code
+
+Copygit clone https://github.com/dojoengine/dojo
+cd dojo
+cargo install --path ./bin/katana --locked --force
+```
+
+## Usage
+
+You can run Katana without any arguments to start the sequencer with default settings.
+
+```vocs_Code
+
+Copy$ katana
+```
+
+```vocs_Code
+
+Copy
+
+██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗
+██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗
+█████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║
+██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║
+██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
+
+
+PREDEPLOYED CONTRACTS
+==================
+
+| Contract        | Fee Token
+| Address         | 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7
+| Class Hash      | 0x02a8846878b6ad1f54f6ba46f5f40e11cee755c677f130b2c4b60566c9003f1f
+
+| Contract        | Universal Deployer
+| Address         | 0x41a78e741e5af2fec34b695679bc6891742439f7afb8484ecd7766661ad02bf
+| Class Hash      | 0x07b3e05f48f0c69e4a65ce5e076a66271a527aff2c34ce1083ec6e1526997a69
+
+| Contract        | Account Contract
+| Class Hash      | 0x05400e90f7e0ae78bd02c77cd75527280470e2fe19c54970dd79dc37a9d3645c
+
+
+PREFUNDED ACCOUNTS
+==================
+
+| Account address |  0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca
+| Private key     |  0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a
+| Public key      |  0x640466ebd2ce505209d3e5c4494b4276ed8f1cde764d757eb48831961f7cdea
+
+| Account address |  0xe29882a1fcba1e7e10cad46212257fea5c752a4f9b1b1ec683c503a2cf5c8a
+| Private key     |  0x14d6672dcb4b77ca36a887e9a11cd9d637d5012468175829e9c6e770c61642
+| Public key      |  0x16e375df37a7653038bd9eccd767e780c2c4d4c66b4c85f455236a3fd75673a
+
+| Account address |  0x29873c310fbefde666dc32a1554fea6bb45eecc84f680f8a2b0a8fbb8cb89af
+| Private key     |  0xc5b2fcab997346f3ea1c00b002ecf6f382c5f9c9659a3894eb783c5320f912
+| Public key      |  0x33246ce85ebdc292e6a5c5b4dd51fab2757be34b8ffda847ca6925edf31cb67
+
+| Account address |  0x2d71e9c974539bb3ffb4b115e66a23d0f62a641ea66c4016e903454c8753bbc
+| Private key     |  0x33003003001800009900180300d206308b0070db00121318d17b5e6262150b
+| Public key      |  0x4c0f884b8e5b4f00d97a3aad26b2e5de0c0c76a555060c837da2e287403c01d
+
+| Account address |  0x3ebb4767aae1262f8eb28d9368db5388cfe367f50552a8244123506f0b0bcca
+| Private key     |  0x3e3979c1ed728490308054fe357a9f49cf67f80f9721f44cc57235129e090f4
+| Public key      |  0x1e8965b7d0b20b91a62fe515dd991dc9fcb748acddf6b2cf18cec3bdd0f9f9a
+
+| Account address |  0x541da8f7f3ab8247329d22b3987d1ffb181bc8dc7f9611a6eccec3b0749a585
+| Private key     |  0x736adbbcdac7cc600f89051db1abbc16b9996b46f6b58a9752a11c1028a8ec8
+| Public key      |  0x570258e7277eb345ab80803c1dc5847591efd028916fc826bc7cd47ccd8f20d
+
+| Account address |  0x56c155b624fdf6bfc94f7b37cf1dbebb5e186ef2e4ab2762367cd07c8f892a1
+| Private key     |  0x6bf3604bcb41fed6c42bcca5436eeb65083a982ff65db0dc123f65358008b51
+| Public key      |  0x4b076e402835913e3f6812ed28cef8b757d4643ebf2714471a387cb10f22be3
+
+| Account address |  0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
+| Private key     |  0x1800000000300000180000000000030000000000003006001800006600
+| Public key      |  0x2b191c2f3ecf685a91af7cf72a43e7b90e2e41220175de5c4f7498981b10053
+
+| Account address |  0x66efb28ac62686966ae85095ff3a772e014e7fbf56d4c5f6fac5606d4dde23a
+| Private key     |  0x283d1e73776cd4ac1ac5f0b879f561bded25eceb2cc589c674af0cec41df441
+| Public key      |  0x73c8a29ba0e6a368422d0551b3f45a30a27166b809ba07a41a1bc434b000ba7
+
+| Account address |  0x6b86e40118f29ebe393a75469b4d926c7a44c2e2681b6d319520b7c1156d114
+| Private key     |  0x1c9053c053edf324aec366a34c6901b1095b07af69495bffec7d7fe21effb1b
+| Public key      |  0x4c339f18b9d1b95b64a6d378abd1480b2e0d5d5bd33cd0828cbce4d65c27284
+
+
+ACCOUNTS SEED
+=============
+0
+
+
+🚀 JSON-RPC server started: http://0.0.0.0:5050
+```
+
+## Execution Sharding Overview
+[Skip to content](https://www.dojoengine.org/architecture/execution-sharding#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Execution Sharding
+
+On this page
+Chevron Right
+
+## Overview of execution sharding
+
+Execution sharding on Starknet is an approach that allows isolated transaction execution within a shard environment. A shard in this context represents an independent sequencer that branches from the Starknet mainnet network to handle a specific subset of transactions and then merges onto mainnet. This architecture enables parallel processing across multiple shards while ensuring all activity remains anchored to Starknet mainnet, maximizing throughput without fragmenting the network's unified state and value.
+
+The sharding mechanism is triggered by sending a transaction to Starknet that specifies the shard details. Based on these details, a new shard is initiated, providing a sandboxed environment with low latency and high throughput for executing a series of transactions independently. Once the shard completes its operations, only the final state changes need to be settled back onto Starknet, significantly reducing costs by avoiding the need to process a whole state update on the main network.
+
+In the context of Dojo, execution sharding involved the following actors:
+
+1. Starknet Mainnet: The settlement layer where games live.
+2. World Contract: The contract on Starknet mainnet that will receive the state changes from the shard and incorporate them.
+3. Katana: The sequencer to run the shard.
+4. Saya: The proving service to generate the proof of the shard's execution and submit it to the world contract on Starknet.
+5. DojoOS: The Cairo program that will generate the trace of the correct execution of the shard.
+
+![Sharding execution overview](https://hackmd.io/_uploads/HyF9QoVX1g.png)
+
+## Shard Initialization
+
+The execution of a shard begins with the initiation of a specific transaction containing shard details, such as the shard ID, the set of initial state conditions and which data to settle back onto Starknet mainnet. This transaction is processed on Starknet targetting the World Contract, after which an operator specified in the transaction spins up a Katana and branches the Starknet mainnet network to create a dedicated shard. The shard operates as a gasless environment, allowing transactions to be processed without incurring the usual gas costs associated with Starknet mainnet operations. This makes shards particularly cost-effective for executing complex or high-volume transaction sequences that would be prohibitively expensive on mainnet.
+
+```vocs_Code
+
+Copystruct ShardStartData {
+    // Unique identifier for the shard.
+    shard_id: felt252,
+    // Address of the shard operator running the sequencer.
+    operator: felt252,
+    // Initial state of the shard.
+    initial_state: ShardInitialState {
+        // List of contracts the sequencer may be whitelisting to execute.
+        contracts: Span<felt252>,
+        // Event to be emitted when the shard has completed execution.
+        end_event: EventSelector {
+            // Address of the contract emitting the event.
+            from: felt252,
+            // Selector of the event to be emitted.
+            selector: felt252,
+        },
+    },
+    // Configuration for the settlement of the shard in the world contract.
+    settlement_config: SettlementConfig {
+        // Addresses of storage addresses to update on the world contract.
+        storage_addresses: Span<felt252>,
+    },
+}
+```
+
+The shard is initialized by branching mainnet at the block where the initialization transaction is included. From this point forward, the shard will operate independently, and since all the logic has been defined on Starknet mainnet, the shard will be able to execute this logic without additional classes to be declared on the shard. This is an important aspect of execution sharding, as it allows better control over the execution environment within the shard.
+
+## Shard Execution Flow
+
+Once the shard has been initialized, the shard (sequencer) will begin processing transactions. At this point, there's several possible designs (not exhaustive) for controlling the execution flow:
+
+1. Whitelisting a set of contracts to be executed within the shard.
+2. Whitelisting accounts that are allowed to send transactions to the shard.
+3. Restrict the shard to never declare new contracts.
+4. No restrictions since the logic is already defined on Starknet mainnet, and permissions are already defined in the Cairo code.
+
+We may want to restrict the execution flow to only allow the execution of a specific set of contracts or accounts to prevent the shard from being targeted by DoS attacks.
+
+![Sharing execution flow](https://hackmd.io/_uploads/Sk6WByV7yg.png)
+
+## Detecting Shard Completion
+
+A critical part of the execution sharding process is the detection of when a shard has completed its task. A specific event emitted by a specific Cairo contract signals the end of its execution lifecycle. This event acts as a flag, allowing the system to recognize that all intended transactions within the shard have been processed or that a fullfillment of the shard's purpose has been reached. Once this event is detected, the sharding process transitions to the proving and settlement stages.
+
+**Proving and Settlement Pipeline**
+
+Upon detecting the completion event, the Saya service initiates the proving and settlement pipeline.
+
+1. DojoOS is executed to generate the trace attesting of the correct execution of the shard. At this point, DojoOS is similar to SNOS, where transactions are re-executed to attest they are valid. However, the DojoOS is not block based as SNOS is. It's rather a sequence of transactions that are being validated and where some whitelisting may be applied, or extra checks based on conditions that may be defined in the shard initialization.
+
+An other difference is that DojoOS will output a list of storage addresses that were modified during the execution of the shard and must be settled back onto Starknet (based on the settlement config defined in the shard initialization). Where SNOS outputs the entire state update (contracts nonces, classes, etc).
+
+2. The trace is then submitted to Atlantic (or other proving service) by Saya to generate a proof.
+
+3. Since re-execution of transactions currently requires dynamic layout, this proof must then be submitted again for a layout bridge, which will output a new proof with `recursive_with_poseidon` layout which is verifiable on Starknet.
+
+4. Finally, the DojoOS output with the storage addresses to be updated will be sent as a calldata to the world contract on Starknet to incorporate the shard's state changes back into the main Starknet network.
+
+
+## Concurrency Management with CRDTs
+
+One of the challenges of concurrent execution across shards is maintaining consistent state on Starknet. For instance, if shards modify balances independently, concurrent execution without safeguards could lead to inconsistencies on Starknet mainnet. To address this, we are exploring the integration of Conflict-Free Replicated Data Types (CRDTs) into our concurrency model. CRDTs are a class of data structures designed to enable concurrent updates across distributed systems without requiring complex locking mechanisms.
+
+Using CRDTs could allow each shard to make state updates independently, with the assurance that these changes will converge to a valid global state when settled on Starknet. This approach mitigates the risk of issues such as invalid storage updates while preserving the benefits of parallel execution.
+
+For example, consider a dungeon game where players earn both gold and experience points (XP). When multiple players enter the same dungeon in different shards:
+
+- Experience Points (Grow-Only Counter CRDT): XP can only increase, making it a perfect candidate for a grow-only counter CRDT. Each shard can independently award XP to players, and when merging back to mainnet, the final XP will be the sum of all gains across shards.
+
+- Gold (Escrow-based CRDT): Gold requires more careful handling since it can both increase and decrease. When a player enters a dungeon shard, a portion of their gold is "escrowed" - locked on mainnet and made available to that specific shard. This prevents the same gold from being spent multiple times across different shards.
+
+- Unique Items (Lock-based CRDT): For unique items like legendary weapons, a lock-based CRDT ensures that only one shard can modify the item's state at a time. When a unique item is being used or traded in a shard, it becomes temporarily locked on mainnet until that shard's execution completes.
+
+
+The following CRDT types are being considered for a first MVP implementation:
+
+1. Grow-Only Counters: For metrics that can only increase (experience points, achievement counts)
+2. Escrow Mechanisms: For resources that need controlled spending across shards (gold, consumable items)
+3. Lock-based Controls: For unique assets that cannot be simultaneously modified (special equipment, territory ownership)
+
+![Sharing execution CRDT](https://hackmd.io/_uploads/r1_3r1E7Jg.png)
+
+## Current limitations
+
+While sharding offers significant advantages for scaling and parallel execution, there are several current limitations to consider:
+
+1. Proving Time Bottleneck: The process of generating and verifying proofs for shard execution is computationally intensive and time-consuming. This can lead to delays in settlement, potentially creating a backlog of state updates waiting to be incorporated into the main network.
+
+2. All-or-Nothing Proof Validation: If a proof for a shard's execution is found to be invalid, the entire shard's execution must be discarded. This means that even if only a small portion of the transactions were problematic, all valid transactions within that shard will also be rejected.
+
+3. Limited Cross-Shard Communication: Direct communication between shards is currently not supported, which can restrict certain types of complex interactions that require immediate state awareness across multiple shards.
+
+## Autonomous Worlds Overview
+[Skip to content](https://www.dojoengine.org/theory/autonomous-worlds#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Understanding Autonomous Worlds
+
+On this page
+Chevron Right
+
+## Onchain games to provable games
+
+Onchain games promise us freedom of expression and sovereignty over our information. They possess these properties because they run on a blockchain verified by consensus. Provable games, using zk proofs, allow for the verification of game state and computations without large consensus schemes. Written in languages like Cairo, Noir or running RISC-Zero, these games can operate independently on an isolated zkVM like a browser, with verifiable outputs ensuring truthful execution. This broadens our possibilities in the onchain gaming industry.
+
+An illustrative example is a game like Donkey Kong. Currently, to have your high score recognized on the leaderboard, you must play on a certified machine to prevent cheating, while recording your gameplay. However, if Donkey Kong were a provable game, players could compete in isolation. Achieving a high score would simply require submitting a proof to the Donkey Kong organization for verification. This method allows players to establish themselves as the King of Kong from the comfort of their home, without the need to record their gameplay!
+
+It's important to note that the approach isn't binary. For instance, you could operate an onchain game on an EVM and then layer a Cairo-based game on top, enhancing the core game while broadening its capabilities.
+
+For more information about Starknet, Cairo and its tech stack, check out the [Starknet & Cairo book](https://book.starknet.io/).
+
+## Autonomous Worlds
+
+> "Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to."
+
+The precise definition of Autonomous Worlds (AWs) remains somewhat elusive, as it is more of an abstract concept that has yet to be fully crystallized. Lattice first [introduced](https://0xparc.org/blog/autonomous-worlds) the terminology in 2022, but the notion of open worlds operating on the blockchain has been around for a while. The abstraction introduced by MUD served as a catalyst for the market to recognize the potential of these worlds.
+
+Autonomous Worlds share notable similarities with blockchains in their fundamental nature. Once established, they persist, maintaining their state throughout the lifespan of the chain. Players can join or leave, and developers can expand these worlds by deploying features in a permissionless manner, much like how contracts are added to a chain. While there is no universally accepted definition for an Autonomous World, we believe that a game must possess at least the following two essential features to be considered as such:
+
+1. Decentralized data availability layer: While the state execution may reside on a centralized layer, it is crucial that the state can be reconstructed if the execution layer ceases to exist. Rollups offer a solution, providing increased capacity execution layers while ensuring data is permanently settled on Ethereum. This guarantees the world's perpetual persistence.
+
+2. Permissionless entry point for expanding the world: The World contract must be capable of accepting new systems and components without requiring permission. While this doesn't imply that every component and system will be utilized, they must adhere to this pattern, ensuring open and unrestricted access for potential enhancements.
+
+
+We're firm believers in the potential for Autonomous Worlds to catalyze the exploration of novel forms in the medium provided by zk proofs and blockchain technology. This is not only about games, but also about new forms of artwork, coordination, fun, emerging from tinkering and radical innovation, eventually questioning the very notion of "play" in this brave new decentralized and trustless world.
+
+### Homework
+
+- [Wired - Autonomous Worlds Primer](https://www.wired.com/story/autonomous-worlds-aim-to-free-online-games-from-corporate-control/)
+- [0xParc - Autonomous Worlds (Part 1)](https://0xparc.org/blog/autonomous-worlds)
+- [Gubsheep - The Strongest Crypto Gaming Thesis](https://gubsheep.substack.com/p/the-strongest-crypto-gaming-thesis)
+- [Lattice - MUD: An engine for Autonomous Worlds](https://lattice.xyz/blog/mud-an-engine-for-autonomous-worlds)
+- [Guiltygyoza - Game 2.0](https://www.guiltygyoza.xyz/2022/07/game2)
+- [Guiltygyoza - Composable Engineering](https://www.guiltygyoza.xyz/2023/05/composable-engineering)
+- [Jay Springett - Wind-up Worlds](https://www.thejaymo.net/2022/05/06/wind-up-worlds/)
+- [Are.na collection on Autonomous Worlds](https://www.are.na/sylve-chevet/on-chain-realities-and-autonomous-worlds)
+- [Tarrence - Provable Games](https://www.dojoengine.org/en/articles/provable-games/)
+- [Loaf - Provable Goblins](https://loaf.coffee/posts/provable-goblins)
+
+## Dojo Framework Overview
+[Skip to content](https://www.dojoengine.org/what-is-dojo#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+What is Dojo?
+
+On this page
+Chevron Right
+
+Dojo is many things. It's a framework, a toolchain, and a community. It's a
+new way to build onchain applications that are provably fair and
+transparent.
+
+It offers a straightforward way to define complex applications using [Cairo](https://www.cairo-lang.org/) and provides a comprehensive toolset for building, deploying, and managing your ambitious projects.
+
+With Dojo, you can skip the hassle of writing complex indexers, managing intricate contract patterns, or setting up detailed query systems.
+
+Focus on bringing your ideas to life quickly and efficiently. From basic NFT projects to the most complex onchain games, Dojo is the perfect tool in your arsenal.
+
+[**Start Building**\\
+\\
+Learn how to get started with Dojo and build your first application.](https://www.dojoengine.org/getting-started) [**See the Framework**\\
+\\
+Learn about the Cairo architecture and how Dojo simplifies onchain development.](https://www.dojoengine.org/framework)
+
+## Dojo Bevy Integration
+[Skip to content](https://www.dojoengine.org/client/sdk/bevy#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Dojo Bevy Integration
+
+On this page
+Chevron Right
+
+Dojo Bevy is a work in progress.
+
+See [example project](https://github.com/elton-cs/revolt)
+
+## Katana Database CLI
+[Skip to content](https://www.dojoengine.org/toolchain/katana/cli/db/#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+On this page
+Chevron Right
+
+Utility commands for managing the Katana database:
+
+- [`katana db stats`](https://www.dojoengine.org/toolchain/katana/cli/db/stats)
+
+## Dojo Unity Concepts
+[Skip to content](https://www.dojoengine.org/client/sdk/unity/important-concepts#vocs-content)
+
+Join us in [Discord](https://discord.gg/dojoengine)!
+
+Search
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo)
+
+[X](https://x.com/ohayo_dojo)
+
+[![Logo](https://www.dojoengine.org/dojo-word.svg)](https://www.dojoengine.org/)
+
+[GitHub](https://github.com/dojoengine/dojo) [X](https://x.com/ohayo_dojo)
+
+Menu
+
+Dojo unity concepts
+
+On this page
+Chevron Right
+
+To dive into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
+
+## World Manager
+
+The World Manager is the central hub for organizing and controlling entities within your Dojo world in Unity.
+
+![world-manager](https://www.dojoengine.org/unity/world-manager.png)
+
+During initialization, the World Manager receives WorldManagerData, which defines essential settings like your Torii URL, RPC URL, and world address. While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
+
+![world-manager-data](https://www.dojoengine.org/unity/world-manager-data.png)
+
+In Unity, entities are represented by GameObject instances. The World Manager simplifies their management by offering methods to:
+
+- Add and remove entities
+- Access entities by name or list all entities
+
+## Synchronization Master
+
+The Synchronization Master acts as the bridge between Unity and your Dojo world, seamlessly synchronizing and managing entities.
+
+![sync-master](https://www.dojoengine.org/unity/sync-master.png)
+
+Key Features:
+
+- Control synchronization: Set the maximum number of entities to synchronize.
+
+- Event-driven communication:
+  - OnSynchronized: Notifies you when entities were successfully synchronized from Dojo world to Unity.
+  - OnEntitySpawned: Triggered whenever a new entity is spawned in the Unity environment.
+- Dynamic entity management:
+  - SynchronizeEntities: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
+  - HandleEntityUpdate: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
+
+## Models
+
+Models serve as the bridge between the Unity environment and the Dojo world, ensuring seamless synchronization of data. Changes or interactions occurring in Unity are mirrored accurately in the Dojo world, and vice versa.
+While you have the flexibility to incorporate as many models as necessary, it's vital to ensure that these models align with those present in your Dojo world for effective synchronization.
+
+⚠️ Before embarking on game development with Dojo in Unity, it's essential to grasp the fundamentals of **models** within the Dojo environment.
+
+> 💡 Explore the following sections to gain insights:
+
+- [Models Definition](https://www.dojoengine.org/framework/models): Understand the structure and functionality of models within Dojo.
+
+- [Entity Definition](https://www.dojoengine.org/framework/models/entities): Learn about entities in the context of Dojo.
+
+- [Dojo as an ECS in 15 Minutes](https://www.dojoengine.org/tutorial/dojo-starter): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
+
+
+### Bingen
+
+📖 A codegen plugin is available to automate the creation of C# bindings (components and contracts) for your Unity world.
+
+To use this feature, execute the following command within your Cairo project:
+
+```vocs_Code
+
+Copy  sozo build --unity
+```
+
+Once executed, you can proceed by either moving the files generated in the `bindings/unity` directory to your Unity project, or specify a custom output directory using:
+
+```vocs_Code
+
+Copy  sozo build --unity --output-bindings ./your/unity/project/folder
+```
+
+> ⚠️ The version of dojo must be >= `0.6.0`. To install it run:
+
+```vocs_Code
+
+Copy  dojoup --version v0.6.0
+```
+
+### Example
+
+> Model in Dojo:
+
+```vocs_Code
+
+Copy#[derive(Model, Drop, Serde)]
+struct Moves {
+    #[key]
+    player: ContractAddress,
+    remaining: u8,
+    last_direction: Direction
+}
+
+#[derive(Serde, Copy, Drop, Introspect)]
+enum Direction {
+    None,
+    Left,
+    Right,
+    Up,
+    Down,
+}
+```
+
+> Representation in Unity:
+
+```vocs_Code
+
+Copyusing System.Numerics;
+using Dojo;
+using Dojo.Starknet;
+using Dojo.Torii;
+
+public enum Direction
+{
+    None,
+    Left,
+    Right,
+    Up,
+    Down,
+
+}
+
+public class Moves : ModelInstance
+{
+    [ModelField("player")]
+    public FieldElement player;
+    [ModelField("remaining")]
+    public byte remaining;
+    [ModelField("last_direction")]
+    public Direction lastDirection;
+
+    void Start() {}
+
+    void Update() {}
+}
+```
+
+## Dojo Tutorials
+
+### Getting Started with Dojo Starter
+
+The Dojo Starter project is your gateway to building onchain games and applications. This tutorial will guide you through:
+
+1. Setting up your development environment
+2. Understanding the basic components
+3. Creating your first Dojo world
+4. Testing and deploying your application
+
+#### Prerequisites
+
+Before starting, ensure you have:
+- Rust installed
+- Scarb installed
+- Dojo toolchain installed
+
+#### Project Structure
+
+A typical Dojo project consists of:
+
+```
+my-dojo-project/
+├── src/
+│   ├── models.cairo    # Define your game's data structures
+│   ├── systems.cairo   # Implement game logic
+│   └── tests/         # Test your components
+├── Scarb.toml         # Project configuration
+└── dojo_config.json   # Dojo-specific settings
+```
+
+### React Integration
+
+Dojo provides seamless integration with React through its client SDK. Key features include:
+
+1. Built-in hooks for state management
+2. Real-time updates from your Dojo world
+3. Easy contract interactions
+4. Efficient caching and data synchronization
+
+Example React component:
+
+```typescript
+import { useComponentValue } from "@dojoengine/react";
+
+function PlayerComponent({ entity }) {
+  const position = useComponentValue(Position, entity);
+  
+  return (
+    <div style={{ left: position.x, top: position.y }}>
+      Player at ({position.x}, {position.y})
+    </div>
+  );
+}
+```
+
+## Dojo Libraries
+
+### Alexandria
+
+Alexandria is a collection of Cairo utilities and data structures for Dojo development. It provides:
+
+1. Common data structures:
+   - Linked lists
+   - Binary trees
+   - Hash maps
+   - Priority queues
+
+2. Math utilities:
+   - Fixed point arithmetic
+   - Random number generation
+   - Geometric calculations
+
+3. String manipulation:
+   - String concatenation
+   - Substring operations
+   - String comparison
+
+### Origami
+
+Origami is a library for building complex game mechanics in Dojo. Features include:
+
+1. Combat systems:
+   - Turn-based combat
+   - Real-time combat calculations
+   - Damage formulas
+
+2. Inventory management:
+   - Item stacking
+   - Equipment systems
+   - Resource management
+
+3. Achievement systems:
+   - Progress tracking
+   - Reward distribution
+   - Milestone management
+
+## Sovereign Rollups
+
+Sovereign rollups are a key scaling solution for Dojo applications. They provide:
+
+### Benefits
+
+1. Independent execution:
+   - Custom state transition rules
+   - Flexible fee mechanisms
+   - Application-specific optimizations
+
+2. Security guarantees:
+   - Inherited security from L1
+   - Fraud proof system
+   - Data availability guarantees
+
+### Architecture
+
+The sovereign rollup architecture consists of:
+
+1. Execution layer:
+   - Processes transactions
+   - Updates state
+   - Generates state transitions
+
+2. Settlement layer:
+   - Verifies state transitions
+   - Handles disputes
+   - Ensures finality
+
+3. Bridge mechanisms:
+   - Asset transfers
+   - Cross-rollup communication
+   - State synchronization
+
+### Implementation
+
+To implement a sovereign rollup in Dojo:
+
+1. Define state transition function:
+```cairo
+fn state_transition(
+    world: IWorldDispatcher,
+    old_state: State,
+    actions: Array<Action>
+) -> State {
+    // Process actions and compute new state
+}
+```
+
+2. Configure settlement:
+```toml
+[rollup]
+settlement_layer = "starknet"
+data_availability = "celestia"
+verification_mechanism = "validity_proofs"
+```
+
+3. Set up bridges:
+```cairo
+#[derive(starknet::Interface)]
+trait IBridge {
+    fn deposit(ref self: ContractState, amount: u256);
+    fn withdraw(ref self: ContractState, amount: u256);
+    fn verify_message(ref self: ContractState, message: Message);
+}
+```
+
+### Deployment Considerations
+
+When deploying a sovereign rollup:
+
+1. Choose appropriate settlement layer
+2. Configure data availability solution
+3. Set up monitoring and maintenance
+4. Plan for upgrades and governance
+
+For more detailed information on specific topics, refer to the respective sections in the documentation.
+
+## Architecture Deep Dive
+
+### System Architecture
+
+Dojo's architecture is built on several key components that work together to provide a robust gaming infrastructure:
+
+1. Core Components:
+   - World Contract: Central state management
+   - Models: Data structure definitions
+   - Systems: Game logic implementation
+   - Events: State change notifications
+
+2. Infrastructure Layer:
+   - Katana: High-performance sequencer
+   - Torii: Indexing and query service
+   - Saya: Proving service for execution sharding
+
+```mermaid
+graph TD
+    A[Game Client] --> B[Torii]
+    B --> C[World Contract]
+    C --> D[Katana]
+    D --> E[Settlement Layer]
+    F[Systems] --> C
+    G[Models] --> C
+    H[Events] --> B
+```
+
+### Data Flow
+
+1. Transaction Flow:
+   ```
+   Client -> Katana -> World Contract -> State Update -> Event Emission -> Torii -> Client
+   ```
+
+2. State Management:
+   - Atomic state updates
+   - Optimistic updates in client
+   - State verification through proofs
+   - Rollback mechanisms for invalid states
+
+3. Security Model:
+   - Permission management through ownership
+   - Role-based access control
+   - Proof verification for state transitions
+   - Secure cross-contract communication
+
+## Client SDK Ecosystem
+
+### JavaScript/TypeScript SDK
+
+The JavaScript SDK provides comprehensive tooling for web-based Dojo applications:
+
+```typescript
+import { setup } from "@dojoengine/core";
+import { Account } from "@dojoengine/core/auth";
+
+// Initialize Dojo client
+const client = setup({
+    baseUrl: "http://localhost:5000",
+    worldAddress: "0x...",
+});
+
+// Authentication
+const account = new Account({
+    privateKey: "0x...",
+    worldAddress: "0x...",
+});
+
+// Subscribe to component updates
+client.components.Position.subscribe((update) => {
+    console.log("Position updated:", update);
+});
+
+// Execute system call
+await client.systems.move.execute(
+    account,
+    { direction: "north", steps: 1 }
+);
+```
+
+Features:
+1. Real-time state synchronization
+2. Type-safe contract interactions
+3. Built-in authentication
+4. Automatic retry and error handling
+5. WebSocket support for live updates
+
+### Rust SDK
+
+The Rust SDK enables building high-performance native applications:
+
+```rust
+use dojo_sdk::{Client, World, Account};
+
+#[tokio::main]
+async fn main() {
+    // Initialize client
+    let client = Client::builder()
+        .with_url("http://localhost:5000")
+        .with_world_address("0x...")
+        .build()
+        .await?;
+    
+    // Create account instance
+    let account = Account::from_private_key("0x...");
+    
+    // Subscribe to events
+    client.subscribe_events(|event| {
+        println!("Received event: {:?}", event);
+    });
+    
+    // Execute system call
+    client.execute_system("move", &[
+        ("direction", "north"),
+        ("steps", "1"),
+    ]).await?;
+}
+```
+
+Features:
+1. Async/await support
+2. Zero-copy deserialization
+3. Automatic batching
+4. Connection pooling
+5. Comprehensive error handling
+
+### Godot SDK
+
+For game developers using Godot engine:
+
+```gdscript
+extends Node
+
+var dojo_client = DojoClient.new()
+
+func _ready():
+    # Initialize client
+    dojo_client.init({
+        "url": "http://localhost:5000",
+        "world_address": "0x..."
+    })
+    
+    # Subscribe to component updates
+    dojo_client.subscribe_component("Position", self, "_on_position_update")
+    
+func _on_position_update(data):
+    print("Position updated: ", data)
+    
+func move_player(direction):
+    dojo_client.execute_system("move", {
+        "direction": direction,
+        "steps": 1
+    })
+```
+
+Features:
+1. GDScript native bindings
+2. Automatic serialization
+3. Signal-based event system
+4. Scene integration
+5. Resource management
+
+### Discord Bot SDK
+
+For creating Discord-based game interfaces:
+
+```typescript
+import { DojoDiscordBot } from "@dojoengine/discord";
+
+const bot = new DojoDiscordBot({
+    token: "your-discord-token",
+    worldAddress: "0x...",
+});
+
+// Register command handlers
+bot.command("move", async (ctx) => {
+    const { direction } = ctx.params;
+    await bot.systems.move.execute({
+        direction,
+        player: ctx.user.address
+    });
+});
+
+// Start the bot
+bot.start();
+```
+
+Features:
+1. Command handling
+2. User authentication
+3. Role management
+4. Transaction notifications
+5. Error reporting
+
+### Telegram Bot SDK
+
+Similar to Discord, but for Telegram:
+
+```typescript
+import { DojoTelegramBot } from "@dojoengine/telegram";
+
+const bot = new DojoTelegramBot({
+    token: "your-telegram-token",
+    worldAddress: "0x...",
+});
+
+// Handle commands
+bot.onCommand("move", async (ctx) => {
+    const direction = ctx.args[0];
+    await bot.systems.move.execute({
+        direction,
+        player: ctx.from.address
+    });
+});
+
+bot.start();
+```
+
+### C SDK
+
+For low-level integration and maximum performance:
+
+```c
+#include <dojo/client.h>
+#include <dojo/world.h>
+
+int main() {
+    // Initialize client
+    dojo_client_t* client = dojo_client_new(
+        "http://localhost:5000",
+        "0x..."  // world address
+    );
+    
+    // Subscribe to events
+    dojo_subscribe_events(client, event_callback);
+    
+    // Execute system
+    dojo_execute_system(
+        client,
+        "move",
+        "{\"direction\":\"north\",\"steps\":1}"
+    );
+    
+    dojo_client_free(client);
+    return 0;
+}
+```
+
+Features:
+1. Minimal overhead
+2. Direct memory management
+3. Platform-agnostic implementation
+4. FFI support
+5. Thread-safe operations
+
+### Cross-Platform Considerations
+
+When developing with Dojo SDKs:
+
+1. State Synchronization:
+   - Implement optimistic updates
+   - Handle network latency
+   - Manage state conflicts
+   - Cache management
+
+2. Error Handling:
+   - Network errors
+   - Transaction failures
+   - State inconsistencies
+   - Proof verification failures
+
+3. Performance Optimization:
+   - Batch transactions
+   - Connection pooling
+   - Resource cleanup
+   - Memory management
+
+4. Security:
+   - Key management
+   - Authentication
+   - Authorization
+   - Input validation
+
+For detailed implementation guides and examples, refer to the respective SDK documentation.
+
+## Dojo Framework Deep Dive
+
+### Core Framework Concepts
+
+The Dojo framework is built on several foundational concepts that enable efficient onchain game development:
+
+1. Entity Component System (ECS):
+   - Entities: Unique identifiers for game objects
+   - Components: Pure data containers
+   - Systems: Logic that operates on components
+
+2. World Contract:
+   - Central state management
+   - Component storage
+   - System execution
+   - Event emission
+
+### Models and Components
+
+Models in Dojo represent the data structures of your game:
+
+```cairo
+#[derive(Model, Copy, Drop, Serde)]
+struct Position {
+    #[key]
+    entity: felt252,    // Entity ID this position belongs to
+    x: u32,            // X coordinate
+    y: u32,            // Y coordinate
+}
+
+#[derive(Model, Copy, Drop, Serde)]
+struct Health {
+    #[key]
+    entity: felt252,    // Entity ID this health belongs to
+    current: u32,       // Current health
+    maximum: u32,       // Maximum health
+}
+```
+
+Key concepts:
+1. Model Attributes:
+   - `#[key]`: Marks fields used for storage indexing
+   - `#[derive(Model)]`: Generates model implementation
+   - `#[derive(Serde)]`: Enables serialization
+
+2. Storage Patterns:
+   ```cairo
+   // Reading a model
+   let position = world.get_model::<Position>(entity);
+   
+   // Writing a model
+   world.set_model::<Position>(entity, Position { x: 10, y: 20 });
+   
+   // Updating a model
+   let mut position = world.get_model::<Position>(entity);
+   position.x += 1;
+   world.set_model::<Position>(entity, position);
+   ```
+
+### Systems Implementation
+
+Systems contain the game logic that operates on components:
+
+```cairo
+#[dojo::contract]
+mod movement_system {
+    use super::models::{Position, Health};
+    
+    #[external]
+    fn move(
+        world: IWorldDispatcher,
+        entity: felt252,
+        dx: u32,
+        dy: u32
+    ) {
+        // Get current position
+        let mut position = world.get_model::<Position>(entity);
+        
+        // Update position
+        position.x += dx;
+        position.y += dy;
+        
+        // Save new position
+        world.set_model::<Position>(entity, position);
+        
+        // Emit move event
+        world.emit(Moved { entity, new_x: position.x, new_y: position.y });
+    }
+}
+```
+
+System features:
+1. Access Control:
+   ```cairo
+   #[external(guard = "only_owner")]
+   fn admin_action(world: IWorldDispatcher) {
+       // Only owner can execute this
+   }
+   ```
+
+2. Event Emission:
+   ```cairo
+   #[derive(Event)]
+   struct Moved {
+       entity: felt252,
+       new_x: u32,
+       new_y: u32
+   }
+   ```
+
+### Authorization Framework
+
+Dojo provides a robust authorization system:
+
+1. Role-Based Access Control:
+```cairo
+#[dojo::contract]
+mod game_system {
+    #[role(name = "admin")]
+    fn require_admin(world: IWorldDispatcher) {
+        assert(world.is_admin(get_caller_address()), 'not admin');
+    }
+    
+    #[external(guard = "require_admin")]
+    fn admin_only_action() {
+        // Only admins can execute this
+    }
+}
+```
+
+2. Custom Guards:
+```cairo
+#[dojo::contract]
+mod game_system {
+    #[guard]
+    fn has_enough_energy(world: IWorldDispatcher, entity: felt252) -> bool {
+        let energy = world.get_model::<Energy>(entity);
+        energy.current >= 10
+    }
+    
+    #[external(guard = "has_enough_energy")]
+    fn take_action(world: IWorldDispatcher, entity: felt252) {
+        // Only entities with enough energy can execute this
+    }
+}
+```
+
+### Testing Framework
+
+Dojo provides comprehensive testing utilities:
+
+1. Unit Testing:
+```cairo
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use dojo::test::spawn_test_world;
+    
+    #[test]
+    fn test_movement() {
+        // Spawn test world
+        let mut world = spawn_test_world();
+        
+        // Create test entity
+        let entity = world.create_entity();
+        
+        // Set initial position
+        world.set_model::<Position>(
+            entity,
+            Position { x: 0, y: 0 }
+        );
+        
+        // Test move system
+        move_system::move(world, entity, 1, 1);
+        
+        // Verify new position
+        let position = world.get_model::<Position>(entity);
+        assert_eq!(position.x, 1);
+        assert_eq!(position.y, 1);
+    }
+}
+```
+
+2. Cheat Codes for Testing:
+```cairo
+#[test]
+fn test_with_cheats() {
+    let world = spawn_test_world();
+    
+    // Warp ahead in time
+    world.cheat_warp_time(100);
+    
+    // Set block number
+    world.cheat_set_block(1000);
+    
+    // Impersonate account
+    world.cheat_impersonate(address);
+}
+```
+
+### Migration Framework
+
+Dojo provides tools for managing contract migrations:
+
+1. Migration Configuration:
+```toml
+[migration]
+manifest = "manifest.json"
+sender = "0x123..."
+world = "0x456..."
+```
+
+2. Migration Scripts:
+```cairo
+#[dojo::migration]
+fn migrate(world: IWorldDispatcher) {
+    // Add new components
+    world.add_component::<NewComponent>();
+    
+    // Update existing data
+    let entities = world.get_entities_with::<OldComponent>();
+    for entity in entities {
+        let old_data = world.get_model::<OldComponent>(entity);
+        world.set_model::<NewComponent>(
+            entity,
+            convert_old_to_new(old_data)
+        );
+    }
+}
+```
+
+3. Manifest Generation:
+```bash
+sozo migrate generate
+```
+
+### World Configuration
+
+The World contract can be configured through various settings:
+
+1. Basic Configuration:
+```toml
+[world]
+name = "My Game World"
+description = "An awesome game built with Dojo"
+icon = "assets/icon.png"
+cover = "assets/cover.png"
+```
+
+2. Component Registration:
+```toml
+[[components]]
+name = "Position"
+type = "struct"
+storage = "singleton"
+
+[[components]]
+name = "Health"
+type = "struct"
+storage = "mapped"
+```
+
+3. System Registration:
+```toml
+[[systems]]
+name = "MovementSystem"
+contracts = ["move", "teleport"]
+
+[[systems]]
+name = "CombatSystem"
+contracts = ["attack", "defend"]
+```
+
+### Performance Optimization
+
+Dojo provides several patterns for optimizing performance:
+
+1. Batch Operations:
+```cairo
+#[dojo::contract]
+mod batch_system {
+    #[external]
+    fn batch_update(
+        world: IWorldDispatcher,
+        entities: Array<felt252>,
+        values: Array<u32>
+    ) {
+        assert(entities.len() == values.len(), 'length mismatch');
+        
+        let mut i = 0;
+        loop {
+            if i >= entities.len() {
+                break;
+            }
+            
+            world.set_model::<Value>(
+                *entities[i],
+                Value { value: *values[i] }
+            );
+            
+            i += 1;
+        }
+    }
+}
+```
+
+2. Lazy Loading:
+```cairo
+#[dojo::contract]
+mod lazy_system {
+    #[external]
+    fn lazy_load(world: IWorldDispatcher, entity: felt252) {
+        // Only load data if needed
+        if !world.has_model::<HeavyData>(entity) {
+            let data = compute_heavy_data();
+            world.set_model::<HeavyData>(entity, data);
+        }
+    }
+}
+```
+
+3. Component Packing:
+```cairo
+#[derive(Model, Copy, Drop, Serde)]
+struct PackedStats {
+    #[key]
+    entity: felt252,
+    // Pack multiple small values into a single felt252
+    stats: felt252  // Contains health, mana, stamina in different bits
+}
+```
+
+### Advanced Patterns
+
+1. Component Relationships:
+```cairo
+#[derive(Model, Copy, Drop, Serde)]
+struct Ownership {
+    #[key]
+    item: felt252,     // Item entity ID
+    #[key]
+    owner: felt252,    // Owner entity ID
+}
+```
+
+2. State Machines:
+```cairo
+#[derive(Model, Copy, Drop, Serde)]
+struct GameState {
+    #[key]
+    game: felt252,
+    state: felt252,    // Can be WAITING, PLAYING, ENDED
+    turn: felt252,     // Current turn number
+}
+```
+
+3. Event-Driven Systems:
+```cairo
+#[dojo::contract]
+mod event_system {
+    #[derive(Event)]
+    struct StateChanged {
+        game: felt252,
+        old_state: felt252,
+        new_state: felt252
+    }
+    
+    #[external]
+    fn change_state(
+        world: IWorldDispatcher,
+        game: felt252,
+        new_state: felt252
+    ) {
+        let old_state = world.get_model::<GameState>(game).state;
+        
+        // Update state
+        world.set_model::<GameState>(
+            game,
+            GameState { state: new_state }
+        );
+        
+        // Emit event
+        world.emit(StateChanged {
+            game,
+            old_state,
+            new_state
+        });
+    }
+}
+```
+
+For more detailed information and advanced usage patterns, refer to the specific framework documentation sections.
