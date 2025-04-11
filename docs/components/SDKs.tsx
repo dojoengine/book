@@ -25,6 +25,11 @@ const sdkContent = [
         link: "/client/sdk/unity",
     },
     {
+        icon: <Unity className="w-6" />,
+        title: "UnrealEngine",
+        link: "/client/sdk/unrealengine",
+    },
+    {
         icon: <Godot className="w-6" />,
         title: "Godot",
         link: "/client/sdk/godot",
