@@ -31,14 +31,14 @@ katana init --id per1 \
 
 This will automatically deploy a fresh core contract on the settlement layer.
 
-If you want to use a specific facts registry contract, set it via the `settlement-facts-registry-contract` argument.
+If you want to use a specific facts registry contract, set it via the `settlement-facts-registry` argument.
 
 ```
 katana init --id per1 \
     --settlement-chain <Sepolia|Mainnet> \
     --settlement-account-address <ADDRESS> \
     --settlement-account-private-key <PRIVATE_KEY>
-    --settlement-facts-registry-contract <ADDRESS>
+    --settlement-facts-registry <ADDRESS>
 ```
 
 ```bash
