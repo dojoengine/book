@@ -11,14 +11,14 @@
 - [Development Setup](https://www.dojoengine.org/installation): A comprehensive guide for setting up a Dojo development environment, including prerequisites and installation steps for different operating systems.
 - [FAQ](https://www.dojoengine.org/faq): Find answers to common questions about Dojo, onchain games, Autonomous Worlds, and how to get involved.
 - [Work with Saya on Slot](https://www.dojoengine.org/toolchain/saya/slot)
-- [Dojo 101 Tutorial](https://www.dojoengine.org/tutorial/dojo-starter): Learn the basics of Dojo by building a simple game, including models, systems, and world state management.
+- [Dojo 101 Tutorial](https://www.dojoengine.org/tutorials/dojo-starter): Learn the basics of Dojo by building a simple game, including models, systems, and world state management.
 - [Dojo Client SDKs](https://www.dojoengine.org/client/sdk): Overview of available client SDKs for building Dojo applications
 - [Discord Bot connected to a Dojo World](https://www.dojoengine.org/client/sdk/rust/example): Step-by-step guide for building a Discord bot connected to a Dojo World using Rust
 - [Slot references to work with Dojo](https://www.dojoengine.org/toolchain/slot/reference)
-- [Sozo calldata format](https://www.dojoengine.org/toolchain/sozo/calldata_format): Learn how to format the calldata to ease CLI interaction with contracts using Sozo.  
+- [Sozo calldata format](https://www.dojoengine.org/toolchain/sozo/calldata_format): Learn how to format the calldata to ease CLI interaction with contracts using Sozo.
 - [Understanding Autonomous Worlds](https://www.dojoengine.org/theory/autonomous-worlds): Explore the evolution from onchain games to provable games, and learn about the key characteristics and principles of Autonomous Worlds in blockchain gaming.
-- [Deploy your game using Slot](https://www.dojoengine.org/tutorial/deploy-using-slot/main): Learn how to deploy your Dojo project using Slot, including authentication, configuration, and setting up a Torii indexer.
-- [Deploying to Sepolia and Mainnet](https://www.dojoengine.org/tutorial/deploy-to-mainnet/main): Learn how to deploy your Dojo world to Sepolia testnet or Mainnet, including RPC setup, environment configuration, and Torii indexer deployment.
+- [Deploy your game using Slot](https://www.dojoengine.org/tutorials/deploy-using-slot/main): Learn how to deploy your Dojo project using Slot, including authentication, configuration, and setting up a Torii indexer.
+- [Deploying to Sepolia and Mainnet](https://www.dojoengine.org/tutorials/deploy-to-mainnet/main): Learn how to deploy your Dojo world to Sepolia testnet or Mainnet, including RPC setup, environment configuration, and Torii indexer deployment.
 
 ## Architecture
 

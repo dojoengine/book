@@ -34,7 +34,7 @@ slotup --help
 
 ## Deploy using Slot
 
-Start deploying your projects with Slot using the most common services for Katana and Torii environments, . These tools are tailored for rapid deployment and testing. Check out the tutorial on Deploying Using Slot for detailed instructions. [Deploy using Slot](/tutorial/deploy-using-slot/main.md).
+Start deploying your projects with Slot using the most common services for Katana and Torii environments, . These tools are tailored for rapid deployment and testing. Check out the tutorial on Deploying Using Slot for detailed instructions. [Deploy using Slot](/tutorials/deploy-using-slot/main.md).
 
 > 📚 **Reference**
 >

@@ -39,7 +39,7 @@ The benefit of custom queries becomes apparent when filtering and sorting is nee
 
 ### Query operation
 
-In [`hello-dojo`](../../tutorial/dojo-starter.mdx#indexing) we fetched some data from all the registered models. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model. To accomplish this, you have to pass the `id` of the model as an argument to the query operation. The id is generated as the selector from the model's names. This selector is computed by applying the `sn_keccak` hash function to the string representation of the function name. To obtain this value, you can utilize the [stark-utils](https://www.stark-utils.xyz/). Alternatively, you may opt to use the `starkli` command line tool.
+In [`hello-dojo`](../../tutorials/dojo-starter.mdx#indexing) we fetched some data from all the registered models. This time let's fetch only `id`, `name`, `classHash` fields from `Position` model. To accomplish this, you have to pass the `id` of the model as an argument to the query operation. The id is generated as the selector from the model's names. This selector is computed by applying the `sn_keccak` hash function to the string representation of the function name. To obtain this value, you can utilize the [stark-utils](https://www.stark-utils.xyz/). Alternatively, you may opt to use the `starkli` command line tool.
 
 ```graphql
 query {
@@ -125,7 +125,7 @@ query {
 }
 ```
 
-If you execute this query after you applied `sozo migrate` in your [`hello-dojo`](/tutorial/dojo-starter.mdx) example. You will get an output similar to this.
+If you execute this query after you applied `sozo migrate` in your [`hello-dojo`](/tutorials/dojo-starter.mdx) example. You will get an output similar to this.
 
 ```json
 {
@@ -419,7 +419,7 @@ subscription {
 }
 ```
 
-If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT_ADDRESS> spawn` in your [`hello-dojo`](/tutorial/dojo-starter.mdx) example. You will get an output similar to this.
+If you execute this suscription after you applied `sozo execute <ACTION_CONTRACT_ADDRESS> spawn` in your [`hello-dojo`](/tutorials/dojo-starter.mdx) example. You will get an output similar to this.
 
 ```json
 {

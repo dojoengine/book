@@ -29,7 +29,7 @@ const cards = [
         title: "Tutorials",
         description:
             "Check out practical examples built with Dojo, featuring MMOs, NFTs, and more.",
-        link: "/tutorial/dojo-starter",
+        link: "/tutorials/dojo-starter",
     },
     {
         title: "Community",

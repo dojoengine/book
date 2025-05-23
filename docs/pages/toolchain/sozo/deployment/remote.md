@@ -45,4 +45,4 @@ If you credentials are correct in the Scarb.toml then a simple migrate will depl
 
 Katanas are able to be hosted and run as remote testnets, however this is not recommended for production use.
 
-Deploy to remote katana with slot [here](/tutorial/deploy-using-slot/main.md)
+Deploy to remote katana with slot [here](/tutorials/deploy-using-slot/main.md)

@@ -119,7 +119,7 @@ use dojo::world::IWorldDispatcherTrait;
 fn system_1(ref self: ContractState) {
     let mut world = self.world(@"ns");
 
-    // A dojo selector is computed from namespace and name. 
+    // A dojo selector is computed from namespace and name.
     // The namespace is already set by the `world` instance,
     // so we just have to use the dojo name of the contract.
     // Every contract has a `dojo_name` function available.
@@ -131,7 +131,7 @@ fn system_1(ref self: ContractState) {
     // and verify that the resource (the current contract)
     // is owned by the caller.
     world.dispatcher.is_owner(
-        current_contract_selector, 
+        current_contract_selector,
         starknet::get_caller_address()
     );
 }
@@ -251,13 +251,13 @@ fn test_world_test_set() {
     let ndef = namespace_def();
     let mut world = spawn_test_world([ndef].span());
 
-    // At this point, the resources are registered, but permissions 
+    // At this point, the resources are registered, but permissions
     // are not set and contracts are not initialized
     // (dojo_init has not be called).
 
     world.sync_perms_and_inits(contract_defs());
 
-    // At this point, permissions are synchronized and 
+    // At this point, permissions are synchronized and
     // contracts are initialized.
 }
 ```

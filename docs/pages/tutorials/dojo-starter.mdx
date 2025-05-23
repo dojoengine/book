@@ -239,7 +239,7 @@ fn next_position(mut position: Position, direction: Direction) -> Position {
 Here we use the `world.write_model` method to set the `Moves` and `Position` models for the `player` entity. This method is used to update the world state with the new data.
 
 ```rust
-let moves = Moves { 
+let moves = Moves {
     player, remaining: 100, last_direction: Direction::None(()), can_move: true
 };
 
@@ -300,11 +300,11 @@ sozo migrate
 This command will deploy the artifact to `Katana`. You should see terminal output similar to this:
 
 ```console
- profile | chain_id | rpc_url                
+ profile | chain_id | rpc_url
 ---------+----------+------------------------
- dev     | KATANA   | http://localhost:5050/ 
+ dev     | KATANA   | http://localhost:5050/
 
-                                
+
 ⛩️  Migration successful with world at address 0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab4691053ee8ab69d7
 ```
 
@@ -510,13 +510,13 @@ This overview provides a rapid end-to-end glimpse of Dojo. However, the potentia
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard
-        title="Quick Start"
-        description="See the quickstarts."
-        link="/quickstarts"
-    />
-    <LinkCard
         title="Advanced Tutorials"
         description="Explore all tutorials."
         link="/tutorials"
+    />
+    <LinkCard
+        title="Explore Dojo"
+        description="Learn about the framework."
+        link="/framework"
     />
 </div>

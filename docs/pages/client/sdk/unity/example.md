@@ -16,7 +16,7 @@ This section provides a walkthrough for running the example from the dojo.unity 
 
 ## Setting up Dojo Starter
 
-Follow the steps outlined in the [Dojo Starter setup guide](/tutorial/dojo-starter.mdx):
+Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter.mdx):
 
 1. Launch Katana.
 2. Build with Sozo.

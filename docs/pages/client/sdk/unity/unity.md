@@ -60,7 +60,7 @@ You should have a deep understanding of models in dojo if not checkout out model
 
 ### What are Models in Dojo?
 
-1. **Definition**: In Dojo, [models](/framework/models) are essential state that represent various parts of [entities](/framework/models/entities.md) within your game. They are the building blocks that make up the content of your game world. Read about [ECS](/tutorial/dojo-starter.mdx).
+1. **Definition**: In Dojo, [models](/framework/models) are essential state that represent various parts of [entities](/framework/models/entities.md) within your game. They are the building blocks that make up the content of your game world. Read about [ECS](/tutorials/dojo-starter.mdx).
 
 2. **Synchronization Role**:
 

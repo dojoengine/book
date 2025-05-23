@@ -5,7 +5,7 @@ description: Learn how to set up a Dojo chess game project, including project st
 
 # 0. Setup
 
-_Before starting recommend following the [`hello-dojo`](/tutorial/dojo-starter.mdx) chapter to gain a basic understanding of the Dojo game._
+_Before starting recommend following the [`hello-dojo`](/tutorials/dojo-starter.mdx) chapter to gain a basic understanding of the Dojo game._
 
 ## Initializing the Project
 

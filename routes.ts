@@ -18,34 +18,41 @@ export const routes = [
 	{
 		text: "Tutorials",
 		items: [
-			{ text: "Dojo 101 Tutorial", link: "/tutorial/dojo-starter" },
+			{
+				text: "Overview",
+				link: "/tutorials",
+			},
+			{
+				text: "Dojo 101 Tutorial",
+				link: "/tutorials/dojo-starter",
+			},
 			{
 				text: "Deploy to Mainnet",
-				link: "/tutorial/deploy-to-mainnet/main",
+				link: "/tutorials/deploy-to-mainnet/main",
 			},
 			// {
 			//   text: "Dungeon Crawler",
-			//   link: "/tutorial/deploy-using-slot/main",
+			//   link: "/tutorials/deploy-using-slot/main",
 			// },
 			// {
 			//   text: "Deploy using Slot",
-			//   link: "/tutorial/deploy-using-slot/main",
+			//   link: "/tutorials/deploy-using-slot/main",
 			// },
 			// {
 			//   text: "Using Graphql",
-			//   link: "/tutorial/deploy-using-slot/main",
+			//   link: "/tutorials/deploy-using-slot/main",
 			// },
 			// {
 			//   text: "Using gRPC",
-			//   link: "/tutorial/deploy-using-slot/main",
+			//   link: "/tutorials/deploy-using-slot/main",
 			// },
 			// {
 			//   text: "Deploying an NFT",
-			//   link: "/tutorial/deploy-using-slot/main",
+			//   link: "/tutorials/deploy-using-slot/main",
 			// },
 			// {
 			//   text: "Katana-Starkli-Scarb",
-			//   link: "/tutorial/katana-starkli-scarb/main",
+			//   link: "/tutorials/katana-starkli-scarb/main",
 			// },
 		],
 	},

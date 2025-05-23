@@ -41,7 +41,7 @@ Explore the core architecture powering Dojo's onchain capabilities.](https://www
 \\
 Dive into ephemeral, persistent, and sovereign rollup options to scale your onchain computation.](https://www.dojoengine.org/architecture/execution-sharding) [**Tutorials**\\
 \\
-Check out practical examples built with Dojo, featuring MMOs, NFTs, and more.](https://www.dojoengine.org/tutorial/dojo-starter) [**Community**\\
+Check out practical examples built with Dojo, featuring MMOs, NFTs, and more.](https://www.dojoengine.org/tutorials/dojo-starter) [**Community**\\
 \\
 Join our Discord to connect with fellow Dojo developers, ask questions, and share insights.](https://discord.gg/dojoengine)
 
@@ -1049,11 +1049,9 @@ Copyasdf global dojo latest       # Set globally
 asdf local dojo 1.0.0        # Set locally in your project directory
 ```
 
-[**Introduction to Dojo**\\
-\\
-Build your first application with Dojo.](https://www.dojoengine.org/tutorial/dojo-starter) [**See Quickstarts**\\
-\\
-See the quickstarts to get started with Dojo.](https://www.dojoengine.org/quickstarts)
+[**Introduction to Dojo**
+
+Build your first application with Dojo.](https://www.dojoengine.org/tutorials/dojo-starter)
 
 ## Fast Starknet Sequencer
 [Skip to content](https://www.dojoengine.org/toolchain/katana/#vocs-content)
@@ -1570,7 +1568,7 @@ While you have the flexibility to incorporate as many models as necessary, it's 
 
 - [Entity Definition](https://www.dojoengine.org/framework/models/entities): Learn about entities in the context of Dojo.
 
-- [Dojo as an ECS in 15 Minutes](https://www.dojoengine.org/tutorial/dojo-starter): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
+- [Dojo as an ECS in 15 Minutes](https://www.dojoengine.org/tutorials/dojo-starter): Dive into a quick overview of Dojo's Entity-Component-System (ECS) architecture.
 
 
 ### Bingen
@@ -1655,4 +1653,3 @@ public class Moves : ModelInstance
     void Update() {}
 }
 ```
-
