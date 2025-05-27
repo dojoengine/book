@@ -16,43 +16,6 @@ export const routes = [
 		link: "/faq",
 	},
 	{
-		text: "Tutorials",
-		items: [
-			{
-				text: "Dojo 101",
-				link: "/tutorials/dojo-starter",
-			},
-			{
-				text: "Deploy to Mainnet",
-				link: "/tutorials/deploy-to-mainnet/main",
-			},
-			{
-				text: "Deploy using Slot",
-				link: "/tutorials/deploy-using-slot/main",
-			},
-			// {
-			//   text: "Dungeon Crawler",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Using Graphql",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Using gRPC",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Deploying an NFT",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Katana-Starkli-Scarb",
-			//   link: "/tutorials/katana-starkli-scarb/main",
-			// },
-		],
-	},
-	{
 		text: "Framework",
 		items: [
 			{ text: "Overview", link: "/framework" },
@@ -367,7 +330,44 @@ export const routes = [
 		],
 	},
 	{
-		text: "Scaling Architectures",
+		text: "Tutorials",
+		items: [
+			{
+				text: "Dojo 101",
+				link: "/tutorials/dojo-starter",
+			},
+			{
+				text: "Deploy to Mainnet",
+				link: "/tutorials/deploy-to-mainnet/main",
+			},
+			{
+				text: "Deploy using Slot",
+				link: "/tutorials/deploy-using-slot/main",
+			},
+			// {
+			//   text: "Dungeon Crawler",
+			//   link: "/tutorials/deploy-using-slot/main",
+			// },
+			// {
+			//   text: "Using Graphql",
+			//   link: "/tutorials/deploy-using-slot/main",
+			// },
+			// {
+			//   text: "Using gRPC",
+			//   link: "/tutorials/deploy-using-slot/main",
+			// },
+			// {
+			//   text: "Deploying an NFT",
+			//   link: "/tutorials/deploy-using-slot/main",
+			// },
+			// {
+			//   text: "Katana-Starkli-Scarb",
+			//   link: "/tutorials/katana-starkli-scarb/main",
+			// },
+		],
+	},
+	{
+		text: "Scaling",
 		items: [
 			{
 				text: "Execution Sharding",
