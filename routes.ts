@@ -19,23 +19,19 @@ export const routes = [
 		text: "Tutorials",
 		items: [
 			{
-				text: "Overview",
-				link: "/tutorials",
-			},
-			{
-				text: "Dojo 101 Tutorial",
+				text: "Dojo 101",
 				link: "/tutorials/dojo-starter",
 			},
 			{
 				text: "Deploy to Mainnet",
 				link: "/tutorials/deploy-to-mainnet/main",
 			},
+			{
+				text: "Deploy using Slot",
+				link: "/tutorials/deploy-using-slot/main",
+			},
 			// {
 			//   text: "Dungeon Crawler",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Deploy using Slot",
 			//   link: "/tutorials/deploy-using-slot/main",
 			// },
 			// {
