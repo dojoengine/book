@@ -5,7 +5,7 @@
 ## TOOLCHAIN FOR PROVABLE APPLICATIONS
 
 - [Welcome to Dojo](https://www.dojoengine.org/overview): A comprehensive overview of Dojo features, including core concepts, world interaction, permissions, events, and testing.
-- [Getting Started with Dojo](https://www.dojoengine.org/getting-started): Learn how to install and set up Dojo, including prerequisites and installation methods using dojoup or asdf.
+- [Installation](https://www.dojoengine.org/installation): Learn how to install and set up Dojo, including prerequisites and installation methods using dojoup or asdf.
 - [Cairo Framework](https://www.dojoengine.org/framework): Learn about the core components of Dojo - Models, Systems, and World - and how they work together to build scalable onchain applications.
 - [Dojo Features Overview](https://www.dojoengine.org/features): Explore Dojo's key features including Cairo architecture, Katana sequencer, Torii indexer, Sozo CLI, client libraries, and deployment options.
 - [Development Setup](https://www.dojoengine.org/installation): A comprehensive guide for setting up a Dojo development environment, including prerequisites and installation steps for different operating systems.

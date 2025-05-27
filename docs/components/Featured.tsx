@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 const cards = [
     {
-        title: "Getting Started",
+        title: "Installation",
         description:
-            "Start your journey with Dojo and create your first application from the ground up.",
-        link: "/getting-started",
+            "Get started with Dojo by installing the toolchain and setting up your environment.",
+        link: "/installation",
     },
     {
         title: "Tools Overview",

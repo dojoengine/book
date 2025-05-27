@@ -27,7 +27,7 @@ Katana requires glibc version 2.33 or higher. This version is not available on U
 
 ## Installation
 
-`katana` binary is available via [`dojoup`](/getting-started.mdx).
+`katana` binary is available via [`dojoup`](/installation.mdx).
 
 ### Installing from source
 
