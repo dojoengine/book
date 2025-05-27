@@ -12,16 +12,16 @@
 	"dependencies": {
 		"@cartridge/presets": "github:cartridge-gg/presets#b0def0f",
 		"@dojoengine/sdk": "1.4.0",
-		"prettier": "^3.3.3",
+		"prettier": "^3.4.2",
 		"react": "latest",
 		"react-dom": "latest",
-		"react-router-dom": "^6.26.2",
-		"vite-tsconfig-paths": "^5.0.1",
+		"react-router-dom": "^6.28.0",
+		"vite-tsconfig-paths": "^5.1.4",
 		"vocs": "latest"
 	},
 	"devDependencies": {
-		"@types/react": "^18.3.10",
-		"vite-plugin-svgr": "^4.2.0"
+		"@types/react": "^18.3.14",
+		"vite-plugin-svgr": "^4.3.0"
 	},
 	"packageManager": "pnpm@10.6.4"
 }

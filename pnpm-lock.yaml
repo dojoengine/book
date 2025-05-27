@@ -15,7 +15,7 @@ importers:
         specifier: 1.4.0
         version: 1.4.0(@tanstack/react-query@5.71.1(react@19.0.0))(@types/react-dom@18.3.5(@types/react@18.3.14))(@types/react@18.3.14)(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.2)(zod@3.24.2)
       prettier:
-        specifier: ^3.3.3
+        specifier: ^3.4.2
         version: 3.4.2
       react:
         specifier: latest
@@ -24,20 +24,20 @@ importers:
         specifier: latest
         version: 19.0.0(react@19.0.0)
       react-router-dom:
-        specifier: ^6.26.2
+        specifier: ^6.28.0
         version: 6.28.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       vite-tsconfig-paths:
-        specifier: ^5.0.1
+        specifier: ^5.1.4
         version: 5.1.4(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
       vocs:
         specifier: latest
         version: 1.0.0-alpha.62(@types/node@22.10.1)(@types/react-dom@18.3.5(@types/react@18.3.14))(@types/react@18.3.14)(acorn@8.14.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.1)(typescript@5.7.2)
     devDependencies:
       '@types/react':
-        specifier: ^18.3.10
+        specifier: ^18.3.14
         version: 18.3.14
       vite-plugin-svgr:
-        specifier: ^4.2.0
+        specifier: ^4.3.0
         version: 4.3.0(rollup@4.28.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.1))
 
 packages:
@@ -1433,8 +1433,8 @@ packages:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
 
-  caniuse-lite@1.0.30001687:
-    resolution: {integrity: sha512-0S/FDhf4ZiqrTUiQ39dKeUjYRjkv7lOZU1Dgif2rIqrTzX/1wV2hfKu9TOm1IHkdSijfLswxTFzl/cvir+SLSQ==}
+  caniuse-lite@1.0.30001718:
+    resolution: {integrity: sha512-AflseV1ahcSunK53NfEs9gFWgOEmzr0f+kaMFA4xiLZlr9Hzt7HxcSpIFcnNCUkz6R6dWKa54rUz3HUmI3nVcw==}
 
   cardinal@2.1.1:
     resolution: {integrity: sha512-JSr5eOgoEymtYHBjNWyjrMqet9Am2miJhlfKNdqLp6zoeAh0KN5dRAcxlecj5mAJrmQomgiOBj35xHLrFjqBpw==}
@@ -1813,6 +1813,7 @@ packages:
 
   get-starknet-core@4.0.0:
     resolution: {integrity: sha512-6pLmidQZkC3wZsrHY99grQHoGpuuXqkbSP65F8ov1/JsEI8DDLkhsAuLCKFzNOK56cJp+f1bWWfTJ57e9r5eqQ==}
+    deprecated: Package no longer supported. Please use @starknet-io/get-starknet-core
 
   get-stream@6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
@@ -4540,7 +4541,7 @@ snapshots:
   autoprefixer@10.4.20(postcss@8.4.49):
     dependencies:
       browserslist: 4.24.2
-      caniuse-lite: 1.0.30001687
+      caniuse-lite: 1.0.30001718
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
@@ -4575,7 +4576,7 @@ snapshots:
 
   browserslist@4.24.2:
     dependencies:
-      caniuse-lite: 1.0.30001687
+      caniuse-lite: 1.0.30001718
       electron-to-chromium: 1.5.71
       node-releases: 2.0.18
       update-browserslist-db: 1.1.1(browserslist@4.24.2)
@@ -4595,7 +4596,7 @@ snapshots:
 
   camelcase@6.3.0: {}
 
-  caniuse-lite@1.0.30001687: {}
+  caniuse-lite@1.0.30001718: {}
 
   cardinal@2.1.1:
     dependencies:
