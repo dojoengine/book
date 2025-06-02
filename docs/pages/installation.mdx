@@ -7,61 +7,97 @@ import { LinkCard } from "../components/LinkCard";
 
 # Installing Dojo
 
-Dojo's installation process was designed to be idiomatically consistent with its major dependencies, Rust and Cairo.
-
-You can get up-and-running in three commands: `rustup`, `starkup`, and `dojoup`.
+Dojo's installation process was designed to be idiomatically consistent with its dependencies, Rust and Cairo.
+You can get up-and-running in just a few steps, and be building provable games in no time.
 
 :::note
 Windows is not natively supported. We recommend [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows development.
 :::
 
+## Installing `protobuf`
+
+You will need [Protocol Buffers](https://protobuf.dev/) installed in order to run Dojo's Torii indexer.
+
+Installation will use your system's package manager.
+You can find instructions [here](https://protobuf.dev/installation/).
+
+> You can test your installation by running `protoc --version` in your terminal.
 
 ## Installing Rust with `rustup`
 
 You will need Rust in order to run Dojo's infrastructure tools Katana and Torii.
 
-You can install the Rust toolchain, including the [`cargo`](https://doc.rust-lang.org/cargo/) package manager, by running the following in your terminal:
+You can install the Rust toolchain by running the following in your terminal:
 
 ```sh
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-> `rustup` will install Rust's executables in the `~/.cargo` directory.
+This will install Rust's executables, including the [`cargo`](https://doc.rust-lang.org/cargo/) package manager, in the `~/.cargo` directory.
+
+> You can test your installation by running `cargo --version` in your terminal.
 
 For more information about installing Rust, [see the docs](https://doc.rust-lang.org/book/ch01-01-installation.html).
 
-:::note
-Depending on your system, you may need to install [`protobuf`](https://protobuf.dev/installation/) as well.
-:::
-
 ## Installing Cairo with `starkup`
 
-Dojo is written in [Cairo](https://www.cairo-lang.org/), StarkWare's language for writing provable programs.
+Dojo is written in [Cairo](https://www.cairo-lang.org/), StarkWare's language for creating provable programs.
 Cairo was inspired by Rust, and its installation is no exception.
 
-You can install the Cairo toolchain, including the [`scarb`](https://docs.swmansion.com/scarb/) package manager and build tool, by running the following in your terminal:
+You can install the Cairo toolchain by running the following in your terminal:
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.sh | sh
 ```
 
-> `starkup` uses the [`asdf`](https://asdf-vm.com/) version manager under-the-hood, installing Cairo's executables in the `~/.asdf` directory.
+This will install Cairo's toolchain, including the [`scarb`](https://docs.swmansion.com/scarb/) package manager and build tool, in the `~/.asdf` directory.
+It will also append a `starkup` command alias to your shell profile.
+
+:::note
+`asdf` does not automatically add itself to your path.
+Consider appending `~/.asdf/shims` to your terminal's `$PATH` variable to simplify development.
+:::
+
+> You can test your installation by running `scarb --version` in your terminal.
 
 For more information about installing Cairo, [see the docs](https://github.com/software-mansion/starkup).
 
 ## Installing Dojo with `dojoup`
 
-Finally, you can install Dojo (including Katana, Torii, and Sozo) by running the following in your terminal:
+Finally, install Dojo. `dojoup` is the preferred way to install Dojo.
+
+::::steps
+
+#### Install `dojoup`
+
+Install the `dojoup` installer by running the following in your terminal:
 
 ```sh
 curl -L https://install.dojoengine.org | bash
 ```
 
-> `dojoup` will install Dojo's executables in the `~/.dojo` directory.
+This command will install `dojoup` in the `~/.dojo` directory.
+It will also append a `source ~/.dojo/env` command to your shell profile.
+
+> You will need to restart your terminal for the `dojoup` command to be available.
+
+#### Run `dojoup install`
+
+In a new terminal window, run `dojoup install` to install Dojo.
+
+```sh
+dojoup install
+```
+
+This will install `katana`, `torii`, and `sozo` in the `~/.dojo` directory.
+
+> You can test your installation by running `sozo --version` in your terminal.
 
 For more information on advanced usage, such as installing a particular version or building from source, run `dojoup --help`.
 
-### Installing Dojo with `asdf`
+::::
+
+## Installing Dojo with `asdf`
 
 You can alternatively use [`asdf`](https://asdf-vm.com/) directly to install and manage Dojo.
 
@@ -69,7 +105,7 @@ You can alternatively use [`asdf`](https://asdf-vm.com/) directly to install and
 
 #### Install asdf
 
-Follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform.
+Follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform, if not already installed.
 
 #### Add the asdf-dojo plugin
 
