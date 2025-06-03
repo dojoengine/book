@@ -24,3 +24,6 @@ docs/dist
 
 # pnpm
 .pnpm-store
+
+# vocs
+vocs.config.ts.timestamp*

@@ -1404,7 +1404,7 @@ We're firm believers in the potential for Autonomous Worlds to catalyze the expl
 - [Loaf - Provable Goblins](https://loaf.coffee/posts/provable-goblins)
 
 ## Dojo Framework Overview
-[Skip to content](https://www.dojoengine.org/what-is-dojo#vocs-content)
+[Skip to content](https://www.dojoengine.org/overview)
 
 Join us in [Discord](https://discord.gg/dojoengine)!
 

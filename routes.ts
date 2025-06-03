@@ -4,10 +4,6 @@ export const routes = [
 		link: "/overview",
 	},
 	{
-		text: "Features",
-		link: "/features",
-	},
-	{
 		text: "Installation",
 		link: "/installation",
 	},
@@ -19,6 +15,7 @@ export const routes = [
 		text: "Framework",
 		items: [
 			{ text: "Overview", link: "/framework" },
+			{ text: "Dojo 1.x", link: "/framework/dojo-1x" },
 			{
 				text: "World",
 				collapsed: true,
