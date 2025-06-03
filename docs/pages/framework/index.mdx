@@ -5,128 +5,134 @@ description: Learn about the core components of Dojo - Models, Systems, and Worl
 
 import { LinkCard } from "../../components/LinkCard";
 
+# Dojo Framework Overview
+
 :::note
 
-Dojo provides an advanced abstraction layer over Cairo. We highly suggest understanding Cairo before diving into this book.
+Dojo is built on top of Cairo. We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
 :::
 
-# Dojo Framework
+## Understanding ECS
 
-This section highlights the three core components essential for building dojo apps:
+[Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern for building games and interactive applications.
+It was introduced by Looking Glass Studios with 1998's *Thief: The Dark Project* and quickly became a de-facto standard in game development.
 
--   **Models**: Models act like structured database entries, managing and organizing your onchain data. Like a regular ORM.
+ECS was developed to address some of the shortcomings of the then-dominant Object-Oriented Programming (OOP) paradigm, such as unweildly inheritance hierarchies and the difficulty of scaling interactions to large numbers of objects.
 
--   **Systems**: Implement business logic and state changes, which are just like regular Cairo contracts, but with some syntax sugar.
+The core idea is to break down your application into three main components:
 
+-   **Entities**: The *objects* in your game — characters, items, etc.
+-   **Components**: The *properties* of your entities — position, durability, etc.
+-   **Systems**: The *rules* that govern your game — movement, combat, etc.
+
+With ECS, you assign **components** to **entities**, and operate on them using **systems**.
+This approach allows for a more modular and scalable design, as well as better performance and memory usage.
+Entities are typically represented as a unique identifier, to which components are assigned.
+Systems can then operate over large numbers of entities at once, depending on the components they have.
+
+As an example, a combat system might reduce the durability of all weapons used in a battle, while a rest system might increase the health of all members of a party.
+
+## Dojo Core Concepts
+
+The Dojo framework revolves around three core concepts:
+
+-   **Models**: Models act like structured database entries, managing and organizing your onchain data — much like a regular ORM.
+-   **Contracts**: Implement business logic and state changes, which are just like regular Cairo contracts, but with some syntax sugar.
 -   **World**: The central hub that connects all models and systems. The World contract ensures consistency, manages authorization, and orchestrates interactions between different parts of your application.
 
-Mastering these will enable you to create scalable and maintainable onchain applications. If you already have a grasp of these - jump to:
+### Models
 
-## Simplifying State with Dojo Models
+Dojo simplifies onchain application development by providing a simple and standardized approach to state management, similar to a regular database.
+It achieves this through the use of [procedural macros](https://book.cairo-lang.org/ch12-10-procedural-macros.html) that extend the Cairo compiler.
 
-Dojo simplifies onchain application development by providing a standardized approach to state management, similar to a regular database.
+Under-the-hood, Cairo uses these macros to generate standardized events and functionality for each model.
+Once deployed, these events will be automatically picked up by the Torii indexer, letting you query them with gRPC or GraphQL.
+If you've never developed onchain applications before, this is A Big Deal™️.
 
-In dojo you write state like this:
+Here is an example of a Dojo model:
 
 ```rust
 #[derive(Copy, Drop, Serde)]
+// Defines a Dojo model, used to generate standardized events
 #[dojo::model]
 pub struct Moves {
+    // Defines a model's key, analagous to a primary key in an ORM
     #[key]
     pub player: ContractAddress,
+    // The rest of the model's attributes
     pub remaining: u8,
     pub last_direction: Direction,
     pub can_move: bool,
 }
 ```
 
-Once deployed, these models will then be reflected in your indexer, allowing you to query them in your language of choice via gRPC or GraphQL!
+Think of the model here as an entry into your onchain database, with `#[key]` being the primary key to reference it.
+You use this key to query your state onchain within contracts and off-chain in your clients.
+This allows you to use the same data model for your onchain and offchain applications.
 
-### Breaking it down
+### Contracts
 
-Think of the model here as an entry into your onchain database and the `#[key]` is the primary key to reference it. You use this key to query your state onchain within contracts and off-chain in your clients.
-
-```rust
-#[derive(Copy, Drop, Serde)]
-// This defines the model attribute. Indicating to the compile that
-// this struct is a Model.
-#[dojo::model]
-pub struct Moves {
-    // Define a Key. This acts like a primary key does in a regular ORM
-    #[key]
-    pub player: ContractAddress,
-    // These are the fields you define for your application state
-    pub remaining: u8,
-    pub last_direction: Direction,
-    pub can_move: bool,
-}
-```
-
-## Composing Contracts
-
-Once you have your state designed, you want it to be effectively mutated via contracts. Dojo simplifies this by exposing an interface to interact with the world state, allowing fast queries and mutations. (It does this by extending the Cairo compiler!)
+Once you have your state design, you want it to be effectively mutated via contracts.
+Dojo simplifies this by exposing an interface to interact with the world state, allowing fast queries and mutations.
 
 ```rust
-// the dojo decorator indicating to the compiler that this is a dojo
-// contract.
+// Defines a Dojo contract, used to generate standardized functionality
 #[dojo::contract]
 mod actions {
     use starknet::{ContractAddress, get_caller_address};
 
-    // import the model like a normal Cairo Struct
-    use dojo_starter::models::{Moves};
+    // Import the model attributes like a normal Cairo struct
+    use dojo_starter::models::{Moves, Position};
 
     #[abi(embed_v0)]
     impl ActionsImpl of super::IActions<ContractState> {
 
-        // You have to pass in the world as the first param,
-        // which then allows you to set the models state.
+        // Passing in contract storage lets you mutate the world state
         fn spawn(ref self: ContractState) {
-            // Get the default world.
-            let mut world = self.world(@"dojo_starter");
-
-            // Get the address of the current caller, possibly the player's address.
+            // Get the world and current player key
+            let mut world = self.world(@"greyhawk");
             let player = get_caller_address();
-            // Retrieve the player's current position from the world.
+
+            // Cairo's typing tells us we are querying the player's position
             let mut position: Position = world.read_model(player);
 
-            // Update the world state with the new data.
-
-            // 1. Move the player's position 10 units in both the x and y direction.
+            // Move the player 10 units up and to the right
             let new_position = Position {
                 player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
             };
 
-            // Write the new position to the world.
-            world.write_model(@new_position);
-
-            // 2. Set the player's remaining moves to 100.
+            // Define the player's remaining moves
             let moves = Moves {
                 player, remaining: 100, last_direction: Direction::None(()), can_move: true
             };
 
-            // Write the new moves to the world.
+            // Write the new state to the world
+            world.write_model(@new_position);
             world.write_model(@moves);
         }
     }
 }
 ```
 
-By having it's very own Cairo compiler plugin, Dojo proposes an [api](/framework/world/api.md) that transform into comprehensive queries at compile time.
+By having it's own Cairo compiler plugin, Dojo provides an [api](/framework/world/api.md) that transform into comprehensive queries at compile time.
 
-## The World
+### World
 
-Models and contracts are the foundation of your application. We encapsulate them within the **World** contract, which serves as a container for all models, systems, and authorization management.
+Dojo models and contracts are the foundation of your application.
+We encapsulate them within the **World** contract, which serves as a container for all models, systems, and authorization management.
 
 ![overview](/world-map.png)
 
-## Takeaways
+## Summary
 
--   **Models**: Utilize the `#[dojo::model]` attribute to define structured data representing your application's state. Models function similarly to database entries, organizing and managing onchain data effectively.
+-   **Models**: Utilize the `#[dojo::model]` macro to define structured data representing your application's state.
+Models function similarly to database entries, organizing and managing onchain data effectively.
 
--   **Systems**: Implement business logic and state transitions using the `#[dojo::contract]` attribute. Systems handle operations that modify models, ensuring seamless and reliable updates to your application's state.
+-   **Contracts**: Implement business logic using the `#[dojo::contract]` macro.
+Contracts handle operations that modify models, ensuring seamless and reliable updates to your application's state.
 
--   **World**: Acts as the central orchestrator connecting all models and systems. The World contract maintains consistency, manages authorization, and coordinates interactions between different components, serving as the single source of truth for your application.
+-   **World**: The central orchestrator for all models and systems.
+The World contract maintains consistency, manages authorization, and coordinates interactions between different components, serving as the source of truth for your application.
 
 <div className="grid grid-cols-2 gap-8">
   <LinkCard
