@@ -392,6 +392,8 @@ export const routes = [
 	{
 		text: "SDKs",
 		items: [
+			{ text: "Overview", link: "/client/sdk" },
+
 			{
 				text: "dojo.js",
 				link: "/client/sdk/javascript",

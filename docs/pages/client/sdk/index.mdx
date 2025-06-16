@@ -1,6 +1,22 @@
 ---
 title: "Dojo Client SDKs"
-description: "Overview of available client SDKs for building Dojo applications"
+description: "Overview of client SDKs for building Dojo applications"
 ---
 
-## Clients
+# SDK Overview
+
+Dojo SDKs are collections of libraries and tools that help you build applications on Dojo.
+We have SDKs for various language and platforms, each designed to handle the under-the-hood details of managing blockchain interactions.
+
+At a high level, SDKs are designed to:
+
+- Translate client-specific game logic into generic ABI-encoded messages
+- Store user credentials and sign transactions
+- Handle gRPC communication between your game and Dojo's Katana and Torii services
+
+By handling all aspects of the blockchain interactions, the SDKs let you focus on your game logic.
+
+## SDK Development
+
+Dojo maintains a library called [Cainome](https://github.com/cartridge-gg/cainome) ("cairo + genome") used to generate bindings from Cairo code.
+Cainome is used to generate the bindings for the SDKs.
