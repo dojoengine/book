@@ -1,3 +1,30 @@
 [submodule "src/dojo"]
 	path = src/dojo
 	url = https://github.com/dojoengine/dojo
+[submodule "src/katana"]
+	path = src/katana
+	url = https://github.com/dojoengine/katana
+[submodule "src/torii"]
+	path = src/torii
+	url = https://github.com/dojoengine/torii.git
+[submodule "src/saya"]
+	path = src/saya
+	url = https://github.com/dojoengine/saya.git
+[submodule "src/origami"]
+	path = src/origami
+	url = https://github.com/dojoengine/origami.git
+[submodule "src/dojo.c"]
+	path = src/dojo.c
+	url = https://github.com/dojoengine/dojo.c.git
+[submodule "src/dojo.js"]
+	path = src/dojo.js
+	url = https://github.com/dojoengine/dojo.js.git
+[submodule "src/dojo.bevy"]
+	path = src/dojo.bevy
+	url = https://github.com/dojoengine/dojo.bevy.git
+[submodule "src/dojo.unity"]
+	path = src/dojo.unity
+	url = https://github.com/dojoengine/dojo.unity.git
+[submodule "src/dojo.unreal"]
+	path = src/dojo.unreal
+	url = https://github.com/dojoengine/dojo.unreal.git
