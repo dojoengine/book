@@ -58,6 +58,23 @@ git submodule status
 # Should show current commit hashes and clean working directories
 ```
 
+### 1.4 Generate API Documentation (New!)
+```bash
+# Generate markdown API documentation for LLM consumption
+./scripts/generate-api-docs.sh
+
+# This creates docs/api/ with markdown docs for all projects:
+# - docs/api/rust/: Rust project APIs (using ruskel + cargo doc)
+# - docs/api/cairo/: Cairo project APIs (using scarb doc --output-format markdown)
+```
+
+**Benefits of programmatic API generation:**
+- **More accurate** than LLMs parsing raw source code
+- **Structured markdown format** optimized for LLM consumption
+- **Complete API coverage** including types, signatures, and documentation
+- **Consistent formatting** across all projects
+- **Automatically updated** with source code changes
+
 ## Step 2: Review Source Code Changes
 
 ### 2.1 Identify Changed Components
@@ -142,18 +159,35 @@ pnpm run dev
 
 ## Step 5: Generate New Documentation
 
-### 5.1 Create Content Based on Source Code Analysis
+### 5.1 Use Generated API Documentation as LLM Context
+
+**Before creating documentation, leverage the programmatically generated API docs:**
+
+```bash
+# Ensure API docs are up to date
+./scripts/generate-api-docs.sh
+
+# API docs are now available in docs/api/ for LLM reference:
+# - docs/api/rust/dojo/: Core Dojo API in markdown
+# - docs/api/rust/katana/: Katana API in markdown
+# - docs/api/cairo/origami/: Origami Cairo library API
+# etc.
+```
+
+### 5.2 Create Content Based on API Documentation
 
 For each component requiring updates:
 
 #### API Documentation (Reference)
 ```bash
-# Extract API information from source code
-cd src/dojo
-find . -name "*.rs" -exec grep -l "pub fn\|pub struct\|pub enum" {} \;
+# Instead of parsing raw source code, use the generated API docs:
+# 1. Reference docs/api/rust/[project]/api_skeleton.md for complete API overview
+# 2. Use docs/api/rust/[project]/README.md for project structure
+# 3. Include generated markdown in LLM prompts for accurate API information
 
-# Document new public APIs in appropriate reference files
-# Follow the reference template from spec/page-types.md
+# Example LLM prompt enhancement:
+# "Using the API documentation in docs/api/rust/dojo/api_skeleton.md,
+#  create user-friendly documentation for the World trait..."
 ```
 
 #### CLI Documentation (Reference)
@@ -162,16 +196,16 @@ find . -name "*.rs" -exec grep -l "pub fn\|pub struct\|pub enum" {} \;
 cd src/katana
 cargo run -- --help > ../../docs/temp/katana-help.txt
 
-# Update CLI reference documentation
-# Include new commands, options, and examples
+# Combine with API docs for comprehensive CLI documentation
+# Reference docs/api/rust/katana/ for implementation details
 ```
 
 #### Tutorial Updates
 ```bash
-# Test existing tutorials with updated code
-cd src/dojo
-# Follow tutorial steps to identify issues
-# Update code examples and instructions
+# Use API docs to verify tutorial accuracy:
+# 1. Check function signatures against docs/api/
+# 2. Validate code examples with generated API documentation
+# 3. Update examples to match current API
 ```
 
 ### 5.2 Follow Documentation Standards
@@ -230,21 +264,35 @@ For each code example:
 
 ## Step 7: Deployment and Maintenance
 
-### 7.1 Update Submodule References
+### 7.1 Update Submodule References and API Documentation
 ```bash
-# Commit submodule updates
-git add .
-git commit -m "Update submodules to latest versions
+# Regenerate API documentation with latest submodule versions
+./scripts/generate-api-docs.sh
 
+# Commit submodule updates AND generated API docs
+git add .
+git commit -m "Update submodules and regenerate API documentation
+
+Submodule updates:
 - dojo: updated to [commit-hash]
 - katana: updated to [commit-hash]
 - torii: updated to [commit-hash]
 
-Updated documentation to reflect:
+API documentation updates:
+- Regenerated docs/api/ with latest APIs
+- Updated Rust API skeletons using ruskel
+- Updated Cairo documentation with scarb doc
+
+Documentation changes:
 - [List major changes]
 - [New features documented]
 - [Breaking changes addressed]"
 ```
+
+**Note:** The `docs/api/` directory should be committed to git as it provides:
+- **Stable API reference** for documentation contributors
+- **LLM context** that doesn't require local compilation
+- **Historical tracking** of API changes over time
 
 ### 7.2 Deploy Documentation
 ```bash
@@ -321,6 +369,9 @@ pnpm run dev
 ```bash
 # Update all submodules
 git submodule update --remote
+
+# Generate API documentation (NEW!)
+./scripts/generate-api-docs.sh
 
 # Start development server
 pnpm run dev
