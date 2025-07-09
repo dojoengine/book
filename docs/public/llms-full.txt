@@ -595,7 +595,7 @@ Dojo was created to solve problems the founders faced when building onchain game
 
 #### What is the Dojo roadmap?
 
-Dojo is rapidly evolving. You can find open issues on the [Dojo Github](https://github.com/dojoengine/dojo/issues) and join the [Discord](https://discord.gg/vUN4Xq9Qv6) to get involved. If you have ideas for the project, please open an issue.
+Dojo is rapidly evolving. You can find open issues on the [Dojo Github](https://github.com/dojoengine/dojo/issues) and join the [Discord](https://discord.gg/invite/dojoengine) to get involved. If you have ideas for the project, please open an issue.
 
 #### What is an onchain game?
 
@@ -629,7 +629,7 @@ Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promo
 
 ## How do I get involved?
 
-Check out our [Github](https://github.com/dojoengine), our [Twitter](https://x.com/ohayo_dojo), [Discord](https://discord.gg/vUN4Xq9Qv6) and [contribution guide](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md)
+Check out our [Github](https://github.com/dojoengine), our [Twitter](https://x.com/ohayo_dojo), [Discord](https://discord.gg/invite/dojoengine) and [contribution guide](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md)
 
 ## Dojo Configuration Guide
 [Skip to content](https://www.dojoengine.org/framework/config#vocs-content)

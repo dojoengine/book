@@ -62,9 +62,9 @@ It is developement is led by [Cartridge](https://cartridge.gg/), with significan
 ### Where is the Dojo roadmap?
 
 Dojo is rapidly evolving.
-You can find open issues on the [Dojo Github](https://github.com/dojoengine/dojo/issues) and join the [Discord](https://discord.gg/vUN4Xq9Qv6) to get involved.
+You can find open issues on the [Dojo Github](https://github.com/dojoengine/dojo/issues) and join the [Discord](https://discord.gg/invite/dojoengine) to get involved.
 If you have ideas for the project, please open an issue.
 
 ### How do I get involved?
 
-Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/vUN4Xq9Qv6).
+Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine).
