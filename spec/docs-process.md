@@ -59,14 +59,8 @@ git submodule status
 ```
 
 ### 1.4 Generate API Documentation (New!)
-```bash
-# Generate markdown API documentation for LLM consumption
-./scripts/generate-api-docs.sh
 
-# This creates docs/api/ with markdown docs for all projects:
-# - docs/api/rust/: Rust project APIs (using ruskel + cargo doc)
-# - docs/api/cairo/: Cairo project APIs (using scarb doc --output-format markdown)
-```
+TODO: Implement this functionality!
 
 **Benefits of programmatic API generation:**
 - **More accurate** than LLMs parsing raw source code
@@ -163,16 +157,7 @@ pnpm run dev
 
 **Before creating documentation, leverage the programmatically generated API docs:**
 
-```bash
-# Ensure API docs are up to date
-./scripts/generate-api-docs.sh
-
-# API docs are now available in docs/api/ for LLM reference:
-# - docs/api/rust/dojo/: Core Dojo API in markdown
-# - docs/api/rust/katana/: Katana API in markdown
-# - docs/api/cairo/origami/: Origami Cairo library API
-# etc.
-```
+NOTE: not yet available!
 
 ### 5.2 Create Content Based on API Documentation
 
@@ -214,7 +199,7 @@ For each new page:
 1. **Choose the correct page type** (Tutorial, How-to, Reference, Explanation)
 2. **Use the appropriate template** from `spec/page-types.md`
 3. **Follow style guidelines** from `spec/style-guide.md`
-4. **Include proper code examples** with comments and expected output
+4. **Include proper code examples** with comments and expected output; consult Sensei MCP when writing Dojo code
 5. **Add cross-references** to related content
 
 ### 5.3 Update Navigation

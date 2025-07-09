@@ -176,6 +176,7 @@ pnpm run dev && curl http://localhost:5173/
 - **Update submodules regularly**: Keep source code references current
 - **Follow navigation structure**: Use existing routing patterns in `routes.ts`
 - **Maintain cross-references**: Link related content appropriately
+- **Ensure code correctness**: Query the Sensei MCP for guidance when producing Dojo code samples
 
 ## Key Configuration Files
 
