@@ -12,6 +12,32 @@ export const routes = [
 		link: "/faq",
 	},
 	{
+		text: "Getting Started",
+		items: [
+			{
+				text: "Learning Path",
+				link: "/getting-started",
+			},
+			{
+				text: "Your First Dojo App",
+				link: "/getting-started/your-first-dojo-app",
+			},
+			// These pages are WIP
+			// {
+			// 	text: "Understanding the Toolchain",
+			// 	link: "/getting-started/understanding-the-toolchain",
+			// },
+			// {
+			// 	text: "Development Workflow",
+			// 	link: "/getting-started/development-workflow",
+			// },
+			// {
+			// 	text: "Next Steps",
+			// 	link: "/getting-started/next-steps",
+			// },
+		],
+	},
+	{
 		text: "Tutorials",
 		items: [
 			{
@@ -26,26 +52,6 @@ export const routes = [
 				text: "Deploy using Slot",
 				link: "/tutorials/deploy-using-slot/main",
 			},
-			// {
-			//   text: "Dungeon Crawler",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Using Graphql",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Using gRPC",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Deploying an NFT",
-			//   link: "/tutorials/deploy-using-slot/main",
-			// },
-			// {
-			//   text: "Katana-Starkli-Scarb",
-			//   link: "/tutorials/katana-starkli-scarb/main",
-			// },
 		],
 	},
 	{

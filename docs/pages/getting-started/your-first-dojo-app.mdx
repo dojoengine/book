@@ -1,0 +1,358 @@
+# Your First Dojo App
+
+In this tutorial, you'll create your first Dojo project from scratch and deploy it locally. By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
+
+## What You'll Learn
+
+- The structure of a Dojo project
+- Basic Entity Component System (ECS) concepts
+- How to start the development environment
+- Deploying your first World contract
+- Interacting with your deployed game
+
+## Step 1: Create Your Project
+
+First, clone the [Dojo Intro](https://github.com/dojoengine/dojo-intro) project, which implements a simple spawn-and-move game:
+
+```bash
+git clone https://github.com/dojoengine/dojo-intro && cd dojo-intro
+```
+
+Now open up the repo in your code editor and explore the project:
+
+```
+dojo-intro/
+├── client/
+├── contracts/
+│   ├── src/
+│   │   ├── systems/            # Game logic (Systems)
+│   │   │   └── actions.cairo
+│   │   ├── lib.cairo           # Main Cairo entry point
+│   │   └── models.cairo        # Data models (Components)
+│   ├── dojo_dev.toml           # Dojo configuration
+│   ├── katana.toml             # Katana configuration
+│   ├── Scarb.toml              # Cairo configuration
+│   └── torii_dev.toml          # Torii configuration
+└── README.md                   # Project readme
+```
+
+> Note: Some files and directories are omitted for simplicity
+
+## Step 2: Understand the Contract Structure
+
+Let's examine the key `contracts/` files to understand what we're building:
+
+### Models (Entities & Components)
+
+Look at `contracts/src/models.cairo` to see the data structures:
+
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Position {
+    #[key]
+    pub player: ContractAddress,
+    pub x: u32,
+    pub y: u32,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Moves {
+    #[key]
+    pub player: ContractAddress,
+    pub remaining: u8,
+}
+```
+
+These models define:
+
+- **Position**: Where each player is located (x, y coordinates)
+- **Moves**: How many moves each player has remaining
+
+The `#[dojo::model]` attribute tells Cairo that the struct is a Dojo model.
+The `#[key]` attribute tells Cairo that `player` is the Dojo entity identifier for these components.
+
+:::info
+These attributes are examples of "procedural macros," a [Cairo language feature](https://www.starknet.io/cairo-book/ch12-10-procedural-macros.html) which tells the compiler to generate additional code at compile-time.
+This additional code is what enables Dojo functionality, such as specialized storage formats or events for the Torii indexer.
+:::
+
+
+### Contracts (Systems)
+
+Open `contracts/src/systems/actions.cairo` to see the game logic:
+
+```cairo
+#[starknet::interface]
+pub trait IActions<T> {
+    fn spawn(ref self: T);
+    fn move(ref self: T, direction: Direction);
+    fn move_random(ref self: T);
+}
+
+#[dojo::contract]
+pub mod actions {
+    // Implementation details...
+
+    fn spawn(ref self: ContractState) {
+        // Create a new player with starting position and moves
+    }
+
+    fn move(ref self: ContractState, direction: Direction) {
+        // Move the player and decrease remaining moves
+    }
+
+    fn move_random(ref self: ContractState) {
+        // Move the player randomly and decrease remaining moves
+    }
+}
+```
+
+These functions define the game's core actions:
+
+- **spawn**: Create a new player at a random position
+- **move**: Move a player in a direction (up, down, left, right)
+- **move_random**: Use the [Cartridge vRNG](https://docs.cartridge.gg/slot/vrng) to move in a random direction
+
+### Project Configuration
+
+Open `contracts/dojo_dev.toml` to see the project's Dojo configuration:
+
+```toml
+[world]
+name = "Dojo intro"
+... additional project details
+
+[namespace]
+default = "di"
+
+[env]
+rpc_url = "http://localhost:5050/"
+... additional environment details
+
+[writers]
+"di" = ["di-actions"]
+```
+
+This configuration tells Dojo how to organize permissions when deploying the World.
+Specifically, it defines `di` as the default namespace and permits the systems defined in `actions.cairo` to write game state.
+
+## Step 3: Start the Development Environment
+
+Now let's get the development tools running. You'll need three terminals:
+
+### Terminal 1: Start Katana (Local Blockchain)
+
+First, start [Katana](/toolchain/katana), Dojo's high-performance sequencer:
+
+```bash
+cd contracts && katana --config katana.toml
+```
+
+You'll see output like this:
+
+```
+2025-07-10T15:46:43.495560Z  INFO katana_core::backend: Genesis initialized
+
+██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗
+██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗
+█████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║
+██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║
+██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
+
+PREDEPLOYED CONTRACTS
+==================
+
+| Contract        | ETH Fee Token
+| Address         | 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7
+| Class Hash      | 0x00a2475bc66197c751d854ea8c39c6ad9781eb284103bcd856b58e6b500078ac
+
+...
+
+PREFUNDED ACCOUNTS
+==================
+
+| Account address |  0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec
+| Private key     |  0xc5b2fcab997346f3ea1c00b002ecf6f382c5f9c9659a3894eb783c5320f912
+| Public key      |  0x33246ce85ebdc292e6a5c5b4dd51fab2757be34b8ffda847ca6925edf31cb67
+
+...
+
+ACCOUNTS SEED
+=============
+0
+
+2025-07-10T15:46:43.496299Z  INFO katana_node: Starting node. chain=0x4b4154414e41
+2025-07-10T15:46:43.496406Z  INFO rpc: RPC server started. addr=127.0.0.1:5050
+```
+
+Keep this running - it's your local blockchain.
+
+:::tip
+By default, Katana runs on port 5050
+:::
+
+### Terminal 2: Deploy Your World
+
+In a new terminal, run the following command using [Sozo](/toolchain/sozo), Dojo's build tool.
+
+```bash
+cd contracts && sozo build && sozo migrate
+```
+
+`build` compiles your code, and `migrate` deploys it to Katana.
+You'll see:
+
+```
+# sozo build
+Compiling dojo_intro v1.5.0 (~/dojo-intro/contracts/Scarb.toml)
+    Finished `dev` profile target(s) in 8 seconds
+
+# sozo migrate
+ profile | chain_id | rpc_url
+---------+----------+------------------------
+ dev     | KATANA   | http://localhost:5050/
+
+🌍 World deployed at block 2 with txn hash: 0x06a03fcc52739807ff4e7cd96fceb40b8fc194f3d7b370c1c8388eb380a4a069
+⛩️  Deploying 0 external contracts...
+⛩️  Migration successful with world at address 0x04d9778a74d2c9e6e7e4a24cbe913998a80de217c66ee173a604d06dea5469c3
+```
+
+### Terminal 3: Start Torii (Indexer)
+
+In a third terminal you'll start Torii, Dojo's indexer:
+
+```bash
+cd contracts && torii --config torii_dev.toml
+```
+
+:::note
+If you look at `torii_dev.toml`, you'll see the same World address as that generated by `sozo migrate`.
+Sozo migrations are deterministic based on the seed defined in `dojo_dev.toml`.
+If you change the seed, the World address will change.
+:::
+
+Torii will start indexing your World's data.
+You'll see:
+
+```
+2025-07-10T15:59:27.961623Z  INFO torii::relay::server: Relay peer id. peer_id=12D3KooWLaZ5bummiPSM2HHtRahELYUFWQA12NWNeMQ4aYpVhk9h
+2025-07-10T15:59:27.966166Z  INFO torii:runner: Starting torii endpoint. endpoint=127.0.0.1:8080
+2025-07-10T15:59:27.966177Z  INFO torii:runner: Serving Graphql playground. endpoint=127.0.0.1:8080/graphql
+2025-07-10T15:59:27.966202Z  INFO torii:runner: Serving SQL playground. endpoint=127.0.0.1:8080/sql
+2025-07-10T15:59:27.966207Z  INFO torii:runner: Serving MCP endpoint. endpoint=127.0.0.1:8080/mcp
+2025-07-10T15:59:27.966210Z  INFO torii:runner: Serving World Explorer. url=https://worlds.dev/torii?url=127.0.0.1%3A8080%2Fgraphql
+2025-07-10T15:59:27.966212Z  INFO torii:runner: Serving ERC artifacts at path path=/var/folders/dh/khjwlwbd6tx9p785khl57xjr0000gn/T/.tmpqeRBF0
+2025-07-10T15:59:27.967054Z  INFO torii::relay::server: Serving libp2p Relay. address=/ip4/127.0.0.1/tcp/9090
+2025-07-10T15:59:27.967228Z  INFO torii::relay::server: Serving libp2p Relay. address=/ip4/127.0.0.1/udp/9090/quic-v1
+2025-07-10T15:59:27.967369Z  INFO torii::relay::server: Serving libp2p Relay. address=/ip4/127.0.0.1/udp/9091/webrtc-direct/certhash/uEiB-v7fMcMjwd5WT_kgzPYOETr_IcyJ91zKbpG3AilHV_w
+2025-07-10T15:59:27.967637Z  INFO torii::relay::server: Serving libp2p Relay. address=/ip4/127.0.0.1/tcp/9092/ws
+2025-07-10T15:59:27.974035Z  INFO torii::indexer::processors::register_model: Registered model. namespace=di name=Moves
+2025-07-10T15:59:27.974166Z  INFO torii::indexer::processors::register_model: Registered model. namespace=di name=Position
+```
+
+Reading this output, you'll see that Torii has set up some local endpoints, which the client will use to fetch game state.
+You'll also see that Torii has registered the game models `Moves` and `Position` we saw earlier, within the `di` namespace.
+
+:::tip
+By default, Torii runs on port 8080
+:::
+
+Congratulations!
+Your Dojo development environment is up-and-running.
+
+## Step 4: Launch Your Game Client
+
+Now let's test your game!
+First, let's launch your game client:
+
+```bash
+cd client && pnpm install && pnpm run dev
+```
+
+You should see:
+
+```
+# pnpm install
+# Installation details ...
+Done in 409ms using pnpm v10.6.4
+
+# pnpm run dev
+> client@1.0.0 dev /Users/kronosapiens/code/cartridge/dojo-intro/client
+> vite dev
+
+  VITE v6.3.4  ready in 152 ms
+
+  ➜  Local:   https://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+```
+
+Now navigate to [https://localhost:5173/](https://localhost:5173/) to reach the running client.
+
+:::note
+The Cartridge Controller _requires_ https to connect.
+:::
+
+You should see a page which looks like this:
+
+![client-1](/getting-started/client-1.png)
+
+Click `Connect` to launch the Cartridge Controller log-in flow.
+Once you have logged in with Controller, you should be able to spawn a character and move them around.
+
+:::info
+Take a moment to appreciate what's happening under the hood.
+Every system execution is being sent by Controller as a transaction to Katana, which emits an event that is picked up by Torii, which is sent back to the client and rendered for you!
+:::
+
+After a while, you should have something which looks like this:
+
+![client-2](/getting-started/client-2.png)
+
+**Congratulations, you've just created your first provable game with Dojo!**
+
+## Understanding What Happened
+
+Let's break down what you just accomplished:
+
+1. **Defined Components**: `Position` and `Moves` store data about each player
+2. **Implemented Systems**: The `spawn` and `move` functions modify component data
+3. **Created a World**: Your World contract acts as the central registry for all game data, logic, and access control
+4. **Used the Toolchain**:
+    - Katana provided a local blockchain
+    - Sozo managed compilation and deployment
+    - Torii indexed data and sent it to the client
+
+## Key Concepts
+
+### Entity Component System (ECS)
+
+- **Entities**: Players in your game (identified by their address)
+- **Components**: Data attached to entities (`Position`, `Moves`)
+- **Systems**: Functions that operate on components (`spawn`, `move`)
+
+### Dojo World
+
+Your World contract coordinates everything:
+
+- Registers all models and systems
+- Handles permissions and authorization
+- Provides a consistent interface for data access
+
+### Event-Driven Updates
+
+When you execute a system, it emits events that Torii captures and indexes, which clients can subscribe to.
+
+## Next Steps
+
+Congratulations! You've successfully:
+
+- ✅ Understood basic ECS concepts
+- ✅ Created and deployed your first Dojo project
+- ✅ Used the core development tools
+- ✅ Interacted with your deployed World
+
+Ready to dive deeper? Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible.
