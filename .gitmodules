@@ -28,3 +28,24 @@
 [submodule "src/sdks/dojo.unreal"]
 	path = src/sdks/dojo.unreal
 	url = https://github.com/dojoengine/dojo.unreal.git
+[submodule "src/games/death-mountain"]
+	path = src/games/death-mountain
+	url = https://github.com/Provable-Games/death-mountain.git
+[submodule "src/games/jokers-of-neon"]
+	path = src/games/jokers-of-neon
+	url = https://github.com/caravana-studio/jokers-of-neon-lib.git
+[submodule "src/games/pistols"]
+	path = src/games/pistols
+	url = https://github.com/underware-gg/pistols.git
+[submodule "src/games/you-are-who-you-kill"]
+	path = src/games/you-are-who-you-kill
+	url = https://github.com/last-dot/you-are-who-you-kill.git
+[submodule "src/starters/dojo-starter"]
+	path = src/starters/dojo-starter
+	url = https://github.com/dojoengine/dojo-starter.git
+[submodule "src/starters/dojo-intro"]
+	path = src/starters/dojo-intro
+	url = https://github.com/dojoengine/dojo-intro.git
+[submodule "src/starters/dojo-game-starter"]
+	path = src/starters/dojo-game-starter
+	url = https://github.com/AkatsukiLabs/Dojo-Game-Starter.git
