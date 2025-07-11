@@ -55,7 +55,20 @@ To implement the code related to the system, you must be placed inside a `#[dojo
 #[dojo::contract]
 mod actions {
     use super::IActions;
+    use starknet::{ContractAddress, get_caller_address};
     use dojo::model::{ModelStorage, ModelValueStorage};
+    use dojo::world::{WorldStorage, WorldStorageTrait};
+    use dojo::event::EventStorage;
+
+    use dojo_starter::models::{Position, Moves, Direction, Vec2};
+
+    #[derive(Copy, Drop, Serde)]
+    #[dojo::event]
+    pub struct Moved {
+        #[key]
+        pub player: ContractAddress,
+        pub direction: Direction,
+    }
 
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
@@ -68,7 +81,7 @@ mod actions {
             let player = get_caller_address();
 
             // Retrieve the player's current position from the world.
-            let mut position: Position = world.read_model(player);
+            let position: Position = world.read_model(player);
 
             // Update the world state with the new data.
 
@@ -106,8 +119,13 @@ mod actions {
 
             // Retrieve the player's current position and moves data
             // from the world.
-            let mut position: Position = world.read_model(player);
+            let position: Position = world.read_model(player);
             let mut moves: Moves = world.read_model(player);
+
+            // Check if the player can move
+            if !moves.can_move {
+                return;
+            }
 
             // Deduct one from the player's remaining moves.
             moves.remaining -= 1;
@@ -130,6 +148,27 @@ mod actions {
             world.emit_event(@Moved { player, direction });
         }
     }
+
+    #[generate_trait]
+    impl InternalImpl of InternalTrait {
+        /// Use the default namespace "dojo_starter". This function is handy since the ByteArray
+        /// can't be const.
+        fn world_default(self: @ContractState) -> WorldStorage {
+            self.world(@"dojo_starter")
+        }
+    }
+}
+
+// Helper function to calculate next position
+fn next_position(mut position: Position, direction: Direction) -> Position {
+    match direction {
+        Direction::Left => { position.vec.x -= 1; },
+        Direction::Right => { position.vec.x += 1; },
+        Direction::Up => { position.vec.y -= 1; },
+        Direction::Down => { position.vec.y += 1; },
+        Direction::None => { /* no movement */ },
+    };
+    position
 }
 ```
 

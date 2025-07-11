@@ -46,7 +46,7 @@ Traits are a way to define shared behavior across types. By defining traits and 
 Consider the `GameStatus` enum, which represents the various states a game can be in. This enum is a simple yet powerful example of how enums can be used to model game states.
 
 ```rust
-# [derive(Serde, Copy, Drop, Introspect, PartialEq, Print)]
+#[derive(Serde, Copy, Drop, Introspect, PartialEq, Debug)]
 // Define an enum representing different states of a game
 enum GameStatus {
    NotStarted,

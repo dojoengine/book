@@ -80,9 +80,11 @@ Dojo simplifies this by exposing an interface to interact with the world state, 
 #[dojo::contract]
 mod actions {
     use starknet::{ContractAddress, get_caller_address};
+    use dojo::model::{ModelStorage, ModelValueStorage};
+    use dojo::world::{WorldStorage, WorldStorageTrait};
 
     // Import the model attributes like a normal Cairo struct
-    use dojo_starter::models::{Moves, Position};
+    use dojo_starter::models::{Moves, Position, Direction, Vec2};
 
     #[abi(embed_v0)]
     impl ActionsImpl of super::IActions<ContractState> {
@@ -90,11 +92,11 @@ mod actions {
         // Passing in contract storage lets you mutate the world state
         fn spawn(ref self: ContractState) {
             // Get the world and current player key
-            let mut world = self.world(@"greyhawk");
+            let mut world = self.world(@"dojo_starter");
             let player = get_caller_address();
 
             // Cairo's typing tells us we are querying the player's position
-            let mut position: Position = world.read_model(player);
+            let position: Position = world.read_model(player);
 
             // Move the player 10 units up and to the right
             let new_position = Position {
@@ -103,7 +105,7 @@ mod actions {
 
             // Define the player's remaining moves
             let moves = Moves {
-                player, remaining: 100, last_direction: Direction::None(()), can_move: true
+                player, remaining: 100, last_direction: Direction::None, can_move: true
             };
 
             // Write the new state to the world
