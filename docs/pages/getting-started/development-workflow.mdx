@@ -1,0 +1,552 @@
+# Development Workflow
+
+Now that you understand Dojo's toolchain, let's explore the typical development workflow. You'll learn how to iterate efficiently, test your code, and debug issues as you build your Dojo applications.
+
+## The Development Cycle
+
+A typical Dojo development session follows this pattern:
+
+```
+1. Plan & Design
+      ↓
+2. Write Cairo Code
+      ↓
+3. Test Locally
+      ↓
+4. Debug & Iterate
+      ↓
+5. Deploy & Verify
+      ↓
+6. Repeat
+```
+
+Let's walk through each step with practical examples.
+
+## Setting Up Your Development Environment
+
+Start each development session by launching your tools:
+
+```bash
+# Terminal 1: Start Katana
+katana --dev
+
+# Terminal 2: Deploy and start Torii
+sozo migrate --dev
+torii --dev
+
+# Terminal 3: Your workspace for commands
+# (keep this free for running sozo commands)
+```
+
+> **Tip**: Create a simple script to start all tools at once. Save this as `start-dev.sh`:
+
+```bash
+#!/bin/bash
+# Start development environment
+katana --dev &
+sleep 2
+sozo migrate --dev
+torii --dev &
+echo "🚀 Development environment ready!"
+```
+
+## Planning and Design
+
+Before writing code, think about your game or application structure:
+
+### Define Your Models (Components)
+
+What data does your application need to track?
+
+```cairo
+// Example: A simple trading card game
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Card {
+    #[key]
+    pub id: u32,
+    pub owner: ContractAddress,
+    pub attack: u8,
+    pub defense: u8,
+    pub cost: u8,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Game {
+    #[key]
+    pub id: u32,
+    pub player1: ContractAddress,
+    pub player2: ContractAddress,
+    pub current_turn: ContractAddress,
+    pub status: GameStatus,
+}
+```
+
+### Plan Your Systems (Actions)
+
+What actions can players take?
+
+```cairo
+#[dojo::interface]
+trait IGameActions {
+    fn create_game(ref world: IWorldDispatcher, opponent: ContractAddress);
+    fn play_card(ref world: IWorldDispatcher, game_id: u32, card_id: u32);
+    fn end_turn(ref world: IWorldDispatcher, game_id: u32);
+}
+```
+
+## Writing Cairo Code
+
+### Start with Models
+
+Begin by implementing your data models in `src/models.cairo`:
+
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Player {
+    #[key]
+    pub address: ContractAddress,
+    pub name: ByteArray,
+    pub wins: u32,
+    pub losses: u32,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Inventory {
+    #[key]
+    pub player: ContractAddress,
+    pub cards: Array<u32>,
+}
+```
+
+### Implement Systems Incrementally
+
+Add one system at a time in `src/actions.cairo`:
+
+```cairo
+#[dojo::contract]
+mod actions {
+    use super::{Player, Inventory};
+
+    #[abi(embed_v0)]
+    impl ActionsImpl of super::IGameActions<ContractState> {
+        fn create_player(ref world: IWorldDispatcher, name: ByteArray) {
+            let caller = get_caller_address();
+
+            // Check if player already exists
+            let existing_player = get!(world, caller, Player);
+            assert(existing_player.address.is_zero(), 'Player already exists');
+
+            // Create new player
+            set!(world, Player {
+                address: caller,
+                name: name,
+                wins: 0,
+                losses: 0,
+            });
+
+            // Initialize empty inventory
+            set!(world, Inventory {
+                player: caller,
+                cards: array![],
+            });
+        }
+    }
+}
+```
+
+### Compile Early and Often
+
+After adding each piece, compile to catch errors:
+
+```bash
+sozo build
+```
+
+Fix any compilation errors before moving on to the next feature.
+
+## Testing Your Code
+
+### Local Testing Workflow
+
+1. **Deploy your changes**:
+
+```bash
+sozo migrate --dev
+```
+
+2. **Test basic functionality**:
+
+```bash
+# Create a player
+sozo execute create_player --calldata "Alice" --dev
+
+# Verify it worked
+sozo model get Player $ACCOUNT_ADDRESS --dev
+```
+
+3. **Test edge cases**:
+
+```bash
+# Try to create the same player again (should fail)
+sozo execute create_player --calldata "Alice" --dev
+```
+
+### Using GraphQL for Complex Queries
+
+Test your data relationships using Torii's GraphQL interface at `http://localhost:8080/graphql`:
+
+```graphql
+query GetPlayersWithInventories {
+    playerModels {
+        edges {
+            node {
+                address
+                name
+                wins
+                losses
+            }
+        }
+    }
+    inventoryModels {
+        edges {
+            node {
+                player
+                cards
+            }
+        }
+    }
+}
+```
+
+### Automated Testing
+
+For more comprehensive testing, use Sozo's built-in test framework:
+
+```bash
+# Run all tests
+sozo test
+
+# Run tests with output
+sozo test -v
+
+# Run specific test
+sozo test test_create_player
+```
+
+Create tests in your `src/` directory:
+
+```cairo
+#[cfg(test)]
+mod tests {
+    use super::{Player, actions};
+    use dojo::test_utils::{spawn_test_world, deploy_contract};
+
+    #[test]
+    fn test_create_player() {
+        let world = spawn_test_world!();
+        let contract_address = deploy_contract!(world, actions);
+
+        let actions_dispatcher = IGameActionsDispatcher { contract_address };
+
+        // Test player creation
+        actions_dispatcher.create_player("Alice");
+
+        let player = get!(world, get_caller_address(), Player);
+        assert(player.name == "Alice", 'Wrong name');
+        assert(player.wins == 0, 'Wrong wins');
+    }
+}
+```
+
+## Debugging and Troubleshooting
+
+### Common Development Issues
+
+#### Compilation Errors
+
+```bash
+# Error: trait has no implementation
+# Solution: Make sure all traits are properly implemented
+sozo build 2>&1 | grep -A 5 "error"
+```
+
+#### Transaction Failures
+
+```bash
+# Check recent transactions
+sozo events --dev
+
+# Get detailed transaction info
+sozo call get_transaction --calldata $TX_HASH --dev
+```
+
+#### Data Not Updating
+
+```bash
+# Restart Torii to refresh indexing
+pkill torii
+torii --dev
+```
+
+### Debugging Techniques
+
+#### 1. Use Events for Logging
+
+Add events to your systems for debugging:
+
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+pub struct PlayerCreated {
+    #[key]
+    pub player: ContractAddress,
+    pub name: ByteArray,
+}
+
+// In your system:
+emit!(world, PlayerCreated { player: caller, name: name });
+```
+
+#### 2. Check State Step by Step
+
+After each operation, verify the state:
+
+```bash
+# Execute action
+sozo execute create_player --calldata "Bob" --dev
+
+# Check immediate result
+sozo model get Player $ACCOUNT_ADDRESS --dev
+
+# Check related data
+sozo model get Inventory $ACCOUNT_ADDRESS --dev
+```
+
+#### 3. Use Verbose Logging
+
+Enable detailed logging on your tools:
+
+```bash
+# Katana with debug info
+katana --dev -vvv
+
+# Torii with debug logging
+torii --dev --log-level debug
+```
+
+## Iterating on Features
+
+### Feature Development Pattern
+
+1. **Implement minimal version**:
+
+```cairo
+fn attack(ref world: IWorldDispatcher, target: ContractAddress) {
+    // Basic implementation
+    let attacker = get_caller_address();
+    // TODO: Add damage calculation
+    // TODO: Add health reduction
+    // TODO: Add death handling
+}
+```
+
+2. **Test basic functionality**:
+
+```bash
+sozo execute attack --calldata $TARGET_ADDRESS --dev
+```
+
+3. **Add complexity incrementally**:
+
+```cairo
+fn attack(ref world: IWorldDispatcher, target: ContractAddress) {
+    let attacker = get_caller_address();
+    let attacker_stats = get!(world, attacker, CombatStats);
+    let mut target_stats = get!(world, target, CombatStats);
+
+    // Calculate damage
+    let damage = attacker_stats.attack - target_stats.defense;
+    if damage > 0 {
+        target_stats.health -= damage;
+        set!(world, target_stats);
+
+        emit!(world, AttackExecuted {
+            attacker,
+            target,
+            damage
+        });
+    }
+}
+```
+
+4. **Test edge cases**:
+
+```bash
+# Test with different scenarios
+sozo execute attack --calldata $WEAK_TARGET --dev
+sozo execute attack --calldata $STRONG_TARGET --dev
+sozo execute attack --calldata $DEAD_TARGET --dev
+```
+
+### Managing Code Changes
+
+When modifying existing models, you might need to reset your local state:
+
+```bash
+# Clean rebuild
+sozo clean
+sozo build
+sozo migrate --dev
+
+# If you have persistent data you want to keep:
+# Back up important state first
+sozo model get Player $ACCOUNT_ADDRESS --dev > player_backup.json
+```
+
+## Performance Optimization
+
+### Efficient Data Queries
+
+Structure your GraphQL queries to minimize data transfer:
+
+```graphql
+# Good: Specific fields only
+query GetActiveGames {
+  gameModels(where: {status: {eq: "ACTIVE"}}) {
+    edges {
+      node {
+        id
+        player1
+        player2
+        current_turn
+      }
+    }
+  }
+}
+
+# Avoid: Fetching all data
+query GetAllGames {
+  gameModels {
+    edges {
+      node {
+        # all fields...
+      }
+    }
+  }
+}
+```
+
+### Gas Optimization
+
+Keep transactions lightweight:
+
+```cairo
+// Good: Single batch operation
+fn play_multiple_cards(ref world: IWorldDispatcher, cards: Array<u32>) {
+    let mut i = 0;
+    loop {
+        if i >= cards.len() {
+            break;
+        }
+        // Process card
+        i += 1;
+    };
+}
+
+// Less efficient: Multiple separate transactions
+// (would require multiple sozo execute calls)
+```
+
+## Deployment Strategy
+
+### Local to Testnet Progression
+
+1. **Perfect locally**:
+
+```bash
+# Ensure everything works
+sozo migrate --dev
+# Test all features thoroughly
+```
+
+2. **Deploy to Sepolia**:
+
+```bash
+# Configure Sepolia profile in dojo_dev.toml
+sozo migrate --profile sepolia
+```
+
+3. **Test on testnet**:
+
+```bash
+# Use real testnet for final validation
+sozo execute create_player --calldata "TestUser" --profile sepolia
+```
+
+4. **Deploy to mainnet** (when ready):
+
+```bash
+sozo migrate --profile mainnet
+```
+
+## Development Best Practices
+
+### Keep Your Workspace Organized
+
+```
+my-game/
+├── src/
+│   ├── models/          # Separate model files
+│   │   ├── player.cairo
+│   │   ├── game.cairo
+│   │   └── card.cairo
+│   ├── systems/         # Separate system files
+│   │   ├── player_actions.cairo
+│   │   ├── game_actions.cairo
+│   │   └── card_actions.cairo
+│   └── lib.cairo        # Main exports
+├── tests/               # Dedicated test directory
+├── scripts/             # Utility scripts
+└── docs/                # Game design documents
+```
+
+### Version Control Best Practices
+
+Commit frequently with meaningful messages:
+
+```bash
+git add -A
+git commit -m "Add player creation system with basic validation"
+
+# Before major changes
+git branch feature/card-trading
+git checkout feature/card-trading
+```
+
+### Documentation
+
+Keep a development log of major decisions:
+
+```markdown
+# Development Log
+
+## 2024-01-15: Player System
+
+- Added basic player creation
+- Implemented inventory management
+- Next: Add card trading mechanics
+
+## 2024-01-16: Combat System
+
+- Added basic attack/defense
+- Issue: Need to handle death states
+- TODO: Add resurrection mechanics
+```
+
+## Next Steps
+
+You now have a solid understanding of the Dojo development workflow! Ready to explore what comes next in your journey? Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.

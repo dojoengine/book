@@ -28,9 +28,9 @@ export const routes = [
 			},
 			// These pages are WIP
 			// {
-			// 	text: "Development Workflow",
-			// 	link: "/getting-started/development-workflow",
-			// },
+			// 		text: "Development Workflow",
+			// 		link: "/getting-started/development-workflow",
+			// 	},
 			// {
 			// 	text: "Next Steps",
 			// 	link: "/getting-started/next-steps",
