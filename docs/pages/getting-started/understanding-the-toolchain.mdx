@@ -1,0 +1,383 @@
+# Understanding the Toolchain
+
+Now that you've built your first Dojo app, let's explore the tools that made it possible.
+Understanding each tool's role will help you develop more effectively and debug issues when they arise.
+
+:::note
+The code examples are run in the context of the `dojo-intro` repo.
+:::
+
+## Katana: Your Local Starknet
+
+**What it is**: Katana is a high-performance Starknet sequencer designed for development.
+
+**What it does**:
+
+- Provides a local blockchain environment
+- Mines blocks instantly for fast development
+- Comes with pre-funded accounts for testing
+- Supports gRPC for faster network communication
+
+### Key Features
+
+When you run `katana --dev`, you get:
+
+```
+██╗  ██╗ █████╗ ████████╗ █████╗ ███╗   ██╗ █████╗
+██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗
+█████╔╝ ███████║   ██║   ███████║██╔██╗ ██║███████║
+██╔═██╗ ██╔══██║   ██║   ██╔══██║██║╚██╗██║██╔══██║
+██║  ██╗██║  ██║   ██║   ██║  ██║██║ ╚████║██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
+
+PREDEPLOYED CONTRACTS
+==================
+
+| Contract        | ETH Fee Token
+| Address         | 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7
+| Class Hash      | 0x00a2475bc66197c751d854ea8c39c6ad9781eb284103bcd856b58e6b500078ac
+
+...
+
+PREFUNDED ACCOUNTS
+==================
+
+| Account address |  0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec
+| Private key     |  0xc5b2fcab997346f3ea1c00b002ecf6f382c5f9c9659a3894eb783c5320f912
+| Public key      |  0x33246ce85ebdc292e6a5c5b4dd51fab2757be34b8ffda847ca6925edf31cb67
+
+...
+
+ACCOUNTS SEED
+=============
+0
+
+2025-07-10T19:40:46.325567Z  INFO katana_node: Starting node. chain=0x4b4154414e41
+2025-07-10T19:40:46.325662Z  INFO rpc: RPC server started. addr=127.0.0.1:5050
+
+```
+
+:::note
+Katana's chain id, `0x4b4154414e41`, is just "KATANA" in ASCII!
+:::
+
+### Development vs Production
+
+**Development mode** (`--dev`):
+
+- Instant block mining
+- Pre-funded accounts
+- No fees or account validation
+
+**Production mode**:
+
+- Configurable mining intervals
+- Can fork existing chains
+- Can persist state to a database
+
+### Katana Configuration
+
+Customize Katana's behavior:
+
+```bash
+# Start in development mode without fees
+katana --dev --dev.no-fee
+
+# Automatically deploy the Controller contract
+katana --cartridge.controllers
+
+# Fork off of a specific chain & block
+katana --rpc-url <RPC_URL> --fork-block-number <BLOCK_NUM>
+```
+
+## Torii: Your Data Layer
+
+**What it is**: Torii is an automatic indexing engine that makes your World's data easily queryable.
+
+**What it does**:
+
+- Introspects and monitors all events from your World
+- Builds a searchable database of application state
+- Provides flexible GraphQL and gRPC APIs
+- Enables real-time client subscriptions
+
+### How Torii Works
+
+1. **Event Listening**: Monitors your World for state changes
+2. **Data Processing**: Converts Cairo events into structured data
+3. **Database Storage**: Maintains a SQL database of current state
+4. **API Generation**: Automatically creates GraphQL schemas
+5. **Real-time Updates**: Pushes changes to connected clients
+
+### Using Torii's APIs
+
+After starting `torii --world <WORLD_ADDRESS>`, you can access data through multiple interfaces.
+Let's make a query to retrieve all the instances of the `Position` model.
+
+#### GraphiQL (Browser)
+
+Visit `http://localhost:8080/graphql` for an interactive query interface:
+
+```graphql
+query {
+    diPositionModels {
+        edges {
+            node {
+                player
+                x
+                y
+            }
+        }
+    }
+}
+```
+
+#### GraphQL (Programmatic)
+
+```bash
+curl -X POST http://localhost:8080/graphql \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ diPositionModels { edges { node { player x y } } } }"}'
+```
+
+:::tip
+You can learn more about GraphQL [here](https://graphql.org/learn).
+:::
+
+#### gRPC
+
+For high-performance applications, use the gRPC endpoint at `localhost:8080`.
+
+### Torii Configuration
+
+Customize Torii's behavior:
+
+```bash
+# Set the RPC endpoint to index (default localhost:5050)
+torii --rpc <RPC_ENDPOINT>
+
+# Path to persistent storage (recommended for production)
+torii --db-dir torii.db
+
+# Enable CORS for local development
+torii --http.cors_origins "*"
+```
+
+## Sozo: Your Command Center
+
+**What it is**: Sozo is the command-line interface for managing Dojo projects.
+
+**What it does**:
+
+- Initializes new projects
+- Compiles Cairo code
+- Deploys contracts
+- Manages World interactions
+- Handles authorization
+
+### Project Lifecycle with Sozo
+
+#### 1: Project Creation
+
+```bash
+# Clone the template into the my-game directory
+sozo init my-game --template dojoengine/dojo-starter (default)
+```
+
+#### 2. Development
+
+```bash
+# Compile your code (defaults to dev profile)
+sozo build
+
+# Compile your code with a different profile
+sozo build --profile staging
+
+# Run tests
+sozo test
+
+# Clean build artifacts
+sozo clean
+```
+
+:::info
+To build new profiles, add `[profile.<PROFILE>]` to your project's `Scarb.toml`.
+:::
+
+#### 3. Deployment
+
+```bash
+# Deploy to local Katana (defaults to dev profile)
+sozo migrate
+
+# Deploy to a staging environment
+sozo migrate --profile staging
+
+# Deploy to a production environment
+sozo migrate --profile mainnet
+```
+
+:::info
+To define new profiles, create a `dojo_<PROFILE>.toml` file in your contract directory.
+:::
+
+:::warning
+You **must** have a `dojo_dev.toml` file in your contract directory, or Sozo will complain.
+:::
+
+After migrating, Sozo will generate a `manifest_<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
+Thsi file is meant to be consumed by clients to help them interact with the world.
+
+#### 4. Interaction
+
+```bash
+# Execute a system (note the namespacing)
+sozo execute di-actions spawn
+
+# Query historical events
+sozo events
+
+# Query model data (get keys from events)
+sozo model get Position <KEY>
+```
+
+### Sozo Profiles
+
+Manage different deployment environments with profiles:
+
+```
+contracts/
+├── dojo_dev.toml
+├── dojo_staging.toml
+├── Scarb.toml
+└── ...
+```
+
+Each profile defines basic data for a deployment:
+
+```toml
+[world]
+name = "Dojo intro"
+description = "A simple intro to Dojo."
+seed = "123" # Changes the World address
+
+[namespace]
+default = "di" # Default namespace for the world
+
+[env]
+rpc_url = "http://localhost:5050/" # Katana instance
+account_address = "0x127f..." # Deployer address
+private_key = "0xc5b2..." # Deployer private key
+world_address = "0x04d9..." # For previously deployed worlds
+
+[writers]
+"di" = ["di-actions"] # target = grantee
+```
+
+See [this page](/framework/config) for more information about Sozo profiles.
+
+## Saya: Your Proof Generator
+
+**What it is**: Saya generates cryptographic proofs of your World's execution.
+
+**What it does**:
+
+- Creates STARK proofs of game state transitions
+- Enables provable gaming and autonomous worlds
+- Supports different proving backends
+- Handles proof verification and settlement
+
+:::tip
+You **do not** need Saya for basic Dojo development.
+:::
+
+### When You Need Saya
+
+Saya becomes important when you want:
+
+- **Provable fairness**: Public guarantees of correct execution
+- **L1 settlement**: Settle state changes on Ethereum or other chains
+- **Competition integrity**: Tamper-proof tournaments and rankings
+
+For more information about Saya, [see the docs](/toolchain/saya).
+
+## How The Toolchain Works Together
+
+Here's the typical development flow:
+
+1. **Sozo** compiles your Cairo code into deployable contracts
+2. **Katana** provides a local blockchain to deploy and test on
+3. **Sozo** deploys your World contract to Katana
+4. **Torii** automatically indexes your World's data
+6. **Saya** (optionally) generates proofs for settlement
+
+## Tool Configuration
+
+Each tool can be configured through various methods:
+
+### Configuration Priority (highest to lowest)
+
+1. Command-line flags
+2. Environment variables
+3. Configuration files
+4. Default values
+
+### Common Configuration Files
+
+- `dojo_dev.toml`: Sozo project and World settings
+- `torii_dev.toml`: Torii indexing and World settings
+- `katana.toml`: Katana network configuration settings
+
+## Development Best Practices
+
+### Keep Tools Running
+
+During development, keep all tools running in separate terminals:
+
+```bash
+# Terminal 1
+katana --config katana.toml
+
+# Terminal 2
+torii --config torii_dev.toml
+
+# Terminal 3
+# Your sozo commands
+```
+
+### Use Profiles
+
+Set up different profiles for different environments:
+
+```bash
+# Development
+sozo execute di-actions spawn
+
+# Testing on staging
+sozo execute di-actions spawn --profile staging
+```
+
+## Troubleshooting Common Issues
+
+### Katana Won't Start
+
+- Check if port 5050 is already in use
+- Try a different port: `katana --dev --port 5051`
+
+### Torii Can't Connect
+
+- Ensure Katana is running first
+- Verify the World address is correct
+- Check network connectivity
+
+### Sozo Commands Fail
+
+- Verify you're in a Dojo project directory
+- Check your profile configuration
+- Ensure sufficient account balance
+
+## Next Steps
+
+Now that you understand the toolchain, you're ready to learn about the [development workflow](/getting-started/development-workflow) and start building more complex applications.
+
+Each tool has extensive documentation in the toolchain section for when you need to dive deeper into specific features and configurations.

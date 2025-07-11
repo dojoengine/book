@@ -22,11 +22,11 @@ export const routes = [
 				text: "Your First Dojo App",
 				link: "/getting-started/your-first-dojo-app",
 			},
+			{
+				text: "Understanding the Toolchain",
+				link: "/getting-started/understanding-the-toolchain",
+			},
 			// These pages are WIP
-			// {
-			// 	text: "Understanding the Toolchain",
-			// 	link: "/getting-started/understanding-the-toolchain",
-			// },
 			// {
 			// 	text: "Development Workflow",
 			// 	link: "/getting-started/development-workflow",
