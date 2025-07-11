@@ -175,6 +175,8 @@ torii --http.cors_origins "*"
 - Manages World interactions
 - Handles authorization
 
+> **New to Sozo?** See our [complete Sozo reference](/toolchain/sozo/) for all available commands and options.
+
 ### Project Lifecycle with Sozo
 
 #### 1: Project Creation
@@ -215,6 +217,17 @@ sozo migrate --profile staging
 
 # Deploy to a production environment
 sozo migrate --profile mainnet
+```
+
+**Expected output for local build and deployment:**
+```
+# sozo build
+Compiling dojo_intro v1.5.0
+Finished `dev` profile target(s) in 8 seconds
+
+# sozo migrate
+🌍 World deployed at block 2 with txn hash: 0x06a03...
+⛩️ Migration successful with world at address 0x04d97...
 ```
 
 :::info
@@ -361,20 +374,18 @@ sozo execute di-actions spawn --profile staging
 
 ### Katana Won't Start
 
-- Check if port 5050 is already in use
-- Try a different port: `katana --dev --port 5051`
+- Verify your `katana.toml` configuration is correct
+- Check if the port is in use (`lsof -i :5050`)
 
 ### Torii Can't Connect
 
-- Ensure Katana is running first
-- Verify the World address is correct
-- Check network connectivity
+- Verify the World address in `torii_dev.toml` matches your migration output
+- Check that the World was successfully deployed (`sozo inspect`)
 
 ### Sozo Commands Fail
 
-- Verify you're in a Dojo project directory
-- Check your profile configuration
-- Ensure sufficient account balance
+- Verify you're in a Dojo project directory (look for `Scarb.toml`)
+- Check that you're using the correct account address and private key
 
 ## Next Steps
 

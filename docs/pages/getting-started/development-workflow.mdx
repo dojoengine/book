@@ -547,6 +547,55 @@ Keep a development log of major decisions:
 - TODO: Add resurrection mechanics
 ```
 
+## Quick Reference: Development Commands
+
+### Starting Fresh
+```bash
+# Terminal 1: Start blockchain
+katana --dev
+
+# Terminal 2: Build and deploy
+sozo build && sozo migrate
+
+# Terminal 3: Start indexer
+torii --dev
+```
+
+### Making Changes
+```bash
+# After editing contracts
+sozo build && sozo migrate
+
+# After changing configuration
+# Restart the affected service
+```
+
+### Testing Your Changes
+```bash
+# Execute a system to test
+sozo execute di-actions spawn
+
+# Query model data
+sozo model get Position <PLAYER_ADDRESS>
+
+# Check events
+sozo events
+```
+
+### Common Issues
+```bash
+# Clean rebuild
+sozo clean && sozo build && sozo migrate
+
+# Check service status
+curl http://localhost:5050  # Katana
+curl http://localhost:8080  # Torii
+
+# Restart development environment
+pkill katana && pkill torii
+# Then restart services
+```
+
 ## Next Steps
 
 You now have a solid understanding of the Dojo development workflow! Ready to explore what comes next in your journey? Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.
