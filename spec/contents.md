@@ -40,30 +40,27 @@
     └── cross-chain.mdx
 
 /framework/
-├── index.mdx (Architecture overview with diagrams)
-├── core-concepts/
-│   ├── world.mdx (Central orchestrator explanation)
-│   ├── models.mdx (Data modeling in depth)
-│   ├── systems.mdx (Business logic patterns)
-│   └── entities.mdx (Entity management)
-├── advanced-patterns/
-│   ├── component-composition.mdx
-│   ├── system-interactions.mdx
-│   ├── state-management.mdx
-│   └── upgrades.mdx
+├── index.mdx
+├── world/
+│   ├── index.md (World contract overview)
+│   ├── api.md (World API reference)
+│   ├── systems.md (System implementation patterns)
+│   ├── events.md (Event handling and custom events)
+│   └── metadata.md (World and resource metadata)
+├── models/
+│   ├── index.md (Data modeling fundamentals)
+│   ├── entities.md (Entity management)
+│   ├── enum.md (Enum usage in models)
+│   ├── introspect.md (Introspection system)
+│   └── upgrades.md (Model upgrade patterns)
 ├── authorization/
-│   ├── index.mdx (Access control overview)
-│   ├── permissions.mdx (Permission systems)
-│   └── security-patterns.mdx (Best practices)
+│   └── index.mdx (Access control and permissions)
 ├── testing/
-│   ├── index.mdx (Testing strategies)
-│   ├── unit-testing.mdx
-│   ├── integration-testing.mdx
-│   └── cheat-codes.mdx
-└── configuration/
-    ├── dojo-config.mdx
-    ├── profiles.mdx
-    └── environment-setup.mdx
+│   ├── index.md (Testing strategies and setup)
+│   └── cheat-codes.md (Testing utilities and cheat codes)
+├── configuration/
+│   └── index.md (Dojo configuration and profiles)
+└── dojo-1x.mdx
 
 /toolchain/
 ├── index.mdx (Toolchain ecosystem overview)

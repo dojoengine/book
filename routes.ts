@@ -58,7 +58,6 @@ export const routes = [
 		text: "Framework",
 		items: [
 			{ text: "Overview", link: "/framework" },
-			{ text: "Dojo 1.x", link: "/framework/dojo-1x" },
 			{
 				text: "World",
 				collapsed: true,
@@ -87,23 +86,23 @@ export const routes = [
 			{
 				text: "Authorization",
 				link: "/framework/authorization",
-				collapsed: true,
 			},
 			{
-				text: "Config",
-				link: "/framework/config",
+				text: "Configuration",
+				link: "/framework/configuration",
 			},
 			{
 				text: "Testing",
-				link: "/framework/testing",
 				collapsed: true,
 				items: [
+					{ text: "Overview", link: "/framework/testing" },
 					{
-						text: "Testing cheat codes",
-						link: "/framework/testing-cheat-codes",
+						text: "Cheat Codes",
+						link: "/framework/testing/cheat-codes",
 					},
 				],
 			},
+			{ text: "Dojo 1.x", link: "/framework/dojo-1x" },
 		],
 	},
 	{

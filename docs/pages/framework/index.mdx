@@ -12,14 +12,39 @@ import { LinkCard } from "../../components/LinkCard";
 Dojo is built on top of Cairo. We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
 :::
 
-## Understanding ECS
+## What is Dojo?
 
-[Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern for building games and interactive applications.
-It was introduced by Looking Glass Studios with 1998's *Thief: The Dark Project* and quickly became a de-facto standard in game development.
+Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet. It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
 
-ECS was developed to address some of the shortcomings of the then-dominant Object-Oriented Programming (OOP) paradigm, such as unweildly inheritance hierarchies and the difficulty of scaling interactions to large numbers of objects.
+**Key Benefits:**
+- **Provable**: All game logic and state changes are verifiable onchain
+- **Composable**: Modular design allows for easy extension and integration
+- **Scalable**: Optimized for high-performance onchain applications
+- **Developer-friendly**: Rich tooling and familiar development patterns
 
-The core idea is to break down your application into three main components:
+## Understanding ECS Architecture
+
+[Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern that separates data from logic, enabling highly modular and scalable applications.
+
+**The Problem ECS Solves:**
+Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior. ECS addresses these issues by decomposing your application into three distinct parts:
+
+### The ECS Trinity
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                        ECS PATTERN                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ENTITIES         COMPONENTS           SYSTEMS              │
+│  (What)           (Data)               (Logic)              │
+│                                                             │
+│  Player           Position: {x, y}     Movement             │
+│  Enemy            Health: {hp}         Combat               │
+│  Item             Inventory: {items}   Crafting             │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
 
 -   **Entities**: The *objects* in your game — characters, items, etc.
 -   **Components**: The *properties* of your entities — position, durability, etc.
@@ -32,134 +57,196 @@ Systems can then operate over large numbers of entities at once, depending on th
 
 As an example, a combat system might reduce the durability of all weapons used in a battle, while a rest system might increase the health of all members of a party.
 
-## Dojo Core Concepts
+**ECS Benefits:**
+- **Modularity**: Components can be mixed and matched across entity types
+- **Performance**: Systems can efficiently process large numbers of entities
+- **Flexibility**: Easy to add new components or systems without affecting existing code
 
-The Dojo framework revolves around three core concepts:
+### Real-World Example
 
--   **Models**: Models act like structured database entries, managing and organizing your onchain data — much like a regular ORM.
--   **Contracts**: Implement business logic and state changes, which are just like regular Cairo contracts, but with some syntax sugar.
--   **World**: The central hub that connects all models and systems. The World contract ensures consistency, manages authorization, and orchestrates interactions between different parts of your application.
-
-### Models
-
-Dojo simplifies onchain application development by providing a simple and standardized approach to state management, similar to a regular database.
-It achieves this through the use of [procedural macros](https://book.cairo-lang.org/ch12-10-procedural-macros.html) that extend the Cairo compiler.
-
-Under-the-hood, Cairo uses these macros to generate standardized events and functionality for each model.
-Once deployed, these events will be automatically picked up by the Torii indexer, letting you query them with gRPC or GraphQL.
-If you've never developed onchain applications before, this is A Big Deal™️.
-
-Here is an example of a Dojo model:
+Consider a simple RPG where both players and monsters can move and fight:
 
 ```rust
+// Components (Data)
 #[derive(Copy, Drop, Serde)]
-// Defines a Dojo model, used to generate standardized events
 #[dojo::model]
-pub struct Moves {
-    // Defines a model's key, analagous to a primary key in an ORM
+struct Position {
     #[key]
-    pub player: ContractAddress,
-    // The rest of the model's attributes
-    pub remaining: u8,
-    pub last_direction: Direction,
-    pub can_move: bool,
+    entity_id: u32,
+    x: u32,
+    y: u32,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Health {
+    #[key]
+    entity_id: u32,
+    hp: u32,
+    max_hp: u32,
+}
+
+// Systems (Logic)
+fn move(entity_id: u32, direction: Direction) {
+    // Moves any entity with Position component
+}
+
+fn fight(attacker_id: u32, target_id: u32) {
+    // Handles combat between any entities with Health components
 }
 ```
 
-Think of the model here as an entry into your onchain database, with `#[key]` being the primary key to reference it.
-You use this key to query your state onchain within contracts and off-chain in your clients.
-This allows you to use the same data model for your onchain and offchain applications.
+Both player and monsters can have Position and Health components, and the same systems work for both.
 
-### Contracts
+## Dojo's ECS Implementation
 
-Once you have your state design, you want it to be effectively mutated via contracts.
-Dojo simplifies this by exposing an interface to interact with the world state, allowing fast queries and mutations.
+Dojo adapts ECS for the onchain environment with three core concepts:
+
+### 1. Models (Components)
+
+Models are Cairo structs that define your application's data structures. They act as *components* in the ECS pattern.
 
 ```rust
-// Defines a Dojo contract, used to generate standardized functionality
-#[dojo::contract]
+#[derive(Copy, Drop, Serde)]
+#[dojo::model] // Defines a model, used to generate Torii events
+    #[key] // Defines a model's key, like an ORM primary key
+    pub player: ContractAddress,
+    // The rest of the model's attributes
+    pub x: u32,
+    pub y: u32,
+}
+```
+
+:::note
+`#[dojo::model]` and `#[key]` are examples of [procedural macros](https://book.cairo-lang.org/ch12-10-procedural-macros.html), which tell the Cairo compiler where to add Dojo-specific code.
+:::
+
+**Key Features:**
+- **Automatic indexing**: All model changes are automatically indexed by Torii
+- **Type safety**: Full Cairo type system support
+- **Composability**: Models can be reused across different entity types
+
+### 2. Systems (Smart Contracts)
+
+Systems implement your application's business logic as Cairo contract functions.
+
+```rust
+#[dojo::contract] // Defines a Dojo contract
 mod actions {
+    use super::IActions;
     use starknet::{ContractAddress, get_caller_address};
-    use dojo::model::{ModelStorage, ModelValueStorage};
+    use dojo::model::{ModelStorage};
     use dojo::world::{WorldStorage, WorldStorageTrait};
 
-    // Import the model attributes like a normal Cairo struct
-    use dojo_starter::models::{Moves, Position, Direction, Vec2};
-
     #[abi(embed_v0)]
-    impl ActionsImpl of super::IActions<ContractState> {
-
-        // Passing in contract storage lets you mutate the world state
-        fn spawn(ref self: ContractState) {
-            // Get the world and current player key
-            let mut world = self.world(@"dojo_starter");
+    impl ActionsImpl of IActions<ContractState> {
+        fn move_player(ref self: ContractState, direction: Direction) {
+            // Get the world and player entity key
+            let mut world = self.world(@"my_game");
             let player = get_caller_address();
 
-            // Cairo's typing tells us we are querying the player's position
-            let position: Position = world.read_model(player);
+            // Read current position
+            let mut position: Position = world.read_model(player);
 
-            // Move the player 10 units up and to the right
-            let new_position = Position {
-                player, vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
-            };
+            // Update position based on direction
+            match direction {
+                Direction::Up => position.y += 1,
+                Direction::Down => position.y -= 1,
+                Direction::Left => position.x -= 1,
+                Direction::Right => position.x += 1,
+            }
 
-            // Define the player's remaining moves
-            let moves = Moves {
-                player, remaining: 100, last_direction: Direction::None, can_move: true
-            };
-
-            // Write the new state to the world
-            world.write_model(@new_position);
-            world.write_model(@moves);
+            // Write updated position
+            world.write_model(@position);
         }
     }
 }
 ```
 
-By having it's own Cairo compiler plugin, Dojo provides an [api](/framework/world/api.md) that transform into comprehensive queries at compile time.
+**Key Features:**
+- **Permissioned access**: Fine-grained control over who can modify what
+- **Atomic operations**: All state changes happen in a single transaction
+- **Event emission**: Automatic event generation for state changes
 
-### World
+### 3. World (Resource Registry)
 
-Dojo models and contracts are the foundation of your application.
-We encapsulate them within the **World** contract, which serves as a container for all models, systems, and authorization management.
+The World contract serves as the central coordinator, managing all models and systems.
 
-![overview](/world-map.png)
+```rust
+// The World provides a unified interface for all operations
+let mut world = self.world(@"my_game");
 
-## Summary
+// Cairo's typing tells us we are querying the player's position
+let position: Position = world.read_model(player_id);
 
--   **Models**: Utilize the `#[dojo::model]` macro to define structured data representing your application's state.
-Models function similarly to database entries, organizing and managing onchain data effectively.
+// Update game state
+world.write_model(@new_position);
 
--   **Contracts**: Implement business logic using the `#[dojo::contract]` macro.
-Contracts handle operations that modify models, ensuring seamless and reliable updates to your application's state.
+// Emit custom events if needed
+world.emit_event(@PlayerMoved { player, direction });
+```
 
--   **World**: The central orchestrator for all models and systems.
-The World contract maintains consistency, manages authorization, and coordinates interactions between different components, serving as the source of truth for your application.
+**Key Features:**
+- **Centralized state**: Single source of truth for all application data
+- **Permission management**: Hierarchical authorization system
+- **Upgradeability**: Safe model and system upgrades
+- **Introspection**: Rich metadata and schema information
+
+## Architecture Overview
+
+![world-map](/architecture/world-map.png)
+
+## Development Workflow
+
+1. **Design Models**: Define your data structures as Dojo models
+2. **Implement Systems**: Create contract functions that operate on models
+3. **Configure Permissions**: Set up authorization for your systems
+4. **Deploy to World**: Register your models and systems
+5. **Build Client**: Use indexed data to create rich user experiences
+
+## Best Practices
+
+### Model Design
+- **Keep models small and focused** - Each model should represent a single concept
+- **Design for reusability** - Models should be composable across different entity types
+- **Plan for upgrades** - Consider future schema changes when designing models
+
+### System Design
+- **Minimize gas costs** - Batch operations and optimize storage access
+- **Handle errors gracefully** - Use assertions and proper error handling
+- **Design for permissions** - Group related systems by permission requirements
+
+### Architecture
+- **Separate concerns** - Keep data (models) and logic (systems) distinct
+- **Use events effectively** - Emit events for important state changes
+- **Plan your namespaces** - Organize resources logically
+
+## Next Steps
+
+Ready to start building with Dojo? Here's your learning path:
 
 <div className="grid grid-cols-2 gap-8">
   <LinkCard
-    title="World"
-    description="Learn about the World contract and how it orchestrates your application."
+    title="World Contract"
+    description="Understand the central coordinator that manages all your application's state and permissions."
     link="/framework/world"
   />
 
-    <LinkCard
+  <LinkCard
     title="Models"
-    description="Learn how to define and manage your application's state with Dojo models."
+    description="Learn how to define and manage your application's data structures with Dojo models."
     link="/framework/models"
+  />
 
-/>
+  <LinkCard
+    title="Systems"
+    description="Implement business logic and state transitions with Dojo systems."
+    link="/framework/world/systems"
+  />
 
-    <LinkCard
-        title="Systems"
-        description="Learn how to implement business logic and state transitions with Dojo systems."
-        link="/framework/contracts"
-    />
-
-        <LinkCard
-        title="Authorization"
-        description="Learn how to manage authorization and access control in your Dojo application."
-        link="/framework/authorization"
-    />
-
+  <LinkCard
+    title="Authorization"
+    description="Master the permission system to secure your application."
+    link="/framework/authorization"
+  />
 </div>
