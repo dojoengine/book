@@ -64,7 +64,6 @@ export const routes = [
 				items: [
 					{ text: "Overview", link: "/framework/world" },
 					{ text: "API", link: "/framework/world/api" },
-					{ text: "Systems", link: "/framework/world/systems" },
 					{ text: "Events", link: "/framework/world/events" },
 					{ text: "Metadata", link: "/framework/world/metadata" },
 				],
@@ -83,14 +82,9 @@ export const routes = [
 					{ text: "Upgrades", link: "/framework/models/upgrades" },
 				],
 			},
-			{
-				text: "Authorization",
-				link: "/framework/authorization",
-			},
-			{
-				text: "Configuration",
-				link: "/framework/configuration",
-			},
+			{ text: "Systems", link: "/framework/systems" },
+			{ text: "Authorization", link: "/framework/authorization" },
+			{ text: "Configuration", link: "/framework/configuration" },
 			{
 				text: "Testing",
 				collapsed: true,

@@ -44,7 +44,6 @@
 ├── world/
 │   ├── index.md (World contract overview)
 │   ├── api.md (World API reference)
-│   ├── systems.md (System implementation patterns)
 │   ├── events.md (Event handling and custom events)
 │   └── metadata.md (World and resource metadata)
 ├── models/
@@ -53,6 +52,8 @@
 │   ├── enum.md (Enum usage in models)
 │   ├── introspect.md (Introspection system)
 │   └── upgrades.md (Model upgrade patterns)
+├── systems/
+│   └── index.md (System implementation patterns)
 ├── authorization/
 │   └── index.mdx (Access control and permissions)
 ├── testing/
