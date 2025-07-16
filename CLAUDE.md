@@ -7,40 +7,16 @@ This repository contains the official documentation for the **Dojo** ecosystem -
 ### Project Type
 - **Type**: Technical documentation website built with Vocs (Vue-based documentation framework)
 - **Primary Technology**: TypeScript/JavaScript with React components
-- **Content Format**: Markdown/MDX files with interactive examples
+- **Content Format**: Markdown/MDX files with code examples
 - **Deployment**: Vercel hosting with automatic builds
-- **Architecture**: Multi-repository documentation aggregation via Git submodules
-
-## Core Technologies & Stack
-
-### Frontend Framework
-- **Vocs**: Modern documentation framework (latest version)
-- **React**: Component library for interactive elements
-- **TypeScript**: Type-safe development with strict configuration
-- **Tailwind CSS**: Utility-first CSS framework with custom theming
-- **Vite**: Fast build tool and development server
+- **Architecture**: Doc source in docs/, with reference material kept in src/ as Git submodules
 
 ### Content Management
 - **Markdown/MDX**: Documentation content with JSX components
-- **Git Submodules**: Source code integration from multiple repositories
+- **Git Submodules**: Source code references from multiple repositories
 - **Structured Navigation**: Hierarchical routing with collapsible sections
 
-### Package Management
-- **pnpm**: Fast, disk space efficient package manager (v10.6.4)
-- **Node.js**: v18+ required for development
-
 ## Build & Development Commands
-
-### Installation & Setup
-```bash
-# Install dependencies (first time setup)
-npm install -g pnpm
-nvm install --lts && nvm use --lts
-pnpm install
-
-# Initialize git submodules (source code repositories)
-./scripts/add-submodules.sh
-```
 
 ### Development Workflow
 ```bash
@@ -49,21 +25,6 @@ pnpm run dev
 
 # Build for production
 pnpm run build
-
-# Preview production build
-pnpm run preview
-```
-
-### Code Quality & Formatting
-```bash
-# Check code formatting
-pnpm run prettier-check
-
-# Fix formatting issues
-pnpm run prettier
-
-# Format specific files
-npx prettier --write <file-path>
 ```
 
 ### Content Management
@@ -71,58 +32,55 @@ npx prettier --write <file-path>
 # Update all submodules to latest versions
 git submodule update --remote
 
-# Update specific submodule
-git submodule update --remote src/dojo
-
 # Check submodule status
 git submodule status
 ```
 
-## Test Setup & Commands
-
-### Current Test Configuration
-- **No formal test suite**: Documentation project relies on build validation
-- **Manual Testing**: Live preview and content verification
-- **CI/CD Pipeline**: Automated formatting, linting, and build checks
-
-### Validation Commands
-```bash
-# Validate build integrity
-pnpm run build
-
-# Check for broken links and formatting
-pnpm run prettier-check
-
-# Verify development server
-pnpm run dev && curl http://localhost:5173/
-```
-
 ## High-Level Architecture
 
-### Repository Structure
+### Documentation Structure
 ```
-/Users/kronosapiens/code/cartridge/book/
-├── docs/                     # Documentation content
-│   ├── components/          # React components for docs
-│   ├── pages/              # MDX content files
-│   └── public/             # Static assets
-├── src/                    # Git submodules (source repositories)
-│   ├── dojo/              # Core Dojo framework
-│   ├── katana/            # Starknet sequencer
-│   ├── torii/             # Indexing engine
-│   ├── saya/              # Proving system
-│   ├── origami/           # Cairo library collection
-│   ├── dojo.js/           # JavaScript SDK
-│   ├── dojo.unity/        # Unity integration
-│   ├── dojo.unreal/       # Unreal Engine integration
-│   ├── dojo.c/            # C language bindings
-│   └── dojo.bevy/         # Bevy engine integration
+~/book/
+├── docs/                  # Documentation content
+│   ├── components/        # React components for docs
+│   ├── pages/             # MDX content files
+│   │   ├── architecture/  # Technical architecture (execution, rollups)
+│   │   ├── blog/          # Blog posts and articles
+│   │   ├── client/        # SDK documentation for multiple platforms
+│   │   │   └── sdk/       # Platform-specific SDKs
+│   │   │       ├── bevy/  # Bevy engine integration // REFERENCE: src/sdks/dojo.bevy
+│   │   │       ├── c/     # C language bindings // REFERENCE: src/sdks/dojo.c
+│   │   │       ├── discord/ # Discord integration
+│   │   │       ├── godot/ # Godot engine integration
+│   │   │       ├── javascript/ # JavaScript SDK // REFERENCE: src/sdks/dojo.js
+│   │   │       ├── rust/  # Rust SDK
+│   │   │       ├── telegram/ # Telegram integration
+│   │   │       ├── unity/ # Unity integration // REFERENCE: src/sdks/dojo.unity
+│   │   │       └── unreal/ # Unreal Engine integration // REFERENCE: src/sdks/dojo.unreal
+│   │   ├── community/     # Community resources
+│   │   ├── framework/     # Core Dojo framework documentation // REFERENCE: src/framework/dojo && src/starters && src/games
+│   │   │   ├── authorization/ # Authorization system
+│   │   │   ├── config/    # Configuration management
+│   │   │   ├── models/    # Model definitions and API
+│   │   │   ├── systems/   # Systems documentation
+│   │   │   ├── testing/   # Testing framework and cheat codes
+│   │   │   └── world/     # World contract (API, events, metadata, permissions)
+│   │   ├── getting-started/ # Onboarding and setup guides
+│   │   ├── libraries/     # Ecosystem libraries
+│   │   │   ├── alexandria/ # Alexandria library collection
+│   │   │   └── origami/   # Cairo utilities library // REFERENCE: src/libraries/origami
+│   │   ├── misc/          # Miscellaneous content
+│   │   ├── theory/        # Conceptual topics (autonomous worlds)
+│   │   ├── toolchain/     # Tool-specific documentation
+│   │   │   ├── katana/    # Starknet sequencer // REFERENCE: src/toolchain/katana
+│   │   │   ├── saya/      # Proving system // REFERENCE: src/toolchain/saya
+│   │   │   ├── slot/      # Deployment commands
+│   │   │   ├── sozo/      # Project and world commands // REFERENCE: src/framework/dojo
+│   │   │   └── torii/     # Indexing engine // REFERENCE: src/toolchain/torii
+│   │   └── tutorials/     # Step-by-step learning guides // REFERENCE: src/starters && src/games
+│   └── public/            # Static assets
+├── src/                   # Git submodules (reference repositories)
 ├── spec/                  # Documentation standards
-│   ├── docs-process.md    # Content update workflow
-│   ├── style-guide.md     # Writing standards
-│   ├── best-practices.md  # Quality guidelines
-│   └── contents.md        # Architecture overview
-├── scripts/               # Automation scripts
 └── configuration files    # Build, linting, deployment
 ```
 
@@ -137,10 +95,12 @@ pnpm run dev && curl http://localhost:5173/
 - **Libraries**: Ecosystem libraries (Origami, Alexandria)
 
 #### `/src/` - Source Code Submodules
-- **Rust Projects**: Dojo core, Katana, Torii, Saya (Cargo workspaces)
-- **JavaScript**: dojo.js with TypeScript and examples
-- **Game Engine Integrations**: Unity, Unreal, Bevy, Godot
-- **Language Bindings**: C/C++ bindings for cross-platform support
+- **Framework**: Core Dojo framework implementation (Rust/Cairo)
+- **Games**: Example game implementations showcasing Dojo capabilities
+- **Libraries**: Ecosystem libraries like Origami (Cairo utilities)
+- **SDKs**: Multi-platform integrations (JavaScript, Unity, Unreal, Bevy, C/C++)
+- **Starters**: Template projects for quick development setup
+- **Toolchain**: Core infrastructure tools (Katana, Torii, Saya)
 
 #### `/spec/` - Documentation Standards
 - **Process Documentation**: Update workflows and maintenance procedures
@@ -168,95 +128,35 @@ pnpm run dev && curl http://localhost:5173/
 - **Audience-Driven**: Content tailored to user skill levels
 - **Visual Integration**: Diagrams, screenshots, and examples
 - **Accessibility**: Global audience, screen-reader friendly
-- **Continuous Improvement**: Regular audits and updates
 
 ### Development Rules
-- **Never commit without testing**: Run `pnpm run build` before commits
-- **Format before commits**: Use `pnpm run prettier` for consistency
-- **Update submodules regularly**: Keep source code references current
-- **Follow navigation structure**: Use existing routing patterns in `routes.ts`
+- **Ensure code correctness**: Query the Sensei MCP and source code in src/ for guidance when producing Dojo code samples
 - **Maintain cross-references**: Link related content appropriately
-- **Ensure code correctness**: Query the Sensei MCP for guidance when producing Dojo code samples
+- **Follow navigation structure**: Use existing routing patterns in `routes.ts`
+- **Never commit without testing**: Run `pnpm run build` before commits
 
-## Key Configuration Files
+### Code Example Requirements
+- **Accuracy**: All Cairo code must be verified against src/ references or Sensei MCP results
+- **Realism**: Use realistic game scenarios, not abstract examples
+- **References**: Include links to source-code references whenever possible
 
-### Core Configuration
-- **`vocs.config.ts`**: Documentation site configuration, theming, navigation
-- **`package.json`**: Dependencies, scripts, project metadata
-- **`routes.ts`**: Navigation structure and page hierarchy
-- **`tsconfig.json`**: TypeScript compiler configuration
-- **`tailwind.config.cjs`**: CSS framework customization
-
-### Development Tools
-- **`prettier.config.cjs`**: Code formatting rules
-- **`vercel.json`**: Deployment configuration and redirects
-- **`.github/actions/`**: CI/CD pipeline definitions
-
-### Content Management
-- **`scripts/add-submodules.sh`**: Automated submodule setup
-- **`spec/docs-process.md`**: Comprehensive update procedures
-
-## Build System & Dependencies
-
-### Production Dependencies
-- **@cartridge/presets**: Custom Cartridge configuration
-- **@dojoengine/sdk**: Dojo SDK integration (v1.4.0)
-- **vocs**: Documentation framework (latest)
-- **react**: Component library (latest)
-- **prettier**: Code formatting
-
-### Development Dependencies
-- **@types/react**: TypeScript definitions
-- **vite-plugin-svgr**: SVG component support
-- **vite-tsconfig-paths**: Path resolution
-
-### Submodule Repositories
-Each submodule is an independent project with its own build system:
-- **Rust Projects**: Cargo workspace with multiple crates
-- **JavaScript**: pnpm workspace with multiple packages
-- **Unity**: Unity package with C# scripts and assets
-- **Unreal**: Unreal Engine plugin with C++ code
-
-## Deployment & CI/CD
-
-### Automated Deployment
-- **Platform**: Vercel with GitHub integration
-- **Trigger**: Automatic deployment on main branch commits
-- **Build Command**: `pnpm run build`
-- **Output Directory**: Auto-detected by Vocs
-
-### CI/CD Pipeline (`.github/actions/ci.yaml`)
-- **Linting**: Misspell checking with reviewdog
-- **Formatting**: Prettier validation
-- **Build**: Production build verification
-- **TODO Management**: Automatic issue creation
+### Sensei MCP Command Reference
+- **mcp__sensei-mcp__dojo_101**: At the beginning of a new project, To initialize the project structure, introduce Dojo development, and handle boilerplate.
+- **mcp__sensei-mcp__dojo_model**: After project setup, for defining the game's state, To create and manage Dojo models, ensuring correct trait derivation and key fields.
+- **mcp__sensei-mcp__dojo_logic**: After defining models, for implementing game mechanics, To create system contracts, implement game logic, and handle state changes.
+- **mcp__sensei-mcp__dojo_config**: During project setup and as needed for configuration changes, To manage Scarb.toml, configure Dojo profiles, and handle dependencies.
+- **mcp__sensei-mcp__dojo_test**: After implementing models and systems, To write comprehensive tests and verify game logic.
+- **mcp__sensei-mcp__dojo_token**: When implementing token standards, For detailed guidance on implementing token standards in Dojo.
 
 ### Content Update Process
-1. **Update submodules**: `git submodule update --remote`
-2. **Review changes**: Check for breaking changes in source code
-3. **Update documentation**: Modify relevant MDX files
-4. **Test locally**: `pnpm run dev` and verify changes
-5. **Format code**: `pnpm run prettier`
-6. **Build verification**: `pnpm run build`
-7. **Commit and deploy**: Push to trigger automatic deployment
-
-## Special Features
-
-### Interactive Components
-- **Live code examples**: Embedded demos and snippets
-- **Component showcase**: Interactive SDK demonstrations
-- **Architecture diagrams**: SVG-based technical illustrations
-
-### Multi-Platform Support
-- **Responsive design**: Mobile-optimized documentation
-- **Dark theme**: Built-in dark mode support
-- **Search optimization**: SEO-friendly with proper meta tags
-
-### Community Features
-- **Edit links**: Direct GitHub editing for community contributions
-- **Social integration**: Discord and GitHub links
-- **Version management**: Release notes and changelog integration
+1. **Update submodules**: `git submodule update --remote` if needed (should not need to be run frequently)
+2. **Check references**: Look at the references indicated in "Repository Structure" to identify the most relevant references for any given section
+3. **Load context**: load src/* into context for source code and code samples, according to the references in the previous section
+4. **Review changes**: Check for breaking changes in source code, or the deletion of existing correct content
+5. **Update documentation**: Modify relevant MDX files with updates content and code samples
+6. **Build verification**: `pnpm run build`, ensure all internal links are functional
 
 ---
 
-This documentation project serves as the central hub for the Dojo ecosystem, providing comprehensive guidance for developers building on-chain games and autonomous worlds. The multi-repository architecture via submodules ensures documentation stays current with rapid development across the entire toolchain.
+This documentation project serves as the central hub for the Dojo ecosystem, providing comprehensive guidance for developers building on-chain games and autonomous worlds.
+The multi-repository architecture via submodules ensures documentation stays current with rapid development across the entire toolchain.
