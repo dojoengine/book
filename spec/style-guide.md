@@ -42,6 +42,7 @@ This style guide ensures consistency, clarity, and accessibility across all Dojo
 - Limit to 4 heading levels maximum
 
 ## Lists and Formatting
+- Place every prose sentence on its own line
 - Use numbered lists for sequential steps
 - Use bullet points for non-sequential items
 - **Bold** for UI elements, important terms, and emphasis

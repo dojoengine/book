@@ -63,9 +63,10 @@ export const routes = [
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/framework/world" },
-					{ text: "API", link: "/framework/world/api" },
+					{ text: "Permissions", link: "/framework/world/permissions" },
 					{ text: "Events", link: "/framework/world/events" },
 					{ text: "Metadata", link: "/framework/world/metadata" },
+					{ text: "API", link: "/framework/world/api" },
 				],
 			},
 			{

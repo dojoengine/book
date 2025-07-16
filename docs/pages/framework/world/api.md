@@ -1,468 +1,427 @@
 ---
 title: "World API Reference"
-description: "Complete reference for the Dojo World API, including model operations and event handling"
+description: "Complete reference for the Dojo World API with examples and best practices"
 ---
 
-# World API
+# World API Reference
 
-**_TL;DR_**
+The World API provides a comprehensive interface for interacting with your Dojo world.
+This guide covers the most commonly used developer functions with practical examples and best practices.
 
--   The World API is the interface to interact with the World contract.
--   The World API provides a set of functions to interact with the world state.
--   Avoid writing long hand queries - just use the API.
+## Quick Reference
 
-Let's consider the following models:
+The World API is organized into these main categories:
 
-```rust
-#[derive(Drop, Copy, Serde)]
-#[dojo::model]
-struct Position {
-    #[key]
-    player: ContractAddress,
-    vec: Vec2,
-}
+- **[Model Operations](#model-operations)** - Read, write, and manage model data
+- **[Event System](#event-system)** - Emit and handle events
+- **[Permission Management](#permission-management)** - Control access to resources
+- **[Resource Management](#resource-management)** - Manage models, systems, and contracts
+- **[Utility Functions](#utility-functions)** - Helper functions and tools
+- **[Advanced Functions](#advanced-functions)** - System-level operations for framework developers
 
-#[derive(Copy, Drop, Serde)]
-#[dojo::model]
-struct Moves {
-    #[key]
-    player: ContractAddress,
-    remaining: u8,
-}
-```
+## Model Operations
 
-## `read_model`
+### Reading Models
 
-The `read_model` command is used to retrieve a model from the world state:
+#### `read_model<T>`
 
-```rust
+Reads a model from the world state.
+
+```cairo
+// Read model with single key
 let player = get_caller_address();
-// One model retrieved.
-let mut position: Position = world.read_model(player);
+let position: Position = world.read_model(player);
+
+// Read model with multiple keys
+let resource: GameResource = world.read_model((player, location));
 ```
 
-Here we are retrieving the `Position` model from the world state. We are also using the `caller` to retrieve the models for the current entity.
-
-:::warning
-As a recall, a model must have at least one [key](/framework/models#the-key-attribute) to be retrievable. In this example, the model `Position` has exactly one key, `caller`.
+:::note
+Cairo's strong typing allows it to infer that the `Position` model is being read.
 :::
 
-You can then use `position` as you would as any other Cairo struct.
+**Key Points:**
+- Model must have at least one `#[key]` field
+- Returns default values (0, false, etc.) for unset fields
 
-In the case that your model defines several [keys](/framework/models#the-key-attribute), you must provide a value for each key.
+#### `read_member<T>`
 
-```rust
-let player = get_caller_address();
-let location = 0x1234;
+Reads a specific member from a model without loading the entire model.
 
-let mut position: Position = world.read_model((player, location));
+```cairo
+// Read a specific member
+let vec: Vec2 = world.read_member(
+    Model::<Position>::ptr_from_keys(player),
+    selector!("vec")
+);
 ```
 
-If you use the `read_model` command on a model that has never been set before, all the fields that are not `#[key]` are equal to 0 in the returned model, which is the default value in the storage. As you provide the keys, even if the model has never been written, the returned struct will contain the keys you provided.
+:::note
+The `ptr_from_keys` function is used to get the pointer to the model in storage, as type inference is not possible.
+The `selector!` macro is used to get the member to target.
+:::
 
-## `write_model`
+**When to Use:**
+- When you only need one field from a large model
+- For gas optimization in read-heavy operations
+- When working with frequently accessed fields
 
-The `write_model` command is used to update a model's state.
+#### `read_member_of_models<T>`
 
-```rust
-let player = get_caller_address();
-let location = 0x1234;
+Reads a specific member from multiple models in a single call.
 
-// Read the model from the world state.
-let mut position: Position = world.read_model((player, location));
+```cairo
+// Read the same member from multiple entities
+let players = [player1, player2, player3];
+let positions: Array<Vec2> = world.read_member_of_models(
+    Model::<Position>::ptr_from_keys(players.span()),
+    selector!("vec")
+);
+```
 
-// Update the model.
-position.vec.x = 10;
-position.vec.y = 10;
+**Use Cases:**
+- Batch reading for dashboards
+- Leaderboard calculations
+- Mass updates based on conditions
 
-// Write the model back to the world state.
+#### `read_schema<T>`
+
+Efficiently reads a subset of a model using a custom schema.
+
+```cairo
+// Original model
+#[derive(Drop, Serde)]
+#[dojo::model]
+struct Player {
+    #[key]
+    player: ContractAddress,
+    strength: u8,
+    dexterity: u8,
+    charisma: u8,
+    wisdom: u8,
+}
+
+// Query schema
+#[derive(Serde, Introspect)]
+struct PlayerSchema {
+    strength: u8,
+    dexterity: u8,
+}
+
+// Will return only the strength and dexterity members
+let schema: PlayerSchema = world.read_schema(
+    Model::<Player>::ptr_from_keys(player)
+);
+```
+
+**Requirements:**
+- Schema fields must match model fields exactly (name and type)
+- Schema must derive `Serde` and `Introspect`
+- More efficient than `read_member` for 2+ fields
+
+### Writing Models
+
+#### `write_model<T>`
+
+Writes a complete model to the world state.
+
+```cairo
+let mut position: Position = world.read_model(player);
+position.vec.x += 1;
 world.write_model(@position);
 ```
 
-Here we are updating the `Position` model in the world state using the `player` as the entity id.
+**Best Practices:**
+- Use `@` (snapshot) when passing to `write_model`
+- Consider using `write_member` for single field updates
 
-## `read_member` and `read_member_of_models`
+#### `write_member<T>`
 
-The `read_member` and `read_member_of_models` commands are used to read a member from model(s).
+Updates a specific field in a model without loading the entire model.
 
-```rust
-// The `ptr_from_keys` function is used to get the pointer to the model in the storage, for the given keys.
-// Then the `selector!` macro is used to get the member to target.
-let vec: Vec2 = world.read_member(Model::<Position>::ptr_from_keys(player), selector!("vec"));
+```cairo
+let position = Vec2 { x: 10, y: 20 };
 
-// In this case, several entities are trageted, which will return an array of the member values.
-// This function call could be read in english by: "Read the member `vec` from the models `Position` for the entities `player1` and `player2`."
-let vecs: Array<Vec2> = world.read_member_of_models(Model::<Position>::ptr_from_keys([player1, player2].span()), selector!("vec"));
+world.write_member(
+    Model::<Position>::ptr_from_keys(player),
+    selector!("vec"),
+    position
+);
 ```
 
-## `write_member` and `write_member_of_models`
+**Advantages:**
+- More gas efficient for single field updates
+- Reduces transaction size
+- Prevents race conditions on concurrent updates
 
-The `write_member` and `write_member_of_models` commands are used to write a member to a model.
+#### `write_member_of_models<T>`
 
-```rust
-let vec = Vec2{x: 1, y: 2};
-let vec_b = Vec2{x: 3, y: 4}
-// Same logic as the `read_member` command.
-world.write_member(Model::<Position>::ptr_from_keys(player), selector!("vec"), vec);
+Updates the same field across multiple models.
 
-// In this case, several entities are trageted, which will write the member to the models for the given entities.
-// This function call could be read in english by: "Write the member `vec` to the model `Position` for the entities `player1` and `player2`."
-let vecs = [vec, vec_b].span();
-world.write_member_of_models(Model::<Position>::ptr_from_keys([player1, player2].span()), selector!("vec"), vecs);
+```cairo
+let players = [player1, player2, player3];
+let new_scores = [100, 200, 300];
+
+world.write_member_of_models(
+    Model::<Player>::ptr_from_keys(players.span()),
+    selector!("score"),
+    new_scores.span()
+);
 ```
 
-## `emit_event`
+#### `erase_model<T>`
 
-The `emit_event` command is used to emit [custom events](/framework/world/events.md#custom-events). These events are indexed by [Torii](/toolchain/torii).
+Resets a model to its default state (all non-key fields become 0/false/empty).
 
-```rust
-world.emit_event(@Moved { address, direction });
-```
-
-This will emit these values which could be captured by a client or you could query these via [Torii](/toolchain/torii).
-
-## `erase_model`
-
-The `erase_model` command deletes a model from the db, which consists at writing the default value for all the model's fields (which are not keys).
-
-```rust
-let player = get_caller_address();
-
-// Read the model from the world state.
-let moves = world.read_model(player);
-
-// Erase the model from the world state.
+```cairo
+let moves: Moves = world.read_model(player);
 world.erase_model(@moves);
 ```
 
-## `read_schema` and `read_schemas`
+### Batch Operations
 
-The `read_schema` command allows for effient reading of parts of models. To define a schema the members name and type need to match the model, it needs to have `Serde` and `Introspect` derived and the model cannot be packed. If you plan to only read/write one member, `read_member` and `write_member` are more efficient. When two or more members are read, `read_schema` is more efficient.
+For better gas efficiency, use batch operations when working with multiple models of the same type:
 
-```rust
-#[derive(Copy, Drop, Serde, Debug, Introspect)]
-struct AStruct {
-    a: u8,
-    b: u8,
-    c: u8,
-    d: u8,
-}
+```cairo
+let position1 = Position { player1, vec: Vec2 { x: 10, y: 10 } };
+let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 
-#[dojo::model]
-#[derive(Copy, Drop, Serde, Debug)]
-struct Foo4 {
+world.write_models([@position1, @position2].span());
+```
+
+## Custom Events
+
+#### `emit_event<T>`
+
+Emits a custom event that gets indexed by [Torii](/toolchain/torii).
+
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+pub struct PlayerMoved {
     #[key]
-    id: felt252,
-    v0: u256,
-    v1: felt252,
-    v2: u128,
-    v3: AStruct,
+    pub player: ContractAddress,
+    pub from: Vec2,
+    pub to: Vec2,
 }
 
-#[derive(Copy, Drop, Serde, Debug, Introspect)]
-struct MySchema {
-    // Name and type must match the model.
-    v0: u256,
-    // Name and type must match the model.
-    v3: AStruct,
-}
-
-fn something(){
-    let id: felt252 = 12;
-    let schema: MySchema = world.read_schema(Model::<Foo4>::ptr_from_keys(id));
-
-    // If an other struct has `v0` and `v3` as members (with the same types), you can read it like this:
-    // (The id could be something different, it is just an example)
-    let schema: MySchema = world.read_schema(Model::<FooOther>::ptr_from_keys(id));
-
-    // If you want to read multiple schemas, you can use the `read_schemas` command.
-    let ids: Span<felt252> = [12, 13].span();
-    let schemas: Array<MySchema> = world.read_schemas(Model::<Foo4>::ptrs_from_keys(ids));
-}
+// Emit the event
+world.emit_event(@PlayerMoved {
+    player,
+    from: old_position.vec,
+    to: new_position.vec,
+});
 ```
 
-## World Interface
+**Event Requirements:**
+- Must be annotated with `#[dojo::event]`
+- Must have at least one `#[key]` field
+- All types must derive `Introspect`
 
-The world exposes an interface which can be interacted with by any client. It is worth noting here that as a developer you don't deploy this world, it is deployed when you [migrate](/toolchain/sozo) your project as it is part of the `dojo-core` library.
+## Permission Management
 
-However, you can interact with the world contract directly if you need to for instance to use the `uuid` function as it is often useful to generate unique IDs for entities.
+### Checking Permissions
 
-```rust
+#### `is_owner`
+
+Checks if an address has owner permission for a resource.
+
+```cairo
+let resource_selector = selector_from_tag!("my_game-Position");
+let is_owner = world.is_owner(resource_selector, user_address);
+```
+
+#### `is_writer`
+
+Checks if a contract has writer permission for a resource.
+
+```cairo
+let can_write = world.is_writer(resource_selector, contract_address);
+```
+
+### Granting Permissions
+
+#### `grant_owner`
+
+Grants owner permission to an address.
+
+```cairo
+// Only existing owners or world admin can grant ownership
+world.grant_owner(resource_selector, new_owner_address);
+```
+
+#### `grant_writer`
+
+Grants writer permission to a contract.
+
+```cairo
+// Only resource owners can grant writer permission
+world.grant_writer(resource_selector, contract_address);
+```
+
+### Revoking Permissions
+
+#### `revoke_owner`
+
+Revokes owner permission from an address.
+
+```cairo
+world.revoke_owner(resource_selector, owner_address);
+```
+
+#### `revoke_writer`
+
+Revokes writer permission from a contract.
+
+```cairo
+world.revoke_writer(resource_selector, contract_address);
+```
+
+## Resource Management
+
+### Resource Information
+
+#### `resource`
+
+Gets information about a resource.
+
+```cairo
+let resource_info = world.resource(selector_from_tag!("my_game-Position"));
+```
+
+#### `metadata`
+
+Gets metadata for a resource.
+
+```cairo
+let metadata = world.metadata(selector_from_tag!("my_game-Position"));
+```
+
+#### `set_metadata`
+
+Sets metadata for a resource.
+
+```cairo
+let metadata = ResourceMetadata {
+    resource_id: selector_from_tag!("my_game-Position"),
+    metadata_uri: "ipfs://...",
+    metadata_hash: 0x...,
+};
+
+world.set_metadata(metadata);
+```
+
+
+## Utility Functions
+
+### `uuid`
+
+Generates a unique, sequential identifier.
+
+```cairo
 let game_id = world.uuid();
+let match_id = world.uuid();
 ```
 
-Here's the full [world's API](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/world/iworld.cairo) for low level access:
+:::warning
+This impacts transaction parallelization since it writes to the same storage slot.
+Use sparingly in high-throughput scenarios.
+:::
 
-```rust
-#[starknet::interface]
-pub trait IWorld<T> {
-    /// Returns the resource from its selector.
-    ///
-    /// # Arguments
-    ///   * `selector` - the resource selector
-    ///
-    /// # Returns
-    ///   * `Resource` - the resource data associated with the selector.
-    fn resource(self: @T, selector: felt252) -> Resource;
+### DNS Functions
 
-    /// Issues an autoincremented id to the caller.
-    /// This functionalities is useful to generate unique, but sequential ids.
-    ///
-    /// Note: This functionalities may impact performances since transaction paralellisation can't
-    /// be achieved since the same storage slot is being written.
-    fn uuid(ref self: T) -> usize;
+The DNS (Dojo Name System) functions allow you to resolve contract names to their addresses and class hashes.
 
-    /// Returns the metadata of the resource.
-    ///
-    /// # Arguments
-    ///
-    /// `resource_selector` - The resource selector.
-    fn metadata(self: @T, resource_selector: felt252) -> ResourceMetadata;
+#### `dns`
 
-    /// Sets the metadata of the resource.
-    ///
-    /// # Arguments
-    ///
-    /// `metadata` - The metadata content for the resource.
-    fn set_metadata(ref self: T, metadata: ResourceMetadata);
+Resolves a contract name to its address and class hash.
 
-    /// Registers a namespace in the world.
-    ///
-    /// # Arguments
-    ///
-    /// * `namespace` - The name of the namespace to be registered.
-    fn register_namespace(ref self: T, namespace: ByteArray);
-
-    /// Registers an event in the world.
-    ///
-    /// # Arguments
-    ///
-    /// * `namespace` - The namespace of the event to be registered.
-    /// * `class_hash` - The class hash of the event to be registered.
-    fn register_event(ref self: T, namespace: ByteArray, class_hash: ClassHash);
-
-    /// Registers a model in the world.
-    ///
-    /// # Arguments
-    ///
-    /// * `namespace` - The namespace of the model to be registered.
-    /// * `class_hash` - The class hash of the model to be registered.
-    fn register_model(ref self: T, namespace: ByteArray, class_hash: ClassHash);
-
-    /// Registers and deploys a contract associated with the world and returns the address of newly
-    /// deployed contract.
-    ///
-    /// # Arguments
-    ///
-    /// * `salt` - The salt use for contract deployment.
-    /// * `namespace` - The namespace of the contract to be registered.
-    /// * `class_hash` - The class hash of the contract.
-    fn register_contract(
-        ref self: T, salt: felt252, namespace: ByteArray, class_hash: ClassHash,
-    ) -> ContractAddress;
-
-    /// Initializes a contract associated registered in the world.
-    ///
-    /// As a constructor call, the initialization function can be called only once, and only
-    /// callable by the world itself.
-    ///
-    /// Also, the caller of this function must have the writer owner permission for the contract
-    /// resource.
-    fn init_contract(ref self: T, selector: felt252, init_calldata: Span<felt252>);
-
-    /// Upgrades an event in the world.
-    ///
-    /// # Arguments
-    ///
-    /// * `namespace` - The namespace of the event to be upgraded.
-    /// * `class_hash` - The class hash of the event to be upgraded.
-    fn upgrade_event(ref self: T, namespace: ByteArray, class_hash: ClassHash);
-
-    /// Upgrades a model in the world.
-    ///
-    /// # Arguments
-    ///
-    /// * `namespace` - The namespace of the model to be upgraded.
-    /// * `class_hash` - The class hash of the model to be upgraded.
-    fn upgrade_model(ref self: T, namespace: ByteArray, class_hash: ClassHash);
-
-    /// Upgrades an already deployed contract associated with the world and returns the new class
-    /// hash.
-    ///
-    /// # Arguments
-    ///
-    /// * `namespace` - The namespace of the contract to be upgraded.
-    /// * `class_hash` - The class hash of the contract.
-    fn upgrade_contract(ref self: T, namespace: ByteArray, class_hash: ClassHash) -> ClassHash;
-
-    /// Emits a custom event that was previously registered in the world.
-    /// The dojo event emission is permissioned, since data are collected by
-    /// Torii and served to clients.
-    ///
-    /// # Arguments
-    ///
-    /// * `event_selector` - The selector of the event.
-    /// * `keys` - The keys of the event.
-    /// * `values` - The data to be logged by the event.
-    fn emit_event(ref self: T, event_selector: felt252, keys: Span<felt252>, values: Span<felt252>);
-
-    /// Emits multiple events.
-    /// Permissions are only checked once, then the events are batched.
-    ///
-    /// # Arguments
-    ///
-    /// * `event_selector` - The selector of the event.
-    /// * `keys` - The keys of the event.
-    /// * `values` - The data to be logged by the event.
-    fn emit_events(
-        ref self: T,
-        event_selector: felt252,
-        keys: Span<Span<felt252>>,
-        values: Span<Span<felt252>>,
-    );
-
-    /// Gets the values of a model entity/member.
-    /// Returns a zero initialized model value if the entity/member has not been set.
-    ///
-    /// # Arguments
-    ///
-    /// * `model_selector` - The selector of the model to be retrieved.
-    /// * `index` - The index of the entity/member to read.
-    /// * `layout` - The memory layout of the model.
-    ///
-    /// # Returns
-    ///
-    /// * `Span<felt252>` - The serialized value of the model, zero initialized if not set.
-    fn entity(
-        self: @T, model_selector: felt252, index: ModelIndex, layout: Layout,
-    ) -> Span<felt252>;
-
-    /// Gets the model values for the given entities.
-    ///
-    /// # Arguments
-    ///
-    /// * `model_selector` - The selector of the model to be retrieved.
-    /// * `indices` - The indexes of the entities/members to read.
-    /// * `layout` - The memory layout of the model.
-    fn entities(
-        self: @T, model_selector: felt252, indexes: Span<ModelIndex>, layout: Layout,
-    ) -> Span<Span<felt252>>;
-
-    /// Sets the model value for the given entity/member.
-    ///
-    /// # Arguments
-    ///
-    /// * `model_selector` - The selector of the model to be set.
-    /// * `index` - The index of the entity/member to write.
-    /// * `values` - The value to be set, serialized using the model layout format.
-    /// * `layout` - The memory layout of the model.
-    fn set_entity(
-        ref self: T,
-        model_selector: felt252,
-        index: ModelIndex,
-        values: Span<felt252>,
-        layout: Layout,
-    );
-
-    /// Sets the model values for the given entities.
-    /// The permissions are only checked once, then the writes are batched.
-    ///
-    /// # Arguments
-    ///
-    /// * `model_selector` - The selector of the model to be set.
-    /// * `indexes` - The indexes of the entities/members to write.
-    /// * `values` - The values to be set, serialized using the model layout format.
-    /// * `layout` - The memory layout of the model.
-    fn set_entities(
-        ref self: T,
-        model_selector: felt252,
-        indexes: Span<ModelIndex>,
-        values: Span<Span<felt252>>,
-        layout: Layout,
-    );
-
-    /// Deletes a model value for the given entity/member.
-    /// Deleting is setting all the values to 0 in the given layout.
-    ///
-    /// # Arguments
-    ///
-    /// * `model_selector` - The selector of the model to be deleted.
-    /// * `index` - The index of the entity/member to delete.
-    /// * `layout` - The memory layout of the model.
-    fn delete_entity(ref self: T, model_selector: felt252, index: ModelIndex, layout: Layout);
-
-    /// Deletes the model values for the given entities.
-    /// The permissions are only checked once, then the deletes are batched.
-    ///
-    /// # Arguments
-    ///
-    /// * `model_selector` - The selector of the model to be deleted.
-    /// * `indexes` - The indexes of the entities/members to delete.
-    /// * `layout` - The memory layout of the model.
-    fn delete_entities(
-        ref self: T, model_selector: felt252, indexes: Span<ModelIndex>, layout: Layout,
-    );
-
-    /// Returns true if the provided account has owner permission for the resource, false otherwise.
-    ///
-    /// # Arguments
-    ///
-    /// * `resource` - The selector of the resource.
-    /// * `address` - The address of the contract.
-    fn is_owner(self: @T, resource: felt252, address: ContractAddress) -> bool;
-
-    /// Grants owner permission to the address.
-    /// Can only be called by an existing owner or the world admin.
-    ///
-    /// Note that this resource must have been registered to the world first.
-    ///
-    /// # Arguments
-    ///
-    /// * `resource` - The selector of the resource.
-    /// * `address` - The address of the contract to grant owner permission to.
-    fn grant_owner(ref self: T, resource: felt252, address: ContractAddress);
-
-    /// Revokes owner permission to the contract for the resource.
-    /// Can only be called by an existing owner or the world admin.
-    ///
-    /// Note that this resource must have been registered to the world first.
-    ///
-    /// # Arguments
-    ///
-    /// * `resource` - The selector of the resource.
-    /// * `address` - The address of the contract to revoke owner permission from.
-    fn revoke_owner(ref self: T, resource: felt252, address: ContractAddress);
-
-
-    /// Returns true if the provided contract has writer permission for the resource, false
-    /// otherwise.
-    ///
-    /// # Arguments
-    ///
-    /// * `resource` - The selector of the resource.
-    /// * `contract` - The address of the contract.
-    fn is_writer(self: @T, resource: felt252, contract: ContractAddress) -> bool;
-
-    /// Grants writer permission to the contract for the resource.
-    /// Can only be called by an existing resource owner or the world admin.
-    ///
-    /// Note that this resource must have been registered to the world first.
-    ///
-    /// # Arguments
-    ///
-    /// * `resource` - The selector of the resource.
-    /// * `contract` - The address of the contract to grant writer permission to.
-    fn grant_writer(ref self: T, resource: felt252, contract: ContractAddress);
-
-    /// Revokes writer permission to the contract for the resource.
-    /// Can only be called by an existing resource owner or the world admin.
-    ///
-    /// Note that this resource must have been registered to the world first.
-    ///
-    /// # Arguments
-    ///
-    /// * `resource` - The selector of the resource.
-    /// * `contract` - The address of the contract to revoke writer permission from.
-    fn revoke_writer(ref self: T, resource: felt252, contract: ContractAddress);
+```cairo
+// Get both address and class hash
+if let Option::Some((contract_address, class_hash)) = world.dns(@"my_contract") {
+    // Use the contract address and class hash
+    let my_contract = IMyContractDispatcher { contract_address };
 }
 ```
+
+#### `dns_address`
+
+Gets just the contract address from a contract name.
+
+```cairo
+// Get only the address
+if let Option::Some(address) = world.dns_address(@"my_contract") {
+    let my_contract = IMyContractDispatcher { contract_address: address };
+}
+```
+
+#### `dns_class_hash`
+
+Gets just the class hash from a contract name.
+
+```cairo
+// Get only the class hash
+if let Option::Some(class_hash) = world.dns_class_hash(@"my_contract") {
+    // Use class hash for library calls or upgrades
+}
+```
+
+**Key Points:**
+- DNS lookups resolve contract names to deployed contracts and libraries
+- Returns `Option::None` if the contract name is not found
+- Works with both deployed contracts and libraries
+- DNS lookups use the contract name without the namespace prefix
+
+## Advanced Functions
+
+The following functions are primarily used by framework developers, tooling, and migration scripts.
+Most application developers won't touch these directly:
+
+### Entity Operations
+
+Low-level functions for direct entity manipulation:
+
+- **`entity`** - Gets values of a model entity/member
+- **`entities`** - Gets model values for multiple entities
+- **`set_entity`** - Sets model value for an entity/member
+- **`set_entities`** - Sets model values for multiple entities
+- **`delete_entity`** - Deletes a model value for an entity/member
+- **`delete_entities`** - Deletes model values for multiple entities
+
+### System Management
+
+Functions for registering and upgrading system resources:
+
+- **`register_namespace`** - Registers a namespace in the world
+- **`register_event`** - Registers an event in the world
+- **`register_model`** - Registers a new model in the world
+- **`register_contract`** - Registers and deploys a new contract
+- **`register_library`** - Registers and declares a library
+- **`init_contract`** - Initializes a registered contract
+- **`upgrade_event`** - Upgrades an event in the world
+- **`upgrade_model`** - Upgrades a model in the world
+- **`upgrade_contract`** - Upgrades a deployed contract
+- **`upgrade`** - Upgrades the world with new class hash
+
+### Permission Utilities
+
+Additional permission management functions:
+
+- **`owners_count`** - Gets the number of owners for a resource
+
+## Performance Tips
+
+1. **Use batch operations** for multiple model updates
+2. **Use `read_member`** for single field access
+3. **Use `write_member`** for single field updates
+4. **Cache frequently accessed data** in local variables
+5. **Use `read_schema`** for partial model reads (2+ fields)
+6. **Minimize `uuid()` calls** to maintain parallelization
+
+## Common Pitfalls
+
+1. **Forgetting to make world mutable** when writing
+2. **Not using `@` when passing models to write functions**
+3. **Reading entire models when only one field is needed**
+4. **Not checking permissions before operations**
+5. **Emitting events without proper key fields**

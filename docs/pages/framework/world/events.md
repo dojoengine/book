@@ -1,175 +1,302 @@
 ---
 title: "World Events"
-description: "Understanding and working with events in Dojo worlds, including custom events and core world events"
+description: "Understanding and working with events in Dojo worlds - from built-in world events to custom event emission"
 ---
 
-# Events
+# World Events
 
-Events play a pivotal role in decoding the dynamics of a Dojo world. Every time there's an update to a model, the world contract emits [events](/framework/world/events).
+Events are the backbone of real-time updates and indexing in Dojo worlds. The World contract automatically emits events for all state changes, and you can create custom events for your specific use cases.
 
-What's even more exciting is that you can craft your own custom events to fit specific needs! Moreover, thanks to model's [introspection](/framework/models/introspect) and [Torii](/toolchain/torii), all these events are seamlessly indexed, ensuring easy and efficient querying.
+## Overview
+
+Dojo uses a two-tier event system:
+
+1. **Built-in World Events**: Automatically emitted by the World contract for all operations
+2. **Custom Events**: Developer-defined events for specific application needs
+
+All events are automatically indexed by [Torii](/toolchain/torii), making them queryable from your frontend applications.
+
+## Built-in World Events
+
+The World contract emits comprehensive events for all operations, providing a complete audit trail of your world's state changes.
+
+:::info
+For the definitive list of world events and their signatures, see the [world contract source code](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/world/world_contract.cairo).
+:::
+
+### Model Events
+
+#### `StoreSetRecord`
+
+Emitted when a model is written to the world.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct StoreSetRecord {
+    #[key]
+    pub selector: felt252,     // Model selector
+    #[key]
+    pub entity_id: felt252,    // Entity identifier
+    pub keys: Span<felt252>,   // Entity keys
+    pub values: Span<felt252>, // Model data
+}
+```
+
+**When emitted**: Every time `world.write_model()` is called.
+
+#### `StoreUpdateRecord`
+
+Emitted when a model is updated.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct StoreUpdateRecord {
+    #[key]
+    pub selector: felt252,     // Model selector
+    #[key]
+    pub entity_id: felt252,    // Entity identifier
+    pub values: Span<felt252>, // Updated values
+}
+```
+
+**When emitted**: When existing model data is modified.
+
+#### `StoreUpdateMember`
+
+Emitted when a specific model member is updated.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct StoreUpdateMember {
+    #[key]
+    pub selector: felt252,        // Model selector
+    #[key]
+    pub entity_id: felt252,       // Entity identifier
+    #[key]
+    pub member_selector: felt252, // Member being updated
+    pub values: Span<felt252>,    // New values
+}
+```
+
+**When emitted**: When using `world.write_member()`.
+
+#### `StoreDelRecord`
+
+Emitted when a model is deleted from the world.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct StoreDelRecord {
+    #[key]
+    pub selector: felt252,   // Model selector
+    #[key]
+    pub entity_id: felt252,  // Entity identifier
+}
+```
+
+**When emitted**: When `world.erase_model()` is called.
+
+### Resource Management Events
+
+#### `ModelRegistered`
+
+**When emitted**: When a new model is registered with the world
+
+**Key fields**: `name`, `namespace`, `class_hash`, `address`
+
+#### `EventRegistered`
+
+**When emitted**: When a new event is registered with the world
+
+**Key fields**: `name`, `namespace`, `class_hash`, `address`
+
+#### `ContractRegistered`
+
+**When emitted**: When a new contract is registered with the world
+
+**Key fields**: `name`, `namespace`, `address`, `class_hash`, `salt`
+
+#### `NamespaceRegistered`
+
+**When emitted**: When a new namespace is registered
+
+**Key fields**: `namespace`, `hash`
+
+#### `LibraryRegistered`
+
+**When emitted**: When a new library is registered with the world
+
+**Key fields**: `name`, `namespace`, `class_hash`
+
+### Upgrade Events
+
+#### `ModelUpgraded`
+
+**When emitted**: When a model is upgraded to a new class hash
+
+**Key fields**: `selector`, `class_hash`, `address`, `prev_address`
+
+#### `EventUpgraded`
+
+**When emitted**: When an event is upgraded to a new class hash
+
+**Key fields**: `selector`, `class_hash`, `address`, `prev_address`
+
+#### `ContractUpgraded`
+
+**When emitted**: When a contract is upgraded to a new class hash
+
+**Key fields**: `selector`, `class_hash`
+
+#### `WorldUpgraded`
+
+**When emitted**: When the world contract itself is upgraded
+
+**Key fields**: `class_hash`
+
+### Permission Events
+
+#### `OwnerUpdated`
+
+Emitted when owner permissions change.
+
+**When emitted**: When owner permissions change.
+
+**Key fields**: `resource`, `contract`, `value`
+
+#### `WriterUpdated`
+
+**When emitted**: When writer permissions change.
+
+**Key fields**: `resource`, `contract`, `value`
+
+### System Events
+
+#### `WorldSpawned`
+
+**When emitted**: When the world contract is deployed
+
+**Key fields**: `creator`, `class_hash`
+
+#### `EventEmitted`
+
+**When emitted**: When calling the `emit_event()` function.
+
+**Key fields**: `selector`, `system_address`, `keys`, `values`
+
+**Full signature** (this is the most commonly used system event):
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct EventEmitted {
+    #[key]
+    pub selector: felt252,         // Event selector
+    #[key]
+    pub system_address: ContractAddress, // Emitting system
+    pub keys: Span<felt252>,       // Event keys
+    pub values: Span<felt252>,     // Event values
+}
+```
+
+#### `ContractInitialized`
+
+**When emitted**: When a contract's `dojo_init` function is called
+
+**Key fields**: `selector`, `init_calldata`
+
+#### `MetadataUpdate`
+
+**When emitted**: When resource metadata is updated
+
+**Key fields**: `resource`, `uri`
 
 ## Custom Events
 
-Within your game, emitting custom events can be highly beneficial. Fortunately, there's a handy `emit_event` api that lets you release events directly from your world. These events are indexed by [Torii](/toolchain/torii).
+Custom events allow you to emit domain-specific events for your application. They're particularly useful for:
 
-There are two kind of Custom Events with different use-cases.
+- Game-specific UI updates
+- Non-historical data
+- Off-chain analytics
 
-## Using `dojo::event`
+Custom events are defined similarly to models, but with the `#[dojo::event]` attribute:
 
-These events are acting like 'off-chain' storage and behave like [models](/framework/models) which allows [Torii](/toolchain/torii) to easily parse them.
-Since it mimics [models](/framework/models) behaviour, a Dojo event must have a least a `#[key]` and any type used inside it must derive `Introspect`.
-
-For example we will declare a `PlayerMood` struct to keep track of player mood.
-
--   We don't need this information onchain.
--   We don't want to historize `PlayerMood` changes, just keep track of the current/latest `PlayerMood`.
-
-```rust
+```cairo
 #[derive(Copy, Drop, Introspect)]
-struct Mood {
-    Happy,
-    Angry,
+struct Emote {
+    Smile,
+    Smirk,
+    Frown,
 }
 
 #[derive(Copy, Drop, Serde)]
 #[dojo::event]
-struct PlayerMood {
+pub struct PlayerEmote {
     #[key]
     player: ContractAddress,
-    mood: Mood,
+    emote: Emote,
  }
 ```
 
-Emit the `PlayerMood` event:
+The event can then be emitted by calling:
 
-```rust
-world.emit_event(@PlayerMood { player, mood: Mood::Happy });
+```cairo
+world.emit_event(@PlayerEmote { player, mood: Mood::Smile });
 ```
 
-Each time a `PlayerMood` event is emitted, the `PlayerMood` event indexed by [Torii](/toolchain/torii) will reflect the lasted mood.
+**Event Requirements**:
+- Must be annotated with `#[dojo::event]`
+- Must have at least one `#[key]` field
+- All interior types must derive `Introspect`
+- Must derive `Copy`, `Drop`, and `Serde`
 
-## Example
+### Examples
 
-Now a full example using a custom event:
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+pub struct BattleStarted {
+    #[key]
+    pub battle_id: u64,
+    pub attacker: ContractAddress,
+    pub defender: ContractAddress,
+    pub location: Vec2,
+    pub timestamp: u64,
+}
 
-```rust
-fn move(ref self: ContractState, direction: Direction) {
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+pub struct ItemCrafted {
+    #[key]
+    pub player: ContractAddress,
+    #[key]
+    pub item_id: u64,
+    pub item_type: ItemType,
+    pub rarity: Rarity,
+    pub materials_used: Span<felt252>,
+}
 
-    let player = get_caller_address();
-    let mut position: Position = world.read_model(player);
-    let mut moves: Moves = world.read_model(player);
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+pub struct TradeExecuted {
+    #[key]
+    pub trade_id: u64,
+    pub seller: ContractAddress,
+    pub buyer: ContractAddress,
+    pub item_id: u64,
+    pub price: u256,
+    pub currency: ContractAddress,
+}
 
-    moves.remaining -= 1;
-    moves.last_direction = direction;
-    let next = next_position(position, direction);
-
-    world.write_model(@moves);
-    world.write_model(@next);
-
-    world.emit_event(@Moved { address, direction });
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+pub struct MarketListingCreated {
+    #[key]
+    pub listing_id: u64,
+    pub seller: ContractAddress,
+    pub item_id: u64,
+    pub price: u256,
+    pub expiration: u64,
 }
 ```
 
-:::tip
-Keep in mind that the world already [emits a core event](/framework/world/events) anytime a model is updated. So you don't need to emit events to keep track of the same information.
-:::
-
-# Events emitted by the world
-
-Here's a breakdown of the events emitted by the world:
-
-```rust
-enum Event {
-    WorldSpawned: WorldSpawned,
-    WorldUpgraded: WorldUpgraded,
-    NamespaceRegistered: NamespaceRegistered,
-    ModelRegistered: ModelRegistered,
-    EventRegistered: EventRegistered,
-    ContractRegistered: ContractRegistered,
-    ModelUpgraded: ModelUpgraded,
-    EventUpgraded: EventUpgraded,
-    ContractUpgraded: ContractUpgraded,
-    ContractInitialized: ContractInitialized,
-    EventEmitted: EventEmitted,
-    MetadataUpdate: MetadataUpdate,
-    StoreSetRecord: StoreSetRecord,
-    StoreUpdateRecord: StoreUpdateRecord,
-    StoreUpdateMember: StoreUpdateMember,
-    StoreDelRecord: StoreDelRecord,
-    WriterUpdated: WriterUpdated,
-    OwnerUpdated: OwnerUpdated,
-}
-```
-
-## WorldSpawned
-
-The `WorldSpawned` event is emitted when the world is spawned (deployed).
-
-## WorldUpgraded
-
-The `WorldUpgraded` event is emitted when the world is upgraded to a new class hash (the address of the world remains the same).
-
-## NamespaceRegistered
-
-The `NamespaceRegistered` event is emitted when a new namespace is registered in the world, with its name and its hash.
-
-## ModelRegistered
-
-The `ModelRegistered` event is emitted when a model is registered in the world, which contains all the information about the model including it's type layout.
-
-## EventRegistered
-
-The `EventRegistered` event is emitted when an event is registered in the world, which contains all the information about the event including it's type layout.
-
-## ContractRegistered
-
-The `ContractRegistered` event is emitted when a Dojo contract is registered (deployed). The deployment is managed by the world itself.
-
-## ModelUpgraded
-
-The `ModelUpgraded` event is emitted when an existing model is upgraded to a new class hash. Note that the model contract gets a new address when upgraded.
-
-## EventUpgraded
-
-The `EventUpgraded` event is emitted when an existing event is upgraded to a new class hash. Note that the event contract gets a new address when upgraded.
-
-## ContractUpgraded
-
-The `ContractUpgraded` event is emitted when a Dojo contract is upgraded to a new class hash (the address of such Dojo contract remains the same).
-
-## ContractInitialized
-
-The `ContractInitialized` event is emitted when a Dojo contract is initialized with some specific call data. The provided call data are attached to the event.
-
-## EventEmitted
-
-The `EventEmitted` event is emitted when a Dojo event is emitted with the `emit_event` world function. This event contains the data of the Dojo emitted event such as its selector, its keys and values.
-
-## MetadataUpdate
-
-The `MetadataUpdate` event is emitted when the metadata of a resource (world, Dojo contract, Dojo model) is updated.
-
-## StoreSetRecord
-
-The `StoreSetRecord` event is emitted when a model identified by its keys is updated in the world's store.
-
-## StoreUpdateRecord
-
-The `StoreUpdateRecord` event is emitted when a model identified by its entity_id is updated in the world's store.
-
-## StoreUpdateMember
-
-The `StoreUpdateMember` event is emitted when a model member is updated in the world's store.
-
-## StoreDelRecord
-
-The `StoreDelRecord` event is emitted when a model is deleted from the world's store.
-
-## WriterUpdated
-
-The `WriterUpdated` event is emitted when the writer permission on a model has changed.
-
-## OwnerUpdated
-
-The `OwnerUpdated` event is emitted when the owner permission on a model has changed.
+Custom events are a powerful tool for building responsive, real-time applications on top of Dojo.
+Use them thoughtfully to create engaging user experiences while maintaining performance and efficiency.
