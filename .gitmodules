@@ -49,3 +49,9 @@
 [submodule "src/starters/dojo-game-starter"]
 	path = src/starters/dojo-game-starter
 	url = https://github.com/AkatsukiLabs/Dojo-Game-Starter.git
+[submodule "src/games/PonziLand"]
+	path = src/games/PonziLand
+	url = https://github.com/RuneLabsxyz/PonziLand.git
+[submodule "src/games/eternum"]
+	path = src/games/eternum
+	url = https://github.com/BibliothecaDAO/eternum.git
