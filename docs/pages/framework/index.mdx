@@ -87,12 +87,39 @@ struct Health {
 }
 
 // Systems (Logic)
-fn move(entity_id: u32, direction: Direction) {
-    // Moves any entity with Position component
+#[starknet::interface]
+trait IGameSystem<T> {
+    fn move(ref self: T, entity_id: u32, direction: Direction);
+    fn fight(ref self: T, attacker_id: u32, target_id: u32);
 }
 
-fn fight(attacker_id: u32, target_id: u32) {
-    // Handles combat between any entities with Health components
+#[dojo::contract]
+mod game_system {
+    use super::{Position, Health, Direction, IGameSystem};
+    use dojo::model::{ModelStorage};
+    use dojo::world::{WorldStorage, WorldStorageTrait};
+
+    #[abi(embed_v0)]
+    impl GameSystemImpl of IGameSystem<ContractState> {
+        fn move(ref self: ContractState, entity_id: u32, direction: Direction) {
+            let mut world = self.world(@"my_game");
+            let mut position: Position = world.read_model(entity_id);
+
+            // Update position based on direction
+
+            world.write_model(@position);
+        }
+
+        fn fight(ref self: ContractState, attacker_id: u32, target_id: u32) {
+            let mut world = self.world(@"my_game");
+            let mut attacker_health: Health = world.read_model(attacker_id);
+            let mut target_health: Health = world.read_model(target_id);
+
+            // Handle combat logic
+
+            world.write_model(@target_health);
+        }
+    }
 }
 ```
 
@@ -109,6 +136,7 @@ Models are Cairo structs that define your application's data structures. They ac
 ```rust
 #[derive(Copy, Drop, Serde)]
 #[dojo::model] // Defines a model, used to generate Torii events
+struct Position {
     #[key] // Defines a model's key, like an ORM primary key
     pub player: ContractAddress,
     // The rest of the model's attributes
@@ -131,6 +159,12 @@ Models are Cairo structs that define your application's data structures. They ac
 Systems implement your application's business logic as Cairo contract functions.
 
 ```rust
+// First define the interface
+#[starknet::interface]
+trait IActions<T> {
+    fn move_player(ref self: T, direction: Direction);
+}
+
 #[dojo::contract] // Defines a Dojo contract
 mod actions {
     use super::IActions;
@@ -210,16 +244,21 @@ world.emit_event(@PlayerMoved { player, direction });
 - **Keep models small and focused** - Each model should represent a single concept
 - **Design for reusability** - Models should be composable across different entity types
 - **Plan for upgrades** - Consider future schema changes when designing models
+- **Always derive required traits** - All models must derive `Drop` and `Serde`
+- **Use key fields correctly** - All `#[key]` fields must come before non-key fields
 
 ### System Design
 - **Minimize gas costs** - Batch operations and optimize storage access
 - **Handle errors gracefully** - Use assertions and proper error handling
 - **Design for permissions** - Group related systems by permission requirements
+- **Define interfaces first** - Always create a `#[starknet::interface]` before implementing systems
+- **Use proper mutability** - Make world reference mutable when writing models
 
 ### Architecture
 - **Separate concerns** - Keep data (models) and logic (systems) distinct
 - **Use events effectively** - Emit events for important state changes
-- **Plan your namespaces** - Organize resources logically
+- **Plan your namespaces** - Organize resources logically and use consistent namespace strings
+- **Follow ECS principles** - Compose entities using multiple small, focused models
 
 ## Next Steps
 
