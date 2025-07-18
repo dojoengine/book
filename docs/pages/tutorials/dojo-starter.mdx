@@ -95,7 +95,7 @@ struct Vec2 {
 // ...
 ```
 
-The `Position` model, like `Moves`, is indexed by the `player` field and includes a `Vec2` struct for x and y coordinates. Models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspect) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
+The `Position` model, like `Moves`, is indexed by the `player` field and includes a `Vec2` struct for x and y coordinates. Models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspection) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard

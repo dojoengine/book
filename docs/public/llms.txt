@@ -59,7 +59,7 @@
 
 ## Models
 
-- [Introspection](https://www.dojoengine.org/framework/models/introspect): Learn about Dojo's model introspection system, including how to implement the Introspect trait and handle custom types.
+- [Introspection](https://www.dojoengine.org/framework/models/introspection): Learn about Dojo's model introspection system, including how to implement the Introspect trait and handle custom types.
 - [Upgrades](https://www.dojoengine.org/framework/models/upgrades): Learn how to upgrade models in Dojo.
 - [Entities in Dojo](https://www.dojoengine.org/framework/models/entities): Understand how entities work in Dojo's ECS architecture and how they relate to models through primary keys.
 - [Enum](https://www.dojoengine.org/framework/models/enum): Learn how to use enums in Dojo for game state management, including trait implementations and best practices.

@@ -74,13 +74,11 @@ export const routes = [
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/framework/models" },
-					{
-						text: "Introspection",
-						link: "/framework/models/introspect",
-					},
 					{ text: "Entities", link: "/framework/models/entities" },
-					{ text: "Enum", link: "/framework/models/enum" },
+					{ text: "Enums", link: "/framework/models/enums" },
+					{ text: "Introspection", link: "/framework/models/introspection" },
 					{ text: "Upgrades", link: "/framework/models/upgrades" },
+					{ text: "API", link: "/framework/models/api" },
 				],
 			},
 			{ text: "Systems", link: "/framework/systems" },
@@ -91,10 +89,7 @@ export const routes = [
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/framework/testing" },
-					{
-						text: "Cheat Codes",
-						link: "/framework/testing/cheat-codes",
-					},
+					{ text: "Cheat Codes", link: "/framework/testing/cheat-codes" },
 				],
 			},
 			{ text: "Dojo 1.x", link: "/framework/dojo-1x" },

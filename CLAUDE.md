@@ -122,6 +122,7 @@ git submodule status
 - **Tone**: Helpful, inclusive, professional but approachable
 - **Terminology**: Consistent use of Dojo-specific terms
 - **Code Examples**: Working, tested, well-commented snippets
+- **Newlines**: Put each sentence on a new line
 
 #### Quality Standards (from `spec/best-practices.md`)
 - **Documentation as Code**: Treat docs as first-class deliverables
