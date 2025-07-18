@@ -10,7 +10,9 @@ import { LinkCard } from "../components/LinkCard";
 Dojo's installation process was designed to be idiomatically consistent with its dependencies, Rust and Cairo.
 You can get up-and-running in just a few steps, and be building provable games in no time.
 
-> **Windows Users**: Windows is not natively supported. We recommend [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows development.
+:::warning
+**Windows Users**: Windows is not natively supported. We recommend [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows development.
+:::
 
 ## Quick Start
 
@@ -28,13 +30,25 @@ This will install all necessary dependencies and tools. Skip to [Verification](#
 
 ## Detailed Installation
 
-### Prerequisites
+### System Requirements
+
+Before installing Dojo, ensure your system meets these requirements:
+
+- **Operating System**: macOS, Linux, or Windows with WSL2
+- **Memory**: At least 4GB RAM (8GB recommended)
+- **Storage**: 2GB free disk space for toolchains and dependencies
+- **Network**: Stable internet connection for downloading binaries
+- **Dependencies**: `curl`, `jq`, and `git` (usually pre-installed on most systems)
+
+## Prerequisites
 
 Before installing Dojo, you'll need these foundational tools:
 
 #### 1. Install Rust with `rustup`
 
 Rust is required for Dojo's infrastructure tools (Katana and Torii).
+
+**Minimum version**: 1.85.0
 
 ```bash
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
@@ -45,7 +59,7 @@ This installs Rust's executables, including the [`cargo`](https://doc.rust-lang.
 **Verify installation:**
 ```bash
 cargo --version
-# Should output: cargo 1.87.0 (or similar)
+# Should output: cargo 1.85.0 (or later)
 ```
 
 For more information, see the [Rust installation guide](https://doc.rust-lang.org/book/ch01-01-installation.html).
@@ -53,6 +67,8 @@ For more information, see the [Rust installation guide](https://doc.rust-lang.or
 #### 2. Install Cairo with `starkup`
 
 Dojo is written in [Cairo](https://www.cairo-lang.org/), StarkWare's language for creating provable programs.
+
+**Minimum version**: 2.10.1
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.sh | sh
@@ -65,7 +81,7 @@ This installs Cairo's toolchain, including the [`scarb`](https://docs.swmansion.
 **Verify installation:**
 ```bash
 scarb --version
-# Should output: scarb 2.11.4 (or similar)
+# Should output: scarb 2.10.1 (or later)
 ```
 
 For more information, see the [starkup documentation](https://github.com/software-mansion/starkup).
@@ -102,7 +118,7 @@ This installs `katana`, `torii`, and `sozo` in the `~/.dojo` directory.
 
 ```bash
 # Install a specific version
-dojoup install 1.5.0
+dojoup install 1.6.0
 
 # Get help
 dojoup --help
@@ -133,7 +149,7 @@ asdf plugin add dojo https://github.com/dojoengine/asdf-dojo
 asdf install dojo latest
 
 # Install a specific version
-asdf install dojo 1.0.0
+asdf install dojo 1.6.0
 
 # List available versions
 asdf list all dojo
@@ -160,15 +176,15 @@ After installation, verify that all tools are working correctly:
 ```bash
 # Check Sozo (CLI tool)
 sozo --version
-# Should output: sozo 1.0.0 (or similar)
+# Should output: sozo 1.6.0 (or later)
 
 # Check Katana (sequencer)
 katana --version
-# Should output: katana 1.0.0 (or similar)
+# Should output: katana 1.6.0 (or later)
 
 # Check Torii (indexer)
 torii --version
-# Should output: torii 1.0.0 (or similar)
+# Should output: torii 1.6.0 (or later)
 ```
 
 ### Test Your Installation
@@ -176,11 +192,11 @@ torii --version
 Create a simple test project to verify everything works:
 
 ```bash
-# Clone the dojo-intro repository
-git clone https://github.com/dojoengine/dojo-intro
+# Clone the dojo-starter repository
+git clone https://github.com/dojoengine/dojo-starter
 
-# Navigate to the contracts
-cd dojo-intro/contracts
+# Navigate to the project
+cd dojo-starter
 
 # Build the project
 sozo build
@@ -188,11 +204,76 @@ sozo build
 # Test successful if no errors appear
 ```
 
+## Troubleshooting
+
+### Common Installation Issues
+
+#### `dojoup: command not found`
+
+**Problem**: After installing dojoup, the command is not found.
+
+**Solution**:
+
+1. Restart your terminal completely
+2. If still not working, manually source the environment: `source ~/.dojo/env`
+3. Check that `~/.dojo/bin` is in your PATH: `echo $PATH | grep -o ~/.dojo`
+
+#### `starkup` installation fails
+
+**Problem**: `starkup` fails to install or configure properly.
+
+**Solution**:
+
+1. Ensure `asdf` is properly installed
+2. Add `~/.asdf/shims` to your PATH: `export PATH="$HOME/.asdf/shims:$PATH"`
+3. Or, add it via your shell profile (`.bashrc`, `.zshrc`, etc.)
+
+#### Version compatibility issues
+
+**Problem**: Incompatible versions between Rust, Cairo, or Dojo components.
+
+**Solution**:
+
+1. Check current versions:
+   ```bash
+   cargo --version    # Should be 1.85.0+
+   scarb --version    # Should be 2.10.1+
+   sozo --version     # Should be 1.6.0+
+   ```
+
+2. Update if needed:
+   ```bash
+   rustup update              # Update Rust
+   asdf install scarb latest  # Update Cairo/Scarb
+   dojoup install             # Update Dojo
+   ```
+
+#### Build failures in test project
+
+**Problem**: `sozo build` fails in the test project.
+
+**Solution**:
+
+1. Ensure all dependencies are installed
+2. Try cleaning and rebuilding: `sozo clean && sozo build`
+
+3. Check for [version mismatches](https://github.com/dojoengine/dojo/blob/main/versions.json) between your installed tools
+
+### Getting Additional Help
+
+If you continue to experience issues:
+1. Check the [Dojo GitHub Issues](https://github.com/dojoengine/dojo/issues) for known problems
+2. Join our [Discord](https://discord.gg/invite/dojoengine) for community support
+3. Review the [Dojo Book](https://book.dojoengine.org/) for comprehensive documentation
+
+> **Note**: Version numbers in this guide are current as of the latest stable release. For the most current version numbers, check the [Dojo releases page](https://github.com/dojoengine/dojo/releases).
+
 ## Code Editor Support
 
-### Visual Studio Code
+### Visual Studio Code / Cursor
 
 Install the [Cairo 1.0](https://marketplace.visualstudio.com/items?itemName=starkware.cairo1) extension for:
+
 - Syntax highlighting
 - Error detection
 - Auto-completion
