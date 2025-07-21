@@ -81,7 +81,15 @@ export const routes = [
 					{ text: "API", link: "/framework/models/api" },
 				],
 			},
-			{ text: "Systems", link: "/framework/systems" },
+			{
+				text: "Systems",
+				collapsed: true,
+				items: [
+					{ text: "Overview", link: "/framework/systems" },
+					{ text: "Architecture", link: "/framework/systems/architecture" },
+					{ text: "Coordination", link: "/framework/systems/coordination" },
+				],
+			},
 			{ text: "Authorization", link: "/framework/authorization" },
 			{ text: "Configuration", link: "/framework/configuration" },
 			{
@@ -92,7 +100,13 @@ export const routes = [
 					{ text: "Cheat Codes", link: "/framework/testing/cheat-codes" },
 				],
 			},
-			{ text: "Dojo 1.x", link: "/framework/dojo-1x" },
+			{
+				text: "Upgrading",
+				collapsed: true,
+				items: [
+					{ text: "Dojo 1.x", link: "/framework/upgrading/dojo-1x" },
+				],
+			},
 		],
 	},
 	{

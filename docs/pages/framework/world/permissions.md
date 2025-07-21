@@ -189,6 +189,10 @@ world.grant_writer(selector_from_tag!("my_game-PlayerPosition"), movement_system
 world.grant_writer(selector_from_tag!("my_game"), system_contract);  // Namespace writer (can write to ALL resources in namespace)
 ```
 
+Here is a simple way to think about organizing permissions in your Dojo application:
+
+![System Permissions](/permissions.png)
+
 ## Managing Permissions
 
 ### Granting Permissions
