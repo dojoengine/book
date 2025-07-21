@@ -1,272 +1,370 @@
 ---
 title: Dojo Configuration
-description: Learn how to configure your Dojo project using Scarb.toml and profile-specific configuration files for different environments.
+description: Configure your Dojo project using profiles, Scarb.toml manifest, and environment-specific settings for development, testing, and production deployments.
 ---
 
-# Config
+# Configuration
 
-The first thing to know about Dojo configuration is that, it's a **profile** based system.
-Any command you may use to build, migrate or inspect your project, you need to specify the profile you want to use.
+Dojo uses a **profile-based configuration system** that allows you to manage different settings for development, testing, and production environments.
+Every Dojo command operates within a specific profile context, giving you fine-grained control over how your project builds, deploys, and runs.
 
-By default, the profile is always `dev` if not specified.
+## Understanding Profiles
 
-When you work with Dojo, you have two main configuration files:
+Profiles separate your project configuration into distinct environments.
+This allows you to use different settings for local development versus production deployment without manually changing configuration files.
 
-1. First, the `Scarb.toml` manifest. This file is used to reference all Cairo dependencies.
-2. Second, the `dojo_<PROFILE>.toml`, where `<PROFILE>` can be `dev` or any other string (no spaces or special characters).
+```bash
+# Use the default 'dev' profile
+sozo build
 
-## Adding a custom profile
+# Use a specific profile
+sozo build --profile mainnet
+sozo migrate --profile staging
+```
 
-To add a new profile, you must:
+**Profile Resolution:**
+1. **Specified profile**: If you provide `--profile <name>`, Dojo looks for `dojo_<name>.toml`
+2. **Default fallback**: If no profile is specified, Dojo uses the `dev` profile (`dojo_dev.toml`)
+3. **Configuration loading**: Each profile file contains deployment and environment settings for that specific context
 
-1. Add a `[profile.<PROFILE>]` section in your `Scarb.toml` file.
+:::warning
+If a `dojo_dev.toml` does not exist in the contract directory, Dojo will return an error.
+:::
 
-    ```toml
-    # Scarb.toml
-    # ... other configs ...
-    [profile.my_profile]
-    ```
+## Configuration Files
 
-2. Add the `dojo_<PROFILE>.toml` file in the root of your project (alonside the `Scarb.toml` file).
+Dojo projects use two main configuration files:
 
-## `Scarb.toml`
+### `Scarb.toml` - Cairo Project Manifest
+The Scarb manifest defines your project's dependencies, build settings, and Cairo compilation options.
+This file is required for all Cairo projects and controls how your code compiles.
 
-To work with Dojo, the minimum you need to add to your `Scarb.toml` is:
+### `dojo_<profile>.toml` - Dojo Profile Configuration
+Profile-specific files contain deployment settings, world metadata, and environment variables.
+These files control how your world deploys and behaves in different environments.
+
+```text
+my-dojo-project/
+├── Scarb.toml                 # Project manifest & dependencies
+├── dojo_dev.toml              # Development profile
+├── dojo_staging.toml          # Staging profile
+└── dojo_mainnet.toml          # Production profile
+```
+
+## Project Manifest (`Scarb.toml`)
+
+Your `Scarb.toml` file defines the core project structure and dependencies.
+Here's the minimum configuration needed for a Dojo project:
 
 ```toml
 [package]
-cairo-version = "=2.8.4"
-name = "<PROJECT_NAME>"
-version = "0.1.0"
+cairo-version = "=2.10.1"
+name = "my-dojo-game"
+version = "1.5.0"
 edition = "2024_07"
 
 [[target.starknet-contract]]
 sierra = true
-# It's important to keep this, since it's used by Sozo to check the world version.
 build-external-contracts = ["dojo::world::world_contract::world"]
 
 [dependencies]
-# Adding the dojo core crate with the world and dojo traits.
-dojo = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
 starknet = "2.8.4"
+dojo = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.5.0" }
 
 [dev-dependencies]
-# This package is required to run tests and add dojo utilities to your project in test only.
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.0.0" }
+cairo_test = "=2.10.1"
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.5.0" }
 
 [features]
 default = []
 ```
 
-You can refer to the profile in [Scarb documentation](https://docs.swmansion.com/scarb/docs/guides/defining-custom-profiles.html) for more information.
+You can refer to the [Scarb documentation](https://docs.swmansion.com/scarb/docs/guides/defining-custom-profiles.html) for more information.
 
+### Custom Profiles in Scarb
 
-## `build-external-contracts`
+Add custom profiles to control build settings for different environments:
 
-The `build-external-contracts` field in the `[target.starknet-contract]` section is crucial for projects relying on external libraries or contracts.
+```toml
+# Development profile (default)
+[profile.dev]
+# Fast builds, debug symbols enabled
 
-## Purpose
-By default, Scarb does not build contracts that belong to external libraries unless explicitly defined in this field. Missing these definitions might not cause compilation errors but will lead to runtime issues when:
-- The deployed `world` system queries information about missing models.
-- `Torii` interacts with the blockchain and cannot find the required contracts.
+[profile.staging]
+# Settings specific to staging
 
-## Configuration
+[profile.mainnet]
+# Optimized builds for production
+```
 
-To ensure all external contracts are built, update the `build-external-contracts` field like this:
+:::note
+Every `dojo_<profile>.toml` must have a matching section header in `Scarb.toml`.
+:::
+
+### External Contract Dependencies
+
+When using external libraries with models, you must explicitly build their contracts:
 
 ```toml
 [[target.starknet-contract]]
 build-external-contracts = [
-    "dojo::world::world_contract::world",
-    "armory::m_Flatbow"
+    "dojo::world::world_contract::world", # Used by Sozo to check the world version
+    "armory::models::m_Flatbow",       # External model contract
+    "tokens::models::m_ERC20Token"     # Another external model
 ]
 ```
-For every `#[dojo::model]` that originates from an external crate, the corresponding contract name follows the pattern:
-```text
-m_<ModelName>
-````
 
-## Best Practices
-1. Always include all required contracts from the external crates your project depends on in `build-external-contracts` to prevent runtime errors.
-2. Test your configuration locally by running `scarb build` and verifying the generated artifacts.
-3. Write integration tests to validate interactions with external models and ensure they function as expected.
+**Pattern for External Models:**
+- Format: `<crate>::<path>::m_<ModelName>`
+- Example: If `armory` crate has `models::Flatbow` model, include `"armory::models::m_Flatbow"`
 
-## Common Issues
-1. **Missing Contract Artifacts**: Ensure all external contracts are listed.
-2. **Incorrect Model Name**: Follow the `m_<ModelName>` convention for external models to avoid naming mismatches.
+:::warning
+Missing external contracts won't cause compilation errors but will cause runtime failures when the World tries to interact with missing model contracts, or when Torii cannot find model definitions to match blockchain event data.
+:::
 
+## Profile Configuration (`dojo_<profile>.toml`)
 
-## `dojo_<PROFILE>.toml`
+Profile configuration files contain all deployment and runtime settings for specific environments.
+Each section controls a different aspect of your Dojo world.
 
-The dojo profile configuration file is where you can add your development parameters and world's metadata.
+### Basic World Configuration
 
 ```toml
 [world]
-name = "Dojo starter"
-description = "The official Dojo Starter guide, the quickest and most streamlined way to get your Dojo Autonomous World up and running. This guide will assist you with the initial setup, from cloning the repository to deploying your world."
+name = "My Dojo Game"
+description = "An awesome on-chain game built with Dojo"
+seed = "my-unique-seed"
 cover_uri = "file://assets/cover.png"
 icon_uri = "file://assets/icon.png"
-website = "https://github.com/dojoengine/dojo-starter"
-seed = "dojo_starter"
+website = "https://mydojogame.com"
 
 [world.socials]
-x = "https://x.com/ohayo_dojo"
-discord = "https://discord.gg/FB2wR6uF"
-github = "https://github.com/dojoengine/dojo-starter"
-telegram = "https://t.me/dojoengine"
-
-[world]
-description = "Simple world."
-name = "simple"
-seed = "simple"
-
-[env]
-rpc_url = "http://localhost:5050/"
-# Default account for katana with seed = 0
-account_address = "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec"
-private_key = "0xc5b2fcab997346f3ea1c00b002ecf6f382c5f9c9659a3894eb783c5320f912"
-#world_address = "0x077c0dc7c1aba7f8842aff393ce6aa71fa675b4ced1bc927f7fc971b6acd92fc"
-
-[namespace]
-default = "ns"
-mappings = { "ns" = ["c1", "M"], "ns2" = ["c1", "M"] }
-
-[[models]]
-tag = "ns-Position"
-description = "position of a player in the world"
-
-[[events]]
-tag = "ns-Moved"
-description = "when a player has moved"
-
-[[contracts]]
-tag = "ns-actions"
-description = "set of actions for a player"
-
-[[external_contracts]]
-contract_name = "ERC20Token"
-instance_name = "GoldToken"
-salt = "1"
-constructor_data = ["str:Gold", "str:GOLD", "u256:0x10000000000000", "0x2af9427c5a277474c079a1283c880ee8a6f0f8fbf73ce969c08d88befec1bba"]
-
-[[external_contracts]]
-contract_name = "Saloon"
-constructor_data = []
-salt = "1"
-
-[init_call_args]
-"ns-c1" = ["0xfffe"]
-"ns2-c1" = ["0xfffe"]
-
-[writers]
-"ns" = ["ns-c1", "ns-c2"]
-"ns-M" = ["ns-c2",  "ns-c1", "ns2-c1"]
-
-[owners]
-"ns" = ["ns-c1"]
-
-[migration]
-order_inits = ["ns-c2", "ns-c1"]
-skip_contracts = ["ns-c3"]
+x = "https://x.com/mydojogame"
+discord = "https://discord.gg/mydojogame"
+github = "https://github.com/mydojogame/contracts"
 ```
 
-### `[env]`
+**Required Fields:**
+- `name` - Human-readable world name
+- `seed` - Unique identifier for deterministic world address generation
 
-The environment variables for your development, the supported keys are:
+**Optional Fields:**
+- `description` - World description for metadata
+- `cover_uri` / `icon_uri` - Visual assets (supports `file://` and `ipfs://`)
+- `website` - Project website URL
+- `socials` - Social media links
 
-- `rpc_url`: The RPC url of the network you want to connect to.
-- `account_address`: The address of the account used to migrate the world.
-- `private_key`: The private key of the account used to migrate the world.
-- `keystore_path`: The path to the keystore file containing encrypted account's private key.
+See more information about world metadata [here](/framework/world/metadata).
 
-### `[namespace]`
+### Environment Settings
 
-The namespace configuration, the supported keys are:
+```toml
+[env]
+rpc_url = "http://localhost:5050/"
+account_address = "0x127fd..."
+private_key = "0xc5b2f..."
+keystore_path = "/path/to/keystore"
+world_address = "0x077c0..."
+```
 
-- `default`: The default namespace. It's always required. The default namespace is the one used to map every contract/model/event that is not explicitly mapped to another namespace using `mappings`.
-- `mappings`: Explicit mappings of namespaces for contracts/models/events. Let's take an example:
+**Environment Variables:**
+- `rpc_url` - Starknet RPC endpoint
+- `account_address` - Deployer account address
+- `private_key` - Deployer private key (use `keystore_path` in production)
+- `keystore_path` - The path to the file containing the deployer's private key.
+- `world_address` - Deployed world address (set after first deployment)
 
-    ```toml
-    [namespace]
-    default = "ns"
-    mappings = { "ns" = ["c1", "M"], "ns2" = ["c1", "M"] }
-    ```
+### Namespace Management
 
-    In this example, the `ns` namespace will be used for contracts/models/events that are not explicitly mapped to another namespace. The `ns2` namespace will be used for contract `c1` and model `M`. Namespace `ns2` will be used for contract `c1` and model `M`.
+```toml
+[namespace]
+default = "game"
+mappings = {
+    "weapons" = ["Sword", "Bow", "Shield"],
+    "characters" = ["Player", "Enemy", "NPC"]
+}
+```
 
-    In this example, since `c1` and `M` are mapped to `ns2`, they are not automatically mapped to `ns`. This is the reason why they are also mapped to `ns` explicitly.
-    The contracts `c2` and `c3` for instance, if not mentioned in the `mappings` section, will be mapped to the `ns` namespace by default.
-    ```
+**How Namespace Mapping Works:**
+1. **Default namespace**: All resources not explicitly mapped use this namespace
+2. **Explicit mappings**: Map specific models/contracts to custom namespaces
+3. **Resource tags**: Final resource tags become `<namespace>-<resource_name>`
 
-### `[init_call_args]`
+**Example:**
+- `Player` model → `characters-Player` tag
+- `GameState` model → `game-GameState` tag (uses default namespace)
 
-The initialization call arguments for the contracts.
-By default, a `dojo::contract` doesn't have any initialization arguments. But using `dojo_init` function, you can decide otherwise and make some initialization during this `dojo_init` call.
+### Permission Configuration
 
-```rust
+```toml
+# Format: "<TARGET_TAG>" = ["<GRANTEE_TAG>"]
+
+[writers]
+# Namespace-level permissions
+"game" = ["game-actions", "game-admin"]
+# Resource-specific permissions
+"game-Position" = ["game-movement"]
+"weapons-Sword" = ["weapons-combat", "game-actions"]
+
+[owners]
+# Namespace ownership
+"game" = ["game-admin"]
+# Resource ownership
+"weapons" = ["weapons-manager"]
+```
+
+**Permission Hierarchy:**
+- **Namespace permissions** - Control access to all resources in a namespace
+- **Resource permissions** - Control access to specific models/contracts
+- **Writers** - Can modify data in models
+- **Owners** - Can modify data AND manage permissions
+
+### Contract Initialization
+
+By default, Dojo contracts don't have initialization arguments.
+However, you can pass init arguments to Dojo contracts using a `dojo_init` function:
+
+```cairo
 #[dojo::contract]
-mod my_contract {
-    // The only requirement is that the function is named `dojo_init`.
-    fn dojo_init(ref self: ContractState, arg1: felt252, arg2: u32) {
+mod my_system {
+    fn dojo_init(ref self: ContractState, arg1: felt252, arg2: u256) {
         // ...
     }
 }
 ```
 
-To initialize this contract, you need to add the following to your `dojo_<PROFILE>.toml` file:
-
 ```toml
 [init_call_args]
-"ns-my_contract" = ["0xfffe", "0x1"]
+"game-my_system" = ["0x123", "u256:0x456"]
 ```
 
-Remember that a resource is always namespaced. So you need to specify the `tag` (which is `<NAMESPACE>-<CONTRACT_NAME>`) in the `init_call_args` section to identify it.
+:::tip
+See the [Sozo calldata format](/toolchain/sozo/calldata_format) for initialization argument formatting.
+:::
 
-Must use the Dojo calldata format described [here](/toolchain/sozo/calldata_format).
+### External Contract Deployment
 
-### `[writers]`/`[owners]`
-
-The writers/owners configuration allows you to specify permissions directly from the configuration file for the given profile.
-The syntax for the writers/owners is the following:
+Deploy and manage external (non-Dojo) contracts alongside your world:
 
 ```toml
-[writers]
-"<TARGET_TAG>" = ["<GRANTEE_TAG>"]
+[[external_contracts]]
+contract_name = "ERC20Token"
+instance_name = "GoldToken" # If deploying multiple instances
+salt = "1" # Hashed with contract_name/instance_name to generate contract address
+constructor_data = [
+    "str:Gold Coin",            # Token name
+    "sstr:GOLD",                # Symbol
+    "u256:1000000000000000000", # Total supply
+    "0x1234567890abcdef..."     # Owner address
+]
 ```
 
-If we get back to `my_contract` mentioned just above, we can give to it the writer permission for the `ns` namespace like this:
+**External Contract Fields:**
+- `contract_name` - Cairo contract name to deploy
+- `instance_name` - Unique instance identifier (for multiple deployments)
+- `salt` - Deterministic address generation salt
+- `constructor_data` - Arguments for contract constructor
+
+:::tip
+See the [Sozo calldata format](/toolchain/sozo/calldata_format) for initialization argument formatting.
+:::
+
+### Migration Control
 
 ```toml
-[writers]
-"ns" = ["ns-my_contract"]
+[migration]
+order_inits = ["game-registry", "game-actions", "token-manager"]
+skip_contracts = ["game-debug_tools", "test-helpers"]
+disable_multicall = false
 ```
 
-As a note, we may change this in the future, and instead having the contract tag first, and then the target resources.
+**Migration Options:**
+- `order_inits` - Specific order for contract initialization calls
+- `skip_contracts` - Don't deploy these contracts (but still build them)
+- `disable_multicall` - Force individual transactions instead of batching
 
-### `[migration]`
+### Resource Metadata
 
-The migration configuration allows you to alter the behavior of the `sozo` migration command.
+Add descriptive metadata for your models, contracts, and events:
 
-The supported keys are:
+```toml
+[[models]]
+tag = "game-Position"
+description = "Player position in the game world"
+icon_uri = "file://icons/position.png"
 
-- `order_inits`: The order used to initialize the contracts. Identifies the contract by their tag.
-- `skip_contracts`: The resources to skip during the migration. You can still build those resources, but they will be skipped during the migration (not deployed onchain).
-- `disable_multicall`: By default `sozo` multicalls everything that could be multicalled. You can disable this behavior using this flag, to debug resources registration, contracts initialization, etc.
+[[contracts]]
+tag = "game-actions"
+description = "Core gameplay actions and mechanics"
+icon_uri = "file://icons/actions.png"
 
-### `[world]`
+[[events]]
+tag = "game-PlayerMoved"
+description = "Emitted when a player changes position"
+```
 
-The metadata related to your world. They are purely informative. More details [here](/framework/world/metadata/#world-metadata).
+See more information about resource metadata [here](/framework/world/metadata).
 
-### `[[models]]`, `[[events]]` and `[[contracts]]`
+## Configuration Examples
 
-The metadata related to your world resources. They are purely informative. More details [here](/framework/world/metadata/#resource-metadata).
+### Development Profile (`dojo_dev.toml`)
 
-### `[[external_contracts]]`
+```toml
+[world]
+name = "My Game (Development)"
+seed = "dev-my-game"
 
-To be managed by `sozo`, external Cairo contracts (i.e non Dojo contracts) must be declared in your `dojo_<profile>.toml` file. For each contract instance a `[[external_contracts]]` block must be added with:
-- `contract_name`: the name of the Cairo contract to deploy,
-- `instance_name`: if you want to deploy several instances of a same Cairo contract (for example, `ERC20`), you have to give a specific name to each instance. If you have only one instance, don't provide any value for `instance_name`, it will automatically be set to the `contract_name` value,
-- `salt`: salt value to use to compute the contract address (hashed with the `instance_name` to get the final salt used for contract deployment),
-- `constructor_data`: a list of calldata to give to the Cairo contract constructor. If the constructor does not have any parameter, just omit this parameter. Must use the Dojo calldata format described [here](/toolchain/sozo/calldata_format). 
+[env]
+rpc_url = "http://localhost:5050/"
+account_address = "0x127fd..."
+private_key = "0xc5b2f..."
 
-Then, during the migration, sozo will declare and deploy these external contracts and update the manifest output file.
+[namespace]
+default = "dev"
+
+[writers]
+"dev" = ["dev-actions"]
+
+[migration]
+disable_multicall = true  # Easier debugging
+```
+
+### Production Profile (`dojo_mainnet.toml`)
+
+```toml
+[world]
+name = "My Game"
+seed = "prod-my-game"
+description = "Production deployment of My Game"
+cover_uri = "ipfs://YourCoverHash"
+icon_uri = "ipfs://YourIconHash"
+website = "https://mygame.com"
+
+[env]
+rpc_url = "https://api.cartridge.gg/x/prod-my-game/katana"
+account_address = "0x127fd..."
+keystore_path = "~/.starknet_accounts/mainnet.json"
+
+[env.ipfs_config]
+url = "https://ipfs.infura.io:5001"
+username = "prod_username"
+password = "prod_password"
+
+[namespace]
+default = "game"
+mappings = { "items" = ["Sword", "Shield", "Potion"] }
+
+[writers]
+"game" = ["game-actions"]
+"items" = ["game-actions", "item-manager"]
+
+[owners]
+"game" = ["game-admin"]
+```
+
+## See Also
+
+- **[World Permissions](/framework/world/permissions)** - Runtime permission management
+- **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
+- **[Calldata Format](/toolchain/sozo/calldata_format)** - Constructor argument formatting
+- **[World Metadata](/framework/world/metadata)** - World and resource metadata
