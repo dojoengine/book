@@ -90,7 +90,6 @@ export const routes = [
 					{ text: "Coordination", link: "/framework/systems/coordination" },
 				],
 			},
-			{ text: "Authorization", link: "/framework/authorization" },
 			{ text: "Configuration", link: "/framework/configuration" },
 			{
 				text: "Testing",

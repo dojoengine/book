@@ -50,7 +50,7 @@
 
 ## Cairo Framework
 
-- [Authorization of Models](https://www.dojoengine.org/framework/authorization): Guide to configuring and managing authorization for model access in Dojo worlds
+- [Authorization of Models](https://www.dojoengine.org/framework/world/permissions): Guide to configuring and managing authorization for model access in Dojo worlds
 - [Config](https://www.dojoengine.org/framework/configuration): Learn how to configure your Dojo project using Scarb.toml and profile-specific configuration files for different environments.
 - [Testing](https://www.dojoengine.org/framework/testing): Learn how to write and run unit tests and integration tests for your Dojo smart contracts and models.
 - [Cairo Testing Cheat Codes](https://www.dojoengine.org/framework/testing/cheat-codes): A comprehensive guide to using Cairo testing cheat codes for manipulating execution context in contract tests.

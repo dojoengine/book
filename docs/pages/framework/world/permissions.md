@@ -32,7 +32,9 @@ Set up initial permissions during deployment via your `dojo_<profile>.toml` file
 
 ```toml
 [writers]
+# Any model in the `dojo_starter` namespace can be written by the `dojo_starter-actions` contract
 "dojo_starter" = ["dojo_starter-actions"]
+# Only the `dojo_starter-DirectionsAvailable` model can be written by the `dojo_starter-actions` contract
 "dojo_starter-DirectionsAvailable" = ["dojo_starter-actions"]
 
 [owners]
@@ -395,7 +397,7 @@ sozo auth list
 ```
 
 **Configuration Reference:**
-For detailed configuration options, see [Configuration](/framework/configuration) and [Authorization](/framework/authorization).
+For detailed configuration options, see [Configuration](/framework/configuration).
 
 ## Debugging Permission Issues
 

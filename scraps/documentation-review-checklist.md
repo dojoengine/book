@@ -35,7 +35,6 @@ Foundation concepts that change with framework updates.
 | **Models Upgrades** | `/docs/pages/framework/models/upgrades.md` | Migration Guide, Examples | High | Upgrade procedures | Every release |
 | **Models API Reference** | `/docs/pages/framework/models/api.md` | API Accuracy, Completeness | Critical | Model interfaces | Every release |
 | **Systems Overview** | `/docs/pages/framework/systems/index.md` | Accuracy, Examples | Critical | System implementation | Every release |
-| **Authorization** | `/docs/pages/framework/authorization/index.mdx` | Security, Examples | Critical | Permission system | Every release |
 | **Configuration** | `/docs/pages/framework/configuration/index.md` | Accuracy, Examples | High | Config file formats | Every release |
 | **Testing Overview** | `/docs/pages/framework/testing/index.md` | Accuracy, Examples | High | Testing framework | Every release |
 | **Testing Cheat Codes** | `/docs/pages/framework/testing/cheat-codes.md` | API Accuracy, Examples | High | Test utilities | Every release |
