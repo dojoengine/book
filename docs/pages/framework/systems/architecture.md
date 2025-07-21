@@ -407,32 +407,6 @@ mod combat {
 
 ## Evolution Strategies
 
-### Versioned Systems
-
-Design systems with version compatibility in mind.
-
-```cairo
-// v1 system
-#[dojo::contract]
-mod movement_v1 {
-    fn move(ref self: ContractState, direction: Direction) {
-        // Simple movement logic
-    }
-}
-
-// v2 system with enhanced features
-#[dojo::contract]
-mod movement_v2 {
-    fn move(ref self: ContractState, direction: Direction) {
-        // Enhanced movement with terrain effects
-    }
-
-    fn move_with_modifiers(ref self: ContractState, direction: Direction, modifiers: Span<Modifier>) {
-        // New functionality in v2
-    }
-}
-```
-
 ### Migration Patterns
 
 Plan for system upgrades and data migration.
