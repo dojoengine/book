@@ -5,7 +5,9 @@ description: A comprehensive guide to using Cairo testing cheat codes for manipu
 
 # Cairo Testing Cheat Codes: A Comprehensive Guide
 
-The Cairo Testing Cheat Codes allow you to set and manipulate various execution context variables, such as block number, caller address, contract address, to test your contracts in different scenarios. In this guide, we will explore each cheat code in detail, providing explanations and examples to help you understand how to use them effectively in your tests.
+The Cairo Testing Cheat Codes allow you to set and manipulate various execution context variables, such as block number, caller address, contract address, to test your contracts in different scenarios.
+
+In this guide, we will explore each cheat code in detail, providing explanations and examples to help you understand how to use them effectively in your tests.
 
 ## `set_block_number`
 
@@ -303,4 +305,8 @@ fn f15() {
 
 ```
 
-In conclusion, the Cairo cheat codes provide a powerful toolset for testing and debugging Starknet contracts. By mastering these cheat codes, you can simulate various scenarios, test edge cases, and ensure the correctness of your contracts. Remember to use them wisely and in conjunction with other testing techniques to achieve comprehensive coverage. With this guide, you are now well-equipped to tackle complex testing challenges and build robust contracts on the Starknet network. Happy testing!
+These cheat codes provide a powerful toolset for testing and debugging Starknet contracts.
+By mastering these cheat codes, you can simulate various scenarios, test edge cases, and ensure the correctness of your contracts.
+Remember to use them wisely and in conjunction with other testing techniques to achieve comprehensive coverage.
+With this guide, you are now well-equipped to tackle complex testing challenges and build robust contracts on the Starknet network.
+Happy testing!

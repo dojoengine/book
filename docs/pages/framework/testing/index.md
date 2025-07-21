@@ -7,9 +7,9 @@ description: Learn how to write and run unit tests and integration tests for you
 
 Testing is a crucial part of any software development process. Dojo provides a testing framework that allows you to write tests for your smart contracts. Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.
 
-From your project directory, simply:
+From your project directory, run:
 
-```shell
+```bash
 sozo test
 ```
 
@@ -18,10 +18,9 @@ This will search for all tests within your project and run them.
 ## Writing Unit Tests
 
 It is best practise to include unit tests in the same file as the [model](/framework/models/) / [system](/framework/systems/) you are writing.
-
 Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
-```rust
+```cairo
 // models.cairo
 
 // ...
@@ -45,7 +44,11 @@ mod tests {
 }
 ```
 
-In this test we are testing the `is_zero` and `is_equal` functions of the `Position` model. It is good practise to test all functions of your models.
+In this test we are testing the `is_zero` and `is_equal` functions of the `Position` model.
+
+:::tip
+It is good practise to test all functions of your models.
+:::
 
 ## Writing Integration Tests
 
@@ -145,9 +148,10 @@ mod tests {
 }
 ```
 
-<!-- TODO update -->
+## Dojo Test Utilities
 
-## Useful Dojo Test Functions
+Dojo includes some helpful utilities to make testing easier:
 
-- [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L43) - This function will deploy a new world and register the models passed in.
-- [`deploy_contract`](https://github.com/dojoengine/dojo/blob/78c88e5c4ffaa81134fb95e783c839efddf8e56b/crates/dojo-core/src/test_utils.cairo#L24) - This function will deploy a new contract and return the contract address.
+- [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/dojo-snf-test/src/world.cairo#L140) - Deploy a new world and register the models passed in.
+
+- [`deploy_contract`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/dojo-snf-test/src/world.cairo#L106) - Deploy a new contract and return the contract address.
