@@ -103,6 +103,7 @@ export const routes = [
 				text: "Upgrading",
 				collapsed: true,
 				items: [
+					{ text: "Overview", link: "/framework/upgrading" },
 					{ text: "Dojo 1.x", link: "/framework/upgrading/dojo-1x" },
 				],
 			},
