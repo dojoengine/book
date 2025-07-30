@@ -87,12 +87,12 @@ git submodule status
 ### Key Directories
 
 #### `/docs/pages/` - Content Organization
-- **Framework**: Core Dojo concepts (World, Models, Systems)
-- **Toolchain**: Tool-specific documentation (Katana, Torii, Sozo, Saya)
-- **Tutorials**: Step-by-step learning guides
-- **Client/SDK**: Integration guides for various platforms
-- **Architecture**: Scaling and technical deep-dives
-- **Libraries**: Ecosystem libraries (Origami, Alexandria)
+- **Framework**: Core Dojo concepts (World, Models, Systems) -- theoretically focused
+- **Toolchain**: Tool-specific documentation (Katana, Torii, Sozo, Saya) -- theoretically focused
+- **Tutorials**: Step-by-step learning guides -- practically focused
+- **Client/SDK**: Integration guides for various platforms -- practically focused
+- **Architecture**: Scaling and technical deep-dives -- theoretically focused
+- **Libraries**: Ecosystem libraries (Origami, Alexandria) -- practically focused
 
 #### `/src/` - Source Code Submodules
 - **Framework**: Core Dojo framework implementation (Rust/Cairo)
