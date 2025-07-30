@@ -27,3 +27,6 @@ docs/dist
 
 # vocs
 vocs.config.ts.timestamp*
+
+# default configuration
+default.toml

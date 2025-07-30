@@ -164,33 +164,23 @@ NOTE: not yet available!
 For each component requiring updates:
 
 #### API Documentation (Reference)
-```bash
-# Instead of parsing raw source code, use the generated API docs:
-# 1. Reference docs/api/rust/[project]/api_skeleton.md for complete API overview
-# 2. Use docs/api/rust/[project]/README.md for project structure
-# 3. Include generated markdown in LLM prompts for accurate API information
 
-# Example LLM prompt enhancement:
-# "Using the API documentation in docs/api/rust/dojo/api_skeleton.md,
-#  create user-friendly documentation for the World trait..."
-```
+For API documentation, read the underlying source code in `src/`
 
 #### CLI Documentation (Reference)
-```bash
-# Generate CLI help output for reference
-cd src/katana
-cargo run -- --help > ../../docs/temp/katana-help.txt
 
-# Combine with API docs for comprehensive CLI documentation
-# Reference docs/api/rust/katana/ for implementation details
+For CLI documentation, check current `--help` outputs:
+
+```bash
+torii --help
+katana --help
+sozo --help
 ```
 
-#### Tutorial Updates
-```bash
-# Use API docs to verify tutorial accuracy:
-# 1. Check function signatures against docs/api/
-# 2. Validate code examples with generated API documentation
-# 3. Update examples to match current API
+For Torii configuration options, check the full default configuration options by running:
+
+```
+torii -w 0 --dump-config default.toml # Dumps default configuration to default.toml
 ```
 
 ### 5.2 Follow Documentation Standards
@@ -242,76 +232,6 @@ For each code example:
 3. **Check expected output** matches reality
 4. **Ensure examples are minimal** but complete
 
-### 6.4 Review with Team
-- Create pull request with changes
-- Request review from relevant team members
-- Address feedback and iterate
-
-## Step 7: Deployment and Maintenance
-
-### 7.1 Update Submodule References and API Documentation
-```bash
-# Regenerate API documentation with latest submodule versions
-./scripts/generate-api-docs.sh
-
-# Commit submodule updates AND generated API docs
-git add .
-git commit -m "Update submodules and regenerate API documentation
-
-Submodule updates:
-- dojo: updated to [commit-hash]
-- katana: updated to [commit-hash]
-- torii: updated to [commit-hash]
-
-API documentation updates:
-- Regenerated docs/api/ with latest APIs
-- Updated Rust API skeletons using ruskel
-- Updated Cairo documentation with scarb doc
-
-Documentation changes:
-- [List major changes]
-- [New features documented]
-- [Breaking changes addressed]"
-```
-
-**Note:** The `docs/api/` directory should be committed to git as it provides:
-- **Stable API reference** for documentation contributors
-- **LLM context** that doesn't require local compilation
-- **Historical tracking** of API changes over time
-
-### 7.2 Deploy Documentation
-```bash
-# Push changes
-git push origin main
-
-# Documentation will auto-deploy via CI/CD
-# Monitor deployment status
-```
-
-### 7.3 Post-Deployment Verification
-1. **Check live site** at https://book.dojoengine.org/
-2. **Verify search functionality** works with new content
-3. **Test major user paths** (tutorials, getting started)
-4. **Monitor for user feedback** and bug reports
-
-## Step 8: Schedule Regular Updates
-
-### 8.1 Weekly Reviews (Recommended)
-- Update submodules to latest commits
-- Review recent changes for documentation impact
-- Address community feedback and bug reports
-
-### 8.2 Release Cycle Updates (Required)
-- Major documentation updates for each Dojo release
-- Update version numbers and compatibility information
-- Review and update installation instructions
-
-### 8.3 Quarterly Audits (Recommended)
-- Complete review of all documentation
-- Update outdated examples and references
-- Reorganize content based on user feedback
-- Plan improvements to documentation structure
-
 ## Troubleshooting
 
 ### Common Issues
@@ -354,9 +274,6 @@ pnpm run dev
 ```bash
 # Update all submodules
 git submodule update --remote
-
-# Generate API documentation (NEW!)
-./scripts/generate-api-docs.sh
 
 # Start development server
 pnpm run dev
