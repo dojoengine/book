@@ -200,11 +200,10 @@ export const routes = [
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/toolchain/torii" },
+					{ text: "Configuration", link: "/toolchain/torii/configuration" },
 					{ text: "Graphql API", link: "/toolchain/torii/graphql" },
 					{ text: "gRPC API", link: "/toolchain/torii/grpc" },
 					{ text: "SQL API", link: "/toolchain/torii/sql" },
-					{ text: "Configuration", link: "/toolchain/torii/configuration" },
-					{ text: "CLI reference", link: "/toolchain/torii/cli" },
 				],
 			},
 			{

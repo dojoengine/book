@@ -108,7 +108,6 @@ This will install Torii and the required dependencies at `~/.cargo/bin/`
 
 ## Next Steps
 
-- **[Configuration Guide](/toolchain/torii/configuration.md)**: Learn how to configure Torii for your deployment
+- **[Configuration Guide](/toolchain/torii/configuration.md)**: Learn how to configure Torii with TOML files and CLI arguments
 - **[GraphQL API](/toolchain/torii/graphql.md)**: Explore the GraphQL interface for flexible data queries
 - **[gRPC API](/toolchain/torii/grpc.md)**: Use the high-performance gRPC interface
-- **[CLI Reference](/toolchain/torii/cli.md)**: Complete command-line options reference

@@ -14,6 +14,30 @@ Torii supports TOML configuration files for complex deployments. Configuration p
 3. **Environment variables**
 4. **Default values** (lowest)
 
+## CLI Usage
+
+Most configuration options can be passed as command-line arguments.
+Use `torii --help` to see the exact CLI argument names:
+
+```sh
+# Basic usage
+torii --world 0x1234...
+
+# Configuration options via CLI
+torii --world 0x1234... \
+  --http.cors_origins "*" \
+  --indexing.controllers \
+  --indexing.polling_interval 1000
+
+# Using configuration file (recommended for complex setups)
+torii --config torii_prod.toml
+
+# See command-line options
+torii --help
+```
+
+For complex deployments, using a configuration file is recommended over lengthy command lines.
+
 ## Configuration Sections
 
 ### Basic Configuration
@@ -228,7 +252,7 @@ rpc = "http://0.0.0.0:5050"
 
 [indexing]
 polling_interval = 100        # Fast updates (vs default 500ms)
-pending = true          # Include pending txs
+pending = true                # Include pending txs
 
 [server]
 http_cors_origins = ["*"]     # Allow all origins
@@ -246,7 +270,7 @@ db_dir = "/var/lib/torii/production"
 [indexing]
 polling_interval = 1000       # Conservative polling (vs default 500ms)
 max_concurrent_tasks = 200    # Scale for load (vs default 100)
-pending = false         # Stability over speed
+pending = false               # Stability over speed
 
 [sql]
 cache_size = -2000000         # 2GB cache in KiB (vs default -500MB)
