@@ -2,7 +2,8 @@
 
 ## Overview
 
-This style guide ensures consistency, clarity, and accessibility across all Dojo documentation. Follow these guidelines to create documentation that serves both newcomers to on-chain gaming and experienced Cairo developers.
+This style guide ensures consistency, clarity, and accessibility across all Dojo documentation.
+Follow these guidelines to create documentation that serves both newcomers to on-chain gaming and experienced Cairo developers.
 
 ## Voice and Tone
 
@@ -13,6 +14,7 @@ This style guide ensures consistency, clarity, and accessibility across all Dojo
 - **Concise**: Deliver only the information needed to accomplish the goal
 - **Plain language**: Avoid unnecessary jargon; explain technical terms when first introduced
 - **Emphasize contrasts**: When explaining concepts, emphasize how ideas relate and contrast to each other
+- **Sentences and newlines**: Every sentence should be written on its own line in the markdown file
 
 ### Tone Guidelines
 - **Helpful and encouraging**: Assume readers want to succeed

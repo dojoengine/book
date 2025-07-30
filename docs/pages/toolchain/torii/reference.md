@@ -1,203 +1,423 @@
 ---
-title: Torii Reference Guide
-description: Complete reference documentation for Torii, including usage, configuration options, database setup, and command-line parameters.
+title: Torii CLI Reference
+description: Complete command-line reference for Torii, including all configuration options organized by functional area.
 ---
 
-## torii reference
+# Torii CLI Reference
 
-### Name
+Torii is an automatic indexer and API server for Dojo worlds.
+It monitors the sequencer for world-related transactions, processes ECS state changes, and provides GraphQL/gRPC APIs for client access.
 
-torii - An automatic indexer and networking layer for a world contract.
+The indexer continuously polls the specified RPC endpoint for new blocks, extracts world-related events (model updates, system calls, token transfers), and stores the processed data in a SQLite database.
+The API servers run concurrently, providing real-time access to the indexed data.
 
-### USAGE
+:::info
+These is the reference for [Torii v1.6.0](https://github.com/dojoengine/torii/releases/tag/v1.6.0).
+Other versions may have different options.
+:::
+
+## Usage
 
 ```sh
 torii [OPTIONS]
 ```
 
-### DESCRIPTION
+## Core Options
 
-`torii` starts the indexer and exposes GraphQL/gRPC API endpoints. The indexer queries the specified Starknet RPC endpoint for transaction blocks and listens for transactions related to the world contract. These transactions can include component/system registrations, entity state updates, system calls, and events. The parsed data is then stored in a local SQLite database.
+### General Options
 
-The GraphQL and gRPC API endpoints run in tandem with the indexer, providing custom queries specific to the world contract for client applications.
+**`-h, --help`**
 
-#### Database URL
+Display help information.
 
-`torii` uses a sqlite database to store indexed data. The database can be stored either in-memory or persistently on the filesystem.
+**`-V, --version`**
 
--   The in-memory database is ephemeral and only lasts as long as the indexer is running. This is a fast and simple option to start the indexer for development/testing.
--   Persistent storage should be used in production. It relies on the local filesystem for storage.
+Display version information.
 
-Note: If using in-memory db, the memory will be garbage collected after a period of inactivity, causing queries to result in errors. Workaround is to use a persistent database.
+### World Configuration
+
+**`-w, --world <WORLD_ADDRESS>`**
+
+The world contract address to index.
+This is the primary World contract deployed by your Dojo project.
+
+*Environment variable: `DOJO_WORLD_ADDRESS`*
+
+**`--rpc <URL>`**
+
+Starknet RPC endpoint URL for blockchain data fetching.
+
+*Default: `http://0.0.0.0:5050`*
+
+### Database Configuration
+
+**`--db-dir <PATH>`**
+
+SQLite database file path.
+If the directory doesn't exist, it will be created.
+Without this option, Torii uses an in-memory database.
+
+*Example: `--db-dir ./indexer.db`*
+
+**`--config <CONFIG>`**
+
+Path to TOML configuration file. See [Configuration Guide](/toolchain/torii/config_file.md) for details.
+
+**`--dump-config <DUMP_CONFIG>`**
+
+Optional path to dump the current configuration to a file.
+
+## Runner Options
+
+**`--runner.explorer`**
+
+Automatically open the World Explorer in your default browser when Torii starts.
+
+**`--runner.check_contracts`**
+
+Check if contracts are deployed before starting Torii.
+
+## Indexing Options
+
+### Event Processing
+
+**`--indexing.events_chunk_size <SIZE>`**
+
+Number of events to fetch from the sequencer in each request.
+
+*Default: 1024*
+
+**`--indexing.blocks_chunk_size <SIZE>`**
+
+Number of blocks to process before committing changes to the database.
+
+*Default: 10240*
+
+**`--indexing.polling_interval <MS>`**
+
+Polling interval in milliseconds for checking new events.
+
+*Default: 500*
+
+**`--indexing.max_concurrent_tasks <COUNT>`**
+
+Maximum number of concurrent tasks for processing parallelizable events.
+
+*Default: 100*
+
+### Content Selection
+
+**`--indexing.pending`**
+
+Whether to index pending blocks (not yet finalized).
+
+**`--indexing.transactions`**
+
+Whether to index and store world transactions in the database.
+
+**`--indexing.namespaces <NAMESPACES>`**
+
+Comma-separated list of world namespaces to index.
+If empty, all namespaces are indexed.
+
+**`--indexing.world_block <BLOCK_NUMBER>`**
+
+Block number to start indexing from.
+
+*Default: 0*
+
+:::warning
+Starting from a later block may break token indexing, which requires full chain history.
+:::
+
+**`--indexing.contracts <CONTRACTS>`**
+
+ERC contract addresses to index (ERC20, ERC721, ERC1155 only).
+
+*Format: `erc20:0x1234,erc721:0x5678`*
+
+**`--indexing.controllers`**
+
+Whether to index Cartridge controller contracts.
+
+**`--indexing.models <MODELS>`**
+
+The models of the world that Torii should index.
+If empty, all models will be indexed.
+
+**`--indexing.strict_model_reader`**
+
+Read models only from their registration block onwards, ensuring strict consistency.
+
+**`--indexing.batch_chunk_size <BATCH_CHUNK_SIZE>`**
+
+The chunk size to use for batch requests.
+This is used to split requests into smaller chunks to avoid overwhelming the provider.
+
+*Default: 1024*
+
+## Server Options
+
+### HTTP Server
+
+**`--http.addr <ADDRESS>`**
+
+HTTP server listening interface.
+
+*Default: `127.0.0.1`*
+
+**`--http.port <PORT>`**
+
+HTTP server listening port.
+
+*Default: 8080*
+
+**`--http.cors_origins <ORIGINS>`**
+
+Comma-separated list of allowed CORS origins.
+
+*Example: `"http://localhost:3000,https://app.example.com"`*
+
+## Database Optimization
+
+### SQL Configuration
+
+**`--sql.page_size <SIZE>`**
+
+SQLite page size in bytes.
+Must be a power of two between 512 and 65536.
+
+*Default: 32768*
+
+**`--sql.cache_size <SIZE>`**
+
+SQLite cache size.
+Positive values specify pages, negative values specify KiB.
+
+*Default: -500000 (500MB)*
+
+**`--sql.all_model_indices`**
+
+Create indices on all model table columns by default.
+If false, only key fields are indexed.
+
+**`--sql.model_indices <INDICES>`**
+
+Specify custom indices for specific models.
+
+*Example: `"model_name:field1,field2;another_model:field3,field4"`*
+
+**`--sql.historical <MODELS>`**
+
+Models to treat as historical during indexing (comma-separated).
+
+**`--sql.hooks <HOOKS>`**
+
+A set of SQL statements to execute after specific events.
+
+**`--sql.migrations <PATH>`**
+
+A directory containing custom migrations to run.
+
+**`--sql.wal_autocheckpoint <WAL_AUTOCHECKPOINT>`**
+
+The pages interval to autocheckpoint for SQLite WAL mode.
+
+*Default: 10000*
+
+**`--sql.busy_timeout <BUSY_TIMEOUT>`**
+
+The timeout in milliseconds before the database is considered busy.
+Helpful when the database is locked for extended periods.
+
+*Default: 60000*
+
+## Event Processing
+
+**`--events.raw`**
+
+Whether to store raw blockchain events in the database.
+
+## ERC Token Options
+
+**`--erc.max_metadata_tasks <COUNT>`**
+
+Maximum concurrent tasks for indexing ERC721/ERC1155 token metadata.
+
+*Default: 100*
+
+**`--artifacts-path <PATH>`**
+
+Directory path for storing ERC token artifacts.
+
+## P2P Relay Options
+
+### Network Ports
+
+**`--relay.port <PORT>`**
+
+Port for Libp2p TCP & UDP QUIC transports.
+
+*Default: 9090*
+
+**`--relay.webrtc_port <PORT>`**
+
+Port for Libp2p WebRTC transport.
+
+*Default: 9091*
+
+**`--relay.websocket_port <PORT>`**
+
+Port for Libp2p WebSocket transport.
+
+*Default: 9092*
+
+### Identity and Security
+
+**`--relay.local_key_path <PATH>`**
+
+Path to local identity key file.
+If not specified, a new identity is generated.
+
+**`--relay.cert_path <PATH>`**
+
+Path to certificate file for WebRTC connections.
+Auto-generated if not provided.
+
+**`--relay.peers <PEERS>`**
+
+Comma-separated list of other Torii relays to connect and sync with.
+
+## Snapshot Options
+
+**`--snapshot.url <URL>`**
+
+The snapshot URL to download for bootstrapping the database.
+
+**`--snapshot.version <VERSION>`**
+
+Optional version of the Torii the snapshot was made from.
+Used to warn about version mismatches.
+
+## HTTPS/TLS Options
+
+**`--http.tls_cert_path <PATH>`**
+
+Path to the SSL certificate file (.pem).
+If provided, the server will use HTTPS instead of HTTP.
+
+**`--http.tls_key_path <PATH>`**
+
+Path to the SSL private key file (.pem).
+Required when tls_cert_path is provided.
+
+**`--http.mkcert`**
+
+Use mkcert to automatically generate and install local development certificates for HTTPS.
+Creates certificates for `localhost` and `127.0.0.1`.
+
+## gRPC Advanced Options
+
+**`--grpc.subscription_buffer_size <SUBSCRIPTION_BUFFER_SIZE>`**
+
+The buffer size for the subscription channel.
+
+*Default: 256*
+
+**`--grpc.optimistic`**
+
+Whether to broadcast optimistic updates to subscribers.
+If enabled, subscribers receive updates for events not yet committed to the database.
+
+**`--grpc.tcp_keepalive_interval <TCP_KEEPALIVE_INTERVAL>`**
+
+TCP keepalive interval in seconds for gRPC connections.
+Set to 0 to disable.
+
+*Default: 60*
+
+**`--grpc.http2_keepalive_interval <HTTP2_KEEPALIVE_INTERVAL>`**
+
+HTTP/2 keepalive interval in seconds for gRPC connections.
+Set to 0 to disable.
+
+*Default: 30*
+
+**`--grpc.http2_keepalive_timeout <HTTP2_KEEPALIVE_TIMEOUT>`**
+
+HTTP/2 keepalive timeout in seconds.
+How long to wait for keepalive ping responses.
+
+*Default: 10*
+
+## Monitoring Options
+
+**`--metrics`**
+
+Enable Prometheus metrics server.
+
+**`--metrics.addr <ADDRESS>`**
+
+Metrics server listening address.
+
+*Default: `127.0.0.1`*
+
+**`--metrics.port <PORT>`**
+
+Metrics server listening port.
+
+*Default: 9200*
+
+## Database Storage
+
+Torii uses SQLite for data storage with two deployment modes:
+
+### In-Memory Database (Development)
+
+- **Usage**: Default mode when no `--db-dir` is specified
+- **Pros**: Fast startup, no disk I/O overhead
+- **Cons**: Data lost on restart, memory garbage collection issues
+- **Best for**: Development, testing, temporary indexing
+
+### Persistent Database (Production)
 
 ```sh
-# Persistent database storage using file indexer.db
-torii --db-dir indexer.db
+torii --world <WORLD_ADDRESS> --db-dir ./torii.db
 ```
 
-### Quick help reference:
+- **Usage**: Specify `--db-dir <PATH>` for persistent storage
+- **Pros**: Data survives restarts, better for production
+- **Cons**: Disk I/O overhead, requires filesystem access
+- **Best for**: Production deployments, long-running indexers
 
+## Examples
+
+### Development Setup
+
+```sh
+# Basic development indexer with in-memory database
+torii --world 0x1234...abcd
+
+# Development with persistent database and explorer
+torii --world 0x1234...abcd --db-dir ./dev-db --explorer
 ```
-Usage: torii [OPTIONS]
 
-Options:
-  -h, --help
-          Print help (see a summary with '-h')
+### Production Configuration
 
-  -V, --version
-          Print version
+```sh
+# Production indexer with optimized settings
+torii --world 0x1234...abcd \
+  --db-dir ./production-db \
+  --config production.toml \
+  --metrics \
+  --http.cors_origins "https://app.example.com"
+```
 
-Torii general options:
-  -w, --world <WORLD_ADDRESS>
-          The world to index
+### Custom Indexing Scope
 
-          [env: DOJO_WORLD_ADDRESS=]
-
-      --rpc <URL>
-          The sequencer rpc endpoint to index
-
-          [default: http://0.0.0.0:5050]
-
-      --db-dir <PATH>
-          Database filepath. If specified directory doesn't exist, it will be created. Defaults to in-memory database.
-
-      --explorer
-          Open World Explorer on the browser.
-
-      --config <CONFIG>
-          Configuration file to setup Torii.
-
-Indexing options:
-      --indexing.events_chunk_size <EVENTS_CHUNK_SIZE>
-          Chunk size of the events page to fetch from the sequencer.
-
-          [default: 1024]
-
-      --indexing.blocks_chunk_size <BLOCKS_CHUNK_SIZE>
-          Number of blocks to process before commiting to DB.
-
-          [default: 10240]
-
-      --indexing.pending
-          Whether or not to index pending blocks.
-
-      --indexing.polling_interval <POLLING_INTERVAL>
-          Polling interval in ms for Torii to check for new events.
-
-          [default: 500]
-
-      --indexing.max_concurrent_tasks <MAX_CONCURRENT_TASKS>
-          Maximum number of concurrent tasks processing parallelizable events.
-
-          [default: 100]
-
-      --indexing.transactions
-          Whether or not to index world transactions and keep them in the database.
-
-      --indexing.contracts <CONTRACTS>
-          ERC contract addresses to index. You may only specify ERC20 or ERC721 contracts.
-
-      --indexing.namespaces <NAMESPACES>
-          The namespaces of the world that torii should index. If empty, all namespaces will be indexed.
-
-      --indexing.world_block <WORLD_BLOCK>
-          The block number to start indexing the world from.
-
-          Warning: In the current implementation, this will break the indexing of tokens, if any. Since the tokens require the chain to be indexed from the beginning, to ensure correct balance updates.
-
-          [default: 0]
-
-      --indexing.controllers
-          Whether or not to index Cartridge controllers.
-
-      --indexing.strict_model_reader
-          Whether or not to read models from the block number they were registered in.
-
-Events indexing options:
-      --events.raw
-          Whether or not to index raw events.
-
-ERC options:
-      --erc.max_metadata_tasks <MAX_METADATA_TASKS>
-          The maximum number of concurrent tasks to use for indexing ERC721 and ERC1155 token metadata.
-
-          [default: 10]
-
-      --artifacts-path <ARTIFACTS_PATH>
-          Path to a directory to store ERC artifacts
-
-SQL options:
-      --sql.all_model_indices
-          If true, creates indices on all columns of model tables by default. If false, only key fields columns of model tables will have indices.
-
-      --sql.model_indices <MODEL_INDICES>
-          Specify which fields should have indices for specific models. Format: "model_name:field1,field2;another_model:field3,field4"
-
-      --sql.historical <HISTORICAL>
-          Models that are going to be treated as historical during indexing.
-
-      --sql.page_size <PAGE_SIZE>
-          The page size to use for the database. The page size must be a power of two between 512 and 65536 inclusive.
-
-          [default: 32768]
-
-      --sql.cache_size <CACHE_SIZE>
-          The cache size to use for the database. A positive value determines a number of pages, a negative value determines a number of KiB.
-
-          [default: -500000]
-
-Metrics options:
-      --metrics
-          Enable metrics.
-
-          For now, metrics will still be collected even if this flag is not set. This only controls whether the metrics server is started or not.
-
-      --metrics.addr <ADDRESS>
-          The metrics will be served at the given address
-
-          [default: 127.0.0.1]
-
-      --metrics.port <PORT>
-          The metrics will be served at the given port
-
-          [default: 9200]
-
-HTTP server options:
-      --http.addr <ADDRESS>
-          HTTP server listening interface
-
-          [default: 127.0.0.1]
-
-      --http.port <PORT>
-          HTTP server listening port
-
-          [default: 8080]
-
-      --http.cors_origins <HTTP_CORS_ORIGINS>
-          Comma separated list of domains from which to accept cross origin requests
-
-Relay options:
-      --relay.port <PORT>
-          Port to serve Libp2p TCP & UDP Quic transports.
-
-          [default: 9090]
-
-      --relay.webrtc_port <PORT>
-          Port to serve Libp2p WebRTC transport.
-
-          [default: 9091]
-
-      --relay.websocket_port <PORT>
-          Port to serve Libp2p WebRTC transport.
-
-          [default: 9092]
-
-      --relay.local_key_path <PATH>
-          Path to a local identity key file. If not specified, a new identity will be generated.
-
-      --relay.cert_path <PATH>
-          Path to a local certificate file. If not specified, a new certificate will be generated for WebRTC connections.
-
-      --relay.peers <PEERS>
-          A list of other torii relays to connect to and sync with.
+```sh
+# Index specific namespaces and ERC contracts
+torii --world 0x1234...abcd \
+  --indexing.namespaces "game,marketplace" \
+  --indexing.contracts "erc20:0x5678...,erc721:0x9abc..."
 ```

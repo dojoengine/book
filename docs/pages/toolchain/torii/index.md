@@ -1,48 +1,114 @@
 ---
-title: Introduction to Torii
-description: Overview of Torii, an automatic indexer and client for Dojo worlds, featuring GraphQL and gRPC APIs for efficient world state management.
+title: Torii
+description: Comprehensive indexing engine for Dojo worlds, providing real-time ECS data synchronization and multiple API interfaces for game clients.
 ---
 
 ![katana](/torii-icon-word.png)
 
-Torii is an automatic indexer and client for dojo worlds. Built in rust to be blazingly fast and exceptionally scalable. Torii provides a fully typed, dynamically generated GraphqQL interface and a high performance gRPC api for binding clients to the world state. There are two parts to torii, the client and the server.
+# Torii
 
-### Torii Server
+Torii is the official indexing engine for Dojo worlds, designed to provide real-time synchronization between on-chain game state and client applications.
+Built in Rust for performance and reliability, Torii automatically tracks all changes to your game's Entity Component System (ECS) data and makes it accessible through multiple API interfaces.
 
-The torii server comprises of the rust backend that exposes the graphql and gRPC endpoints.
+## Architecture Overview
 
-<!-- ### Torii Client
+### Core Components
 
-Torii client interfaces with the server to provide an easy to use api for your clients:
+Torii operates as a multi-layered system that bridges the gap between Starknet blockchain data and client applications:
 
-- [wasm](/client/dojojs.md#dojoenginetorii-wasm)
-- [unity](/client/sdk/unity.md)
-- [c](/client/sdk/unity.md) -->
+**Indexing Engine**: The core component that continuously monitors the blockchain for events related to your Dojo world.
+It processes transactions, extracts ECS state changes, and maintains a synchronized local database.
 
-### Usage
+**Storage Layer**: A high-performance SQLite database that stores indexed world state, including entities, models, events, and metadata.
+The database schema is dynamically generated based on your world's model definitions.
 
-Torii leverages world introspection to bootstrap directly from an onchain deployment. Simply run:
+**API Layer**: Multiple interfaces for accessing indexed data:
+- **[GraphQL API](/toolchain/torii/graphql.md)**: Provides a flexible, typed interface with real-time subscriptions
+- **[gRPC API](/toolchain/torii/grpc.md)**: High-performance binary protocol for efficient data fetching
+- **[SQL Endpoint](/toolchain/torii/sql.md)**: Direct database access for custom queries
+
+### Data Flow
+
+1. **World Introspection**: Torii automatically discovers your world's structure by reading model and system registrations from the World contract
+2. **Event Processing**: Monitors for Dojo-specific events (`StoreSetRecord`, `StoreUpdateRecord`, `StoreDelRecord`, etc.) and ERC token transfers
+3. **ECS Synchronization**: Translates blockchain events into ECS entity and component updates
+4. **Real-time Broadcasting**: Propagates changes to connected clients via GraphQL subscriptions
+
+### Scaling and Performance
+
+Torii is designed for production deployment with several performance optimizations:
+
+- **Parallel Processing**: Events are processed concurrently using a task manager system
+- **Efficient Batching**: Blockchain data is fetched in configurable chunks to optimize RPC usage
+- **Caching Layer**: In-memory caches reduce database load and improve query performance
+- **Database Optimization**: Configurable indices and query optimization for large datasets
+
+## Getting Started
+
+### Quick Start
+
+Torii leverages world introspection to bootstrap directly from an on-chain deployment:
 
 ```sh
-torii --world <World Address>
+torii --world <WORLD_ADDRESS>
 ```
 
-You'll have a GraphQL API running at `http://localhost:8080/graphql` and a gRPC api at `http://localhost:8080`
+This starts Torii with default settings:
+- GraphQL API at `http://localhost:8080/graphql`
+- gRPC API at `http://localhost:8080`
+- In-memory database (for development)
+
+### Production Configuration
+
+For production deployments, use persistent storage and custom configuration:
+
+```sh
+torii --world <WORLD_ADDRESS> --db-dir ./torii-db --config torii_prod.toml
+```
 
 ## Installation
 
-The `torii` binary can be installed via [`dojoup`](/installation.mdx), our dedicated installation package manager.
-
-### Installing from Source
-
-If you prefer to install from the source code:
+Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
 
 ```sh
-cargo install --path ./bin/torii --profile local --force
+curl -L https://install.dojoengine.org | bash
+
+# Restart your terminal
+
+dojoup install
 ```
 
-This will install Torii and the required dependencies on your local system.
+:::note
+Dojoup is designed to automatically synchronize compatible versions of Dojo, Katana, and Torii
+:::
 
-> 📚 **Reference**
->
-> See the [`torii` Reference](/toolchain/torii/reference.md) for a complete reference.
+### Installing with `asdf`
+
+If you prefer to install with the `asdf` version manager:
+
+```sh
+asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
+
+asdf install torii latest
+```
+
+### Building from Source
+
+If you prefer to build from the source code:
+
+```sh
+git clone https://github.com/dojoengine/torii.git
+
+cargo install --path ./torii/bin/torii --profile local --force
+```
+
+:::note
+This will install Torii and the required dependencies at `~/.cargo/bin/`
+:::
+
+## Next Steps
+
+- **[Configuration Guide](/toolchain/torii/config_file.md)**: Learn how to configure Torii for your deployment
+- **[GraphQL API](/toolchain/torii/graphql.md)**: Explore the GraphQL interface for flexible data queries
+- **[gRPC API](/toolchain/torii/grpc.md)**: Use the high-performance gRPC interface
+- **[CLI Reference](/toolchain/torii/reference.md)**: Complete command-line options reference
