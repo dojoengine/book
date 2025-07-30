@@ -106,7 +106,8 @@ fields = ["external_score", "external_level"]
 
 ### Monitoring & Metrics
 
-Prometheus metrics and observability:
+Prometheus metrics and observability.
+If enabled, metrics will be served at the `/metrics` endpoint.
 
 ```toml
 [metrics]
@@ -121,6 +122,10 @@ raw = false                   # Store raw blockchain events (development only)
 :::info
 [Prometheus](https://prometheus.io/) is an open-source monitoring and alerting system that collects metrics from applications and stores them in a time-series database.
 When enabled, Torii exposes metrics like indexing performance, database query times, and system resource usage at the `/metrics` endpoint.
+:::
+
+:::tip
+When deploying Torii with [Slot](https://docs.cartridge.gg/slot), monitoring is enabled by default.
 :::
 
 ### P2P Relay
