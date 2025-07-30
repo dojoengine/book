@@ -69,10 +69,10 @@ Tools that frequently update with new features and CLI changes.
 | Component | Location | Review Type | Priority | Dependencies | Review Frequency |
 |-----------|----------|-------------|----------|--------------|------------------|
 | **Torii Overview** | `/docs/pages/toolchain/torii/index.md` | Accuracy, Examples | Critical | `src/toolchain/torii` source | Every release |
-| **Torii Reference** | `/docs/pages/toolchain/torii/reference.md` | CLI Accuracy, Options | Critical | CLI implementation | Every release |
+| **Torii Reference** | `/docs/pages/toolchain/torii/cli.md` | CLI Accuracy, Options | Critical | CLI implementation | Every release |
 | **Torii GraphQL** | `/docs/pages/toolchain/torii/graphql.md` | API Accuracy, Examples | Critical | GraphQL schema | Every release |
 | **Torii gRPC** | `/docs/pages/toolchain/torii/grpc.md` | API Accuracy, Examples | High | gRPC implementation | Every release |
-| **Torii Config File** | `/docs/pages/toolchain/torii/config_file.md` | Configuration, Examples | High | Config format | Every release |
+| **Torii Config File** | `/docs/pages/toolchain/torii/configuration.md` | Configuration, Examples | High | Config format | Every release |
 | **Torii SQL** | `/docs/pages/toolchain/torii/sql.md` | Query Examples, Accuracy | High | SQL interface | Every release |
 
 ### Sozo Documentation

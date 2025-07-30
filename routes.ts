@@ -203,8 +203,8 @@ export const routes = [
 					{ text: "Graphql API", link: "/toolchain/torii/graphql" },
 					{ text: "gRPC API", link: "/toolchain/torii/grpc" },
 					{ text: "SQL API", link: "/toolchain/torii/sql" },
-					{ text: "Configuration file", link: "/toolchain/torii/config_file" },
-					{ text: "CLI reference", link: "/toolchain/torii/reference" },
+					{ text: "Configuration", link: "/toolchain/torii/configuration" },
+					{ text: "CLI reference", link: "/toolchain/torii/cli" },
 				],
 			},
 			{

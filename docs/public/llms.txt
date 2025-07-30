@@ -133,6 +133,6 @@
 ## Torii
 
 - [GraphQL in Torii](https://www.dojoengine.org/toolchain/torii/graphql): Guide to using Torii's GraphQL API, including schema definitions, queries, transactions, and pagination features.
-- [Torii Reference](https://www.dojoengine.org/toolchain/torii/reference): Complete reference documentation for Torii, including usage, configuration options, database setup, and command-line parameters.
+- [Torii Reference](https://www.dojoengine.org/toolchain/torii/cli): Complete reference documentation for Torii, including usage, configuration options, database setup, and command-line parameters.
 - [gRPC in Torii](https://www.dojoengine.org/toolchain/torii/grpc): Overview of using gRPC with Torii for efficient data fetching and entity/model event subscriptions.
-- [Torii configuration file](https://www.dojoengine.org/toolchain/torii/config_file): Comprehensive guide to configuring Torii using TOML configuration files, including server, relay, indexing, and event options.
+- [Torii configuration file](https://www.dojoengine.org/toolchain/torii/configuration): Comprehensive guide to configuring Torii using TOML configuration files, including server, relay, indexing, and event options.

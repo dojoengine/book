@@ -61,7 +61,7 @@ Without this option, Torii uses an in-memory database.
 
 **`--config <CONFIG>`**
 
-Path to TOML configuration file. See [Configuration Guide](/toolchain/torii/config_file.md) for details.
+Path to TOML configuration file. See [Configuration Guide](/toolchain/torii/configuration.md) for details.
 
 **`--dump-config <DUMP_CONFIG>`**
 
