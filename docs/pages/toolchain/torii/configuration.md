@@ -42,18 +42,20 @@ For complex deployments, using a configuration file is recommended over lengthy 
 
 ### Basic Configuration
 
-Essential settings for getting Torii running:
+Basic settings for getting Torii running:
 
 ```toml
-# Required: World contract to index
-world_address = "0x01b2e..."
+world = "0x01b2e..."            # World contract to index (optional as of Torii 1.6.1)
 
-# Required: Starknet RPC endpoint
-rpc = "https://api.cartridge.gg/x/starknet/mainnet"
+rpc = "http://0.0.0.0:5050"     # Sequencer RPC endpoint (default: http://0.0.0.0:5050)
 
-# Optional: Persistent database (omit for in-memory)
-db_dir = "torii.db"
+db_dir = "torii.db"             # Persistent database (omit for in-memory)
 ```
+
+:::info
+AS of Torii 1.6.0, the World address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
+Under the hood, a value passed to `world` is simply appended to the `contracts` array.
+:::
 
 ### Runner Configuration
 
@@ -65,32 +67,19 @@ explorer = false              # Open World Explorer in browser (default: false)
 check_contracts = false       # Verify contracts before starting (default: false)
 ```
 
-### Server Configuration
-
-HTTP API and network settings:
-
-```toml
-[server]
-http_addr = "127.0.0.1"      # Listen address (default: 127.0.0.1)
-http_port = 8080             # API port
-http_cors_origins = [ "*" ]  # CORS allowed origins
-
-# Optional: HTTPS with TLS certificates
-tls_cert_path = "/etc/ssl/torii.crt"
-tls_key_path = "/etc/ssl/torii.key"
-```
-
 ### Indexing Configuration
 
 Control what data to index and how:
 
 ```toml
 [indexing]
-# Performance tuning
-events_chunk_size = 1024        # Events per RPC request (default: 1024)
-blocks_chunk_size = 10240       # Blocks per DB commit (default: 10240)
-polling_interval = 500          # Check interval in ms (default: 500)
-max_concurrent_tasks = 100      # Parallel processing (default: 100)
+# Contracts to index
+contracts = [
+    "WORLD:0xab931...",
+    "WORLD:0xc34da...",
+    "ERC20:0x023f8e...",
+    "ERC721:0xfe8a1...",
+]
 
 # Content selection
 pending = false                 # Include pending transactions
@@ -99,23 +88,38 @@ namespaces = ["game", "market"] # Specific namespaces only (empty = all)
 models = ["Position", "Move"]   # Specific models only (empty = all)
 world_block = 0                 # Starting block number (default: 0)
 
+# Performance tuning
+events_chunk_size = 1024        # Events per RPC request (default: 1024)
+blocks_chunk_size = 10240       # Blocks per DB commit (default: 10240)
+polling_interval = 500          # Check interval in ms (default: 500)
+max_concurrent_tasks = 100      # Parallel processing (default: 100)
+
 # Advanced options
 controllers = true              # Index Cartridge controllers (default: false)
 strict_model_reader = false     # Read models from registration block (default: false)
 batch_chunk_size = 1024         # Batch request chunk size (default: 1024)
 
-# ERC token contracts to index
-contracts = [
-    "erc20:0x049d3...",         # Tokens
-    "erc721:0x05dbd..."         # NFTs
-]
+[events]
+raw = false                     # Store raw blockchain events (dev only)
 ```
 
 :::tip
 Most Dojo development will set `controllers = true`
 :::
 
-### Database Optimization
+### ERC Configuration
+
+Token indexing settings:
+
+```toml
+[erc]
+max_metadata_tasks = 100    # Concurrent metadata tasks (default: 100)
+
+# Optional: ERC artifacts storage
+artifacts_path = "/path/to/artifacts"
+```
+
+### SQL Configuration
 
 SQLite performance and indexing settings:
 
@@ -149,18 +153,6 @@ model_tag = "game-Player"
 fields = ["external_score", "external_level"]
 ```
 
-### ERC Configuration
-
-Token indexing settings:
-
-```toml
-[erc]
-max_metadata_tasks = 100    # Concurrent metadata tasks (default: 100)
-
-# Optional: ERC artifacts storage
-artifacts_path = "/path/to/artifacts"
-```
-
 ### Snapshot Configuration
 
 Snapshot loading options:
@@ -172,7 +164,7 @@ url = "https://example.com/snapshot.tar.gz"
 version = "1.0.0"
 ```
 
-### Monitoring Configuration
+### Metrics Configuration
 
 Prometheus metrics and observability.
 If enabled, metrics will be served at the `/metrics` endpoint.
@@ -182,9 +174,6 @@ If enabled, metrics will be served at the `/metrics` endpoint.
 metrics = true                  # Enable /metrics endpoint
 metrics_addr = "127.0.0.1"      # Metrics server address
 metrics_port = 9200             # Metrics port
-
-[events]
-raw = false                     # Store raw blockchain events (dev only)
 ```
 
 :::info
@@ -195,6 +184,21 @@ When enabled, Torii exposes metrics like indexing performance, database query ti
 :::tip
 When deploying Torii with [Slot](https://docs.cartridge.gg/slot), monitoring is enabled by default.
 :::
+
+### Server Configuration
+
+HTTP API and network settings:
+
+```toml
+[server]
+http_addr = "127.0.0.1"      # Listen address (default: 127.0.0.1)
+http_port = 8080             # API port
+http_cors_origins = [ "*" ]  # CORS allowed origins
+
+# Optional: HTTPS with TLS certificates
+tls_cert_path = "/etc/ssl/torii.crt"
+tls_key_path = "/etc/ssl/torii.key"
+```
 
 ### P2P Relay Configuration
 
