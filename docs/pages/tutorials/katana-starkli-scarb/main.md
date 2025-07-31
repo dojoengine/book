@@ -1,6 +1,6 @@
 # Deploy your Cairo smart contract using Katana. Advanced Tutorial
 
-_Before starting recommend following the [`Interact with katana`](/toolchain/katana/interact.md) chapter to gain a basic understanding of katana, starkli and scarb._
+_Before starting, we recommend following the [Katana Getting Started guide](/toolchain/katana#getting-started) to gain a basic understanding of katana, starkli and scarb._
 
 ## Contract Deployment and Interaction
 

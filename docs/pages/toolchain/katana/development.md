@@ -24,7 +24,7 @@ katana --block-time 10000
 
 ### On-demand Mining
 
-On-demand mining is another mode of mining that allows users to manually create a new block. This mode is useful for testing purposes or when you want to create a block at a specific time. New blocks can only be created by calling the [`generateBlock`](/toolchain/katana/rpc) RPC method of the `dev` namespace.
+On-demand mining is another mode of mining that allows users to manually create a new block. This mode is useful for testing purposes or when you want to create a block at a specific time. New blocks can only be created by calling the [`generateBlock`](/toolchain/katana/reference#dev-namespace) RPC method of the `dev` namespace.
 
 In on-demand mining mode, transactions will be executed after receiving them but blocks will not be mined until you have called the `generateBlock` RPC method. Upon calling it, a new block will be created and all the pending transactions will be included in it.
 
@@ -109,10 +109,10 @@ The RPC methods are categorized into the following namespaces:
 
 | Namespace                                    | Description |
 | -------------------------------------------- | ----------- |
-| [`starknet`](/toolchain/katana/rpc/starknet) | -           |
-| [`katana`](/toolchain/katana/rpc/katana)     | -           |
-| [`torii`](/toolchain/katana/rpc/torii)       | -           |
-| [`dev`](/toolchain/katana/rpc/dev)           | -           |
+| [`starknet`](/toolchain/katana/reference#starknet-namespace) | Standard Starknet RPC methods |
+| [`katana`](/toolchain/katana/reference#katana-namespace)     | Katana-specific endpoints     |
+| [`torii`](/toolchain/katana/reference#torii-namespace)       | Torii integration methods    |
+| [`dev`](/toolchain/katana/reference#dev-namespace)           | Development utilities         |
 
 Each RPC methods can be invoked by prefixing the method name with the namespace name and an underscore. For example, the `getTransactions` method in the `torii` namespace can be invoked as `torii_getTransactions`.
 
