@@ -116,88 +116,11 @@ export const routes = [
 				text: "Katana",
 				collapsed: true,
 				items: [
-					{
-						text: "Overview",
-						link: "/toolchain/katana",
-					},
-					{
-						text: "CLI references",
-						link: "/toolchain/katana/cli",
-						collapsed: true,
-						items: [
-							{
-								text: "katana",
-								link: "/toolchain/katana/cli/katana",
-							},
-							{
-								text: "katana db",
-								link: "/toolchain/katana/cli/db/",
-								collapsed: true,
-								items: [
-									{
-										text: "katana db stats",
-										link: "/toolchain/katana/cli/db/stats",
-									},
-								],
-							},
-							{
-								text: "katana completions",
-								link: "/toolchain/katana/cli/completions",
-							},
-						],
-					},
-					{
-						text: "JSON-RPC",
-						link: "/toolchain/katana/rpc",
-						collapsed: true,
-						items: [
-							{
-								text: "starknet",
-								link: "/toolchain/katana/rpc/starknet",
-							},
-							{
-								text: "katana",
-								link: "/toolchain/katana/rpc/katana",
-							},
-							{
-								text: "torii",
-								link: "/toolchain/katana/rpc/torii",
-							},
-							{
-								text: "dev",
-								link: "/toolchain/katana/rpc/dev",
-							},
-						],
-					},
-					{
-						text: "Mining modes",
-						link: "/toolchain/katana/mining",
-					},
-					{ text: "Forking", link: "/toolchain/katana/forking" },
-					{ text: "Genesis", link: "/toolchain/katana/genesis" },
-					{
-						text: "Execution engine",
-						link: "/toolchain/katana/execution",
-					},
-					{ text: "Storage", link: "/toolchain/katana/storage" },
-					{
-						text: "Transaction types",
-						link: "/toolchain/katana/transactions",
-					},
-					{
-						text: "Messaging",
-						link: "/toolchain/katana/messaging",
-					},
-					{ text: "Interact", link: "/toolchain/katana/interact" },
-					{
-						text: "Configuration file",
-						link: "/toolchain/katana/config_file",
-					},
-					{ text: "Introduction", link: "/toolchain/katana/index-new" },
-					{ text: "Configuration Guide", link: "/toolchain/katana/configuration-new" },
-					{ text: "Development Features", link: "/toolchain/katana/development-new" },
-					{ text: "CLI and RPC Reference", link: "/toolchain/katana/reference-new" },
-					{ text: "Advanced Features", link: "/toolchain/katana/advanced-new" },
+					{ text: "Overview", link: "/toolchain/katana" },
+					{ text: "Configuration Guide", link: "/toolchain/katana/configuration" },
+					{ text: "Development Features", link: "/toolchain/katana/development" },
+					{ text: "CLI and RPC Reference", link: "/toolchain/katana/reference" },
+					{ text: "Advanced Features", link: "/toolchain/katana/advanced" },
 				],
 			},
 			{
@@ -205,10 +128,10 @@ export const routes = [
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/toolchain/torii" },
-					{ text: "Configuration", link: "/toolchain/torii/configuration" },
-					{ text: "Graphql API", link: "/toolchain/torii/graphql" },
-					{ text: "gRPC API", link: "/toolchain/torii/grpc" },
-					{ text: "SQL API", link: "/toolchain/torii/sql" },
+					{ text: "Configuration Guide", link: "/toolchain/torii/configuration" },
+					{ text: "Graphql API Reference", link: "/toolchain/torii/graphql" },
+					{ text: "gRPC API Reference", link: "/toolchain/torii/grpc" },
+					{ text: "SQL API Reference", link: "/toolchain/torii/sql" },
 				],
 			},
 			{
