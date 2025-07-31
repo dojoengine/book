@@ -79,7 +79,11 @@ dojoup install
 ```
 
 :::note
-Dojoup is designed to automatically synchronize compatible versions of Dojo, Katana, and Torii
+This will install the `torii` binary at `~/.dojo/bin`
+:::
+
+:::tip
+Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
 :::
 
 ### Installing with `asdf`
@@ -92,6 +96,10 @@ asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
 asdf install torii latest
 ```
 
+:::note
+This will install the `torii` binary at `~/.asdf/shims`
+:::
+
 ### Building from Source
 
 If you prefer to build from the source code:
@@ -103,7 +111,7 @@ cargo install --path ./torii/bin/torii --profile local --force
 ```
 
 :::note
-This will install Torii and the required dependencies at `~/.cargo/bin/`
+This will install the `torii` binary at `~/.cargo/bin`
 :::
 
 ## Next Steps
