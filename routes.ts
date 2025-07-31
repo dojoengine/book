@@ -193,6 +193,11 @@ export const routes = [
 						text: "Configuration file",
 						link: "/toolchain/katana/config_file",
 					},
+					{ text: "Introduction", link: "/toolchain/katana/index-new" },
+					{ text: "Configuration Guide", link: "/toolchain/katana/configuration-new" },
+					{ text: "Development Features", link: "/toolchain/katana/development-new" },
+					{ text: "CLI and RPC Reference", link: "/toolchain/katana/reference-new" },
+					{ text: "Advanced Features", link: "/toolchain/katana/advanced-new" },
 				],
 			},
 			{
