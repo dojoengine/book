@@ -6,4 +6,4 @@ The `verify` command enables debugging experience on [Walnut](https://walnut.dev
 sozo walnut verify
 ```
 
-For more details, refer to [Walnut documentation](https://docs.walnut.dev/debug-dojo-with-walnut).
+For more details, refer to [Walnut documentation]( https://docs.walnut.dev/overview/debug-dojo-with-walnut).
