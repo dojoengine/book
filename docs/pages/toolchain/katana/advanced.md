@@ -5,234 +5,252 @@ description: Guide to advanced Katana features including execution engines, cros
 
 # Advanced Features
 
-This page covers advanced Katana features and concepts for production deployments and complex development scenarios.
+This page explores advanced Katana capabilities for production deployments, complex integration scenarios, and sophisticated development workflows.
+These features enable enterprise-grade blockchain infrastructure and cross-chain interoperability.
 
-## Execution Engines
+## Execution Architecture
 
-**Source: execution.md**
+Katana's execution engine handles transaction processing and state management through a modular architecture built on the Blockifier library.
+This system provides high-performance Cairo contract execution with configurable validation and invocation limits.
 
-Execution engine is the transaction-executing component in the Katana sequencer. It is responsible for processing transactions and updating the state of the Starknet contracts. Currently, Katana only supports the `blockifier` execution engine.
+### Blockifier Integration
+
+Katana uses Starknet's **Blockifier** library as its core execution engine.
+The Blockifier provides:
+
+- **Cairo VM execution** for contract logic processing
+- **State transition management** with Merkle tree updates
+- **Fee calculation and validation** for transaction costs
+- **Resource tracking** for gas usage and execution steps
+
+### Execution Configuration
+
+Configure execution parameters for different environments:
+
+```bash
+# Production limits
+katana --validate-max-steps 1000000 --invoke-max-steps 10000000
+
+# Development with relaxed limits
+katana --dev --validate-max-steps 5000000 --invoke-max-steps 50000000
+```
+
+### Performance Considerations
+
+**Validation Steps**: Control computational limits for account validation logic.
+Higher limits allow more complex validation but increase resource usage.
+
+**Invocation Steps**: Set maximum Cairo steps for contract function execution.
+Production environments should use conservative limits to prevent DoS attacks.
+
+**Memory Management**: The execution engine uses LRU caching for compiled contract classes.
+Native compilation can significantly improve execution performance for compute-intensive contracts.
+
+:::tip
+Monitor execution metrics to optimize step limits for your specific workload.
+Use `--metrics` to track Cairo steps processed and execution times.
+:::
 
 ## Cross-Layer Messaging
 
-**Source: messaging.md**
+Cross-layer messaging enables communication between Katana and external blockchain networks, supporting L1 ↔ L2 message passing for complex multi-chain applications.
+This system allows contracts on Katana to interact with Ethereum mainnet or other Starknet networks.
 
-Katana also allows users to perform L1 <-> L2 integration using the messaging feature. There are two types of messaging service supported by Katana:
+### Supported Settlement Chains
 
-1. _Ethereum_
-2. _Starknet_ (**experimental**)
+**Ethereum Integration**: Production-ready messaging with Ethereum mainnet or testnets.
+Messages are sent directly to L1 contracts without requiring block proof verification, enabling faster development cycles.
 
-If configured to _Ethereum_ messaging, Katana will listen/send messages on an Ethereum chain. This type of messaging behaves similar to the canonical Starknet sequencer with the exception that messages from L2 -> L1 will be sent directly to the settlement chain for consumption, instead of having to wait for the corresponding blocks of the messages to be proven on the settlement chain (which in reality would be a very time consuming process).
+**Starknet Integration**: Experimental feature for Starknet-to-Starknet messaging.
+This creates a hierarchical Starknet architecture where Katana acts as an L3 settling to another Starknet L2.
 
-The _Starknet_ messaging, however, is an experimental feature that allows Katana to listen/send messages on a Starknet chain. It attempts to replicate the behaviour of Ethereum messaging but with a Starknet chain as the settlement layer. This is achieved by having Katana listen to the Starknet chain for new blocks and then sending the messages to the settlement chain for consumption. This is an experimental and opinionated feature, and is not recommended for production use.
+:::warning
+Starknet messaging is experimental and not recommended for production use.
+Use Ethereum messaging for production deployments.
+:::
 
-### Messaging Configuration
+### Configuration Setup
 
-```sh
-katana --messaging path/to/messaging/config.json
+Enable messaging by providing a configuration file:
+
+```bash
+katana --messaging messaging_config.json
 ```
 
-The messaging config file is a JSON file that contains the following fields:
+**Configuration Structure**:
 
 ```json
 {
-    /// The type of messaging service to use. Can be either "ethereum" or "starknet".
-    "chain": "ethereum",
-    /// The RPC-URL of the settlement chain.
-    "rpc_url": "http://127.0.0.1:8545",
-    /// The messaging-contract address on the settlement chain.
-    "contract_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    /// The address to use for settling messages. It should be a valid address that
-    /// can be used to send a transaction on the settlement chain.
-    "sender_address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    /// The private key associated to `sender_address`.
-    "private_key": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
-    /// The interval, in seconds, at which the messaging service will fetch and settle messages
-    /// from/to the settlement chain.
-    "interval": 2,
-    /// The block on settlement chain from where Katana will start fetching messages.
-    "from_block": 0
+  "chain": "ethereum",
+  "rpc_url": "https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY",
+  "contract_address": "0x5FbDB...",
+  "sender_address": "0xf39Fd...",
+  "private_key": "0xac097...",
+  "interval": 5,
+  "from_block": 18500000
 }
 ```
 
-For a comprehensive example demonstrating how to implement and test message passing between Starknet and Ethereum in a local development environment, please refer to the code and setup instructions provided in the [starknet-messaging-dev](https://github.com/glihm/starknet-messaging-dev) repository.
+**Configuration Parameters**:
 
-## Settlement
+- **`chain`**: Settlement chain type (`"ethereum"` or `"starknet"`)
+- **`rpc_url`**: RPC endpoint for the settlement chain
+- **`contract_address`**: Messaging contract address on settlement chain
+- **`sender_address`**: Account address for sending settlement transactions
+- **`private_key`**: Private key for the sender account (keep secure!)
+- **`interval`**: Message polling interval in seconds
+- **`from_block`**: Starting block for message synchronization
 
-**Source: settlement.md**
+### Message Flow Architecture
 
-_Coming soon_
+**L2 → L1 Messages**:
+1. Contract calls `send_message_to_l1()` on Katana
+2. Message is queued in Katana's message pool
+3. Messaging service polls for new messages
+4. Messages are relayed to L1 messaging contract
+5. L1 contract can consume messages immediately
 
-## Working with Standard Starknet Tools
+**L1 → L2 Messages**:
+1. L1 contract calls messaging bridge
+2. Katana polls L1 for new messages
+3. Messages are delivered to target L2 contracts
+4. L2 contracts process messages via `l1_handler` functions
 
-Katana is a full Starknet sequencer, compatible with all standard Starknet development tools. This section demonstrates deploying and interacting with Cairo contracts using starkli, showing Katana's compatibility beyond the Dojo ecosystem.
+### Example Implementation
 
-:::note
-For Dojo projects, use [Sozo](/toolchain/sozo) for deployment and interaction. This tutorial is for deploying standard Cairo contracts or testing non-Dojo contracts on Katana.
+See the [starknet-messaging-dev](https://github.com/glihm/starknet-messaging-dev) repository for a complete example demonstrating:
+- L1 ↔ L2 message passing implementation
+- Local development setup with Anvil and Katana
+- Contract examples for both layers
+- Testing workflows for cross-chain interactions
+
+## Chain Initialization and Settlement
+
+Katana provides `katana init` for initializing new blockchain networks with configurable settlement layers.
+This enables deployment of rollup chains that settle to Starknet networks or sovereign chains with data availability layers.
+
+### Settlement Models
+
+**Rollup Settlement**: Deploy a rollup chain that settles to Starknet mainnet or testnet.
+State commitments and proofs are verified on the settlement layer using fact registry contracts.
+
+**Sovereign Chain**: Initialize an independent blockchain that publishes state updates to a data availability layer without settlement verification.
+
+### Chain Initialization
+
+Initialize a new rollup settling to Starknet mainnet:
+
+```bash
+katana init \
+  --id "my_rollup" \
+  --settlement-chain mainnet \
+  --settlement-account-address 0x123... \
+  --settlement-account-private-key 0xabc... \
+  --output-path ./chain-config
+```
+
+Initialize a sovereign chain:
+
+```bash
+katana init \
+  --sovereign \
+  --id "my_sovereign_chain" \
+  --output-path ./chain-config
+```
+
+### Configuration Parameters
+
+**Chain Identity**:
+- `--id`: Unique chain identifier (required, must be valid ASCII)
+- `--output-path`: Directory for generated configuration files
+
+**Settlement Configuration**:
+- `--settlement-chain`: Target settlement network (`mainnet`, `sepolia`, or custom)
+- `--settlement-account-address`: Account address for settlement operations
+- `--settlement-account-private-key`: Private key for settlement account
+- `--settlement-facts-registry`: Custom fact registry contract address
+
+**Contract Deployment**:
+- `--settlement-contract`: Pre-deployed settlement contract address (optional)
+- `--settlement-contract-deployed-block`: Block number of contract deployment
+- If no contract address provided, init will deploy a new settlement contract
+
+### Settlement Chain Options
+
+**Starknet Mainnet**: Production settlement with maximum security.
+Uses Herodotus Atlantic Fact Registry for proof verification.
+
+**Starknet Sepolia**: Testnet settlement for development and testing.
+Lower cost alternative with same security model.
+
+**Custom Settlement**: Specify custom RPC endpoint and fact registry.
+Requires `--settlement-facts-registry` parameter.
+
+### Generated Configuration
+
+The init process creates configuration files in the specified output directory:
+
+```
+chain-config/
+├── genesis.json          # Genesis state and allocations
+├── config.toml           # Chain configuration parameters
+└── messaging.json        # Cross-layer messaging setup
+```
+
+### Example Workflow
+
+1. **Prepare Settlement Account**: Create and fund an account on the settlement chain
+2. **Initialize Chain**: Run `katana init` with appropriate parameters
+3. **Review Configuration**: Examine generated config files and adjust as needed
+4. **Launch Network**: Start Katana using the generated configuration
+5. **Monitor Settlement**: Track settlement transactions and proof submissions
+
+:::tip
+Use Sepolia testnet for initial development and testing before moving to mainnet settlement.
+This allows you to validate your rollup configuration without mainnet costs.
 :::
 
-### Prerequisites
+## Starknet Toolchain Integration
 
-Before starting, ensure you have the required tools installed:
+Katana provides full compatibility with the standard Starknet development ecosystem, enabling seamless integration with existing workflows and tooling.
+This allows developers to use familiar tools like Starkli for contract deployment and interaction on local Katana networks.
 
-- **Katana**: Available via [`dojoup`](/installation.mdx)
-- **Starkli**: Install with `curl https://get.starkli.sh | sh && starkliup`
-- **Scarb**: Install with `curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh`
+### Starkli Integration
 
-### Contract Deployment Workflow
+Starkli includes built-in support for Katana networks with pre-configured account integration.
 
-#### 1. Start Katana
-
-Launch Katana with fees disabled for development:
+**Installing Starkli**:
 
 ```bash
+curl https://get.starkli.sh | sh && starkliup
+```
+
+**Environment Setup**:
+
+```bash
+# Start Katana with development accounts
 katana --dev --dev.no-fee
+
+# Configure Starkli environment
+export STARKNET_ACCOUNT=katana-0 # Pre-funded account
+export STARKNET_RPC=http://127.0.0.1:5050
 ```
 
-After starting, Katana automatically generates and deploys pre-funded accounts that can be used with starkli.
-
-#### 2. Configure Starkli Environment
-
-Starkli supports built-in accounts for Katana. Set up environment variables for easier command execution:
+**Contract Interaction**:
 
 ```bash
-export STARKNET_ACCOUNT=katana-0        # Pre-funded account
-export STARKNET_RPC=http://0.0.0.0:5050 # Local Katana endpoint
+# Deploy a Scarb build artifact
+starkli declare contract.sierra.json
+
+# Deploy contract instance
+starkli deploy <CLASS_HASH> <CONSTRUCTOR_ARGS>
+
+# Call contract functions
+starkli call <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
+starkli invoke <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
 ```
 
-#### 3. Create and Compile Contract
-
-Create a simple storage contract for testing:
-
-```bash
-scarb new simple_storage
-cd simple_storage
-```
-
-Add Starknet dependencies to `Scarb.toml`:
-
-```toml
-[dependencies]
-starknet = "2.5.4"
-
-[[target.starknet-contract]]
-```
-
-Replace `src/lib.cairo` with a simple storage contract:
-
-```rust
-#[starknet::interface]
-trait ISimpleStorage<TContractState> {
-    fn set(ref self: TContractState, x: u128);
-    fn get(self: @TContractState) -> u128;
-}
-
-#[starknet::contract]
-mod SimpleStorage {
-    use starknet::get_caller_address;
-    use starknet::ContractAddress;
-
-    #[storage]
-    struct Storage {
-        stored_data: u128
-    }
-
-    #[abi(embed_v0)]
-    impl SimpleStorage of super::ISimpleStorage<ContractState> {
-        fn set(ref self: ContractState, x: u128) {
-            self.stored_data.write(x);
-        }
-        fn get(self: @ContractState) -> u128 {
-            self.stored_data.read()
-        }
-    }
-}
-```
-
-Compile the contract:
-
-```bash
-scarb build
-```
-
-#### 4. Declare Contract
-
-Declare the contract on Katana to register the class:
-
-```bash
-starkli declare target/dev/simple_storage_SimpleStorage.contract_class.json
-```
-
-This returns a class hash that uniquely identifies your contract class:
-
-```console
-Class hash declared:
-0x07ad2516dd66fb2e274e78d4357837cad689c9fffaa347feb9800b231b37b306
-```
-
-#### 5. Deploy Contract Instance
-
-Deploy an instance of the contract using the class hash:
-
-```bash
-starkli deploy 0x07ad2516dd66fb2e274e78d4357837cad689c9fffaa347feb9800b231b37b306
-```
-
-This returns the deployed contract address:
-
-```console
-Contract deployed:
-0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e
-```
-
-#### 6. Interact with Contract
-
-Call the contract to read state (no transaction required):
-
-```bash
-starkli call 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e get
-```
-
-Returns the current stored value (initially zero):
-
-```console
-[
-    "0x0000000000000000000000000000000000000000000000000000000000000000"
-]
-```
-
-Invoke the contract to modify state (creates a transaction):
-
-```bash
-starkli invoke 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e set 42
-```
-
-Verify the state change:
-
-```bash
-starkli call 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e get
-```
-
-Returns the updated value:
-
-```console
-[
-    "0x000000000000000000000000000000000000000000000000000000000000002a"
-]
-```
-
-### Key Benefits
-
-- **Full Starknet Compatibility**: Use any standard Starknet tool with Katana
-- **Rapid Testing**: Deploy and test contracts instantly with pre-funded accounts
-- **Mainnet Preparation**: Validate contract behavior before costly mainnet deployment
-- **Non-Dojo Contracts**: Test contracts that don't use the Dojo framework
-
-### When to Use This Approach
-
-- Testing standard Cairo contracts outside the Dojo ecosystem
-- Validating contract interactions before mainnet deployment
-- Learning Starknet development fundamentals
-- Integrating with existing Starknet tooling and workflows
-
-For Dojo game development, use [Sozo's deployment commands](/toolchain/sozo) instead, which provide specialized functionality for ECS worlds and game contracts.
+:::note
+[Sozo](/toolchain/sozo) is the preferred build and deployment for Dojo development.
+Starkli integration is useful for standard Cairo contracts and production validation workflows.
+:::
