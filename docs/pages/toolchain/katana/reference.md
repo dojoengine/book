@@ -1,299 +1,59 @@
 ---
-title: Katana CLI and RPC Reference
-description: Complete reference documentation for all Katana command-line options, subcommands, and JSON-RPC methods.
+title: JSON-RPC API Reference
+description: Complete reference documentation for Katana's JSON-RPC methods and supported transaction types.
 ---
 
-# CLI and RPC Reference
+# JSON-RPC API Reference
 
-This page provides complete reference documentation for Katana's command-line interface and JSON-RPC API.
+This page provides complete reference documentation for Katana's JSON-RPC API and supported transaction types.
 
-## JSON-RPC Interface
+Katana provides a comprehensive RPC interface for interacting with your local blockchain.
+The RPC server runs on `http://127.0.0.1:5050` by default and supports both HTTP and WebSocket transports by default.
 
-Katana provides a comprehensive RPC interface for interacting with your local blockchain. The RPC server runs on `http://127.0.0.1:5050` by default and supports both HTTP and WebSocket transports.
+## RPC Method Namespaces
 
-### RPC Namespaces
+The RPC methods are categorized into the following namespaces:
 
 | Namespace | Description | Use Case |
 | --------- | ----------- | -------- |
 | [`starknet`](#starknet-namespace) | Standard Starknet RPC methods | Contract calls, transaction queries |
-| [`katana`](#katana-namespace) | Katana-specific endpoints | Node configuration, account info |
-| [`torii`](#torii-namespace) | Torii integration methods | ECS entity/component queries |
 | [`dev`](#dev-namespace) | Development utilities | Block mining, time control, debugging |
+| [`cartridge`](#cartridge-namespace) | Cartridge-specific methods | Paymaster and external execution |
 
-### Example: The Dev Namespace
+Each RPC method can be invoked by prefixing the method name with the namespace name and an underscore.
+For example, the `generateBlock` method in the `dev` namespace can be invoked as `dev_generateBlock`.
 
-The `dev` namespace provides powerful tools for controlling your local blockchain during development:
+:::note
+Torii provides its own separate gRPC server queries and does not integrate with Katana's JSON-RPC interface.
+See the [Torii documentation](/toolchain/torii) for Torii's API reference.
+:::
 
-#### Manual Block Mining
+### Common Development Workflow
 
-Generate blocks on-demand when using `--no-mining` mode:
-
-```bash
-curl -X POST http://127.0.0.1:5050 \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":1}'
-```
-
-#### Time Control
-
-Set the timestamp for the next block to test time-dependent logic:
+Here's a typical workflow using the dev namespace for testing:
 
 ```bash
-curl -X POST http://127.0.0.1:5050 \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"dev_setNextBlockTimestamp","params":[1703875200],"id":1}'
-```
-
-#### Account Management
-
-Create additional funded accounts during development:
-
-```bash
-curl -X POST http://127.0.0.1:5050 \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"dev_predeployAccount","params":[],"id":1}'
-```
-
-### Common Development Patterns
-
-**Testing Time-Dependent Contracts:**
-```bash
-# Set specific timestamp, generate block, then test contract
+# 1. Get predeployed accounts
 curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"dev_setNextBlockTimestamp","params":[1704067200],"id":1}'
+  -d '{"jsonrpc":"2.0","method":"dev_predeployedAccounts","params":[],"id":1}'
 
+# 2. Set specific timestamp for time-dependent testing
 curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":2}'
+  -d '{"jsonrpc":"2.0","method":"dev_setNextBlockTimestamp","params":[1704067200],"id":2}'
+
+# 3. Generate block with transactions
+curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":3}'
 ```
-
-**Batch Testing with Manual Mining:**
-1. Start Katana with `--no-mining`
-2. Execute multiple transactions
-3. Generate a single block containing all transactions
-4. Verify batch results
-
-## Main Command
-
-**Source: cli/katana.md**
-
-### NAME
-
-`katana` - Create a local Starknet sequencer for deploying and developing Starknet smart contracts.
-
-### USAGE
-
-```sh
-katana [OPTIONS] [COMMAND]
-```
-
-### OPTIONS
-
-#### General Options
-
-`--silent`
-&nbsp;&nbsp;&nbsp;&nbsp; Don't print anything on startup.
-
-`--no-mining`
-&nbsp;&nbsp;&nbsp;&nbsp; Disable auto and interval mining, and mine on demand instead via an endpoint.
-
-`-b, --block-time <MILLISECONDS>`
-&nbsp;&nbsp;&nbsp;&nbsp; Block time in milliseconds for interval mining.
-
-`--db-dir <PATH>`
-&nbsp;&nbsp;&nbsp;&nbsp; Directory path of the database to initialize from.
-
-`--messaging <PATH>`
-&nbsp;&nbsp;&nbsp;&nbsp; Configure the messaging with an other chain.
-
-`-V, --version`
-&nbsp;&nbsp;&nbsp;&nbsp; Print version information.
-
-`-h, --help`
-&nbsp;&nbsp;&nbsp;&nbsp; Print help (see more with '--help').
-
-#### Server Options
-
-`--http.addr <ADDRESS>`
-&nbsp;&nbsp;&nbsp;&nbsp; HTTP-RPC server listening interface. [default: 127.0.0.1]
-
-`--http.port <PORT>`
-&nbsp;&nbsp;&nbsp;&nbsp; HTTP-RPC server listening port. [default: 5050]
-
-`--http.corsdomain <HTTP_CORS_ORIGINS>`
-&nbsp;&nbsp;&nbsp;&nbsp; Comma separated list of domains from which to accept cross origin requests.
-
-`--rpc.max-connections <COUNT>`
-&nbsp;&nbsp;&nbsp;&nbsp; Maximum number of concurrent connections allowed. [default: 100]
-
-#### Logging Options
-
-`--log.format <FORMAT>`
-&nbsp;&nbsp;&nbsp;&nbsp; Log format to use. [default: full] [possible values: json, full]
-
-#### Metrics Options
-
-`--metrics`
-&nbsp;&nbsp;&nbsp;&nbsp; Enable metrics.
-
-`--metrics.addr <ADDRESS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The metrics will be served at the given address. [default: 127.0.0.1]
-
-`--metrics.port <PORT>`
-&nbsp;&nbsp;&nbsp;&nbsp; The metrics will be served at the given port. [default: 9100]
-
-#### Environment Options
-
-`--chain-id <CHAIN_ID>`
-&nbsp;&nbsp;&nbsp;&nbsp; The chain ID.
-
-`--validate-max-steps <VALIDATE_MAX_STEPS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the account validation logic. [default: 1000000]
-
-`--invoke-max-steps <INVOKE_MAX_STEPS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The maximum number of steps available for the account execution logic. [default: 10000000]
-
-`--genesis <GENESIS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The genesis configuration file.
-
-#### Gas Price Oracle Options
-
-`--gpo.l1-eth-gas-price <WEI>`
-&nbsp;&nbsp;&nbsp;&nbsp; The L1 ETH gas price (denominated in wei). [default: 0]
-
-`--gpo.l1-strk-gas-price <FRI>`
-&nbsp;&nbsp;&nbsp;&nbsp; The L1 STRK gas price (denominated in fri). [default: 0]
-
-`--gpo.l1-eth-data-gas-price <WEI>`
-&nbsp;&nbsp;&nbsp;&nbsp; The L1 ETH data gas price (denominated in wei). [default: 0]
-
-`--gpo.l1-strk-data-gas-price <FRI>`
-&nbsp;&nbsp;&nbsp;&nbsp; The L1 STRK data gas price (denominated in fri). [default: 0]
-
-#### Forking Options
-
-`--fork.provider <URL>`
-&nbsp;&nbsp;&nbsp;&nbsp; The RPC URL of the network to fork from.
-
-`--fork.block <BLOCK>`
-&nbsp;&nbsp;&nbsp;&nbsp; Fork the network at a specific block id, can either be a hash (0x-prefixed) or a block number.
-
-#### Explorer Options
-
-`--explorer`
-&nbsp;&nbsp;&nbsp;&nbsp; An explorer will be served for your katana node.
-
-`--explorer.addr <ADDRESS>`
-&nbsp;&nbsp;&nbsp;&nbsp; The address to run the explorer frontedn on. [default: 127.0.0.1] 
-
-`--explorer.port <PORT>`
-&nbsp;&nbsp;&nbsp;&nbsp; The port to run the explorer frontend on. [default: 3001] 
-
-#### Development Options
-
-`--dev`
-&nbsp;&nbsp;&nbsp;&nbsp; Enable development mode.
-
-`--dev.seed <SEED>`
-&nbsp;&nbsp;&nbsp;&nbsp; Specify the seed for randomness of accounts to be predeployed. [default: 0]
-
-`--dev.accounts <NUM>`
-&nbsp;&nbsp;&nbsp;&nbsp; Number of pre-funded accounts to generate. [default: 10]
-
-`--dev.no-fee`
-&nbsp;&nbsp;&nbsp;&nbsp; Disable charging fee when executing transactions.
-
-`--dev.no-account-validation`
-&nbsp;&nbsp;&nbsp;&nbsp; Disable account validation when executing transactions.
-
-#### Slot Options
-
-`--config <CONFIG>`
-&nbsp;&nbsp;&nbsp;&nbsp; Configuration file.
-
-## Subcommands
-
-### `katana completions`
-
-**Source: cli/completions.md**
-
-Generates a shell completions script for the `katana` cli for the given supported shells:
-
--   bash
--   elvish
--   fish
--   powershell
--   zsh
-
-#### USAGE
-
-```sh
-katana completions [OPTIONS]
-```
-
-#### EXAMPLES
-
-Generate shell completions script for `bash` and appends it to a `.bashrc` file:
-
-```bash
-katana completions bash >> ~/.bashrc
-```
-
-### `katana db`
-
-**Source: cli/db/index.md**
-
-Utility commands for managing the Katana database:
-
--   [`katana db stats`](#katana-db-stats)
-
-#### `katana db stats`
-
-**Source: cli/db/stats.md**
-
-Dispays database tables information.
-
-##### Usage
-
-```sh
-katana db stats [OPTIONS]
-```
-
-##### Options
-
-`-p, --path <PATH>`
-&nbsp;&nbsp;&nbsp;&nbsp;Path to the database directory [default: ~/.katana/db]
-
-## JSON-RPC API
-
-**Source: rpc/index.md**
-
-### Supported Transport Layers
-
-JSON-RPC is provided on multiple transports. Katana supports HTTP, and WebSocket. Both transports are enabled by default.
-
-### Supported RPC Methods
-
-#### Namespaces
-
-The RPC methods are categorized into the following namespaces:
-
-| Namespace                                    | Description |
-| -------------------------------------------- | ----------- |
-| [`starknet`](#starknet-namespace) | Standard Starknet RPC methods |
-| [`katana`](#katana-namespace)     | Katana-specific endpoints     |
-| [`torii`](#torii-namespace)       | Torii integration methods    |
-| [`dev`](#dev-namespace)           | Development utilities         |
-
-Each RPC methods can be invoked by prefixing the method name with the namespace name and an underscore. For example, the `getTransactions` method in the `torii` namespace can be invoked as `torii_getTransactions`.
 
 ### `starknet` Namespace
 
-**Source: rpc/starknet.md**
-
-Katana supports version **v0.7.1** of the Starknet JSON-RPC specifications. The full documentations for the RPC methods can be found [here](https://github.com/starkware-libs/starknet-specs/tree/v0.7.1).
+Katana supports version **0.8.1** of the Starknet JSON-RPC specification.
+The full documentation for the RPC methods can be found [here](https://github.com/starkware-libs/starknet-specs).
 
 #### Read API
 
+**Block and State Queries:**
 -   `starknet_blockNumber`
 -   `starknet_blockHashAndNumber`
 -   `starknet_getBlockWithTxs`
@@ -301,24 +61,34 @@ Katana supports version **v0.7.1** of the Starknet JSON-RPC specifications. The 
 -   `starknet_getBlockTransactionCount`
 -   `starknet_getBlockWithReceipts`
 -   `starknet_getStateUpdate`
+
+**Transaction Queries:**
 -   `starknet_getTransactionByHash`
 -   `starknet_getTransactionStatus`
 -   `starknet_getTransactionReceipt`
 -   `starknet_getTransactionByBlockIdAndIndex`
 
+**Contract and Storage:**
 -   `starknet_call`
--   `starknet_estimateFee`
--   `starknet_estimateMessageFee`
-
--   `starknet_chainId`
--   `starknet_syncStatus`
-
 -   `starknet_getNonce`
--   `starknet_getEvents`
 -   `starknet_getStorageAt`
+-   `starknet_getStorageProof`
 -   `starknet_getClassHashAt`
 -   `starknet_getClass`
 -   `starknet_getClassAt`
+
+**Events and Messages:**
+-   `starknet_getEvents`
+-   `starknet_getMessagesStatus`
+
+**Network Status:**
+-   `starknet_specVersion`
+-   `starknet_chainId`
+-   `starknet_syncing`
+
+**Fee Estimation:**
+-   `starknet_estimateFee`
+-   `starknet_estimateMessageFee`
 
 #### Write API
 
@@ -332,78 +102,180 @@ Katana supports version **v0.7.1** of the Starknet JSON-RPC specifications. The 
 -   `starknet_simulateTransactions`
 -   `starknet_traceBlockTransactions`
 
-### `katana` Namespace
-
-**Source: rpc/katana.md**
-
-#### `predeployedAccounts`
-
-Get the info for all of the predeployed accounts.
-
-| Method invocation                                          |
-| ---------------------------------------------------------- |
-| `{ "method": "katana_predeployedAccounts", "params": [] }` |
 
 ### `dev` Namespace
 
-**Source: rpc/dev.md**
-
 The `dev` API provides a way to manipulate the blockchain state at runtime. This namespace is only accessible when the `--dev` flag is enabled.
 
-#### `generateBlock`
+#### `dev_generateBlock`
 
 Mines a new block which includes all currently pending transactions.
 
-| Method invocation                                 |
-| ------------------------------------------------- |
-| `{ "method": "dev_generateBlock", "params": [] }` |
+**Method invocation:**
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "dev_generateBlock",
+  "params": [],
+  "id": 1
+}
+```
 
-#### `nextBlockTimestamp`
+#### `dev_nextBlockTimestamp`
 
 Get the timestamp for the next block.
 
-| Method invocation                                      |
-| ------------------------------------------------------ |
-| `{ "method": "dev_nextBlockTimestamp", "params": [] }` |
+**Method invocation:**
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "dev_nextBlockTimestamp",
+  "params": [],
+  "id": 1
+}
+```
 
-#### `increaseNextBlockTimestamp`
+#### `dev_increaseNextBlockTimestamp`
 
 Increase the time for the block by a given amount of time, in seconds.
 
-| Method invocation                                                      |
-| ---------------------------------------------------------------------- |
-| `{ "method": "dev_increaseNextBlockTimestamp", "params": [ amount ] }` |
+**Method invocation:**
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "dev_increaseNextBlockTimestamp",
+  "params": [300],
+  "id": 1
+}
+```
 
-#### `setNextBlockTimestamp`
+#### `dev_setNextBlockTimestamp`
 
 Similar to `dev_increaseNextBlockTimestamp` but takes the exact timestamp that you want in the next block.
 
-| Method invocation                                                    |
-| -------------------------------------------------------------------- |
-| `{ "method": "dev_setNextBlockTimestamp", "params": [ timestamp ] }` |
+**Method invocation:**
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "dev_setNextBlockTimestamp",
+  "params": [1703875200],
+  "id": 1
+}
+```
 
-### `torii` Namespace
+#### `dev_predeployedAccounts`
 
-**Source: rpc/torii.md**
+Get information for all predeployed accounts.
 
-#### `getTransactions`
+**Method invocation:**
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "dev_predeployedAccounts",
+  "params": [],
+  "id": 1
+}
+```
 
-Get a list of transaction in a range.
+**Response:**
+```json
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "address": "0x517eb...",
+      "public_key": "0x1ef15...",
+      "private_key": "0x1800000000300000180000000000030000000000003006001800006600"
+    }
+  ],
+  "id": 1
+}
+```
 
-| Method invocation                                             |
-| ------------------------------------------------------------- |
-| `{ "method": "torii_getTransactions", "params": [ cursor ] }` |
+#### `dev_setStorageAt`
+
+Set storage value at a specific key for a contract address.
+
+**Method invocation:**
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "dev_setStorageAt",
+  "params": [
+    "0x1234...",
+    "0x5678...",
+    "0x9abc..."
+  ],
+  "id": 1
+}
+```
+
+**Parameter descriptions:**
+- `contract_address`: The contract address to modify
+- `key`: The storage key
+- `value`: The value to set
+
+### `cartridge` Namespace
+
+Cartridge-specific methods for paymaster support and external execution in local development.
+
+:::info
+The `cartridge` namespace is only available when Katana is built with the `cartridge` feature enabled.
+:::
+
+#### `cartridge_addExecuteOutsideTransaction`
+
+Execute an outside transaction with paymaster support.
+
+**Method invocation:**
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "cartridge_addExecuteOutsideTransaction",
+  "params": [
+    "0x1234...",
+    {
+      "caller": "0x5678...",
+      "nonce": "0x1",
+      "execute_after": 1234567890,
+      "execute_before": 1234567900,
+      "calls": []
+    },
+    ["0x9abc...", "0xdef0..."]
+  ],
+  "id": 1
+}
+```
+
+**Parameter descriptions:**
+- `address`: Contract address to execute on
+- `outside_execution`: Outside execution object with caller, nonce, timing, and calls
+- `signature`: Array of signature components
+
+:::note
+This API is designed for local development with Cartridge controllers and is not intended for production use.
+:::
 
 ## Supported Transaction Types
 
-**Source: transactions.md**
+Katana aims to follow the Starknet specifications as closely as possible, mimicking the features currently supported on mainnet. Katana currently supports the following Starknet transaction types:
 
-Katana aims to follow the Starknet specifications as closely as possible, and mimics the features that is currently supported on the mainnet. As such, Katana currently supports the following Starknet transaction types:
+| Type | Version | Description |
+| ---- | ------- | ----------- |
+| **INVOKE** | 1, 3 | Execute functions on deployed contracts |
+| **DECLARE** | 1, 2, 3 | Declare contract classes |
+| **DEPLOY_ACCOUNT** | 1, 3 | Deploy new account contracts |
 
-| Type           | Version |
-| -------------- | ------- |
-| INVOKE         | 1, 3    |
-| DECLARE        | 1, 2, 3 |
-| DEPLOY_ACCOUNT | 1, 3    |
+### Transaction Versions
 
-To learn more about the different transaction types, you can refer to the [Starknet documentation](https://docs.starknet.io/documentation/framework_and_concepts/Network_Architecture/transactions).
+**Version 1**: Legacy transaction format with lower gas efficiency.
+
+**Version 3**: Current transaction format with improved gas efficiency and fee estimation. Recommended for new development.
+
+**DECLARE Version 2**: Introduces Sierra compilation for improved contract verification.
+
+:::tip
+Use transaction version 3 for new development to benefit from improved gas efficiency and better fee estimation.
+:::
+
+To learn more about the different transaction types, refer to the [Starknet documentation](https://docs.starknet.io/architecture/transactions/).

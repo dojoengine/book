@@ -5,11 +5,20 @@ description: Complete guide to configuring Katana using TOML files and command-l
 
 # Configuration Guide
 
-Katana supports flexible configuration through TOML files and command-line options. This enables you to customize everything from network settings to gas prices for both development and production deployments.
+Katana supports flexible configuration through TOML files and command-line options.
+This enables you to customize everything from network settings to gas prices for both development and production deployments.
+
+### Configuration Priority
+
+1. **Command-line arguments** (highest)
+2. **Configuration file** (via `--config`)
+3. **Environment variables**
+4. **Default values** (lowest)
 
 ## TOML Configuration
 
-Use a TOML configuration file to define persistent settings for your Katana instance. Pass the configuration file using the `--config` flag:
+Use a TOML configuration file to define persistent settings for your Katana instance.
+Pass the configuration file using the `--config` flag:
 
 ```bash
 katana --config katana_prod.toml
@@ -89,20 +98,110 @@ explorer = false                  # Enable explorer frontend (default: false)
 
 ## Command-Line Options
 
-All TOML configuration options can be overridden using command-line flags. Use `katana --help` for the complete list.
+All TOML configuration options can be overridden using command-line flags.
+Command-line arguments take precedence over configuration file settings.
 
-### Common CLI Usage
+### CLI Usage
+
+Most configuration options can be passed as command-line arguments:
 
 ```bash
-# Development with custom port
-katana --dev --http.port 3000
+# Basic usage
+katana [OPTIONS] [COMMAND]
 
-# Production with persistent storage
+# Development with custom settings
+katana --dev --http.port 3000 --dev.no-fee
+
+# Production with configuration file
 katana --config prod.toml --db-dir ./katana-db
 
 # Fork from mainnet at specific block
 katana --fork.provider https://api.cartridge.gg/x/starknet/mainnet --fork.block 1000000
+
+# Advanced execution limits
+katana --validate-max-steps 2000000 --invoke-max-steps 20000000
 ```
+
+:::tip
+Use `katana --help` for a full command reference.
+:::
+
+### Subcommands
+
+Katana provides several subcommands for specialized operations beyond running the sequencer.
+
+#### `katana completions <SHELL>`
+
+Generate shell completion scripts for improved command-line experience with tab completion and argument suggestions.
+
+**Supported shells:** `bash`, `elvish`, `fish`, `powershell`, `zsh`
+
+**Usage:**
+```bash
+katana completions <SHELL>
+```
+
+**Setup Examples:**
+```bash
+# Bash - add to ~/.bashrc or ~/.bash_profile
+katana completions bash >> ~/.bashrc
+
+# Zsh - add to ~/.zshrc
+katana completions zsh >> ~/.zshrc
+
+# Fish - install to completions directory
+katana completions fish > ~/.config/fish/completions/katana.fish
+```
+
+#### `katana db`
+
+Database utilities for managing persistent Katana storage and diagnostics.
+
+Display database storage information including table sizes, row counts, and storage usage.
+Useful for monitoring database growth and identifying performance bottlenecks.
+
+**Usage:**
+```bash
+katana db stats [--path <PATH>]
+```
+
+**Examples:**
+```bash
+# Check default database location
+katana db stats
+
+# Check specific database path
+katana db stats --path ./my-katana-db
+
+# Monitor production database
+katana db stats --path /var/lib/katana/production
+```
+
+#### `katana init`
+
+Initialize chain configuration for rollup or sovereign blockchain deployment.
+Creates genesis files, chain specifications, and settlement configurations.
+
+**Usage:**
+```bash
+katana init [OPTIONS]
+```
+
+**Common Use Cases:**
+- **Rollup Setup**: Initialize a new rollup that settles to Starknet
+- **Sovereign Chain**: Create an independent blockchain with DA layer
+- **Testing Networks**: Set up reproducible test environments
+
+**Quick Examples:**
+```bash
+# Initialize a rollup settling to Starknet Sepolia
+katana init --id my-rollup --settlement-chain sepolia
+
+# Create a sovereign chain
+katana init --sovereign --id my-chain --output-path ./chain-config
+```
+
+For detailed chain initialization examples and configuration options, see the [Chain Initialization](/toolchain/katana/advanced#chain-initialization-and-settlement) section in the Advanced Features guide.
 
 ## Genesis Configuration
 

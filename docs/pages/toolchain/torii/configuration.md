@@ -5,7 +5,8 @@ description: Comprehensive guide to configuring Torii for production deployments
 
 # Configuration Guide
 
-Torii supports TOML configuration files for complex deployments. Configuration provides structured control over indexing, performance, security, and monitoring settings.
+Torii supports TOML configuration files for complex deployments.
+Configuration provides structured control over indexing, performance, security, and monitoring settings.
 
 ## Configuration Priority
 
@@ -16,8 +17,7 @@ Torii supports TOML configuration files for complex deployments. Configuration p
 
 ## CLI Usage
 
-Most configuration options can be passed as command-line arguments.
-Use `torii --help` to see the exact CLI argument names:
+Most configuration options can be passed as command-line arguments:
 
 ```sh
 # Basic usage
@@ -36,9 +36,13 @@ torii --config torii_prod.toml
 torii --help
 ```
 
+:::info
+Use `torii --help` for a full command reference.
+:::
+
 For complex deployments, using a configuration file is recommended over lengthy command lines.
 
-## Configuration Sections
+## TOML Configuration
 
 ### Basic Configuration
 
