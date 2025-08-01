@@ -131,6 +131,15 @@ git submodule status
 - **Accessibility**: Global audience, screen-reader friendly
 
 ### Development Rules
+- **CRITICAL: One sentence per line**: Always put each sentence on its own line in Markdown files for maintainability and easier editing. This is non-negotiable for all content changes.
+  ```markdown
+  # Correct format:
+  Katana provides flexible mining modes.
+  This allows precise control over block production.
+
+  # Incorrect format:
+  Katana provides flexible mining modes. This allows precise control over block production.
+  ```
 - **Ensure code correctness**: Query the Sensei MCP and source code in src/ for guidance when producing Dojo code samples
 - **Maintain cross-references**: Link related content appropriately
 - **Follow navigation structure**: Use existing routing patterns in `routes.ts`
