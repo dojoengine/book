@@ -5,28 +5,33 @@ description: Guide to Katana's development features including mining modes, stor
 
 # Development Features
 
-This page covers Katana's key development features that make it ideal for local blockchain development and testing.
+Katana provides essential development features designed to streamline local blockchain development and testing workflows.
 
 ## Mining Modes
 
-**Source: mining.md**
+Katana offers flexible block production through different mining modes.
 
-In Katana, mining modes determine how frequent blocks are produced. By default, a new block is automatically created as soon as a transaction is received.
+:::info
+By default, blocks are mined instantly when transactions are received.
+:::
 
 ### Interval Mining
 
-You can switch from the default mining behaviour to interval mining, where a new block is created at a fixed time interval selected by the user. To enable this mode of mining, use the `--block-time <MILLISECONDS>` flag, as demonstrated in the following example.
+Interval mining creates blocks at regular time intervals rather than on each transaction.
+Enable this mode with the `--block-time <MILLISECONDS>` flag:
 
 ```sh
-# Produces a new block for every 10 seconds
+# Produces a new block every 10 seconds
 katana --block-time 10000
 ```
 
 ### On-demand Mining
 
-On-demand mining is another mode of mining that allows users to manually create a new block. This mode is useful for testing purposes or when you want to create a block at a specific time. New blocks can only be created by calling the [`generateBlock`](/toolchain/katana/reference#dev-namespace) RPC method of the `dev` namespace.
+On-demand mining gives you complete control over when blocks are created.
+This mode is ideal for testing scenarios where you need precise timing control.
 
-In on-demand mining mode, transactions will be executed after receiving them but blocks will not be mined until you have called the `generateBlock` RPC method. Upon calling it, a new block will be created and all the pending transactions will be included in it.
+Transactions are processed immediately but remain pending until you manually trigger block creation using the [`generateBlock`](/toolchain/katana/reference#dev-namespace) RPC method.
+When called, all pending transactions are included in the new block.
 
 To enable on-demand mining, use the `--no-mining` flag.
 
@@ -36,22 +41,23 @@ katana --no-mining
 
 ## Storage Modes
 
-**Source: storage.md**
+Katana supports two storage modes to match different development needs:
 
-Katana offers different storage modes to cater to various use cases and requirements. There are two primary storage modes: **in-memory** storage and **persistent** storage.
+**In-Memory (Default)**: All data is stored in RAM and cleared when Katana stops.
+This provides best performance by avoiding disk operations, making it perfect for rapid testing and experimentation.
 
-By default, Katana operates in an **ephemeral mode**, where all data is stored in memory and is not persisted when the process is terminated. Running Katana using in-memory storage offers the fastest performance, as it eliminates the overhead of performing disk I/O operations. Ephemeral mode is suitable for quick testing and experimentation of your Dojo game.
-
-However, Katana also supports persistent storage, allowing the state of the chain to be saved and restored across process restarts. This is particularly useful for scenarios where maintaining the state of the chain is crucial, such as in production environments or performing long-running playtests.
+**Persistent Storage**: Chain state is saved to disk and restored on restart.
+This is useful for production deployments, extended testing sessions, or when you need to preserve complex game states.
 
 ### Persistent Storage
 
-To enable persistent storage, you can use the `--db-dir <PATH>` command-line flag when running Katana. This flag specifies the directory where the database files will be stored. If the specified path points to an empty directory, Katana will create a new database. On the other hand, if the path points to a directory with a previously initialized Katana database, Katana will use the existing database, allowing you to resume from the previous state.
+Enable persistent storage with the `--db-dir <PATH>` flag.
+Katana will create a new database file or load an existing database at the specified location.
 
-::::note
-💡 **NOTE**  
-When Katana is running in "forked" mode, the storage mode currently defaults to in-memory. Persistent storage support for forked mode is not yet available.
-::::
+:::note
+Forked mode only supports in-memory storage.
+Persistent storage for forked networks is not yet available.
+:::
 
 #### Usage Examples
 
@@ -67,241 +73,162 @@ katana --db-dir ./existing-katana-db
 
 ## State Forking
 
-**Source: forking.md**
+State forking lets you create a local copy of any Starknet network, allowing you to test against real deployed contracts without having to manually reconstruct the chain state.
 
-Katana offers a powerful feature called "_forking_," which allows you to interact with the state of another Starknet network as if it were a local network. This feature enables developers to test and interact with smart contracts deployed on live networks without the need to deploy their own contracts or set up test accounts on those networks.
+Configure forking with the `--fork.provider <URL>` flag.
+Katana forks from the latest block by default, or specify a particular block with `--fork.block <BLOCK_NUMBER>`.
 
-To enable the forking feature, you can configure your Katana node by providing a valid RPC provider using the `--rpc-url <URL>` flag. By default, Katana will fork the latest block of the specified network. However, if you wish to fork from a specific block, you can use the `--fork-block-number <BLOCK_NUMBER>` flag to specify the desired block number.
+Once forked, you can:
 
-Once the forking feature is enabled, you can interact with the forked network through Katana as if it were a separate, isolated environment. You can deploy your own smart contracts to the local Katana node and have them interact with the contracts that exist on the forked network. You can then use the accounts predeployed by Katana to simulate interactions with the external network, making it convenient for testing and development purposes.
+- Deploy new contracts that interact with existing live contracts
+- Use pre-funded Katana accounts to simulate user interactions
+- Test complex scenarios without mainnet costs or setup overhead
 
-The forking feature is particularly useful for smart contract developers who want to perform end-to-end tests against contracts already deployed on mainnet or testnet. It eliminates the need to deploy your own contracts on those networks and avoids the hassle of setting up test accounts and funding them, especially when working with the mainnet. By forking the state of the desired network, you can create a local testing environment that closely mimics the live network, allowing you to test your contracts and interactions with confidence.
-
-With Katana's forking feature, developers can streamline their testing and development process, saving time and resources while ensuring the integrity and compatibility of their smart contracts with existing networks.
+This is especially valuable for testing integrations with established protocols or validating contract behavior against real network conditions before mainnet deployment.
 
 :::note
-💡 **NOTE**  
-Currently, the forking feature is limited to only the blockchain states (ie, storage, class definitions, nonces, etc). Support for fetching non-state data (eg., block, transaction, receipt, events) of the forked network through the RPC will be added in the future.
+Forking currently supports blockchain state (storage, classes, nonces) but not historical data (blocks, transactions, receipts, events).
+Full historical data support is planned.
 :::
 
-### Forking Examples
+#### Usage Example
 
-The following command forks the Starknet mainnet at exactly the 1200th block. All the states of the mainnet up until block 1200 will be accessible on your local Katana node. It will then start producing new blocks starting from block 1201.
+Fork Starknet mainnet at a specific block.
+Your local node will have all mainnet state up to that block and continue with new local blocks:
 
 ```sh
-# Forks the network at block 1200
-katana --rpc-url https://starknet-mainnet.infura.io/v3/<YOUR_API_KEY> --fork-block-number 1200
+# Forks mainnet at block 1200
+katana --fork.block 1200 \
+    --fork.provider "https://api.cartridge.gg/x/starknet/mainnet"
 ```
 
-## JSON-RPC Interface
+## Cairo Native Compilation
 
-**Source: rpc/index.md**
+Cairo Native provides significant performance improvements by compiling Cairo programs to native machine code instead of using VM interpretation.
+This optional feature uses MLIR and LLVM for ahead-of-time compilation, offering substantial execution speed gains for compute-intensive contracts.
 
-### Supported Transport Layers
+Native compilation can provide:
 
-JSON-RPC is provided on multiple transports. Katana supports HTTP, and WebSocket. Both transports are enabled by default.
+- **Faster contract execution** through optimized machine code
+- **Reduced CPU overhead** compared to VM interpretation
+- **Better performance scaling** for complex Cairo programs
 
-### Supported RPC Methods
+### Enabling Native Compilation
 
-#### Namespaces
+Cairo Native must be enabled at compile time and runtime:
 
-The RPC methods are categorized into the following namespaces:
-
-| Namespace                                    | Description |
-| -------------------------------------------- | ----------- |
-| [`starknet`](/toolchain/katana/reference#starknet-namespace) | Standard Starknet RPC methods |
-| [`katana`](/toolchain/katana/reference#katana-namespace)     | Katana-specific endpoints     |
-| [`torii`](/toolchain/katana/reference#torii-namespace)       | Torii integration methods    |
-| [`dev`](/toolchain/katana/reference#dev-namespace)           | Development utilities         |
-
-Each RPC methods can be invoked by prefixing the method name with the namespace name and an underscore. For example, the `getTransactions` method in the `torii` namespace can be invoked as `torii_getTransactions`.
-
-## Supported Transaction Types
-
-**Source: transactions.md**
-
-Katana aims to follow the Starknet specifications as closely as possible, and mimics the features that is currently supported on the mainnet. As such, Katana currently supports the following Starknet transaction types:
-
-| Type           | Version |
-| -------------- | ------- |
-| INVOKE         | 1, 3    |
-| DECLARE        | 1, 2, 3 |
-| DEPLOY_ACCOUNT | 1, 3    |
-
-To learn more about the different transaction types, you can refer to the [Starknet documentation](https://docs.starknet.io/documentation/framework_and_concepts/Network_Architecture/transactions).
-
-## Working with Standard Starknet Tools
-
-**Source: interact.md**
-
-Katana is a full Starknet sequencer, compatible with all standard Starknet development tools. This section demonstrates deploying and interacting with Cairo contracts using starkli, showing Katana's compatibility beyond the Dojo ecosystem.
+**Compile-time**: Build Katana with the `native` feature flag:
+```bash
+cargo build --release --features native
+```
 
 :::note
-For Dojo projects, use [Sozo](/toolchain/sozo) for deployment and interaction. This tutorial is for deploying standard Cairo contracts or testing non-Dojo contracts on Katana.
+If installing Katana with `asdf`, pass `ASDF_NATIVE_BUILD=true` for the native build.
 :::
 
-### Prerequisites
+**Runtime**: Enable native compilation when starting Katana:
+```bash
+katana --enable-native-compilation
+```
 
-Before starting, ensure you have the required tools installed:
+### Development Considerations
 
-- **Katana**: Available via [`dojoup`](/installation.mdx)
-- **Starkli**: Install with `curl https://get.starkli.sh | sh && starkliup`
-- **Scarb**: Install with `curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh`
+**When to Use**:
+- Performance testing and benchmarking
+- Compute-heavy contract development
+- Production environments requiring maximum throughput
 
-### Contract Deployment Workflow
+**Trade-offs**:
+- Increased compilation time during contract loading
+- Additional system dependencies (LLVM 19)
+- Larger binary size and memory usage
 
-#### 1. Start Katana
+:::note
+Native compilation requires LLVM 19 dependencies.
+Install with `make native-deps-macos` (macOS) or `make native-deps-linux` (Linux).
+:::
 
-Launch Katana with fees disabled for development:
+#### Usage Example
+
+Start Katana with native compilation for performance testing:
+```bash
+katana --dev --enable-native-compilation --block-time 1000
+```
+
+## Metrics and Monitoring
+
+Katana includes a built-in metrics system that exposes performance data in [Prometheus](https://prometheus.io/) format.
+This enables monitoring of blockchain performance, resource usage, and transaction processing statistics.
+
+### Available Metrics
+
+Katana collects metrics across multiple components:
+- **Block production**: Gas processed, Cairo steps, block timing
+- **System resources**: Memory usage, CPU utilization, disk I/O
+- **RPC performance**: Request latency, error rates, throughput
+- **Transaction pool**: Pending transactions, validation times
+
+### Enabling Metrics
+
+Start the metrics server on port 9100:
+```bash
+katana --metrics
+```
+
+Customize the metrics server address and port:
+```bash
+katana --metrics --metrics.addr 0.0.0.0 --metrics.port 8080
+```
+
+Query metrics directly via HTTP:
+```bash
+curl http://127.0.0.1:9100/metrics
+```
+
+Sample metrics output:
+```
+# HELP block_producer_l1_gas_processed_total The amount of L1 gas processed in a block
+# TYPE block_producer_l1_gas_processed_total counter
+block_producer_l1_gas_processed_total 2500000
+
+# HELP process_resident_memory_bytes Resident memory size in bytes
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 45670400
+```
+
+#### Usage Example
+
+Enable metrics during testing to monitor performance:
+```bash
+# Start Katana with metrics
+katana --dev --metrics --dev.no-fee
+
+# Monitor block production in another terminal
+watch -n 1 'curl -s http://127.0.0.1:9100/metrics | grep block_producer'
+```
+
+This provides real-time visibility into your local blockchain's performance characteristics during development and testing.
+
+## Extended JSON-RPC Interface
+
+Katana provides a comprehensive RPC interface for development and interaction.
+RPC commands are organized across multiple namespaces:
+
+- **`starknet`**: Standard Starknet RPC methods for contract calls and queries
+- **`dev`**: Development utilities like manual block mining and time control
+- **`katana`**: Node-specific endpoints for configuration and account info
+- **`torii`**: ECS entity/component queries for Dojo integration
+
+#### Usage Example
+
+Generate blocks on-demand when using `--no-mining` mode:
 
 ```bash
-katana --disable-fee
+curl -X POST http://127.0.0.1:5050 \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":1}'
 ```
 
-After starting, Katana automatically generates and deploys pre-funded accounts that can be used with starkli.
-
-#### 2. Configure Starkli Environment
-
-Starkli supports built-in accounts for Katana. Set up environment variables for easier command execution:
-
-```bash
-export STARKNET_ACCOUNT=katana-0        # Pre-funded account
-export STARKNET_RPC=http://0.0.0.0:5050 # Local Katana endpoint
-```
-
-#### 3. Create and Compile Contract
-
-Create a simple storage contract for testing:
-
-```bash
-scarb new simple_storage
-cd simple_storage
-```
-
-Add Starknet dependencies to `Scarb.toml`:
-
-```toml
-[dependencies]
-starknet = "2.5.4"
-
-[[target.starknet-contract]]
-```
-
-Replace `src/lib.cairo` with a simple storage contract:
-
-```rust
-#[starknet::interface]
-trait ISimpleStorage<TContractState> {
-    fn set(ref self: TContractState, x: u128);
-    fn get(self: @TContractState) -> u128;
-}
-
-#[starknet::contract]
-mod SimpleStorage {
-    use starknet::get_caller_address;
-    use starknet::ContractAddress;
-
-    #[storage]
-    struct Storage {
-        stored_data: u128
-    }
-
-    #[abi(embed_v0)]
-    impl SimpleStorage of super::ISimpleStorage<ContractState> {
-        fn set(ref self: ContractState, x: u128) {
-            self.stored_data.write(x);
-        }
-        fn get(self: @ContractState) -> u128 {
-            self.stored_data.read()
-        }
-    }
-}
-```
-
-Compile the contract:
-
-```bash
-scarb build
-```
-
-#### 4. Declare Contract
-
-Declare the contract on Katana to register the class:
-
-```bash
-starkli declare target/dev/simple_storage_SimpleStorage.contract_class.json
-```
-
-This returns a class hash that uniquely identifies your contract class:
-
-```console
-Class hash declared:
-0x07ad2516dd66fb2e274e78d4357837cad689c9fffaa347feb9800b231b37b306
-```
-
-#### 5. Deploy Contract Instance
-
-Deploy an instance of the contract using the class hash:
-
-```bash
-starkli deploy 0x07ad2516dd66fb2e274e78d4357837cad689c9fffaa347feb9800b231b37b306
-```
-
-This returns the deployed contract address:
-
-```console
-Contract deployed:
-0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e
-```
-
-#### 6. Interact with Contract
-
-Call the contract to read state (no transaction required):
-
-```bash
-starkli call 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e get
-```
-
-Returns the current stored value (initially zero):
-
-```console
-[
-    "0x0000000000000000000000000000000000000000000000000000000000000000"
-]
-```
-
-Invoke the contract to modify state (creates a transaction):
-
-```bash
-starkli invoke 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e set 42
-```
-
-Verify the state change:
-
-```bash
-starkli call 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e get
-```
-
-Returns the updated value:
-
-```console
-[
-    "0x000000000000000000000000000000000000000000000000000000000000002a"
-]
-```
-
-### Key Benefits
-
-- **Full Starknet Compatibility**: Use any standard Starknet tool with Katana
-- **Rapid Testing**: Deploy and test contracts instantly with pre-funded accounts
-- **Mainnet Preparation**: Validate contract behavior before costly mainnet deployment
-- **Non-Dojo Contracts**: Test contracts that don't use the Dojo framework
-
-### When to Use This Approach
-
-- Testing standard Cairo contracts outside the Dojo ecosystem
-- Validating contract interactions before mainnet deployment  
-- Learning Starknet development fundamentals
-- Integrating with existing Starknet tooling and workflows
-
-For Dojo game development, use [Sozo's deployment commands](/toolchain/sozo) instead, which provide specialized functionality for ECS worlds and game contracts.
+:::tip
+See the complete [RPC Reference](/toolchain/katana/reference#json-rpc-interface) for detailed method documentation and examples.
+:::

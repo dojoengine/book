@@ -7,6 +7,71 @@ description: Complete reference documentation for all Katana command-line option
 
 This page provides complete reference documentation for Katana's command-line interface and JSON-RPC API.
 
+## JSON-RPC Interface
+
+Katana provides a comprehensive RPC interface for interacting with your local blockchain. The RPC server runs on `http://127.0.0.1:5050` by default and supports both HTTP and WebSocket transports.
+
+### RPC Namespaces
+
+| Namespace | Description | Use Case |
+| --------- | ----------- | -------- |
+| [`starknet`](#starknet-namespace) | Standard Starknet RPC methods | Contract calls, transaction queries |
+| [`katana`](#katana-namespace) | Katana-specific endpoints | Node configuration, account info |
+| [`torii`](#torii-namespace) | Torii integration methods | ECS entity/component queries |
+| [`dev`](#dev-namespace) | Development utilities | Block mining, time control, debugging |
+
+### Example: The Dev Namespace
+
+The `dev` namespace provides powerful tools for controlling your local blockchain during development:
+
+#### Manual Block Mining
+
+Generate blocks on-demand when using `--no-mining` mode:
+
+```bash
+curl -X POST http://127.0.0.1:5050 \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":1}'
+```
+
+#### Time Control
+
+Set the timestamp for the next block to test time-dependent logic:
+
+```bash
+curl -X POST http://127.0.0.1:5050 \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"dev_setNextBlockTimestamp","params":[1703875200],"id":1}'
+```
+
+#### Account Management
+
+Create additional funded accounts during development:
+
+```bash
+curl -X POST http://127.0.0.1:5050 \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"dev_predeployAccount","params":[],"id":1}'
+```
+
+### Common Development Patterns
+
+**Testing Time-Dependent Contracts:**
+```bash
+# Set specific timestamp, generate block, then test contract
+curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"dev_setNextBlockTimestamp","params":[1704067200],"id":1}'
+
+curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":2}'
+```
+
+**Batch Testing with Manual Mining:**
+1. Start Katana with `--no-mining`
+2. Execute multiple transactions
+3. Generate a single block containing all transactions
+4. Verify batch results
+
 ## Main Command
 
 **Source: cli/katana.md**

@@ -62,3 +62,177 @@ For a comprehensive example demonstrating how to implement and test message pass
 **Source: settlement.md**
 
 _Coming soon_
+
+## Working with Standard Starknet Tools
+
+Katana is a full Starknet sequencer, compatible with all standard Starknet development tools. This section demonstrates deploying and interacting with Cairo contracts using starkli, showing Katana's compatibility beyond the Dojo ecosystem.
+
+:::note
+For Dojo projects, use [Sozo](/toolchain/sozo) for deployment and interaction. This tutorial is for deploying standard Cairo contracts or testing non-Dojo contracts on Katana.
+:::
+
+### Prerequisites
+
+Before starting, ensure you have the required tools installed:
+
+- **Katana**: Available via [`dojoup`](/installation.mdx)
+- **Starkli**: Install with `curl https://get.starkli.sh | sh && starkliup`
+- **Scarb**: Install with `curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh`
+
+### Contract Deployment Workflow
+
+#### 1. Start Katana
+
+Launch Katana with fees disabled for development:
+
+```bash
+katana --dev --dev.no-fee
+```
+
+After starting, Katana automatically generates and deploys pre-funded accounts that can be used with starkli.
+
+#### 2. Configure Starkli Environment
+
+Starkli supports built-in accounts for Katana. Set up environment variables for easier command execution:
+
+```bash
+export STARKNET_ACCOUNT=katana-0        # Pre-funded account
+export STARKNET_RPC=http://0.0.0.0:5050 # Local Katana endpoint
+```
+
+#### 3. Create and Compile Contract
+
+Create a simple storage contract for testing:
+
+```bash
+scarb new simple_storage
+cd simple_storage
+```
+
+Add Starknet dependencies to `Scarb.toml`:
+
+```toml
+[dependencies]
+starknet = "2.5.4"
+
+[[target.starknet-contract]]
+```
+
+Replace `src/lib.cairo` with a simple storage contract:
+
+```rust
+#[starknet::interface]
+trait ISimpleStorage<TContractState> {
+    fn set(ref self: TContractState, x: u128);
+    fn get(self: @TContractState) -> u128;
+}
+
+#[starknet::contract]
+mod SimpleStorage {
+    use starknet::get_caller_address;
+    use starknet::ContractAddress;
+
+    #[storage]
+    struct Storage {
+        stored_data: u128
+    }
+
+    #[abi(embed_v0)]
+    impl SimpleStorage of super::ISimpleStorage<ContractState> {
+        fn set(ref self: ContractState, x: u128) {
+            self.stored_data.write(x);
+        }
+        fn get(self: @ContractState) -> u128 {
+            self.stored_data.read()
+        }
+    }
+}
+```
+
+Compile the contract:
+
+```bash
+scarb build
+```
+
+#### 4. Declare Contract
+
+Declare the contract on Katana to register the class:
+
+```bash
+starkli declare target/dev/simple_storage_SimpleStorage.contract_class.json
+```
+
+This returns a class hash that uniquely identifies your contract class:
+
+```console
+Class hash declared:
+0x07ad2516dd66fb2e274e78d4357837cad689c9fffaa347feb9800b231b37b306
+```
+
+#### 5. Deploy Contract Instance
+
+Deploy an instance of the contract using the class hash:
+
+```bash
+starkli deploy 0x07ad2516dd66fb2e274e78d4357837cad689c9fffaa347feb9800b231b37b306
+```
+
+This returns the deployed contract address:
+
+```console
+Contract deployed:
+0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e
+```
+
+#### 6. Interact with Contract
+
+Call the contract to read state (no transaction required):
+
+```bash
+starkli call 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e get
+```
+
+Returns the current stored value (initially zero):
+
+```console
+[
+    "0x0000000000000000000000000000000000000000000000000000000000000000"
+]
+```
+
+Invoke the contract to modify state (creates a transaction):
+
+```bash
+starkli invoke 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e set 42
+```
+
+Verify the state change:
+
+```bash
+starkli call 0x03da69257a94a06a1101c1413d78551e38d91ca180c0fc26004650a427238f4e get
+```
+
+Returns the updated value:
+
+```console
+[
+    "0x000000000000000000000000000000000000000000000000000000000000002a"
+]
+```
+
+### Key Benefits
+
+- **Full Starknet Compatibility**: Use any standard Starknet tool with Katana
+- **Rapid Testing**: Deploy and test contracts instantly with pre-funded accounts
+- **Mainnet Preparation**: Validate contract behavior before costly mainnet deployment
+- **Non-Dojo Contracts**: Test contracts that don't use the Dojo framework
+
+### When to Use This Approach
+
+- Testing standard Cairo contracts outside the Dojo ecosystem
+- Validating contract interactions before mainnet deployment
+- Learning Starknet development fundamentals
+- Integrating with existing Starknet tooling and workflows
+
+For Dojo game development, use [Sozo's deployment commands](/toolchain/sozo) instead, which provide specialized functionality for ECS worlds and game contracts.
