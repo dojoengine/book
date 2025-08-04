@@ -1,0 +1,500 @@
+import WorldOptions from "./common/world-options.mdx";
+import StarknetOptions from "./common/starknet-options.mdx";
+import AccountOptions from "./common/account-options.mdx";
+import SignerOptionsRaw from "./common/signer-options-raw.mdx";
+import SignerOptionsKeystore from "./common/signer-options-keystore.mdx";
+
+# Project Management
+
+This page covers Sozo commands for managing your Dojo project development lifecycle.
+These commands help you initialize, build, test, deploy, and maintain your Dojo projects.
+
+## Project Initialization
+
+### sozo init
+
+`init` is used to initialize a new project.
+It will initialize the new project in a new empty directory by cloning the [dojo-starter](https://github.com/dojoengine/dojo-starter).
+
+**Source:** `/project-commands/init.md`
+
+```sh
+sozo init new_project
+```
+
+To initialize a new project with git, pass in the `--git` flag.
+
+```sh
+sozo init new_project --git
+```
+
+## Building and Testing
+
+### sozo build
+
+`build` is used to compile the cairo contracts, generating the necessary artifacts for deployment.
+
+**Source:** `/project-commands/build.md`
+
+```sh
+sozo build
+```
+
+The `build --<option>` command can generate the bindings for different backends.
+Currently, the following backends are supported:
+
+- typescript
+- typescript-v2
+- unity
+
+You do so by passing the flag associated to each backend.
+For example, to generate the unity bindings, you can do:
+
+```sh
+sozo build --unity
+```
+
+### sozo test
+
+`test` is used to test the project's cairo contracts.
+It will run all tests found within the project.
+A test is a function with the attribute `#[test]`.
+
+**Source:** `/project-commands/test.md`
+
+```sh
+sozo test
+```
+
+### sozo clean
+
+`clean` is used to remove the build artifacts to ensure you're not keeping old files that are not overwritten by the [build](/toolchain/sozo/project-commands/build.md) command.
+
+**Source:** `/project-commands/clean.md`
+
+Sozo produces two kinds of artifacts when `build` command is issued:
+
+1. Scarb artifacts: which are present into `target/<profile_name>` folder.
+2. Manifests: which are present into `manifests/<profile_name>/base` folder.
+
+The `clean` command operates only on the `base` manifests folder, which are the files generated at compile time.
+
+#### Usage
+
+```sh
+sozo clean
+```
+
+#### OPTIONS
+
+**General Options**
+
+`--manifests-abis [-m]`  
+&nbsp;&nbsp;&nbsp;&nbsp;Removes manifests files and associated abis only.
+
+## Deployment and Migration
+
+### sozo migrate
+
+The `migrate` command handles the deployment and updating process for your World, including contract declaration and deployment.
+It automatically manages the migration of your local World changes to remote environments.
+
+**Source:** `/project-commands/migrate.mdx`
+
+#### World Address Configuration
+
+To update an existing World, configure the world address in your profile configuration (e.g., `dojo_dev.toml`):
+
+```toml
+[env]
+world_address = "0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab4691053ee8ab69d7"
+```
+
+When sozo migrate is executed, it:
+
+1. Detects the world_address from your profile configuration
+2. Compares local and remote World states
+3. Generates migration strategy
+4. Deploys necessary updates upstream
+
+#### USAGE
+
+```sh
+Usage: sozo migrate [OPTIONS] <COMMAND>
+
+Commands:
+  help   Print this message or the help of the given subcommand(s)
+```
+
+#### OPTIONS
+
+**World Options**
+
+<WorldOptions />
+
+**Starknet Options**
+
+<StarknetOptions />
+
+**Account Options**
+
+<AccountOptions />
+
+**IPFS Options**
+
+If you provide your IPFS credentials, `sozo` can automatically upload metadata
+of the world and its resources to IPFS, and register IPFS URIs to the `ResourceMetadata`
+model of the world.
+
+You can either provide these credentials through command-line arguments, through environment variables
+or through your `dojo_<profile>.toml`.
+
+`--ipfs-url` URL  
+&nbsp;&nbsp;&nbsp;&nbsp;The URL of the IPFS client to use.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;_or `DOJO_IPFS_URL` environment variable, or `ipfs_url` in your profile configuration file._
+
+`--ipfs-username` USERNAME  
+&nbsp;&nbsp;&nbsp;&nbsp;The username to use for the IPFS client.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;_or `DOJO_IPFS_USERNAME` environment variable, or `ipfs_username` in your profile configuration file._
+
+`--ipfs-password` PASSWORD  
+&nbsp;&nbsp;&nbsp;&nbsp;The password to use for the IPFS client.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;_or `DOJO_IPFS_PASSWORD` environment variable, or `ipfs_password` in your profile configuration file._
+
+**Signer Options - Raw**
+
+<SignerOptionsRaw />
+
+**Signer Options - Keystore**
+
+<SignerOptionsKeystore />
+
+#### EXAMPLES
+
+1. Deploying your World for the first time to a local Katana node
+
+```sh
+sozo migrate
+```
+
+2. Updating existing World (requires world_address in profile):
+
+```toml
+[env]
+world_address = "0x123456..."
+```
+
+```sh
+sozo migrate
+```
+
+3. Deploying your World using [profile options](../common-options/profile.md), where configuration like `rpc-url` are set in the profile.
+
+```sh
+sozo --profile my_profile migrate
+```
+
+#### MANIFESTS
+
+The `migrate` command will generate the manifests in `manifest_<profile_name>.json` at your project root.
+This file contains essential information about the contracts at compile time.
+
+- It shows the state of the world onchain.
+- It's designed to be consumed by SDKs.
+- It maintains declarative information about the world, tracked in Git to monitor changes.
+
+## Development Workflows
+
+### Local Deployment with Katana
+
+Experience the power of rapid development with Dojo, featuring the ultra-fast local development sequencer, [Katana](/toolchain/katana).
+Katana acts as an on-device Starknet, enabling thorough testing of your dojo world in a controlled environment before migrating them to the remote testnet.
+
+**Source:** `/deployment/locally.md`
+
+#### Easy Katana Deployments
+
+Deploying to Katana is straightforward and efficient.
+
+> **Pre-requisite:** Ensure you've completed the [installation guide](/installation.mdx) and have your environment set up.
+
+To initiate Katana from your project directory, execute:
+
+```bash
+katana --disable-fee
+```
+
+This command launches a local instance of Katana, setting the stage for your deployment.
+
+#### Step-by-Step Guide to Deploy on Katana
+
+Deploying your project to Katana involves a few simple steps.
+
+1. **Compile Your Contracts:**
+
+    If you haven't compiled your contracts yet, run:
+
+    ```bash
+    sozo build
+    ```
+
+    Compiling ensures that your contracts are ready for deployment.
+
+2. **Migrate your Project:**
+
+    To migrate, run:
+
+    ```bash
+    sozo migrate
+    ```
+
+Success! You have now migrated your world.
+You will be able to interact with the world using [sozo](/toolchain/sozo).
+
+### Remote Deployment
+
+> _IMPORTANT: Dojo is unaudited. Use at your own risk._
+
+**Source:** `/deployment/remote.md`
+
+Dojo makes it easy to deploy to remote networks, you just need to have a valid account and network endpoint.
+
+Scarb.toml
+
+```toml
+[package]
+name = "ohayoo"
+version = "0.1.0"
+cairo-version = "0.6.0"
+
+[cairo]
+sierra-replace-ids = true
+
+[dependencies]
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0" }
+
+# KATANA on slot
+# rpc_url = "https://api.cartridge.gg/x/example/katana"
+# account_address = "0x2d5260ba1d62ed0ea7c598f1460d27528b27afdf3bb43524a1ba3617e8279b2"
+# private_key = "0x6768b97b44cfbfa9f776a3c00ebe33c228058bf8716bb0515a1363049da2a11"
+# world = "0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f"
+
+# ENDPOINT
+rpc_url = "https://api.cartridge.gg/x/shinai/madara"
+account_address = "0x2"
+private_key = "0xc1cf1490de1352865301bb8705143f3ef938f97fdf892f1090dcb5ac7bcd1d"
+world_address = "0x5b328933afdbbfd44901fd69a2764a254edbb6e992ae87cf958c70493f2d201"
+
+# GOERLI
+# rpc_url = "https://starknet-goerli.g.alchemy.com/v2/<API KEY>"
+# account_address = "0x2d5260ba1d62ed0ea7c598f1460d27528b27afdf3bb43524a1ba3617e8279b2"
+# private_key = "0x6768b97b44cfbfa9f776a3c00ebe33c228058bf8716bb0515a1363049da2a11"
+# world = "0x1fad58d91d5d121aa6dc4d16c01a161e0441ef75fe7d31e3664a61e66022b1f"
+```
+
+#### Deploy to public Starknet
+
+If you credentials are correct in the Scarb.toml then a simple migrate will deploy the world to Starknet.
+
+#### Deploy to Remote [Katana](/toolchain/katana)
+
+Katanas are able to be hosted and run as remote testnets, however this is not recommended for production use.
+
+Deploy to remote katana with slot [here](/tutorials/deploy-using-slot/main.md)
+
+## Utilities
+
+### sozo hash
+
+`sozo hash` is used to interact with World's resource hashes, allowing
+you to compute a hash from a resource name/tag or find the resource name/tag
+matching an existing hash.
+
+**Source:** `/project-commands/hash.mdx`
+
+#### USAGE
+
+```sh
+sozo hash [OPTIONS] <COMMAND>
+
+Commands:
+  compute   Compute the hash of the provided input.    
+  find      Search for a hash among the project resource hashes.
+```
+#### SUBCOMMANDS
+
+**`compute`**
+
+```sh
+sozo hash compute <INPUT>
+```
+
+**Arguments**
+
+_`INPUT`_
+&nbsp;&nbsp;&nbsp;&nbsp;Input to hash.
+It can be a comma separated list of inputs or a single input.
+Each input can be a dojo tag or a felt.
+
+**`find`**
+
+```sh
+sozo hash find <HASH> --namespaces <NAMESPACES> --resources <RESOURCES>
+```
+
+**Arguments**
+
+_`HASH`_
+&nbsp;&nbsp;&nbsp;&nbsp;The hash to search for.
+
+_`NAMESPACES`_
+&nbsp;&nbsp;&nbsp;&nbsp;A list of comma separated namespaces to use for hash computing,
+instead of namespaces read from project's configuration (profile and manifest files).
+
+_`RESOURCES`_ 
+&nbsp;&nbsp;&nbsp;&nbsp;A list of comma separated resource names/tags to use for hash computing,
+instead of resources read from project's configuration (profile and manifest files).
+
+#### EXAMPLES
+
+1. Compute the hash of the resource tag `ns-Position`.
+
+```sh
+sozo hash compute ns-Position
+```
+
+2. Search for the hash `0x1234` among project's namespace and resource hashes.
+
+```sh
+sozo hash find 0x1234
+```
+
+3. Search for the hash `0x1234` among project's resource hashes, using namespaces `ns`, `ns1` and `ns2` for hash computing.
+
+```sh
+sozo hash find 0x1234 --namespaces ns,ns1,ns2
+```
+
+### sozo walnut verify
+
+The `verify` command enables debugging experience on [Walnut](https://walnut.dev) by verifying your contracts.
+
+**Source:** `/project-commands/walnut-verify.md`
+
+```sh
+sozo walnut verify
+```
+
+For more details, refer to [Walnut documentation](https://docs.walnut.dev/debug-dojo-with-walnut).
+
+## Configuration Management
+
+### Profile Configuration
+
+The `--profile` option allows you to manage multiple environments (dev, staging, prod) efficiently in your Dojo projects.
+
+**Source:** `/common-options/profile.md`
+
+#### Available Profile Options
+
+`--profile <name>`  
+&nbsp;&nbsp;&nbsp;&nbsp;Specify profile to use by name.
+
+`--dev`  
+&nbsp;&nbsp;&nbsp;&nbsp;Use development profile (default).
+
+`--release`  
+&nbsp;&nbsp;&nbsp;&nbsp;Use release/production profile.
+
+#### Configuration Files
+
+Each profile corresponds to a specific configuration file in your project workspace:
+
+Example Development Profile (dojo_dev.toml)
+
+```toml
+[env]
+rpc_url = "http://localhost:5050"
+account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
+private_key = "0x1800000000300000180000000000030000000000003006001800006600"
+```
+
+Example Release Profile (dojo_release.toml)
+
+```toml
+[env]
+rpc_url = "https://api.cartridge.gg/x/mydojoproject/katana"
+account_address = "0x5686a647a9cdd63ade617e0baf3b364856b813b508f03903eb58a7e622d5855"
+private_key = "0x33003003001800009900180300d206308b0070db00121318d17b5e6262150b"
+```
+
+#### Usage
+
+To use a specific profile with Sozo commands:
+
+```sh
+sozo --profile dev migrate 
+```
+
+This command will use the development profile settings from `dojo_dev.toml`.
+Using profile configurations is recommended over passing explicit arguments in most cases, as it provides better organization and reproducibility across different environments.
+
+### Offline Mode
+
+`--offline`  
+&nbsp;&nbsp;&nbsp;&nbsp;Run without accessing the network.  
+&nbsp;&nbsp;&nbsp;&nbsp;ENV: `SOZO_OFFLINE`
+
+**Source:** `/common-options/offline.md`
+
+#### USAGE
+
+```sh
+sozo --offline [COMMAND]
+```
+
+For example
+
+```sh
+sozo --offline build
+```
+
+### Configuration Priorities
+
+The configuration system follows the following priority order:
+
+**Source:** `/common-options/configurations.md`
+
+1. Command-line arguments
+2. Environment variables
+3. Configuration in `Scarb.toml`
+
+#### Account Options
+
+-   `account_address`: Starknet account address.
+-   `signer`: Options related to signer configuration.
+-   `legacy`: Enables the use of a legacy account (cairo0 account).
+
+**Usage Examples**
+
+1. Specify the Starknet account address using command-line arguments:
+
+```bash
+sozo --account-address 0x123456789
+```
+
+#### Starknet Options
+
+-   `rpc_url`: The URL of the Starknet RPC endpoint.
+Can be specified via command-line arguments or environment variables.
+
+**Usage Examples**
+
+1. Specify the Starknet RPC URL using a command-line argument:
+
+```bash
+sozo --rpc-url http://localhost:7474/
+```

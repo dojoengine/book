@@ -138,88 +138,10 @@ export const routes = [
 				text: "Sozo",
 				collapsed: true,
 				items: [
-					{
-						text: "Overview",
-						link: "/toolchain/sozo",
-					},
-					{
-						text: "Calldata format",
-						link: "/toolchain/sozo/calldata_format",
-					},
-					{
-						text: "Reference",
-						collapsed: true,
-						items: [
-							{
-								text: "init",
-								link: "/toolchain/sozo/project-commands/init",
-							},
-							{
-								text: "profile",
-								link: "/toolchain/sozo/common-options/profile",
-							},
-							{
-								text: "offline",
-								link: "/toolchain/sozo/common-options/offline",
-							},
-							{
-								text: "build",
-								link: "/toolchain/sozo/project-commands/build",
-							},
-							{
-								text: "clean",
-								link: "/toolchain/sozo/project-commands/clean",
-							},
-							{
-								text: "test",
-								link: "/toolchain/sozo/project-commands/test",
-							},
-							{
-								text: "migrate",
-								link: "/toolchain/sozo/project-commands/migrate",
-							},
-							{
-								text: "verify with walnut",
-								link: "/toolchain/sozo/project-commands/walnut-verify",
-							},
-							{
-								text: "hash",
-								link: "/toolchain/sozo/project-commands/hash",
-							},
-							{
-								text: "execute",
-								link: "/toolchain/sozo/world-commands/execute",
-							},
-							{
-								text: "call",
-								link: "/toolchain/sozo/world-commands/call",
-							},
-							{
-								text: "register",
-								link: "/toolchain/sozo/world-commands/register",
-							},
-							{
-								text: "model",
-								link: "/toolchain/sozo/world-commands/model",
-							},
-							{
-								text: "events",
-								link: "/toolchain/sozo/world-commands/events",
-							},
-							{
-								text: "auth",
-								link: "/toolchain/sozo/world-commands/auth",
-							},
-							{
-								text: "account",
-								link: "/toolchain/sozo/world-commands/account",
-							},
-							{
-								text: "configruations",
-								link: "/toolchain/sozo/common-options/configurations",
-							},
-						],
-					},
+					{ text: "Overview", link: "/toolchain/sozo" },
+					{ text: "Project Management", link: "/toolchain/sozo/project-management" },
+					{ text: "World Interaction", link: "/toolchain/sozo/world-interaction" },
+					{ text: "Miscellaneous", link: "/toolchain/sozo/miscellaneous" },
 				],
 			},
 			{
