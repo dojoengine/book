@@ -14,7 +14,7 @@ Follow these guidelines to create documentation that serves both newcomers to on
 - **Concise**: Deliver only the information needed to accomplish the goal
 - **Plain language**: Avoid unnecessary jargon; explain technical terms when first introduced
 - **Emphasize contrasts**: When explaining concepts, emphasize how ideas relate and contrast to each other
-- **Sentences and newlines**: Every sentence should be written on its own line in the markdown file
+- **Avoid fluff**: Avoid fluffy, generic, or hyperbolic language
 
 ### Tone Guidelines
 - **Helpful and encouraging**: Assume readers want to succeed
