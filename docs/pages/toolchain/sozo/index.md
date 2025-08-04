@@ -171,6 +171,5 @@ sozo call GameSystem get_player_stats str:Alice int:-50
 
 ## Next Steps
 
-- **[Project Management](/toolchain/sozo/project-management)**: Learn the development workflow from init to deployment
+- **[Project Management](/toolchain/sozo/project-management)**: Learn the development workflow from init to deploy
 - **[World Interaction](/toolchain/sozo/world-interaction)**: Master runtime operations for deployed worlds
-- **[Miscellaneous](/toolchain/sozo/miscellaneous)**: Explore additional utilities and account management

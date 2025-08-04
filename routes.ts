@@ -141,7 +141,6 @@ export const routes = [
 					{ text: "Overview", link: "/toolchain/sozo" },
 					{ text: "Project Management", link: "/toolchain/sozo/project-management" },
 					{ text: "World Interaction", link: "/toolchain/sozo/world-interaction" },
-					{ text: "Miscellaneous", link: "/toolchain/sozo/miscellaneous" },
 				],
 			},
 			{
