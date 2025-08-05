@@ -60,7 +60,7 @@ When working with Katana in provable mode, two additional parameters are require
 2. **block max cairo steps**: in the current implementation of Katana, there's a limitation where the cairo steps in a block are capped at `16` million. This is to prevent the proving step to fail. Once this limitation will be lifted, the maximum will be `40` million.
 
 ```
-katana --chain sov1 \
+katana --chain per1 \
     --block-time 30000 \
     --sequencing.block-max-cairo-steps 16000000
 ```
@@ -71,11 +71,11 @@ You can define an `--output-path` when working with katana init to output the co
 
 ### Running Saya
 
-If you didn't already, consult the [Herodotus guide](/toolchain/saya/herodotus) to get an account and an API key.
+If you didn't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
 
 To ease the configuration, Saya can be run with environment variables (which can be overridden by command line arguments).
 
-If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridfge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
+If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.
 

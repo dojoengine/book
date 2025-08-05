@@ -36,7 +36,7 @@ In the Saya repository, there is also a `celestia.sh` script to help you setup a
     ./celestia.sh init
     ```
 
-    Take note of the Celestia account created and it's address and also the auth token used to send requests to the node.
+    Take note of the Celestia account created and its address and also the auth token used to send requests to the node.
 
     A new docker volume named `celestia-light-mocha` will be created, and the key information will be stored there and mounted to the container when running the node.
 
@@ -88,7 +88,7 @@ You can define an `--output-path` when working with katana init to output the co
 
 ### Running Saya
 
-If you didn't already, consult the [Herodotus guide](/toolchain/saya/herodotus) to get an account and an API key.
+If you didn't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
 
 To ease the configuration, Saya can be run with environment variables (which can be overridden by command line arguments).
 
