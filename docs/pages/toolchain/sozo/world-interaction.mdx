@@ -1,419 +1,240 @@
-import WorldOptions from "./common/world-options.mdx";
-import StarknetOptions from "./common/starknet-options.mdx";
-import AccountOptions from "./common/account-options.mdx";
-import SignerOptionsRaw from "./common/signer-options-raw.mdx";
-import SignerOptionsKeystore from "./common/signer-options-keystore.mdx";
-import TransactionOptions from "./common/transaction-options.mdx";
-
 # World Interaction
 
-This page covers Sozo commands for interacting with deployed Dojo worlds.
-These commands allow you to execute systems, query data, manage permissions, and inspect your world state.
+Once your world is deployed, these commands let you interact with it during development, testing, and runtime operations.
+This page covers executing game logic, querying world state, managing permissions, and debugging your deployed worlds.
+
+:::tip
+For detailed command options, use the built-in `sozo --help` and `sozo <command> --help`.
+:::
+
+## Interacting with a World
+
+```bash
+# Execute game actions (sends transactions)
+sozo execute ns-Actions spawn                   # Create a new player
+sozo execute ns-Actions attack str:goblin       # Attack a goblin
+
+# Query game state (read-only)
+sozo model get ns-Health 0x123...               # Check player health
+sozo call ns-GameView get_leaderboard           # Get top players
+```
 
 ## System Execution
 
-### sozo execute
+### `sozo execute`
 
-`execute` is used to execute a World's system.
+Execute system functions that modify world state.
+These operations send transactions and cost gas.
 
-**Source:** `/world-commands/execute.mdx`
+```bash
+# Separate system calls
+sozo execute ns-Actions spawn                     # Call spawn() on Actions system
+sozo execute ns-Actions move 10 5                 # Call move(10, 5)
+sozo execute ns-Shop buy_item str:sword u256:100  # Buy sword for 100 gold
 
-Performing a system execution requires sending a transaction, therefore, `execute` expects an account address as well as its respective private key in order to sign the transaction before sending it.
-
-As `sozo` has access to the manifests generated at compile time, you can provide either the name of the contract or its address to execute a system.
-
-#### USAGE
-
-```sh
-# Multicall is supported so you can batch several calls.
-# Call format: <CONTRACT>,<ENTRYPOINT>[,<CALLDATA>]
-
-sozo execute <CALL_1> ... <CALL_N>
+# Batch multiple calls (separated by /)
+sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 ```
 
-**Arguments**
+**Key Features:**
+- **Transaction-based**: Requires account/signer configuration
+- **Tag resolution**: Use contract tags (e.g., `Actions`) or addresses
+- **Multicall support**: Batch multiple system calls efficiently
+- **Type-aware calldata**: Supports Dojo's [calldata format](/toolchain/sozo/index.md#data-format-reference)
 
-_`CONTRACT`_
-&nbsp;&nbsp;&nbsp;&nbsp;The tag of the contract (dojo-Actions for example) or its address.
-
-_`ENTRYPOINT`_
-&nbsp;&nbsp;&nbsp;&nbsp;The name of the system to be executed.
-
-_`CALLDATA`_
-&nbsp;&nbsp;&nbsp;&nbsp; _(optional)_ The calldata to be passed to the system that you want to execute.
-Comma separated values e.g., 0x12345,0x69420.
-
-Must use the Dojo calldata format described in the [overview page](/toolchain/sozo#data-format-reference).
-
-#### OPTIONS
-
-**World Options**
-
-<WorldOptions />
-
-**Starknet Options**
-
-<StarknetOptions />
-
-**Account Options**
-
-<AccountOptions />
-
-**Signer Options - Raw**
-
-<SignerOptionsRaw />
-
-**Signer Options - Keystore**
-
-<SignerOptionsKeystore />
-
-**Transaction Options**
-
-<TransactionOptions />
-
-#### EXAMPLES
-
-1. Executing the _position_ system which takes two values (_x_: 0x77 and _y_: 0x44)
-
-```sh
-sozo execute dojo-moving_contract,position,0x77,0x44
-```
-
-1. Executing the _spawn_ system without calldata and the _move_ system which takes two values (_x_: 1 and _y_: 2)
-
-```sh
-sozo execute dojo-Actions,spawn dojo-Actions,move,1,2
-```
-
-### sozo call
-
-`call` is used to call a World's system.
-
-**Source:** `/world-commands/call.mdx`
-
-Performing a call on a system is not sending any transaction, but may contain a return value (at the differences of transactions that do not return any value directly).
-
-You don't need to provide an account address or private key, as you are not signing any transaction.
-
-#### USAGE
-
-```sh
-# you can use the name or address of the contract
-sozo call <CONTRACT> <ENTRYPOINT>
-```
-
-**Arguments**
-
-_`CONTRACT`_
-&nbsp;&nbsp;&nbsp;&nbsp;The fully qualified name of the contract or it's address.
-
-_`ENTRYPOINT`_
-&nbsp;&nbsp;&nbsp;&nbsp;The name of the system to be executed.
-
-#### OPTIONS
-
-**General Options**
-
-`--calldata [-c]` _CALLDATA_  
-&nbsp;&nbsp;&nbsp;&nbsp;The calldata to be passed to the system that you want to execute.
-&nbsp;&nbsp;&nbsp;&nbsp;Comma separated values e.g., 0x12345,0x69420.
-
-Must use the Dojo calldata format described in the [overview page](/toolchain/sozo#data-format-reference).
-
-`--block-id [-b]` _BLOCK_ID_  
-&nbsp;&nbsp;&nbsp;&nbsp;The block ID (could be a hash, a number, 'pending' or 'latest') to do the call on.
-
-**World Options**
-
-<WorldOptions />
-
-**Starknet Options**
-
-<StarknetOptions />
-
-#### EXAMPLES
-
-```sh
-sozo call dojo_examples::actions::actions tile_terrain -c 1,2
-```
+**Common Use Cases:**
+- Player actions (move, attack, trade)
+- Game state changes (spawn entities, update scores)
+- Administrative actions (set permissions, update config)
 
 ## Data Querying
 
-### sozo model
+### `sozo call `
 
-`model` is used to interact with World's models.
-It is useful for querying about a model's information, or a model value of an entity.
+Call view functions and read-only system methods.
+These operations don't send transactions or require gas.
 
-**Source:** `/world-commands/model.mdx`
+```bash
+# Query game state
+sozo call ns-GameView get_player_stats 0x123...     # Get player stats
+sozo call ns-MapSystem get_tile_info 5 10           # Get tile at (5,10)
+sozo call ns-Leaderboard get_top_players            # Get leaderboard
 
-#### USAGE
-
-```sh
-Usage: sozo model [OPTIONS] <COMMAND>
-
-Commands:
-  class-hash        Retrieve the class hash of a model
-  contract-address  Retrieve the contract address of a model
-  schema            Retrieve the schema for a model
-  get               Get a models value for the provided key
-  help              Print this message or the help of the given subcommand(s)
+# Historical queries (specify block)
+sozo call ns-GameView get_player_stats 0x123... --block-id 12345
 ```
 
-#### SUBCOMMANDS
+**Key Features:**
+- **Read-only**: No transactions, no gas costs, no account required
+- **Return values**: Get data back from function calls
+- **Historical queries**: Query state at specific blocks
+- **Instant results**: No waiting for transaction confirmation
 
-**`class-hash`**
+**Common Use Cases:**
+- Query player stats, positions, inventory
+- Check game state before making moves
+- Validate game logic during development
+- Build dashboards and analytics
 
-Get the class hash of a model.
+### `sozo model`
 
-```sh
-sozo model class-hash <NAME>
+Query model data and inspect model schemas.
+Models store your game's ECS component data.
+
+```bash
+# Query entity data
+sozo model get ns-Position 0x123...              # Get Position for entity 0x123...
+sozo model get ns-Health 0x123... 0x456...       # Get Health for entity with composite key
+sozo model get ns-Inventory 0x123...             # Get player's inventory
+
+# Inspect model structure
+sozo model schema ns-Position                    # See Position model fields
+sozo model schema ns-Health                      # See Health model structure
+sozo model class-hash ns-Position                # Get Position class hash
+sozo model contract-address ns-Position          # Get Position contract address
 ```
 
-**Arguments**
+**Key Features:**
+- **Entity queries**: Get model data for specific entities using their keys
+- **Schema inspection**: Understand model structure and field types
+- **Composite keys**: Support for models with multiple key fields
+- **Contract metadata**: Access class hashes and addresses
 
-_`NAME`_
-&nbsp;&nbsp;&nbsp;&nbsp;The name of the model.
+**Common Use Cases:**
+- Debug game state during development
+- Query player data (position, health, inventory)
+- Inspect model schemas when integrating clients
+- Verify entity state after system calls
 
-**`contract-address`**
+### `sozo events `
 
-Get the contract address of a model.
+Query world events to track game activity and debug system behavior.
 
-```sh
-sozo model contract-address <NAME>
+```bash
+# Get recent events
+sozo events --chunk-size 10                            # Get latest 10 events
+sozo events ns-PlayerMoved --chunk-size 5              # Get latest 5 PlayerMoved events
+sozo events ns-PlayerMoved ns-GameEnd --chunk-size 20  # Get PlayerMoved and GameEnd events
+
+# Filter by block range
+sozo events --from-block 1000 --to-block 2000 --chunk-size 50
+sozo events ns-PlayerAttack --from-block 1500 --chunk-size 10
+
+# Export to JSON for analysis
+sozo events --chunk-size 100 --json > game_events.json
 ```
 
-**Arguments**
+**Key Features:**
+- **Event filtering**: Query specific event types or all events
+- **Block range queries**: Get events from specific time periods
+- **Pagination**: Handle large event sets with chunk-size
+- **JSON export**: Export events for analysis or integration
 
-_`NAME`_
-&nbsp;&nbsp;&nbsp;&nbsp;The name of the model.
+**Common Use Cases:**
+- Debug system execution and event emission
+- Track player activity and game metrics
+- Build event-driven analytics
+- Monitor world activity during development
 
-**`schema`**
+## Permissions Management
 
-Retrieve the schema for a model.
+### `sozo auth `
 
-```sh
-sozo model schema <NAME>
+Manage access control for your world resources.
+Control who can modify models and own contracts.
+
+```bash
+# Grant system write access to models
+sozo auth grant writer ns-Position,0x123...      # Let contract 0x123... write to Position
+sozo auth grant writer ns-Health,0x456...        # Let contract 0x456... write to Health
+sozo auth grant writer ns-Inventory,0x789...     # Let contract 0x789... write to Inventory
+
+# Grant ownership of resources
+sozo auth grant owner ns-Position,0xabc...       # Give ownership of Position model
+sozo auth grant owner ns-Actions,0xdef...        # Give ownership of Actions contract
+
+# Revoke permissions
+sozo auth revoke writer ns-Position,0x123...     # Remove write access
+sozo auth revoke owner ns-Position,0xabc...      # Remove ownership
+
+# Batch permission changes (more efficient)
+sozo auth grant writer ns-Position,0x123... ns-Health,0x123... ns-Inventory,0x123...
 ```
 
-**Arguments**
+**Permission Types:**
+- **Writer**: Can modify model data (required for systems that update game state)
+- **Owner**: Can modify resource permissions and upgrade contracts
 
-_`NAME`_  
-&nbsp;&nbsp;&nbsp;&nbsp;The name of the model.
+**Key Features:**
+- **Multicall batching**: Multiple permission changes in one transaction
+- **Resource targeting**: Models, contracts, and namespaces
+- **Flexible syntax**: Use contract tags or addresses
 
-**`get`**
+**Common Use Cases:**
+- Grant systems write access to models they need to update
+- Transfer ownership for contract upgrades
+- Set up multi-system architectures with proper permissions
+- Delegate administrative control to other accounts
 
-Get the model value for an entity.
+### `sozo register `
 
-```sh
-sozo model get <NAME> [KEYS]...
+Register new models to your world after they've been declared but not yet registered.
+
+```bash
+# Register a model by class hash
+sozo register model 0x76490...
+
+# Register multiple models
+sozo register model 0x123... 0x456... 0x789...
 ```
 
-**Arguments**
+**When to Use:**
+- After declaring a new model class that wasn't included in the original world deployment
+- When adding models from external libraries to your world
+- During development when iterating on model schemas
 
-_`NAME`_  
- &nbsp;&nbsp;&nbsp;&nbsp;The name of the model.
+:::note
+Most model registration happens automatically during `sozo migrate`.
+Manual registration is typically only needed for external models or advanced deployment scenarios.
+:::
 
-_`KEYS`_  
- &nbsp;&nbsp;&nbsp;&nbsp;The keys of the entity that you want to query.  
- &nbsp;&nbsp;&nbsp;&nbsp;Comma separated values e.g., `sozo model get my_model 0x12345,0x69420`.
+## Development & Debugging
 
-#### OPTIONS
+### `sozo inspect`
 
-**World Options**
+Inspect deployed world configuration, resources, and permissions.
 
-<WorldOptions />
-
-**Starknet Options**
-
-<StarknetOptions />
-
-### sozo events
-
-`events` is used to queries world events.
-
-**Source:** `/world-commands/events.mdx`
-
-#### USAGE
-
-```sh
-Usage: sozo events [OPTIONS] --chunk-size <CHUNK_SIZE> [EVENTS]...
+```bash
+sozo inspect                        # Inspect current world
+sozo inspect --world 0x123...       # Inspect specific world address
 ```
 
-#### Arguments
+**What it shows:**
+- Registered models, systems, events, and libraries
+- Resource permissions and ownership
+- World metadata and configuration
+- Class hashes and contract addresses
 
-_`EVENTS`_  
-&nbsp;&nbsp;&nbsp;&nbsp;List of specific events to be filtered.
+**Common Use Cases:**
+- Debug permission issues
+- Understand deployed world structure
+- Verify resource registration
+- Audit world state and permissions
 
-#### OPTIONS
+### `sozo version`
 
-`--from-block [-f]` _FROM_BLOCK_  
-&nbsp;&nbsp;&nbsp;&nbsp;Block number from where to look for events.
+Display Sozo version information:
 
-`--manifest-path` _MANIFEST_PATH_  
-&nbsp;&nbsp;&nbsp;&nbsp;Override path to a directory containing a Scarb.toml file.  
-&nbsp;&nbsp;&nbsp;&nbsp;ENV: `DOJO_MANIFEST_PATH`
-
-`--to-block [-t]` _TO_BLOCK_  
-&nbsp;&nbsp;&nbsp;&nbsp;Block number until where to look for events.
-
-`--chunk-size [-c]` _CHUNK_SIZE_  
-&nbsp;&nbsp;&nbsp;&nbsp;Number of events to return per page.
-
-`--continuation-token` _CONTINUATION_TOKEN_  
-&nbsp;&nbsp;&nbsp;&nbsp;Continuation string to be passed for rpc request.
-
-`--json`  
-&nbsp;&nbsp;&nbsp;&nbsp;Print values as raw json.
-
-**World Options**
-
-<WorldOptions />
-
-**Starknet Options**
-
-<StarknetOptions />
-
-## Permission Management
-
-### sozo auth
-
-`auth` is used to manage world authorization.
-In the world, authorizations are given on resources, which are identified by a `resource_id`.
-In the case of the models, the `resource_id` is the name of the model `struct` you have into your code.
-In the case of a dojo contract with systems, the `resource_id` is the address of the contract.
-Finally, the world itself is a resource, and its `resource_id` is `0`.
-
-**Source:** `/world-commands/auth.mdx`
-
-Authorizations are separated in two categories:
-
--   _Ownership_: when the world / dojo contract is deployed, or a model registered, the deployer becomes the owner of such resource.
-Ownership can be granted to others.
--   _Writer_: to give write access on models, you must explicitely grant the writer role to a system.
-
-With `sozo auth`, you can grant or revoke ownership or writer roles.
-
-This command sends the transaction to the world contract using a multicall.
-So independently of the number of resources you want to update, this command will only send one transaction.
-
-#### USAGE
-
-```sh
-Usage: sozo auth [OPTIONS] <COMMAND>
-
-Commands:
-  grant   Grant an auth role.
-  revoke  Revoke an auth role.
-  help    Print this message or the help of the given subcommand(s)
+```bash
+sozo version                         # Show version details
 ```
 
-The syntax changes depending on the authorization you want to grant / revoke.
+### `sozo mcp`
 
-**`ownership`**
+Start an MCP (Model Context Protocol) server for development tooling:
 
-```sh
-sozo auth grant/revoke owner [OPTIONS] <resource,owner_address>...
+```bash
+sozo mcp                             # Start MCP server
 ```
 
--   _`resource`_
-    &nbsp;&nbsp;&nbsp;&nbsp;The resource can be a model or a contract, and must be identified as follow:  
-    &nbsp;&nbsp;&nbsp;&nbsp;- For a model, `model:model_name`.  
-    &nbsp;&nbsp;&nbsp;&nbsp;- For a contract, `contract:0x1234` or `contract:fully::qualified::name`.
-
--   _`owner_address`_
-    &nbsp;&nbsp;&nbsp;&nbsp;The address of the owner to grant/revoke ownership to.
-
-**`writer`**
-
-```sh
-sozo auth grant/revoke writer [OPTIONS] <model,contract_address>...
-```
-
--   _`model`_
-    &nbsp;&nbsp;&nbsp;&nbsp;The name of the model to grant/revoke writer access to.
-
--   _`contract_address`_
-    &nbsp;&nbsp;&nbsp;&nbsp;The address of the contract to grant/revoke writer access to.
-
-#### World Options
-
-<WorldOptions />
-
-#### Starknet Options
-
-<StarknetOptions />
-
-#### Account Options
-
-<AccountOptions />
-
-#### Signer Options - Raw
-
-<SignerOptionsRaw />
-
-#### Signer Options - Keystore
-
-<SignerOptionsKeystore />
-
-#### EXAMPLES
-
-```sh
-# example: writer - auth a system with the given calldata
-# This will auth the spawn system with the writer role for Position model.
-sozo auth grant writer Moves,0x3539c9b89b08095ba914653fb0f20e55d4b172a415beade611bc260b346d0f7
-```
-
-```sh
-# example: owner - gives ownership to an account contract on a model
-sozo auth grant owner model:Moves,0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
-```
-
-```sh
-# example: owner - gives ownership to an account contract on a dojo contract
-sozo auth grant owner contract:0x3539c9b89b08095ba914653fb0f20e55d4b172a415beade611bc260b346d0f7,0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
-```
-
-### sozo register
-
-`register` is used to register new models to the world.
-Registering a model ensures that the model is included into the world with it's associated permissions, and can be used by systems.
-
-**Source:** `/world-commands/register.mdx`
-
-#### USAGE
-
-```sh
-Usage: sozo register [OPTIONS] <COMMAND>
-
-Commands:
-  model  Register a model to a world.
-  help   Print this message or the help of the given subcommand(s)
-```
-
-#### World Options
-
-<WorldOptions />
-
-#### Starknet Options
-
-<StarknetOptions />
-
-#### Account Options
-
-<AccountOptions />
-
-#### Signer Options - Raw
-
-<SignerOptionsRaw />
-
-#### Signer Options - Keystore
-
-<SignerOptionsKeystore />
-
-#### Transaction Options
-
-<TransactionOptions />
-
-```sh
-sozo register model 0x764906a97ff3e532e82b154908b25711cdec1c692bf68e3aba2a3dd9964a15c
-```
+This enables enhanced IDE integration and development tool support for Dojo projects.

@@ -4,7 +4,7 @@ Sozo provides a complete development lifecycle for Dojo projects, from initial s
 This page covers the essential workflows and commands that take you from idea to deployed world.
 
 :::tip
-For detailed command descriptions, use the built-in `sozo --help`.
+For detailed command options, use the built-in `sozo --help` and `sozo <command> --help`.
 :::
 
 ## Development Workflow Overview
@@ -16,7 +16,7 @@ Building a Dojo project follows a predictable cycle that Sozo streamlines with i
 3. **Deployment**: Deploy to local/remote networks with automatic state management
 4. **Updates**: Iterate with automatic diff detection and minimal migrations
 
-### Complete Example: From Zero to Deployed
+### From Zero to Deployed
 
 ```bash
 # 1. Create and set up new project
@@ -55,7 +55,7 @@ sozo migrate --profile prod       # Deploy to mainnet
 
 ## Project Setup
 
-### Initialize New Project
+### `sozo init`
 
 Create a new Dojo project with the standard structure and example code:
 
@@ -86,7 +86,7 @@ Use a tool like [starkli](https://book.starkli.rs/accounts) to create and manage
 
 The core development loop involves building, testing, and iterating on your contracts:
 
-### Build and Compile
+### `sozo build`
 
 Compile your Cairo contracts and generate deployment artifacts:
 
@@ -102,7 +102,7 @@ sozo build --typescript       # Compile + generate TypeScript bindings
 - Generates Dojo manifests for deployment
 - (Optional) Creates language bindings for client integration
 
-### Test Your Logic
+### `sozo test`
 
 Run your Cairo tests to verify contract behavior:
 
@@ -114,7 +114,7 @@ Tests are Cairo functions marked with `#[test]`.
 Sozo runs them using the Cairo test runner, giving you confidence in your logic before deployment.
 See the [testing guide](/framework/testing/index.md) for more information about testing your Dojo contracts.
 
-### Clean Build Artifacts
+### `sozo clean`
 
 Remove stale build files when needed:
 
@@ -133,7 +133,7 @@ sozo clean --all-profiles     # Clean all profile manifest files
 - Generated metadata and artifacts
 - Does NOT clean Scarb's `target/` directory (use `scarb clean` for that)
 
-### Generate Bindings
+### `sozo bindgen`
 
 Create client bindings for various platforms after building:
 
@@ -145,12 +145,39 @@ sozo bindgen --unity          # Generate Unity bindings only
 
 Bindgen reads from your build artifacts to create platform-specific client code for interacting with your world.
 
+### `sozo dev`
+
+Automatically rebuild and migrate your world when files change during development:
+
+```bash
+sozo dev                             # Watch files and auto-rebuild
+sozo dev --unity                     # Watch + generate Unity bindings
+sozo dev --typescript                # Watch + generate TypeScript bindings
+
+# With contract verification
+sozo dev --verify voyager            # Auto-verify on Voyager after each rebuild
+```
+
+This starts a file watcher that automatically runs `sozo build` and `sozo migrate` whenever you modify Cairo contracts.
+Perfect for rapid development iteration without manual rebuilds.
+
+**Key Features:**
+- **File watching**: Monitors Cairo source files for changes
+- **Automatic rebuild**: Runs build + migrate when files change
+- **Binding generation**: Can generate client bindings on each rebuild
+- **Hot reload**: Instant feedback loop for development
+
+**Common Use Cases:**
+- Development with live-reloading game clients
+- Rapid contract iteration and testing
+- Continuous integration during development
+- Client binding updates alongside contract changes
 
 ## Deployment and Updates
 
 Sozo's migration system is the heart of Dojo deployment, automatically handling the complex process of deploying and updating worlds.
 
-### Deploy Your World
+### `sozo migrate`
 
 Deploy your world for the first time or update existing deployments:
 
@@ -166,7 +193,7 @@ sozo migrate --profile staging
 sozo migrate --profile prod
 ```
 
-### How Migration Works
+#### How Migration Works
 
 **Automatic Diff Analysis**: Sozo compares your local world state against the deployed state, identifying exactly what has changed:
 - New or modified models, systems, events, libraries
@@ -186,8 +213,6 @@ sozo migrate --profile staging  # Uses 'staging' profile (testnet)
 sozo migrate --profile prod     # Uses 'prod' profile (mainnet)
 ```
 
-### Configuration for Updates
-
 For subsequent deployments, record the world address in your profile:
 
 ```toml
@@ -200,9 +225,7 @@ private_key = "0x..."
 
 This tells Sozo to update the existing world rather than deploy a new one.
 
-## Multi-Environment Workflows
-
-### Local Development
+#### Local Development
 
 ```bash
 # Standard local development flow
@@ -216,7 +239,7 @@ sozo migrate                     # Deploy to local Katana
 sozo migrate                     # Deploy any changes (automatic diff)
 ```
 
-### Remote Deployment
+#### Remote Deployment
 
 ```bash
 # Final validation before production
@@ -229,7 +252,7 @@ sozo migrate --profile prod
 
 ## Development Utilities
 
-### Hash Management
+### `sozo hash`
 
 Debug and verify resource deployments:
 
@@ -242,7 +265,7 @@ sozo hash compute Actions          # Get hash for Actions system
 sozo hash find 0x1234... --namespaces ns --resources Position,Actions
 ```
 
-### Contract Verification
+### `sozo walnut`
 
 Verify your contracts on Walnut for debugging:
 
