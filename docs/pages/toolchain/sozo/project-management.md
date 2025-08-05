@@ -4,10 +4,10 @@ Sozo provides a complete development lifecycle for Dojo projects, from initial s
 This page covers the essential workflows and commands that take you from idea to deployed world.
 
 :::tip
-For detailed command options, use the built-in `sozo --help` and `sozo <command> --help`.
+For detailed command options, use the built-in `sozo --help` and `sozo <command> --help`
 :::
 
-## Development Workflow Overview
+## Development Workflow
 
 Building a Dojo project follows a predictable cycle that Sozo streamlines with intelligent automation:
 
@@ -16,7 +16,7 @@ Building a Dojo project follows a predictable cycle that Sozo streamlines with i
 3. **Deployment**: Deploy to local/remote networks with automatic state management
 4. **Updates**: Iterate with automatic diff detection and minimal migrations
 
-### From Zero to Deployed
+#### From Zero to Deployed
 
 ```bash
 # 1. Create and set up new project
@@ -45,7 +45,7 @@ sozo migrate --profile staging    # Deploy to testnet
 sozo migrate --profile prod       # Deploy to mainnet
 ```
 
-### Key Concepts
+#### Key Concepts
 
 **Automatic State Management**: Sozo tracks your world's state across deployments, automatically detecting changes and generating minimal migration transactions.
 

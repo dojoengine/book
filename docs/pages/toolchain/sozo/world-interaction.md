@@ -4,7 +4,7 @@ Once your world is deployed, these commands let you interact with it during deve
 This page covers executing game logic, querying world state, managing permissions, and debugging your deployed worlds.
 
 :::tip
-For detailed command options, use the built-in `sozo --help` and `sozo <command> --help`.
+For detailed command options, use the built-in `sozo --help` and `sozo <command> --help`
 :::
 
 ## Interacting with a World
