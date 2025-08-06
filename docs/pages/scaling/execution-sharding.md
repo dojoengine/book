@@ -5,18 +5,17 @@ description: A comprehensive guide to execution sharding on Starknet, including 
 
 # Execution Sharding on Starknet
 
-:::info
+:::note
 The execution sharding architecture described in this document represents **planned functionality** currently under development.
 While the core concepts and design are established, the implementation is not yet available in production.
 :::
 
 ## Overview
 
-Execution sharding is a scaling approach that enables isolated transaction execution within independent shard environments, known as "Layer 3"s.
-In this architecture, a shard represents an independent sequencer that branches from Starknet mainnet to handle a specific subset of transactions, then merges the final state back to mainnet.
+Execution sharding enables isolated transaction execution within independent shard environments ("Layer 3"s).
+Shards are independent sequencers that branch from Starknet mainnet, process transactions, then merge final state back to mainnet.
 
-This design enables parallel processing across multiple shards while keeping all activity anchored to Starknet mainnet.
-The result is maximized throughput without fragmenting the network's unified state and value.
+This enables parallel processing across multiple shards while maintaining unified state anchored to Starknet mainnet.
 
 :::info
 Execution sharding differs from sovereign chains, in that sovereign chains are long-lived and **do not** commit state back to Starknet.
@@ -24,10 +23,10 @@ Execution sharding differs from sovereign chains, in that sovereign chains are l
 
 ### Key Benefits
 
-- **Parallel Execution**: Multiple shards can process transactions simultaneously
-- **Cost Efficiency**: Only final state changes are settled on mainnet
-- **Low Latency**: Shard environments provide gasless, high-throughput execution
-- **Unified State**: All shards ultimately merge back to a single Starknet state
+- **Parallel Execution**: Multiple shards process transactions simultaneously
+- **Cost Efficiency**: Only final state changes settle on mainnet
+- **Low Latency**: Gasless, high-throughput execution environments
+- **Unified State**: All shards merge back to single Starknet state
 
 ## Planned Architecture
 
@@ -44,16 +43,13 @@ The proposed execution sharding system involves five key components:
 
 ## Proposed Shard Initialization
 
-The planned shard initialization process would work as follows:
-
-A shard begins execution when a specific transaction containing shard details is submitted to Starknet.
-This initialization transaction targets the World Contract and specifies parameters such as:
+A shard begins when an initialization transaction is submitted to the World Contract, specifying:
 - Unique shard identifier
 - Designated operator address
 - Initial state conditions
-- Settlement configuration defining which data to merge back to mainnet
+- Settlement configuration for mainnet data merging
 
-After processing this transaction, the specified operator would spin up a Katana instance and branch from Starknet mainnet to create a dedicated shard environment.
+The operator then spins up a Katana instance, branching from Starknet mainnet to create the shard environment.
 
 ### Planned Data Structure
 
@@ -87,56 +83,45 @@ struct ShardStartData {
 
 ### Execution Environment
 
-The shard would branch from mainnet at the block containing the initialization transaction.
-From this point, the shard operates independently as a gasless environment, processing transactions without the usual Starknet gas costs.
-
-Since all contract logic is already defined on mainnet, the shard can execute this logic without requiring additional contract declarations.
-This design provides better control over the shard execution environment while maintaining compatibility with existing mainnet contracts.
+The shard branches from mainnet at the initialization block, then operates independently as a gasless environment.
+Since contract logic is already defined on mainnet, shards execute without additional contract declarations while maintaining mainnet compatibility.
 
 ## Planned Execution Flow
 
-Once a shard is initialized, the sequencer would begin processing transactions within the isolated environment.
-Several design patterns are under consideration for controlling execution flow:
+Once initialized, the shard sequencer processes transactions within the isolated environment.
 
 ### Access Control Options
 
-1. **Contract Whitelisting**: Restrict execution to a predefined set of contracts
+1. **Contract Whitelisting**: Restrict execution to predefined contracts
 2. **Account Whitelisting**: Allow only specific accounts to submit transactions
-3. **Declaration Restrictions**: Prevent new contract declarations within the shard
-4. **Permissionless Execution**: Rely on existing mainnet permissions and contract logic
+3. **Declaration Restrictions**: Prevent new contract declarations
+4. **Permissionless Execution**: Rely on existing mainnet permissions
 
-### Security Considerations
-
-Access restrictions may be necessary to prevent DoS attacks against shard infrastructure.
-The specific approach would depend on the use case and security requirements of each shard deployment.
+Access restrictions may be necessary to prevent DoS attacks, depending on use case and security requirements.
 
 ![Shard execution flow](https://hackmd.io/_uploads/Sk6WByV7yg.png)
 
 
 ## Planned Completion Detection and Settlement
 
-The proposed system would detect shard completion through event monitoring and execute a multi-stage settlement process.
-
 ### Completion Detection
 
-A specific event emitted by a designated Cairo contract would signal the end of a shard's execution lifecycle.
-This completion event serves as a trigger, indicating that all intended transactions have been processed and the shard is ready for settlement.
+A specific event emitted by a designated Cairo contract signals shard completion, indicating all intended transactions are processed and the shard is ready for settlement.
 
 ### Proposed Settlement Pipeline
 
 Once the completion event is detected, Saya would initiate the settlement process:
 
-1. **Execution Trace Generation**: DojoOS would generate an execution trace to attest the correctness of the shard's execution.
-   DojoOS would be similar to SNOS (Starknet OS) but optimized for shard validation:
-   - **Transaction-based**: Validates sequences of transactions rather than entire blocks
-   - **Selective Output**: Outputs only modified storage addresses (as defined in settlement config) rather than complete state updates
-   - **Custom Validation**: Supports shard-specific whitelisting and validation rules
+1. **Execution Trace Generation**: DojoOS generates an execution trace similar to SNOS but optimized for shard validation:
+   - Validates transaction sequences rather than blocks
+   - Outputs only modified storage addresses per settlement config
+   - Supports shard-specific validation rules
 
-2. **Proof Generation**: Saya submits the execution trace to a proving service (such as Herodotus'   Atlantic) to generate a cryptographic proof
+2. **Proof Generation**: Saya submits the trace to a proving service (e.g., Atlantic) for cryptographic proof generation
 
-3. **Layout Bridge**: Due to current proving constraints, the proof would undergo layout bridging to convert it to `recursive_with_poseidon` layout for Starknet verification
+3. **Layout Bridge**: Proof conversion to `recursive_with_poseidon` layout for Starknet verification
 
-4. **Settlement**: The final proof and storage updates are submitted to the World Contract on Starknet, incorporating the shard's state changes into the main network
+4. **Settlement**: Final proof and storage updates submitted to the World Contract
 
 :::note
 The DojoOS component and shard settlement pipeline are currently in development.
@@ -146,36 +131,28 @@ The existing Saya proving service supports SNOS-based proving for standard Stark
 
 ## Proposed Concurrency Management with CRDTs
 
-One of the key challenges in concurrent shard execution is maintaining consistent state across Starknet.
-Without proper safeguards, parallel shards modifying the same resources could create inconsistencies when settling back to mainnet.
+Concurrent shard execution requires managing consistent state across Starknet to prevent inconsistencies during settlement.
 
 ### CRDT Integration
 
-The Dojo team is exploring the integration of Conflict-Free Replicated Data Types (CRDTs) to address concurrency challenges.
-CRDTs are data structures designed for distributed systems that enable concurrent updates without complex locking mechanisms.
-
-The proposed CRDT approach would allow each shard to make state updates independently, with mathematical guarantees that changes will converge to a valid global state during settlement.
+The Dojo team is exploring Conflict-Free Replicated Data Types (CRDTs) for concurrency management.
+CRDTs enable concurrent updates across distributed systems without complex locking, with mathematical guarantees that changes converge to a valid global state during settlement.
 
 ### Game Example: Dungeon Adventures
 
 Consider a dungeon game where multiple players participate across different shards:
 
 #### Experience Points (Grow-Only Counter)
-- XP can only increase, making it ideal for grow-only counter CRDTs
-- Each shard independently awards XP to players
-- During settlement, final XP becomes the sum of all gains across shards
+XP can only increase, ideal for grow-only counter CRDTs.
+Each shard independently awards XP; final XP is the sum across all shards.
 
 #### Gold (Escrow-based System)
-- Gold can increase or decrease, requiring careful handling
-- When entering a shard, player gold is "escrowed" (locked on mainnet)
-- Prevents double-spending the same gold across multiple shards
-- Final gold balance reflects all shard activities
+Gold can increase/decrease, requiring careful handling.
+Player gold is "escrowed" (locked on mainnet) when entering a shard, preventing double-spending.
 
 #### Unique Items (Lock-based Control)
-- Legendary weapons and unique items require exclusive access
-- Items become locked on mainnet when used in a shard
-- Only one shard can modify a unique item's state at a time
-- Lock releases when shard execution completes
+Legendary items require exclusive access.
+Items lock on mainnet when used in a shard, releasing when execution completes.
 
 ### Planned CRDT Types
 
@@ -193,28 +170,25 @@ While execution sharding offers significant potential for scaling and parallel e
 
 ### 1. Proving Time Bottleneck
 
-Generating and verifying proofs for shard execution is computationally intensive and time-consuming.
-This creates potential delays in settlement and could lead to backlogs of state updates awaiting incorporation into mainnet.
+Proof generation and verification is computationally intensive, potentially creating settlement delays and state update backlogs.
 
 ### 2. All-or-Nothing Proof Validation
 
-If a proof for shard execution is invalid, the entire shard's execution must be discarded.
-Even if only a small portion of transactions were problematic, all valid transactions within that shard would be rejected.
+Invalid proofs require discarding entire shard execution, even if only a small portion of transactions were problematic.
 
 ### 3. Limited Cross-Shard Communication
 
-The proposed architecture does not support direct communication between active shards.
-This restricts complex interactions that require immediate state awareness across multiple parallel executions.
+No direct communication between active shards restricts complex interactions requiring immediate state awareness across parallel executions.
 
 ### 4. Implementation Status
 
-The complete execution sharding system remains in development:
+The complete system remains in development:
 - DojoOS Cairo program for shard validation
 - CRDT integration for concurrency management
 - Shard initialization and completion mechanisms
-- Integration testing across all system components
+- Integration testing across all components
 
-:::info
+:::note
 Current development focuses on the core proving infrastructure through Saya and SNOS integration.
 The specialized DojoOS and shard management components are planned for future releases.
 :::
