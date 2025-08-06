@@ -55,3 +55,6 @@
 [submodule "src/games/eternum"]
 	path = src/games/eternum
 	url = https://github.com/BibliothecaDAO/eternum.git
+[submodule "src/docs/docs"]
+	path = src/docs/docs
+	url = https://github.com/cartridge-gg/docs
