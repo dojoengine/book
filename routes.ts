@@ -157,14 +157,8 @@ export const routes = [
 	{
 		text: "Scaling",
 		items: [
-			{
-				text: "Execution Sharding",
-				link: "/architecture/execution-sharding",
-			},
-			{
-				text: "Sovereign Rollups",
-				link: "/architecture/sovereign-rollups",
-			},
+			{ text: "Execution Sharding", link: "/scaling/execution-sharding" },
+			{ text: "Sovereign Rollups", link: "/scaling/sovereign-rollups" },
 		],
 	},
 	{
