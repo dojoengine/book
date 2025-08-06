@@ -9,54 +9,103 @@ description: Learn about implementing sovereign rollups using Celestia's data av
 
 ## Introduction
 
-This documentation outlines the design and implementation of a sovereign rollup project built on Celestia and Starknet, specifically leveraging Dojo stack. The rollup aims to provide scalable and decentralized execution by using Celestia's modular data availability layer and Starknet's cryptographic proofs.
+This documentation outlines the design and implementation of sovereign rollups built with Celestia and Dojo's infrastructure stack.
+Sovereign rollups provide scalable and decentralized execution by leveraging Celestia's modular data availability layer combined with Starknet's cryptographic proofs.
 
-In this architecture, Katana (Dojo's starknet sequencer) is responsible for producing blocks. Saya (Dojo's proving service) then polls the Katana sequencer to retrieve these blocks. Saya generates cryptographic proofs using STARK (Starknet's proof system) to ensure the validity of these blocks and posts the proofs to Celestia.
+:::tip
+See [Mage Duel](https://mageduel.evolute.network/) for an example of a game built using this architecture.
+:::
 
-Celestia acts as the storage layer for these proofs, with the data posted as blobs. These blobs contain headers that allow backward retrieval of proofs, as long as the commitment and height of the last proof are known. Importantly, the proof already includes the state update, which enables the reconstruction of Katana's state based on the latest posted proof.
+### Architecture Overview
 
-It's worth noting that the project described in this overview is conceptually similar to an existing open-source framework for building sovereign rollup, Rollkit. Like Rollkit, our project aims to enable developers to deploy customizable sovereign rollups that leverage modular blockchain architecture. A key difference, however, is that our project is based on the infrastructures that we have built around the Dojo stack. While the specific technologies and implementation details may differ, the core concept of creating scalable, sovereign rollups using a modular approach is shared between these projects. Therefore, the scope of this project will be largely similar to that of the Rollkit project.
+Three components power the sovereign rollup:
+
+- [**Katana**](/toolchain/katana): Sequences transactions into blocks
+- [**Saya**](/toolchain/saya): Generates proofs from Katana blocks and posts to Celestia
+- [**Celestia**](https://celestia.org/): Stores proofs as blobs with retrieval metadata
+
+### Key Features
+
+- **State Reconstruction**: Full state rebuilding from latest proof
+- **Proof Chaining**: Headers enable retrieval of previous proofs via commitment/height
+- **Batch Aggregation**: Multiple blocks can be proven together for efficiency
+
+:::note
+This implementation shares conceptual similarities with **Rollkit**, another framework for building sovereign rollups using modular blockchain architecture.
+The difference lies in the underlying infrastructure: this solution is built specifically around Dojo's proven stack (Katana and Saya), while Rollkit uses different technical components.
+Both approaches enable developers to deploy customizable sovereign rollups with similar capabilities.
+:::
 
 ## Technical Architecture
 
 ![Sovereign Rollup Architecture](/architecture/celestia-sw-diagram.png)
 
-### 1. Katana - Block Producer (Starknet Sequencer)
+### 1. Katana - Block Producer
 
-Katana is the Starknet sequencer used in this project. It continuously generates blocks by sequencing transactions.
+Katana sequences transactions into blocks within the sovereign rollup.
 
-In addition to block production, Katana will support a sync mode, which allows it to reload the entire state from the latest proof posted on Celestia. When operating in this mode, Katana requires the Celestia height and commitment of the latest proof to begin syncing. The syncing process happens in reverse (backward), retrieving prior proofs and state updates from Celestia until the full state is reconstructed.
+#### Sync Mode
 
-This enables Katana to resume or start fresh in a fully sovereign fashion, based on the latest verified proof stored on Celestia.
+Katana reconstructs complete state from Celestia proofs:
+
+- **State Recovery**: Rebuilds rollup state from latest Celestia proof
+- **Requires**: Celestia height and commitment of latest proof  
+- **Process**: Retrieves prior proofs backward until full state reconstruction
+- **Independence**: Nodes start/resume using only Celestia data
 
 ### 2. Saya - Prover and Proof Poster
 
-Saya is the component that consumes blocks from Katana. Unlike a push model, where Katana would send blocks to Saya, here Saya actively polls Katana to retrieve the produced blocks. Once a block is retrieved, Saya computes a STARK proof of its validity and the state update associated with it. This proof is then posted to Celestia for storage.
+Saya generates proofs from Katana blocks and posts them to Celestia.
 
-Additionally, Saya is capable of applicative recursion, where it aggregates multiple block transitions into a single proof. By batching several blocks and their respective state updates, Saya can reduce the overhead of proof generation and storage. This recursive aggregation not only increases efficiency but also allows the system to handle larger volumes of transactions while maintaining the integrity of the rollup.
+#### Workflow
 
-The aggregated proof is posted as a single entity on Celestia, where it represents the transition across multiple blocks, reducing costs and the number of proofs required while ensuring that the complete state update is verifiable.
+- **Polling**: Actively retrieves new blocks from Katana
+- **STARK Proving**: Generates cryptographic proofs of block validity and state updates
+- **Posting**: Submits proofs to Celestia for storage
 
-### 3. Celestia - Data Availability and Proof Storage
+#### Proof Aggregation
 
-Celestia provides the data availability layer for the rollup, storing the proofs generated by Saya. Each proof is posted in the form of a blob, which contains a header allowing backward retrieval of previous proofs if the commitment and height of the last proof are known. This design enables the reconstruction of Katana's state by following the chain of proofs stored on Celestia, ensuring the integrity of the rollup without reliance on a centralized coordinator.
+- **Batching**: Combines multiple blocks into single proofs
+- **Efficiency**: Reduces proving and storage costs
+- **Scalability**: Handles higher transaction volumes
+- **Completeness**: Maintains all state transition data
 
-The proof blobs posted to Celestia contain crucial metadata in their headers, allowing the rollup to maintain state continuity and ensure proof validity. The current header format includes the following fields:
+### 3. Celestia - Data Availability
 
--   `**prev_state_root**`: This is the state root of the previous state that was posted on Celestia. It represents the state of the rollup at the time of the last proof, ensuring continuity in the state transitions.
--   `**state_root**`: This represents the state root of the current state, as reflected by the block(s) and state update(s) data present in the proof. It is the outcome of the state transition verified by the STARK proof.
--   `**prev_height**`: The height in Celestia's blockchain where the previous proof blob was posted. This allows easy tracking and retrieval of the previous proof from Celestia's storage.
--   `**prev_commitment**`: The Celestia commitment corresponding to the previous proof blob. The commitment is required along the height to retrieve a blob on Celestia.
--   `**proof**`: The STARK proof itself, which contains a validated state transition. Within the proof, an output segment includes the specific state update(s) that has been proven, which can be used to verify the integrity of the rollup's and reconstruct the state.
+Celestia provides decentralized storage for rollup proofs.
 
-## Proof of Concept (alpha) Shortcuts
+#### Blob Storage
 
-Given the alpha nature of the integration, certain aspects have been simplified for this initial phase:
+- **Proof Blobs**: Stores STARK proofs with retrieval metadata
+- **Navigation**: Headers enable proof retrieval via commitment/height
+- **Reconstruction**: State rebuilding by following proof chains
+- **Decentralization**: No centralized coordinator required
 
-### Absence of Peer-to-Peer (P2P) Network
+#### Header Format
 
-The alpha does not yet implement a peer-to-peer network to propagate new heads of the chain or block updates across nodes. As seen in the project's description, only the latest Celestia height and commitment are required to keep track of the chain progress, as the namespace is considered known. This would ideally be communicated using p2p networking.
+Each blob contains metadata for rollup continuity:
 
-### String-Based Proof Format
+**`prev_state_root`**: Previous rollup state root, ensuring transition continuity
 
-The current proofs are represented in a string format for simplicity, and converted to bytes before being posted on Celestia. This format could be optimized in the future by converting the proofs into compressed Starknet finite field elements (felts) and then bytes, improving storage efficiency and reducing bandwidth usage.
+**`state_root`**: Current rollup state root after STARK-verified transitions
+
+**`prev_height`**: Celestia height of previous proof blob for efficient retrieval
+
+**`prev_commitment`**: Previous blob's commitment hash, required for Celestia retrieval
+
+**`proof`**: STARK proof with state updates enabling integrity verification
+
+## Implementation Notes
+
+Current optimizations under consideration:
+
+### Network Architecture
+
+- **Progress Tracking**: Nodes use latest Celestia height/commitment only
+- **Namespace**: Predetermined and shared among participants
+- **Future**: P2P network for propagating chain heads and updates
+
+### Proof Format
+
+- **Current**: String format converted to bytes for Celestia
+- **Future**: Compression using Starknet felts for improved efficiency
