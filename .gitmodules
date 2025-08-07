@@ -58,3 +58,6 @@
 [submodule "src/docs/docs"]
 	path = src/docs/docs
 	url = https://github.com/cartridge-gg/docs
+[submodule "src/libraries/alexandria"]
+	path = src/libraries/alexandria
+	url = https://github.com/keep-starknet-strange/alexandria
