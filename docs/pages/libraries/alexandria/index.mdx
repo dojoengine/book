@@ -3,50 +3,283 @@ title: "Alexandria: Cairo Standard Library"
 description: "Community-maintained standard library for Cairo 1.0, providing algorithms and data structures"
 ---
 
-import { Callout } from "vocs/components";
+![alexandria](/alexandria.png)
 
-<div align="center">![alexandria](/alexandria.png)</div>
+:::note
+*I can think of no other edifice constructed by man as altruistic as a lighthouse. They were built only to serve.*
 
-> _I can think of no other edifice constructed by man as altruistic as a lighthouse. They were built only to serve._
->
-> <p align="right">George Bernard Shaw</p>
+*- George Bernard Shaw*
+:::
 
 ## Alexandria
 
-Alexandria is a community maintained standard library for Cairo 1.0.
+[Alexandria](https://github.com/keep-starknet-strange/alexandria) is a community maintained standard library for Cairo 1.0.
 It is a collection of useful algorithms and data structures implemented in Cairo.
 
-<Callout type="warning">
-    This library is built outside of the Dojo stack development. There is no
-    online documentation yet but most of the implemented features are referenced
-    in the readme files of crate.
-</Callout>
+Alexandria provides essential building blocks for Cairo and Starknet development, covering mathematics, data structures, algorithms, and utilities that complement Dojo's game development framework.
 
-### Overview
+:::warning
+This library is built outside of the Dojo stack development.
+There is no online documentation yet but most of the implemented features are referenced in the readme files of the crates.
+:::
 
-Its scope includes the following crates:
+## Installation
 
--   [ASCII](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/ascii/README.md)
--   [Data Structures](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/data_structures/README.md)
--   [Encoding](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/encoding/README.md)
--   [Linalg](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/linalg/README.md)
--   [Math](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/math/README.md)
--   [Numeric](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/numeric/README.md)
--   [Searching](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/searching/README.md)
--   [Sorting](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/sorting/README.md)
--   [Storage](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/storage/README.md)
--   [Bytes](https://github.com/keep-starknet-strange/alexandria/blob/main/packages/bytes/README.md)
-
-### Integration
-
-Integrating Alexandria into your project is straightforward. Simply add the desired crates to your Scarb.toml file:
+Add the crates you need to your `Scarb.toml`:
 
 ```toml
 [dependencies]
 alexandria_math = { git = "https://github.com/keep-starknet-strange/alexandria.git" }
 alexandria_data_structures = { git = "https://github.com/keep-starknet-strange/alexandria.git" }
+alexandria_encoding = { git = "https://github.com/keep-starknet-strange/alexandria.git" }
+alexandria_sorting = { git = "https://github.com/keep-starknet-strange/alexandria.git" }
+# Add others as needed...
 ```
 
-### References
+## Key Packages
 
-Find the [Alexandria repo](https://github.com/keep-starknet-strange/alexandria)
+### [Math](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/math)
+
+Mathematical operations and utilities for numerical computations, cryptography, and algorithm implementation.
+
+**Key Features**: Prime number testing, fast power/root calculations, bitwise operations, cryptographic hashes
+
+```cairo
+// Example: validating a prime-based game mechanic
+use alexandria_math::is_prime::is_prime;
+use alexandria_math::fast_power::fast_power;
+use alexandria_math::{BitShift, U32BitShift};
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Player {
+    #[key] pub address: ContractAddress,
+    pub score: u128,
+    pub level: u32,
+}
+
+// Verify if player's score qualifies for prime number bonus
+fn check_prime_bonus(world: WorldStorage, player: ContractAddress) -> bool {
+    let player_data: Player = world.read_model(player);
+
+    // Check if score is prime
+    is_prime(player_data.score, 10)
+}
+
+// Calculate exponential level progression
+fn calculate_experience_needed(level: u32) -> u128 {
+    // Experience needed = 1000 * 2^level
+    1000 * fast_power(2_u128, level.into())
+}
+
+// Use bitwise operations for efficient flag checking
+fn check_player_permissions(permissions: u32, action: u32) -> bool {
+    // Use bit shift to check if specific permission bit is set
+    (permissions & U32BitShift::shl(1, action)) != 0
+}
+```
+
+### [Data Structures](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/data_structures)
+
+Efficient collections and data manipulation utilities including stacks, queues, and array extensions.
+
+**Key Features**: LIFO stacks, FIFO queues, array/span utilities, bit manipulation
+
+```cairo
+// Example: managing a turn-based game queue
+use alexandria_data_structures::stack::StackTrait;
+use alexandria_data_structures::queue::QueueTrait;
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct GameSession {
+    #[key] pub game_id: u32,
+    pub current_turn: u32,
+    pub players_count: u8,
+}
+
+// Track undo/redo actions with stack
+fn manage_game_history(ref game_stack: Felt252Stack<u32>, action: u32) {
+    game_stack.push(action);
+
+    // Limit history to last 10 actions
+    while game_stack.len() > 10 {
+        game_stack.pop();
+    }
+}
+
+// Process player turns in order with queue
+fn process_turn_queue(ref turn_queue: Queue<ContractAddress>) -> ContractAddress {
+    match turn_queue.dequeue() {
+        Option::Some(player) => {
+            // Re-add player to end of queue for next round
+            turn_queue.enqueue(player);
+            player
+        },
+        Option::None => panic!("No players in queue")
+    }
+}
+```
+
+### [Sorting & Searching](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/sorting)
+
+Algorithms for data organization and retrieval including various sorting methods and search algorithms.
+
+**Key Features**: Quick sort, merge sort, bubble sort, binary search
+
+```cairo
+// Example: maintaining leaderboards and finding player rankings
+use alexandria_sorting::merge_sort::MergeSort;
+use alexandria_searching::binary_search::binary_search;
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Leaderboard {
+    #[key] pub season: u32,
+    pub scores: Array<u128>,
+    pub players: Array<ContractAddress>,
+}
+
+// Sort player scores for leaderboard display
+fn update_leaderboard(ref world: WorldStorage, season: u32, new_scores: Array<u128>) {
+    let sorted_scores = MergeSort::sort(new_scores.span());
+
+    world.write_model(@Leaderboard {
+        season,
+        scores: sorted_scores,
+        players: array![], // Would need corresponding player array
+    });
+}
+
+// Find player's ranking efficiently
+fn find_player_rank(scores: Span<u128>, player_score: u128) -> Option<u32> {
+    binary_search(scores, player_score)
+}
+```
+
+### [Encoding](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/encoding)
+
+Data encoding and decoding utilities including Base64, RLP, and Solidity ABI support.
+
+**Key Features**: Base64 encoding/decoding, RLP serialization, Solidity ABI compatibility
+
+```cairo
+// Example: encoding game data for off-chain storage or cross-chain communication
+use alexandria_encoding::base64::{Base64ByteArrayEncoder, Base64ByteArrayDecoder};
+use alexandria_encoding::rlp::{RLPTrait};
+
+#[derive(Drop, Serde)]
+pub struct GameState {
+    pub round: u32,
+    pub players: Array<ContractAddress>,
+    pub moves: Array<u8>,
+}
+
+// Encode game state for external storage
+fn encode_game_state(game_state: GameState) -> ByteArray {
+    let mut encoded_data = ArrayTrait::new();
+    game_state.serialize(ref encoded_data);
+
+    // Convert to ByteArray then Base64 encode
+    let byte_data = ByteArrayTrait::from_span(encoded_data.span());
+    Base64ByteArrayEncoder::encode(byte_data)
+}
+
+// Decode incoming game data
+fn decode_game_state(encoded_data: ByteArray) -> GameState {
+    let decoded = Base64ByteArrayDecoder::decode(encoded_data);
+    // Convert decoded bytes to span and deserialize
+    let mut decoded_span = decoded.into_span();
+    Serde::<GameState>::deserialize(ref decoded_span).unwrap()
+}
+```
+
+## Additional Packages
+
+### [ASCII](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/ascii)
+
+Text processing and character manipulation utilities
+
+- Convert integers to ASCII representations
+- Character encoding and string manipulation functions
+
+### [Linalg](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/linalg)
+
+Linear algebra operations for mathematical computations
+
+- Dot product calculations for vectors
+- Kronecker products and matrix operations
+- Vector norm calculations (L1, L2, infinity norms)
+
+### [Numeric](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/numeric)
+
+Advanced numerical operations for scientific computing
+
+- Cumulative operations (cumsum, cumprod) for statistical analysis
+- Numerical differentiation for calculating derivatives
+- Interpolation functions for data smoothing and prediction
+
+### [Merkle Tree](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/merkle_tree)
+
+Cryptographic tree structures for efficient data verification
+
+- Binary merkle trees with Pedersen/Poseidon hashing support
+- Storage proofs for Starknet state verification
+- Efficient membership and inclusion proofs
+
+### [Storage](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/storage)
+
+On-chain data structures optimized for Starknet storage patterns
+
+- Persistent lists with efficient append/prepend operations
+- Storage-optimized key-value structures for large datasets
+
+### [Bytes](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/bytes)
+
+Low-level byte manipulation and bit operations
+
+- Bit arrays with efficient set/get operations
+- Byte stream readers and writers for binary data processing
+- Endianness conversion and byte order utilities
+- Reversible byte operations for data transformation
+
+### [JSON](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/json)
+
+JSON parsing and serialization for data interchange
+
+- Deserialize JSON strings into Cairo data structures
+- Serialize Cairo structs to JSON format
+- Support for nested objects and arrays
+
+### [Utils](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/utils)
+
+General utility functions and formatting helpers
+
+- String formatting and display utilities
+- Common helper functions for development
+
+### [EVM](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/evm)
+
+Ethereum Virtual Machine compatibility utilities
+
+- EVM bytecode decoding and analysis
+- Ethereum-style signature verification
+- Cross-chain compatibility functions
+
+### [BTC](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/btc)
+
+Bitcoin protocol implementations and utilities
+
+- Bitcoin address generation and validation
+- BIP340 Schnorr signature support
+- Bitcoin script and transaction utilities
+- Taproot and legacy signature schemes
+
+## Integration with Dojo
+
+Alexandria complements Dojo's game development framework by providing:
+
+1. **Mathematical Foundations**: Use `alexandria_math` for game mechanics requiring number theory, cryptography, or advanced calculations
+2. **Data Management**: Leverage `alexandria_data_structures` for efficient in-memory data handling in systems
+3. **Cross-Chain Interoperability**: Use `alexandria_encoding` for communication with other blockchains or off-chain services
+4. **Performance Optimization**: Apply `alexandria_sorting` and `alexandria_searching` for efficient data organization
