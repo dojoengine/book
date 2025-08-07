@@ -5,40 +5,322 @@ description: "Collection of essential primitives and libraries for building onch
 
 ![origami](/origami.png)
 
-> _The magic of origami is in seeing a single piece of cairo evolve into a masterpiece through careful folds._
->
-> <p align="right">Sensei</p>
+:::note
+*The magic of origami is in seeing a single piece of Cairo evolve into a masterpiece through careful folds.*
+:::
 
 ## Origami
 
-### Primitives for Onchain Gaming
+[Origami](https://github.com/dojoengine/origami) is a collection of essential primitives designed to facilitate the development of onchain games using the Dojo engine.
+It provides a set of powerful tools and libraries that enable game developers to create complex, engaging, and secure blockchain-based games.
 
-Origami is a collection of essential primitives designed to facilitate the development of onchain games using the Dojo engine. It provides a set of powerful tools and libraries that enable game developers to create complex, engaging, and secure blockchain-based games.
+Each crate focuses on a specific aspect of game development, from mathematical operations and procedural generation to economic mechanisms and security primitives.
 
-### Overview
+## Installation
 
-Origami offers a range of crates, each focusing on specific aspects of game development:
-
--   [Algebra](https://github.com/dojoengine/origami/tree/main/crates/algebra)
--   [DeFi](https://github.com/dojoengine/origami/tree/main/crates/defi)
--   [Map](https://github.com/dojoengine/origami/tree/main/crates/map)
--   [Physics](https://github.com/dojoengine/origami/tree/main/crates/physics)
--   [Random](https://github.com/dojoengine/origami/tree/main/crates/random)
--   [Rating](https://github.com/dojoengine/origami/tree/main/crates/rating)
--   [Security](https://github.com/dojoengine/origami/tree/main/crates/security)
-
-These crates work together seamlessly to provide a comprehensive toolkit for building sophisticated onchain games.
-
-### Integration
-
-Integrating Origami into your project is straightforward. Simply add the desired crates to your Scarb.toml file:
+Add the crates you need to your `Scarb.toml`:
 
 ```toml
 [dependencies]
-origami_random = { git = "https://github.com/dojoengine/origami" }
+origami_algebra = { git = "https://github.com/dojoengine/origami" }
 origami_map = { git = "https://github.com/dojoengine/origami" }
+origami_random = { git = "https://github.com/dojoengine/origami" }
+# Add others as needed...
 ```
 
-### References
+## Algebra
 
-Find the [Origami repo](https://github.com/dojoengine/origami)
+Mathematical structures and operations for 2D game development including vector operations and algebraic computations.
+
+**Key Features**: Vec2 operations (dot product, swizzling), vector utilities, matrix operations
+
+```cairo
+// Example: checking if an enemy is within a player's field of view
+
+use origami_algebra::vec2::{Vec2, Vec2Trait};
+
+#[derive(Copy, Drop, Serde, IntrospectPacked)]
+pub struct GameVec2 { pub x: u32, pub y: u32 }
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Position {
+    #[key] pub entity: ContractAddress,
+    pub vec: GameVec2, // Where the entity is
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Facing {
+    #[key] pub entity: ContractAddress,
+    pub direction: GameVec2, // Where the entity is facing
+}
+
+fn can_see_enemy(world: WorldStorage, player: ContractAddress, enemy: ContractAddress) -> bool {
+    let player_pos: Position = world.read_model(player);
+    let enemy_pos: Position = world.read_model(enemy);
+    let player_facing: Facing = world.read_model(player);
+
+    // Calculate direction from player to enemy
+    let to_enemy = Vec2Trait::new(
+        enemy_pos.vec.x - player_pos.vec.x,
+        enemy_pos.vec.y - player_pos.vec.y
+    );
+
+    let facing_vec = Vec2Trait::new(
+        player_facing.direction.x,
+        player_facing.direction.y
+    );
+
+    // If dot > 0, enemy is in front of player (within 180° field of view)
+    facing_vec.dot(to_enemy) > 0
+}
+```
+
+## Map
+
+Tools for generating and manipulating 2D grid-based worlds with procedural generation algorithms and pathfinding.
+
+**Key Features**: Maze/cave/random walk generation, A* pathfinding, object distribution, hex grids
+
+```cairo
+// Example: creating and exploring a dungeon with hidden treasures
+
+use origami_map::map::{Map, MapTrait};
+use origami_map::helpers::bitmap::{Bitmap, BitmapTrait};
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct GameWorld {
+    #[key] pub game_id: u32,
+    pub map: Map,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Treasure {
+    #[key] pub game_id: u32,
+    #[key] pub position: u8,
+    pub discovered: bool,
+}
+
+// Create dungeon with entrance and hidden treasures
+fn generate_dungeon(ref world: WorldStorage, game_id: u32) {
+    let seed = get_block_timestamp().into() + game_id.into();
+
+    // Generate closed maze with few branching paths
+    let mut map = MapTrait::new_maze(18, 14, 0, seed);
+
+    // Add entrance corridor from edge position 63
+    map.open_with_corridor(63, 0);
+
+    // Distribute 5 treasures randomly across walkable tiles
+    let treasure_positions = map.compute_distribution(5, seed);
+
+    // Store treasures at computed positions
+    let mut pos: u8 = 1;
+    while pos < 252 { // 252 = 18 * 14
+        if Bitmap::get(treasure_positions, pos) == 1 {
+            world.write_model(@Treasure {
+                game_id,
+                position: pos,
+                discovered: false
+            });
+        }
+        pos += 1;
+    };
+
+    world.write_model(@GameWorld { game_id, map });
+}
+
+// Find path between two points
+fn find_path(world: WorldStorage, game_id: u32, start: u8, end: u8) -> Span<u8> {
+    let game_world: GameWorld = world.read_model(game_id);
+    game_world.map.search_path(start, end)
+}
+```
+
+## Random
+
+Pseudo-random generation for unpredictable game mechanics including dice rolling and deck management.
+
+**Key Features**: Customizable dice, card deck shuffling/drawing, seeded generation
+
+```cairo
+// Example: opening loot boxes with random rarity and item selection
+
+use origami_random::dice::{Dice, DiceTrait};
+use origami_random::deck::{Deck, DeckTrait};
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct LootBox {
+    #[key] pub player: ContractAddress,
+    #[key] pub box_id: u32,
+    pub rarity: u8,
+    pub item_id: u8,
+}
+
+fn open_loot_box(ref world: WorldStorage, player: ContractAddress, box_id: u32) {
+    let seed = get_block_timestamp().into() + box_id.into();
+
+    // Roll for rarity and determine loot quality
+    let mut rarity_dice = DiceTrait::new(6, seed);
+    let rarity = rarity_dice.roll();
+    let deck_size = match rarity { 6 => 10, 5 => 20, 4 => 40, _ => 100 };
+
+    // Draw items from appropriate deck
+    let mut item_deck = DeckTrait::new(seed, deck_size);
+    let item_count = if rarity >= 5 { 3 } else if rarity >= 3 { 2 } else { 1 };
+
+    let mut i = 0;
+    while i < item_count {
+        let loot = LootBox {
+            player, box_id: box_id + i.into(),
+            rarity: rarity.try_into().unwrap(),
+            item_id: item_deck.draw().try_into().unwrap(),
+        };
+        world.write_model(@loot);
+        i += 1;
+    }
+}
+```
+
+## DeFi
+
+Sophisticated auction mechanisms for in-game economies using Gradual Dutch Auctions (GDA) and Variable Rate GDAs (VRGDA).
+
+**Key Features**: Discrete/continuous GDA, linear/logistic VRGDA, dynamic pricing
+
+```cairo
+// Example: setting up and querying a GDA auction
+
+use origami_defi::auction::gda::{DiscreteGDA, DiscreteGDATrait};
+use cubit::f128::types::fixed::{Fixed, FixedTrait};
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct ItemAuction {
+    #[key] pub item_id: u32,
+    pub gda: DiscreteGDA,
+    pub start_time: u64,
+}
+
+fn setup_auction(ref world: WorldStorage, item_id: u32) {
+    let gda = DiscreteGDA {
+        sold: FixedTrait::new_unscaled(0, false), // 0 items sold
+        initial_price: FixedTrait::new_unscaled(1000, false), // 1000 units available
+        scale_factor: FixedTrait::new_unscaled(11, false) / FixedTrait::new_unscaled(10, false), // 1.1 - each item costs more
+        decay_constant: FixedTrait::new_unscaled(1, false) / FixedTrait::new_unscaled(100, false), // 0.01 - price decays over time
+    };
+    world.write_model(@ItemAuction { item_id, gda, start_time: get_block_timestamp() });
+}
+
+fn get_current_price(world: WorldStorage, item_id: u32, quantity: u32) -> u128 {
+    let auction: ItemAuction = world.read_model(item_id);
+    let time_elapsed = get_block_timestamp() - auction.start_time;
+
+    // Calculate current GDA price for the quantity
+    let price = auction.gda.purchase_price(
+        FixedTrait::new(time_elapsed.into(), false),
+        FixedTrait::new_unscaled(quantity.into(), false)
+    );
+
+    price.mag // Convert to u128
+}
+```
+
+## Rating
+
+Competitive ranking systems for multiplayer games using the industry-standard Elo rating system.
+
+**Key Features**: Elo rating calculation, configurable K-factors, win/loss/draw support
+
+```cairo
+// Example: resolving a match and updating player ratings
+
+use origami_rating::elo::EloTrait;
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct PlayerRating {
+    #[key] pub player: ContractAddress,
+    pub rating: u64,
+    pub games_played: u32,
+}
+
+fn resolve_match(
+    ref world: WorldStorage,
+    player1: ContractAddress,
+    player2: ContractAddress,
+    outcome: u8 // 0 = p2 wins, 50 = draw, 100 = p1 wins
+) {
+    let mut rating1: PlayerRating = world.read_model(player1);
+    let mut rating2: PlayerRating = world.read_model(player2);
+
+    // Calculate Elo changes
+    let k_factor = if rating1.games_played < 30 { 40 } else { 20 };
+    let (change1, is_negative1) = EloTrait::rating_change(
+        rating1.rating, rating2.rating, outcome.into(), k_factor
+    );
+
+    // Apply rating changes
+    rating1.rating = if is_negative1 { rating1.rating - change1 } else { rating1.rating + change1 };
+    rating2.rating = if is_negative1 { rating2.rating + change1 } else { rating2.rating - change1 };
+
+    rating1.games_played += 1;
+    rating2.games_played += 1;
+
+    world.write_model(@rating1);
+    world.write_model(@rating2);
+}
+```
+
+## Security
+
+Cryptographic primitives for secure game mechanics including commitment schemes for trustless gameplay.
+
+**Key Features**: Commit-reveal schemes, cryptographic verification, front-running prevention
+
+```cairo
+// Example: committing and revealing an action with a salt
+
+use origami_security::commitment::{Commitment, CommitmentTrait};
+use core::poseidon::poseidon_hash_span;
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct PlayerCommitment {
+    #[key] pub game_id: u32,
+    #[key] pub player: ContractAddress,
+    pub commitment_hash: felt252,
+    pub revealed: bool,
+    pub action: u8,
+}
+
+fn commit_action(ref world: WorldStorage, game_id: u32, player: ContractAddress, commitment_hash: felt252) {
+    // Player calculates hash(action + salt) off-chain and submits only the hash
+    world.write_model(@PlayerCommitment {
+        game_id, player, commitment_hash, revealed: false, action: 0
+    });
+}
+
+fn reveal_action(ref world: WorldStorage, game_id: u32, player: ContractAddress, action: u8, salt: felt252) -> bool {
+    let mut commitment: PlayerCommitment = world.read_model((game_id, player));
+    assert(!commitment.revealed, 'Already revealed');
+
+    // Verify commitment
+    let mut reveal_data = array![];
+    action.serialize(ref reveal_data);
+    salt.serialize(ref reveal_data);
+    let is_valid = poseidon_hash_span(reveal_data.span()) == commitment.commitment_hash;
+
+    if is_valid {
+        commitment.revealed = true;
+        commitment.action = action;
+        world.write_model(@commitment);
+    }
+
+    is_valid
+}
+```
