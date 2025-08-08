@@ -1,63 +1,31 @@
 export const routes = [
-	{
-		text: "Overview",
-		link: "/overview",
-	},
-	{
-		text: "Installation",
-		link: "/installation",
-	},
-	{
-		text: "FAQ",
-		link: "/faq",
-	},
+	{ text: "Overview", link: "/overview" },
+	{ text: "Installation", link: "/installation" },
+	{ text: "FAQ", link: "/faq" },
 	{
 		text: "Getting Started",
 		items: [
-			{
-				text: "Learning Path",
-				link: "/getting-started",
-			},
-			{
-				text: "Your First Dojo App",
-				link: "/getting-started/your-first-dojo-app",
-			},
-			{
-				text: "Understanding the Toolchain",
-				link: "/getting-started/understanding-the-toolchain",
-			},
+			{ text: "Learning Path", link: "/getting-started" },
+			{ text: "Your First Dojo App", link: "/getting-started/your-first-dojo-app" },
+			{ text: "Understanding the Toolchain", link: "/getting-started/understanding-the-toolchain" },
 			// These pages are WIP
-			// {
-			// 		text: "Development Workflow",
-			// 		link: "/getting-started/development-workflow",
-			// 	},
-			// {
-			// 	text: "Next Steps",
-			// 	link: "/getting-started/next-steps",
-			// },
+			// { text: "Development Workflow", link: "/getting-started/development-workflow" },
+			// { text: "Next Steps", link: "/getting-started/next-steps" },
 		],
 	},
 	{
 		text: "Tutorials",
 		items: [
-			{
-				text: "Dojo 101",
-				link: "/tutorials/dojo-starter",
-			},
-			{
-				text: "Deploy to Mainnet",
-				link: "/tutorials/deploy-to-mainnet/main",
-			},
-			{
-				text: "Deploy using Slot",
-				link: "/tutorials/deploy-using-slot/main",
-			},
+			{ text: "Dojo 101", link: "/tutorials/dojo-starter" },
+			{ text: "Deploy to Mainnet", link: "/tutorials/deploy-to-mainnet/main" },
+			{ text: "Deploy using Slot", link: "/tutorials/deploy-using-slot/main" },
 		],
 	},
 	{
 		text: "Framework",
 		items: [
 			{ text: "Overview", link: "/framework" },
+			{ text: "Configuration", link: "/framework/configuration" },
 			{
 				text: "World",
 				collapsed: true,
@@ -90,7 +58,6 @@ export const routes = [
 					{ text: "Coordination", link: "/framework/systems/coordination" },
 				],
 			},
-			{ text: "Configuration", link: "/framework/configuration" },
 			{
 				text: "Testing",
 				collapsed: true,
@@ -164,41 +131,24 @@ export const routes = [
 	{
 		text: "Libraries",
 		items: [
-			{
-				text: "Origami",
-				link: "/libraries/origami",
-			},
-			{
-				text: "Alexandria",
-				link: "/libraries/alexandria",
-			},
+			{ text: "Origami", link: "/libraries/origami" },
+			{ text: "Alexandria", link: "/libraries/alexandria" },
 		],
 	},
 	{
 		text: "SDKs",
 		items: [
 			{ text: "Overview", link: "/client/sdk" },
-
+			{ text: "dojo.c", link: "/client/sdk/c" },
 			{
 				text: "dojo.js",
 				link: "/client/sdk/javascript",
 				collapsed: true,
 				items: [
-					{
-						text: "Getting Started",
-						link: "/client/sdk/javascript/get-started",
-					},
-					{
-						text: "Overview",
-						link: "/client/sdk/javascript/overview",
-					},
-					{
-						text: "Query your entities",
-						link: "/client/sdk/javascript/query-your-entities",
-					},
-					{
-						text: "Query tokens",
-						link: "/client/sdk/javascript/tokens",
+					{ text: "Getting Started", link: "/client/sdk/javascript/get-started" },
+					{ text: "Overview", link: "/client/sdk/javascript/overview" },
+					{ text: "Query your entities", link: "/client/sdk/javascript/query-your-entities" },
+					{ text: "Query tokens", link: "/client/sdk/javascript/tokens",
 					},
 				],
 			},
@@ -207,18 +157,9 @@ export const routes = [
 				link: "/client/sdk/unity",
 				collapsed: true,
 				items: [
-					{
-						text: "Get Started",
-						link: "/client/sdk/unity/get-started",
-					},
-					{
-						text: "Dojo unity concepts",
-						link: "/client/sdk/unity/important-concepts",
-					},
-					{
-						text: "Common Problems",
-						link: "/client/sdk/unity/common-problems",
-					},
+					{ text: "Get Started", link: "/client/sdk/unity/get-started" },
+					{ text: "Dojo unity concepts", link: "/client/sdk/unity/important-concepts" },
+					{ text: "Common Problems", link: "/client/sdk/unity/common-problems" },
 					{ text: "Example", link: "/client/sdk/unity/example" },
 				],
 			},
@@ -227,21 +168,19 @@ export const routes = [
         link: "/client/sdk/unrealengine",
         collapsed: true,
         items: [
-          {
-              text: "Reference",
-              link: "/client/sdk/unrealengine/reference",
-          },
+          { text: "Reference", link: "/client/sdk/unrealengine/reference" },
           { text: "Example", link: "/client/sdk/unrealengine/example" },
         ],
       },
-			{ text: "dojo.c", link: "/client/sdk/c" },
-			{ text: "dojo.godot", link: "/client/sdk/godot" },
 			{
 				text: "dojo.rust",
 				link: "/client/sdk/rust",
 				collapsed: true,
-				items: [{ text: "Example", link: "/client/sdk/rust/example" }],
+				items: [
+					{ text: "Example", link: "/client/sdk/rust/example" },
+				],
 			},
+			{ text: "dojo.godot", link: "/client/sdk/godot" },
 			{ text: "dojo.telegram", link: "/client/sdk/telegram" },
 			{ text: "dojo.discord", link: "/client/sdk/discord" },
 		],
