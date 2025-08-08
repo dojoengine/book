@@ -7,7 +7,8 @@ description: A comprehensive guide to execution sharding on Starknet, including 
 
 :::note
 The execution sharding architecture described in this document represents **planned functionality** currently under development.
-While the core concepts and design are established, the implementation is not yet available in production.
+While the design is established, the implementation is not yet available in production.
+See the [Saya docs](/toolchain/saya/persistent) for more information.
 :::
 
 ## Overview

@@ -1,39 +1,39 @@
 ---
-title: Saya persistent mode
+title: Persistent mode
 description: Run an appchain as an L3 on Starknet and more coming soon.
 ---
 
-# Saya - Persistent mode
+# Persistent mode
+
+In persistent mode, Saya fetches blocks from Katana, verifies proofs, and updates the core contract state on the settlement layer.
 
 ![saya](/saya-persistent.png)
 
-In persistent mode, Saya will fetch the blocks from Katana and will verify the proof and update the state of the core contract on the settlement layer.
+:::tip
+For data availability without settlement layer integration, see [Sovereign mode](/toolchain/saya/sovereign).
+:::
 
+:::info
 The core contract currently used on Starknet is [Piltover](https://github.com/keep-starknet-strange/piltover).
-
-::::info
-As a work in progress, it will be soon possible to send the compressed state diff (referred as the DA) to a data availability layer like [Celestia](https://celestia.org/).
-
-Currently the compressed state diff is sent as calldata to the core contract on the settlement layer.
-::::
+Piltover acts as the settlement layer contract that receives and verifies state updates from your rollup, ensuring the integrity of state transitions on the base layer.
+:::
 
 ## Setup Katana
 
-Katana needs to be configured in provable mode to work with Saya. Katana is available in provable mode with all the new options starting [Dojo `1.3.0`](https://github.com/dojoengine/dojo/releases/tag/v1.3.0).
+Katana must be configured in provable mode to work with Saya.
+First, initialize a new chain spec:
 
-Initialize a new Katana chain spec:
-```
+```bash
 katana init --id per1 \
     --settlement-chain <Sepolia|Mainnet> \
     --settlement-account-address <ADDRESS> \
     --settlement-account-private-key <PRIVATE_KEY>
 ```
 
-This will automatically deploy a fresh core contract on the settlement layer.
+This automatically deploys a fresh core contract on the settlement layer.
+If you want to use a specific facts registry contract, set it via the `settlement-facts-registry` argument:
 
-If you want to use a specific facts registry contract, set it via the `settlement-facts-registry` argument.
-
-```
+```bash
 katana init --id per1 \
     --settlement-chain <Sepolia|Mainnet> \
     --settlement-account-address <ADDRESS> \
@@ -41,49 +41,52 @@ katana init --id per1 \
     --settlement-facts-registry <ADDRESS>
 ```
 
-```bash
-✓ Deployment successful (0x7059b8519965f0587a2d3892ce747d79d256e98e1021a7b993f86d6a3f62d22) at block #605518
-```
-
-::::note
-You can inspect the chain spec by running `katana config per1`.
+::::tip
+You can inspect the chain by running `katana config per1`
 ::::
 
 ::::note
-The settlement core contract must receive configuration parameters on deployement. It's recommended to let Katana handle this. You have some options available if the core contract is already deployed, to provide it to Katana to verify the configuration parameters.
+The settlement core contract must receive configuration parameters on deployment.
+It's recommended to let Katana handle this.
+If the core contract is already deployed, you should provide it so Katana can verify the configuration parameters.
 ::::
 
 When working with Katana in provable mode, two additional parameters are required:
 
-1. **block time**: since every block is proven, it is recommended to use a block time instead of the default mode where a block is mined for each transaction.
+1. `block-time`: Since every block is proven, it is recommended to use a block time instead of the default mode where a block is mined for each transaction.
+This prevents overwhelming the prover with too many blocks and ensures consistent proving performance.
 
-2. **block max cairo steps**: in the current implementation of Katana, there's a limitation where the cairo steps in a block are capped at `16` million. This is to prevent the proving step to fail. Once this limitation will be lifted, the maximum will be `40` million.
+2. `block-max-cairo-steps`: In the current implementation of Katana, the default cairo steps limit in a block is `50` million.
+For provable mode with Saya, it is recommended to use `16` million to ensure the proving step succeeds reliably.
+This limit exists due to Cairo VM constraints and proving complexity - larger blocks may fail to prove or timeout.
 
-```
+```bash
 katana --chain per1 \
     --block-time 30000 \
     --sequencing.block-max-cairo-steps 16000000
 ```
 
 ::::note
-You can define an `--output-path` when working with katana init to output the configuration files in the given directory. You will then want to start katana with the `--chain /path` instead of `--chain <CHAIN_ID>`.
+You can define an `--output-path` when working with katana init to output the configuration files in the given directory.
+You will then want to start katana with the `--chain /path` instead of `--chain <CHAIN_ID>`.
 ::::
 
-### Running Saya
+## Run Saya
 
-If you didn't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
-
-To ease the configuration, Saya can be run with environment variables (which can be overridden by command line arguments).
+If you haven't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
-
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.
 
+:::tip
+To ease configuration, Saya can be run with environment variables (which can be overridden by command line arguments).
+:::
+
 ```bash
-# .env.persistent file
+# .env.persistent
 
 # The number of blocks to process in parallel in Saya.
-BLOCKS_PROCESSED_IN_PARALLEL=4
+BLOCKS_PROCESSED_IN_PARALLEL=60
 
 # The database directory, to ensure long running queries are tracked
 # and not re-run if Saya is restarted.
@@ -125,5 +128,6 @@ saya persistent start
 ```
 
 ::::info
-To avoid double spending of Herodotus credits, Saya has an internal database to track the blocks that have been proven. The `DB_DIR` is then important to ensure that the database is not lost when Saya is restarted if you have long running Saya instance.
+To avoid double spending of Herodotus credits, Saya has an internal database to track the blocks that have been proven.
+The `DB_DIR` is important to ensure that the database is not lost when Saya is restarted if you have a long running Saya instance.
 ::::
