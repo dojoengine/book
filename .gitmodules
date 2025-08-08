@@ -61,3 +61,6 @@
 [submodule "src/libraries/alexandria"]
 	path = src/libraries/alexandria
 	url = https://github.com/keep-starknet-strange/alexandria
+[submodule "src/framework/cainome"]
+	path = src/framework/cainome
+	url = https://github.com/cartridge-gg/cainome
