@@ -8,7 +8,8 @@ description: "Generate type-safe client bindings for your Dojo world across mult
 Client bindings bridge the gap between your Cairo smart contracts and client applications.
 Sozo's `bindgen` generates type-safe, platform-specific code that enables native interaction with your Dojo world.
 
-**Basic workflow:**
+## Basic Workflow
+
 ```bash
 sozo build                                # Compile contracts
 sozo bindgen --binding-target typescript  # Generate TypeScript bindings
@@ -16,7 +17,8 @@ sozo bindgen --binding-target typescript  # Generate TypeScript bindings
 # Use generated bindings in your client app
 ```
 
-**Shorthand:**
+Sozo provides a shorthand for compiling contracts and generating bindings in one command:
+
 ```bash
 sozo build --typescript     # Compile contracts + generate bindings
 ```
@@ -156,26 +158,8 @@ public class GameManager : MonoBehaviour
 }
 ```
 
-## Advanced Usage
+### Additional Targets
 
-Control where bindings are generated:
-
-```bash
-sozo bindgen --binding-target typescript --output-dir ./src/contracts/generated
-sozo bindgen --binding-target unity --output-dir ./Assets/Scripts/Dojo
-```
-
-**Available binding targets:**
-- `typescript` - Modern TypeScript definitions
 - `typescript-v2` - Alternative TypeScript format
-- `unity` - C# classes for Unity
 - `unrealengine` - C++ bindings for Unreal Engine
 - `recs` - RECS framework integration
-
-**Output structure:**
-```
-bindings/
-└── {world_name}.ts     # For TypeScript targets
-└── *.cs                # For Unity targets
-└── *.h *.cpp           # For Unreal targets
-```

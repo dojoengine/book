@@ -82,7 +82,7 @@ if (res.tag == OkControllerAccount) {
 }
 ```
 
-## Core API Reference
+## Core API
 
 The essential functions most developers use:
 
@@ -123,187 +123,6 @@ Account functions handle the **write** side of blockchain interaction. Controlle
 | `ResultAccount` | Result wrapper containing Account pointer or error |
 | `Error` | Error information with message string |
 | `CArrayStruct` | C array of Struct (model data) |
-
-## Common Patterns
-
-### Entity Synchronization
-
-```c
-// Subscribe to entity updates
-void on_entity_update(FieldElement key, CArrayStruct models) {
-    printf("Entity updated: 0x");
-    for (int i = 0; i < 32; i++) {
-        printf("%02x", key.data[i]);
-    }
-    printf("\n");
-
-    // Process model updates
-    for (size_t i = 0; i < models.data_len; i++) {
-        printf("Model: %s\n", models.data[i].name);
-    }
-}
-
-// Subscribe to all entity updates (no filter)
-COptionClause no_filter = { .tag = NoneClause };
-ResultSubscription sub = client_on_entity_state_update(
-    client,
-    no_filter,
-    &on_entity_update
-);
-```
-
-### Transaction Execution
-
-```c
-// Build transaction call
-FieldElement contract_addr;
-hex_to_bytes("0x01385f25d20a724edc9c7b3bd9636c59af64cbaf9fcd12f33b3af96b2452f295", &contract_addr);
-
-Call move_call = {
-    .to = contract_addr,        // Address as FieldElement
-    .selector = "move",         // Function name
-    .calldata = {
-        .data = calldata_array,
-        .data_len = 2
-    }
-};
-
-// Execute transaction
-ResultFieldElement result = controller_execute_raw(account, &move_call, 1);
-if (result.tag == OkFieldElement) {
-    printf("Transaction hash: 0x");
-    for (int i = 0; i < 32; i++) {
-        printf("%02x", result.ok.data[i]);
-    }
-    printf("\n");
-}
-```
-
-### Error Handling
-
-All dojo.c functions return `Result` types that must be checked:
-
-```c
-ResultToriiClient res = client_new(torii_url, world);
-switch (res.tag) {
-    case OkToriiClient:
-        // Success - use res.ok
-        client = res.ok;
-        break;
-    case ErrToriiClient:
-        // Error - check res.err.message
-        printf("Error: %s\n", res.err.message);
-        return 1;
-}
-
-// Controller account example
-ResultControllerAccount controller_res = controller_account(policies, policies_len, chain_id);
-if (controller_res.tag == OkControllerAccount) {
-    ControllerAccount *account = controller_res.ok;
-} else {
-    printf("No existing session: %s\n", controller_res.err.message);
-}
-```
-
-## Advanced Usage
-
-### Custom Entity Queries
-
-```c
-Query query = {
-    .pagination = {
-        .cursor = { .tag = Nonec_char },
-        .limit = { .tag = Someu32, .some = 100 },
-        .direction = Forward,
-        .order_by = { .data = NULL, .data_len = 0 }
-    },
-    .clause = {
-        .tag = SomeClause,
-        .some = {
-            .tag = Keys,
-            .keys = {
-                .keys = { .data = key_array, .data_len = 1 },
-                .pattern_matching = FixedLen,
-                .models = { .data = NULL, .data_len = 0 }
-            }
-        }
-    },
-    .no_hashed_keys = false,
-    .models = { .data = NULL, .data_len = 0 },
-    .historical = false
-};
-
-ResultPageEntity entities = client_entities(client, query);
-```
-
-### Burner Account Management
-
-```c
-// Create burner account funded by master account
-FieldElement burner_key = signing_key_new();
-ResultAccount burner = account_deploy_burner(provider, master_account, burner_key);
-
-if (burner.tag == OkAccount) {
-    printf("Burner deployed: 0x");
-    FieldElement addr = account_address(burner.ok);
-    for (int i = 0; i < 32; i++) {
-        printf("%02x", addr.data[i]);
-    }
-    printf("\n");
-}
-```
-
-### Memory Management
-
-dojo.c manages memory automatically for most operations, but some resources need explicit cleanup:
-
-```c
-// Free clients when done
-client_free(client);
-
-// Free accounts when done
-account_free(account);
-
-// Result types don't need manual cleanup
-```
-
-### Debugging
-
-Enable detailed logging:
-```c
-// Set log level (if supported by your build)
-set_log_level("debug");
-
-// Check function return values
-if (result.tag == ErrToriiClient) {
-    printf("Detailed error: %s\n", result.err.message);
-}
-```
-
-## Building Platform SDKs
-
-dojo.c is designed to be the foundation for platform-specific SDKs:
-
-**Unity Integration:**
-```csharp
-[DllImport("libdojo_c", CallingConvention = CallingConvention.Cdecl)]
-private static extern ResultToriiClient client_new(CString torii_url, FieldElement world);
-```
-
-**Node.js Integration:**
-```javascript
-const ffi = require('ffi-napi');
-const dojo = ffi.Library('./libdojo_c', {
-  'client_new': ['pointer', ['string', 'pointer']]
-});
-```
-
-**Python Integration:**
-```python
-from ctypes import CDLL, c_char_p
-dojo = CDLL('./libdojo_c.so')
-dojo.client_new.argtypes = [c_char_p, c_void_p]
-```
 
 ## Advanced API
 
@@ -388,3 +207,28 @@ dojo.client_new.argtypes = [c_char_p, c_void_p]
 | `world_metadata_free(metadata)` | Free World metadata |
 | `carray_free(data, length)` | Free C array |
 | `string_free(string)` | Free string |
+
+## Building Platform SDKs
+
+dojo.c is designed to be the foundation for platform-specific SDKs:
+
+**Unity Integration:**
+```csharp
+[DllImport("libdojo_c", CallingConvention = CallingConvention.Cdecl)]
+private static extern ResultToriiClient client_new(CString torii_url, FieldElement world);
+```
+
+**Node.js Integration:**
+```javascript
+const ffi = require('ffi-napi');
+const dojo = ffi.Library('./libdojo_c', {
+  'client_new': ['pointer', ['string', 'pointer']]
+});
+```
+
+**Python Integration:**
+```python
+from ctypes import CDLL, c_char_p
+dojo = CDLL('./libdojo_c.so')
+dojo.client_new.argtypes = [c_char_p, c_void_p]
+```
