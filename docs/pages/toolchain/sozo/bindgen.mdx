@@ -1,0 +1,181 @@
+---
+title: "Bindings Generation"
+description: "Generate type-safe client bindings for your Dojo world across multiple platforms"
+---
+
+# Bindings Generation
+
+Client bindings bridge the gap between your Cairo smart contracts and client applications.
+Sozo's `bindgen` generates type-safe, platform-specific code that enables native interaction with your Dojo world.
+
+**Basic workflow:**
+```bash
+sozo build                                # Compile contracts
+sozo bindgen --binding-target typescript  # Generate TypeScript bindings
+
+# Use generated bindings in your client app
+```
+
+**Shorthand:**
+```bash
+sozo build --typescript     # Compile contracts + generate bindings
+```
+
+Bindings are saved to the `bindings/` directory by default.
+
+**What gets generated:**
+- **Type-safe interfaces** for all your models and systems
+- **Serialization/deserialization** handling
+- **Contract interaction methods** with proper typing
+- **Integration helpers** for each platform
+
+:::tip
+For the architectural details of binding generation, see the [Cainome documentation](/toolchain/cainome).
+:::
+
+## Supported Platforms
+
+### TypeScript
+
+Starting with your Cairo contracts, generate and use type-safe TypeScript definitions:
+
+**1. Your Cairo models:**
+```cairo
+use starknet::ContractAddress;
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Position {
+    #[key]
+    player: ContractAddress,
+    vec: Vec2,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Moves {
+    #[key]
+    player: ContractAddress,
+    remaining: u8,
+    last_direction: Direction,
+}
+
+#[derive(Copy, Drop, Serde)]
+enum Direction {
+    None,
+    Left,
+    Right,
+    Up,
+    Down,
+}
+```
+
+**2. Generate TypeScript bindings:**
+```bash
+sozo build --typescript
+```
+
+:::note
+The generated file is named after your `[world]` name from `dojo_dev.toml`.
+:::
+
+**3. Use in your TypeScript application:**
+```typescript
+// Import your Cairo types - now available as TypeScript interfaces
+import { Position, Moves, Direction } from './bindings/world_name.ts';
+import { Client, createClient } from '@dojoengine/torii-client';
+
+const client = await createClient({
+    toriiUrl: "http://localhost:8080",
+    worldAddress: worldAddress,
+});
+
+// Query entities with full type safety
+const entities = await client.getEntities({
+    clause: {
+        Keys: {
+            keys: [playerId],
+            pattern_matching: "FixedLen",
+            models: ["Position", "Moves"]
+        }
+    }
+});
+
+// Your Cairo models are now typed TypeScript objects
+const position = entities[0].models.find(m => m.name === "Position") as Position;
+const moves = entities[0].models.find(m => m.name === "Moves") as Moves;
+
+// TypeScript knows about your Cairo enum values
+if (moves.last_direction.type === 'Left') {
+    console.log('Player moved left');
+}
+```
+
+### Unity
+
+Starting with the same Cairo contracts, generate C# classes for Unity:
+
+**1. Your Cairo models** (same as above)
+
+**2. Generate C# bindings:**
+```bash
+sozo build --unity
+```
+
+**3. Use in Unity:**
+```csharp
+using GeneratedBindings; // Your Cairo types are now C# classes
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    void Start()
+    {
+        // Your Cairo models are now available as C# classes
+        var playerPosition = new Position
+        {
+            player = "0x123...",
+            vec = new Vec2 { x = 10, y = 5 }
+        };
+
+        // Use your Cairo types in Unity
+        UpdatePlayerTransform(playerPosition);
+    }
+
+    void UpdatePlayerTransform(Position position)
+    {
+        // Type-safe usage of your Cairo structs
+        transform.position = new Vector3(
+            position.vec.x,    // Cairo u32 -> C# uint
+            0,
+            position.vec.y
+        );
+
+        Debug.Log($"Player {position.player} moved to ({position.vec.x}, {position.vec.y})");
+    }
+}
+```
+
+## Advanced Usage
+
+Control where bindings are generated:
+
+```bash
+sozo bindgen --binding-target typescript --output-dir ./src/contracts/generated
+sozo bindgen --binding-target unity --output-dir ./Assets/Scripts/Dojo
+```
+
+**Available binding targets:**
+- `typescript` - Modern TypeScript definitions
+- `typescript-v2` - Alternative TypeScript format
+- `unity` - C# classes for Unity
+- `unrealengine` - C++ bindings for Unreal Engine
+- `recs` - RECS framework integration
+
+**Output structure:**
+```
+bindings/
+└── {world_name}.ts     # For TypeScript targets
+└── *.cs                # For Unity targets
+└── *.h *.cpp           # For Unreal targets
+```

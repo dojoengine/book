@@ -1,0 +1,150 @@
+---
+title: "Cainome"
+description: "Compile-time binding generator for Cairo smart contracts"
+---
+
+# Cainome
+
+[**Cainome**](https://github.com/cartridge-gg/cainome) is the foundational binding generator for Cairo smart contracts, providing the parsing infrastructure and plugin architecture that powers client binding generation -- enabling type-safe interaction with Cairo contracts.
+The name combines "Cairo" and "Genome" - representing the DNA of the Cairo ecosystem that expresses into different language bindings.
+
+#### Core Value Proposition
+
+- **Type Safety**: Compile-time validation prevents runtime errors
+- **Code Generation**: Eliminates manual binding creation and maintenance
+- **Multi-Language Foundation**: Single parser supports multiple target languages
+- **Cairo Expertise**: Deep understanding of Cairo's unique type system and serialization
+
+### What are Bindings?
+
+**Language bindings** are code libraries that allow programs written in one language to interact with systems written in another language.
+In blockchain development, smart contracts are often written in specialized languages (like Cairo or Solidity), while client applications use general-purpose languages (like Rust or TypeScript).
+
+Bindings solve this integration challenge by:
+- **Translating function calls** from the client language to the contract's native format
+- **Converting data types** between different language type systems
+- **Handling serialization** to transform data for network transmission
+- **Providing type safety** to catch errors at compile-time rather than runtime
+
+For example, without bindings, calling a Cairo contract from Rust would require manually:
+```rust
+// Manual contract interaction (error-prone)
+let calldata = vec![
+    Felt::from_hex("0x123...")?,  // What does this represent?
+    Felt::from(42_u32),           // Raw numeric conversion
+    // ... more manual serialization
+];
+let result = provider.call(contract_address, "mystery_function", calldata).await?;
+// Result is raw Felt values - what do they mean?
+```
+
+With generated bindings, the same interaction becomes:
+```rust
+// Type-safe binding (clear and safe)
+let result = contract.transfer_tokens(recipient_address, amount).call().await?;
+// Result is a strongly-typed struct with meaningful fields
+```
+
+## Architecture
+
+Cainome uses a plugin-based architecture with a shared parsing core:
+
+```
+Cairo Contract ABI
+        ↓
+   Cainome Parser (Rust)
+        ↓
+    Token Representation
+        ↓
+    Language Plugins
+    ↓     ↓       ↓
+   Rust   Go   TypeScript
+```
+
+### Core Components
+
+- **Parser Core**: Rust ABI parser handles both current and legacy Cairo formats
+
+- **Plugin System**: Extensible architecture supports built-in and external plugins
+
+- **Type Mapping**: Sophisticated mapping between Cairo types and language types
+
+- **Serialization**: Automatic handling of Cairo's unique serialization
+
+Cainome provides the foundation for multiple language bindings through its plugin system.
+Several targets (Rust, Go) are supported by Cainome's CLI directly, while others (TypeScript, Unity) are available through ecosystem plugins.
+
+## Usage
+
+Cainome provides both compile-time and CLI approaches for binding generation:
+
+### Rust Integration
+
+**Compile-time macro (automatic):**
+```rust
+use cainome::rs::abigen;
+
+// Bindings generated automatically during compilation
+abigen!(MyContract, "./target/dev/contract.contract_class.json");
+
+#[tokio::main]
+async fn main() {
+    // Contract struct immediately available
+    let contract = MyContract::new(contract_address, account);
+
+    // Call view functions
+    let balance = contract.get_balance(player_address).call().await.unwrap();
+    println!("Player balance: {}", balance);
+}
+```
+
+**CLI generation (manual):**
+```bash
+cainome --rust --output-dir ./bindings --execution-version v3 contract.json
+```
+
+### Go Integration
+
+**Inline directive (automatic):**
+```go
+//go:generate cainome --golang --golang-package mycontract --output-dir ./bindings ./contract.json
+
+package main
+
+import (
+    "context"
+    "fmt"
+    "mycontract" // Generated bindings
+)
+
+func main() {
+    // Run: go generate ./...
+
+    // Create contract reader for view functions
+    reader := mycontract.NewReader(contractAddress, provider)
+
+    // Call view functions with type safety
+    balance, err := reader.GetBalance(context.Background(), playerAddress)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Printf("Player balance: %s\n", balance)
+}
+```
+
+**CLI generation (manual):**
+```bash
+cainome --golang --golang-package mycontract --output-dir ./bindings contract.json
+```
+
+### Other Targets
+
+**TypeScript/Unity (via Sozo):**
+```bash
+sozo bindgen --typescript
+sozo bindgen --unity
+```
+
+:::tip
+For more binding generation workflows, see the [Sozo bindgen documentation](/toolchain/sozo/bindgen).
+:::

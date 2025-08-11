@@ -108,6 +108,7 @@ export const routes = [
 					{ text: "Overview", link: "/toolchain/sozo" },
 					{ text: "Project Management", link: "/toolchain/sozo/project-management" },
 					{ text: "World Interaction", link: "/toolchain/sozo/world-interaction" },
+					{ text: "Bindings Generation", link: "/toolchain/sozo/bindgen" },
 				],
 			},
 			{
@@ -119,6 +120,7 @@ export const routes = [
 					{ text: "Sovereign Mode", link: "/toolchain/saya/sovereign" },
 				],
 			},
+			{ text: "Cainome", link: "/toolchain/cainome" },
 		],
 	},
 	{
