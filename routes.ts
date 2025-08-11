@@ -139,7 +139,16 @@ export const routes = [
 		text: "SDKs",
 		items: [
 			{ text: "Overview", link: "/client/sdk" },
-			{ text: "dojo.c", link: "/client/sdk/c" },
+			{
+				text: "dojo.c",
+				link: "/client/sdk/c",
+				collapsed: true,
+				items: [
+					{ text: "Overview", link: "/client/sdk/c" },
+					{ text: "C Bindings API", link: "/client/sdk/c/c-bindings" },
+					{ text: "WASM JavaScript API", link: "/client/sdk/c/wasm-bindings" },
+				],
+			},
 			{
 				text: "dojo.js",
 				link: "/client/sdk/javascript",

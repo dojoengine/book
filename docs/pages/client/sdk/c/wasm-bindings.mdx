@@ -1,0 +1,753 @@
+---
+title: "WASM JavaScript API"
+description: "Modern async JavaScript API for web applications and Node.js development"
+---
+
+# WASM JavaScript API
+
+The **WASM JavaScript API** provides a modern, async/await interface to dojo.c functionality compiled to WebAssembly.
+This API is designed for web applications, Node.js backends, rapid prototyping, and developers who prefer JavaScript/TypeScript.
+
+:::info
+[WebAssembly](https://webassembly.org/) (WASM) is a binary format that allows high-performance code (like Rust) to run in web browsers and Node.js at near-native speeds.
+Released in 2017, it has become a core technology for modern web development.
+:::
+
+## Getting Started
+
+### Installation
+
+```bash
+# Clone & enter the repository
+git clone https://github.com/dojoengine/dojo.c && cd dojo.c
+
+# Build WASM module for web clients
+wasm-pack build --release --target web
+
+# Build for Node.js backends
+wasm-pack build --release --target nodejs
+```
+
+### Basic Integration
+
+**Browser Integration:**
+```html
+<script type="module">
+  import init, { ToriiClient } from './pkg/dojo_c.js';
+
+  async function setup() {
+    await init(); // Initialize WASM module
+
+    const client = await new ToriiClient({
+      toriiUrl: "http://localhost:8080",
+      worldAddress: "0x064613f376f05242dfcc9fe360fa2ce1fdd6b00b1ce73dae2ea649ea118fd9be"
+    });
+  }
+</script>
+```
+
+**Node.js Integration:**
+```javascript
+const { ToriiClient } = require('./pkg/dojo_c');
+
+// Node.js polyfills
+global.WebSocket = require('ws');
+global.WorkerGlobalScope = global;
+
+async function main() {
+  const client = await new ToriiClient({
+    toriiUrl: 'http://127.0.0.1:8080',
+    worldAddress: '0x064613f376f05242dfcc9fe360fa2ce1fdd6b00b1ce73dae2ea649ea118fd9be'
+  });
+
+  const entities = await client.getAllEntities(10);
+  console.log(entities);
+}
+```
+
+## Client Management
+
+### Client Configuration
+
+Client functions connect your application to the Dojo world state via Torii (the indexer). Use these to fetch current game state, query historical data, and receive real-time updates as the world changes. This is your **read** interface to the blockchain.
+
+**`new ToriiClient(config)`**
+Creates a new client instance.
+
+```javascript
+const client = await new ToriiClient({
+  toriiUrl: "http://localhost:8080",
+  worldAddress: "0x..."
+});
+```
+
+### Entity Operations
+
+**`getEntities(query)`**
+Queries entities with advanced filtering and pagination.
+
+```javascript
+const query = {
+  pagination: {
+    limit: 100,
+    cursor: undefined,
+    direction: "Forward"
+  },
+  clause: {
+    Keys: {
+      keys: [playerAddress],
+      pattern_matching: "FixedLen",
+      models: ["Position", "Health"]
+    }
+  },
+  no_hashed_keys: false,
+  historical: false
+};
+
+const entities = await client.getEntities(query);
+```
+
+**`getAllEntities(limit?)`**
+Fetches all entities with optional limit.
+
+```javascript
+const allEntities = await client.getAllEntities(1000);
+```
+
+**`onEntityUpdated(clause, callback)`**
+Subscribes to real-time entity updates.
+
+```javascript
+const subscription = await client.onEntityUpdated(
+  {
+    Keys: {
+      keys: [undefined], // All entities
+      pattern_matching: "VariableLen",
+      models: []
+    }
+  },
+  (entityId, models) => {
+    console.log('Entity updated:', entityId, models);
+  }
+);
+
+// Cancel subscription when done
+subscription.cancel();
+```
+
+**`updateEntitySubscription(subscription, clauses)`**
+Updates an existing entity subscription with new filters.
+
+### Event Operations
+
+**`getEventMessages(query)`**
+Queries historical event messages.
+
+```javascript
+const events = await client.getEventMessages({
+  pagination: { limit: 50 },
+  clause: {
+    Keys: {
+      keys: [eventSelector],
+      pattern_matching: "FixedLen",
+      models: []
+    }
+  },
+  historical: true
+});
+```
+
+**`onEventMessageUpdated(clause, callback)`**
+Subscribes to real-time event updates.
+
+```javascript
+const eventSub = await client.onEventMessageUpdated(
+  {
+    Keys: {
+      keys: [undefined],
+      pattern_matching: "VariableLen",
+      models: []
+    }
+  },
+  (entityId, models) => {
+    console.log('New event:', entityId, models);
+  }
+);
+```
+
+**`onStarknetEvent(clauses, callback)`**
+Subscribes to raw Starknet events.
+
+```javascript
+const starknetSub = await client.onStarknetEvent(
+  [{
+    keys: [eventSelector],
+    pattern_matching: "FixedLen",
+    models: []
+  }],
+  (event) => {
+    console.log('Starknet event:', event);
+  }
+);
+```
+
+### Token & Asset Operations
+
+**`getTokens(query)`**
+Queries token information.
+
+```javascript
+const tokens = await client.getTokens({
+  contract_addresses: ["0x..."], // Optional filter
+  token_ids: [],                 // Optional filter
+  pagination: { limit: 100 }
+});
+```
+
+**`getTokenBalances(query)`**
+Queries token balances.
+
+```javascript
+const balances = await client.getTokenBalances({
+  contract_addresses: ["0x..."],
+  account_addresses: [playerAddress],
+  token_ids: [],
+  pagination: { limit: 100 }
+});
+```
+
+**`getTokenCollections(query)`**
+Queries token collections (NFT collections).
+
+```javascript
+const collections = await client.getTokenCollections({
+  contract_addresses: [],
+  pagination: { limit: 50 }
+});
+```
+
+**`onTokenUpdated(contract_addresses, token_ids, callback)`**
+Subscribes to token metadata updates.
+
+```javascript
+const tokenSub = await client.onTokenUpdated(
+  ["0x..."], // Contract addresses
+  [],        // Token IDs (empty for all)
+  (token) => {
+    console.log('Token updated:', token);
+  }
+);
+```
+
+**`onTokenBalanceUpdated(contract_addresses, account_addresses, token_ids, callback)`**
+Subscribes to token balance changes.
+
+```javascript
+const balanceSub = await client.onTokenBalanceUpdated(
+  ["0x..."],         // Contract addresses
+  [playerAddress],   // Account addresses
+  [],               // Token IDs
+  (balance) => {
+    console.log('Balance changed:', balance);
+  }
+);
+```
+
+### Transaction Operations
+
+**`getTransactions(query)`**
+Queries transaction history.
+
+```javascript
+const transactions = await client.getTransactions({
+  filter: {
+    transaction_hashes: [],
+    caller_addresses: [playerAddress],
+    contract_addresses: [],
+    entrypoints: ["move", "attack"],
+    from_block: undefined,
+    to_block: undefined
+  },
+  pagination: { limit: 100 }
+});
+```
+
+**`onTransaction(filter, callback)`**
+Subscribes to new transactions.
+
+```javascript
+const txSub = await client.onTransaction(
+  {
+    caller_addresses: [playerAddress],
+    entrypoints: ["move"]
+  },
+  (transaction) => {
+    console.log('New transaction:', transaction);
+  }
+);
+```
+
+### Controller Operations
+
+**`getControllers(query)`**
+Queries controller information.
+
+```javascript
+const controllers = await client.getControllers({
+  contract_addresses: [],
+  pagination: { limit: 100 }
+});
+```
+
+### Messaging Operations
+
+**`publishMessage(message, signature)`**
+Publishes a single message.
+
+```javascript
+await client.publishMessage(
+  {
+    message: "Hello, Dojo!",
+    signature: await signMessage(message)
+  }
+);
+```
+
+**`publishMessageBatch(messages)`**
+Publishes multiple messages in a batch.
+
+```javascript
+await client.publishMessageBatch([
+  { message: "Message 1", signature: sig1 },
+  { message: "Message 2", signature: sig2 }
+]);
+```
+
+### Indexer Updates
+
+**`onIndexerUpdated(callback)`**
+Subscribes to indexer synchronization updates.
+
+```javascript
+const indexerSub = await client.onIndexerUpdated((update) => {
+  console.log('Indexer update:', update);
+});
+```
+
+### Subscription Management
+
+**`updateEntitySubscription(subscription, clause)`**
+Updates an existing entity subscription with new filtering criteria.
+
+**`updateEventMessageSubscription(subscription, clause)`**
+Updates an existing event message subscription with new filtering criteria.
+
+**`updateTokenBalanceSubscription(subscription, contract_addresses, account_addresses, token_ids)`**
+Updates an existing token balance subscription with new addresses and token IDs.
+
+## Account Operations
+
+Account functions handle the **write** side of blockchain interaction. Use these to execute game transactions, manage player accounts, and handle cryptographic operations like signing and verification.
+
+### Signing Key Operations
+
+**`SigningKey.fromRandom()`**
+Generates a new random signing key.
+
+```javascript
+import { SigningKey } from './pkg/dojo_c.js';
+
+const signingKey = SigningKey.fromRandom();
+const secretScalar = signingKey.secretScalar();
+const verifyingKey = signingKey.verifyingKey();
+```
+
+### Provider & Account Operations
+
+**`new Provider(rpc_url)`**
+Creates a new JSON-RPC provider.
+
+```javascript
+import { Provider } from './pkg/dojo_c.js';
+
+const provider = await new Provider("http://localhost:5050");
+const chainId = await provider.chainId();
+```
+
+**Account Operations:**
+```javascript
+import { Account, SigningKey } from './pkg/dojo_c.js';
+
+// Create account with private key string
+const signingKey = SigningKey.fromRandom();
+const privateKeyHex = signingKey.secretScalar();
+const account = await new Account(provider, privateKeyHex, address);
+
+// Execute transactions
+const txHash = await account.executeRaw([{
+  to: "0x...",
+  selector: "move",
+  calldata: ["0x1", "0x2"]
+}]);
+
+// Deploy burner account with private key string
+const burnerKey = SigningKey.fromRandom();
+const burnerPrivateKey = burnerKey.secretScalar();
+const burner = await account.deployBurner(burnerPrivateKey);
+```
+
+### Data Utilities
+
+**`ByteArray` class** - For handling Cairo byte arrays:
+```javascript
+import { ByteArray } from './pkg/dojo_c.js';
+
+const byteArray = new ByteArray("Hello, Dojo!");
+const raw = byteArray.toRaw(); // Convert to field elements
+const restored = ByteArray.fromRaw(raw); // Restore from field elements
+```
+
+**`TypedData` class** - For encoding typed data:
+```javascript
+import { TypedData } from './pkg/dojo_c.js';
+
+const typedData = new TypedData(JSON.stringify(typedDataObject));
+const encoded = typedData.encode(accountAddress);
+```
+
+**Provider utilities:**
+```javascript
+const result = await provider.call(call, blockId);
+const chainId = await provider.chainId();
+```
+
+## Utility Functions
+
+### Cryptographic Functions
+
+**`poseidonHash(inputs)`**
+Computes Poseidon hash of field elements.
+
+```javascript
+import { poseidonHash } from './pkg/dojo_c.js';
+
+const hash = poseidonHash([
+  "0x123...",
+  "0x456..."
+]);
+```
+
+**`starknetKeccak(data)`**
+Computes Starknet-compatible Keccak hash.
+
+```javascript
+import { starknetKeccak } from './pkg/dojo_c.js';
+
+const data = new Uint8Array(Buffer.from("move", "utf8"));
+const hash = starknetKeccak(data);
+```
+
+**`getSelectorFromName(name)`**
+Gets contract function selector from name.
+
+```javascript
+import { getSelectorFromName } from './pkg/dojo_c.js';
+
+const selector = getSelectorFromName("move");
+```
+
+**`getSelectorFromTag(tag)`**
+Gets selector from Dojo tag.
+
+```javascript
+import { getSelectorFromTag } from './pkg/dojo_c.js';
+
+const selector = getSelectorFromTag("dojo_starter-Position");
+```
+
+### Address & Encoding Functions
+
+**`getContractAddress(class_hash, salt, constructor_calldata, deployer_address)`**
+Computes contract address for deployment.
+
+```javascript
+import { getContractAddress } from './pkg/dojo_c.js';
+
+const address = getContractAddress(
+  classHash,
+  salt,
+  constructorCalldata,
+  deployerAddress
+);
+```
+
+**`cairoShortStringToFelt(str)`**
+Converts Cairo short string to felt.
+
+**`parseCairoShortString(felt)`**
+Parses felt as Cairo short string.
+
+## Advanced Patterns
+
+### Subscription Management
+
+```javascript
+class DojoGameClient {
+  constructor(config) {
+    this.subscriptions = new Set();
+  }
+
+  async connect() {
+    this.client = await new ToriiClient(this.config);
+  }
+
+  async subscribeToPlayer(playerAddress) {
+    const sub = await this.client.onEntityUpdated(
+      {
+        Keys: {
+          keys: [playerAddress],
+          pattern_matching: "FixedLen",
+          models: ["Position", "Health", "Inventory"]
+        }
+      },
+      this.handlePlayerUpdate.bind(this)
+    );
+
+    this.subscriptions.add(sub);
+    return sub;
+  }
+
+  handlePlayerUpdate(entityId, models) {
+    // Update game state
+    console.log('Player state updated:', entityId, models);
+  }
+
+  disconnect() {
+    // Clean up all subscriptions
+    for (const sub of this.subscriptions) {
+      sub.cancel();
+    }
+    this.subscriptions.clear();
+  }
+}
+```
+
+### Error Handling
+
+```javascript
+try {
+  const entities = await client.getEntities(query);
+  console.log('Success:', entities);
+} catch (error) {
+  console.error('Query failed:', error.message);
+
+  // Handle specific error types
+  if (error.message.includes('connection')) {
+    // Handle connection errors
+    await reconnect();
+  }
+}
+```
+
+### Pagination
+
+```javascript
+async function fetchAllEntities(client) {
+  let allEntities = [];
+  let cursor = undefined;
+
+  do {
+    const result = await client.getEntities({
+      pagination: {
+        limit: 100,
+        cursor,
+        direction: "Forward"
+      },
+      // ... other query params
+    });
+
+    allEntities.push(...result.entities);
+    cursor = result.next_cursor;
+
+  } while (cursor);
+
+  return allEntities;
+}
+```
+
+## Integration Examples
+
+### React Hook Example
+
+```javascript
+import { useEffect, useState } from 'react';
+import { ToriiClient } from './pkg/dojo_c';
+
+export function useDojoEntities(worldAddress, playerAddress) {
+  const [entities, setEntities] = useState([]);
+  const [client, setClient] = useState(null);
+
+  useEffect(() => {
+    let subscription;
+
+    async function setup() {
+      const dojoClient = await new ToriiClient({
+        toriiUrl: "http://localhost:8080",
+        worldAddress
+      });
+
+      setClient(dojoClient);
+
+      // Subscribe to updates
+      subscription = await dojoClient.onEntityUpdated(
+        {
+          Keys: {
+            keys: [playerAddress],
+            pattern_matching: "FixedLen",
+            models: []
+          }
+        },
+        (entityId, models) => {
+          setEntities(prev => {
+            // Update entity in state
+            const updated = [...prev];
+            const index = updated.findIndex(e => e.id === entityId);
+            if (index >= 0) {
+              updated[index] = { id: entityId, models };
+            } else {
+              updated.push({ id: entityId, models });
+            }
+            return updated;
+          });
+        }
+      );
+
+      // Initial fetch
+      const initial = await dojoClient.getEntities({
+        clause: {
+          Keys: {
+            keys: [playerAddress],
+            pattern_matching: "FixedLen",
+            models: []
+          }
+        }
+      });
+
+      setEntities(initial);
+    }
+
+    setup().catch(console.error);
+
+    return () => {
+      subscription?.cancel();
+    };
+  }, [worldAddress, playerAddress]);
+
+  return { entities, client };
+}
+```
+
+### Node.js Bot Example
+
+```javascript
+const { ToriiClient } = require('./pkg/dojo_c');
+
+class DojoBot {
+  constructor(config) {
+    this.config = config;
+    this.running = false;
+  }
+
+  async start() {
+    // Node.js polyfills
+    global.WebSocket = require('ws');
+    global.WorkerGlobalScope = global;
+
+    this.client = await new ToriiClient(this.config);
+    this.running = true;
+
+    // Subscribe to relevant events
+    await this.client.onEntityUpdated(
+      { Keys: { keys: [undefined], pattern_matching: "VariableLen", models: [] }},
+      this.handleGameUpdate.bind(this)
+    );
+
+    console.log('Bot started and listening for updates');
+  }
+
+  async handleGameUpdate(entityId, models) {
+    if (!this.running) return;
+
+    // Bot logic here
+    console.log('Processing game update:', entityId);
+
+    // Make decisions based on game state
+    // Execute transactions if needed
+  }
+
+  stop() {
+    this.running = false;
+    console.log('Bot stopped');
+  }
+}
+
+// Usage
+const bot = new DojoBot({
+  toriiUrl: 'http://localhost:8080',
+  worldAddress: '0x...'
+});
+
+bot.start().catch(console.error);
+```
+
+## Performance Considerations
+
+### Subscription Limits
+- Limit concurrent subscriptions to avoid overwhelming the client
+- Use specific filtering to reduce unnecessary updates
+- Cancel unused subscriptions promptly
+
+### Memory Management
+- WASM automatically manages memory, but large result sets can impact performance
+- Use pagination for large queries
+- Consider caching strategies for frequently accessed data
+
+### Connection Resilience
+- Subscriptions automatically reconnect with exponential backoff
+- Handle connection failures gracefully in your application logic
+- Monitor connection state for user feedback
+
+## Common Issues
+
+**WASM Initialization:**
+```javascript
+// Always await init() before using any functions
+await init();
+```
+
+**Node.js Compatibility:**
+```javascript
+// Required polyfills for Node.js
+global.WebSocket = require('ws');
+global.WorkerGlobalScope = global;
+```
+
+**Subscription Management:**
+```javascript
+// Always cancel subscriptions to prevent memory leaks
+subscription.cancel();
+```
+
+**Type Safety:**
+Consider using TypeScript for better development experience:
+
+```typescript
+import { ToriiClient, ClientConfig } from './pkg/dojo_c';
+
+const config: ClientConfig = {
+  toriiUrl: "http://localhost:8080",
+  worldAddress: "0x..."
+};
+
+const client = await new ToriiClient(config);
+```
