@@ -1,12 +1,12 @@
 ---
-title: "dojo.c - Foundation Layer"
-description: "The core runtime library that powers all Dojo SDKs across platforms"
+title: "dojo.c - Complete Dojo Client SDK"
+description: "The comprehensive client library that powers all Dojo SDKs across platforms"
 ---
 
-# dojo.c: The Foundation Layer
+# dojo.c: Complete Dojo Client SDK
 
-[**dojo.c**](https://github.com/dojoengine/dojo.c) is the core runtime library that powers all Dojo SDKs.
-Written in Rust, it provides the fundamental building blocks for blockchain interaction, account management, and entity synchronization that work consistently across all platforms.
+[**dojo.c**](https://github.com/dojoengine/dojo.c) is the comprehensive client library that powers all Dojo SDKs.
+Written in Rust, it provides everything you need for Dojo game development: world state queries via Torii, account management, transaction execution, and real-time subscriptions that work consistently across all platforms.
 
 ## Implementation Architecture
 
@@ -58,19 +58,24 @@ The two interfaces are designed for different use cases:
 - **Memory Management**: Automatic garbage collection
 - **Threading**: Promise-based with native async support
 
-## Core Capabilities
+## What You Get
 
-Both APIs provide the same core functionality with platform-appropriate interfaces:
+dojo.c is a "batteries included" SDK that bundles everything needed for Dojo game development:
 
-### Torii Client Integration
+### Torii Client (Primary Focus)
 - **Entity Queries**: Fetch world state with powerful filtering and pagination
 - **Real-time Subscriptions**: Subscribe to entity changes and events
 - **Transaction Monitoring**: Track transaction status and confirmations
 
-### Account Management
+### Integrated Account Management
 - **Controller Accounts**: Session-based accounts with policy-restricted permissions
 - **Burner Accounts**: Disposable accounts funded by a master account
 - **Direct Accounts**: Full control accounts for advanced use cases
+
+### Built-in Starknet Provider
+- **Transaction Execution**: Submit transactions directly without separate RPC setup
+- **Contract Calls**: Query contract view functions
+- **Chain Operations**: Handle nonces, block IDs, and transaction waiting
 
 ### Asset & Token Operations
 - **Token Queries**: Fetch ERC20/721/1155 token information
@@ -96,17 +101,15 @@ Both APIs provide the same core functionality with platform-appropriate interfac
 ### Use Case Decision Guide
 
 **🎯 Choose C Bindings when you need:**
-- **Maximum Performance**: Every microsecond matters
 - **Native Integration**: Unity plugins, Unreal Engine modules, or desktop applications
+- **Maximum Performance**: Every microsecond matters for your game
 - **Platform SDK Development**: Creating bindings for new languages/platforms
-- **System-Level Access**: Direct memory control, custom threading models
-- **Small Footprint**: Minimal runtime dependencies
+- **System-Level Control**: Direct memory management, custom threading models
 
 **🚀 Choose WASM JavaScript when you need:**
-- **Rapid Development**: Prototype quickly with familiar JavaScript patterns
-- **Web Applications**: Browser games, web dashboards, React/Vue applications
-- **Node.js Backends**: Server-side blockchain integration, bots, APIs
-- **Cross-Platform Deployment**: Same code runs in browsers and Node.js
+- **Web Games**: Browser-based Dojo games with real-time world state
+- **Rapid Prototyping**: Quick development with familiar JavaScript patterns
+- **Node.js Backends**: Server-side game logic, bots, APIs
 - **Rich Debugging**: Browser DevTools, source maps, hot reload
 
 ### Integration Examples
@@ -123,8 +126,8 @@ const { ToriiClient } = require('./pkg/dojo_c');
 const client = await new ToriiClient(config);
 ```
 
-dojo.c provides a rock-solid foundation for Dojo client development.
-Whether you use it directly or through a platform SDK, it ensures consistent, reliable blockchain interaction across all environments while providing the flexibility to optimize for your specific platform needs.
+dojo.c provides everything you need for Dojo game development in one comprehensive package.
+Whether you're building Unity games, web applications, or custom integrations, it delivers consistent, reliable blockchain interaction with the convenience of an integrated Torii client, account management, and Starknet provider.
 
 ## Next Steps
 
