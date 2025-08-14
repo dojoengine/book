@@ -157,7 +157,6 @@ export const routes = [
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/client/sdk/javascript" },
-					{ text: "Getting Started", link: "/client/sdk/javascript/get-started" },
 					{ text: "Query your entities", link: "/client/sdk/javascript/entities" },
 					{ text: "Query tokens", link: "/client/sdk/javascript/tokens",
 					},

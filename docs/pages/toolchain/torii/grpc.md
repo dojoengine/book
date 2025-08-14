@@ -16,7 +16,7 @@ It's designed for applications requiring low latency and efficient data fetching
 
 **Client Libraries**:
 
-- [dojo.js](/client/sdk/javascript.mdx) - JavaScript/TypeScript
+- [dojo.js](/client/sdk/javascript) - JavaScript/TypeScript
 - [dojo.c playground](https://github.com/dojoengine/dojo.c/tree/main/playground) - C/C++
 
 ## Core Concepts
