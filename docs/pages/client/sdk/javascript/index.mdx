@@ -1,157 +1,208 @@
 ---
-title: "Dojo SDK Overview"
-description: "Comprehensive guide to using the Dojo SDK for building onchain applications"
+title: "Dojo.js Overview"
+description: "Comprehensive guide to using the Dojo.js for building onchain applications"
 ---
 
-# Dojo SDK: Build onchain faster
+# Dojo.js
 
-The Dojo SDK provides a powerful, intuitive interface for interacting with onchain state. It streamlines data fetching and subscriptions, supporting both simple and complex queries.
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Initializing the SDK](#initializing-the-sdk)
-  - [Understanding Queries](#understanding-queries)
-  - [Querying Entities](#querying-entities)
-  - [Subscribing to Entity Changes](#subscribing-to-entity-changes)
-  - [Sending Signed Messages](#sending-signed-messages)
-  - [Using with Zustand](#using-with-zustand)
-  - [Optimistic Client Rendering](#optimistic-client-rendering)
-- [Advanced Usage](#advanced-usage)
-  - [Complex Queries](#complex-queries)
-- [Troubleshooting](#troubleshooting)
+The Dojo.js SDK provides a powerful, intuitive interface for interacting with onchain state in JavaScript.
+It streamlines data fetching and subscriptions, supporting both simple and complex queries.
 
 ## Key Features
 
 - **Type Safety**: Leverage TypeScript for robust, error-resistant code.
-- **Intuitive query syntax**: Write queries that feel natural, similar to popular OrMs.
-- **Flexible subscriptions**: Easily subscribe to specific state changes in your Dojo world.
-- **Signed messages**: Sign off-chain state and send to torii.
-- **Automatic Zustand Support**: Drop in zustand state management
-- **Optimistic Client Rendering**: Set state before a transaction has resolved to improve user experiences
+- **Intuitive query syntax**: Write ORM-like queries that feel natural.
+- **Flexible subscriptions**: Subscribe to granular state changes in your world.
+- **Signed messages**: Sign off-chain state and send to Torii.
+- **Automatic Zustand Support**: Drop-in Zustand state management.
+- **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
-### Understand Entities and Models
+:::note
+dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes Torii client features via WASM.
+For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
+:::
 
-- Entities are uniquely identified by Keys defined in associated models
-- Entities can have multiple models, representing complex game states
-- When a subscription or query returns data - it returns the updated Entity and changed models.
+## Usage Example
 
-## Torii - a ECS query system powerhouse
-
-**Before going further** be sure to read [this documentation of Torii queries](../../../toolchain/torii/grpc.md)
-Torii provides a grpc server that wraps all required tools to query your entities in a performant manner.
-
-## Example: Subscribing to Specific Model States
-
-Here's a concise example demonstrating how to subscribe to the `item` model in the `world` namespace, specifically filtering for items with a durability of 2:
+Here's a concise example demonstrating how to subscribe to the `item` model in the `world` namespace, filtering for items with a durability of 2:
 
 ```typescript
-// imports 
 import {
-    useDojoSDK,
+    ToriiQueryBuilder,
+    MemberClause
+} from "@dojoengine/sdk";
+
+import {
     useEntityId,
     useEntityQuery,
-    // useModels fetches all entities : return an array
     useModels,
-    // Single model retrieval from store : useful when you know the entityId. Returns a single entity
     useModel,
 } from "@dojoengine/sdk/react";
-import { KeysClause, ToriiQueryBuilder } from "@dojoengine/sdk";
 
+// <MyReactComponent>
 
+// Create a member clause for durability = 2
+const memberClause = MemberClause("world-Item", "durability", "Eq", 2);
 
-// inside a react component
+// Subscribe to changes to the item model
 useEntityQuery(
     new ToriiQueryBuilder()
-        .withClause(
-            MemberClause("world-Item", "durability", "Eq", 2).build()
-        )
+        .withClause(memberClause.build())
         .includeHashedKeys()
 );
 
-// Fetch all items from the store
+// Fetch an array of items from the store
 const items = useModels("world-Item")
 
 // Fetches a single item from the store
-// For instance, if I know my item has an id of 1, I can fetch it like this :
 const entityId = useEntityId(1)
 const item = useModel(entityId, "world-Item")
+
+// </MyReactComponent>
 ```
 
-## Usage
+## Getting Started
 
-### 🚀 Installation
+### Quickstart Wizard
+
+The fastest way to get started is using our quickstart wizard.
 
 ```bash
-npm install @dojoengine/sdk
+pnpx @dojoengine/create-dojo start
 ```
 
-Generate TypeScript types directly from your world schema:
+This will guide you through a series of prompts to configure your project.
 
-To take advantage of this type safety (You will need [dojo](https://github.com/dojoengine/dojo) installed):
+### Manual Setup
 
-1. Generate the TypeScript types for your world:
+For full control over your project structure, follow these steps:
 
-    ```bash
-    sozo build --typescript
-    # or if you want to specify the output directory
-    sozo build --typescript --bindings-output ./desired-output-path
-    ```
+::::steps
 
-2. You will import these and pass into the sdk init function to give your app type. You can see all the options for sozo, like setting the output directory, with the following command:
+#### Create Your Project
 
-    ```bash
-    sozo build --help
-    ```
+Pick any JavaScript framework.
+We recommend [pnpm](https://pnpm.io/) as your package manager.
 
-This approach ensures that your code remains in sync with your Dojo world definition, catching potential issues early in the development process.
+#### Install Dependencies
 
-### Initializing the SDK
+```bash
+cd {project_name}
+
+# Essential packages
+pnpm add @dojoengine/core @dojoengine/sdk @dojoengine/torii-client
+
+# For React integration
+pnpm add @dojoengine/create-burner @dojoengine/grpc @dojoengine/utils
+
+# For state management (v1.6+)
+pnpm add @dojoengine/state
+
+# Build tools for WASM support
+pnpm add -D vite-plugin-wasm vite-plugin-top-level-await
+
+# Additional dependencies
+pnpm add uuid @types/uuid zustand immer
+```
+
+#### Create `dojoConfig.ts`
+
+Create a `dojoConfig.ts` file, which tells dojo.js where your manifest is located:
 
 ```typescript
-import { init } from "@dojoengine/sdk";
-import {
-    SchemaType,
-    schema,
-} from "../where-you-generated-your-models/models.gen";
-import { dojoConfig } from "../your-dojo-config-path";
+import { createDojoConfig } from "@dojoengine/core";
+import manifest from "../path/to/manifest_dev.json";
 
-// Initialize the SDK
-const db = await init<SchemaType>(
-    {
+export const dojoConfig = createDojoConfig({ manifest });
+```
+
+#### Generate TypeScript Bindings
+
+[Generate code bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
+
+```bash
+DOJO_MANIFEST_PATH="../path/to/Scarb.toml" sozo build --typescript
+```
+
+:::note
+These instructions assume you have Dojo contracts relative to your client root.
+:::
+
+#### Initialize the SDK
+
+With your bindings generated, you can now link Dojo models to your UI.
+
+```typescript
+// main.tsx
+
+// General project imports
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+
+// General Dojo.js imports
+import { init } from "@dojoengine/sdk";
+import { DojoSdkProvider } from "@dojoengine/sdk/react";
+
+// Project-specific imports
+import { dojoConfig } from "./dojoConfig.ts";
+import { setupWorld } from "./bindings/typescript/contracts.gen.ts";
+import type { SchemaType } from "./bindings/typescript/models.gen.ts";
+
+async function main() {
+    // Initialize the SDK with configuration options
+    const sdk = await init<SchemaType>({
         client: {
-            toriiUrl: dojoConfig.toriiUrl,
-            relayUrl: dojoConfig.relayUrl,
+            // Required: Address of the deployed World contract
             worldAddress: dojoConfig.manifest.world.address,
+            // Optional: Torii indexer URL (defaults to http://localhost:8080)
+            toriiUrl: dojoConfig.toriiUrl || "http://localhost:8080",
+            // Optional: Relay URL for real-time messaging
+            relayUrl: dojoConfig.relayUrl || "/ip4/127.0.0.1/tcp/9090",
         },
+        // Domain configuration for typed message signing (See SNIP-12 for details)
         domain: {
-            name: "Example",
+            name: "MyDojoProject",
             version: "1.0",
-            chainId: "your-chain-id",
+            chainId: "KATANA", // or "SN_MAIN", "SN_SEPOLIA"
             revision: "1",
         },
-    },
-    schema
-);
+    });
+
+    createRoot(document.getElementById("root")!).render(
+        <DojoSdkProvider
+            sdk={sdk}
+            dojoConfig={dojoConfig}
+            clientFn={setupWorld}
+        >
+            <App />
+        </DojoSdkProvider>
+    );
+}
+
+main();
 ```
+
+:::warning
+The `init` function must be called only once to avoid creating multiple Torii clients.
+:::
+
+::::
+
+## Usage Overview
 
 ### Understanding Queries
 
-[Here you can find a detailed explanation over how Torii gRPC works](../../../toolchain/torii/grpc.md)
+The SDK utilizes two primary types of queries to interact with the Dojo Engine.
+Both query types enable filtering based on `entityIds` and model properties.
+The key difference lies in the operators supported by the `where` clause:
 
-The SDK utilizes two primary types of queries to interact with the Dojo Engine:
-
-1. **`SubscriptionQueryType`**: Used for real-time subscriptions to entity and event updates.
-2. **`QueryType`**: Used for fetching entities and event messages with more flexible filtering options.
-
-Both query types enable filtering based on `entityIds` and specific model properties. The key difference lies in the operators supported within the `where` clause:
-
-- **`SubscriptionQueryType`**:
-  - Supports only the `$is` operator for exact matches.
-- **`QueryType`**:
-  - Supports a variety of operators for more advanced filtering:
-  - You combine queries with 'And' with 'Or' from deep queries. See [Advanced Usage](#advanced-usage).
+1. **`SubscriptionQueryType`**
+    - For real-time subscriptions to entity and event updates.
+    - Supports only the `$is` operator for exact matches.
+2. **`QueryType`**
+    - For flexibly fetching entities and event messages.
+    - Supports a variety of operators for more advanced filtering:
+    - You combine queries with 'And' with 'Or' from deep queries. See [Advanced Usage](#advanced-usage).
 
 ### Querying Entities
 
@@ -211,8 +262,10 @@ const entities = await sdk.getEntities(
 
 ### Subscribing To Entity Changes
 
-Subscribing to entity changes is a bit more trivial. Because Torii subscribe functions only works with `KeysClause` or `HashedKeysClause` **you need first to query your model and then subscribe to those using entityIds**.
-This example subscribes to `item` model updates in the `world` namespace, filtering for swords with durability 5. The callback triggers on matching item changes.
+Subscribing to entity changes is a bit more trivial.
+Because Torii subscribe functions only works with `KeysClause` or `HashedKeysClause` **you need first to query your model and then subscribe to those using entityIds**.
+This example subscribes to `item` model updates in the `world` namespace, filtering for swords with durability 5.
+The callback triggers on matching item changes.
 
 Key points:
 
@@ -274,10 +327,12 @@ try {
     const signature = await account.signMessage(msg);
 
     try {
-        await db.client.publishMessage(
-            JSON.stringify(msg),
-            signature as string[]
-        );
+        await sdk.client.publishMessage({
+            message: JSON.stringify(msg),
+            signature: Array.isArray(signature)
+                ? signature
+                : [signature.r.toString(), signature.s.toString()]
+        });
         reset();
     } catch (error) {
         console.error("failed to publish message:", error);
@@ -289,30 +344,30 @@ try {
 
 ### Using With Zustand
 
-This module takes the `Schema` and outputs a typed store you can use around your app. See example [here](https://github.com/dojoengine/dojo.js/tree/main/examples/example-vite-react-sdk).
+The SDK integrates with Zustand for reactive state management.
+See example [here](https://github.com/dojoengine/dojo.js/tree/main/examples/example-vite-react-sdk).
 
-1. Import the module
+#### React Provider Setup
 
 ```typescript
 import { DojoSdkProvider } from "@dojoengine/sdk/react";
 import { setupWorld } from "../generated/typescript/contracts.gen";
 import { dojoConfig } from "../your-dojo-config-path/dojoConfig.ts";
 
-const sdk = await init<SchemaType>(
-    {
-        client: {
-            toriiUrl: dojoConfig.toriiUrl,
-            relayUrl: dojoConfig.relayUrl,
-            worldAddress: dojoConfig.manifest.world.address,
-        },
-        domain: {
-            name: "Example",
-            version: "1.0",
-            chainId: "your-chain-id",
-            revision: "1",
-        },
+const sdk = await init<SchemaType>({
+    client: {
+        toriiUrl: dojoConfig.toriiUrl,
+        relayUrl: dojoConfig.relayUrl,
+        worldAddress: dojoConfig.manifest.world.address,
     },
-);
+    domain: {
+        name: "Example",
+        version: "1.0",
+        chainId: "your-chain-id",
+        revision: "1",
+    },
+});
+
 <DojoSdkProvider
     sdk={sdk}
     dojoConfig={dojoConfig}
@@ -348,15 +403,28 @@ const entityId = useEntityId(1);
 const model = useModel(entityId, "world-Item")
 ```
 
-#### Zustand vanilla
+#### State Management Migration (v1.6+)
 
-You can also use a vanilla store which can be imported :
+Starting from v1.6, state management has been reorganized:
+
+- **New path (recommended)**: `@dojoengine/state/zustand`
+- **Old path**: `@dojoengine/sdk/state` (still works via re-exports)
+
+#### Zustand Vanilla Store
+
+You can also use a vanilla store which can be imported:
 
 ```ts
-import { createDojoStore } from "@dojoengine/sdk/state";
+// Recommended import path for v1.6+
+import { createDojoStore } from "@dojoengine/state/zustand";
+
+// Or use the backward-compatible path
+// import { createDojoStore } from "@dojoengine/sdk/state";
+
 const store = createDojoStore<Schema>();
+
 // Contrary to react, zustand vanilla store is not wrapped into a bound store.
-// to use your store :
+// To use your store:
 const state = store.getState();
 const entities = state.getEntities();
 ```
@@ -377,37 +445,38 @@ See our [example project](https://github.com/dojoengine/dojo.js/tree/main/exampl
 
 Note: You will need to have a subscription running in order for the update to resolve.
 
+
 ```typescript
-export const useSystemCalls = () => {
-    const state = useDojoStore((state) => state);
+import { useCallback } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useDojoSDK } from "@dojoengine/sdk/react";
+import { useAccount } from "@starknet-react/core";
+import { getEntityIdFromKeys } from "@dojoengine/utils";
 
-    const {
-        setup: { client },
-        account: { account },
-    } = useDojo();
+export function useSystemCalls(entityId: string) {
+    const { account } = useAccount();
+    const { useDojoStore, client } = useDojoSDK();
+    const state = useDojoStore((s) => s);
 
-    const generateEntityId = () => {
-        return getEntityIdFromKeys([BigInt(account?.address)]);
-    };
-
-    const spawn = async () => {
-        // Generate a unique entity ID
-        const entityId = generateEntityId();
+    const spawn = useCallback(async () => {
+        if (!account) return;
 
         // Generate a unique transaction ID
         const transactionId = uuidv4();
 
-        // The value to update
+        // The value to update the Moves model with
         const remainingMoves = 100;
 
         // Apply an optimistic update to the state
         // this uses immer drafts to update the state
-        state.applyOptimisticUpdate(
-            transactionId,
-            (draft) =>
-                (draft.entities[entityId].models.dojo_starter.Moves!.remaining =
-                    remainingMoves)
-        );
+        state.applyOptimisticUpdate(transactionId, (draft) => {
+            if (
+                draft.entities[entityId]?.models?.dojo_starter?.Moves
+            ) {
+                draft.entities[entityId].models.dojo_starter.Moves!.remaining =
+                    remainingMoves;
+            }
+        });
 
         try {
             // Execute the spawn action
@@ -429,12 +498,13 @@ export const useSystemCalls = () => {
             // Confirm the transaction if successful
             state.confirmTransaction(transactionId);
         }
-    };
+    }, [account, client, entityId, state]);
 
     return {
         spawn,
     };
-};
+}
+```
 ```
 
 ## Advanced Usage
