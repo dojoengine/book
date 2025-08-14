@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export function Header() {
@@ -76,12 +75,12 @@ export function Header() {
                         </div>
 
                         <div className="flex gap-4">
-                            <Link
-                                to="/overview"
+                            <a
+                                href="/overview"
                                 className="px-6 py-2 bg-[#FF4136] hover:bg-[#E63A30] rounded-md transition-colors font-bold"
                             >
                                 Documentation
-                            </Link>
+                            </a>
 
                             <a
                                 href="https://github.com/dojoengine/dojo"

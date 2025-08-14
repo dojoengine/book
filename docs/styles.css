@@ -13,7 +13,8 @@
 }
 
 body {
-  @apply bg-black text-white;
+  background-color: #000;
+  color: #fff;
 }
 
 h1,

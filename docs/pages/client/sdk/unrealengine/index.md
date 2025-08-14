@@ -105,7 +105,7 @@ To update the plugin to a new version:
 1. Build the dojo.c library for your platform
 2. In your UE5 project directory, create a new directory next to Dojo.Build.cs named after your version number (e.g. "1.3.1")
 3. Copy the dojo.h header file into this new version directory
-4. Create a lib/<platform> subdirectory and copy the libdojo_c library file into it
+4. Create a lib/`<platform>` subdirectory and copy the libdojo_c library file into it
 5. Update the Dojo.Build.cs file to reference your new version number
 6. Regenerate the project files following the instructions above
 
@@ -124,7 +124,7 @@ To add support for a new platform:
 
 2. Create the platform-specific directory structure:
    - Navigate to your version folder (e.g. `1.3.1/`)
-   - Create `lib/<PLATFORM>` directory (e.g. `lib/iOS`, `lib/Android`)
+   - Create `lib/\<PLATFORM>` directory (e.g. `lib/iOS`, `lib/Android`)
    - Platform names should match Unreal's naming conventions
 
 3. Copy the built library files:

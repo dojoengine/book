@@ -32,7 +32,7 @@ curl --location '<RPC_PROVIDER_URL>' \
 # you should get an output like this...
 {"jsonrpc":"2.0","result":"0x534e5f5345504f4c4941","id":0}
 
-# now paste the hex result part on this command... 
+# now paste the hex result part on this command...
 echo 0x534e5f5345504f4c4941 | xxd -r -p
 
 # which !must! output SN_SEPOLIA or SN_MAIN
@@ -137,11 +137,11 @@ This will yield a different world address.
 :::
 
 
-Your world is deployed! 
+Your world is deployed!
 
-* Once the world is deployed, you need to add the world_block in the dojo_<PROFILE>.toml file.
+* Once the world is deployed, you need to add the world_block in the `dojo_<PROFILE>.toml` file.
 ```toml
-rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"  
+rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"
 # account_address = "" # env: DOJO_ACCOUNT_ADDRESS
 # private_key = ""     # env: DOJO_PRIVATE_KEY
 world_address = <world address>

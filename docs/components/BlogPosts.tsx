@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { posts } from "virtual:blog";
-import { Link } from "react-router-dom";
+
 
 interface BlogPost {
     title: string;
@@ -32,8 +32,8 @@ export function BlogPosts() {
                 return (
                     <Fragment key={index}>
                         <div className="group flex flex-col rounded-xl bg-[#0c0c0c] bg-opacity-30 backdrop-blur-lg overflow-hidden border border-white/5 hover:border-red-500/20 transition-all duration-300">
-                            <Link
-                                to={post.path}
+                            <a
+                                href={post.path}
                                 className="flex flex-col h-full"
                             >
                                 <div className="aspect-[1.91/1] w-full bg-[#1a1a1a] overflow-hidden">
@@ -55,7 +55,7 @@ export function BlogPosts() {
                                         date={post.date}
                                     />
                                 </div>
-                            </Link>
+                            </a>
                         </div>
                     </Fragment>
                 );

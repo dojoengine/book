@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import { useState } from "react";
 
 export const LinkCard = ({
@@ -38,18 +38,14 @@ export const LinkCard = ({
         </>
     );
 
-    return href ? (
+    return (
         <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={href || link || "#"}
+            target={href ? "_blank" : undefined}
+            rel={href ? "noopener noreferrer" : undefined}
             {...commonProps}
         >
             {content}
         </a>
-    ) : (
-        <Link to={link || "#"} {...commonProps}>
-            {content}
-        </Link>
     );
 };

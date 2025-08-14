@@ -203,7 +203,7 @@ sozo clean
 ```
 
 :::info
-To build new profiles, add `[profile.<PROFILE>]` to your project's `Scarb.toml`.
+To build new profiles, add `[profile.\<PROFILE>]` to your project's `Scarb.toml`.
 :::
 
 #### 3. Deployment
@@ -231,14 +231,14 @@ Finished `dev` profile target(s) in 8 seconds
 ```
 
 :::info
-To define new profiles, create a `dojo_<PROFILE>.toml` file in your contract directory.
+To define new profiles, create a `dojo_\<PROFILE>.toml` file in your contract directory.
 :::
 
 :::warning
 You **must** have a `dojo_dev.toml` file in your contract directory, or Sozo will complain.
 :::
 
-After migrating, Sozo will generate a `manifest_<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
+After migrating, Sozo will generate a `manifest_\<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
 Thsi file is meant to be consumed by clients to help them interact with the world.
 
 #### 4. Interaction

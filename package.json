@@ -13,14 +13,14 @@
 		"@cartridge/presets": "github:cartridge-gg/presets#b0def0f",
 		"@dojoengine/sdk": "1.4.0",
 		"prettier": "^3.4.2",
-		"react": "latest",
-		"react-dom": "latest",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
 		"react-router-dom": "^6.28.0",
 		"vite-tsconfig-paths": "^5.1.4",
-		"vocs": "latest"
+		"vocs": "^1.0.13"
 	},
 	"devDependencies": {
-		"@types/react": "^18.3.14",
+		"@types/react": "^19.1.1",
 		"vite-plugin-svgr": "^4.3.0"
 	},
 	"packageManager": "pnpm@10.6.4"

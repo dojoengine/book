@@ -58,17 +58,6 @@ git submodule status
 # Should show current commit hashes and clean working directories
 ```
 
-### 1.4 Generate API Documentation (New!)
-
-TODO: Implement this functionality!
-
-**Benefits of programmatic API generation:**
-- **More accurate** than LLMs parsing raw source code
-- **Structured markdown format** optimized for LLM consumption
-- **Complete API coverage** including types, signatures, and documentation
-- **Consistent formatting** across all projects
-- **Automatically updated** with source code changes
-
 ## Step 2: Review Source Code Changes
 
 ### 2.1 Identify Changed Components
@@ -153,13 +142,7 @@ pnpm run dev
 
 ## Step 5: Generate New Documentation
 
-### 5.1 Use Generated API Documentation as LLM Context
-
-**Before creating documentation, leverage the programmatically generated API docs:**
-
-NOTE: not yet available!
-
-### 5.2 Create Content Based on API Documentation
+### 5.2 Create Content Based on Update Source Code
 
 For each component requiring updates:
 
@@ -191,6 +174,8 @@ For each new page:
 3. **Follow style guidelines** from `spec/style-guide.md`
 4. **Include proper code examples** with comments and expected output; consult Sensei MCP when writing Dojo code
 5. **Add cross-references** to related content
+
+> Note: DO NOT generate "common patterns" or "best practices" sections unless they are based on actual source code samples.
 
 ### 5.3 Update Navigation
 ```typescript

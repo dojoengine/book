@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 
 const cards = [
     {
@@ -43,8 +43,8 @@ export function Featured() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {cards.map((card, index) => (
-                <Link
-                    to={card.link}
+                <a
+                    href={card.link}
                     key={index}
                     className="group block transform transition-all duration-200 hover:scale-105 h-full"
                 >
@@ -60,7 +60,7 @@ export function Featured() {
                             </p>
                         </div>
                     </div>
-                </Link>
+                </a>
             ))}
         </div>
     );

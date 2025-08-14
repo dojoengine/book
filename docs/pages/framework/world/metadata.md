@@ -7,11 +7,11 @@ description: "Guide to configuring and managing metadata for Dojo worlds and res
 
 Dojo supports associating offchain metadata with the **world** and its **resources**. This provides additional context about the world and its resources, such as their name, description, icon URI, and more. This enables external services to easily index and distribute worlds and experiences built on them.
 
-During migration, `sozo` automatically manages metadata for you, uploading it to IPFS in `JSON` format and registering it in the world contract through the `ResourceMetadata` Dojo model. `sozo` does this by parsing the metadata defined in the Dojo profile configuration `dojo_<PROFILE>.toml`.
+During migration, `sozo` automatically manages metadata for you, uploading it to IPFS in `JSON` format and registering it in the world contract through the `ResourceMetadata` Dojo model. `sozo` does this by parsing the metadata defined in the Dojo profile configuration `dojo_\<PROFILE>.toml`.
 
 ## World Metadata
 
-To set world metadata, create the following section in your `dojo_<PROFILE>.toml`:
+To set world metadata, create the following section in your `dojo_\<PROFILE>.toml`:
 
 ```toml
 [world]
@@ -36,7 +36,7 @@ Arbitrary social links can be set by adding key-value pairs under the `socials` 
 
 ## Resource Metadata
 
-To set resource metadata, create the following sections in your `dojo_<PROFILE>.toml`, using `[[models]]`, `[[contracts]]` or `[[events]]` depending on the type of the resource:
+To set resource metadata, create the following sections in your `dojo_\<PROFILE>.toml`, using `[[models]]`, `[[contracts]]` or `[[events]]` depending on the type of the resource:
 
 ```toml
 [[models]]
@@ -61,7 +61,7 @@ For each type of resource, the toolchain supports the `description` and `icon_ur
 
 ## IPFS Configuration
 
-The toolchain supports IPFS configuration options in the profile configuration file `dojo_<PROFILE>.toml`. This configuration is required for uploading local assets and metadata to IPFS.
+The toolchain supports IPFS configuration options in the profile configuration file `dojo_\<PROFILE>.toml`. This configuration is required for uploading local assets and metadata to IPFS.
 
 ```toml
 [env]

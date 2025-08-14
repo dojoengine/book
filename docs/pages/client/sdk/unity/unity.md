@@ -28,7 +28,7 @@ This will generate a `.dll` or `.so` binary in the `target/release` directory, d
 
 ### Watch video
 
-<!-- [![Watch the video](/unity-screen-grab.png)](/dojo.unity_demo.mp4) -->
+{/* Watch the video: unity demo (link temporarily disabled) */}
 
 ## Dojo Unity Concepts
 
