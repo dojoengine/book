@@ -3,7 +3,7 @@ title: "Bindings Generation"
 description: "Generate type-safe client bindings for your Dojo world across multiple platforms"
 ---
 
-# Bindings Generation
+# Binding Generation
 
 Client bindings bridge the gap between your Cairo smart contracts and client applications.
 Sozo's `bindgen` generates type-safe, platform-specific code that enables native interaction with your Dojo world.
@@ -77,14 +77,12 @@ enum Direction {
 sozo build --typescript
 ```
 
-:::note
-The generated file is named after your `[world]` name from `dojo_dev.toml`.
-:::
+Bindings will be saved as `bindings/typescript/{contracts, models}.gen.ts`.
 
 **3. Use in your TypeScript application:**
 ```typescript
 // Import your Cairo types - now available as TypeScript interfaces
-import { Position, Moves, Direction } from './bindings/world_name.ts';
+import { Position, Moves, Direction } from './bindings/typescript/models.ts';
 import { Client, createClient } from '@dojoengine/torii-client';
 
 const client = await createClient({
@@ -126,7 +124,7 @@ sozo build --unity
 
 **3. Use in Unity:**
 ```csharp
-using GeneratedBindings; // Your Cairo types are now C# classes
+using Dojo.Starknet;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -136,8 +134,9 @@ public class GameManager : MonoBehaviour
         // Your Cairo models are now available as C# classes
         var playerPosition = new Position
         {
-            player = "0x123...",
-            vec = new Vec2 { x = 10, y = 5 }
+            player = new FieldElement("0x123..."),
+            x = 10,
+            y = 5
         };
 
         // Use your Cairo types in Unity
@@ -148,15 +147,19 @@ public class GameManager : MonoBehaviour
     {
         // Type-safe usage of your Cairo structs
         transform.position = new Vector3(
-            position.vec.x,    // Cairo u32 -> C# uint
-            0,
-            position.vec.y
+            (float)position.x,  // Cairo u32 -> C# uint -> float
+            0f,
+            (float)position.y
         );
 
-        Debug.Log($"Player {position.player} moved to ({position.vec.x}, {position.vec.y})");
+        Debug.Log($"Player {position.player} moved to ({position.x}, {position.y})");
     }
 }
 ```
+
+:::note
+Ensure your generated bindings are in the `Assets/` folder of your Unity project.
+:::
 
 ### Additional Targets
 
