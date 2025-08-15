@@ -240,7 +240,7 @@ After successful verification, follow these steps to debug your transaction on W
 
 You need to set up your Slot RPC URL in Walnut before debugging:
 
-1. Follow this [custom networks setup guide](https://docs.walnut.dev/custom-networks).
+1. Follow this [custom networks setup guide](https://docs.walnut.dev/overview/custom-networks).
 2. Once set up, use the Walnut app as described above.
 
 For detailed instructions and advanced use cases, visit the official [Walnut Documentation](https://docs.walnut.dev).
