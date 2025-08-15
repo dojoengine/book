@@ -1,4 +1,10 @@
 {
+  "env": {
+    "ENABLE_EXPERIMENTAL_COREPACK": "1"
+  },
+  "installCommand": "corepack enable && corepack prepare pnpm@10.6.4 --activate && npx -y pnpm@10.6.4 -v && npx -y pnpm@10.6.4 install",
+  "buildCommand": "npx -y pnpm@10.6.4 -v && npx -y pnpm@10.6.4 build",
+  "outputDirectory": "build",
   "redirects": [
     {
       "source": "/architecture/soverign-rollups",
