@@ -71,7 +71,8 @@ export const routes = [
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/framework/upgrading" },
-					{ text: "Dojo 1.x", link: "/framework/upgrading/dojo-1x" },
+					{ text: "Dojo 1.7", link: "/framework/upgrading/dojo-1-7" },
+					{ text: "Dojo 1.0", link: "/framework/upgrading/dojo-1-0" },
 				],
 			},
 		],

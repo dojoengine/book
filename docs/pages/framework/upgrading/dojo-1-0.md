@@ -1,12 +1,12 @@
 ---
-title: Dojo 1.x Overview
-description: A comprehensive overview of Dojo 1.x, including core concepts, world interaction, permissions, events, and testing.
+title: Dojo 1.0 Overview
+description: A comprehensive overview of Dojo 1.0, including core concepts, world interaction, permissions, events, and testing.
 ---
 
-# Dojo 1.x Overview
+# Dojo 1.0 Overview
 
 :::note
-This guide focuses on the major changes from Dojo 0.x to Dojo 1.x, [released Nov 2024](https://github.com/dojoengine/dojo/releases/tag/v1.0.0).
+This guide focuses on the major changes from Dojo 0.x to Dojo 1.0, [released Nov 2024](https://github.com/dojoengine/dojo/releases/tag/v1.0.0).
 If you are new to Dojo, you can skip this section.
 :::
 

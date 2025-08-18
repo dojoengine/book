@@ -7,11 +7,11 @@ description: An overview of Dojo upgrading guides
 
 ## Major Releases
 
-### Dojo 1.x
+### [Dojo 1.x](dojo-1-0)
 
 Dojo's first **major release** in November 2024, which stabilized the Dojo API.
 
-[See the Dojo 1.x upgrading guide here.](dojo-1x)
+[See the Dojo 1.0.0 release notes.](https://github.com/dojoengine/dojo/releases/tag/v1.0.0)
 
 :::note
 It is unlikely that a new Dojo developer will need to upgrade from Dojo 0.x
@@ -19,11 +19,20 @@ It is unlikely that a new Dojo developer will need to upgrade from Dojo 0.x
 
 ## Minor Releases
 
+### [Dojo 1.7.x](dojo-1-7)
+
+**Dojo 1.7.0 key changes:**
+
+- Stabilizes the use of RPC 0.9 of Starknet.
+- Introduces a new `DojoStore` trait for model serialization.
+
+[See the Dojo 1.7.0 release notes.](https://github.com/dojoengine/dojo/releases/tag/v1.7.0)
+
 ### Dojo 1.6.x
 
 **Dojo 1.6.0 key changes:**
 
-- This release stabilizes the use of RPC 0.8 of Starknet.
+- Stabilizes the use of RPC 0.8 of Starknet.
 
 [See the Dojo 1.6.0 release notes.](https://github.com/dojoengine/dojo/releases/tag/v1.6.0)
 
