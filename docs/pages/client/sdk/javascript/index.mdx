@@ -13,53 +13,14 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 - **Type Safety**: Leverage TypeScript for robust, error-resistant code.
 - **Intuitive query syntax**: Write ORM-like queries that feel natural.
 - **Flexible subscriptions**: Subscribe to granular state changes in your world.
+- **Built-in Zustand support**: Reactive state management.
 - **Signed messages**: Sign off-chain state and send to Torii.
-- **Automatic Zustand Support**: Drop-in Zustand state management.
 - **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
 :::note
 dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes Torii client features via WASM.
 For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
 :::
-
-## Usage Example
-
-Here's a concise example demonstrating how to subscribe to the `item` model in the `world` namespace, filtering for items with a durability of 2:
-
-```typescript
-import {
-    ToriiQueryBuilder,
-    MemberClause
-} from "@dojoengine/sdk";
-
-import {
-    useEntityId,
-    useEntityQuery,
-    useModels,
-    useModel,
-} from "@dojoengine/sdk/react";
-
-// <MyReactComponent>
-
-// Create a member clause for durability = 2
-const memberClause = MemberClause("world-Item", "durability", "Eq", 2);
-
-// Subscribe to changes to the item model
-useEntityQuery(
-    new ToriiQueryBuilder()
-        .withClause(memberClause.build())
-        .includeHashedKeys()
-);
-
-// Fetch an array of items from the store
-const items = useModels("world-Item")
-
-// Fetches a single item from the store
-const entityId = useEntityId(1)
-const item = useModel(entityId, "world-Item")
-
-// </MyReactComponent>
-```
 
 ## Getting Started
 
@@ -87,13 +48,13 @@ We recommend [pnpm](https://pnpm.io/) as your package manager.
 #### Install Dependencies
 
 ```bash
-cd {project_name}
+mkdir {project_name} && cd {project_name} && pnpm init
 
 # Essential packages
 pnpm add @dojoengine/core @dojoengine/sdk @dojoengine/torii-client
 
 # For React integration
-pnpm add @dojoengine/create-burner @dojoengine/grpc @dojoengine/utils
+pnpm add @dojoengine/create-burner @dojoengine/utils
 
 # For state management (v1.6+)
 pnpm add @dojoengine/state
@@ -101,13 +62,13 @@ pnpm add @dojoengine/state
 # Build tools for WASM support
 pnpm add -D vite-plugin-wasm vite-plugin-top-level-await
 
-# Additional dependencies
-pnpm add uuid @types/uuid zustand immer
+# Additional dependencies (if using React)
+pnpm add zustand immer
 ```
 
 #### Create `dojoConfig.ts`
 
-Create a `dojoConfig.ts` file, which tells dojo.js where your manifest is located:
+Create a `dojoConfig.ts` file and pass in your project's manifest:
 
 ```typescript
 import { createDojoConfig } from "@dojoengine/core";
@@ -135,15 +96,15 @@ With your bindings generated, you can now link Dojo models to your UI.
 ```typescript
 // main.tsx
 
-// General project imports
+// React imports
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 
-// General Dojo.js imports
+// Dojo imports
 import { init } from "@dojoengine/sdk";
 import { DojoSdkProvider } from "@dojoengine/sdk/react";
 
-// Project-specific imports
+// Local imports
 import { dojoConfig } from "./dojoConfig.ts";
 import { setupWorld } from "./bindings/typescript/contracts.gen.ts";
 import type { SchemaType } from "./bindings/typescript/models.gen.ts";
@@ -159,7 +120,7 @@ async function main() {
             // Optional: Relay URL for real-time messaging
             relayUrl: dojoConfig.relayUrl || "/ip4/127.0.0.1/tcp/9090",
         },
-        // Domain configuration for typed message signing (See SNIP-12 for details)
+        // Domain configuration for typed message signing (SNIP-12)
         domain: {
             name: "MyDojoProject",
             version: "1.0",
@@ -169,11 +130,7 @@ async function main() {
     });
 
     createRoot(document.getElementById("root")!).render(
-        <DojoSdkProvider
-            sdk={sdk}
-            dojoConfig={dojoConfig}
-            clientFn={setupWorld}
-        >
+        <DojoSdkProvider sdk={sdk} dojoConfig={dojoConfig} clientFn={setupWorld}>
             <App />
         </DojoSdkProvider>
     );
@@ -183,257 +140,239 @@ main();
 ```
 
 :::warning
-The `init` function must be called only once to avoid creating multiple Torii clients.
+Call `init` only once to avoid creating multiple Torii clients.
 :::
 
 ::::
 
 ## Usage Overview
 
-### Understanding Queries
+### Core SDK Methods
 
-The SDK utilizes two primary types of queries to interact with the Dojo Engine.
-Both query types enable filtering based on `entityIds` and model properties.
-The key difference lies in the operators supported by the `where` clause:
+The SDK provides several key methods for interacting with your Dojo world:
 
-1. **`SubscriptionQueryType`**
-    - For real-time subscriptions to entity and event updates.
-    - Supports only the `$is` operator for exact matches.
-2. **`QueryType`**
-    - For flexibly fetching entities and event messages.
-    - Supports a variety of operators for more advanced filtering:
-    - You combine queries with 'And' with 'Or' from deep queries. See [Advanced Usage](#advanced-usage).
+- **`getEntities()`** - Fetch entities with flexible filtering
+- **`subscribeEntityQuery()`** - Subscribe to real-time entity updates
+- **`getEventMessages()`** - Fetch historical events
+- **`subscribeEventQuery()`** - Subscribe to real-time event updates
+- **`sendMessage()`** - Send signed off-chain messages
+
+All queries use the same `ToriiQueryBuilder` and support the same filtering operators: `Eq`, `Neq`, `Gt`, `Gte`, `Lt`, `Lte`, `In`, `NotIn`.
 
 ### Querying Entities
 
-This example fetches `player` entities from the `world` namespace where `id` is "1" and `name` is "Alice", demonstrating multiple conditions in a query.
-
-Note: `$eq` is for exact matching. Other operators (`$gt`, `$lt`, etc.) are available for complex queries.
+Fetch entities using the `ToriiQueryBuilder` with various clause types:
 
 ```typescript
-// This is how a raw Torii query would look like.
-{
-    "Composite": {
-        "operator": "And",
-        "clauses": [
-            {
-                "Member": {
-                    "model": "world-Player",
-                    "member": "id",
-                    "operator": "Eq",
-                    "value": {
-                        "Primitive": {
-                            "U32": 1
-                        }
-                    }
-                }
-            },
-            {
-                "Member": {
-                    "model": "world-Player",
-                    "member": "name",
-                    "operator": "Eq",
-                    "value": "Alice",
-                }
-            },
-    ]
-  }
-}
+// Simple query: Find a specific player
+const entities = await sdk.getEntities({
+    query: new ToriiQueryBuilder()
+        .withClause(MemberClause("dojo_starter-Player", "id", "Eq", 1).build())
+});
 
-// ClauseBuilder version
-const entities = await sdk.getEntities(
-  new ToriiQueryBuilder().withClause(
-    new ClauseBuilder().compose().and(
-      new ClauseBuilder().where("world-Player", 'id', 'Eq', 1),
-      new ClauseBuilder().where("world-Player", 'name', 'Eq', "Alice"),
-    ).build();
-  ).build()
-);
-// Or
-const entities = await sdk.getEntities(
-  new ToriiQueryBuilder().withClause(
-    AndComposeClause([
-      MemberClause("world-Player", 'id', 'Eq', 1),
-      MemberClause("world-Player", 'name', 'Eq', "Alice"),
-    ]).build();
-  ).build()
-);
+// Access the results
+entities.items.forEach(entity => {
+    const player = entity.models.dojo_starter.Player;
+    console.log(`Player: ${player?.name}, Score: ${player?.score}`);
+});
 ```
 
-### Subscribing To Entity Changes
+:::note
+Models are accessed using the pattern `entity.models.{namespace}.{ModelName}` where:
+- `{namespace}` is your project's namespace (e.g., `dojo_starter`, `world`, `game`)
+- `{ModelName}` is the exact model name as defined in your Cairo code
+:::
 
-Subscribing to entity changes is a bit more trivial.
-Because Torii subscribe functions only works with `KeysClause` or `HashedKeysClause` **you need first to query your model and then subscribe to those using entityIds**.
-This example subscribes to `item` model updates in the `world` namespace, filtering for swords with durability 5.
-The callback triggers on matching item changes.
-
-Key points:
-
-- Namespace: `world`, Model: `item`
-- Conditions: type "sword", durability 5
-- Uses `$is` for exact matching
+Here is an example of a complex query that finds high-scoring warriors and mages in a specific area of the map:
 
 ```typescript
-const [initialEntities, subscription] = await sdk.subscribeEntities({
+const entities = await sdk.getEntities({
     query: new ToriiQueryBuilder()
         .withClause(
             AndComposeClause([
-                MemberClause(
-                    "world-item",
-                    "type",
-                    "Eq",
-                    "sword"
-                ),
-                MemberClause(
-                    "world-item",
-                    "durability",
-                    "Eq",
-                    5
-                ),
-            ])
-            .build()
+                // Player conditions
+                MemberClause("world-Player", "score", "Gt", 100),
+                OrComposeClause([
+                    MemberClause("world-Player", "class", "Eq", "warrior"),
+                    MemberClause("world-Player", "class", "Eq", "mage"),
+                ]),
+                // Position conditions (same entities)
+                MemberClause("world-Position", "x", "Lt", 50),
+                MemberClause("world-Position", "y", "Gt", 20),
+            ]).build()
         )
+});
+```
+
+:::note
+When you use AND with different model types, you're looking for **entities that have both components**.
+:::
+
+### Subscribing To Entity Changes
+
+Subscribe to real-time updates for entities matching your query criteria:
+
+```typescript
+const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
+    query: new ToriiQueryBuilder()
+        .withClause(MemberClause("dojo_starter-Player", "score", "Gt", 100).build())
         .includeHashedKeys(),
-    callback:  ({ data, error}) => {
+    callback: ({ data, error }) => {
         if (data) {
-            console.log("Updated entities:", data);
+            console.log("Player updated:", data);
+            data.forEach(entity => {
+                const player = entity.models.dojo_starter.Player;
+                console.log(`Player ${player?.id}: ${player?.score} points`);
+            });
         }
         if (error) {
             console.error("Subscription error:", error);
         }
     }
 });
+
+// Cancel the subscription when no longer needed
+// subscription.cancel();
 ```
 
-sdk first query entities and then use entityIds for subscription so you only have to care about what you original query was.
+### Saving State With Zustand
+
+The SDK integrates with Zustand for reactive state management, updating your components automatically when blockchain data changes:
+
+```
+1. useEntityQuery() subscribes to Torii for real-time updates
+              ↓
+2. Blockchain state changes (transaction, new entity, etc.)
+              ↓
+3. Torii detects the change and pushes update to your client
+              ↓
+4. SDK automatically updates the Zustand store
+              ↓
+5. React components using useModels/useModel re-render automatically
+              ↓
+6. UI shows the latest data
+```
+
+#### Option 1: Using Convenience Hooks (Recommended)
+
+The easiest way is to use the provided React hooks, which abstract away the store:
+
+```typescript
+import { useEntityQuery, useModels, useModel, useEntityId } from "@dojoengine/sdk/react";
+
+function MyComponent() {
+    // Subscribe to entity changes - data automatically goes into the store
+    useEntityQuery(
+        new ToriiQueryBuilder()
+            .withClause(MemberClause("dojo_starter-Item", "durability", "Eq", 2).build())
+            .includeHashedKeys()
+    );
+
+    // Get all items from the store using convenience hooks
+    const items = useModels("dojo_starter-Item");
+
+    // Get a single item by entity ID
+    const entityId = useEntityId(1);
+    const item = useModel(entityId, "dojo_starter-Item");
+
+    return (
+        <div>
+            <h3>All Items with Durability 2:</h3>
+            {Object.entries(items).map(([id, item]) => (
+                <div key={id}>Item {id}: durability {item?.durability}</div>
+            ))}
+
+            <h3>Single Item:</h3>
+            {item && <div>Item 1: durability {item.durability}</div>}
+        </div>
+    );
+}
+```
+
+#### Option 2: Direct Zustand Store Access
+
+For more advanced use cases, you can access the Zustand store directly:
+
+```typescript
+import { useDojoSDK, useEntityQuery } from "@dojoengine/sdk/react";
+
+function MyComponent() {
+    const { useDojoStore } = useDojoSDK(); // The Zustand store
+
+    // Subscribe to entity changes
+    useEntityQuery(
+        new ToriiQueryBuilder()
+            .withClause(MemberClause("dojo_starter-Item", "durability", "Eq", 2).build())
+            .includeHashedKeys()
+    );
+
+    // Access the raw store
+    const allEntities = useDojoStore((state) =>
+        state.entities
+    );
+    const itemEntities = useDojoStore((state) =>
+        state.getEntitiesByModel("dojo_starter", "Item")
+    );
+
+    return (
+        <div>
+            <p>Total entities in store: {Object.keys(allEntities).length}</p>
+            <p>Item entities: {itemEntities.length}</p>
+            {itemEntities.map((entity) => {
+                const item = entity.models.dojo_starter.Item;
+                return (
+                    <div key={entity.entityId}>
+                        Entity {entity.entityId}: durability {item?.durability}
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+```
 
 ### Sending Signed Messages
 
-**NOTE**: If you want messages to be actually sent and broadcasted to all of your torii client instance,
-you'll have to properly set `relayUrl` in the `init` function.
-`relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot: `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
+Signed messages allow you to send **authenticated off-chain data** to Torii without expensive blockchain transactions.
+This can be used to implement things like **chat systems, leaderboards, social features, game coordination, and real-time events.**
+
+The key benefit: **Players authenticate the data** (proving it came from them) **without gas fees**, while Torii broadcasts it to all connected clients in real-time.
+
+Here's an example of how to send a signed message:
 
 ```typescript
-// onchain_dash-Message is a composition of the ${namespace}-${Model} type you want to sign.
-// Here we take example of a chat because we don't want to load up those messages onchain
-// But keep in mind this could be any models defined in your cairo code
-const msg = sdk.generateTypedData("onchain_dash-Message", {
+// Generate typed data for a chat message model
+const typedData = sdk.generateTypedData("world-Message", {
     identity: account?.address,
-    content: toValidAscii(data.message),
+    content: messageContent,
     timestamp: Date.now(),
 });
 
 try {
-    const signature = await account.signMessage(msg);
+    // Sign and send the message using the SDK
+    const result = await sdk.sendMessage(typedData, account);
 
-    try {
-        await sdk.client.publishMessage({
-            message: JSON.stringify(msg),
-            signature: Array.isArray(signature)
-                ? signature
-                : [signature.r.toString(), signature.s.toString()]
-        });
-        reset();
-    } catch (error) {
-        console.error("failed to publish message:", error);
+    if (result.isOk()) {
+        console.log("Message sent successfully:", result.value);
+    } else {
+        console.error("Failed to send message:", result.error);
     }
 } catch (error) {
-    console.error("failed to sign message:", error);
+    console.error("Error sending message:", error);
 }
 ```
 
-### Using With Zustand
-
-The SDK integrates with Zustand for reactive state management.
-See example [here](https://github.com/dojoengine/dojo.js/tree/main/examples/example-vite-react-sdk).
-
-#### React Provider Setup
-
-```typescript
-import { DojoSdkProvider } from "@dojoengine/sdk/react";
-import { setupWorld } from "../generated/typescript/contracts.gen";
-import { dojoConfig } from "../your-dojo-config-path/dojoConfig.ts";
-
-const sdk = await init<SchemaType>({
-    client: {
-        toriiUrl: dojoConfig.toriiUrl,
-        relayUrl: dojoConfig.relayUrl,
-        worldAddress: dojoConfig.manifest.world.address,
-    },
-    domain: {
-        name: "Example",
-        version: "1.0",
-        chainId: "your-chain-id",
-        revision: "1",
-    },
-});
-
-<DojoSdkProvider
-    sdk={sdk}
-    dojoConfig={dojoConfig}
-    clientFn={setupWorld}
->
-    <App />
-</DojoSdkProvider>
-
-...
-
-// Using in your app
-const state = useDojoStore((state) => state);
-const entities = useDojoStore((state) => state.entities);
-
-...
-
-// Fetching entities from torii and binding them into dojo store directly
-useEntityQuery(
-    new ToriiQueryBuilder()
-        .withClause(
-            MemberClause("world-Item", "durability", "Eq", 2).build()
-        )
-        .includeHashedKeys()
-);
-
-// Get all models from the store
-const models = useModels("world-Item")
-
-// Get a single model from the store
-// entityId = values of your model's keys
-// Here Item key = 1
-const entityId = useEntityId(1);
-const model = useModel(entityId, "world-Item")
-```
-
-#### State Management Migration (v1.6+)
-
-Starting from v1.6, state management has been reorganized:
-
-- **New path (recommended)**: `@dojoengine/state/zustand`
-- **Old path**: `@dojoengine/sdk/state` (still works via re-exports)
-
-#### Zustand Vanilla Store
-
-You can also use a vanilla store which can be imported:
-
-```ts
-// Recommended import path for v1.6+
-import { createDojoStore } from "@dojoengine/state/zustand";
-
-// Or use the backward-compatible path
-// import { createDojoStore } from "@dojoengine/sdk/state";
-
-const store = createDojoStore<Schema>();
-
-// Contrary to react, zustand vanilla store is not wrapped into a bound store.
-// To use your store:
-const state = store.getState();
-const entities = state.getEntities();
-```
+:::note
+If you want messages to be broadcast to all of your torii client instances, you'll have to pass a `relayUrl` to `init`.
+`relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot:
+`/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
+:::
 
 ### Optimistic Client Rendering
 
 We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
-The process:
+**The process:**
 
 1. Update entity state optimistically.
 2. Wait for condition (e.g., a specific state change).
@@ -441,10 +380,9 @@ The process:
 
 This ensures a responsive user experience while maintaining blockchain data integrity.
 
-See our [example project](https://github.com/dojoengine/dojo.js/tree/main/examples/example-vite-react-sdk) for a real-world implementation.
-
-Note: You will need to have a subscription running in order for the update to resolve.
-
+:::note
+You will need to have a subscription running in order for the update to resolve.
+:::
 
 ```typescript
 import { useCallback } from "react";
@@ -500,78 +438,10 @@ export function useSystemCalls(entityId: string) {
         }
     }, [account, client, entityId, state]);
 
-    return {
-        spawn,
-    };
+    return { spawn };
 }
 ```
-```
 
-## Advanced Usage
+## Additional Examples
 
-Create complex 'And' with 'Or' statements to narrow in on what you want to fetch.
-
-### Complex Queries
-
-```typescript
-const entities = await sdk.getEntities({
-    query: new ToriiQueryBuilder()
-        .withClause(
-            new ClauseBuilder()
-                .compose()
-                .and([
-                    new ClauseBuilder()
-                        .compose()
-                        .and([
-                            new ClauseBuilder().where(
-                                "world-player",
-                                "score",
-                                "Gt",
-                                100
-                            ),
-                            new ClauseBuilder()
-                                .compose()
-                                .or([
-                                    new ClauseBuilder().where(
-                                        "world-player",
-                                        "name",
-                                        "Eq",
-                                        "Bob"
-                                    ),
-                                    new ClauseBuilder().where(
-                                        "world-player",
-                                        "name",
-                                        "Eq",
-                                        "Alice"
-                                    ),
-                                ]),
-                        ]),
-                    new ClauseBuilder().where(
-                        "world-item",
-                        "durability",
-                        "Lt",
-                        50
-                    ),
-                ])
-                .build()
-        ),
-});
-
-// OR (but only if you're a lazy ninja)
-const entities = await sdk.getEntities({
-    query: new ToriiQueryBuilder()
-        .withClause(
-            AndComposeClause([
-                AndComposeClause([
-                    MemberClause("world-player", "score", "Gt", 100),
-                    OrComposeClause([
-                        MemberClause("world-player", "name", "Eq", "Bob"),
-                        MemberClause("world-player", "name", "Eq", "Alice"),
-                    ]),
-                ]),
-                MemberClause("world-item", "durability", "Lt", 50),
-            ]).build()
-        )
-        .build()
-});
-```
+See this [example project](https://github.com/dojoengine/dojo.js/tree/main/examples/example-vite-react-sdk) for a real-world implementation.
