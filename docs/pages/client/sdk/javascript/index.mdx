@@ -208,6 +208,21 @@ const entities = await sdk.getEntities({
 When you use AND with different model types, you're looking for **entities that have both components**.
 :::
 
+For large datasets, use pagination and ordering:
+
+```typescript
+const entities = await sdk.getEntities({
+    query: new ToriiQueryBuilder()
+        .withClause(MemberClause("dojo_starter-Player", "score", "Gt", 0).build())
+        .withLimit(10)              // Limit to 10 results
+        .withOffset(0)              // Start from beginning
+        .withOrderBy([{             // Order by score descending
+            field: "score",
+            direction: "Desc"
+        }])
+});
+```
+
 ### Subscribing To Entity Changes
 
 Subscribe to real-time updates for entities matching your query criteria:
@@ -367,6 +382,43 @@ If you want messages to be broadcast to all of your torii client instances, you'
 `relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot:
 `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
 :::
+
+### Querying Tokens
+
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+
+```toml
+# dojo_dev.toml
+[indexing]
+contracts = [
+    "erc20:0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7", # ETH
+    "erc20:0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d", # STRK
+    "erc721:0x..." # Your NFT contract
+]
+```
+
+Then query token balances in your React components:
+
+```typescript
+import { useTokens } from "@dojoengine/sdk/react";
+
+function TokenBalance({ address }: { address: string }) {
+    const { tokens, balances, getBalance, toDecimal } = useTokens({
+        accountAddresses: [address],
+    });
+
+    return (
+        <div>
+            <h3>Token Balances for {address}</h3>
+            {tokens.map((token, idx) => (
+                <div key={idx}>
+                    {token.symbol}: {toDecimal(token, getBalance(token))}
+                </div>
+            ))}
+        </div>
+    );
+}
+```
 
 ### Optimistic Client Rendering
 

@@ -155,13 +155,6 @@ export const routes = [
 			{
 				text: "dojo.js",
 				link: "/client/sdk/javascript",
-				collapsed: true,
-				items: [
-					{ text: "Overview", link: "/client/sdk/javascript" },
-					{ text: "Query your entities", link: "/client/sdk/javascript/entities" },
-					{ text: "Query tokens", link: "/client/sdk/javascript/tokens",
-					},
-				],
 			},
 			{
 				text: "dojo.unity",
@@ -193,7 +186,6 @@ export const routes = [
 			},
 			{ text: "dojo.godot", link: "/client/sdk/godot" },
 			{ text: "dojo.telegram", link: "/client/sdk/telegram" },
-			{ text: "dojo.discord", link: "/client/sdk/discord" },
 		],
 	},
 ];
