@@ -152,10 +152,7 @@ export const routes = [
 					{ text: "WASM JavaScript API", link: "/client/sdk/c/wasm-bindings" },
 				],
 			},
-			{
-				text: "dojo.js",
-				link: "/client/sdk/javascript",
-			},
+			{ text: "dojo.js", link: "/client/sdk/javascript" },
 			{
 				text: "dojo.unity",
 				link: "/client/sdk/unity",
@@ -176,14 +173,7 @@ export const routes = [
           { text: "Example", link: "/client/sdk/unrealengine/example" },
         ],
       },
-			{
-				text: "dojo.rust",
-				link: "/client/sdk/rust",
-				collapsed: true,
-				items: [
-					{ text: "Example", link: "/client/sdk/rust/example" },
-				],
-			},
+			{ text: "dojo.rust", link: "/client/sdk/rust" },
 			{ text: "dojo.godot", link: "/client/sdk/godot" },
 			{ text: "dojo.telegram", link: "/client/sdk/telegram" },
 		],
