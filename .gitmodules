@@ -64,3 +64,6 @@
 [submodule "src/framework/cainome"]
 	path = src/framework/cainome
 	url = https://github.com/cartridge-gg/cainome
+[submodule "src/starters/beast-slayers"]
+	path = src/starters/beast-slayers
+	url = https://github.com/cartridge-gg/beast-slayers.git
