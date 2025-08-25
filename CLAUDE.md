@@ -140,6 +140,7 @@ git submodule status
   # Incorrect format:
   Katana provides flexible mining modes. This allows precise control over block production.
   ```
+- **CRITICAL: Omit best practices**: LLM-generated "best practices" are often generic, do not include them in generated documentation
 - **Ensure code correctness**: Query the Sensei MCP and source code in src/ for guidance when producing Dojo code samples
 - **Maintain cross-references**: Link related content appropriately
 - **Follow navigation structure**: Use existing routing patterns in `routes.ts`
