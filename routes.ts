@@ -144,7 +144,6 @@ export const routes = [
 			{ text: "Overview", link: "/client/sdk" },
 			{
 				text: "dojo.c",
-				link: "/client/sdk/c",
 				collapsed: true,
 				items: [
 					{ text: "Overview", link: "/client/sdk/c" },
@@ -166,9 +165,9 @@ export const routes = [
 			},
 			{
         text: "dojo.unreal",
-        link: "/client/sdk/unrealengine",
         collapsed: true,
         items: [
+					{ text: "Overview", link: "/client/sdk/unrealengine" },
           { text: "Reference", link: "/client/sdk/unrealengine/reference" },
           { text: "Example", link: "/client/sdk/unrealengine/example" },
         ],
