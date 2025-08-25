@@ -163,15 +163,7 @@ export const routes = [
 					{ text: "Example", link: "/client/sdk/unity/example" },
 				],
 			},
-			{
-        text: "dojo.unreal",
-        collapsed: true,
-        items: [
-					{ text: "Overview", link: "/client/sdk/unrealengine" },
-          { text: "Reference", link: "/client/sdk/unrealengine/reference" },
-          { text: "Example", link: "/client/sdk/unrealengine/example" },
-        ],
-      },
+			{ text: "dojo.unreal", link: "/client/sdk/unrealengine" },
 			{ text: "dojo.rust", link: "/client/sdk/rust" },
 			{ text: "dojo.godot", link: "/client/sdk/godot" },
 			{ text: "dojo.telegram", link: "/client/sdk/telegram" },
