@@ -67,3 +67,6 @@
 [submodule "src/starters/beast-slayers"]
 	path = src/starters/beast-slayers
 	url = https://github.com/cartridge-gg/beast-slayers.git
+[submodule "src/sdks/dojo.godot"]
+	path = src/sdks/dojo.godot
+	url = https://github.com/lonewolftechnology/godot-dojo
