@@ -152,17 +152,7 @@ export const routes = [
 				],
 			},
 			{ text: "dojo.js", link: "/client/sdk/javascript" },
-			{
-				text: "dojo.unity",
-				link: "/client/sdk/unity",
-				collapsed: true,
-				items: [
-					{ text: "Get Started", link: "/client/sdk/unity/get-started" },
-					{ text: "Dojo unity concepts", link: "/client/sdk/unity/important-concepts" },
-					{ text: "Common Problems", link: "/client/sdk/unity/common-problems" },
-					{ text: "Example", link: "/client/sdk/unity/example" },
-				],
-			},
+			{ text: "dojo.unity", link: "/client/sdk/unity" },
 			{ text: "dojo.unreal", link: "/client/sdk/unrealengine" },
 			{ text: "dojo.rust", link: "/client/sdk/rust" },
 			{ text: "dojo.godot", link: "/client/sdk/godot" },
