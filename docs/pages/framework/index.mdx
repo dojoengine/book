@@ -8,7 +8,6 @@ import { LinkCard } from "../../components/LinkCard";
 # Dojo Framework Overview
 
 :::note
-
 Dojo is built on top of Cairo. We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
 :::
 
@@ -22,6 +21,8 @@ Dojo is a comprehensive framework for building provable games and autonomous wor
 - **Scalable**: Optimized for high-performance onchain applications
 - **Developer-friendly**: Rich tooling and familiar development patterns
 
+![Dojo Overview](/framework/dojo-overview.png)
+
 ## Understanding ECS Architecture
 
 [Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern that separates data from logic, enabling highly modular and scalable applications.
@@ -31,20 +32,7 @@ Traditional object-oriented programming can lead to complex inheritance hierarch
 
 ### The ECS Trinity
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                        ECS PATTERN                          │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ENTITIES         COMPONENTS           SYSTEMS              │
-│  (What)           (Data)               (Logic)              │
-│                                                             │
-│  Player           Position: {x, y}     Movement             │
-│  Enemy            Health: {hp}         Combat               │
-│  Item             Inventory: {items}   Crafting             │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+![ECS Pattern](/framework/ECS.png)
 
 -   **Entities**: The *objects* in your game — characters, items, etc.
 -   **Components**: The *properties* of your entities — position, durability, etc.
