@@ -276,6 +276,7 @@ sozo walnut verify                # Verify all contracts on Walnut
 ```
 
 This uploads your contract source and ABIs to [Walnut](https://walnut.dev) for debugging and inspection.
+For more details, refer to [Walnut documentation](https://docs.walnut.dev/overview/debug-dojo-with-walnut).
 
 :::note
 The `walnut` command requires Sozo to be built with the feature enabled.
