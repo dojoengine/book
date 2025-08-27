@@ -2,6 +2,14 @@ export const routes = [
 	{ text: "Overview", link: "/overview" },
 	{ text: "Installation", link: "/installation" },
 	{ text: "FAQ", link: "/faq" },
+	// Blog section - currently not surfaced
+	// {
+	// 	text: "Blog",
+	// 	items: [
+	// 		{ text: "Overview", link: "/blog" },
+	// 		{ text: "Provable Games", link: "/blog/provable-games" },
+	// 	],
+	// },
 	{
 		text: "Getting Started",
 		items: [
@@ -19,6 +27,17 @@ export const routes = [
 			{ text: "Dojo 101", link: "/tutorials/dojo-starter" },
 			{ text: "Deploy to Mainnet", link: "/tutorials/deploy-to-mainnet/main" },
 			{ text: "Deploy using Slot", link: "/tutorials/deploy-using-slot/main" },
+			// Additional tutorials - currently not surfaced
+			// { text: "Tutorial Overview", link: "/tutorials" },
+			// { text: "Advanced Concepts", link: "/tutorials/advanced" },
+			// { text: "React Integration", link: "/tutorials/react" },
+			// { text: "Dojo + React", link: "/tutorials/dojo-react" },
+			// { text: "Katana + Starkli + Scarb", link: "/tutorials/katana-starkli-scarb/main" },
+			// Onchain Chess tutorial series (5 parts)
+			// { text: "Onchain Chess Setup", link: "/tutorials/onchain-chess/0-setup" },
+			// { text: "Chess Actions", link: "/tutorials/onchain-chess/1-action" },
+			// { text: "Chess Moves", link: "/tutorials/onchain-chess/2-move" },
+			// { text: "Chess Testing", link: "/tutorials/onchain-chess/3-test" },
 		],
 	},
 	{
@@ -138,6 +157,13 @@ export const routes = [
 			{ text: "Alexandria", link: "/libraries/alexandria" },
 		],
 	},
+	// Theory section - currently not surfaced
+	// {
+	// 	text: "Theory",
+	// 	items: [
+	// 		{ text: "Autonomous Worlds", link: "/theory/autonomous-worlds" },
+	// 	],
+	// },
 	{
 		text: "SDKs",
 		items: [
