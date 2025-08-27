@@ -8,7 +8,7 @@ description: Run a sovereign rollup with Katana and posting proofs to Celestia.
 In sovereign mode, Saya fetches blocks from Katana and posts the proof and associated compressed state diff to a data availability layer.
 There is no core contract on a settlement layer.
 
-![saya](/saya-celestia.png)
+![saya](/toolchain/saya/saya-celestia.png)
 
 :::tip
 For settlement layer integration with state updates, see [Persistent mode](/toolchain/saya/persistent).

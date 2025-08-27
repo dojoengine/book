@@ -7,7 +7,7 @@ description: Run an appchain as an L3 on Starknet and more coming soon.
 
 In persistent mode, Saya fetches blocks from Katana, verifies proofs, and updates the core contract state on the settlement layer.
 
-![saya](/saya-persistent.png)
+![saya](/toolchain/saya/saya-persistent.png)
 
 :::tip
 For data availability without settlement layer integration, see [Sovereign mode](/toolchain/saya/sovereign).

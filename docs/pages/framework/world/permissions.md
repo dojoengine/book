@@ -193,7 +193,7 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);  // Namespac
 
 Here is a simple way to think about organizing permissions in your Dojo application:
 
-![System Permissions](/permissions.png)
+![System Permissions](/framework/world/permissions.png)
 
 ## Managing Permissions
 

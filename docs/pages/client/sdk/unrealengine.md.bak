@@ -24,18 +24,18 @@ To get started with the dojo.unreal SDK, follow these steps:
 Obtain the Dojo plugin by visiting [dojo.unreal](https://github.com/dojoengine/dojo.unreal).
 Either clone the repository or download it as a ZIP file to access the plugin.
 
-![unrealdl](/client/sdk/unreal/downloadzip.png)
+![unrealdl](/unreal/downloadzip.png)
 
 #### Set Up Your Unreal Project
 
 Launch Unreal Engine 5 and create a new project or open an existing one where you'll implement dojo.unreal.
 
-![unrealcreate](/client/sdk/unreal/create_new_cpp_project.png)
+![unrealcreate](/unreal/create_new_cpp_project.png)
 
 #### Import the Plugin
 
 1. Navigate to your project directory by right-clicking the project in Epic Games Launcher (Unreal Engine > Library > My Projects)
-![unrealdir](/client/sdk/unreal/open_project_directory.png)
+![unrealdir](/unreal/open_project_directory.png)
 
 2. Create a Plugins directory if one doesn't exist
 
@@ -52,19 +52,19 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 #### Configure the Project
 
 1. Open your project in Unreal Engine 5 to initiate the rebuild
-![ue5rebuild](/client/sdk/unreal/rebuild.png)
+![ue5rebuild](/unreal/rebuild.png)
 
 2. Create a new blueprint
-![unrealbp](/client/sdk/unreal/create_new_blueprint.png)
+![unrealbp](/unreal/create_new_blueprint.png)
 
 3. Initialize the DojoHelpers actor and store it as a variable
-![unrealspawnactor](/client/sdk/unreal/create_dojo_helpers_actor.png)
+![unrealspawnactor](/unreal/create_dojo_helpers_actor.png)
 
 4. Implement Torii connections and other desired functionality
-![unrealusehelpers](/client/sdk/unreal/use_dojo_helpers.png)
+![unrealusehelpers](/unreal/use_dojo_helpers.png)
 
 5. Launch the game and verify the connection in the Output Log
-![unrealtoriiconnected](/client/sdk/unreal/torii_connected.png)
+![unrealtoriiconnected](/unreal/torii_connected.png)
 
 ::::
 
@@ -132,21 +132,21 @@ Here are all the things you need to set up:
 
 #### Create public variables in your `DojoGameLogic` Blueprint
 
-![unrealinspector](/client/sdk/unreal/configinspector2.png)
+![unrealinspector](/unreal/configinspector2.png)
 
 :::tip
 Click on the closed eye to be able to change it in the Inspector.
 :::
 
-![unrealinspector2](/client/sdk/unreal/configinspector.png)
+![unrealinspector2](/unreal/configinspector.png)
 
 #### Create your `DojoHelpers` actor
 
-![unrealhelpers](/client/sdk/unreal/spawnhelpers.png)
+![unrealhelpers](/unreal/spawnhelpers.png)
 
 #### Connect to Torii and set contract addresses
 
-![unrealtoriicontracts](/client/sdk/unreal/connect_setup.png)
+![unrealtoriicontracts](/unreal/connect_setup.png)
 
 #### Subscribe to and fetch existing models
 
@@ -155,11 +155,11 @@ This is where you will retrieve all the models that are stored on-chain.
 Both subscription and fetch existing models will trigger a custom event called `OnDojoModelUpdate`.
 Always bind this custom event before calling any of these functions.
 
-![unrealmodels0](/client/sdk/unreal/getmodelupdate.png)
+![unrealmodels0](/unreal/getmodelupdate.png)
 
 You can then create functions for each model to retrieve the values and update your game.
 
-![unrealmodels3](/client/sdk/unreal/accessmodel2.png)
+![unrealmodels3](/unreal/accessmodel2.png)
 
 Generated models follow the Unreal Engine 5 convention in `cpp`.
 For example, if you have a `Vec2` model, it will be called `FVec2`.
@@ -189,7 +189,7 @@ If the account address is `0x0`, it means the player did not connect to the Cont
 
 We also call the `CallControllerDojoStarterActionsSpawn` function.
 
-![unrealcontroller](/client/sdk/unreal/controllerconnectandcall.png)
+![unrealcontroller](/unreal/controllerconnectandcall.png)
 
 More information about calls is provided below.
 
@@ -202,7 +202,7 @@ If you used the Controller Connect, use functions prefixed with `CallController`
 
 The format for each function is `<PREFIX><NAMESPACE><CONTRACT><SELECTOR>` with all the required parameters
 
-![unrealcall](/client/sdk/unreal/callmethod.png)
+![unrealcall](/unreal/callmethod.png)
 
 ::::
 

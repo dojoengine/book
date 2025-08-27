@@ -5,7 +5,7 @@ description: Learn about implementing sovereign rollups using Celestia's data av
 
 # Sovereign Rollup Using Celestia and Dojo
 
-![Sovereign Worlds](/architecture/sw.png)
+![Sovereign Worlds](/scaling/architecture/sw.png)
 
 ## Introduction
 
@@ -38,7 +38,7 @@ Both approaches enable developers to deploy customizable sovereign rollups with 
 
 ## Technical Architecture
 
-![Sovereign Rollup Architecture](/architecture/celestia-sw-diagram.png)
+![Sovereign Rollup Architecture](/scaling/architecture/celestia-sw-diagram.png)
 
 ### 1. Katana - Block Producer
 

@@ -3,7 +3,7 @@ title: Torii
 description: Comprehensive indexing engine for Dojo worlds, providing real-time ECS data synchronization and multiple API interfaces for game clients.
 ---
 
-![katana](/torii-icon-word.png)
+![torii](/toolchain/torii/torii-icon-word.png)
 
 # Torii
 
