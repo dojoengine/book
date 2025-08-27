@@ -239,7 +239,7 @@ mod my_system {
 ```
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
 :::
 
 ### External Contract Deployment
@@ -266,7 +266,7 @@ constructor_data = [
 - `constructor_data` - Arguments for contract constructor
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
 :::
 
 ### Migration Control
@@ -366,5 +366,5 @@ mappings = { "items" = ["Sword", "Shield", "Potion"] }
 
 - **[World Permissions](/framework/world/permissions)** - Runtime permission management
 - **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
-- **[Calldata Format](/toolchain/sozo#data-format-reference)** - Constructor argument formatting
+- **[Calldata Format](/toolchain/sozo/index.md#data-format-reference)** - Constructor argument formatting
 - **[World Metadata](/framework/world/metadata)** - World and resource metadata
