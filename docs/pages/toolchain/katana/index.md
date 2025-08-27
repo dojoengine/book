@@ -3,7 +3,7 @@ title: Katana Overview
 description: A high-performance Starknet sequencer designed for rapid development and production appchain deployments, featuring instant mining, state forking, and Cairo Native compilation.
 ---
 
-![katana](/toolchain/katana/katana-icon-word.png)
+![katana](/toolchain/katana-icon-word.png)
 
 # Katana
 

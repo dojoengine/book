@@ -3,7 +3,7 @@ title: Torii
 description: Comprehensive indexing engine for Dojo worlds, providing real-time ECS data synchronization and multiple API interfaces for game clients.
 ---
 
-![torii](/toolchain/torii/torii-icon-word.png)
+![torii](/toolchain/torii-icon-word.png)
 
 # Torii
 
@@ -116,6 +116,6 @@ This will install the `torii` binary at `~/.cargo/bin`
 
 ## Next Steps
 
-- **[Configuration Guide](/toolchain/torii/configuration.md)**: Learn how to configure Torii with TOML files and CLI arguments
+- **[Configuration Guide](/toolchain/katana/configuration.md)**: Learn how to configure Torii with TOML files and CLI arguments
 - **[GraphQL API](/toolchain/torii/graphql.md)**: Explore the GraphQL interface for flexible data queries
 - **[gRPC API](/toolchain/torii/grpc.md)**: Use the high-performance gRPC interface

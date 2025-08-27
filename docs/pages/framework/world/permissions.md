@@ -22,7 +22,7 @@ Permissions are given for **resources**.
 A **resource** can be a world, namespace, system, or model.
 Resources are indicated by **tags** -- written as `"namespace-resource"`.
 
-![Dojo Permission System](/framework/world/dojo-auth.png)
+![Dojo Permission System](/framework/dojo-auth.png)
 
 ## Configuration vs. Runtime Permissions
 

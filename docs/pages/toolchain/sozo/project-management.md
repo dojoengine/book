@@ -177,7 +177,7 @@ Perfect for rapid development iteration without manual rebuilds.
 
 Sozo's migration system is the heart of Dojo deployment, automatically handling the complex process of deploying and updating worlds.
 
-![Dojo Sozo Workflow](/toolchain/sozo/dojo-sozo-workflow.jpg)
+![Dojo Sozo Workflow](/toolchain/dojo-sozo-workflow.jpg)
 
 ### `sozo migrate`
 

@@ -7,7 +7,7 @@ description: "The World contract - your application's central database and orche
 
 The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application. Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
-![World Contract Overview](/framework/world/world-map.png)
+![World Contract Overview](/framework/world-map.png)
 
 ## What is the World Contract?
 

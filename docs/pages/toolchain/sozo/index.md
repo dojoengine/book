@@ -3,7 +3,7 @@ title: Sozo Overview
 description: The comprehensive command-line interface for Dojo world development, providing project management, deployment, and world interaction capabilities.
 ---
 
-![sozo](/toolchain/sozo/sozo-icon-word.png)
+![sozo](/toolchain/sozo-icon-word.png)
 
 # Sozo
 
