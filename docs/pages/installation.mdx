@@ -16,15 +16,23 @@ You can get up-and-running in just a few steps, and be building provable games i
 
 ## Quick Start
 
-For existing Cairo developers, the fastest way to get started is with `dojoup`:
+For existing Cairo developers, the fastest way to get started is with `asdf`:
 
 ```bash
-# Install dojoup
-curl -L https://install.dojoengine.org | bash
+# Install the asdf plugins
+asdf plugin add sozo https://github.com/dojoengine/asdf-sozo.git
+asdf plugin add katana https://github.com/dojoengine/asdf-katana.git
+asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
 
-# Restart your terminal, then install Dojo
-dojoup install
+# Install the Dojo toolchain
+asdf install sozo latest
+asdf install katana latest
+asdf install torii latest
 ```
+
+:::note
+Follow the `asdf` [installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform, if not already installed.
+:::
 
 This will install all necessary dependencies and tools. Skip to [Verification](#verification) to test your installation.
 
@@ -86,11 +94,66 @@ scarb --version
 
 For more information, see the [starkup documentation](https://github.com/software-mansion/starkup).
 
-### Installing Dojo
+## Installing Dojo
 
-#### Option 1: Using `dojoup` (Recommended)
+The Dojo framework consists of a Cairo framework and three Rust-based tools: `katana`, `torii`, and `sozo`.
 
-`dojoup` is the preferred way to install and manage Dojo installations:
+:::note
+The Cairo framework is downloaded as a compile-time dependency using Scarb, not through a version manager.
+:::
+
+### Installing with `asdf`
+
+[`asdf`](https://asdf-vm.com/) is currently the preferred way to install Dojo.
+`asdf` is a popular version manager, enabling easy programmatic installation of dependencies through the `.tool-versions` file.
+
+::::steps
+
+#### Install asdf
+
+Follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform, if not already installed.
+
+#### Add the asdf plugins
+
+```bash
+asdf plugin add katana https://github.com/dojoengine/asdf-katana.git
+asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
+asdf plugin add sozo https://github.com/dojoengine/asdf-sozo.git
+```
+
+#### Install the Dojo toolchain
+
+```bash
+# Install the latest version
+asdf install {sozo,katana,torii} latest
+
+# Install specific versions
+asdf install {sozo,katana,torii} 1.6.0
+
+# List available versions
+asdf list all {sozo,katana,torii}
+```
+
+#### Set the version
+
+```bash
+# Set version locally (in project .tool-versions)
+asdf set {sozo,katana,torii} latest
+
+# Set version globally (in user home .tool-versions)
+asdf set --home {sozo,katana,torii} latest
+```
+
+:::tip
+Once dependency versions are saved in `.tool-versions`, you can install all dependencies by running `asdf install` in the project root.
+:::
+
+::::
+
+### Installing with `dojoup`
+
+[`dojoup`](https://install.dojoengine.org) is an alternative way to install and manage Dojo installations.
+Dojoup is version-aware and will automatically install compatible versions of `katana`, `torii`, and `sozo`.
 
 ::::steps
 
@@ -102,9 +165,11 @@ curl -L https://install.dojoengine.org | bash
 
 This command installs `dojoup` in the `~/.dojo` directory and adds it to your shell profile.
 
-> **Important**: You need to restart your terminal for the `dojoup` command to be available.
+:::info
+You need to restart your terminal for the `dojoup` command to be available.
+:::
 
-#### Install Dojo
+#### Install the Dojo toolchain
 
 In a new terminal window, run:
 
@@ -122,47 +187,6 @@ dojoup install 1.6.0
 
 # Get help
 dojoup --help
-```
-
-::::
-
-#### Option 2: Using `asdf`
-
-You can alternatively use [`asdf`](https://asdf-vm.com/) for more advanced version management:
-
-::::steps
-
-#### Install asdf
-
-Follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform, if not already installed.
-
-#### Add the asdf-dojo plugin
-
-```bash
-asdf plugin add dojo https://github.com/dojoengine/asdf-dojo
-```
-
-#### Install Dojo
-
-```bash
-# Install the latest version
-asdf install dojo latest
-
-# Install a specific version
-asdf install dojo 1.6.0
-
-# List available versions
-asdf list all dojo
-```
-
-#### Set the version
-
-```bash
-# Set version locally (in project directory)
-asdf set dojo latest
-
-# Set version globally (in user's home directory)
-asdf set --home dojo latest
 ```
 
 ::::
