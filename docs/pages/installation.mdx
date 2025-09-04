@@ -16,25 +16,15 @@ You can get up-and-running in just a few steps, and be building provable games i
 
 ## Quick Start
 
-For existing Cairo developers, the fastest way to get started is with `asdf`:
+For existing Cairo developers, the fastest way to get started is with our `asdf` installer.
+Simply run the following command in your terminal to install the Dojo toolchain.
 
 ```bash
-# Install the asdf plugins
-asdf plugin add sozo https://github.com/dojoengine/asdf-sozo.git
-asdf plugin add katana https://github.com/dojoengine/asdf-katana.git
-asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
-
-# Install the Dojo toolchain
-asdf install sozo latest
-asdf install katana latest
-asdf install torii latest
+curl -L https://raw.githubusercontent.com/dojoengine/dojo/main/dojoup/asdf-install | bash
 ```
 
-:::note
-Follow the `asdf` [installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform, if not already installed.
-:::
-
-This will install all necessary dependencies and tools. Skip to [Verification](#verification) to test your installation.
+This script will install the `asdf` plugins for Sozo, Katana, and Torii, install their latest versions, and set them for global use.
+Skip to [Verification](#verification) to test your installation.
 
 ## Detailed Installation
 
@@ -104,14 +94,22 @@ The Cairo framework is downloaded as a compile-time dependency using Scarb, not 
 
 ### Installing with `asdf`
 
-[`asdf`](https://asdf-vm.com/) is currently the preferred way to install Dojo.
-`asdf` is a popular version manager, enabling easy programmatic installation of dependencies through the `.tool-versions` file.
+[`asdf`](https://asdf-vm.com/) is a popular version manager, supporting programmatic management of dependencies.
+`asdf` is the preferred way to install Dojo.
+
+:::tip
+You can use our `asdf` installer to install the toolchain in a single command:
+
+```bash
+curl -L https://raw.githubusercontent.com/dojoengine/dojo/main/dojoup/asdf-install | bash
+```
+:::
 
 ::::steps
 
 #### Install asdf
 
-Follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform, if not already installed.
+Follow the [asdf installation instructions](https://asdf-vm.com/guide/getting-started.html) for your platform.
 
 #### Add the asdf plugins
 
@@ -144,9 +142,21 @@ asdf set {sozo,katana,torii} latest
 asdf set --home {sozo,katana,torii} latest
 ```
 
-:::tip
-Once dependency versions are saved in `.tool-versions`, you can install all dependencies by running `asdf install` in the project root.
-:::
+#### Using `.tool-versions`
+
+`asdf` supports programmatic package management through the `.tool-versions` file.
+
+```txt
+# path/to/project/.tool-versions
+scarb 2.11.4
+starknet-foundry 0.43.1
+sozo 1.6.2
+katana 1.6.3
+torii 1.6.1
+```
+
+Simply run `asdf install` in the project root to install all dependencies.
+If needed, `asdf` will download the correct version of all dependencies.
 
 ::::
 
