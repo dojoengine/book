@@ -159,15 +159,21 @@ The SDK provides several key methods for interacting with your Dojo world:
 
 All queries use the same `ToriiQueryBuilder` and support the same filtering operators: `Eq`, `Neq`, `Gt`, `Gte`, `Lt`, `Lte`, `In`, `NotIn`.
 
+:::note
+For more information about Torii queries, consult the [Torii gRPC API reference](/toolchain/torii/grpc).
+:::
+
 ### Querying Entities
 
 Fetch entities using the `ToriiQueryBuilder` with various clause types:
 
 ```typescript
-// Simple query: Find a specific player
+import { ToriiQueryBuilder, KeysClause } from "@dojoengine/sdk";
+
+// Simple query: Find a specific player with KeysClause
 const entities = await sdk.getEntities({
     query: new ToriiQueryBuilder()
-        .withClause(MemberClause("dojo_starter-Player", "id", "Eq", 1).build())
+        .withClause(KeysClause(["dojo_starter-Player"], ["0xabcde..."], "FixedLen").build())
 });
 
 // Access the results
@@ -183,9 +189,16 @@ Models are accessed using the pattern `entity.models.{namespace}.{ModelName}` wh
 - `{ModelName}` is the exact model name as defined in your Cairo code
 :::
 
+:::tip
+You do not need to `build()` your `query`; the sdk will build it automatically.
+:::
+
 Here is an example of a complex query that finds high-scoring warriors and mages in a specific area of the map:
 
 ```typescript
+import { ToriiQueryBuilder, MemberClause } from "@dojoengine/sdk";
+
+// Complex query: find matching entities with MemberClause
 const entities = await sdk.getEntities({
     query: new ToriiQueryBuilder()
         .withClause(
