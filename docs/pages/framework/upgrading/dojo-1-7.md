@@ -5,9 +5,24 @@ description: An upgrade guide for Dojo 1.7
 
 # Dojo 1.7 Overview
 
-Dojo 1.7 is a minor release of the Dojo stack, bringing RPC 0.9 support and a new `DojoStore` trait for enhanced model serialization.
+Dojo 1.7 is a minor release of the Dojo stack, bringing Sozo updates, RPC 0.9 support, and a new `DojoStore` trait for enhanced model serialization.
+
+## Sozo Updates
+
+Dojo 1.7 brings major changes to Sozo, Dojo's build tool.
+Prior to 1.7, Sozo implemented Dojo's specialized functionality (like `#[dojo::model]`) through Cairo compiler plugins.
+This was an advanced feature that few other teams used, meaning that Dojo had to essentially maintain a separate fork of Scarb, Cairo's build tool.
+This extra complexity made Dojo development slower and more difficult than it otherwise would have been.
+
+With Dojo 1.7, Sozo will instead began relying on "proc macros" (procedural macros) to implement specialized Dojo functionality.
+With proc macros, Dojo functionality can be accessed by Scarb at compile-time, rather than requiring separate pre-compilation.
+This means that Sozo can leverage the mainstream Scarb directly; going forward, calls to `sozo build` will be thin wrappers around underlying Scarb functionality.
+
+The move to mainstream Scarb has reduced typical compile-times by about 3x, as well as unblocked quality-of-life improvements like in-editor syntax highligting and terminal text coloring.
+Most importantly, this change will make it easier to maintain and improve Dojo and Sozo going forward.
 
 ## Starknet 0.14.0
+
 :::info
 Starknet's 0.14.0 upgrade went live on mainnet September 1, 2025.
 :::
@@ -18,12 +33,12 @@ Dojo 1.7 was timed to coincide with [Starknet's 0.14.0 upgrade](https://governan
 - The migration to a multi-sequencer architecture
 - The introduction of an EIP-1559-style fee market for transaction prices
 
-
 Dojo 1.7 brings support for RPC 0.9 to the entire stack, including Torii, Katana, and the client SDKs.
 
 See [this guide](https://hackmd.io/8ILy9nLgTmaEJ98mrtPP3A) for more context and a migration guide for RPC 0.9.
 
 ## The `DojoStore` trait
+
 :::warning
 This is a **breaking change**; while migration is straightforward, existing projects which do not migrate are at risk of data loss.
 :::
@@ -52,10 +67,10 @@ The following is the **latest** compatibility guide for Dojo 1.7.
 Add these to your `.tool-versions` for best results:
 
 ```txt
-scarb nightly-2025-05-08
-sozo 1.7.0-alpha.1
-katana 1.7.0-alpha.3
-torii 1.7.0-alpha.5
+scarb dev-2025-09-05
+sozo 1.7.0-alpha.2
+katana 1.7.0-alpha.4
+torii 1.7.0-alpha.6
 ```
 
 ### Sozo build errors
