@@ -283,7 +283,7 @@ The `walnut` command requires Sozo to be built with the feature enabled.
 If you see "unrecognized subcommand," rebuild from source using `cargo build --features walnut`.
 :::
 
-## Structuring a project
+## Project Structure
 
 Scarb, which is used to build and test your project under the hood, supports [workspaces](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#workspaces). Sozo also supports workspaces.
 
