@@ -1,3 +1,8 @@
+---
+title: "Project Management"
+description: "Manage your Dojo project from initial setup to production deployment."
+---
+
 # Project Management
 
 Sozo provides a complete development lifecycle for Dojo projects, from initial scaffolding to production deployment.
