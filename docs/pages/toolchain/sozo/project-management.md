@@ -287,3 +287,148 @@ For more details, refer to [Walnut documentation](https://docs.walnut.dev/overvi
 The `walnut` command requires Sozo to be built with the feature enabled.
 If you see "unrecognized subcommand," rebuild from source using `cargo build --features walnut`.
 :::
+
+## Project Structure
+
+Scarb, which is used to build and test your project under the hood, supports [workspaces](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#workspaces). Sozo also supports workspaces.
+
+However, Sozo requires two additional things:
+1. A main package from which Sozo will extract the package's name (for binding generation and migration)
+2. [Dojo configuration files](/framework/configuration/#configuration-files) to inject deployment settings during migration
+
+From here, you have several options for laying out your project:
+
+### Single package
+
+The simplest way to lay out your project is to have a single package where all the contracts and libraries are placed.
+
+```
+├── my-project/
+│   ├── dojo_dev.toml
+│   ├── dojo_sepolia.toml
+│   ├── Scarb.toml
+│   └── src
+│       ├── lib.cairo
+│       ├── models.cairo
+│       ├── systems.cairo
+```
+
+With this setup, running `sozo build`, `sozo test`, and `sozo migrate` will work as expected at the root of the project.
+
+### Multi-package
+
+If you want to split your project into multiple packages, you can do so by creating a `packages` directory and placing your packages inside it.
+In the example below, only the `my-world` package is deployed on-chain with a Dojo world. The configuration files are placed inside the `my-world` package.
+
+```
+├── my-project/
+│   ├── Scarb.toml
+│   └── packages
+│       ├── my-world/
+│       │   ├── dojo_dev.toml
+│       │   ├── dojo_sepolia.toml
+│       │   ├── Scarb.toml
+│       │   ├── src
+│       │   │   ├── lib.cairo
+│       │   │   ├── models.cairo
+│       │   │   ├── systems.cairo
+│       │   │   └── tests.cairo
+│       ├── package2/
+│       │   ├── Scarb.toml
+│       │   ├── lib.cairo
+│       └── package3/
+│           ├── Scarb.toml
+│           ├── lib.cairo
+```
+
+To make this layout work, you will need the root `Scarb.toml` to be a [virtual workspace](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#virtual-workspace) to ease dependency management.
+
+You will be able to run `sozo test` at the workspace level. However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level. This will generate the `target` directory and the `manifest_<profile>.json` file **at the package level**.
+
+If you prefer managing everything from the workspace level, you can simply move the Dojo configuration files to the workspace level.
+
+```
+├── my-project/
+│   ├── dojo_dev.toml
+│   ├── dojo_sepolia.toml
+│   ├── Scarb.toml
+│   └── packages
+│       ├── my-world/
+│       │   ├── Scarb.toml
+│       │   ├── src
+│       │   │   ├── lib.cairo
+│       │   │   ├── models.cairo
+│       │   │   ├── systems.cairo
+│       │   │   └── tests.cairo
+│       ├── package2/
+│       │   ├── Scarb.toml
+│       │   ├── lib.cairo
+│       └── package3/
+│           ├── Scarb.toml
+│           ├── lib.cairo
+```
+
+With this setup, the `target` directory and the `manifest_<profile>.json` file will be generated at the workspace level. Therefore, you will need to run `sozo build`, `sozo test`, and `sozo migrate` at the workspace level.
+
+### Example layout with a world and libraries
+
+When you want to ship both Cairo libraries and a Dojo world to be deployed on-chain, one way to lay out the project is by creating a `contracts` or `world` package with the name of your project as the package name in its `Scarb.toml` and library packages.
+
+:::note
+This layout is not mandatory—it is an example of how to lay out your project.
+Using a virtual workspace helps manage dependencies between packages.
+:::
+
+```
+├── my-project/
+│   ├── dojo_dev.toml
+│   ├── dojo_sepolia.toml
+│   ├── Scarb.toml
+│   ├── contracts
+│   │   ├── Scarb.toml
+│   │   ├── src
+│   │   │   ├── lib.cairo
+│   │   │   ├── models.cairo
+│   │   │   ├── systems.cairo
+│   │   │   └── tests.cairo
+│   └── packages
+│       ├── package1/
+│       │   ├── Scarb.toml
+│       │   ├── src
+│       │   │   ├── lib.cairo
+│       └── package2/
+│           ├── Scarb.toml
+│           ├── src
+│           │   ├── lib.cairo
+│           │   ├── models.cairo
+```
+
+:::warning
+If you want to manage a single repository with multiple worlds to be deployed, you will not be able to have all of them in the same workspace.
+
+For such a setup, it is recommended to keep them as independent directories and manage them as separate packages by running `sozo build` and `sozo migrate` at the package level.
+
+```
+├── my-project/
+│   ├── world1/
+│   │   ├── Scarb.toml
+│   │   ├── dojo_dev.toml
+│   │   ├── dojo_sepolia.toml
+│   │   ├── src
+│   │   │   ├── lib.cairo
+│   │   │   ├── models.cairo
+│   │   │   ├── systems.cairo
+│   │   │   └── tests.cairo
+│   └── world2/
+│       ├── Scarb.toml
+│       ├── dojo_dev.toml
+│       ├── dojo_sepolia.toml
+│       ├── src
+│       │   ├── lib.cairo
+│       │   ├── models.cairo
+│       │   ├── systems.cairo
+│       │   └── tests.cairo
+```
+
+Sozo will output an error if you have multiple worlds in the same workspace.
+:::
