@@ -290,7 +290,8 @@ If you see "unrecognized subcommand," rebuild from source using `cargo build --f
 
 ## Project Structure
 
-Scarb, which is used to build and test your project under the hood, supports [workspaces](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#workspaces). Sozo also supports workspaces.
+Scarb, which is used to build and test your project under the hood, supports [workspaces](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#workspaces).
+Sozo also supports workspaces.
 
 However, Sozo requires two additional things:
 1. A main package from which Sozo will extract the package's name (for binding generation and migration)
@@ -343,7 +344,8 @@ In the example below, only the `my-world` package is deployed on-chain with a Do
 
 To make this layout work, you will need the root `Scarb.toml` to be a [virtual workspace](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#virtual-workspace) to ease dependency management.
 
-You will be able to run `sozo test` at the workspace level. However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level. This will generate the `target` directory and the `manifest_<profile>.json` file **at the package level**.
+You will be able to run `sozo test` at the workspace level. However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level.
+This will generate the `target` directory and the `manifest_<profile>.json` file **at the package level**.
 
 If you prefer managing everything from the workspace level, you can simply move the Dojo configuration files to the workspace level.
 
@@ -368,9 +370,10 @@ If you prefer managing everything from the workspace level, you can simply move 
 │           ├── lib.cairo
 ```
 
-With this setup, the `target` directory and the `manifest_<profile>.json` file will be generated at the workspace level. Therefore, you will need to run `sozo build`, `sozo test`, and `sozo migrate` at the workspace level.
+With this setup, the `target` directory and the `manifest_<profile>.json` file will be generated at the workspace level.
+Therefore, you will need to run `sozo build`, `sozo test`, and `sozo migrate` at the workspace level.
 
-### Example layout with a world and libraries
+#### Example layout
 
 When you want to ship both Cairo libraries and a Dojo world to be deployed on-chain, one way to lay out the project is by creating a `contracts` or `world` package with the name of your project as the package name in its `Scarb.toml` and library packages.
 
