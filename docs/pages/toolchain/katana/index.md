@@ -30,6 +30,8 @@ Katana follows a **modular, layered architecture** with key components:
 
 **RPC Server**: Provides standard Starknet APIs plus dev-specific endpoints.
 
+**Block Explorer**: Browser-based block explorer for easily visualizing sequencer activity
+
 ### Why Katana?
 
 **Developer-First**: Tooling, flexible configuration, extensive APIs, and hot reloading.

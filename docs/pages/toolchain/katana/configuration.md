@@ -96,6 +96,10 @@ api = "https://api.cartridge.gg"  # Cartridge API URL (default: https://api.cart
 explorer = false                  # Enable explorer frontend (default: false)
 ```
 
+:::tip
+Setting `explorer = true` will enable a browser-based block explorer at `/explorer`.
+:::
+
 ## Command-Line Options
 
 All TOML configuration options can be overridden using command-line flags.

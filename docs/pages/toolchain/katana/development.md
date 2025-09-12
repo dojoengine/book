@@ -159,6 +159,7 @@ katana --dev --enable-native-compilation --block-time 1000
 
 Katana includes a built-in metrics system that exposes performance data in [Prometheus](https://prometheus.io/) format.
 This enables monitoring of blockchain performance, resource usage, and transaction processing statistics.
+Katana also includes a browser-based block explorer for easy visualization of sequencer activity.
 
 ### Available Metrics
 
@@ -208,6 +209,15 @@ watch -n 1 'curl -s http://127.0.0.1:9100/metrics | grep block_producer'
 ```
 
 This provides real-time visibility into your local blockchain's performance characteristics during development and testing.
+
+### Enabling explorer
+
+Enable the browser-based explorer:
+```bash
+katana --explorer
+```
+
+This will enable the `/explorer` endpoint, which you can access from the browser to see transaction data and look up information about accounts and deployed contracts.
 
 ## Extended JSON-RPC Interface
 
