@@ -10,6 +10,7 @@ const FEATURED_GAMES = [
     "Loot Survivor",
     "Savage Summit",
     "Blob Arena",
+    "Pistols at Ten Blocks",
 ];
 
 const GameCard = ({ config }: { config: ControllerConfig }) => {
