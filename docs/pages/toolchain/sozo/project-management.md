@@ -198,6 +198,14 @@ sozo migrate --profile staging
 
 # Deploy to mainnet
 sozo migrate --profile prod
+
+# If you need more information about the migration, you have 3 levels of verbosity:
+# Verbose mode, with additional info.
+sozo migrate -v
+# Debug mode, with even more info.
+sozo migrate -vv
+# Trace mode, with the most info + technical details.
+sozo migrate -vvv
 ```
 
 #### How Migration Works
