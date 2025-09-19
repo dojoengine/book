@@ -67,10 +67,10 @@ The following is the **latest** compatibility guide for Dojo 1.7.
 Add these to your `.tool-versions` for best results:
 
 ```txt
-scarb dev-2025-09-05
-sozo 1.7.0-alpha.2
-katana 1.7.0-alpha.4
-torii 1.7.0-alpha.6
+scarb 2.12.2
+sozo 1.7.0
+katana 1.7.0
+torii 1.7.0
 ```
 
 ### Sozo build errors
@@ -79,7 +79,7 @@ If you're having trouble compiling your contracts with Sozo, try adding `dojo_ma
 
 ```toml
 [dependencies]
-starknet = ">=2.11.4"
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0-alpha.1" }
-dojo_macros = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0-alpha.1" } # Add this
+starknet = ">=2.12.2"
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0" }
+dojo_macros = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0" } # Add this
 ```
