@@ -316,6 +316,13 @@ fn test_world_test_set() {
 Now that Starknet Foundry is supported for Dojo contracts, you can opt to use it instead of `dojo-cairo-test` for testing.
 YOu can use the whole Starknet Foundry test suite and cheatcodes.
 
+Update your `Scarb.toml` to add the `dojo_snf_test` dependency:
+
+```toml
+[dev-dependencies]
+dojo_snf_test = "1.7.0"
+```
+
 The API is very similar to `dojo-cairo-test` to setup your tests:
 
 ```rust
