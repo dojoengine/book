@@ -74,8 +74,7 @@ dojo_cairo_macros = "1.7.0"
 
 [dev-dependencies]
 cairo_test = "2.12.2"
-# Currently, the test packages are not yet published on scarb.xyz.
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.7.0" }
+dojo_cairo_test = "1.7.0"
 
 [features]
 default = []

@@ -29,15 +29,14 @@ dojo = "1.7.0"
 # Add this line
 dojo_cairo_macros = "1.7.0"
 
-# For the `dev-dependencies` section, add the `dojo_cairo_test` dependency.
 [dev-dependencies]
 cairo_test = "2.12.2"
-# The test packages are not yet published on scarb.xyz.
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0" }
+dojo_cairo_test = "1.7.0"
 ```
 
 :::note
 If you have an issue while compiling the project, ensure that you have rust `1.90` correctly installed locally.
+In a future version of the `dojo` package, the cairo proc macros will be reexported and pre-compiled to avoid this issue.
 :::
 
 ## Starknet 0.14.0
@@ -277,6 +276,40 @@ For projects already on `mainnet`, upgrading the contract to modify logic or add
 This issue affects all versions since Dojo `1.0.0`.
 
 From Dojo `1.7.0`, the `DojoStore` trait ensures that uninitialized storage is handled correctly for enums and `Option<T>` and custom enums with a default variant.
+
+### Testing with `dojo-cairo-test`
+
+Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`. The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
+
+You now have to import the `world` and pass its class hash to the `spawn_test_world` function. There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
+
+```rust
+use dojo::world::{WorldStorageTrait, world};
+use dojo_cairo_test::{
+    NamespaceDef, TestResource, spawn_test_world,
+};
+
+fn namespace_def() -> NamespaceDef {
+    let ndef = NamespaceDef {
+        namespace: "dojo_starter",
+        resources: [
+            TestResource::Model(m_Position::TEST_CLASS_HASH),
+            TestResource::Model(m_Moves::TEST_CLASS_HASH),
+            TestResource::Event(actions::e_Moved::TEST_CLASS_HASH),
+            TestResource::Contract(actions::TEST_CLASS_HASH),
+        ]
+            .span(),
+    };
+
+    ndef
+}
+
+#[test]
+fn test_world_test_set() {
+    let ndef = namespace_def();
+    let mut world = spawn_test_world(world::TEST_CLASS_HASH, [ndef].span());
+}
+```
 
 ## Troubleshooting
 
