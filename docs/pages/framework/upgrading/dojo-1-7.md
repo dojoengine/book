@@ -311,6 +311,48 @@ fn test_world_test_set() {
 }
 ```
 
+### Using Starknet Foundry
+
+Now that Starknet Foundry is supported for Dojo contracts, you can opt to use it instead of `dojo-cairo-test` for testing.
+YOu can use the whole Starknet Foundry test suite and cheatcodes.
+
+The API is very similar to `dojo-cairo-test` to setup your tests:
+
+```rust
+use dojo::model::{ModelStorage, ModelStorageTest, ModelValueStorage};
+use dojo::world::WorldStorageTrait;
+use dojo_examples::models::{Direction, Moves, Position, PositionValue};
+use dojo_snf_test::{
+    ContractDef, ContractDefTrait, NamespaceDef, TestResource, WorldStorageTestTrait,
+    set_caller_address, spawn_test_world,
+};
+use starknet::ContractAddress;
+
+fn namespace_def() -> NamespaceDef {
+    let ndef = NamespaceDef {
+        namespace: "ns",
+        resources: [
+            TestResource::Model("Position"), TestResource::Model("Moves"),
+            TestResource::Event("Moved"), TestResource::Contract("actions"),
+            TestResource::Library(("simple_math", "0_1_0")),
+        ]
+            .span(),
+    };
+
+    ndef
+}
+
+#[test]
+fn test_world_test_set() {
+    let caller = NULL_ADDRESS;
+
+    let ndef = namespace_def();
+    let mut world = spawn_test_world([ndef].span());
+
+    world.sync_perms_and_inits(contract_defs());
+}
+```
+
 ## Troubleshooting
 
 As with any major upgrade, there are always "gotchas" to be aware of.
