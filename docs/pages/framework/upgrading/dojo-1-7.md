@@ -237,6 +237,19 @@ That means, you still have the potential issue described earlier with uninitiali
 - Avoid relying on `Option<T>` for initialization checks. Instead, use a separate `bool` or `integer` field, as these default to `0x0`.
 - Define the default variant as the first variant to ensure correct behavior when reading uninitialized storage, and if you define an associated variant data, keep in mind that it will be set to 0 by default.
 
+:::warning
+Due to how `DojoStore` is implemented, you may have to rename few methods to interact with models.
+All the following methods now have an additional `_legacy` version that must be used for the models using `DojoLegacyStore`.
+```
+read_member_legacy
+read_member_of_models_legacy
+write_member_legacy
+write_member_of_models_legacy
+read_schema_legacy
+read_schemas_legacy
+```
+:::
+
 ### Conclusion to avoid an issue with uninitialized storage and enums
 If your project relies on `Option<T>` or custom enums, this issue may be critical. We recommend reviewing your usage and considering explicit initialization strategies when applicable.
 
