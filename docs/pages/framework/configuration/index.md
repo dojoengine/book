@@ -58,9 +58,9 @@ Here's the minimum configuration needed for a Dojo project:
 
 ```toml
 [package]
-cairo-version = "=2.10.1"
+cairo-version = "2.12.2"
 name = "my-dojo-game"
-version = "1.5.0"
+version = "1.0.0"
 edition = "2024_07"
 
 [[target.starknet-contract]]
@@ -68,12 +68,14 @@ sierra = true
 build-external-contracts = ["dojo::world::world_contract::world"]
 
 [dependencies]
-starknet = "2.8.4"
-dojo = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.5.0" }
+starknet = "2.12.2"
+dojo = "1.7.0"
+dojo_cairo_macros = "1.7.0"
 
 [dev-dependencies]
-cairo_test = "=2.10.1"
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.5.0" }
+cairo_test = "2.12.2"
+# Currently, the test packages are not yet published on scarb.xyz.
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo.git", tag = "v1.7.0" }
 
 [features]
 default = []

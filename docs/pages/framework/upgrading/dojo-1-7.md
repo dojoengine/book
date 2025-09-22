@@ -28,6 +28,12 @@ The first action you need to take is to update your `Scarb.toml` file to add the
 dojo = "1.7.0"
 # Add this line
 dojo_cairo_macros = "1.7.0"
+
+# For the `dev-dependencies` section, add the `dojo_cairo_test` dependency.
+[dev-dependencies]
+cairo_test = "2.12.2"
+# The test packages are not yet published on scarb.xyz.
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0" }
 ```
 
 :::note
