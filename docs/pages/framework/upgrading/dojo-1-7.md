@@ -25,11 +25,9 @@ The first action you need to take is to update your `Scarb.toml` file to add the
 
 ```toml
 [dependencies]
-# Use the git and tag version if the published package is not available:
-# dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0" }
-dojo = "v1.7.0"
+dojo = "1.7.0"
 # Add this line
-dojo_cairo_macros = "v1.7.0"
+dojo_cairo_macros = "1.7.0"
 ```
 
 :::note
