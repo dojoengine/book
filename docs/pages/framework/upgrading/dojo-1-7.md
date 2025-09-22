@@ -21,6 +21,21 @@ This means that Sozo can leverage the mainstream Scarb directly; going forward, 
 The move to mainstream Scarb has reduced typical compile-times by about 3x, as well as unblocked quality-of-life improvements like in-editor syntax highligting and terminal text coloring.
 Most importantly, this change will make it easier to maintain and improve Dojo and Sozo going forward.
 
+The first action you need to take is to update your `Scarb.toml` file to add the `dojo_macros` dependency.
+
+```toml
+[dependencies]
+# Use the git and tag version if the published package is not available:
+# dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.7.0" }
+dojo = "v1.7.0"
+# Add this line
+dojo_cairo_macros = "v1.7.0"
+```
+
+:::note
+If you have an issue while compiling the project, ensure that you have rust `1.90` correctly installed locally.
+:::
+
 ## Starknet 0.14.0
 
 :::info
