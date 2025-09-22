@@ -324,6 +324,13 @@ The simplest way to lay out your project is to have a single package where all t
 
 With this setup, running `sozo build`, `sozo test`, and `sozo migrate` will work as expected at the root of the project.
 
+:::note
+If in your project you have other folders (not related to cairo), opening the project at the root is currently not supported by the cairo language server.
+You must have a root `Scarb.toml` file.
+
+This issue is being worked on by the Scarb team. In the meantime, you can open the project in your contracts directory, or you can add a virtual workspace to your project as shown in the next section.
+:::
+
 ### Multi-package
 
 If you want to split your project into multiple packages, you can do so by creating a `packages` directory and placing your packages inside it.
