@@ -23,6 +23,7 @@ sozo migrate --profile staging
 ```
 
 **Profile Resolution:**
+
 1. **Specified profile**: If you provide `--profile <name>`, Dojo looks for `dojo_<name>.toml`
 2. **Default fallback**: If no profile is specified, Dojo uses the `dev` profile (`dojo_dev.toml`)
 3. **Configuration loading**: Each profile file contains deployment and environment settings for that specific context
@@ -36,10 +37,12 @@ If a `dojo_dev.toml` does not exist in the contract directory, Dojo will return 
 Dojo projects use two main configuration files:
 
 ### `Scarb.toml` - Cairo Project Manifest
+
 The Scarb manifest defines your project's dependencies, build settings, and Cairo compilation options.
 This file is required for all Cairo projects and controls how your code compiles.
 
 ### `dojo_<profile>.toml` - Dojo Profile Configuration
+
 Profile-specific files contain deployment settings, world metadata, and environment variables.
 These files control how your world deploys and behaves in different environments.
 
@@ -69,12 +72,14 @@ build-external-contracts = ["dojo::world::world_contract::world"]
 
 [dependencies]
 starknet = "2.12.2"
-dojo = "1.7.0"
-dojo_cairo_macros = "1.7.0"
+dojo = "1.7.1"
 
 [dev-dependencies]
 cairo_test = "2.12.2"
-dojo_cairo_test = "1.7.0"
+dojo_cairo_test = "1.7.1"
+
+[tool.scarb]
+allow-prebuilt-plugins = ["dojo_cairo_macros"]
 
 [features]
 default = []
@@ -116,6 +121,7 @@ build-external-contracts = [
 ```
 
 **Pattern for External Models:**
+
 - Format: `<crate>::<path>::m_<ModelName>`
 - Example: If `armory` crate has `models::Flatbow` model, include `"armory::models::m_Flatbow"`
 
@@ -146,10 +152,12 @@ github = "https://github.com/mydojogame/contracts"
 ```
 
 **Required Fields:**
+
 - `name` - Human-readable world name
 - `seed` - Unique identifier for deterministic world address generation
 
 **Optional Fields:**
+
 - `description` - World description for metadata
 - `cover_uri` / `icon_uri` - Visual assets (supports `file://` and `ipfs://`)
 - `website` - Project website URL
@@ -169,6 +177,7 @@ world_address = "0x077c0..."
 ```
 
 **Environment Variables:**
+
 - `rpc_url` - Starknet RPC endpoint
 - `account_address` - Deployer account address
 - `private_key` - Deployer private key (use `keystore_path` in production)
@@ -187,11 +196,13 @@ mappings = {
 ```
 
 **How Namespace Mapping Works:**
+
 1. **Default namespace**: All resources not explicitly mapped use this namespace
 2. **Explicit mappings**: Map specific models/contracts to custom namespaces
 3. **Resource tags**: Final resource tags become `<namespace>-<resource_name>`
 
 **Example:**
+
 - `Player` model → `characters-Player` tag
 - `GameState` model → `game-GameState` tag (uses default namespace)
 
@@ -215,6 +226,7 @@ mappings = {
 ```
 
 **Permission Hierarchy:**
+
 - **Namespace permissions** - Control access to all resources in a namespace
 - **Resource permissions** - Control access to specific models/contracts
 - **Writers** - Can modify data in models
@@ -261,6 +273,7 @@ constructor_data = [
 ```
 
 **External Contract Fields:**
+
 - `contract_name` - Cairo contract name to deploy
 - `instance_name` - Unique instance identifier (for multiple deployments)
 - `salt` - Deterministic address generation salt
@@ -280,6 +293,7 @@ disable_multicall = false
 ```
 
 **Migration Options:**
+
 - `order_inits` - Specific order for contract initialization calls
 - `skip_contracts` - Don't deploy these contracts (but still build them)
 - `disable_multicall` - Force individual transactions instead of batching

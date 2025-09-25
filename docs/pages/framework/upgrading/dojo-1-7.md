@@ -25,8 +25,25 @@ The first action you need to take is to update your `Scarb.toml` file to add the
 
 ```toml
 [dependencies]
+dojo = "1.7.1"
+
+[dev-dependencies]
+cairo_test = "2.12.2"
+dojo_cairo_test = "1.7.1"
+
+[tool.scarb]
+allow-prebuilt-plugins = ["dojo_cairo_macros"]
+```
+
+The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier. You need to add the `dojo_cairo_macros` dependency instead.
+See the note below for more details.
+
+:::note
+If you are using `1.7.0` or earlier, you need to add the `dojo_cairo_macros` dependency.
+
+```toml
+[dependencies]
 dojo = "1.7.0"
-# Add this line
 dojo_cairo_macros = "1.7.0"
 
 [dev-dependencies]
@@ -34,9 +51,9 @@ cairo_test = "2.12.2"
 dojo_cairo_test = "1.7.0"
 ```
 
-:::note
-If you have an issue while compiling the project, ensure that you have rust `1.90` correctly installed locally.
-In a future version of the `dojo` package, the cairo proc macros will be reexported and pre-compiled to avoid this issue.
+Also, precompiled proc macros are only available if you are using `1.7.1` or later.
+Therefore, if you have an issue while compiling the project, ensure that you have rust `1.90` correctly installed locally.
+Starting from `1.7.1`, the dojo proc macros are pre-compiled which removes the need of having Cargo installed locally.
 :::
 
 ## Starknet 0.14.0
@@ -68,6 +85,7 @@ In response to a potential vulnerability identified with the existing implementa
 This trait will affect data serialization and requires some code updates to handle correctly if you have an existing project.
 
 ### Dojo Storage Overview
+
 Before describing the issue, here's a brief summary of how Dojo storage works:
 
 1. A model is defined as a Cairo struct.
@@ -75,10 +93,12 @@ Before describing the issue, here's a brief summary of how Dojo storage works:
 3. The world contract's storage acts as a database, where serialized data is written through syscalls to specific storage locations.
 
 Since serialization is handled by the `Serde` trait, enums are serialized as follows:
+
 1. The variant index is stored as the first `felt`.
 2. If the variant contains a value (i.e., is not the unit type `()`), the serialized value occupies the remaining `felt`s.
 
 For example, the `Option<T>` enum is serialized as:
+
 ```rust
 enum Option<T> {
     Some: T,
@@ -96,7 +116,9 @@ In Starknet contracts, the Cairo compiler increments variant indices by `1`, ens
 Since Dojo uses `Serde`, this increment is not happening.
 
 ### Security Considerations
+
 Given this behavior, consider the following model:
+
 ```rust
 struct MyModel {
     #[key]
@@ -104,7 +126,9 @@ struct MyModel {
     score: Option<u32>,
 }
 ```
+
 If this model is read from storage before being explicitly written, the world’s storage remains uninitialized (filled with `0x0`s). This results in:
+
 ```rust
 let my_key: u32 = 0x1234;
 
@@ -120,9 +144,11 @@ if m.score.is_some() {
     // Expected behavior, but will not occur in this case.
 }
 ```
+
 Here, `Some(0)` is returned instead of `None` because `Some` is the first variant of `Option<T>`, leading to unintended behavior when relying on `score` for logic for uninitialized models.
 
 For custom enums, consider:
+
 ```rust
 enum HeroState {
     Alive: u32,
@@ -130,6 +156,7 @@ enum HeroState {
     Dead,
 }
 ```
+
 Reading uninitialized storage will return `HeroState::Alive(0)`, as it is the first variant but we might expect another default value associated to `HeroState::Alive`.
 
 ### Introduction of a new `DojoStore` trait
@@ -182,7 +209,7 @@ For `Option<T>`, the default value is already configured as `None`.
 
 For a new Dojo project, just add the `DojoStore` derive attribute to all the data structures used in models (basically all the data structures aimed to be stored).
 
-For stored enums, you must also add the `Default` derive attribute and configure a default variant (or implement the `Default` trait like in the previous example). 
+For stored enums, you must also add the `Default` derive attribute and configure a default variant (or implement the `Default` trait like in the previous example).
 
 You can omit the `DojoStore` attribute on the model `struct` itself because it will be automatically added when a `struct` is tagged with `dojo::model`. Same for `Introspect`, `Drop` and `Serde`.
 
@@ -227,7 +254,7 @@ struct E2 {
 
 If your project is already deployed on mainnet, there are two cases for each of your models.
 
-1. The model does not contain any enum/option, directly in the model `struct` or in any nested data structures. In this case, just use the `DojoStore` trait as explained in the previous chapter about new projects. Already stored data will be preserved as `DojoStore` do the same thing than `Serde` for all data types other than enums. 
+1. The model does not contain any enum/option, directly in the model `struct` or in any nested data structures. In this case, just use the `DojoStore` trait as explained in the previous chapter about new projects. Already stored data will be preserved as `DojoStore` do the same thing than `Serde` for all data types other than enums.
 
 2. The model contains at least an enum/option (directly in the model `struct` or in nested data structures). In this case, you must keep the old Dojo storage behaviour to preserve already stored data. To do that, you must add the `DojoLegacyStore` derive attribute to your model `struct` only.
 
@@ -251,6 +278,7 @@ struct MyModel {
 ```
 
 That means, you still have the potential issue described earlier with uninitialized storage and enums, but there are some solutions to mitigate the risks:
+
 - Ensure models are explicitly initialized before being used.
 - Avoid relying on `Option<T>` for initialization checks. Instead, use a separate `bool` or `integer` field, as these default to `0x0`.
 - Define the default variant as the first variant to ensure correct behavior when reading uninitialized storage, and if you define an associated variant data, keep in mind that it will be set to 0 by default.
@@ -258,6 +286,7 @@ That means, you still have the potential issue described earlier with uninitiali
 :::warning
 Due to how `DojoStore` is implemented, you may have to rename few methods to interact with models.
 All the following methods now have an additional `_legacy` version that must be used for the models using `DojoLegacyStore`.
+
 ```
 read_member_legacy
 read_member_of_models_legacy
@@ -266,9 +295,11 @@ write_member_of_models_legacy
 read_schema_legacy
 read_schemas_legacy
 ```
+
 :::
 
 ### Conclusion to avoid an issue with uninitialized storage and enums
+
 If your project relies on `Option<T>` or custom enums, this issue may be critical. We recommend reviewing your usage and considering explicit initialization strategies when applicable.
 
 For projects already on `mainnet`, upgrading the contract to modify logic or adding a dedicated initialization field can mitigate potential security risks.
