@@ -145,12 +145,12 @@ Entity state snapshots over time
 Requires `--historical`
 :::
 
-
 ### Dynamic Model Tables
 
 Torii automatically creates tables for each registered model:
 
 **Table Naming Convention**:
+
 - Format: `<NAMESPACE>-<MODEL_NAME>`
 - Example: `game-Position`, `combat-Health`
 
@@ -159,13 +159,15 @@ Model table names contain hyphens and must be escaped with square brackets `[tab
 :::
 
 **Field Mapping**:
+
 - Model fields are prefixed with `external_` in the database
 - Primitive types (felt252, u32, bool, ByteArray) are stored directly
 - Complex types (arrays, enums, structs) create separate tables:
-  - Format: `<NAMESPACE>-<MODEL_NAME>$<FIELD_NAME>`
-  - Example: `game-Inventory$items`
+    - Format: `<NAMESPACE>-<MODEL_NAME>$<FIELD_NAME>`
+    - Example: `game-Inventory$items`
 
 **Key Fields**:
+
 - Fields marked with `#[key]` in your model are used for entity identification
 - Composite keys are supported for multi-key entities
 - Key fields are automatically indexed for query performance
@@ -205,6 +207,7 @@ curl -X POST "0.0.0.0:8080/sql" -d "SELECT * FROM [ns-Position];" | jq
 ### Schema Exploration
 
 List all tables in the database:
+
 ```sql
 SELECT name FROM sqlite_master
 WHERE type='table'
@@ -212,6 +215,7 @@ ORDER BY name;
 ```
 
 Get table schema information:
+
 ```sql
 SELECT
     m.name as table_name,
@@ -229,6 +233,7 @@ ORDER BY m.name, p.cid;
 ### Entity Queries
 
 Find entities with specific models:
+
 ```sql
 SELECT e.id, e.keys, e.updated_at
 FROM entities e
@@ -239,6 +244,7 @@ LIMIT 100;
 ```
 
 Query model-specific data (remember to quote table names):
+
 ```sql
 SELECT external_player, external_x, external_y
 FROM "dojo_starter-Position"
@@ -248,6 +254,7 @@ WHERE external_x > 0 AND external_y > 0;
 ### Performance Analytics
 
 Entity count by model:
+
 ```sql
 SELECT m.name, COUNT(*) as entity_count
 FROM models m
@@ -257,6 +264,7 @@ ORDER BY entity_count DESC;
 ```
 
 Recent activity:
+
 ```sql
 SELECT COUNT(*) as recent_entities
 FROM entities

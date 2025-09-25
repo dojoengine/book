@@ -43,6 +43,7 @@ Both C and WASM APIs share identical Rust core logic, ensuring consistency.
 The two interfaces are designed for different use cases:
 
 ### C Bindings API
+
 **Target**: Native platform integrations, custom SDKs, maximum performance
 
 - **Style**: Procedural C functions with callback-based async operations
@@ -51,6 +52,7 @@ The two interfaces are designed for different use cases:
 - **Threading**: Callback-driven with internal runtime management
 
 ### WASM JavaScript API
+
 **Target**: Web applications, Node.js, rapid prototyping
 
 - **Style**: Modern async/await with object-oriented design
@@ -63,50 +65,57 @@ The two interfaces are designed for different use cases:
 dojo.c is a "batteries included" SDK that bundles everything needed for Dojo game development:
 
 ### Torii Client (Primary Focus)
+
 - **Entity Queries**: Fetch world state with powerful filtering and pagination
 - **Real-time Subscriptions**: Subscribe to entity changes and events
 - **Transaction Monitoring**: Track transaction status and confirmations
 
 ### Integrated Account Management
+
 - **Controller Accounts**: Session-based accounts with policy-restricted permissions
 - **Burner Accounts**: Disposable accounts funded by a master account
 - **Direct Accounts**: Full control accounts for advanced use cases
 
 ### Built-in Starknet Provider
+
 - **Transaction Execution**: Submit transactions directly without separate RPC setup
 - **Contract Calls**: Query contract view functions
 - **Chain Operations**: Handle nonces, block IDs, and transaction waiting
 
 ### Asset & Token Operations
+
 - **Token Queries**: Fetch ERC20/721/1155 token information
 - **Balance Tracking**: Monitor token balances across accounts
 - **Real-time Updates**: Subscribe to token and balance changes
 
 ### Event & Message System
+
 - **Event Subscriptions**: Listen to Starknet events and Dojo model changes
 - **Message Publishing**: Send messages through the Dojo messaging system
 - **Transaction History**: Query historical transactions and events
 
 ## Choosing the Right API
 
-| Factor | C Bindings | WASM JavaScript |
-|--------|------------|-----------------|
-| **Performance** | Maximum | Very Good |
-| **Integration Effort** | Higher | Lower |
-| **Platform Support** | Native Only | Web + Node.js |
-| **Development Speed** | Slower | Faster |
-| **Memory Control** | Full | Automatic |
-| **Debugging** | Native Tools | Browser DevTools |
+| Factor                 | C Bindings   | WASM JavaScript  |
+| ---------------------- | ------------ | ---------------- |
+| **Performance**        | Maximum      | Very Good        |
+| **Integration Effort** | Higher       | Lower            |
+| **Platform Support**   | Native Only  | Web + Node.js    |
+| **Development Speed**  | Slower       | Faster           |
+| **Memory Control**     | Full         | Automatic        |
+| **Debugging**          | Native Tools | Browser DevTools |
 
 ### Use Case Decision Guide
 
 **🎯 Choose C Bindings when you need:**
+
 - **Native Integration**: Unity plugins, Unreal Engine modules, or desktop applications
 - **Maximum Performance**: Every microsecond matters for your game
 - **Platform SDK Development**: Creating bindings for new languages/platforms
 - **System-Level Control**: Direct memory management, custom threading models
 
 **🚀 Choose WASM JavaScript when you need:**
+
 - **Web Games**: Browser-based Dojo games with real-time world state
 - **Rapid Prototyping**: Quick development with familiar JavaScript patterns
 - **Node.js Backends**: Server-side game logic, bots, APIs
@@ -115,14 +124,16 @@ dojo.c is a "batteries included" SDK that bundles everything needed for Dojo gam
 ### Integration Examples
 
 **Unity Integration Example:**
+
 ```csharp
 [DllImport("libdojo_c", CallingConvention = CallingConvention.Cdecl)]
 public static extern ResultToriiClient client_new(CString torii_url, FieldElement world);
 ```
 
 **Node.js Integration Example:**
+
 ```javascript
-const { ToriiClient } = require('./pkg/dojo_c');
+const { ToriiClient } = require("./pkg/dojo_c");
 const client = await new ToriiClient(config);
 ```
 

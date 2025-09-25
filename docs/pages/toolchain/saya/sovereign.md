@@ -73,7 +73,7 @@ When working with Katana in provable mode, two additional parameters are require
 1. `block-time`: Since every block is proven, it is recommended to use a block time instead of the default mode where a block is mined for each transaction.
 
 2. `block-max-cairo-steps`: In the current implementation of Katana, the default Cairo steps limit in a block is `50` million.
-For provable mode with Saya, it is recommended to use `16` million to ensure the proving step succeeds reliably.
+   For provable mode with Saya, it is recommended to use `16` million to ensure the proving step succeeds reliably.
 
 ```bash
 katana --chain sov1 \

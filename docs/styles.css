@@ -8,12 +8,12 @@
 @tailwind utilities;
 
 :root {
-  --dojo-primary: #FF4136;
-  --dojo-primary-dark: #E63A30;
+    --dojo-primary: #ff4136;
+    --dojo-primary-dark: #e63a30;
 }
 
 body {
-  @apply bg-black text-white;
+    @apply bg-black text-white;
 }
 
 h1,

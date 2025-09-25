@@ -141,11 +141,13 @@ Generate shell completion scripts for improved command-line experience with tab 
 **Supported shells:** `bash`, `elvish`, `fish`, `powershell`, `zsh`
 
 **Usage:**
+
 ```bash
 katana completions <SHELL>
 ```
 
 **Setup Examples:**
+
 ```bash
 # Bash - add to ~/.bashrc or ~/.bash_profile
 katana completions bash >> ~/.bashrc
@@ -165,11 +167,13 @@ Display database storage information including table sizes, row counts, and stor
 Useful for monitoring database growth and identifying performance bottlenecks.
 
 **Usage:**
+
 ```bash
 katana db stats [--path <PATH>]
 ```
 
 **Examples:**
+
 ```bash
 # Check default database location
 katana db stats
@@ -187,16 +191,19 @@ Initialize chain configuration for rollup or sovereign blockchain deployment.
 Creates genesis files, chain specifications, and settlement configurations.
 
 **Usage:**
+
 ```bash
 katana init [OPTIONS]
 ```
 
 **Common Use Cases:**
+
 - **Rollup Setup**: Initialize a new rollup that settles to Starknet
 - **Sovereign Chain**: Create an independent blockchain with DA layer
 - **Testing Networks**: Set up reproducible test environments
 
 **Quick Examples:**
+
 ```bash
 # Initialize a rollup settling to Starknet Sepolia
 katana init --id my-rollup --settlement-chain sepolia
@@ -247,8 +254,8 @@ Genesis configuration is defined in a JSON file with the following structure:
 - `name`, `symbol`, `decimals` - Token metadata
 - `address` - Token contract address (optional)
 - `class` - Token class reference (`classHash` or `name`, optional)
-	- `classHash` - The hash of the fee token class
-	- `name` - The name of the fee token class (defined in `classes`)
+    - `classHash` - The hash of the fee token class
+    - `name` - The name of the fee token class (defined in `classes`)
 - `storage` - Key-value pairs for the fee token's storage
 
 **`universalDeployer`** - The universal deployer configuration (optional)
@@ -264,8 +271,8 @@ For every `<CONTRACT_ADDRESS>`, provide:
 - `balance` - Initial token balance (optional)
 - `nonce` - Account nonce (optional)
 - `class` - Account contract class (`classHash` or `name`, optional)
-	- `classHash` - The hash of the contract class
-	- `name` - The name of the contract class (defined in `classes`)
+    - `classHash` - The hash of the contract class
+    - `name` - The name of the contract class (defined in `classes`)
 - `storage` - Key-value pairs for the account's storage (optional)
 
 :::note
@@ -277,8 +284,8 @@ Katana in `--dev` mode comes with 10 pre-funded accounts.
 For every `<CONTRACT_ADDRESS>`, provide:
 
 - `class` - Contract class reference (`classHash` or `name`)
-	- `classHash` - The hash of the contract class
-	- `name` - The name of the contract class (defined in `classes`)
+    - `classHash` - The hash of the contract class
+    - `name` - The name of the contract class (defined in `classes`)
 - `balance` - Contract balance (optional)
 - `storage` - Key-value pairs for the contract's storage (optional)
 
@@ -292,73 +299,77 @@ For every `<CONTRACT_ADDRESS>`, provide:
 
 ```jsonc
 {
-	"number": 0,
-	"parentHash": "0x07b4a...",
-	"timestamp": 1703875200,
-	"stateRoot": "0x02a5c...",
-	"sequencerAddress": "0x04f8b...",
-	"gasPrices": {
-		"ETH": 100000000000,
-		"STRK": 1000000000000000
-	},
-	"feeToken": {
-		"name": "ETHER",
-		"symbol": "ETH",
-		"decimals": 18,
-		"class": "0x02d56...",
-		"storage": {
-			"0x11": "0x111",
-		}
-	},
-	"universalDeployer": {
-		"address": "0x041a7...",
-		"storage": {
-			"0x10": "0x100"
-		}
-	},
-	"accounts": {
-		"0x66efb...": {
-			"publicKey": "0x07d82...",
-			"balance": "0xD3C21BCECCEDA1000000",
-			"class": "0x029927..."
-		},
-		"0x6b86e...": {
-			"publicKey": "0x04c12...",
-			"balance": "0xD3C21BCECCEDA1000000"
-		}
-	},
-	"contracts": {
-		"0x29873...": {
-			"class": "MyERC20",
-			"balance": "0xD3C21BCECCEDA1000000",
-			"storage": {
-				"0x1": "0x1",
-				"0x2": "0x2"
-			}
-		}
-	},
-	"classes": [
-		{
-			"class": "path/to/file/erc20.json",
-			"name": "MyERC20"
-		},
-		{
-			"class": {
-				"abi": [
-					{
-						"name": "AccountCallArray",
-						"type": "struct",
-						"size": 4,
-						"members": [
-							{ "name": "to", "offset": 0, "type": "felt" },
-							{ "name": "selector", "offset": 1, "type": "felt" },
-							{ "name": "data_offset", "offset": 2, "type": "felt" },
-							{ "name": "data_len", "offset": 3, "type": "felt" }
-						]
-					}
-				]
-			}
-		}
-	]
+    "number": 0,
+    "parentHash": "0x07b4a...",
+    "timestamp": 1703875200,
+    "stateRoot": "0x02a5c...",
+    "sequencerAddress": "0x04f8b...",
+    "gasPrices": {
+        "ETH": 100000000000,
+        "STRK": 1000000000000000,
+    },
+    "feeToken": {
+        "name": "ETHER",
+        "symbol": "ETH",
+        "decimals": 18,
+        "class": "0x02d56...",
+        "storage": {
+            "0x11": "0x111",
+        },
+    },
+    "universalDeployer": {
+        "address": "0x041a7...",
+        "storage": {
+            "0x10": "0x100",
+        },
+    },
+    "accounts": {
+        "0x66efb...": {
+            "publicKey": "0x07d82...",
+            "balance": "0xD3C21BCECCEDA1000000",
+            "class": "0x029927...",
+        },
+        "0x6b86e...": {
+            "publicKey": "0x04c12...",
+            "balance": "0xD3C21BCECCEDA1000000",
+        },
+    },
+    "contracts": {
+        "0x29873...": {
+            "class": "MyERC20",
+            "balance": "0xD3C21BCECCEDA1000000",
+            "storage": {
+                "0x1": "0x1",
+                "0x2": "0x2",
+            },
+        },
+    },
+    "classes": [
+        {
+            "class": "path/to/file/erc20.json",
+            "name": "MyERC20",
+        },
+        {
+            "class": {
+                "abi": [
+                    {
+                        "name": "AccountCallArray",
+                        "type": "struct",
+                        "size": 4,
+                        "members": [
+                            { "name": "to", "offset": 0, "type": "felt" },
+                            { "name": "selector", "offset": 1, "type": "felt" },
+                            {
+                                "name": "data_offset",
+                                "offset": 2,
+                                "type": "felt",
+                            },
+                            { "name": "data_len", "offset": 3, "type": "felt" },
+                        ],
+                    },
+                ],
+            },
+        },
+    ],
 }
 ```

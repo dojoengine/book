@@ -172,12 +172,13 @@ import { ToriiQueryBuilder, KeysClause } from "@dojoengine/sdk";
 
 // Simple query: Find a specific player with KeysClause
 const entities = await sdk.getEntities({
-    query: new ToriiQueryBuilder()
-        .withClause(KeysClause(["dojo_starter-Player"], ["0xabcde..."], "FixedLen").build())
+    query: new ToriiQueryBuilder().withClause(
+        KeysClause(["dojo_starter-Player"], ["0xabcde..."], "FixedLen").build()
+    ),
 });
 
 // Access the results
-entities.items.forEach(entity => {
+entities.items.forEach((entity) => {
     const player = entity.models.dojo_starter.Player;
     console.log(`Player: ${player?.name}, Score: ${player?.score}`);
 });
@@ -185,9 +186,10 @@ entities.items.forEach(entity => {
 
 :::note
 Models are accessed using the pattern `entity.models.{namespace}.{ModelName}` where:
+
 - `{namespace}` is your project's namespace (e.g., `dojo_starter`, `world`, `game`)
 - `{ModelName}` is the exact model name as defined in your Cairo code
-:::
+  :::
 
 :::tip
 You do not need to `build()` your `query`; the sdk will build it automatically.
@@ -200,20 +202,19 @@ import { ToriiQueryBuilder, MemberClause } from "@dojoengine/sdk";
 
 // Complex query: find matching entities with MemberClause
 const entities = await sdk.getEntities({
-    query: new ToriiQueryBuilder()
-        .withClause(
-            AndComposeClause([
-                // Player conditions
-                MemberClause("world-Player", "score", "Gt", 100),
-                OrComposeClause([
-                    MemberClause("world-Player", "class", "Eq", "warrior"),
-                    MemberClause("world-Player", "class", "Eq", "mage"),
-                ]),
-                // Position conditions (same entities)
-                MemberClause("world-Position", "x", "Lt", 50),
-                MemberClause("world-Position", "y", "Gt", 20),
-            ]).build()
-        )
+    query: new ToriiQueryBuilder().withClause(
+        AndComposeClause([
+            // Player conditions
+            MemberClause("world-Player", "score", "Gt", 100),
+            OrComposeClause([
+                MemberClause("world-Player", "class", "Eq", "warrior"),
+                MemberClause("world-Player", "class", "Eq", "mage"),
+            ]),
+            // Position conditions (same entities)
+            MemberClause("world-Position", "x", "Lt", 50),
+            MemberClause("world-Position", "y", "Gt", 20),
+        ]).build()
+    ),
 });
 ```
 
@@ -226,13 +227,18 @@ For large datasets, use pagination and ordering:
 ```typescript
 const entities = await sdk.getEntities({
     query: new ToriiQueryBuilder()
-        .withClause(MemberClause("dojo_starter-Player", "score", "Gt", 0).build())
-        .withLimit(10)              // Limit to 10 results
-        .withOffset(0)              // Start from beginning
-        .withOrderBy([{             // Order by score descending
-            field: "score",
-            direction: "Desc"
-        }])
+        .withClause(
+            MemberClause("dojo_starter-Player", "score", "Gt", 0).build()
+        )
+        .withLimit(10) // Limit to 10 results
+        .withOffset(0) // Start from beginning
+        .withOrderBy([
+            {
+                // Order by score descending
+                field: "score",
+                direction: "Desc",
+            },
+        ]),
 });
 ```
 
@@ -243,12 +249,14 @@ Subscribe to real-time updates for entities matching your query criteria:
 ```typescript
 const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
     query: new ToriiQueryBuilder()
-        .withClause(MemberClause("dojo_starter-Player", "score", "Gt", 100).build())
+        .withClause(
+            MemberClause("dojo_starter-Player", "score", "Gt", 100).build()
+        )
         .includeHashedKeys(),
     callback: ({ data, error }) => {
         if (data) {
             console.log("Player updated:", data);
-            data.forEach(entity => {
+            data.forEach((entity) => {
                 const player = entity.models.dojo_starter.Player;
                 console.log(`Player ${player?.id}: ${player?.score} points`);
             });
@@ -256,7 +264,7 @@ const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
         if (error) {
             console.error("Subscription error:", error);
         }
-    }
+    },
 });
 
 // Cancel the subscription when no longer needed
@@ -473,9 +481,7 @@ export function useSystemCalls(entityId: string) {
         // Apply an optimistic update to the state
         // this uses immer drafts to update the state
         state.applyOptimisticUpdate(transactionId, (draft) => {
-            if (
-                draft.entities[entityId]?.models?.dojo_starter?.Moves
-            ) {
+            if (draft.entities[entityId]?.models?.dojo_starter?.Moves) {
                 draft.entities[entityId].models.dojo_starter.Moves!.remaining =
                     remainingMoves;
             }

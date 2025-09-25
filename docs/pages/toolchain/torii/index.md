@@ -23,6 +23,7 @@ It processes transactions, extracts ECS state changes, and maintains a synchroni
 The database schema is dynamically generated based on your world's model definitions.
 
 **API Layer**: Multiple interfaces for accessing indexed data:
+
 - **[GraphQL API](/toolchain/torii/graphql.md)**: Provides a flexible, typed interface with real-time subscriptions
 - **[gRPC API](/toolchain/torii/grpc.md)**: High-performance binary protocol for efficient data fetching
 - **[SQL Endpoint](/toolchain/torii/sql.md)**: Direct database access for custom queries
@@ -54,6 +55,7 @@ torii --world <WORLD_ADDRESS>
 ```
 
 This starts Torii with default settings:
+
 - GraphQL API at `http://localhost:8080/graphql`
 - gRPC API at `http://localhost:8080`
 - In-memory database (for development)

@@ -11,6 +11,7 @@ This API is designed for building platform SDKs, native integrations, and applic
 ## Getting Started
 
 **Prerequisites:**
+
 - Rust toolchain (for building from source)
 - C compiler (gcc/clang) for linking
 - CMake (optional, for integration)
@@ -30,11 +31,13 @@ cargo build --release
 ### Basic Integration
 
 **1. Include the header:**
+
 ```c
 #include "dojo.h"
 ```
 
 **2. Connect to a Dojo world:**
+
 ```c
 // World address
 FieldElement world;
@@ -50,6 +53,7 @@ ToriiClient *client = res.ok;
 ```
 
 **3. Set up controller account:**
+
 ```c
 // Define session permissions
 Policy policies[] = {
@@ -90,143 +94,154 @@ The essential functions most developers use:
 
 Client functions connect your application to the Dojo world state via Torii (the indexer). Use these to fetch current game state, query historical data, and receive real-time updates as the world changes. This is your **read** interface to the blockchain.
 
-| Function | Returns | Description |
-|----------|---------|-------------|
-| `client_new(torii_url, world)` | `ResultToriiClient` | Creates connection to Torii indexer |
-| `client_entities(client, query)` | `ResultPageEntity` | Queries entities with filtering and pagination |
-| `client_on_entity_state_update(client, clause, callback)` | `ResultSubscription` | Subscribes to real-time entity changes |
+| Function                                                  | Returns              | Description                                    |
+| --------------------------------------------------------- | -------------------- | ---------------------------------------------- |
+| `client_new(torii_url, world)`                            | `ResultToriiClient`  | Creates connection to Torii indexer            |
+| `client_entities(client, query)`                          | `ResultPageEntity`   | Queries entities with filtering and pagination |
+| `client_on_entity_state_update(client, clause, callback)` | `ResultSubscription` | Subscribes to real-time entity changes         |
 
 ### Account Operations
 
 Account functions handle the **write** side of blockchain interaction. Controller accounts provide session-based gameplay (users approve once, then play freely within policy limits), while direct accounts give full control for advanced use cases. Use these to execute game actions and manage player permissions.
 
-| Function | Returns | Description |
-|----------|---------|-------------|
-| `controller_connect(rpc_url, policies, policies_len, callback)` | `void` | Initiates session account connection |
-| `controller_account(policies, policies_len, chain_id)` | `ResultControllerAccount` | Retrieves existing session account |
-| `controller_execute_raw(account, calls, calls_len)` | `ResultFieldElement` | Executes transactions via controller |
-| `account_new(provider, private_key, address)` | `ResultAccount` | Creates direct account for advanced use |
+| Function                                                        | Returns                   | Description                             |
+| --------------------------------------------------------------- | ------------------------- | --------------------------------------- |
+| `controller_connect(rpc_url, policies, policies_len, callback)` | `void`                    | Initiates session account connection    |
+| `controller_account(policies, policies_len, chain_id)`          | `ResultControllerAccount` | Retrieves existing session account      |
+| `controller_execute_raw(account, calls, calls_len)`             | `ResultFieldElement`      | Executes transactions via controller    |
+| `account_new(provider, private_key, address)`                   | `ResultAccount`           | Creates direct account for advanced use |
 
 ### Essential Data Types
-| Type | Description |
-|------|-------------|
-| **Input Types** | |
-| `FieldElement` | 32-byte array for addresses, hashes, and Cairo felt252 values |
-| `Call` | Transaction call with target contract, selector, and calldata |
-| `Query` | Entity query with filtering, pagination, and ordering |
-| **Return Types** | |
-| `ResultToriiClient` | Result wrapper containing ToriiClient pointer or error |
-| `ResultPageEntity` | Result wrapper containing paginated entities or error |
-| `ResultSubscription` | Result wrapper containing Subscription pointer or error |
-| `ResultControllerAccount` | Result wrapper containing ControllerAccount pointer or error |
-| `ResultFieldElement` | Result wrapper containing FieldElement or error |
-| `ResultAccount` | Result wrapper containing Account pointer or error |
-| `Error` | Error information with message string |
-| `CArrayStruct` | C array of Struct (model data) |
+
+| Type                      | Description                                                   |
+| ------------------------- | ------------------------------------------------------------- |
+| **Input Types**           |                                                               |
+| `FieldElement`            | 32-byte array for addresses, hashes, and Cairo felt252 values |
+| `Call`                    | Transaction call with target contract, selector, and calldata |
+| `Query`                   | Entity query with filtering, pagination, and ordering         |
+| **Return Types**          |                                                               |
+| `ResultToriiClient`       | Result wrapper containing ToriiClient pointer or error        |
+| `ResultPageEntity`        | Result wrapper containing paginated entities or error         |
+| `ResultSubscription`      | Result wrapper containing Subscription pointer or error       |
+| `ResultControllerAccount` | Result wrapper containing ControllerAccount pointer or error  |
+| `ResultFieldElement`      | Result wrapper containing FieldElement or error               |
+| `ResultAccount`           | Result wrapper containing Account pointer or error            |
+| `Error`                   | Error information with message string                         |
+| `CArrayStruct`            | C array of Struct (model data)                                |
 
 ## Advanced API
 
 ### Token Operations
-| Function | Description |
-|----------|-------------|
-| `client_tokens(client, query)` | Query ERC20/721/1155 token information |
-| `client_token_balances(client, query)` | Get token balances for accounts |
-| `client_token_collections(client, query)` | Query token collection metadata |
-| `client_on_token_update(client, addresses, token_ids, callback)` | Subscribe to token changes |
-| `client_on_token_balance_update(client, contracts, accounts, callback)` | Subscribe to balance changes |
+
+| Function                                                                | Description                            |
+| ----------------------------------------------------------------------- | -------------------------------------- |
+| `client_tokens(client, query)`                                          | Query ERC20/721/1155 token information |
+| `client_token_balances(client, query)`                                  | Get token balances for accounts        |
+| `client_token_collections(client, query)`                               | Query token collection metadata        |
+| `client_on_token_update(client, addresses, token_ids, callback)`        | Subscribe to token changes             |
+| `client_on_token_balance_update(client, contracts, accounts, callback)` | Subscribe to balance changes           |
 
 ### Event & Message System
-| Function | Description |
-|----------|-------------|
-| `client_event_messages(client, query)` | Query event messages with filtering |
-| `client_publish_message(client, message)` | Publish typed data message to network |
-| `client_publish_message_batch(client, messages, count)` | Publish multiple messages |
-| `client_on_event_message_update(client, clause, callback)` | Subscribe to event messages |
-| `client_on_starknet_event(client, clauses, callback)` | Subscribe to Starknet events |
+
+| Function                                                   | Description                           |
+| ---------------------------------------------------------- | ------------------------------------- |
+| `client_event_messages(client, query)`                     | Query event messages with filtering   |
+| `client_publish_message(client, message)`                  | Publish typed data message to network |
+| `client_publish_message_batch(client, messages, count)`    | Publish multiple messages             |
+| `client_on_event_message_update(client, clause, callback)` | Subscribe to event messages           |
+| `client_on_starknet_event(client, clauses, callback)`      | Subscribe to Starknet events          |
 
 ### Advanced Queries
-| Function | Description |
-|----------|-------------|
-| `client_controllers(client, query)` | Query controller accounts |
-| `client_transactions(client, query)` | Query transaction history with filtering |
-| `client_on_transaction(client, filter, callback)` | Subscribe to transaction updates |
-| `client_metadata(client)` | Get world schema and metadata |
-| `on_indexer_update(client, contract_address, callback)` | Subscribe to indexer status |
+
+| Function                                                | Description                              |
+| ------------------------------------------------------- | ---------------------------------------- |
+| `client_controllers(client, query)`                     | Query controller accounts                |
+| `client_transactions(client, query)`                    | Query transaction history with filtering |
+| `client_on_transaction(client, filter, callback)`       | Subscribe to transaction updates         |
+| `client_metadata(client)`                               | Get world schema and metadata            |
+| `on_indexer_update(client, contract_address, callback)` | Subscribe to indexer status              |
 
 ### Cryptography & Utilities
-| Function | Description |
-|----------|-------------|
-| `signing_key_new()` | Generate new private key |
-| `signing_key_sign(private_key, hash)` | Sign hash with private key |
-| `verifying_key_new(signing_key)` | Derive public key from private key |
-| `verifying_key_verify(public_key, hash, signature)` | Verify signature |
-| `poseidon_hash(felts, count)` | Compute Poseidon hash |
-| `starknet_keccak(bytes, length)` | Compute Starknet keccak hash |
-| `get_selector_from_name(name)` | Generate function selector from name |
-| `get_selector_from_tag(tag)` | Generate selector from tag |
-| `typed_data_encode(typed_data, address)` | Encode typed data for signing |
-| `cairo_short_string_to_felt(str)` | Convert ASCII string to field element |
-| `parse_cairo_short_string(felt)` | Convert field element to ASCII string |
-| `bytearray_serialize(str)` | Serialize string to field element array |
-| `bytearray_deserialize(felts, count)` | Deserialize field elements to string |
+
+| Function                                            | Description                             |
+| --------------------------------------------------- | --------------------------------------- |
+| `signing_key_new()`                                 | Generate new private key                |
+| `signing_key_sign(private_key, hash)`               | Sign hash with private key              |
+| `verifying_key_new(signing_key)`                    | Derive public key from private key      |
+| `verifying_key_verify(public_key, hash, signature)` | Verify signature                        |
+| `poseidon_hash(felts, count)`                       | Compute Poseidon hash                   |
+| `starknet_keccak(bytes, length)`                    | Compute Starknet keccak hash            |
+| `get_selector_from_name(name)`                      | Generate function selector from name    |
+| `get_selector_from_tag(tag)`                        | Generate selector from tag              |
+| `typed_data_encode(typed_data, address)`            | Encode typed data for signing           |
+| `cairo_short_string_to_felt(str)`                   | Convert ASCII string to field element   |
+| `parse_cairo_short_string(felt)`                    | Convert field element to ASCII string   |
+| `bytearray_serialize(str)`                          | Serialize string to field element array |
+| `bytearray_deserialize(felts, count)`               | Deserialize field elements to string    |
 
 ### Account Management
-| Function | Description |
-|----------|-------------|
-| `account_deploy_burner(provider, master_account, signing_key)` | Deploy burner account |
-| `account_address(account)` | Get account address |
-| `account_chain_id(account)` | Get account chain ID |
-| `account_nonce(account)` | Get account nonce |
-| `account_execute_raw(account, calls, count)` | Execute transaction |
-| `account_set_block_id(account, block_id)` | Set block ID for calls |
-| `controller_address(controller)` | Get controller address |
-| `controller_username(controller)` | Get controller username |
-| `controller_chain_id(controller)` | Get controller chain ID |
-| `controller_nonce(controller)` | Get controller nonce |
-| `controller_execute_from_outside(controller, calls, count)` | Execute via paymaster |
-| `controller_clear(policies, count, chain_id)` | Clear stored sessions |
+
+| Function                                                       | Description             |
+| -------------------------------------------------------------- | ----------------------- |
+| `account_deploy_burner(provider, master_account, signing_key)` | Deploy burner account   |
+| `account_address(account)`                                     | Get account address     |
+| `account_chain_id(account)`                                    | Get account chain ID    |
+| `account_nonce(account)`                                       | Get account nonce       |
+| `account_execute_raw(account, calls, count)`                   | Execute transaction     |
+| `account_set_block_id(account, block_id)`                      | Set block ID for calls  |
+| `controller_address(controller)`                               | Get controller address  |
+| `controller_username(controller)`                              | Get controller username |
+| `controller_chain_id(controller)`                              | Get controller chain ID |
+| `controller_nonce(controller)`                                 | Get controller nonce    |
+| `controller_execute_from_outside(controller, calls, count)`    | Execute via paymaster   |
+| `controller_clear(policies, count, chain_id)`                  | Clear stored sessions   |
 
 ### Provider & Network
-| Function | Description |
-|----------|-------------|
-| `provider_new(rpc_url)` | Create RPC provider |
-| `starknet_call(provider, call, block_id)` | Make Starknet call |
-| `wait_for_transaction(provider, txn_hash)` | Wait for transaction confirmation |
-| `hash_get_contract_address(class_hash, salt, calldata, deployer)` | Compute contract address |
+
+| Function                                                          | Description                       |
+| ----------------------------------------------------------------- | --------------------------------- |
+| `provider_new(rpc_url)`                                           | Create RPC provider               |
+| `starknet_call(provider, call, block_id)`                         | Make Starknet call                |
+| `wait_for_transaction(provider, txn_hash)`                        | Wait for transaction confirmation |
+| `hash_get_contract_address(class_hash, salt, calldata, deployer)` | Compute contract address          |
 
 ### Memory Management
-| Function | Description |
-|----------|-------------|
-| `client_free(client)` | Free ToriiClient |
-| `account_free(account)` | Free Account |
-| `provider_free(provider)` | Free Provider |
+
+| Function                            | Description         |
+| ----------------------------------- | ------------------- |
+| `client_free(client)`               | Free ToriiClient    |
+| `account_free(account)`             | Free Account        |
+| `provider_free(provider)`           | Free Provider       |
 | `subscription_cancel(subscription)` | Cancel subscription |
-| `model_free(model)` | Free Model |
-| `entity_free(entity)` | Free Entity |
-| `error_free(error)` | Free Error |
-| `world_metadata_free(metadata)` | Free World metadata |
-| `carray_free(data, length)` | Free C array |
-| `string_free(string)` | Free string |
+| `model_free(model)`                 | Free Model          |
+| `entity_free(entity)`               | Free Entity         |
+| `error_free(error)`                 | Free Error          |
+| `world_metadata_free(metadata)`     | Free World metadata |
+| `carray_free(data, length)`         | Free C array        |
+| `string_free(string)`               | Free string         |
 
 ## Building Platform SDKs
 
 dojo.c is designed to be the foundation for platform-specific SDKs:
 
 **Unity Integration:**
+
 ```csharp
 [DllImport("libdojo_c", CallingConvention = CallingConvention.Cdecl)]
 private static extern ResultToriiClient client_new(CString torii_url, FieldElement world);
 ```
 
 **Node.js Integration:**
+
 ```javascript
-const ffi = require('ffi-napi');
-const dojo = ffi.Library('./libdojo_c', {
-  'client_new': ['pointer', ['string', 'pointer']]
+const ffi = require("ffi-napi");
+const dojo = ffi.Library("./libdojo_c", {
+    client_new: ["pointer", ["string", "pointer"]],
 });
 ```
 
 **Python Integration:**
+
 ```python
 from ctypes import CDLL, c_char_p
 dojo = CDLL('./libdojo_c.so')

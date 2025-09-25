@@ -5,6 +5,7 @@
 This repository contains the official documentation for the **Dojo** ecosystem - a comprehensive toolchain for building provable games and autonomous worlds on Starknet. Dojo provides a complete framework for developing fully on-chain games using Cairo smart contracts with Entity Component System (ECS) architecture.
 
 ### Project Type
+
 - **Type**: Technical documentation website built with Vocs (Vue-based documentation framework)
 - **Primary Technology**: TypeScript/JavaScript with React components
 - **Content Format**: Markdown/MDX files with code examples
@@ -12,6 +13,7 @@ This repository contains the official documentation for the **Dojo** ecosystem -
 - **Architecture**: Doc source in docs/, with reference material kept in src/ as Git submodules
 
 ### Content Management
+
 - **Markdown/MDX**: Documentation content with JSX components
 - **Git Submodules**: Source code references from multiple repositories
 - **Structured Navigation**: Hierarchical routing with collapsible sections
@@ -19,6 +21,7 @@ This repository contains the official documentation for the **Dojo** ecosystem -
 ## Build & Development Commands
 
 ### Development Workflow
+
 ```bash
 # Start development server (http://localhost:5173/)
 pnpm run dev
@@ -28,6 +31,7 @@ pnpm run build
 ```
 
 ### Content Management
+
 ```bash
 # Update all submodules to latest versions
 git submodule update --remote
@@ -39,6 +43,7 @@ git submodule status
 ## High-Level Architecture
 
 ### Documentation Structure
+
 ```
 ~/book/
 ├── docs/                  # Documentation content
@@ -87,6 +92,7 @@ git submodule status
 ### Key Directories
 
 #### `/docs/pages/` - Content Organization
+
 - **Framework**: Core Dojo concepts (World, Models, Systems) -- theoretically focused
 - **Toolchain**: Tool-specific documentation (Katana, Torii, Sozo, Saya) -- theoretically focused
 - **Tutorials**: Step-by-step learning guides -- practically focused
@@ -95,6 +101,7 @@ git submodule status
 - **Libraries**: Ecosystem libraries (Origami, Alexandria) -- practically focused
 
 #### `/src/` - Source Code Submodules
+
 - **Framework**: Core Dojo framework implementation (Rust/Cairo)
 - **Games**: Example game implementations showcasing Dojo capabilities
 - **Libraries**: Ecosystem libraries like Origami (Cairo utilities)
@@ -103,6 +110,7 @@ git submodule status
 - **Toolchain**: Core infrastructure tools (Katana, Torii, Saya)
 
 #### `/spec/` - Documentation Standards
+
 - **Process Documentation**: Update workflows and maintenance procedures
 - **Style Guide**: Writing standards and terminology consistency
 - **Architecture**: Content organization using Diátaxis framework
@@ -112,12 +120,14 @@ git submodule status
 ### Documentation Standards (from `/spec/`)
 
 #### Content Types (Diátaxis Framework)
+
 1. **Tutorials**: Learning-oriented, step-by-step guides
 2. **How-to Guides**: Goal-oriented problem-solving
 3. **Reference**: Information-oriented technical specs
 4. **Explanations**: Understanding-oriented concepts
 
 #### Writing Style (from `spec/style-guide.md`)
+
 - **Voice**: Direct, conversational, present tense
 - **Tone**: Helpful, inclusive, professional but approachable
 - **Terminology**: Consistent use of Dojo-specific terms
@@ -125,21 +135,27 @@ git submodule status
 - **Newlines**: Put each sentence on a new line
 
 #### Quality Standards (from `spec/best-practices.md`)
+
 - **Documentation as Code**: Treat docs as first-class deliverables
 - **Audience-Driven**: Content tailored to user skill levels
 - **Visual Integration**: Diagrams, screenshots, and examples
 - **Accessibility**: Global audience, screen-reader friendly
 
 ### Development Rules
-- **CRITICAL: One sentence per line**: Always put each sentence on its own line in Markdown files for maintainability and easier editing. This is non-negotiable for all content changes.
-  ```markdown
-  # Correct format:
-  Katana provides flexible mining modes.
-  This allows precise control over block production.
 
-  # Incorrect format:
-  Katana provides flexible mining modes. This allows precise control over block production.
-  ```
+- **CRITICAL: One sentence per line**: Always put each sentence on its own line in Markdown files for maintainability and easier editing. This is non-negotiable for all content changes.
+
+    ```markdown
+    # Correct format:
+
+    Katana provides flexible mining modes.
+    This allows precise control over block production.
+
+    # Incorrect format:
+
+    Katana provides flexible mining modes. This allows precise control over block production.
+    ```
+
 - **CRITICAL: Omit best practices**: LLM-generated "best practices" are often generic, do not include them in generated documentation
 - **Ensure code correctness**: Query the Sensei MCP and source code in src/ for guidance when producing Dojo code samples
 - **Maintain cross-references**: Link related content appropriately
@@ -147,22 +163,25 @@ git submodule status
 - **Never commit without testing**: Run `pnpm run build` before commits
 
 ### Code Example Requirements
+
 - **Accuracy**: All Cairo code must be verified against src/ references or Sensei MCP results
 - **Realism**: Use realistic game scenarios, not abstract examples
 - **References**: Include links to source-code references whenever possible
 
 ### Sensei MCP Command Reference
-- **mcp__sensei-mcp__dojo_101**: At the beginning of a new project, To initialize the project structure, introduce Dojo development, and handle boilerplate.
-- **mcp__sensei-mcp__dojo_model**: After project setup, for defining the game's state, To create and manage Dojo models, ensuring correct trait derivation and key fields.
-- **mcp__sensei-mcp__dojo_logic**: After defining models, for implementing game mechanics, To create system contracts, implement game logic, and handle state changes.
-- **mcp__sensei-mcp__dojo_config**: During project setup and as needed for configuration changes, To manage Scarb.toml, configure Dojo profiles, and handle dependencies.
-- **mcp__sensei-mcp__dojo_test**: After implementing models and systems, To write comprehensive tests and verify game logic.
-- **mcp__sensei-mcp__dojo_token**: When implementing token standards, For detailed guidance on implementing token standards in Dojo.
+
+- **mcp**sensei-mcp**dojo_101**: At the beginning of a new project, To initialize the project structure, introduce Dojo development, and handle boilerplate.
+- **mcp**sensei-mcp**dojo_model**: After project setup, for defining the game's state, To create and manage Dojo models, ensuring correct trait derivation and key fields.
+- **mcp**sensei-mcp**dojo_logic**: After defining models, for implementing game mechanics, To create system contracts, implement game logic, and handle state changes.
+- **mcp**sensei-mcp**dojo_config**: During project setup and as needed for configuration changes, To manage Scarb.toml, configure Dojo profiles, and handle dependencies.
+- **mcp**sensei-mcp**dojo_test**: After implementing models and systems, To write comprehensive tests and verify game logic.
+- **mcp**sensei-mcp**dojo_token**: When implementing token standards, For detailed guidance on implementing token standards in Dojo.
 
 ### Content Update Process
+
 1. **Update submodules**: `git submodule update --remote` if needed (should not need to be run frequently)
 2. **Check references**: Look at the references indicated in "Repository Structure" to identify the most relevant references for any given section
-3. **Load context**: load src/* into context for source code and code samples, according to the references in the previous section
+3. **Load context**: load src/\* into context for source code and code samples, according to the references in the previous section
 4. **Review changes**: Check for breaking changes in source code, or the deletion of existing correct content
 5. **Update documentation**: Modify relevant MDX files with updates content and code samples
 6. **Build verification**: `pnpm run build`, ensure all internal links are functional

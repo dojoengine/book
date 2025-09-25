@@ -35,7 +35,7 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 #### Import the Plugin
 
 1. Navigate to your project directory by right-clicking the project in Epic Games Launcher (Unreal Engine > Library > My Projects)
-![unrealdir](/client/unreal/open_project_directory.png)
+   ![unrealdir](/client/unreal/open_project_directory.png)
 
 2. Create a Plugins directory if one doesn't exist
 
@@ -52,19 +52,19 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 #### Configure the Project
 
 1. Open your project in Unreal Engine 5 to initiate the rebuild
-![ue5rebuild](/client/unreal/rebuild.png)
+   ![ue5rebuild](/client/unreal/rebuild.png)
 
 2. Create a new blueprint
-![unrealbp](/client/unreal/create_new_blueprint.png)
+   ![unrealbp](/client/unreal/create_new_blueprint.png)
 
 3. Initialize the DojoHelpers actor and store it as a variable
-![unrealspawnactor](/client/unreal/create_dojo_helpers_actor.png)
+   ![unrealspawnactor](/client/unreal/create_dojo_helpers_actor.png)
 
 4. Implement Torii connections and other desired functionality
-![unrealusehelpers](/client/unreal/use_dojo_helpers.png)
+   ![unrealusehelpers](/client/unreal/use_dojo_helpers.png)
 
 5. Launch the game and verify the connection in the Output Log
-![unrealtoriiconnected](/client/unreal/torii_connected.png)
+   ![unrealtoriiconnected](/client/unreal/torii_connected.png)
 
 ::::
 
@@ -99,6 +99,7 @@ Open Terminal in your project directory and run:
 **Linux**
 
 Run from project directory:
+
 ```bash
 ~/UnrealEngine/Engine/Build/BatchFiles/Linux/GenerateProjectFiles.sh -project="$PWD/ProjectName.uproject"
 ```
@@ -108,12 +109,11 @@ Run from project directory:
 - Right click on your project file `ProjectName.uproject`
 - Select "Generate Visual Studio Project Files"
 - Or run this from PowerShell:
-  ```
-  & 'C:\Program Files\Epic Games\UE_5.5\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe' -projectfiles -project="$PWD\ProjectName.uproject" -game -engine
-  ```
+    ```
+    & 'C:\Program Files\Epic Games\UE_5.5\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe' -projectfiles -project="$PWD\ProjectName.uproject" -game -engine
+    ```
 
 ::::
-
 
 ## Integrating Bindings
 
@@ -227,10 +227,10 @@ To add support for a new platform:
 
 - Use `cargo build --release --target <target>`
 - Common targets include:
-   - iOS: `aarch64-apple-ios`
-   - Android: `aarch64-linux-android`
-   - Windows: `x86_64-pc-windows-msvc`
-   - Mac: `aarch64-apple-darwin`
+    - iOS: `aarch64-apple-ios`
+    - Android: `aarch64-linux-android`
+    - Windows: `x86_64-pc-windows-msvc`
+    - Mac: `aarch64-apple-darwin`
 
 #### Create the platform-specific directory structure
 

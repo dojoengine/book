@@ -37,15 +37,16 @@ The Synchronization Master acts as the bridge between Unity and your Dojo world,
 
 Key Features:
 
--   Control synchronization: Set the maximum number of entities to synchronize.
+- Control synchronization: Set the maximum number of entities to synchronize.
 
--   Event-driven communication:
-    -   `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
-    -   `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
+- Event-driven communication:
 
--   Dynamic entity management:
-    -   `SynchronizeEntities`: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
-    -   `HandleEntityUpdate`: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
+    - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
+    - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
+
+- Dynamic entity management:
+    - `SynchronizeEntities`: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
+    - `HandleEntityUpdate`: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
 
 ### Code Bindings
 
@@ -140,7 +141,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
 
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
-    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
+   The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
 
 ![bindings-example](/client/unity/bindings-example.png)
 
@@ -279,9 +280,9 @@ public class PlayerActions : MonoBehaviour {
 
 Let's break down the concepts:
 
--   `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
--   `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
--   `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a burner account.
+- `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
+- `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
+- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a burner account.
 
 When this function is called from Unity (e.g., when a player fills out a character creation form), it will create a new on-chain player entity that persists in your Dojo world and can be queried by other systems or clients.
 

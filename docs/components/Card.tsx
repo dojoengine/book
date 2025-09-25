@@ -69,7 +69,7 @@ export function Card({ children, className = "" }: CardProps) {
             style={{
                 transform,
                 perspective: "1500px",
-                zIndex: isHovered ? 10 : 1
+                zIndex: isHovered ? 10 : 1,
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => {

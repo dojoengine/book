@@ -17,6 +17,7 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 **Cainome** generates type-safe bindings from Cairo contract ABIs, providing the compile-time foundation for all SDK interactions.
 
 **Key capabilities:**
+
 - **ABI Parsing**: Converts Cairo contract ABIs into platform-specific type definitions
 - **Type Safety**: Ensures compile-time guarantees for contract interactions
 - **Multi-Language Support**: Generates bindings for Rust, TypeScript, C#, and other languages
@@ -27,12 +28,14 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 **dojo.c** provides the runtime foundation that handles all blockchain interactions across platforms.
 
 **Key capabilities:**
+
 - **Account Management**: Support for controller accounts, session accounts, and burner wallets
 - **Transaction Handling**: Sign and execute transactions with proper gas estimation
 - **Torii Client Integration**: Query entities, subscribe to real-time updates, and sync world state
 - **Cross-Platform Compatibility**: Compiles to both native binaries (via C bindings) and WebAssembly
 
 **Dual Compilation Strategy:**
+
 - **Native Platforms**: Uses `cbindgen` to generate C headers for Unity, Unreal, and other native integrations
 - **Web Platforms**: Uses `wasm-bindgen` to generate WebAssembly modules for JavaScript/TypeScript applications
 
@@ -41,6 +44,7 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 **Cainome** (compile-time) + **dojo.c** (runtime) = **Complete SDK Foundation**
 
 This two-layer architecture ensures that:
+
 - Contract interactions are type-safe and validated at compile time (Cainome)
 - Blockchain operations are consistent and optimized at runtime (dojo.c)
 - Platform SDKs can focus on providing idiomatic APIs for their ecosystems
@@ -61,11 +65,13 @@ The sequencer executes the transactions and the indexer updates the world state.
 The client can then query the world state to get the latest state, which is then rendered to the user.
 
 ### Account Management
+
 - **Session Accounts**: Temporary accounts for seamless gameplay
 - **Controller Accounts**: Delegate specific permissions to game contracts
 - **Burner Accounts**: Disposable accounts funded by a master account
 
 ### Transaction Flow
+
 1. **Prepare**: Build transaction calls using contract bindings
 2. **Sign**: Use account credentials to sign transaction
 3. **Execute**: Submit transaction to Katana sequencer
@@ -77,14 +83,18 @@ The client can then query the world state to get the latest state, which is then
 ### Production Ready
 
 #### JavaScript/TypeScript SDK
+
 **Best for:** Web applications, React/Vue/Svelte apps, Node.js backends
+
 - Full-featured SDK with React hooks and state management
 - Multiple examples: Vanilla JS, React, Vue, Svelte, Phaser integration
 - Real-time entity synchronization with RECS (Reactive Entity Component System)
 - Built-in support for wallet connections and burner accounts
 
 #### Unity SDK
+
 **Best for:** 2D and 3D games, cross-platform game development
+
 - Native C# bindings built on dojo.c foundation
 - Unity-specific components and prefabs for common patterns
 - Support for WebGL, desktop, and mobile platforms
@@ -93,13 +103,17 @@ The client can then query the world state to get the latest state, which is then
 ### Active Development
 
 #### Bevy SDK
+
 **Best for:** Rust-based game development
+
 - ECS-native integration with Bevy's component system
 - Rust-first development experience with compile-time safety
 - Direct access to dojo.c functionality without FFI overhead
 
 #### Unreal Engine SDK
+
 **Best for:** High-fidelity 3D games and applications
+
 - C++ integration with Unreal's Blueprint system
 - Support for complex game mechanics and AAA-quality experiences
 - Native performance with dojo.c foundation
@@ -107,27 +121,31 @@ The client can then query the world state to get the latest state, which is then
 ### Experimental
 
 #### C/C++ Bindings
+
 **Best for:** Custom integrations, maximum performance requirements
+
 - Direct access to dojo.c API without additional abstraction layers
 - Full control over memory management and optimization
 - Foundation for building custom SDK wrappers
 
 #### Native Rust Integration
+
 **Best for:** Rust applications requiring direct Dojo integration
+
 - Import Dojo as a native Rust crate
 - Zero-cost abstractions with compile-time optimization
 - Suitable for high-performance backends and custom tooling
 
 ## Choosing the Right SDK
 
-| Platform/Framework | Recommended SDK | Maturity Level |
-|-------------------|----------------|----------------|
-| Web (React, Vue, Svelte) | JavaScript/TypeScript | ✅ Production |
-| Unity Games | Unity SDK | ✅ Production |
-| Bevy Games | Bevy SDK | 🔄 Active Development |
-| Unreal Engine | Unreal SDK | 🔄 Active Development |
-| Custom C/C++ | C Bindings | ⚗️ Experimental |
-| Rust Applications | Native Rust | ⚗️ Experimental |
+| Platform/Framework       | Recommended SDK       | Maturity Level        |
+| ------------------------ | --------------------- | --------------------- |
+| Web (React, Vue, Svelte) | JavaScript/TypeScript | ✅ Production         |
+| Unity Games              | Unity SDK             | ✅ Production         |
+| Bevy Games               | Bevy SDK              | 🔄 Active Development |
+| Unreal Engine            | Unreal SDK            | 🔄 Active Development |
+| Custom C/C++             | C Bindings            | ⚗️ Experimental       |
+| Rust Applications        | Native Rust           | ⚗️ Experimental       |
 
 ## Getting Started
 

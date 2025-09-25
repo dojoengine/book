@@ -1,27 +1,27 @@
 {
-	"name": "dojo-book",
-	"version": "v1.7.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vocs dev",
-		"build": "vocs build",
-		"preview": "vocs preview",
-		"prettier-check": "npx prettier --check .",
-		"prettier": "npx prettier --write ."
-	},
-	"dependencies": {
-		"@cartridge/presets": "github:cartridge-gg/presets#b0def0f",
-		"@dojoengine/sdk": "1.4.0",
-		"prettier": "^3.4.2",
-		"react": "latest",
-		"react-dom": "latest",
-		"react-router-dom": "^6.28.0",
-		"vite-tsconfig-paths": "^5.1.4",
-		"vocs": "latest"
-	},
-	"devDependencies": {
-		"@types/react": "^18.3.14",
-		"vite-plugin-svgr": "^4.3.0"
-	},
-	"packageManager": "pnpm@10.6.4"
+    "name": "dojo-book",
+    "version": "v1.7.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vocs dev",
+        "build": "vocs build",
+        "preview": "vocs preview",
+        "prettier-check": "npx prettier --check .",
+        "prettier": "npx prettier --write ."
+    },
+    "dependencies": {
+        "@cartridge/presets": "github:cartridge-gg/presets#b0def0f",
+        "@dojoengine/sdk": "1.4.0",
+        "prettier": "^3.4.2",
+        "react": "latest",
+        "react-dom": "latest",
+        "react-router-dom": "^6.28.0",
+        "vite-tsconfig-paths": "^5.1.4",
+        "vocs": "latest"
+    },
+    "devDependencies": {
+        "@types/react": "^18.3.14",
+        "vite-plugin-svgr": "^4.3.0"
+    },
+    "packageManager": "pnpm@10.6.4"
 }

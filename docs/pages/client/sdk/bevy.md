@@ -86,6 +86,7 @@ This is essential for blockchain operations that require asynchronous processing
 ### Prerequisites
 
 Before getting started, ensure you have:
+
 - [Rust](https://rustup.rs/) `>= 1.70.0` installed
 - [Bevy](https://bevyengine.org/) `>= 0.16.0` in your project
 

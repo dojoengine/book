@@ -13,6 +13,7 @@ Beginning Dojo developers can skip this section.
 In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo). This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
 
 The `dojo/core` library already implements the `Introspect` trait for Cairo built-in types including:
+
 - All primitive types (`u8`, `u16`, `u32`, `u64`, `u128`, `u256`, `felt252`, `bool`)
 - Starknet types (`ContractAddress`, `ClassHash`, `EthAddress`)
 - Container types (`Array<T>`, `Option<T>`, `ByteArray`)
@@ -221,17 +222,18 @@ Dynamic types such as `ByteArray` and `Array` are prohibited in a packed model.
 
 ### IntrospectPacked vs Introspect
 
-| Feature | IntrospectPacked | Introspect |
-|---------|------------------|------------|
-| **Storage** | Fewer storage slots | More storage slots |
-| **Gas cost** | Lower (fewer reads/writes) | Higher (more reads/writes) |
-| **Upgrade safety** | Not upgradeable | Upgradeable |
-| **Dynamic types** | Not supported | Supported |
-| **Field access** | Must read entire model | Can read individual fields |
+| Feature            | IntrospectPacked           | Introspect                 |
+| ------------------ | -------------------------- | -------------------------- |
+| **Storage**        | Fewer storage slots        | More storage slots         |
+| **Gas cost**       | Lower (fewer reads/writes) | Higher (more reads/writes) |
+| **Upgrade safety** | Not upgradeable            | Upgradeable                |
+| **Dynamic types**  | Not supported              | Supported                  |
+| **Field access**   | Must read entire model     | Can read individual fields |
 
 ### When to Use IntrospectPacked
 
 Use `IntrospectPacked` when:
+
 - Model has a fixed, known size
 - Model structure is stable (won't change)
 - Performance is critical

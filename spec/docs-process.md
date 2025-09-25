@@ -9,16 +9,19 @@ The Dojo documentation is built using Vocs and references multiple source code r
 ## Prerequisites
 
 ### Required Tools
+
 - **Node.js** (v18 or later) - for running the documentation site
 - **pnpm** - package manager (`npm install -g pnpm`)
 - **Git** - for version control and submodule management
 - **Text editor/IDE** - with Markdown support
 
 ### Required Access
+
 - Write access to the `dojoengine/book` repository
 - Read access to all Dojo ecosystem repositories
 
 ### Initial Setup
+
 ```bash
 # Clone the documentation repository
 git clone https://github.com/dojoengine/book.git
@@ -36,12 +39,14 @@ pnpm install
 Before updating documentation, ensure you have the latest source code from all Dojo repositories.
 
 ### 1.1 Initialize Submodules (First Time Setup)
+
 ```bash
 # If submodules aren't set up yet, run the setup script
 ./scripts/add-submodules.sh
 ```
 
 ### 1.2 Update Existing Submodules
+
 ```bash
 # Update all submodules to their latest commits
 git submodule update --remote
@@ -51,6 +56,7 @@ git submodule update --remote src/dojo
 ```
 
 ### 1.3 Verify Submodule Status
+
 ```bash
 # Check current status of all submodules
 git submodule status
@@ -63,6 +69,7 @@ git submodule status
 TODO: Implement this functionality!
 
 **Benefits of programmatic API generation:**
+
 - **More accurate** than LLMs parsing raw source code
 - **Structured markdown format** optimized for LLM consumption
 - **Complete API coverage** including types, signatures, and documentation
@@ -72,6 +79,7 @@ TODO: Implement this functionality!
 ## Step 2: Review Source Code Changes
 
 ### 2.1 Identify Changed Components
+
 ```bash
 # Check which submodules have updates
 git diff --submodule
@@ -83,7 +91,9 @@ cd src/katana && git log --oneline -10 && cd ../..
 ```
 
 ### 2.2 Analyze Breaking Changes
+
 Review the following for each updated component:
+
 - **API changes**: New functions, modified signatures, deprecated methods
 - **CLI changes**: New commands, modified options, removed flags
 - **Configuration changes**: New settings, schema updates
@@ -91,6 +101,7 @@ Review the following for each updated component:
 - **Bug fixes**: Issues that affect documented behavior
 
 ### 2.3 Check Release Notes
+
 ```bash
 # Review recent releases for major changes
 cd src/dojo
@@ -104,11 +115,13 @@ cd ../..
 Before writing new content, review the current documentation standards:
 
 ### 3.1 Read the Style Guide
+
 - Review `spec/style-guide.md` for writing standards
 - Note terminology, formatting, and voice guidelines
 - Understand code example requirements
 
 ### 3.2 Understand Page Types (Diátaxis Framework)
+
 - Review `spec/page-types.md` for content structure
 - **Tutorials**: Learning-oriented, step-by-step guides
 - **How-to Guides**: Goal-oriented, problem-solving instructions
@@ -116,11 +129,13 @@ Before writing new content, review the current documentation standards:
 - **Explanations**: Understanding-oriented, conceptual discussions
 
 ### 3.3 Review Architecture
+
 - Study `spec/arch.md` for content organization
 - Understand folder structure and navigation hierarchy
 - Plan where new content should be placed
 
 ### 3.4 Check Best Practices
+
 - Review `spec/best-practices.md` for quality standards
 - Ensure accessibility and inclusivity guidelines
 - Plan for code examples and visual aids
@@ -128,6 +143,7 @@ Before writing new content, review the current documentation standards:
 ## Step 4: Audit Existing Documentation
 
 ### 4.1 Identify Outdated Content
+
 ```bash
 # Search for version-specific references
 grep -r "v[0-9]" docs/pages/ --include="*.md" --include="*.mdx"
@@ -137,6 +153,7 @@ grep -r "deprecated\|removed\|legacy" docs/pages/ --include="*.md" --include="*.
 ```
 
 ### 4.2 Check Links and References
+
 ```bash
 # Test the documentation site locally
 pnpm run dev
@@ -147,6 +164,7 @@ pnpm run dev
 ```
 
 ### 4.3 Review Navigation Structure
+
 - Check `routes.ts` for navigation organization
 - Ensure new content fits the existing structure
 - Plan navigation updates if needed
@@ -186,6 +204,7 @@ torii -w 0 --dump-config default.toml # Dumps default configuration to default.t
 ### 5.2 Follow Documentation Standards
 
 For each new page:
+
 1. **Choose the correct page type** (Tutorial, How-to, Reference, Explanation)
 2. **Use the appropriate template** from `spec/page-types.md`
 3. **Follow style guidelines** from `spec/style-guide.md`
@@ -193,6 +212,7 @@ For each new page:
 5. **Add cross-references** to related content
 
 ### 5.3 Update Navigation
+
 ```typescript
 // Edit routes.ts to include new pages
 // Follow existing patterns for organization
@@ -202,6 +222,7 @@ For each new page:
 ## Step 6: Quality Assurance
 
 ### 6.1 Test Documentation Locally
+
 ```bash
 # Start development server
 pnpm run dev
@@ -214,6 +235,7 @@ pnpm run dev
 ```
 
 ### 6.2 Run Automated Checks
+
 ```bash
 # Check formatting
 pnpm run prettier-check
@@ -226,7 +248,9 @@ pnpm run build
 ```
 
 ### 6.3 Validate Code Examples
+
 For each code example:
+
 1. **Test compilation** (for Cairo/Rust code)
 2. **Verify commands work** (for CLI examples)
 3. **Check expected output** matches reality
@@ -237,6 +261,7 @@ For each code example:
 ### Common Issues
 
 #### Submodule Update Failures
+
 ```bash
 # If submodule update fails
 git submodule sync
@@ -244,6 +269,7 @@ git submodule update --init --recursive --force
 ```
 
 #### Build Errors
+
 ```bash
 # Clear node modules and reinstall
 rm -rf node_modules
@@ -254,6 +280,7 @@ rm -rf .vocs
 ```
 
 #### Content Not Updating
+
 ```bash
 # Hard refresh development server
 # Stop server (Ctrl+C)
@@ -271,6 +298,7 @@ pnpm run dev
 ## Quick Reference
 
 ### Essential Commands
+
 ```bash
 # Update all submodules
 git submodule update --remote
@@ -286,6 +314,7 @@ pnpm run build
 ```
 
 ### Key Files to Monitor
+
 - `src/*/` - Source code submodules
 - `docs/pages/` - Documentation content
 - `routes.ts` - Navigation structure

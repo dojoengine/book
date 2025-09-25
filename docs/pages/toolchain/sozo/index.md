@@ -36,7 +36,6 @@ Sozo manages five core resource types that form the building blocks of Dojo worl
 
 For more information about working with these resources, see the [Framework documentation](/framework).
 
-
 ### World Introspection
 
 Sozo can automatically discover and work with any deployed Dojo world through blockchain introspection, without requiring local build artifacts.
@@ -54,6 +53,7 @@ Sozo's migration system automatically reconciles local world state with deployed
 **State Diffing**: `sozo migrate` compares local world configuration against deployed state by examining class hashes, resource registrations, and permissions to identify changes.
 
 **Ordered Execution**: Migration follows a strict sequence:
+
 1. Sync namespaces (all resources are namespaced)
 2. Declare new classes and register/upgrade resources (models, systems, events, libraries)
 3. Apply permission changes (writers and owners)
@@ -148,16 +148,16 @@ sozo execute Actions move 10 20  # Two felt252 values
 
 For complex Cairo types, use these prefixes to ensure proper encoding:
 
-| Prefix          | Description      | Example |
-| --------------- | ---------------- | ------- |
-| `u256`          | a 256-bit unsigned integer | `u256:0x1234` |
-| `str`           | a Cairo string (ByteArray) | `str:hello` or `str:'hello world'` |
-| `sstr`          | a Cairo short string       | `sstr:hello` or `sstr:'hello world'` |
-| `int`           | a signed integer that fits into an `i128` | `int:-1234` |
-| `arr`           | a dynamic array of values that fits into one felt | `arr:0x01,0x02,0x03` |
-| `u256arr`       | a dynamic array of 256-bit unsigned integers | `u256arr:0x01,0x02,0x03` |
-| `farr`          | a fixed-size array of values that fits into one felt | `farr:0x01,0x02,0x03` |
-| `u256farr`      | a fixed-size array of 256-bit unsigned integers | `u256farr:0x01,0x02,0x03` |
+| Prefix     | Description                                          | Example                              |
+| ---------- | ---------------------------------------------------- | ------------------------------------ |
+| `u256`     | a 256-bit unsigned integer                           | `u256:0x1234`                        |
+| `str`      | a Cairo string (ByteArray)                           | `str:hello` or `str:'hello world'`   |
+| `sstr`     | a Cairo short string                                 | `sstr:hello` or `sstr:'hello world'` |
+| `int`      | a signed integer that fits into an `i128`            | `int:-1234`                          |
+| `arr`      | a dynamic array of values that fits into one felt    | `arr:0x01,0x02,0x03`                 |
+| `u256arr`  | a dynamic array of 256-bit unsigned integers         | `u256arr:0x01,0x02,0x03`             |
+| `farr`     | a fixed-size array of values that fits into one felt | `farr:0x01,0x02,0x03`                |
+| `u256farr` | a fixed-size array of 256-bit unsigned integers      | `u256farr:0x01,0x02,0x03`            |
 
 ### Usage Examples
 

@@ -9,12 +9,12 @@ description: Learn about Dojo models, their role in data storage, key attributes
 
 **_TL;DR_**
 
--   Models store structured data in your world.
--   Use the `#[dojo::model]` attribute to define them.
--   Models must have at least one key.
--   Define the key(s) using the `#[key]` attribute.
--   Models are Cairo structs with automatic on-chain introspection.
--   Custom enums and types are supported if they implement [`Introspect`](/framework/models/introspection).
+- Models store structured data in your world.
+- Use the `#[dojo::model]` attribute to define them.
+- Models must have at least one key.
+- Define the key(s) using the `#[key]` attribute.
+- Models are Cairo structs with automatic on-chain introspection.
+- Custom enums and types are supported if they implement [`Introspect`](/framework/models/introspection).
 
 ## What are models?
 

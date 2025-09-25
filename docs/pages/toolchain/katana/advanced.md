@@ -81,13 +81,13 @@ katana --messaging messaging_config.json
 
 ```json
 {
-  "chain": "ethereum",
-  "rpc_url": "https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY",
-  "contract_address": "0x5FbDB...",
-  "sender_address": "0xf39Fd...",
-  "private_key": "0xac097...",
-  "interval": 5,
-  "from_block": 18500000
+    "chain": "ethereum",
+    "rpc_url": "https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY",
+    "contract_address": "0x5FbDB...",
+    "sender_address": "0xf39Fd...",
+    "private_key": "0xac097...",
+    "interval": 5,
+    "from_block": 18500000
 }
 ```
 
@@ -104,6 +104,7 @@ katana --messaging messaging_config.json
 ### Message Flow Architecture
 
 **L2 → L1 Messages**:
+
 1. Contract calls `send_message_to_l1()` on Katana
 2. Message is queued in Katana's message pool
 3. Messaging service polls for new messages
@@ -111,6 +112,7 @@ katana --messaging messaging_config.json
 5. L1 contract can consume messages immediately
 
 **L1 → L2 Messages**:
+
 1. L1 contract calls messaging bridge
 2. Katana polls L1 for new messages
 3. Messages are delivered to target L2 contracts
@@ -119,6 +121,7 @@ katana --messaging messaging_config.json
 ### Example Implementation
 
 See the [starknet-messaging-dev](https://github.com/glihm/starknet-messaging-dev) repository for a complete example demonstrating:
+
 - L1 ↔ L2 message passing implementation
 - Local development setup with Anvil and Katana
 - Contract examples for both layers
@@ -161,16 +164,19 @@ katana init \
 ### Configuration Parameters
 
 **Chain Identity**:
+
 - `--id`: Unique chain identifier (required, must be valid ASCII)
 - `--output-path`: Directory for generated configuration files
 
 **Settlement Configuration**:
+
 - `--settlement-chain`: Target settlement network (`mainnet`, `sepolia`, or custom)
 - `--settlement-account-address`: Account address for settlement operations
 - `--settlement-account-private-key`: Private key for settlement account
 - `--settlement-facts-registry`: Custom fact registry contract address
 
 **Contract Deployment**:
+
 - `--settlement-contract`: Pre-deployed settlement contract address (optional)
 - `--settlement-contract-deployed-block`: Block number of contract deployment
 - If no contract address provided, init will deploy a new settlement contract

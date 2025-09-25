@@ -55,6 +55,7 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 This installs Rust's executables, including the [`cargo`](https://doc.rust-lang.org/cargo/) package manager, in the `~/.cargo` directory.
 
 **Verify installation:**
+
 ```bash
 cargo --version
 # Should output: cargo 1.85.0 (or later)
@@ -77,6 +78,7 @@ This installs Cairo's toolchain, including the [`scarb`](https://docs.swmansion.
 > **Note**: `asdf` does not automatically add itself to your path. Consider appending `~/.asdf/shims` to your terminal's `$PATH` variable to simplify development.
 
 **Verify installation:**
+
 ```bash
 scarb --version
 # Should output: scarb 2.10.1 (or later)
@@ -103,6 +105,7 @@ You can use our `asdf` installer to install the toolchain in a single command:
 ```bash
 curl -L https://raw.githubusercontent.com/dojoengine/dojo/main/dojoup/asdf-install | bash
 ```
+
 :::
 
 ::::steps
@@ -269,18 +272,19 @@ sozo build
 **Solution**:
 
 1. Check current versions:
-   ```bash
-   cargo --version    # Should be 1.85.0+
-   scarb --version    # Should be 2.10.1+
-   sozo --version     # Should be 1.6.0+
-   ```
+
+    ```bash
+    cargo --version    # Should be 1.85.0+
+    scarb --version    # Should be 2.10.1+
+    sozo --version     # Should be 1.6.0+
+    ```
 
 2. Update if needed:
-   ```bash
-   rustup update              # Update Rust
-   asdf install scarb latest  # Update Cairo/Scarb
-   dojoup install             # Update Dojo
-   ```
+    ```bash
+    rustup update              # Update Rust
+    asdf install scarb latest  # Update Cairo/Scarb
+    dojoup install             # Update Dojo
+    ```
 
 #### Build failures in test project
 
@@ -296,6 +300,7 @@ sozo build
 ### Getting Additional Help
 
 If you continue to experience issues:
+
 1. Check the [Dojo GitHub Issues](https://github.com/dojoengine/dojo/issues) for known problems
 2. Join our [Discord](https://discord.gg/invite/dojoengine) for community support
 3. Review the [Dojo Book](https://book.dojoengine.org/) for comprehensive documentation

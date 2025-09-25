@@ -176,6 +176,7 @@ Currently, Dojo is still only supporting the `cairo-test` test runner. Soon `sta
 In the meantime, here's how you can test your contracts. As we've seen, resources like contracts, models and events are namespaced, so you have to specify the namespace you want to use when testing.
 
 Before starting to test, here's the flow that `Sozo` follows to migrate a world:
+
 1. First of all, `Sozo` will migrate the world itself.
 2. Then, `Sozo` will register all the resources. Registering the resources means that all models/events/contracts will be declared and deployed onchain. None of those contracts are using constructor calldata, hence `Sozo` can deploy them without prior inputs. All resources are registered to the world and deployed through the world contract.
 3. Once all the resources are registered, `Sozo` will synchronize the permissions that are given in the `dojo_<profile>.json` file.

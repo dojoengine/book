@@ -67,18 +67,18 @@ pnpm add -D vite-plugin-wasm vite-plugin-top-level-await
 Update your `vite.config.ts` to support WASM modules:
 
 ```typescript
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import wasm from 'vite-plugin-wasm';
-import topLevelAwait from 'vite-plugin-top-level-await';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 export default defineConfig({
-  plugins: [react(), wasm(), topLevelAwait()],
-  server: {
-    fs: {
-      allow: [".."]
-    }
-  }
+    plugins: [react(), wasm(), topLevelAwait()],
+    server: {
+        fs: {
+            allow: [".."],
+        },
+    },
 });
 ```
 
@@ -134,8 +134,12 @@ storage.set("sessionSigner", JSON.stringify({ privateKey, publicKey }));
 
 // Create Cartridge session account
 const account = CartridgeSessionAccount.new_as_registered(
-  rpcUrl, privateKey, address, ownerGuid, chainId,
-  { expiresAt, policies }
+    rpcUrl,
+    privateKey,
+    address,
+    ownerGuid,
+    chainId,
+    { expiresAt, policies }
 );
 
 // Open Cartridge Controller for session registration
@@ -146,6 +150,7 @@ utils.openLink(keychainUrl + sessionParams);
 **Complete implementation**: See [`src/hooks/useAccount.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useAccount.tsx)
 
 **Key integration points:**
+
 - **Telegram Cloud Storage**: Persists session keys across app sessions
 - **Launch Parameters**: Receives account data via `initData.startParam`
 - **Session Policies**: Define which contract methods the session can execute
@@ -159,11 +164,13 @@ Execute game actions using the session account:
 
 ```typescript
 const handleAttack = async () => {
-  await account.execute([{
-    contractAddress: ACTIONS_ADDRESS,
-    entrypoint: "attack",
-    calldata: []
-  }]);
+    await account.execute([
+        {
+            contractAddress: ACTIONS_ADDRESS,
+            entrypoint: "attack",
+            calldata: [],
+        },
+    ]);
 };
 ```
 
@@ -179,11 +186,11 @@ import { createClient, ToriiClient } from "@dojoengine/torii-wasm";
 
 const [client, setClient] = useState<ToriiClient>();
 useEffect(() => {
-  createClient({
-    toriiUrl: "https://api.cartridge.gg/x/yourapp/torii",
-    rpcUrl: "https://api.cartridge.gg/x/starknet/mainnet",
-    worldAddress: "0x..."
-  }).then(setClient);
+    createClient({
+        toriiUrl: "https://api.cartridge.gg/x/yourapp/torii",
+        rpcUrl: "https://api.cartridge.gg/x/starknet/mainnet",
+        worldAddress: "0x...",
+    }).then(setClient);
 }, []);
 ```
 
@@ -194,25 +201,26 @@ Use the Torii client to query and subscribe to entities:
 ```typescript
 // Entity queries
 const entities = await client.getEntities({
-  clause: {
-    Keys: {
-      keys: ["0xfea4"], // Entity key
-      models: ["beastslayers-Game"]
-    }
-  }
+    clause: {
+        Keys: {
+            keys: ["0xfea4"], // Entity key
+            models: ["beastslayers-Game"],
+        },
+    },
 });
 
 // Real-time subscriptions
 const subscription = await client.onEntityUpdated(
-  [{ HashedKeys: Object.keys(entities) }],
-  (hashedKeys, models) => {
-    // Handle state updates
-    updateGameState(models["beastslayers-Game"]);
-  }
+    [{ HashedKeys: Object.keys(entities) }],
+    (hashedKeys, models) => {
+        // Handle state updates
+        updateGameState(models["beastslayers-Game"]);
+    }
 );
 ```
 
 **Complete implementations:**
+
 - **Entity Subscriptions**: [`src/hooks/useBeast.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useBeast.tsx)
 - **Player State**: [`src/hooks/useWarrior.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useWarrior.tsx)
 - **Token Balances**: [`src/hooks/useThingBalances.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useThingBalances.tsx)
@@ -222,7 +230,7 @@ const subscription = await client.onEntityUpdated(
 ```typescript
 const viewport = useViewport();
 useEffect(() => {
-  viewport?.expand(); // Expand Mini App viewport
+    viewport?.expand(); // Expand Mini App viewport
 }, [viewport]);
 ```
 

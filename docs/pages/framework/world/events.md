@@ -185,6 +185,7 @@ Emitted when owner permissions change.
 **Key fields**: `selector`, `system_address`, `keys`, `values`
 
 **Full signature** (this is the most commonly used system event):
+
 ```cairo
 #[derive(Drop, starknet::Event)]
 pub struct EventEmitted {
@@ -243,6 +244,7 @@ world.emit_event(@PlayerEmote { player, mood: Mood::Smile });
 ```
 
 **Event Requirements**:
+
 - Must be annotated with `#[dojo::event]`
 - Must have at least one `#[key]` field
 - All interior types must derive `Introspect`

@@ -248,25 +248,25 @@ world.write_model(@moves);
 ```
 
 <div className="grid grid-cols-2 gap-8">
-<LinkCard
-    title="Deeper into Systems"
-    description="Learn more about systems and how they are used in Dojo."
-    link="/framework/systems"
-/>
-<LinkCard
-    title="Deeper into Macros"
-    description="Learn more about the macros used in Dojo contracts."
-    link="/framework/world/api"
-/>
+    <LinkCard
+        title="Deeper into Systems"
+        description="Learn more about systems and how they are used in Dojo."
+        link="/framework/systems"
+    />
+    <LinkCard
+        title="Deeper into Macros"
+        description="Learn more about the macros used in Dojo contracts."
+        link="/framework/world/api"
+    />
 </div>
 
 We covered a lot here in a short time. Let's recap:
 
--   Explained the anatomy of a Dojo project
--   Explained the importance of the `#[dojo::model]`attribute and how models are defined
--   Explained how `#[dojo::contract]` are used to define systems
--   Explained how to inject the world into a system
--   Touched on the `world.read_model` and `world.write_model` methods to interact with the world
+- Explained the anatomy of a Dojo project
+- Explained the importance of the `#[dojo::model]`attribute and how models are defined
+- Explained how `#[dojo::contract]` are used to define systems
+- Explained how to inject the world into a system
+- Touched on the `world.read_model` and `world.write_model` methods to interact with the world
 
 ## Deploy it locally
 
@@ -396,45 +396,45 @@ After you run the query, you will receive an output like this:
 
 ```json
 {
-  "data": {
-    "models": {
-      "edges": [
-        {
-          "node": {
-            "id": "0x77844f1facb51e60e546a9832d56c6bd04fa23be4fd5b57290caae5e9a3c1e4",
-            "name": "DirectionsAvailable",
-            "classHash": "0x7deb48ccf95cc441a0489cfefdae54aeb6f8ec462ba13ff25e23f080e66cc2f",
-            "contractAddress": "0x410c3b01e8209f1bb0c6591283efebddd5034b4baed4f0e9ea3c318d9fbae0b"
-          }
-        },
-        {
-          "node": {
-            "id": "0x504403e5c02b6442527721fc464d9ea5fc8f1ee600ab5ccd5c0845d36fd45f1",
-            "name": "Moved",
-            "classHash": "0x5be0a05a5df3bd3b4fc17f8b1feb395cb463ced20ea41d4fbb9b86a4d7efc66",
-            "contractAddress": "0x47d654cf2ea600e9689219b1b8545c742c1229ac948c87a01787462f3e93f96"
-          }
-        },
-        {
-          "node": {
-            "id": "0x2ac8b4c190f7031b9fc44312e6b047a1dce0b3f2957c33a935ca7846a46dd5b",
-            "name": "Position",
-            "classHash": "0x2283c68ecba5c60bbbbd3b00659808a02244468e41a1d2cdba1312d65b83594",
-            "contractAddress": "0x6e2770c9bbcf3f4f11529780fc04c2041f186225634541da225b93fe98b5bfd"
-          }
-        },
-        {
-          "node": {
-            "id": "0x2a29373f1af8348bd366a990eb3a342ef2cbe5e85160539eaca3441a673f468",
-            "name": "Moves",
-            "classHash": "0x70edf8f3be0b118e78f856f3ea9ebb652cba3684abaf7f299bfa6f93bf907c9",
-            "contractAddress": "0x554606894a9be2241c0dc3735c0f322c8d4816bfe292165614ca9a455b47503"
-          }
+    "data": {
+        "models": {
+            "edges": [
+                {
+                    "node": {
+                        "id": "0x77844f1facb51e60e546a9832d56c6bd04fa23be4fd5b57290caae5e9a3c1e4",
+                        "name": "DirectionsAvailable",
+                        "classHash": "0x7deb48ccf95cc441a0489cfefdae54aeb6f8ec462ba13ff25e23f080e66cc2f",
+                        "contractAddress": "0x410c3b01e8209f1bb0c6591283efebddd5034b4baed4f0e9ea3c318d9fbae0b"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x504403e5c02b6442527721fc464d9ea5fc8f1ee600ab5ccd5c0845d36fd45f1",
+                        "name": "Moved",
+                        "classHash": "0x5be0a05a5df3bd3b4fc17f8b1feb395cb463ced20ea41d4fbb9b86a4d7efc66",
+                        "contractAddress": "0x47d654cf2ea600e9689219b1b8545c742c1229ac948c87a01787462f3e93f96"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x2ac8b4c190f7031b9fc44312e6b047a1dce0b3f2957c33a935ca7846a46dd5b",
+                        "name": "Position",
+                        "classHash": "0x2283c68ecba5c60bbbbd3b00659808a02244468e41a1d2cdba1312d65b83594",
+                        "contractAddress": "0x6e2770c9bbcf3f4f11529780fc04c2041f186225634541da225b93fe98b5bfd"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x2a29373f1af8348bd366a990eb3a342ef2cbe5e85160539eaca3441a673f468",
+                        "name": "Moves",
+                        "classHash": "0x70edf8f3be0b118e78f856f3ea9ebb652cba3684abaf7f299bfa6f93bf907c9",
+                        "contractAddress": "0x554606894a9be2241c0dc3735c0f322c8d4816bfe292165614ca9a455b47503"
+                    }
+                }
+            ],
+            "totalCount": 4
         }
-      ],
-      "totalCount": 4
     }
-  }
 }
 ```
 
@@ -498,11 +498,11 @@ In the GraphQL IDE, by clicking the `DOCS`-button on the right, you can open the
 
 We've covered quite a bit! Here's a recap:
 
--   Built a Dojo world
--   Deployed the project to Katana
--   Indexed the world with Torii
--   Executed the `spawn` system locally
--   Interacted with GraphQL
+- Built a Dojo world
+- Deployed the project to Katana
+- Indexed the world with Torii
+- Executed the `spawn` system locally
+- Interacted with GraphQL
 
 ### Next Steps
 

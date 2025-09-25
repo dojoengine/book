@@ -26,6 +26,7 @@ sozo build --typescript     # Compile contracts + generate bindings
 Bindings are saved to the `bindings/` directory by default.
 
 **What gets generated:**
+
 - **Type-safe interfaces** for all your models and systems
 - **Serialization/deserialization** handling
 - **Contract interaction methods** with proper typing
@@ -42,6 +43,7 @@ For the architectural details of binding generation, see the [Cainome documentat
 Starting with your Cairo contracts, generate and use type-safe TypeScript definitions:
 
 **1. Your Cairo models:**
+
 ```cairo
 use starknet::ContractAddress;
 
@@ -73,6 +75,7 @@ enum Direction {
 ```
 
 **2. Generate TypeScript bindings:**
+
 ```bash
 sozo build --typescript
 ```
@@ -80,10 +83,11 @@ sozo build --typescript
 Bindings will be saved as `bindings/typescript/{contracts, models}.gen.ts`.
 
 **3. Use in your TypeScript application:**
+
 ```typescript
 // Import your Cairo types - now available as TypeScript interfaces
-import { Position, Moves, Direction } from './bindings/typescript/models.ts';
-import { Client, createClient } from '@dojoengine/torii-client';
+import { Position, Moves, Direction } from "./bindings/typescript/models.ts";
+import { Client, createClient } from "@dojoengine/torii-client";
 
 const client = await createClient({
     toriiUrl: "http://localhost:8080",
@@ -96,18 +100,20 @@ const entities = await client.getEntities({
         Keys: {
             keys: [playerId],
             pattern_matching: "FixedLen",
-            models: ["Position", "Moves"]
-        }
-    }
+            models: ["Position", "Moves"],
+        },
+    },
 });
 
 // Your Cairo models are now typed TypeScript objects
-const position = entities[0].models.find(m => m.name === "Position") as Position;
-const moves = entities[0].models.find(m => m.name === "Moves") as Moves;
+const position = entities[0].models.find(
+    (m) => m.name === "Position"
+) as Position;
+const moves = entities[0].models.find((m) => m.name === "Moves") as Moves;
 
 // TypeScript knows about your Cairo enum values
-if (moves.last_direction.type === 'Left') {
-    console.log('Player moved left');
+if (moves.last_direction.type === "Left") {
+    console.log("Player moved left");
 }
 ```
 
@@ -118,11 +124,13 @@ Starting with the same Cairo contracts, generate C# classes for Unity:
 **1. Your Cairo models** (same as above)
 
 **2. Generate C# bindings:**
+
 ```bash
 sozo build --unity
 ```
 
 **3. Use in Unity:**
+
 ```csharp
 using Dojo.Starknet;
 using UnityEngine;

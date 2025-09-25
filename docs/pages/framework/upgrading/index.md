@@ -64,29 +64,29 @@ As such, this is the first release in which version compatibility became an issu
 Dojo framework versions are tightly coupled with the rest of the toolchain.
 Please consult this guide for release and compatibility information.
 
-  | Dojo Version | 1.5.0 | 1.5.1 | 1.6.0 |
-  |--------------|-------|-------|-------|
-  | Katana       |       |       |       |
-  | 1.6.3        | ❌     | ❌     | ✅     |
-  | 1.6.2        | ❌     | ❌     | ✅     |
-  | 1.6.1        | ❌     | ❌     | ✅     |
-  | 1.6.0        | ❌     | ❌     | ✅     |
-  | 1.5.4        | ✅     | ✅     | ❌     |
-  | 1.5.3        | ✅     | ✅     | ❌     |
-  | 1.5.2        | ✅     | ✅     | ❌     |
-  | 1.5.1        | ✅     | ✅     | ❌     |
-  | 1.5.0        | ✅     | ✅     | ❌     |
-  | Torii        |       |       |       |
-  | 1.5.9        | ❌     | ❌     | ✅     |
-  | 1.5.8        | ❌     | ✅     | ✅     |
-  | 1.5.7        | ❌     | ✅     | ✅     |
-  | 1.5.6        | ❌     | ✅     | ✅     |
-  | 1.5.5        | ✅     | ✅     | ✅     |
-  | 1.5.4        | ✅     | ✅     | ✅     |
-  | 1.5.3        | ✅     | ✅     | ✅     |
-  | 1.5.2        | ✅     | ✅     | ✅     |
-  | 1.5.1        | ✅     | ✅     | ✅     |
-  | 1.5.0        | ✅     | ✅     | ✅     |
+| Dojo Version | 1.5.0 | 1.5.1 | 1.6.0 |
+| ------------ | ----- | ----- | ----- |
+| Katana       |       |       |       |
+| 1.6.3        | ❌    | ❌    | ✅    |
+| 1.6.2        | ❌    | ❌    | ✅    |
+| 1.6.1        | ❌    | ❌    | ✅    |
+| 1.6.0        | ❌    | ❌    | ✅    |
+| 1.5.4        | ✅    | ✅    | ❌    |
+| 1.5.3        | ✅    | ✅    | ❌    |
+| 1.5.2        | ✅    | ✅    | ❌    |
+| 1.5.1        | ✅    | ✅    | ❌    |
+| 1.5.0        | ✅    | ✅    | ❌    |
+| Torii        |       |       |       |
+| 1.5.9        | ❌    | ❌    | ✅    |
+| 1.5.8        | ❌    | ✅    | ✅    |
+| 1.5.7        | ❌    | ✅    | ✅    |
+| 1.5.6        | ❌    | ✅    | ✅    |
+| 1.5.5        | ✅    | ✅    | ✅    |
+| 1.5.4        | ✅    | ✅    | ✅    |
+| 1.5.3        | ✅    | ✅    | ✅    |
+| 1.5.2        | ✅    | ✅    | ✅    |
+| 1.5.1        | ✅    | ✅    | ✅    |
+| 1.5.0        | ✅    | ✅    | ✅    |
 
 :::info
 Compatibility data drawn from [this file](https://github.com/dojoengine/dojo/blob/main/versions.json).

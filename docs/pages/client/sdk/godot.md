@@ -18,6 +18,7 @@ This GDExtension seamlessly integrates blockchain functionality into your Godot 
 The `ToriiClient` is your gateway to the Dojo world, managing all communication with the blockchain indexer.
 
 Key responsibilities:
+
 - **Connection Management**: Establish and maintain connections to Torii servers
 - **Entity Queries**: Fetch game entities and their associated models from the blockchain
 - **Event Subscriptions**: Subscribe to real-time blockchain events and entity updates
@@ -29,6 +30,7 @@ The ToriiClient operates as a singleton, ensuring consistent state across your e
 The `ControllerAccount` handles all transaction-related operations and wallet management.
 
 Core features:
+
 - **Wallet Authentication**: Secure connection to Cartridge Controller accounts
 - **Transaction Execution**: Execute smart contract calls with proper signing
 - **Session Management**: Maintain authenticated sessions with configurable policies
@@ -38,6 +40,7 @@ Core features:
 `DojoCall` resources encapsulate smart contract function calls in a Godot-native format.
 
 Structure:
+
 - **Contract Address (`to`)**: The target smart contract address
 - **Function Selector**: The name of the function to call
 - **Call Data**: Array of parameters to pass to the function
@@ -61,6 +64,7 @@ Dojo.godot automatically handles conversions between Cairo types and Godot equiv
 #### Prerequisites
 
 Before getting started, ensure you have:
+
 - [Godot Engine](https://godotengine.org/download) `>= 4.2`
 - [Rust](https://www.rust-lang.org/tools/install) toolchain
 - [SCons](https://scons.org/pages/download.html) build system
@@ -240,9 +244,9 @@ Create reusable DojoCall resources in the Godot editor:
 1. In the FileSystem dock, right-click and select `New Resource`
 2. Choose `DojoCall` as the resource type
 3. Configure the properties in the Inspector:
-   - **To**: Contract address
-   - **Selector**: Function name
-   - **Calldata**: Parameter array
+    - **To**: Contract address
+    - **Selector**: Function name
+    - **Calldata**: Parameter array
 4. Save as `.tres` file
 
 ### Managing Policies

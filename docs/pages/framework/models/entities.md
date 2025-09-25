@@ -18,6 +18,7 @@ Entities in Dojo follow the Entity-Component-System (ECS) architectural pattern:
 - **Systems**: Functions that operate on entities with specific component combinations
 
 This separation allows for:
+
 - **Composition over inheritance**: Build complex entities from simple components
 - **Performance**: Efficient data access and cache-friendly operations
 - **Flexibility**: Easy to add, remove, or modify entity behaviors
@@ -118,6 +119,7 @@ const GAME_CONFIG_ENTITY: u32 = 999999;
 ```
 
 **Key Properties:**
+
 - **Deterministic**: Same keys always produce the same entity ID
 - **Collision Resistant**: Poseidon hash ensures unique IDs for different key combinations
 - **Order Sensitive**: Key order in the struct determines the serialization order

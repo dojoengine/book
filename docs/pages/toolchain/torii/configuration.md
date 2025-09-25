@@ -291,18 +291,21 @@ metrics = true                # Essential monitoring
 ## Best Practices
 
 **Performance**:
+
 - Use persistent storage (`db_dir`) in production
 - Tune chunk sizes based on RPC performance
 - Enable indices only for frequently queried fields
 - Monitor memory usage with high concurrency
 
 **Security**:
+
 - Bind to `127.0.0.1` for local-only access
 - Use specific CORS origins in production
 - Enable TLS for external-facing deployments
 - Secure P2P relay certificates
 
 **Monitoring**:
+
 - Always enable metrics in production
 - Set up Prometheus scraping and alerting
 - Monitor database growth and query performance

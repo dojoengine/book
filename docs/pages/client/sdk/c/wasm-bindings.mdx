@@ -31,37 +31,41 @@ wasm-pack build --release --target nodejs
 ### Basic Integration
 
 **Browser Integration:**
+
 ```html
 <script type="module">
-  import init, { ToriiClient } from './pkg/dojo_c.js';
+    import init, { ToriiClient } from "./pkg/dojo_c.js";
 
-  async function setup() {
-    await init(); // Initialize WASM module
+    async function setup() {
+        await init(); // Initialize WASM module
 
-    const client = await new ToriiClient({
-      toriiUrl: "http://localhost:8080",
-      worldAddress: "0x064613f376f05242dfcc9fe360fa2ce1fdd6b00b1ce73dae2ea649ea118fd9be"
-    });
-  }
+        const client = await new ToriiClient({
+            toriiUrl: "http://localhost:8080",
+            worldAddress:
+                "0x064613f376f05242dfcc9fe360fa2ce1fdd6b00b1ce73dae2ea649ea118fd9be",
+        });
+    }
 </script>
 ```
 
 **Node.js Integration:**
+
 ```javascript
-const { ToriiClient } = require('./pkg/dojo_c');
+const { ToriiClient } = require("./pkg/dojo_c");
 
 // Node.js polyfills
-global.WebSocket = require('ws');
+global.WebSocket = require("ws");
 global.WorkerGlobalScope = global;
 
 async function main() {
-  const client = await new ToriiClient({
-    toriiUrl: 'http://127.0.0.1:8080',
-    worldAddress: '0x064613f376f05242dfcc9fe360fa2ce1fdd6b00b1ce73dae2ea649ea118fd9be'
-  });
+    const client = await new ToriiClient({
+        toriiUrl: "http://127.0.0.1:8080",
+        worldAddress:
+            "0x064613f376f05242dfcc9fe360fa2ce1fdd6b00b1ce73dae2ea649ea118fd9be",
+    });
 
-  const entities = await client.getAllEntities(10);
-  console.log(entities);
+    const entities = await client.getAllEntities(10);
+    console.log(entities);
 }
 ```
 
@@ -76,8 +80,8 @@ Creates a new client instance.
 
 ```javascript
 const client = await new ToriiClient({
-  toriiUrl: "http://localhost:8080",
-  worldAddress: "0x..."
+    toriiUrl: "http://localhost:8080",
+    worldAddress: "0x...",
 });
 ```
 
@@ -88,20 +92,20 @@ Queries entities with advanced filtering and pagination.
 
 ```javascript
 const query = {
-  pagination: {
-    limit: 100,
-    cursor: undefined,
-    direction: "Forward"
-  },
-  clause: {
-    Keys: {
-      keys: [playerAddress],
-      pattern_matching: "FixedLen",
-      models: ["Position", "Health"]
-    }
-  },
-  no_hashed_keys: false,
-  historical: false
+    pagination: {
+        limit: 100,
+        cursor: undefined,
+        direction: "Forward",
+    },
+    clause: {
+        Keys: {
+            keys: [playerAddress],
+            pattern_matching: "FixedLen",
+            models: ["Position", "Health"],
+        },
+    },
+    no_hashed_keys: false,
+    historical: false,
 };
 
 const entities = await client.getEntities(query);
@@ -119,16 +123,16 @@ Subscribes to real-time entity updates.
 
 ```javascript
 const subscription = await client.onEntityUpdated(
-  {
-    Keys: {
-      keys: [undefined], // All entities
-      pattern_matching: "VariableLen",
-      models: []
+    {
+        Keys: {
+            keys: [undefined], // All entities
+            pattern_matching: "VariableLen",
+            models: [],
+        },
+    },
+    (entityId, models) => {
+        console.log("Entity updated:", entityId, models);
     }
-  },
-  (entityId, models) => {
-    console.log('Entity updated:', entityId, models);
-  }
 );
 
 // Cancel subscription when done
@@ -145,15 +149,15 @@ Queries historical event messages.
 
 ```javascript
 const events = await client.getEventMessages({
-  pagination: { limit: 50 },
-  clause: {
-    Keys: {
-      keys: [eventSelector],
-      pattern_matching: "FixedLen",
-      models: []
-    }
-  },
-  historical: true
+    pagination: { limit: 50 },
+    clause: {
+        Keys: {
+            keys: [eventSelector],
+            pattern_matching: "FixedLen",
+            models: [],
+        },
+    },
+    historical: true,
 });
 ```
 
@@ -162,16 +166,16 @@ Subscribes to real-time event updates.
 
 ```javascript
 const eventSub = await client.onEventMessageUpdated(
-  {
-    Keys: {
-      keys: [undefined],
-      pattern_matching: "VariableLen",
-      models: []
+    {
+        Keys: {
+            keys: [undefined],
+            pattern_matching: "VariableLen",
+            models: [],
+        },
+    },
+    (entityId, models) => {
+        console.log("New event:", entityId, models);
     }
-  },
-  (entityId, models) => {
-    console.log('New event:', entityId, models);
-  }
 );
 ```
 
@@ -180,14 +184,16 @@ Subscribes to raw Starknet events.
 
 ```javascript
 const starknetSub = await client.onStarknetEvent(
-  [{
-    keys: [eventSelector],
-    pattern_matching: "FixedLen",
-    models: []
-  }],
-  (event) => {
-    console.log('Starknet event:', event);
-  }
+    [
+        {
+            keys: [eventSelector],
+            pattern_matching: "FixedLen",
+            models: [],
+        },
+    ],
+    (event) => {
+        console.log("Starknet event:", event);
+    }
 );
 ```
 
@@ -198,9 +204,9 @@ Queries token information.
 
 ```javascript
 const tokens = await client.getTokens({
-  contract_addresses: ["0x..."], // Optional filter
-  token_ids: [],                 // Optional filter
-  pagination: { limit: 100 }
+    contract_addresses: ["0x..."], // Optional filter
+    token_ids: [], // Optional filter
+    pagination: { limit: 100 },
 });
 ```
 
@@ -209,10 +215,10 @@ Queries token balances.
 
 ```javascript
 const balances = await client.getTokenBalances({
-  contract_addresses: ["0x..."],
-  account_addresses: [playerAddress],
-  token_ids: [],
-  pagination: { limit: 100 }
+    contract_addresses: ["0x..."],
+    account_addresses: [playerAddress],
+    token_ids: [],
+    pagination: { limit: 100 },
 });
 ```
 
@@ -221,8 +227,8 @@ Queries token collections (NFT collections).
 
 ```javascript
 const collections = await client.getTokenCollections({
-  contract_addresses: [],
-  pagination: { limit: 50 }
+    contract_addresses: [],
+    pagination: { limit: 50 },
 });
 ```
 
@@ -231,11 +237,11 @@ Subscribes to token metadata updates.
 
 ```javascript
 const tokenSub = await client.onTokenUpdated(
-  ["0x..."], // Contract addresses
-  [],        // Token IDs (empty for all)
-  (token) => {
-    console.log('Token updated:', token);
-  }
+    ["0x..."], // Contract addresses
+    [], // Token IDs (empty for all)
+    (token) => {
+        console.log("Token updated:", token);
+    }
 );
 ```
 
@@ -244,12 +250,12 @@ Subscribes to token balance changes.
 
 ```javascript
 const balanceSub = await client.onTokenBalanceUpdated(
-  ["0x..."],         // Contract addresses
-  [playerAddress],   // Account addresses
-  [],               // Token IDs
-  (balance) => {
-    console.log('Balance changed:', balance);
-  }
+    ["0x..."], // Contract addresses
+    [playerAddress], // Account addresses
+    [], // Token IDs
+    (balance) => {
+        console.log("Balance changed:", balance);
+    }
 );
 ```
 
@@ -260,15 +266,15 @@ Queries transaction history.
 
 ```javascript
 const transactions = await client.getTransactions({
-  filter: {
-    transaction_hashes: [],
-    caller_addresses: [playerAddress],
-    contract_addresses: [],
-    entrypoints: ["move", "attack"],
-    from_block: undefined,
-    to_block: undefined
-  },
-  pagination: { limit: 100 }
+    filter: {
+        transaction_hashes: [],
+        caller_addresses: [playerAddress],
+        contract_addresses: [],
+        entrypoints: ["move", "attack"],
+        from_block: undefined,
+        to_block: undefined,
+    },
+    pagination: { limit: 100 },
 });
 ```
 
@@ -277,13 +283,13 @@ Subscribes to new transactions.
 
 ```javascript
 const txSub = await client.onTransaction(
-  {
-    caller_addresses: [playerAddress],
-    entrypoints: ["move"]
-  },
-  (transaction) => {
-    console.log('New transaction:', transaction);
-  }
+    {
+        caller_addresses: [playerAddress],
+        entrypoints: ["move"],
+    },
+    (transaction) => {
+        console.log("New transaction:", transaction);
+    }
 );
 ```
 
@@ -294,8 +300,8 @@ Queries controller information.
 
 ```javascript
 const controllers = await client.getControllers({
-  contract_addresses: [],
-  pagination: { limit: 100 }
+    contract_addresses: [],
+    pagination: { limit: 100 },
 });
 ```
 
@@ -305,12 +311,10 @@ const controllers = await client.getControllers({
 Publishes a single message.
 
 ```javascript
-await client.publishMessage(
-  {
+await client.publishMessage({
     message: "Hello, Dojo!",
-    signature: await signMessage(message)
-  }
-);
+    signature: await signMessage(message),
+});
 ```
 
 **`publishMessageBatch(messages)`**
@@ -318,8 +322,8 @@ Publishes multiple messages in a batch.
 
 ```javascript
 await client.publishMessageBatch([
-  { message: "Message 1", signature: sig1 },
-  { message: "Message 2", signature: sig2 }
+    { message: "Message 1", signature: sig1 },
+    { message: "Message 2", signature: sig2 },
 ]);
 ```
 
@@ -330,7 +334,7 @@ Subscribes to indexer synchronization updates.
 
 ```javascript
 const indexerSub = await client.onIndexerUpdated((update) => {
-  console.log('Indexer update:', update);
+    console.log("Indexer update:", update);
 });
 ```
 
@@ -355,7 +359,7 @@ Account functions handle the **write** side of blockchain interaction. Use these
 Generates a new random signing key.
 
 ```javascript
-import { SigningKey } from './pkg/dojo_c.js';
+import { SigningKey } from "./pkg/dojo_c.js";
 
 const signingKey = SigningKey.fromRandom();
 const secretScalar = signingKey.secretScalar();
@@ -368,15 +372,16 @@ const verifyingKey = signingKey.verifyingKey();
 Creates a new JSON-RPC provider.
 
 ```javascript
-import { Provider } from './pkg/dojo_c.js';
+import { Provider } from "./pkg/dojo_c.js";
 
 const provider = await new Provider("http://localhost:5050");
 const chainId = await provider.chainId();
 ```
 
 **Account Operations:**
+
 ```javascript
-import { Account, SigningKey } from './pkg/dojo_c.js';
+import { Account, SigningKey } from "./pkg/dojo_c.js";
 
 // Create account with private key string
 const signingKey = SigningKey.fromRandom();
@@ -384,11 +389,13 @@ const privateKeyHex = signingKey.secretScalar();
 const account = await new Account(provider, privateKeyHex, address);
 
 // Execute transactions
-const txHash = await account.executeRaw([{
-  to: "0x...",
-  selector: "move",
-  calldata: ["0x1", "0x2"]
-}]);
+const txHash = await account.executeRaw([
+    {
+        to: "0x...",
+        selector: "move",
+        calldata: ["0x1", "0x2"],
+    },
+]);
 
 // Deploy burner account with private key string
 const burnerKey = SigningKey.fromRandom();
@@ -399,8 +406,9 @@ const burner = await account.deployBurner(burnerPrivateKey);
 ### Data Utilities
 
 **`ByteArray` class** - For handling Cairo byte arrays:
+
 ```javascript
-import { ByteArray } from './pkg/dojo_c.js';
+import { ByteArray } from "./pkg/dojo_c.js";
 
 const byteArray = new ByteArray("Hello, Dojo!");
 const raw = byteArray.toRaw(); // Convert to field elements
@@ -408,14 +416,16 @@ const restored = ByteArray.fromRaw(raw); // Restore from field elements
 ```
 
 **`TypedData` class** - For encoding typed data:
+
 ```javascript
-import { TypedData } from './pkg/dojo_c.js';
+import { TypedData } from "./pkg/dojo_c.js";
 
 const typedData = new TypedData(JSON.stringify(typedDataObject));
 const encoded = typedData.encode(accountAddress);
 ```
 
 **Provider utilities:**
+
 ```javascript
 const result = await provider.call(call, blockId);
 const chainId = await provider.chainId();
@@ -429,19 +439,16 @@ const chainId = await provider.chainId();
 Computes Poseidon hash of field elements.
 
 ```javascript
-import { poseidonHash } from './pkg/dojo_c.js';
+import { poseidonHash } from "./pkg/dojo_c.js";
 
-const hash = poseidonHash([
-  "0x123...",
-  "0x456..."
-]);
+const hash = poseidonHash(["0x123...", "0x456..."]);
 ```
 
 **`starknetKeccak(data)`**
 Computes Starknet-compatible Keccak hash.
 
 ```javascript
-import { starknetKeccak } from './pkg/dojo_c.js';
+import { starknetKeccak } from "./pkg/dojo_c.js";
 
 const data = new Uint8Array(Buffer.from("move", "utf8"));
 const hash = starknetKeccak(data);
@@ -451,7 +458,7 @@ const hash = starknetKeccak(data);
 Gets contract function selector from name.
 
 ```javascript
-import { getSelectorFromName } from './pkg/dojo_c.js';
+import { getSelectorFromName } from "./pkg/dojo_c.js";
 
 const selector = getSelectorFromName("move");
 ```
@@ -460,7 +467,7 @@ const selector = getSelectorFromName("move");
 Gets selector from Dojo tag.
 
 ```javascript
-import { getSelectorFromTag } from './pkg/dojo_c.js';
+import { getSelectorFromTag } from "./pkg/dojo_c.js";
 
 const selector = getSelectorFromTag("dojo_starter-Position");
 ```
@@ -471,13 +478,13 @@ const selector = getSelectorFromTag("dojo_starter-Position");
 Computes contract address for deployment.
 
 ```javascript
-import { getContractAddress } from './pkg/dojo_c.js';
+import { getContractAddress } from "./pkg/dojo_c.js";
 
 const address = getContractAddress(
-  classHash,
-  salt,
-  constructorCalldata,
-  deployerAddress
+    classHash,
+    salt,
+    constructorCalldata,
+    deployerAddress
 );
 ```
 
@@ -490,19 +497,22 @@ Parses felt as Cairo short string.
 ## Common Issues
 
 **WASM Initialization:**
+
 ```javascript
 // Always await init() before using any functions
 await init();
 ```
 
 **Node.js Compatibility:**
+
 ```javascript
 // Required polyfills for Node.js
-global.WebSocket = require('ws');
+global.WebSocket = require("ws");
 global.WorkerGlobalScope = global;
 ```
 
 **Subscription Management:**
+
 ```javascript
 // Cancel subscriptions to prevent memory leaks
 subscription.cancel();
@@ -512,11 +522,11 @@ subscription.cancel();
 Consider using TypeScript for better development experience:
 
 ```typescript
-import { ToriiClient, ClientConfig } from './pkg/dojo_c';
+import { ToriiClient, ClientConfig } from "./pkg/dojo_c";
 
 const config: ClientConfig = {
-  toriiUrl: "http://localhost:8080",
-  worldAddress: "0x..."
+    toriiUrl: "http://localhost:8080",
+    worldAddress: "0x...",
 };
 
 const client = await new ToriiClient(config);

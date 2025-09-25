@@ -65,11 +65,13 @@ world.grant_owner(selector_from_tag!("my_game-PlayerStats"), address);
 ```
 
 **Tag Structure:**
+
 - **Namespace**: The logical grouping (e.g., `"my_game"`, `"dojo_starter"`)
 - **Separator**: Always a hyphen (`-`)
 - **Resource Name**: The specific resource (e.g., `"Position"`, `"PlayerStats"`)
 
 **Common Tag Patterns:**
+
 ```cairo
 // Namespace tag (for namespace-level permissions)
 "namespace"               // e.g., "my_game"
@@ -87,6 +89,7 @@ world.grant_owner(selector_from_tag!("my_game-PlayerStats"), address);
 **Selectors:**
 
 Tags are converted to `felt252` **selectors** using `selector_from_tag!`, which computes:
+
 ```
 resource_selector = poseidon_hash(
     poseidon_string_hash(resource_namespace),
@@ -126,11 +129,13 @@ The World contract implements a resource-based permission system with two permis
 - **Writer**: Can write data into resource storage
 
 **Resource Hierarchy** (order of precedence):
+
 1. **World** → Can access all resources
 2. **Namespace** → Can access all resources in that namespace
 3. **Model/Contract/Event** → Can access the specific resource
 
 **Key Points**:
+
 - Reading is always permissionless
 - Writing requires Writer permission on the resource or its namespace
 - When you deploy to a world, you automatically become owner of your namespace
@@ -170,6 +175,7 @@ mod actions {
 ### Common Usage Patterns
 
 **Reading Models**:
+
 ```cairo
 // Single key
 let position: Position = world.read_model(player);
@@ -179,6 +185,7 @@ let resource: GameResource = world.read_model((player, location));
 ```
 
 **Writing Models**:
+
 ```cairo
 let mut position: Position = world.read_model(player);
 position.vec.x += 1;
@@ -186,6 +193,7 @@ world.write_model(@position);
 ```
 
 **Emitting Events**:
+
 ```cairo
 #[derive(Copy, Drop, Serde)]
 #[dojo::event]

@@ -29,6 +29,7 @@ While models define **what** your world contains, systems define **how** it beha
 ```
 
 Systems are **stateless functions** that:
+
 - Read current world state from models
 - Apply business logic and rules
 - Write updated state back to models
@@ -47,12 +48,14 @@ Each system should have one clear, focused responsibility.
 This promotes modularity, testability, and maintainability.
 
 **Good Examples:**
+
 - `MovementSystem`: Handles player/entity movement
 - `CombatSystem`: Manages battles and damage
 - `InventorySystem`: Manages item collection and usage
 - `TradingSystem`: Handles marketplace transactions
 
 **Poor Examples:**
+
 - `GameSystem`: Handles everything (too broad)
 - `PlayerSystem`: Manages movement, combat, and inventory (mixed concerns)
 

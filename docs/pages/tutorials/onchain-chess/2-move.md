@@ -63,16 +63,16 @@ description: Learn how to implement and test chess piece movement logic, includi
 
 ## Test Flow
 
--   Spawn the test world (`spawn_test_world`) that imports the models in testing.
--   Deploy actions contract
--   Interact with `spawn` function in the `actions` contract by providing white and black player's wallet addresses as inputs.
--   Retrieve the game entity and piece entity created in `actions` contract.
--   Ensure the game has been correctly created.
--   Verify that each `Piece` is located in the correct position.
+- Spawn the test world (`spawn_test_world`) that imports the models in testing.
+- Deploy actions contract
+- Interact with `spawn` function in the `actions` contract by providing white and black player's wallet addresses as inputs.
+- Retrieve the game entity and piece entity created in `actions` contract.
+- Ensure the game has been correctly created.
+- Verify that each `Piece` is located in the correct position.
 
 ## Unit Tests
 
--   Copy the test below and add it to your `tests/units.cairo` file.
+- Copy the test below and add it to your `tests/units.cairo` file.
 
 ```rust
 #[cfg(test)]

@@ -75,10 +75,11 @@ sozo init my-game --template myorg/custom-dojo-template  # Short form
 
 :::note
 By default, this clones the [dojo-starter](https://github.com/dojoengine/dojo-starter) template, giving you a working foundation with:
+
 - Example models (Position, Moves) and systems (Actions)
 - Pre-configured Scarb.toml with Dojo dependencies
 - Basic tests and deployment configuration
-:::
+  :::
 
 **Account Management**: Sozo uses accounts defined in your `dojo_<profile>.toml` files.
 See the [configuration guide](/framework/configuration/index.md) for more information.
@@ -102,6 +103,7 @@ sozo build --typescript       # Compile + generate TypeScript bindings
 ```
 
 **What it does:**
+
 - Compiles Cairo contracts using Scarb
 - Validates contract syntax and imports
 - Generates Dojo manifests for deployment
@@ -129,11 +131,13 @@ sozo clean --all-profiles     # Clean all profile manifest files
 ```
 
 **When to clean:**
+
 - After major contract restructuring
 - When build artifacts seem corrupted
 - Before important deployments to ensure fresh state
 
 **What gets cleaned:**
+
 - Manifest files for the current profile (or all profiles with `--all-profiles`)
 - Generated metadata and artifacts
 - Does NOT clean Scarb's `target/` directory (use `scarb clean` for that)
@@ -167,12 +171,14 @@ This starts a file watcher that automatically runs `sozo build` and `sozo migrat
 Perfect for rapid development iteration without manual rebuilds.
 
 **Key Features:**
+
 - **File watching**: Monitors Cairo source files for changes
 - **Automatic rebuild**: Runs build + migrate when files change
 - **Binding generation**: Can generate client bindings on each rebuild
 - **Hot reload**: Instant feedback loop for development
 
 **Common Use Cases:**
+
 - Development with live-reloading game clients
 - Rapid contract iteration and testing
 - Continuous integration during development
@@ -211,17 +217,20 @@ sozo migrate -vvv
 #### How Migration Works
 
 **Automatic Diff Analysis**: Sozo compares your local world state against the deployed state, identifying exactly what has changed:
+
 - New or modified models, systems, events, libraries
 - Updated class hashes and resource registrations
 - Permission changes (writers and owners)
 
 **Intelligent Updates**: Instead of redeploying everything, Sozo generates minimal migration transactions:
+
 - Declares only new or changed classes
 - Updates only modified resources
 - Applies permission changes incrementally
 - Initializes new contracts as needed
 
 **Multi-Environment Management**: Each profile tracks its own deployment state:
+
 ```bash
 sozo migrate                    # Uses 'dev' profile (local Katana)
 sozo migrate --profile staging  # Uses 'staging' profile (testnet)
@@ -302,6 +311,7 @@ Scarb, which is used to build and test your project under the hood, supports [wo
 Sozo also supports workspaces.
 
 However, Sozo requires two additional things:
+
 1. A main package from which Sozo will extract the package's name (for binding generation and migration)
 2. [Dojo configuration files](/framework/configuration/#configuration-files) to inject deployment settings during migration
 

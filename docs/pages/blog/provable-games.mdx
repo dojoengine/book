@@ -3,7 +3,7 @@ title: "Provable Games"
 description: "An exploration of Autonomous Worlds and how Dojo enables complex, interactive onchain games through provable execution"
 layout: minimal
 authors:
-  - "[tarrence](https://x.com/tarrenceva)"
+    - "[tarrence](https://x.com/tarrenceva)"
 date: 2023-11-27
 ---
 
@@ -56,11 +56,11 @@ Approximately, this tradeoff looks something like this:
 In addition, we get several other nice properties:
 
 - **Proof recursion** enables temporal compression of an entire sequence of actions from an instance run into a single attestation, massively reducing the data availability cost and enabling us to cheaply settle on robust data availability layers like Ethereum.
-In contrast to optimistic approaches, where the input calldata for every action inside a game needs to be provided to the data availability layer to enable re-execution, forcing these approaches to make security tradeoffs in order to scale data availability bandwidth.
-Another cool side effect is it allows players to keep their strategies secret, by not revealing the intermediate steps in a sequence that led to the defeat of a final boss, while still credibly convincing everyone that they accomplished the task and allowing them to unlock the reward.
+  In contrast to optimistic approaches, where the input calldata for every action inside a game needs to be provided to the data availability layer to enable re-execution, forcing these approaches to make security tradeoffs in order to scale data availability bandwidth.
+  Another cool side effect is it allows players to keep their strategies secret, by not revealing the intermediate steps in a sequence that led to the defeat of a final boss, while still credibly convincing everyone that they accomplished the task and allowing them to unlock the reward.
 
 - **Proof aggregation** enables proofs from every execution shard to be combined and the settlement cost amortized across those players, reducing transaction costs as the number of players increases (!).
-This is possible not only across a particular game, but globally, across all Cairo based proving systems (starknets, katanas, coprocessors, etc), by leveraging shared proving infrastructure provided by SHARP.
+  This is possible not only across a particular game, but globally, across all Cairo based proving systems (starknets, katanas, coprocessors, etc), by leveraging shared proving infrastructure provided by SHARP.
 
 ![Illustration depicting proof aggregation](/blog/provable-games/aggregation.png)
 
@@ -69,11 +69,11 @@ This is possible not only across a particular game, but globally, across all Cai
 While this approach is incredibly well suited for the type of workload we are targeting, it does introduce some limitations compared to optimistic approaches:
 
 - Maintaining provability gives us less flexibility to use tools such as precompiles and in-node modifications to enshrine game logic into the sequencer itself.
-While we are able to introduce our own syscalls (similar to precompiles), their outputs are untrusted and need to be verified in the provable program.
-However, our opinion is that in-node modifications should be limited to the extent possible anyways, since in-node changes add significant distribution overhead to sequencer binaries in order to maintain the optimistic security model and introduce a two-tiered development model, where node contributors are significantly more influential than smart contract developers, compromising on platform neutrality.
+  While we are able to introduce our own syscalls (similar to precompiles), their outputs are untrusted and need to be verified in the provable program.
+  However, our opinion is that in-node modifications should be limited to the extent possible anyways, since in-node changes add significant distribution overhead to sequencer binaries in order to maintain the optimistic security model and introduce a two-tiered development model, where node contributors are significantly more influential than smart contract developers, compromising on platform neutrality.
 
 - Optimistic rollups with large execution contexts and many shared stakeholders, where the honest actor assumption is compelling, can maintain a strong security model and in some cases, can provide cheaper execution costs than a provable network where every execution needs to be proved.
-In this regard, I believe there is an opportunity for engines like MUD and Dojo to be complementary (more on that in the future).
+  In this regard, I believe there is an opportunity for engines like MUD and Dojo to be complementary (more on that in the future).
 
 ### Conclusion
 
@@ -85,4 +85,4 @@ Stay tuned as we delve into the depths of the Dojo stack, sharing insights on wh
 
 In the meantime, checkout our website, read our book, and dig into the code for more info!
 
-*Special thanks to Loaf and Gabe for feedback and review*
+_Special thanks to Loaf and Gabe for feedback and review_

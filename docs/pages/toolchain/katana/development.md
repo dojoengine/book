@@ -118,6 +118,7 @@ Native compilation can provide:
 Cairo Native must be enabled at compile time and runtime:
 
 **Compile-time**: Build Katana with the `native` feature flag:
+
 ```bash
 cargo build --release --features native
 ```
@@ -127,6 +128,7 @@ If installing Katana with `asdf`, pass `ASDF_NATIVE_BUILD=true` for the native b
 :::
 
 **Runtime**: Enable native compilation when starting Katana:
+
 ```bash
 katana --enable-native-compilation
 ```
@@ -134,11 +136,13 @@ katana --enable-native-compilation
 ### Development Considerations
 
 **When to Use**:
+
 - Performance testing and benchmarking
 - Compute-heavy contract development
 - Production environments requiring maximum throughput
 
 **Trade-offs**:
+
 - Increased compilation time during contract loading
 - Additional system dependencies (LLVM 19)
 - Larger binary size and memory usage
@@ -151,6 +155,7 @@ Install with `make native-deps-macos` (macOS) or `make native-deps-linux` (Linux
 #### Usage Example
 
 Start Katana with native compilation for performance testing:
+
 ```bash
 katana --dev --enable-native-compilation --block-time 1000
 ```
@@ -164,6 +169,7 @@ Katana also includes a browser-based block explorer for easy visualization of se
 ### Available Metrics
 
 Katana collects metrics across multiple components:
+
 - **Block production**: Gas processed, Cairo steps, block timing
 - **System resources**: Memory usage, CPU utilization, disk I/O
 - **RPC performance**: Request latency, error rates, throughput
@@ -172,21 +178,25 @@ Katana collects metrics across multiple components:
 ### Enabling Metrics
 
 Start the metrics server on port 9100:
+
 ```bash
 katana --metrics
 ```
 
 Customize the metrics server address and port:
+
 ```bash
 katana --metrics --metrics.addr 0.0.0.0 --metrics.port 8080
 ```
 
 Query metrics directly via HTTP:
+
 ```bash
 curl http://127.0.0.1:9100/metrics
 ```
 
 Sample metrics output:
+
 ```
 # HELP block_producer_l1_gas_processed_total The amount of L1 gas processed in a block
 # TYPE block_producer_l1_gas_processed_total counter
@@ -200,6 +210,7 @@ process_resident_memory_bytes 45670400
 #### Usage Example
 
 Enable metrics during testing to monitor performance:
+
 ```bash
 # Start Katana with metrics
 katana --dev --metrics --dev.no-fee
@@ -213,6 +224,7 @@ This provides real-time visibility into your local blockchain's performance char
 ### Enabling explorer
 
 Enable the browser-based explorer:
+
 ```bash
 katana --explorer
 ```

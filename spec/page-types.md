@@ -5,6 +5,7 @@ This guide defines how we structure our documentation using the **Diátaxis fram
 ## Why Diátaxis?
 
 The Diátaxis framework recognizes that users approach documentation with different needs:
+
 - **I want to learn** → Tutorial
 - **I want to achieve a specific goal** → How-to Guide
 - **I need to look something up** → Reference
@@ -28,12 +29,12 @@ By clearly separating these purposes, we create documentation that serves users 
 
 ### When to Use Each Type
 
-| Type | User's Question | User's Context | Content Focus |
-|------|----------------|----------------|---------------|
-| **Tutorial** | "Can you teach me?" | New to the topic, wants to learn by doing | Step-by-step learning journey |
-| **How-to Guide** | "How do I solve this problem?" | Has specific goal, knows basics | Task completion |
-| **Reference** | "What are the details?" | Needs precise information quickly | Facts and specifications |
-| **Explanation** | "Why does this work this way?" | Wants deeper understanding | Concepts and design reasoning |
+| Type             | User's Question                | User's Context                            | Content Focus                 |
+| ---------------- | ------------------------------ | ----------------------------------------- | ----------------------------- |
+| **Tutorial**     | "Can you teach me?"            | New to the topic, wants to learn by doing | Step-by-step learning journey |
+| **How-to Guide** | "How do I solve this problem?" | Has specific goal, knows basics           | Task completion               |
+| **Reference**    | "What are the details?"        | Needs precise information quickly         | Facts and specifications      |
+| **Explanation**  | "Why does this work this way?" | Wants deeper understanding                | Concepts and design reasoning |
 
 ---
 
@@ -356,22 +357,24 @@ Address frequent misunderstandings about the concept.
 When creating new documentation, ask yourself:
 
 1. **What is the user trying to accomplish?**
-   - Learn something new → Tutorial
-   - Solve a specific problem → How-to Guide
-   - Look up information → Reference
-   - Understand concepts → Explanation
+
+    - Learn something new → Tutorial
+    - Solve a specific problem → How-to Guide
+    - Look up information → Reference
+    - Understand concepts → Explanation
 
 2. **What is the user's experience level?**
-   - Beginner wanting to learn → Tutorial
-   - Experienced with a specific goal → How-to Guide
-   - Any level needing facts → Reference
-   - Any level wanting understanding → Explanation
+
+    - Beginner wanting to learn → Tutorial
+    - Experienced with a specific goal → How-to Guide
+    - Any level needing facts → Reference
+    - Any level wanting understanding → Explanation
 
 3. **What type of content are you writing?**
-   - Step-by-step learning → Tutorial
-   - Problem-solving steps → How-to Guide
-   - Facts and specifications → Reference
-   - Concepts and reasoning → Explanation
+    - Step-by-step learning → Tutorial
+    - Problem-solving steps → How-to Guide
+    - Facts and specifications → Reference
+    - Concepts and reasoning → Explanation
 
 ## Cross-References Between Types
 

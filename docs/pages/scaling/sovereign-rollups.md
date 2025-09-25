@@ -49,7 +49,7 @@ Katana sequences transactions into blocks within the sovereign rollup.
 Katana reconstructs complete state from Celestia proofs:
 
 - **State Recovery**: Rebuilds rollup state from latest Celestia proof
-- **Requires**: Celestia height and commitment of latest proof  
+- **Requires**: Celestia height and commitment of latest proof
 - **Process**: Retrieves prior proofs backward until full state reconstruction
 - **Independence**: Nodes start/resume using only Celestia data
 

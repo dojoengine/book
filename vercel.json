@@ -1,20 +1,20 @@
 {
-  "redirects": [
-    {
-      "source": "/architecture/soverign-rollups",
-      "destination": "/architecture/sovereign-rollups",
-      "permanent": true
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
+    "redirects": [
         {
-          "key": "X-Robots-Tag",
-          "value": "llms-txt"
+            "source": "/architecture/soverign-rollups",
+            "destination": "/architecture/sovereign-rollups",
+            "permanent": true
         }
-      ]
-    }
-  ]
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "llms-txt"
+                }
+            ]
+        }
+    ]
 }

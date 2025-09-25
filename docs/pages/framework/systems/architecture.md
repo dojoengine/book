@@ -130,11 +130,13 @@ mod combat {
 ```
 
 **Benefits:**
+
 - Clear permission boundaries
 - Easy to test and deploy independently
 - Minimal complexity
 
 **Drawbacks:**
+
 - More contracts to manage
 - Potential gas overhead for cross-system operations
 
@@ -167,11 +169,13 @@ mod player_actions {
 ```
 
 **Benefits:**
+
 - Shared permissions and internal helpers
 - Fewer contracts to manage
 - Efficient cross-system operations
 
 **Drawbacks:**
+
 - Larger contract size
 - More complex testing
 - Potential for tight coupling
@@ -208,11 +212,13 @@ mod game_coordinator {
 ```
 
 **Benefits:**
+
 - Clear system orchestration
 - Simplified external interface
 - Coordinated operations
 
 **Drawbacks:**
+
 - Potential single point of failure
 - Complex internal logic
 - Harder to extend independently

@@ -16,6 +16,7 @@ Dojo is built on top of Cairo. We suggest [familiarizing yourself with Cairo](ht
 Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet. It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
 
 **Key Benefits:**
+
 - **Provable**: All game logic and state changes are verifiable onchain
 - **Composable**: Modular design allows for easy extension and integration
 - **Scalable**: Optimized for high-performance onchain applications
@@ -34,9 +35,9 @@ Traditional object-oriented programming can lead to complex inheritance hierarch
 
 ![ECS Pattern](/framework/ECS.png)
 
--   **Entities**: The *objects* in your game — characters, items, etc.
--   **Components**: The *properties* of your entities — position, durability, etc.
--   **Systems**: The *rules* that govern your game — movement, combat, etc.
+- **Entities**: The _objects_ in your game — characters, items, etc.
+- **Components**: The _properties_ of your entities — position, durability, etc.
+- **Systems**: The _rules_ that govern your game — movement, combat, etc.
 
 With ECS, you assign **components** to **entities**, and operate on them using **systems**.
 This approach allows for a more modular and scalable design, as well as better performance and memory usage.
@@ -46,6 +47,7 @@ Systems can then operate over large numbers of entities at once, depending on th
 As an example, a combat system might reduce the durability of all weapons used in a battle, while a rest system might increase the health of all members of a party.
 
 **ECS Benefits:**
+
 - **Modularity**: Components can be mixed and matched across entity types
 - **Performance**: Systems can efficiently process large numbers of entities
 - **Flexibility**: Easy to add new components or systems without affecting existing code
@@ -119,7 +121,7 @@ Dojo adapts ECS for the onchain environment with three core concepts:
 
 ### 1. Models (Components)
 
-Models are Cairo structs that define your application's data structures. They act as *components* in the ECS pattern.
+Models are Cairo structs that define your application's data structures. They act as _components_ in the ECS pattern.
 
 ```rust
 #[derive(Copy, Drop, Serde)]
@@ -138,6 +140,7 @@ struct Position {
 :::
 
 **Key Features:**
+
 - **Automatic indexing**: All model changes are automatically indexed by Torii
 - **Type safety**: Full Cairo type system support
 - **Composability**: Models can be reused across different entity types
@@ -186,6 +189,7 @@ mod actions {
 ```
 
 **Key Features:**
+
 - **Permissioned access**: Fine-grained control over who can modify what
 - **Atomic operations**: All state changes happen in a single transaction
 - **Event emission**: Automatic event generation for state changes
@@ -209,6 +213,7 @@ world.emit_event(@PlayerMoved { player, direction });
 ```
 
 **Key Features:**
+
 - **Centralized state**: Single source of truth for all application data
 - **Permission management**: Hierarchical authorization system
 - **Upgradeability**: Safe model and system upgrades
@@ -229,6 +234,7 @@ world.emit_event(@PlayerMoved { player, direction });
 ## Best Practices
 
 ### Model Design
+
 - **Keep models small and focused** - Each model should represent a single concept
 - **Design for reusability** - Models should be composable across different entity types
 - **Plan for upgrades** - Consider future schema changes when designing models
@@ -236,6 +242,7 @@ world.emit_event(@PlayerMoved { player, direction });
 - **Use key fields correctly** - All `#[key]` fields must come before non-key fields
 
 ### System Design
+
 - **Minimize gas costs** - Batch operations and optimize storage access
 - **Handle errors gracefully** - Use assertions and proper error handling
 - **Design for permissions** - Group related systems by permission requirements
@@ -243,6 +250,7 @@ world.emit_event(@PlayerMoved { player, direction });
 - **Use proper mutability** - Make world reference mutable when writing models
 
 ### Architecture
+
 - **Separate concerns** - Keep data (models) and logic (systems) distinct
 - **Use events effectively** - Emit events for important state changes
 - **Plan your namespaces** - Organize resources logically and use consistent namespace strings
@@ -259,17 +267,19 @@ Ready to start building with Dojo? Here's your learning path:
     link="/framework/world"
   />
 
-  <LinkCard
+{" "}
+<LinkCard
     title="Models"
     description="Learn how to define and manage your application's data structures with Dojo models."
     link="/framework/models"
-  />
+/>
 
-  <LinkCard
+{" "}
+<LinkCard
     title="Systems"
     description="Implement business logic and state transitions with Dojo systems."
     link="/framework/systems"
-  />
+/>
 
   <LinkCard
     title="Testing"

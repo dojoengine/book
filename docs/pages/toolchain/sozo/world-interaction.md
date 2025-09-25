@@ -37,12 +37,14 @@ sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 ```
 
 **Key Features:**
+
 - **Transaction-based**: Requires account/signer configuration
 - **Tag resolution**: Use contract tags (e.g., `Actions`) or addresses
 - **Multicall support**: Batch multiple system calls efficiently
 - **Type-aware calldata**: Supports Dojo's [calldata format](/toolchain/sozo/index.md#data-format-reference)
 
 **Common Use Cases:**
+
 - Player actions (move, attack, trade)
 - Game state changes (spawn entities, update scores)
 - Administrative actions (set permissions, update config)
@@ -65,12 +67,14 @@ sozo call ns-GameView get_player_stats 0x123... --block-id 12345
 ```
 
 **Key Features:**
+
 - **Read-only**: No transactions, no gas costs, no account required
 - **Return values**: Get data back from function calls
 - **Historical queries**: Query state at specific blocks
 - **Instant results**: No waiting for transaction confirmation
 
 **Common Use Cases:**
+
 - Query player stats, positions, inventory
 - Check game state before making moves
 - Validate game logic during development
@@ -95,12 +99,14 @@ sozo model contract-address ns-Position          # Get Position contract address
 ```
 
 **Key Features:**
+
 - **Entity queries**: Get model data for specific entities using their keys
 - **Schema inspection**: Understand model structure and field types
 - **Composite keys**: Support for models with multiple key fields
 - **Contract metadata**: Access class hashes and addresses
 
 **Common Use Cases:**
+
 - Debug game state during development
 - Query player data (position, health, inventory)
 - Inspect model schemas when integrating clients
@@ -125,12 +131,14 @@ sozo events --chunk-size 100 --json > game_events.json
 ```
 
 **Key Features:**
+
 - **Event filtering**: Query specific event types or all events
 - **Block range queries**: Get events from specific time periods
 - **Pagination**: Handle large event sets with chunk-size
 - **JSON export**: Export events for analysis or integration
 
 **Common Use Cases:**
+
 - Debug system execution and event emission
 - Track player activity and game metrics
 - Build event-driven analytics
@@ -162,15 +170,18 @@ sozo auth grant writer ns-Position,0x123... ns-Health,0x123... ns-Inventory,0x12
 ```
 
 **Permission Types:**
+
 - **Writer**: Can modify model data (required for systems that update game state)
 - **Owner**: Can modify resource permissions and upgrade contracts
 
 **Key Features:**
+
 - **Multicall batching**: Multiple permission changes in one transaction
 - **Resource targeting**: Models, contracts, and namespaces
 - **Flexible syntax**: Use contract tags or addresses
 
 **Common Use Cases:**
+
 - Grant systems write access to models they need to update
 - Transfer ownership for contract upgrades
 - Set up multi-system architectures with proper permissions
@@ -189,6 +200,7 @@ sozo register model 0x123... 0x456... 0x789...
 ```
 
 **When to Use:**
+
 - After declaring a new model class that wasn't included in the original world deployment
 - When adding models from external libraries to your world
 - During development when iterating on model schemas
@@ -210,12 +222,14 @@ sozo inspect --world 0x123...       # Inspect specific world address
 ```
 
 **What it shows:**
+
 - Registered models, systems, events, and libraries
 - Resource permissions and ownership
 - World metadata and configuration
 - Class hashes and contract addresses
 
 **Common Use Cases:**
+
 - Debug permission issues
 - Understand deployed world structure
 - Verify resource registration

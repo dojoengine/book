@@ -43,11 +43,11 @@ struct Query {
 
 ```json
 {
-  "Keys": {
-    "keys": ["0x127fd..."],
-    "pattern_matching": "FixedLen",
-    "models": ["dojo_starter-Position"]
-  }
+    "Keys": {
+        "keys": ["0x127fd..."],
+        "pattern_matching": "FixedLen",
+        "models": ["dojo_starter-Position"]
+    }
 }
 ```
 
@@ -59,12 +59,12 @@ The `HashedKeys` clause can be used with the model's underlying [hashed composit
 
 ```json
 {
-  "Member": {
-    "model": "dojo_starter-Moves",
-    "member": "remaining",
-    "operator": "Gt",
-    "value": { "Primitive": { "U32": 10 } }
-  }
+    "Member": {
+        "model": "dojo_starter-Moves",
+        "member": "remaining",
+        "operator": "Gt",
+        "value": { "Primitive": { "U32": 10 } }
+    }
 }
 ```
 
@@ -72,10 +72,12 @@ The `HashedKeys` clause can be used with the model's underlying [hashed composit
 
 ```json
 {
-  "Composite": {
-    "operator": "And",
-    "clauses": [/* multiple clauses */]
-  }
+    "Composite": {
+        "operator": "And",
+        "clauses": [
+            /* multiple clauses */
+        ]
+    }
 }
 ```
 
@@ -87,14 +89,14 @@ Get all entities with any key:
 
 ```json
 {
-  "clause": {
-    "Keys": {
-      "keys": [""],
-      "pattern_matching": "VariableLen",
-      "models": []
-    }
-  },
-  "limit": 50
+    "clause": {
+        "Keys": {
+            "keys": [""],
+            "pattern_matching": "VariableLen",
+            "models": []
+        }
+    },
+    "limit": 50
 }
 ```
 
@@ -104,14 +106,14 @@ Find players with moves remaining:
 
 ```json
 {
-  "clause": {
-    "Member": {
-      "model": "dojo_starter-Moves",
-      "member": "remaining",
-      "operator": "Gt",
-      "value": { "Primitive": { "U32": 0 } }
+    "clause": {
+        "Member": {
+            "model": "dojo_starter-Moves",
+            "member": "remaining",
+            "operator": "Gt",
+            "value": { "Primitive": { "U32": 0 } }
+        }
     }
-  }
 }
 ```
 
@@ -121,29 +123,29 @@ Find entities in coordinate range:
 
 ```json
 {
-  "clause": {
-    "Composite": {
-      "operator": "And",
-      "clauses": [
-        {
-          "Member": {
-            "model": "dojo_starter-Position",
-            "member": "x",
-            "operator": "Gte",
-            "value": { "Primitive": { "U32": 0 } }
-          }
-        },
-        {
-          "Member": {
-            "model": "dojo_starter-Position",
-            "member": "x",
-            "operator": "Lt",
-            "value": { "Primitive": { "U32": 100 } }
-          }
+    "clause": {
+        "Composite": {
+            "operator": "And",
+            "clauses": [
+                {
+                    "Member": {
+                        "model": "dojo_starter-Position",
+                        "member": "x",
+                        "operator": "Gte",
+                        "value": { "Primitive": { "U32": 0 } }
+                    }
+                },
+                {
+                    "Member": {
+                        "model": "dojo_starter-Position",
+                        "member": "x",
+                        "operator": "Lt",
+                        "value": { "Primitive": { "U32": 100 } }
+                    }
+                }
+            ]
         }
-      ]
     }
-  }
 }
 ```
 
@@ -153,9 +155,9 @@ Find entities in coordinate range:
 
 ```json
 {
-  "limit": 25,
-  "offset": 50,
-  "clause": null
+    "limit": 25,
+    "offset": 50,
+    "clause": null
 }
 ```
 
@@ -163,13 +165,13 @@ Find entities in coordinate range:
 
 ```json
 {
-  "order_by": [
-    {
-      "model": "dojo_starter-Moves",
-      "member": "remaining",
-      "direction": "Desc"
-    }
-  ]
+    "order_by": [
+        {
+            "model": "dojo_starter-Moves",
+            "member": "remaining",
+            "direction": "Desc"
+        }
+    ]
 }
 ```
 
@@ -177,7 +179,7 @@ Find entities in coordinate range:
 
 ```json
 {
-  "entity_models": ["dojo_starter-Position", "dojo_starter-Moves"]
+    "entity_models": ["dojo_starter-Position", "dojo_starter-Moves"]
 }
 ```
 
@@ -210,15 +212,18 @@ Find entities in coordinate range:
 ## Performance Tips
 
 **Query Optimization**:
+
 - Set `dont_include_hashed_keys: true` for better performance if you don't need entity IDs
 - Use specific models in `entity_models` to reduce data transfer
 - Prefer `VariableLen` pattern matching for flexible key queries
 
 **Incremental Updates**:
+
 - Use `entity_updated_after` with timestamps for efficient polling
 - Combine with subscriptions for real-time updates
 
 **Pagination**:
+
 - Use reasonable `limit` values (25-100 entities)
 - Implement pagination for large datasets
 
@@ -238,16 +243,19 @@ See the [protocol files](https://github.com/dojoengine/torii/blob/main/crates/pr
 ## Best Practices
 
 **Connection Management**:
+
 - Use connection pooling for high-throughput applications
 - Handle reconnection logic for streaming subscriptions
 - Set appropriate timeouts for long-running queries
 
 **Query Design**:
+
 - Start with simple queries and add complexity as needed
 - Use composite queries sparingly - prefer multiple simple queries
 - Test query performance with realistic data volumes
 
 **Data Handling**:
+
 - Process results incrementally for large datasets
 - Cache frequently accessed entities locally
 - Use model filtering to minimize bandwidth

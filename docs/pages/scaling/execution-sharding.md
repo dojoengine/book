@@ -41,10 +41,10 @@ The proposed execution sharding system involves five key components:
 
 ![Sharding execution overview](https://hackmd.io/_uploads/HyF9QoVX1g.png)
 
-
 ## Proposed Shard Initialization
 
 A shard begins when an initialization transaction is submitted to the World Contract, specifying:
+
 - Unique shard identifier
 - Designated operator address
 - Initial state conditions
@@ -102,7 +102,6 @@ Access restrictions may be necessary to prevent DoS attacks, depending on use ca
 
 ![Shard execution flow](https://hackmd.io/_uploads/Sk6WByV7yg.png)
 
-
 ## Planned Completion Detection and Settlement
 
 ### Completion Detection
@@ -114,9 +113,10 @@ A specific event emitted by a designated Cairo contract signals shard completion
 Once the completion event is detected, Saya would initiate the settlement process:
 
 1. **Execution Trace Generation**: DojoOS generates an execution trace similar to SNOS but optimized for shard validation:
-   - Validates transaction sequences rather than blocks
-   - Outputs only modified storage addresses per settlement config
-   - Supports shard-specific validation rules
+
+    - Validates transaction sequences rather than blocks
+    - Outputs only modified storage addresses per settlement config
+    - Supports shard-specific validation rules
 
 2. **Proof Generation**: Saya submits the trace to a proving service (e.g., Atlantic) for cryptographic proof generation
 
@@ -128,7 +128,6 @@ Once the completion event is detected, Saya would initiate the settlement proces
 The DojoOS component and shard settlement pipeline are currently in development.
 The existing Saya proving service supports SNOS-based proving for standard Starknet blocks.
 :::
-
 
 ## Proposed Concurrency Management with CRDTs
 
@@ -144,14 +143,17 @@ CRDTs enable concurrent updates across distributed systems without complex locki
 Consider a dungeon game where multiple players participate across different shards:
 
 #### Experience Points (Grow-Only Counter)
+
 XP can only increase, ideal for grow-only counter CRDTs.
 Each shard independently awards XP; final XP is the sum across all shards.
 
 #### Gold (Escrow-based System)
+
 Gold can increase/decrease, requiring careful handling.
 Player gold is "escrowed" (locked on mainnet) when entering a shard, preventing double-spending.
 
 #### Unique Items (Lock-based Control)
+
 Legendary items require exclusive access.
 Items lock on mainnet when used in a shard, releasing when execution completes.
 
@@ -184,6 +186,7 @@ No direct communication between active shards restricts complex interactions req
 ### 4. Implementation Status
 
 The complete system remains in development:
+
 - DojoOS Cairo program for shard validation
 - CRDT integration for concurrency management
 - Shard initialization and completion mechanisms

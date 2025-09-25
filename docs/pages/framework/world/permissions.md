@@ -62,6 +62,7 @@ In this example, permissions are given to **addresses**, which can be systems or
 :::
 
 **When to Use Each:**
+
 - **Configuration**: Initial setup, predictable permissions, deployment automation
 - **Runtime**: Dynamic permission changes, game progression, admin functions
 
@@ -72,6 +73,7 @@ Dojo has two permission types:
 ### Owner Permission
 
 **Owners** have full control over a resource and can:
+
 - Write data into the storage of the resource
 - Grant and revoke permissions to other addresses
 - Upgrade the resource
@@ -80,6 +82,7 @@ Dojo has two permission types:
 ### Writer Permission
 
 **Writers** can:
+
 - Write data into the storage of the resource
 - Cannot grant permissions to others
 - Cannot upgrade the resource
@@ -129,6 +132,7 @@ When you deploy to a world, you automatically become the owner of that namespace
 :::
 
 **Namespace Owner Rights**:
+
 - Can manage the namespace and write to it
 - Can add more people to the namespace
 - Can grant writer permissions to resources in the namespace
@@ -176,11 +180,13 @@ All permissions in Dojo are resource-based. Every component is a resource:
 - **Event** → A resource (e.g., `"my_game-PlayerMoved"`)
 
 **Permission Hierarchy** (order of precedence):
+
 1. **World** (highest)
 2. **Namespace**
 3. **Model/Contract/Event** (lowest)
 
 **Key Points**:
+
 - Managing permissions requires **Owner** permission on the resource or its namespace
 - Writing requires **Writer** permission on the resource or its namespace
 - Reading is **always permissionless**
@@ -248,7 +254,6 @@ Remove writer permission from a contract.
 // Revoke writer permission
 world.revoke_writer(selector_from_tag!("my_game-PlayerPosition"), old_movement_contract);
 ```
-
 
 ## Common Permission Patterns
 

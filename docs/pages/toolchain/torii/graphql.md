@@ -16,6 +16,7 @@ torii --world <WORLD_ADDRESS>
 ```
 
 **Endpoints:**
+
 - GraphQL API: `http://localhost:8080/graphql`
 - GraphiQL IDE: `http://localhost:8080/graphql` (in browser)
 
@@ -31,11 +32,13 @@ torii --world <WORLD_ADDRESS>
 Torii generates two types of queries:
 
 **Generic Queries:**
+
 - `entities` - Access all entities with flexible filtering
 - `models` - Retrieve model definitions and metadata
 - `transactions` - Query indexed transaction data
 
 **Model-Specific Queries:**
+
 - `{modelName}Models` - Custom queries for each registered model
 - Example: `positionModels`, `movesModels`, `playerModels`
 
@@ -175,7 +178,9 @@ query {
     entities(first: 10) {
         edges {
             cursor
-            node { id }
+            node {
+                id
+            }
         }
         pageInfo {
             hasNextPage
@@ -189,23 +194,23 @@ This query will return an output like this, with two results out of five.
 
 ```json
 {
-  "entities": {
-    "totalCount": 5,
-    "edges": [
-      {
-        "cursor": "Y3Vyc29yX29uZQ==",
-        "node": {
-            "id": "0x54f58..."
-          }
-      },
-      {
-        "cursor": "Y3Vyc29yX3R3bw==",
-        "node": {
-            "id": "0x2c2ed..."
-          }
-      },
-    ]
-  }
+    "entities": {
+        "totalCount": 5,
+        "edges": [
+            {
+                "cursor": "Y3Vyc29yX29uZQ==",
+                "node": {
+                    "id": "0x54f58..."
+                }
+            },
+            {
+                "cursor": "Y3Vyc29yX3R3bw==",
+                "node": {
+                    "id": "0x2c2ed..."
+                }
+            }
+        ]
+    }
 }
 ```
 
@@ -227,7 +232,9 @@ Simpler but less efficient for large datasets:
 query {
     entities(offset: 20, limit: 10) {
         edges {
-            node { id }
+            node {
+                id
+            }
         }
         totalCount
     }
@@ -264,7 +271,10 @@ subscription {
         models {
             __typename
             ... on Position {
-                vec { x, y }
+                vec {
+                    x
+                    y
+                }
             }
             ... on Moves {
                 remaining
@@ -301,11 +311,13 @@ Use the built-in GraphiQL IDE at `http://localhost:8080/graphql` to:
 ## Best Practices
 
 **Query Optimization:**
+
 - Use model-specific queries instead of generic `entities` for better performance
 - Request only the fields you need
 - Use cursor-based pagination for large datasets
 
 **Real-time Updates:**
+
 - Subscribe to specific entities rather than all events when possible
 - Handle connection drops and reconnection in production
 - Use subscription filters to reduce bandwidth

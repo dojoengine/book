@@ -87,4 +87,4 @@ export function Contributors() {
             </div>
         </div>
     );
-} 
+}

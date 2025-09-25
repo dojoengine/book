@@ -25,6 +25,7 @@ struct Position {
 ```
 
 #### Model Identity
+
 ```cairo
 use dojo::model::Model;
 
@@ -58,6 +59,7 @@ let instance_layout: Layout = model.instance_layout();
 ```
 
 #### Model Serialization
+
 ```cairo
 use dojo::model::Model;
 
@@ -70,6 +72,7 @@ let model: Option<Position> = Model::<Position>::from_serialized(keys, values);
 ```
 
 #### Model Pointers
+
 ```cairo
 use dojo::model::{Model, ModelPtr};
 
@@ -108,6 +111,7 @@ let mut world: WorldStorage = self.world(@"my_game");
 ### Basic Storage Operations
 
 #### Writing Models
+
 ```cairo
 // Write single model
 let player = get_caller_address();
@@ -123,6 +127,7 @@ world.write_models(positions.span());
 ```
 
 #### Reading Models
+
 ```cairo
 // Read single model
 let player = get_caller_address();
@@ -134,6 +139,7 @@ let positions: Array<Position> = world.read_models(players.span());
 ```
 
 #### Erasing Models
+
 ```cairo
 // Erase single model
 world.erase_model(@position);
@@ -160,6 +166,7 @@ use the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
 #### Reading Fields
+
 ```cairo
 // Read specific field (advanced usage)
 let player = get_caller_address();
@@ -174,6 +181,7 @@ let x_coords: Array<u32> = world.read_member_of_models(ptrs, selector!("x"));
 ```
 
 #### Writing Fields
+
 ```cairo
 // Write specific field (advanced usage)
 let player = get_caller_address();

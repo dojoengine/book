@@ -41,6 +41,7 @@ Cairo's strong typing allows it to infer that the `Position` model is being read
 :::
 
 **Key Points:**
+
 - Model must have at least one `#[key]` field
 - Returns default values (0, false, etc.) for unset fields
 
@@ -62,6 +63,7 @@ The `selector!` macro is used to get the member to target.
 :::
 
 **When to Use:**
+
 - When you only need one field from a large model
 - For gas optimization in read-heavy operations
 - When working with frequently accessed fields
@@ -80,6 +82,7 @@ let positions: Array<Vec2> = world.read_member_of_models(
 ```
 
 **Use Cases:**
+
 - Batch reading for dashboards
 - Leaderboard calculations
 - Mass updates based on conditions
@@ -115,6 +118,7 @@ let schema: PlayerSchema = world.read_schema(
 ```
 
 **Requirements:**
+
 - Schema fields must match model fields exactly (name and type)
 - Schema must derive `Serde` and `Introspect`
 - More efficient than `read_member` for 2+ fields
@@ -132,6 +136,7 @@ world.write_model(@position);
 ```
 
 **Best Practices:**
+
 - Use `@` (snapshot) when passing to `write_model`
 - Consider using `write_member` for single field updates
 
@@ -150,6 +155,7 @@ world.write_member(
 ```
 
 **Advantages:**
+
 - More gas efficient for single field updates
 - Reduces transaction size
 - Prevents race conditions on concurrent updates
@@ -214,6 +220,7 @@ world.emit_event(@PlayerMoved {
 ```
 
 **Event Requirements:**
+
 - Must be annotated with `#[dojo::event]`
 - Must have at least one `#[key]` field
 - All types must derive `Introspect`
@@ -311,7 +318,6 @@ let metadata = ResourceMetadata {
 world.set_metadata(metadata);
 ```
 
-
 ## Utility Functions
 
 ### `uuid`
@@ -367,6 +373,7 @@ if let Option::Some(class_hash) = world.dns_class_hash(@"my_contract") {
 ```
 
 **Key Points:**
+
 - DNS lookups resolve contract names to deployed contracts and libraries
 - Returns `Option::None` if the contract name is not found
 - Works with both deployed contracts and libraries

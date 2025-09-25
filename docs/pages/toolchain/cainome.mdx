@@ -21,12 +21,14 @@ The name combines "Cairo" and "Genome" - representing the DNA of the Cairo ecosy
 In blockchain development, smart contracts are often written in specialized languages (like Cairo or Solidity), while client applications use general-purpose languages (like Rust or TypeScript).
 
 Bindings solve this integration challenge by:
+
 - **Translating function calls** from the client language to the contract's native format
 - **Converting data types** between different language type systems
 - **Handling serialization** to transform data for network transmission
 - **Providing type safety** to catch errors at compile-time rather than runtime
 
 For example, without bindings, calling a Cairo contract from Rust would require manually:
+
 ```rust
 // Manual contract interaction (error-prone)
 let calldata = vec![
@@ -39,6 +41,7 @@ let result = provider.call(contract_address, "mystery_function", calldata).await
 ```
 
 With generated bindings, the same interaction becomes:
+
 ```rust
 // Type-safe binding (clear and safe)
 let result = contract.transfer_tokens(recipient_address, amount).call().await?;
@@ -81,6 +84,7 @@ Cainome provides both compile-time and CLI approaches for binding generation:
 ### Rust Integration
 
 **Compile-time macro (automatic):**
+
 ```rust
 use cainome::rs::abigen;
 
@@ -99,6 +103,7 @@ async fn main() {
 ```
 
 **CLI generation (manual):**
+
 ```bash
 cainome --rust --output-dir ./bindings --execution-version v3 contract.json
 ```
@@ -106,6 +111,7 @@ cainome --rust --output-dir ./bindings --execution-version v3 contract.json
 ### Go Integration
 
 **Inline directive (automatic):**
+
 ```go
 //go:generate cainome --golang --golang-package mycontract --output-dir ./bindings ./contract.json
 
@@ -133,6 +139,7 @@ func main() {
 ```
 
 **CLI generation (manual):**
+
 ```bash
 cainome --golang --golang-package mycontract --output-dir ./bindings contract.json
 ```
@@ -140,6 +147,7 @@ cainome --golang --golang-package mycontract --output-dir ./bindings contract.js
 ### Other Targets
 
 **TypeScript/Unity (via Sozo):**
+
 ```bash
 sozo bindgen --typescript
 sozo bindgen --unity
