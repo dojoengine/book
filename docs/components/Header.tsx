@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export function Header() {
@@ -23,6 +22,7 @@ export function Header() {
                             <br />
                             PROVABLE APPLICATIONS
                         </h1>
+                        <br />
 
                         <p className="text-lg mb-8 text-gray-400">
                             Build decentralized games and applications faster by
@@ -30,6 +30,7 @@ export function Header() {
                             distribution models enabled by blockchains and
                             zero-knowledge proofs.
                         </p>
+                        <br />
 
                         <div className="mb-8 transform transition-all duration-200 hover:scale-105 relative">
                             <button
@@ -76,12 +77,12 @@ export function Header() {
                         </div>
 
                         <div className="flex gap-4">
-                            <Link
-                                to="/overview"
+                            <a
+                                href="/overview"
                                 className="px-6 py-2 bg-[#FF4136] hover:bg-[#E63A30] rounded-md transition-colors font-bold"
                             >
                                 Documentation
-                            </Link>
+                            </a>
 
                             <a
                                 href="https://github.com/dojoengine/dojo"
