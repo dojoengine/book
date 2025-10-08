@@ -14,7 +14,7 @@ export function HomePage() {
             }}
         >
             <Header />
-            <div className="flex flex-col gap-24">
+            <div className="flex flex-col gap-24 mt-24">
                 <Featured />
                 <Ecosystem />
                 <Partners />

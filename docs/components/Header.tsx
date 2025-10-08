@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export function Header() {
@@ -13,7 +12,7 @@ export function Header() {
     };
 
     return (
-        <div className="bg-[--vocs-color-background] text-white">
+        <div className="bg-[--vocs-color-background] text-white mb-16">
             <div className="container py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left content */}
@@ -76,12 +75,12 @@ export function Header() {
                         </div>
 
                         <div className="flex gap-4">
-                            <Link
-                                to="/overview"
+                            <a
+                                href="/overview"
                                 className="px-6 py-2 bg-[#FF4136] hover:bg-[#E63A30] rounded-md transition-colors font-bold"
                             >
                                 Documentation
-                            </Link>
+                            </a>
 
                             <a
                                 href="https://github.com/dojoengine/dojo"
@@ -96,14 +95,12 @@ export function Header() {
 
                     {/* Right image */}
                     <div className="hidden lg:block order-1 lg:order-2">
-                        <div className="w-full aspect-square relative flex items-center justify-center">
-                            <div className="rounded-xl flex items-center justify-center">
-                                <img
-                                    src="/dojo-icon.svg"
-                                    alt="Dojo Engine"
-                                    className="w-[30%] h-[30%] rounded-xl sm:w-[70%] sm:h-[70%]"
-                                />
-                            </div>
+                        <div className="flex items-center justify-center">
+                            <img
+                                src="/dojo-icon.svg"
+                                alt="Dojo Engine"
+                                className="w-64 h-64 object-contain"
+                            />
                         </div>
                     </div>
                 </div>
