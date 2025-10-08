@@ -214,6 +214,10 @@ sozo migrate -vv
 sozo migrate -vvv
 ```
 
+:::tip
+You can use `-P` instead of `--profile` for simplicity.
+:::
+
 #### How Migration Works
 
 **Automatic Diff Analysis**: Sozo compares your local world state against the deployed state, identifying exactly what has changed:
@@ -248,6 +252,11 @@ private_key = "0x..."
 ```
 
 This tells Sozo to update the existing world rather than deploy a new one.
+
+:::tip
+Make sure to set the `world_address` value after your initial deployment.
+This will ensure that future migrations are made to your existing world.
+:::
 
 #### Local Development
 
