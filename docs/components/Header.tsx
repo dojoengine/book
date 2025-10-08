@@ -12,7 +12,7 @@ export function Header() {
     };
 
     return (
-        <div className="bg-[--vocs-color-background] text-white mb-16">
+        <div className="bg-[--vocs-color-background] text-white">
             <div className="container py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left content */}
@@ -22,6 +22,7 @@ export function Header() {
                             <br />
                             PROVABLE APPLICATIONS
                         </h1>
+                        <br />
 
                         <p className="text-lg mb-8 text-gray-400">
                             Build decentralized games and applications faster by
@@ -29,6 +30,7 @@ export function Header() {
                             distribution models enabled by blockchains and
                             zero-knowledge proofs.
                         </p>
+                        <br />
 
                         <div className="mb-8 transform transition-all duration-200 hover:scale-105 relative">
                             <button
@@ -95,12 +97,14 @@ export function Header() {
 
                     {/* Right image */}
                     <div className="hidden lg:block order-1 lg:order-2">
-                        <div className="flex items-center justify-center">
-                            <img
-                                src="/dojo-icon.svg"
-                                alt="Dojo Engine"
-                                className="w-64 h-64 object-contain"
-                            />
+                        <div className="w-full aspect-square relative flex items-center justify-center">
+                            <div className="rounded-xl flex items-center justify-center">
+                                <img
+                                    src="/dojo-icon.svg"
+                                    alt="Dojo Engine"
+                                    className="w-[30%] h-[30%] rounded-xl sm:w-[70%] sm:h-[70%]"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
