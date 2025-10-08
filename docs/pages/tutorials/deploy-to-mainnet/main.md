@@ -133,7 +133,7 @@ This will yield a different world address.
 
 Your world is deployed!
 
-- Once the world is deployed, you need to add the world*block in the dojo*<PROFILE>.toml file.
+- Once the world is deployed, you need to add the world_block in the `dojo_<PROFILE>.toml` file.
 
 ```toml
 rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"

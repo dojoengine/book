@@ -40,7 +40,6 @@ Key Features:
 - Control synchronization: Set the maximum number of entities to synchronize.
 
 - Event-driven communication:
-
     - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
     - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
 
@@ -359,7 +358,6 @@ You may encounter the following error while building for WebGL:
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
-
     - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
       ![webgl-error](/client/unity/webgl-build-fail.png)
         > Example without `Dojo` template selected
@@ -368,7 +366,6 @@ Here are the steps to address it:
     - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
-
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
     - Add this folder to your project's Assets directory.
@@ -452,7 +449,6 @@ Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-star
 
 1. Open the scene: In the `Project tab`, navigate to `Assets/Spawn And Move/Scenes/Sample scene`
 2. Adjusting Scriptable Objects:
-
     - Verify that the `player address` and `player private` key in `Assets/Spawn And Move/Dojo5.0Data` match the output of the Katana terminal.
     - Verify that the `world address` in the Scriptable Object located at `Assets/Dojo/Runtime/Config/WorldManagerLocalConfig` matches the output of the Sozo migrate command.
 
