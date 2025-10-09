@@ -2,6 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
+@source "./pages";
+@source "./components";
+
 :root {
     --dojo-primary: #ff4136;
     --dojo-primary-dark: #e63a30;
@@ -10,21 +13,6 @@
 body {
     background-color: #000000;
     color: #ffffff;
-}
-
-/* Force Tailwind v4 grid utilities */
-.grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-@media (min-width: 1024px) {
-    .lg\:grid-cols-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .lg\:grid-cols-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
 }
 
 h1,
