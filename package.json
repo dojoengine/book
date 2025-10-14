@@ -24,5 +24,5 @@
         "tailwindcss": "^4.0.0",
         "vite-plugin-svgr": "^4.5.0"
     },
-    "packageManager": "pnpm@10.6.4"
+    "packageManager": "pnpm@10.18.3"
 }

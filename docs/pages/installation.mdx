@@ -11,7 +11,7 @@ Dojo's installation process was designed to be idiomatically consistent with its
 You can get up-and-running in just a few steps, and be building provable games in no time.
 
 :::warning
-**Windows Users**: Windows is not natively supported. We recommend [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows development.
+Windows is not natively supported. We recommend [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows development.
 :::
 
 ## Quick Start
@@ -20,11 +20,17 @@ For existing Cairo developers, the fastest way to get started is with our `asdf`
 Simply run the following command in your terminal to install the Dojo toolchain.
 
 ```bash
-curl -L https://raw.githubusercontent.com/dojoengine/dojo/main/dojoup/asdf-install | bash
+curl -L https://install.dojoengine.org | bash
+
 ```
 
 This script will install the `asdf` plugins for Sozo, Katana, and Torii, install their latest versions, and set them for global use.
 Skip to [Verification](#verification) to test your installation.
+
+:::note
+This script requires `asdf` to be installed.
+See [here](https://asdf-vm.com/guide/getting-started.html) for installation instructions.
+:::
 
 ## Detailed Installation
 
@@ -75,7 +81,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.sh | sh
 
 This installs Cairo's toolchain, including the [`scarb`](https://docs.swmansion.com/scarb/) package manager and build tool, in the `~/.asdf` directory.
 
-> **Note**: `asdf` does not automatically add itself to your path. Consider appending `~/.asdf/shims` to your terminal's `$PATH` variable to simplify development.
+:::note
+`asdf` does not automatically add itself to your PATH and must be configured manually.
+See more information about configuring `asdf` [here](https://asdf-vm.com/guide/getting-started.html#_2-configure-asdf).
+:::
 
 **Verify installation:**
 
@@ -91,7 +100,8 @@ For more information, see the [starkup documentation](https://github.com/softwar
 The Dojo framework consists of a Cairo framework and three Rust-based tools: `katana`, `torii`, and `sozo`.
 
 :::note
-The Cairo framework is downloaded as a compile-time dependency using Scarb, not through a version manager.
+The Cairo framework is managed by Scarb as a compile-time dependency.
+See the [Dojo configuration](/framework/configuration#project-manifest-scarbtoml) documentation for more info.
 :::
 
 ### Installing with `asdf`
@@ -103,9 +113,8 @@ The Cairo framework is downloaded as a compile-time dependency using Scarb, not 
 You can use our `asdf` installer to install the toolchain in a single command:
 
 ```bash
-curl -L https://raw.githubusercontent.com/dojoengine/dojo/main/dojoup/asdf-install | bash
+curl -L https://install.dojoengine.org | bash
 ```
-
 :::
 
 ::::steps
@@ -149,13 +158,14 @@ asdf set --home {sozo,katana,torii} latest
 
 `asdf` supports programmatic package management through the `.tool-versions` file.
 
-```txt
+```toml
 # path/to/project/.tool-versions
-scarb 2.11.4
+
+scarb 2.12.2
+sozo 1.7.1
+katana 1.7.0
+torii 1.8.3
 starknet-foundry 0.43.1
-sozo 1.6.2
-katana 1.6.3
-torii 1.6.1
 ```
 
 Simply run `asdf install` in the project root to install all dependencies.
@@ -168,12 +178,17 @@ If needed, `asdf` will download the correct version of all dependencies.
 [`dojoup`](https://install.dojoengine.org) is an alternative way to install and manage Dojo installations.
 Dojoup is version-aware and will automatically install compatible versions of `katana`, `torii`, and `sozo`.
 
+:::warning
+Dojoup is deprecated and will be removed in the future.
+Use the `asdf` installer instead.
+:::
+
 ::::steps
 
 #### Install `dojoup`
 
 ```bash
-curl -L https://install.dojoengine.org | bash
+curl -L https://raw.githubusercontent.com/dojoengine/dojo/main/dojoup/dojoup-install | bash
 ```
 
 This command installs `dojoup` in the `~/.dojo` directory and adds it to your shell profile.
