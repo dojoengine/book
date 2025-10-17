@@ -39,7 +39,8 @@ Core features:
 - **Transaction Execution**: Execute smart contract calls with proper signing
 - **Session Management**: Maintain authenticated sessions with configurable policies
 
-:::note 
+:::warning
+With [dojo.c](https://github.com/dojoengine/dojo.c)
 ControllerAccount will likely be deprecated or heavily modified as controller session related logic is moved to [controller.c](https://docs.cartridge.gg/controller/native-integration#controllerc) 
 ::: 
 
@@ -53,11 +54,13 @@ Structure:
 - **Function Selector**: The name of the function to call.
 - **Call Data**: An array of parameters to pass to the function.
 
-:::note
+:::info
 
 The `calldata` is an array and an optional parameter.
 
 If the function in your contract doesn't take arguments, otherwise it has to be inside an array.
+
+Calldata is always flattened, with means that if it has other arrays inside, they will be merge into a single array.
 
 :::
 
@@ -180,6 +183,34 @@ func _on_controller_connected(success: bool) -> void:
 ### Creating Contract Calls
 
 When creating calls, you need the contract address, the selector/function name and call arguments.
+
+:::info
+If your function uses a custom type defined on your contract, you need to send all members in order insidea an array or directly on the calldata array.
+
+In the example a Vector3 is used, but it works with any type defined on your contract.
+```gdscript
+var new_pos:Vector3 = Vector3(6, 2.5, -6)
+var position:Array = [new_pos.x, new_pos.y, new_pos.z]
+var direction:int = Directions.LEFT
+
+func move_to(_position:Array, _direction:int) -> void:
+    var data = _position
+    data.append(_direction)
+    
+    controller_account.execute_from_outside(
+        "0x...", 
+        "move", 
+        data
+    )
+    # or
+    controller_account.execute_from_outside(
+        "0x...", 
+        "move", 
+        [_position, _direction]
+    )     
+    
+```
+:::
 
 :::code-group
 
