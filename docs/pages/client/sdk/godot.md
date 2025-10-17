@@ -11,6 +11,12 @@ With its intuitive node-based architecture, GDScript scripting language, and rob
 Dojo.godot is the official Godot Engine SDK for building onchain games powered by Dojo.
 This GDExtension seamlessly integrates blockchain functionality into your Godot projects, enabling you to create fully decentralized games without compromising on performance or developer experience.
 
+:::info 
+If there is something that is not covered here, please refer to the in-editor documentation.
+
+You can access it by pressing Ctrl + Left Click on a class name, or by pressing F1 and using the search bar.
+:::
+
 ## Core Concepts
 
 ### ToriiClient
@@ -23,8 +29,6 @@ Key responsibilities:
 - **Entity Queries**: Fetch game entities and their associated models from the blockchain
 - **Event Subscriptions**: Subscribe to real-time blockchain events and entity updates
 
-The ToriiClient operates as a singleton, ensuring consistent state across your entire game.
-
 ### ControllerAccount
 
 The `ControllerAccount` handles all transaction-related operations and wallet management.
@@ -35,9 +39,13 @@ Core features:
 - **Transaction Execution**: Execute smart contract calls with proper signing
 - **Session Management**: Maintain authenticated sessions with configurable policies
 
-### DojoCall Resources
+:::note 
+ControllerAccount will likely be deprecated or heavily modified as controller session related logic is moved to [controller.c](https://docs.cartridge.gg/controller/native-integration#controllerc) 
+::: 
 
-`DojoCall` resources encapsulate smart contract function calls in a Godot-native format.
+### Dojo Calls
+
+Used for smart contract function calls.
 
 Structure:
 
@@ -45,7 +53,13 @@ Structure:
 - **Function Selector**: The name of the function to call
 - **Call Data**: Array of parameters to pass to the function
 
-These resources can be created and configured directly in the Godot editor, making smart contract integration visual and intuitive.
+:::note
+
+Calldata is an array and optional parameter. 
+
+If the function in your contract doesn't take arguments, otherwise it has to be inside an array.
+
+:::
 
 ### Cairo Type System
 
@@ -57,58 +71,57 @@ Dojo.godot automatically handles conversions between Cairo types and Godot equiv
 - **Enums**: Cairo enums map to Godot integers with enumeration support
 - **Special Types**: `Vec2` structs automatically convert to Godot's `Vector2` type
 
+:::info
+
+Godot doesn't natively support bigint like i128, u128 and u256, 
+but the extension supports it and uses wrapper classes to store and show the data.
+
+I128, U128 and U256 wrappers can be directly used inside the calldata array.
+
+:::
+
 ## Getting Started
 
 ::::steps
 
-#### Prerequisites
+#### Download the latest version
 
-Before getting started, ensure you have:
-
-- [Godot Engine](https://godotengine.org/download) `>= 4.2`
-- [Rust](https://www.rust-lang.org/tools/install) toolchain
-- [SCons](https://scons.org/pages/download.html) build system
-- A C++17 compatible compiler (GCC, Clang, or MSVC)
-- A working [Dojo project](/getting-started) with deployed contracts
-- Basic familiarity with [GDScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)
-
-#### Build the Extension
-
-Clone and build the Dojo.godot extension:
-
-```bash
-git clone --recurse-submodules https://github.com/lonewolftechnology/godot-dojo
-cd godot-dojo
-
-# Build for your platform
-scons platform=linux target=template_release    # Linux
-scons platform=windows target=template_release  # Windows
-scons platform=macos target=template_release    # macOS
-```
-
-The compiled extension will be output to the `bin/` directory.
+Go to [the releases page](github.com/lonewolftechnology/godot-dojo/releases) and download the latest version
 
 #### Create Your Godot Project
 
-1. Create a new Godot project or open an existing one
-2. Copy the `bin/` directory and `godot-dojo.gdextension` file to your project root
-3. Restart Godot to load the extension
+Create a new Godot project
 
-#### Set Up Connection Management
+#### Install the GDExtension
 
-Create an autoload script to manage your blockchain connections:
+Copy the files you downloaded into an ‘addons’ folder. If it doesn’t exist, create one as a child of the root folder
 
-```gdscript
-# autoload/connection.gd
-extends Node
+#### Connecting to Dojo
 
-signal connected
+Add a `ToriiClient` and `ControllerAccount` nodes to your scene
 
-@onready var client: ToriiClient = $ToriiClient
-@onready var controller_account: ControllerAccount = $ControllerAccount
+Configure the client and controller by completing the fields from the inspector. You can also configure it from the project settings, which will be used if the inspector fields are empty
+
+:::note
+The parameters for `ControllerAccount` and `ToriiClient` can be set in three ways, from the top of the list is the priority list:
+
+- As function parameter
+- Using the editor inspector or by code
+- Configured on ProjectSettings
+:::
+
+:::info
+`ControllerAccount.setup()`  is a utility function, it uses `init_provider()` and `create(policies)`.
+
+So if you want to set the policies using parameters instead of the editor inspector or ProjectSettings, you **need** to use them separately and initialize the provider first.
+:::
+
+:::code-group
+
+```gdscript [Torii 1.7.x]
 
 func _ready() -> void:
-    # Configure the client
+    # Another way of configuring the nodes is from code. This takes precedence over the other previous
     client.torii_url = "http://localhost:8080"  # or your Torii server
     client.world_address = "0x..." # Your world contract address
 
@@ -117,6 +130,7 @@ func _ready() -> void:
     controller_account.controller_connected.connect(_on_controller_connected)
 
 func connect_client() -> void:
+    # create a new client
     client.create_client()
 
 func connect_controller() -> void:
@@ -124,68 +138,103 @@ func connect_controller() -> void:
 
 func _on_client_connected(success: bool) -> void:
     if success:
+        # connect the controller after successfully connecting the client
         connect_controller()
 
 func _on_controller_connected(success: bool) -> void:
     if success:
-        connected.emit()
+        start_game()
 ```
+
+```gdscript [Torii 1.8.x]
+
+func _ready() -> void:
+    # Another way of configuring the nodes is from code. This takes precedence over the other previous
+    client.torii_url = "http://localhost:8080"  # or your Torii server
+
+    # Connect signals
+    client.client_connected.connect(_on_client_connected)
+    controller_account.controller_connected.connect(_on_controller_connected)
+
+func connect_client() -> void:
+    # create a new client
+    client.create_client()
+
+func connect_controller() -> void:
+    controller_account.setup()
+
+func _on_client_connected(success: bool) -> void:
+    if success:
+        # connect the controller after successfully connecting the client
+        connect_controller()
+
+func _on_controller_connected(success: bool) -> void:
+    if success:
+        start_game()
+```
+
+:::
 
 ::::
 
-## Basic Usage
-
-### Connecting to Dojo
-
-Start by establishing connections to both Torii and the Controller:
-
-```gdscript
-# In your main game script
-extends Node
-
-func _ready() -> void:
-    # Wait for connection autoload to be ready
-    await get_tree().process_frame
-    Connection.connected.connect(_on_dojo_connected)
-    Connection.connect_client()
-
-func _on_dojo_connected() -> void:
-    print("Successfully connected to Dojo!")
-    # Now you can interact with the blockchain
-    setup_subscriptions()
-    query_entities()
-```
-
 ### Creating Contract Calls
 
-Define your contract interactions using DojoCall resources:
+When creating calls, you need the contract address, the selector/function name and call arguments.
 
-```gdscript
-# Create a spawn action
-@export var spawn_call: DojoCall
+:::code-group
 
-func _ready() -> void:
-    # Configure the call (or use .tres resource files)
-    spawn_call = DojoCall.new()
-    spawn_call.to = "0x..." # Contract address
-    spawn_call.selector = "spawn"
-    spawn_call.calldata = [] # Parameters array
-
+```gdscript [ControllerAccount]
 func spawn_player() -> void:
-    Connection.controller_account.execute_from_outside(spawn_call)
+    controller_account.execute_from_outside("0x...", "spawn")
+
+func move_player(position:int) -> void:
+    account.execute_raw("0x...", "move", [position])
+
 ```
 
-### Subscribing to Events
+```gdcript [Account]
+func spawn_player() -> void:
+    account.execute_raw("0x...", "spawn", [0])
+    
+func move_player(position:int) -> void:
+    account.execute_raw("0x...", "move", [position])
+
+```
+
+:::
+
+### Subscriptions
+
+Every subscription has its own resource, it contains all necessary data to create and update it.
+It’s recommended to use the callable/callbacks instead of signals.
+
+:::note
+
+In Torii 1.8.x multiworld support was added, so all world addresses has to be set up inside the `Subscription` Resource.
+
+Here we are covering `Event` subscription and `Entity` querying, but every query and subscription is used similarly. 
+
+Refer to in-editor documentation to see the rest.
+
+:::
+
+#### Subscribing to Events
 
 Listen for blockchain events in real-time:
 
+Every first parameter is a `Callable` wich can be a lambda function, constructed using Callable.new() to use a function of another object, or any function in the script.
+
 ```gdscript
+# Configured in inspector
+@export var entity_sub:EntitySubscription
+@export var event_sub:EventSubscription
+
 func setup_subscriptions() -> void:
     # Subscribe to all events
-    Connection.client.create_event_subscription(_on_events, {})
+    torii_client.create_event_subscription(_on_events, event_sub)
 
     # Subscribe to entity updates
-    Connection.client.create_entity_subscription(_on_entities, {})
+    torii_client.create_entity_subscription(_on_entities, entity_sub)
 
 func _on_events(event_data: Dictionary) -> void:
     print("Received event: ", event_data)
@@ -207,20 +256,9 @@ func _on_entities(entity_data: Dictionary) -> void:
 Fetch current blockchain state:
 
 ```gdscript
+# Set in inspector
+@export var query:DojoQuery
 func query_players() -> void:
-    var query = {
-        "pagination": {
-            "limit": 10,
-            "cursor": "",
-            "order_by": [],
-            "direction": ToriiClient.QueryPaginationDirection.FORWARD
-        },
-        "clause": null,
-        "no_hashed_keys": true,
-        "models": [],
-        "historical": false
-    }
-
     var entities = Connection.client.get_entities(query)
     for entity in entities:
         process_entity(entity)
@@ -241,17 +279,34 @@ func process_entity(entity: Dictionary) -> void:
 
 Create reusable DojoCall resources in the Godot editor:
 
+There are two types of custom resources: `Subscription` and `Query`.
+
+The idea behind it is that all relevant data can be stored in disk and used as a base to setup subscriptions or build queries,
+as this can be modified in runtime, it allows updating subscriptions and reusing the same query with additional parameters.
+
+So you can create them manually 
 1. In the FileSystem dock, right-click and select `New Resource`
-2. Choose `DojoCall` as the resource type
+2. Choose `Subscription` or `Query` of choice as the resource type
 3. Configure the properties in the Inspector:
-    - **To**: Contract address
-    - **Selector**: Function name
-    - **Calldata**: Parameter array
 4. Save as `.tres` file
+
+:::note
+Resources modified in-game do not preserve changes if not explicitly done, but is not recommended as it can be overwritten with updates as resources are part of game's .pck
+:::
+
 
 ### Managing Policies
 
-Configure controller permissions using DojoPolicies resources:
+Policies are a `Dictionary` where the `key` is the method and the `value` its description:
+It follows the same pattern of parameter priority: Parameter -> Property -> ProjectSettings
+
+:::warning
+In Torii 1.8.x was only tested with one world
+:::
+
+:::note
+Contract addresses are fetched following the parameter priority 
+:::
 
 ```gdscript
 # Create policy resource
@@ -259,18 +314,25 @@ var policy = DojoPolicy.new()
 policy.target = "0x..." # Contract address
 policy.method = "move"
 
-var policies = DojoPolicies.new()
-policies.name = "game_actions"
-policies.contract = "0x..." # Contract address
-policies.policies = [policy]
+var policies = {
+    "move": "Move in the world"
+}
 
 # Use with controller account
+controller_account.init_provider()
 controller_account.create(policies)
 ```
 
 ### Type Conversion
 
 Dojo.godot handles type conversion automatically:
+
+In cases like the (Dojo Starter Contract)[github.com/dojoengine/dojo-starter] we used its custom struct `Vec2` to convert to Godot's `Vector2`.
+So you can use this snippet but replace `Vec2` for the name of your custom datatype.
+
+:::info
+Cairo native types are converted to Godot's types automatically.
+:::
 
 ```gdscript
 # Cairo Vec2 becomes Godot Vector2
@@ -289,15 +351,40 @@ func move_player(direction: Direction) -> void:
 
 ## Building and Deployment
 
+We use scons build system as is what Godot uses, but a Cmake equivalent is placed so the extension can be developed using any modern IDE.
+The extension compiles and places itself under *demo/addons/godot-dojo*.
+
+As [dojo.c](https://github.com/dojoengine/dojo.c) 1.8.3, only `Linux`, `Windows` and `MacOS` are supported.
+:::note
+`Linux` and `Windows` builds are x86_64 only. You can build arm64 builds, 
+let us know if it works by opening an [issue](https://github.com/lonewolftechnology/godot-dojo/issues)
+or by leaving a message on [`Dojo's Discord`](https://discord.gg/dojoengine) under the [`Godot section`](https://discord.com/channels/1062934010722005042/1151498928563437680).
+
+`MacOS` builds are universal so it should work on Intel and Apple Silicon.
+:::
+
+### Editor builds
+
+Since mobile support is in the works thanks to [controller.c](https://github.com/cartridge-gg/controller.c)
+we've prepared the barebones, placeholders and some utility tools that are required to properly export the builds.
+
+The editor builds contain code that only runs in-editor and is only found in-editor.
+
+```bash
+scons platform=linux target=editor
+```
+
 ### Development Builds
 
 For development, use debug builds to enable logging:
 
 ```bash
 scons platform=linux target=template_debug
+scons platform=windows target=template_debug
+scons platform=macos target=template_debug
 ```
 
-Set environment variables in your game for detailed logging:
+You can set environment variables in your game for detailed logging, but this is useful when developing the extension or reporting bugs:
 
 ```gdscript
 func _ready() -> void:
@@ -315,16 +402,6 @@ scons platform=windows target=template_release
 scons platform=macos target=template_release
 ```
 
-### WebAssembly Support
-
-Build for web deployment (experimental):
-
-```bash
-scons platform=web target=template_release
-```
-
-Note that WebAssembly builds may have limitations compared to native platforms.
-
 ## Example Project
 
 The [Dojo.godot repository](https://github.com/lonewolftechnology/godot-dojo) includes a complete demo project showcasing:
@@ -335,9 +412,13 @@ The [Dojo.godot repository](https://github.com/lonewolftechnology/godot-dojo) in
 - **Event Handling**: Processing both events and entity updates from subscriptions
 
 To run the demo:
+:::note
+The demo has a `Slot` configured to test it by just downloading the demo.
 
+It uses a [custom contract](https://github.com/dannroda/dojo-starter) based on `dojo-starter` but with some testing/experimental things to test the extension.
+:::
 1. Set up a local [Dojo Starter](/tutorials/dojo-starter) environment
-2. Build the Dojo.godot extension following the instructions above
+2. Build/download the Dojo.godot extension following the instructions above
 3. Open the `demo` folder in Godot and run the project
 
 The demo connects to a live testnet deployment, demonstrating real blockchain integration in a simple 2D movement game.
