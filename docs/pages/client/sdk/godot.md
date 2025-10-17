@@ -49,13 +49,13 @@ Used for smart contract function calls.
 
 Structure:
 
-- **Contract Address (`to`)**: The target smart contract address
-- **Function Selector**: The name of the function to call
-- **Call Data**: Array of parameters to pass to the function
+- **Contract Address (`to`)**: The address of the target smart contract.
+- **Function Selector**: The name of the function to call.
+- **Call Data**: An array of parameters to pass to the function.
 
 :::note
 
-Calldata is an array and optional parameter. 
+The `calldata` is an array and an optional parameter.
 
 If the function in your contract doesn't take arguments, otherwise it has to be inside an array.
 
@@ -86,7 +86,7 @@ I128, U128 and U256 wrappers can be directly used inside the calldata array.
 
 #### Download the latest version
 
-Go to [the releases page](github.com/lonewolftechnology/godot-dojo/releases) and download the latest version
+Go to the [release page](https://github.com/lonewolftechnology/godot-dojo/releases) and download the latest version
 
 #### Create Your Godot Project
 
@@ -188,7 +188,7 @@ func spawn_player() -> void:
     controller_account.execute_from_outside("0x...", "spawn")
 
 func move_player(position:int) -> void:
-    account.execute_raw("0x...", "move", [position])
+    controller_account.execute_raw("0x...", "move", [position])
 
 ```
 
