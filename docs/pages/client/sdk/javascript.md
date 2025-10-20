@@ -139,6 +139,18 @@ async function main() {
 main();
 ```
 
+:::note
+If using `starknet-react`, wrap `DojoSdkProvider` _around_ `StarknetProvider`:
+
+```typescript
+<DojoSdkProvider>
+    <StarknetProvider>
+        <App />
+    </StarknetProvider>
+</DojoSdkProvider>
+```
+:::
+
 :::warning
 Call `init` only once to avoid creating multiple Torii clients.
 :::
