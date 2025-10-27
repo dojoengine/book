@@ -255,4 +255,5 @@ export const routes = [
             { text: "dojo.telegram", link: "/client/sdk/telegram" },
         ],
     },
+    { text: "Brand Assets", link: "/brand" },
 ];
