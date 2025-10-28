@@ -11,7 +11,7 @@ With its intuitive node-based architecture, GDScript scripting language, and rob
 Dojo.godot is the official Godot Engine SDK for building onchain games powered by Dojo.
 This GDExtension seamlessly integrates blockchain functionality into your Godot projects, enabling you to create fully decentralized games without compromising on performance or developer experience.
 
-:::info 
+:::info
 If there is something that is not covered here, please refer to the in-editor documentation.
 
 You can access it by pressing Ctrl + Left Click on a class name, or by pressing F1 and using the search bar.
@@ -41,8 +41,8 @@ Core features:
 
 :::warning
 With [dojo.c](https://github.com/dojoengine/dojo.c)
-ControllerAccount will likely be deprecated or heavily modified as controller session related logic is moved to [controller.c](https://docs.cartridge.gg/controller/native-integration#controllerc) 
-::: 
+ControllerAccount will likely be deprecated or heavily modified as controller session related logic is moved to [controller.c](https://docs.cartridge.gg/controller/native-integration#controllerc)
+:::
 
 ### Dojo Calls
 
@@ -76,7 +76,7 @@ Dojo.godot automatically handles conversions between Cairo types and Godot equiv
 
 :::info
 
-Godot doesn't natively support bigint like i128, u128 and u256, 
+Godot doesn't natively support bigint like i128, u128 and u256,
 but the extension supports it and uses wrapper classes to store and show the data.
 
 I128, U128 and U256 wrappers can be directly used inside the calldata array.
@@ -111,10 +111,10 @@ The parameters for `ControllerAccount` and `ToriiClient` can be set in three way
 - As function parameter
 - Using the editor inspector or by code
 - Configured on ProjectSettings
-:::
+  :::
 
 :::info
-`ControllerAccount.setup()`  is a utility function, it uses `init_provider()` and `create(policies)`.
+`ControllerAccount.setup()` is a utility function, it uses `init_provider()` and `create(policies)`.
 
 So if you want to set the policies using parameters instead of the editor inspector or ProjectSettings, you **need** to use them separately and initialize the provider first.
 :::
@@ -188,6 +188,7 @@ When creating calls, you need the contract address, the selector/function name a
 If your function uses a custom type defined on your contract, you need to send all members in order insidea an array or directly on the calldata array.
 
 In the example a Vector3 is used, but it works with any type defined on your contract.
+
 ```gdscript
 var new_pos:Vector3 = Vector3(6, 2.5, -6)
 var position:Array = [new_pos.x, new_pos.y, new_pos.z]
@@ -196,20 +197,21 @@ var direction:int = Directions.LEFT
 func move_to(_position:Array, _direction:int) -> void:
     var data = _position
     data.append(_direction)
-    
+
     controller_account.execute_from_outside(
-        "0x...", 
-        "move", 
+        "0x...",
+        "move",
         data
     )
     # or
     controller_account.execute_from_outside(
-        "0x...", 
-        "move", 
+        "0x...",
+        "move",
         [_position, _direction]
-    )     
-    
+    )
+
 ```
+
 :::
 
 :::code-group
@@ -226,7 +228,7 @@ func move_player(position:int) -> void:
 ```gdcript [Account]
 func spawn_player() -> void:
     account.execute_raw("0x...", "spawn", [0])
-    
+
 func move_player(position:int) -> void:
     account.execute_raw("0x...", "move", [position])
 
@@ -243,7 +245,7 @@ It’s recommended to use the callable/callbacks instead of signals.
 
 In Torii 1.8.x multiworld support was added, so all world addresses has to be set up inside the `Subscription` Resource.
 
-Here we are covering `Event` subscription and `Entity` querying, but every query and subscription is used similarly. 
+Here we are covering `Event` subscription and `Entity` querying, but every query and subscription is used similarly.
 
 Refer to in-editor documentation to see the rest.
 
@@ -315,7 +317,8 @@ There are two types of custom resources: `Subscription` and `Query`.
 The idea behind it is that all relevant data can be stored in disk and used as a base to setup subscriptions or build queries,
 as this can be modified in runtime, it allows updating subscriptions and reusing the same query with additional parameters.
 
-So you can create them manually 
+So you can create them manually
+
 1. In the FileSystem dock, right-click and select `New Resource`
 2. Choose `Subscription` or `Query` of choice as the resource type
 3. Configure the properties in the Inspector:
@@ -324,7 +327,6 @@ So you can create them manually
 :::note
 Resources modified in-game do not preserve changes if not explicitly done, but is not recommended as it can be overwritten with updates as resources are part of game's .pck
 :::
-
 
 ### Managing Policies
 
@@ -336,7 +338,7 @@ In Torii 1.8.x was only tested with one world
 :::
 
 :::note
-Contract addresses are fetched following the parameter priority 
+Contract addresses are fetched following the parameter priority
 :::
 
 ```gdscript
@@ -383,11 +385,11 @@ func move_player(direction: Direction) -> void:
 ## Building and Deployment
 
 We use scons build system as is what Godot uses, but a Cmake equivalent is placed so the extension can be developed using any modern IDE.
-The extension compiles and places itself under *demo/addons/godot-dojo*.
+The extension compiles and places itself under _demo/addons/godot-dojo_.
 
 As [dojo.c](https://github.com/dojoengine/dojo.c) 1.8.3, only `Linux`, `Windows` and `MacOS` are supported.
 :::note
-`Linux` and `Windows` builds are x86_64 only. You can build arm64 builds, 
+`Linux` and `Windows` builds are x86_64 only. You can build arm64 builds,
 let us know if it works by opening an [issue](https://github.com/lonewolftechnology/godot-dojo/issues)
 or by leaving a message on [`Dojo's Discord`](https://discord.gg/dojoengine) under the [`Godot section`](https://discord.com/channels/1062934010722005042/1151498928563437680).
 
@@ -448,6 +450,7 @@ The demo has a `Slot` configured to test it by just downloading the demo.
 
 It uses a [custom contract](https://github.com/dannroda/dojo-starter) based on `dojo-starter` but with some testing/experimental things to test the extension.
 :::
+
 1. Set up a local [Dojo Starter](/tutorials/dojo-starter) environment
 2. Build/download the Dojo.godot extension following the instructions above
 3. Open the `demo` folder in Godot and run the project

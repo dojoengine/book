@@ -113,6 +113,7 @@ A specific event emitted by a designated Cairo contract signals shard completion
 Once the completion event is detected, Saya would initiate the settlement process:
 
 1. **Execution Trace Generation**: DojoOS generates an execution trace similar to SNOS but optimized for shard validation:
+
     - Validates transaction sequences rather than blocks
     - Outputs only modified storage addresses per settlement config
     - Supports shard-specific validation rules

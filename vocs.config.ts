@@ -5,10 +5,12 @@ import { version } from "./package.json";
 
 export default defineConfig({
     title: "Dojo Documentation",
-    description: "Dojo | A Toolchain for Building Provable Games and Applications",
+    description:
+        "Dojo | A Toolchain for Building Provable Games and Applications",
     iconUrl: "/dojo-favicon.svg",
     logoUrl: "/dojo-word.svg",
-    ogImageUrl: "https://og.cartridge.gg/api/dojo?title=%title&description=%description",
+    ogImageUrl:
+        "https://og.cartridge.gg/api/dojo?title=%title&description=%description",
     aiCta: true,
 
     // Theme configuration
@@ -62,7 +64,8 @@ export default defineConfig({
         },
     ],
     editLink: {
-        pattern: "https://github.com/dojoengine/book/blob/main/docs/pages/:path",
+        pattern:
+            "https://github.com/dojoengine/book/blob/main/docs/pages/:path",
         text: "Edit on GitHub",
     },
 

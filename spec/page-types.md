@@ -357,12 +357,14 @@ Address frequent misunderstandings about the concept.
 When creating new documentation, ask yourself:
 
 1. **What is the user trying to accomplish?**
+
     - Learn something new → Tutorial
     - Solve a specific problem → How-to Guide
     - Look up information → Reference
     - Understand concepts → Explanation
 
 2. **What is the user's experience level?**
+
     - Beginner wanting to learn → Tutorial
     - Experienced with a specific goal → How-to Guide
     - Any level needing facts → Reference

@@ -149,6 +149,7 @@ If using `starknet-react`, wrap `DojoSdkProvider` _around_ `StarknetProvider`:
     </StarknetProvider>
 </DojoSdkProvider>
 ```
+
 :::
 
 :::warning
