@@ -79,11 +79,16 @@ This concatenation is done automatically by the world while registering the libr
 Once the library is registered in the world, you can leverage the Dojo's DNS in order to get the library's class hash without having to hardcode it.
 
 ```rust
+use path::to::libary::{SimpleMathLibraryDispatcher, SimpleMathLibraryDispatcherTrait};
+
 let (_, class_hash) = world.dns(@"simple_math_v0_1_0").unwrap();
 
 // or
 
 let class_hash = world.dns_class_hash(@"simple_math_v0_1_0").unwrap();
+
+let simple_math_library = SimpleMathLibraryDispatcher { class_hash };
+let r = simple_math_library.decrement_saturating(123_u8);
 ```
 
 As you can note here, the DNS is expecting the library name and version as a single argument, separated by an underscore.
