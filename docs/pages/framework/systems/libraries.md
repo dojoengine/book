@@ -18,7 +18,7 @@ Calling an other contract with a library call can be very unsafe. Ensure you onl
 
 # Libraries in Dojo
 
-In Dojo, this concept is abstracted by the `dojo::library`, which enables this concept of libraries to embrace the full power of Dojo's ECS architecture.
+In Dojo, this concept is abstracted by the `#[dojo::library]` attribute, which enables this concept of libraries to embrace the full power of Dojo's ECS architecture.
 
 In comparison to contracts which are deployed (hence have an address), libraries are not deployed, but rather only declared.
 
@@ -64,7 +64,7 @@ If we take the example of the previous library, we would need to configure it li
 "<NAMESPACE>-simple_math" = "0_1_0"
 ```
 
-Doing so, we instruct Sozo to register the library in the world with the version `0_1_0`. Sozo will use the code you have locally defined in your project for this library. If you change the library, you simply need to change the version and run `sozo migrate` to declare the new library class and register it in the world.
+Doing so, we instruct Sozo to register the library in the world with the version `0_1_0`. Sozo will use the code you have locally defined in your project for this library. If you change the library, rebuild the code with `sozo build` and then change the version in the configuration file. Then, run `sozo migrate` to declare the new library class and register it in the world.
 
 As you have already seen, the Dojo resources are identified by a selector, which is for contracts/models/events the poseidon hash of the namespace and the resource name. For libraries, it is similar but the version has to be added in order to avoid collisions:
 
