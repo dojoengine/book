@@ -94,3 +94,9 @@ let r = simple_math_library.decrement_saturating(123_u8);
 As you can note here, the DNS is expecting the library name and version as a single argument, separated by an underscore.
 
 Instead of `unwrap`, in production code you can use `.expect` in order to have the revert message identified more easily.
+
+## Why using libraries?
+
+The major benefits of using libraries are to separate the logic from the contract and therefore reducing the code size of contracts. Either related to storage or not, libraries are a way to share logic between contracts.
+
+When you face yourself hitting the limit of the contract size of the network, libraries are a way to split your code into smaller pieces.
