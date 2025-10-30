@@ -99,6 +99,10 @@ export const routes = [
                         text: "Coordination",
                         link: "/framework/systems/coordination",
                     },
+                    {
+                        text: "Libraries",
+                        link: "/framework/systems/libraries",
+                    },
                 ],
             },
             {
