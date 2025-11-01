@@ -49,7 +49,7 @@ For complex deployments, using a configuration file is recommended over lengthy 
 Basic settings for getting Torii running:
 
 ```toml
-world = "0x01b2e..."            # World contract to index (optional as of Torii 1.6.1)
+world_address = "0x01b2e..."            # World contract to index (optional as of Torii 1.6.1). Can also be passed in the list of contracts.
 
 rpc = "http://0.0.0.0:5050"     # Sequencer RPC endpoint (default: http://0.0.0.0:5050)
 
