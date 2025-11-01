@@ -25,15 +25,19 @@ The first action you need to take is to update your `Scarb.toml` file to add the
 
 ```toml
 [dependencies]
-dojo = "1.7.1"
+dojo = "=1.7.2"
 
 [dev-dependencies]
 cairo_test = "2.12.2"
-dojo_cairo_test = "1.7.1"
+dojo_cairo_test = "=1.7.2"
 
 [tool.scarb]
 allow-prebuilt-plugins = ["dojo_cairo_macros"]
 ```
+
+:::note
+Since `1.8.0` contains a very small but breaking change, you must use the `=1.7.2` to ensure that Scarb is not fetching `1.8.0` or greater instead.
+:::
 
 The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier. You need to add the `dojo_cairo_macros` dependency instead.
 See the note below for more details.
@@ -43,12 +47,12 @@ If you are using `1.7.0` or earlier, you need to add the `dojo_cairo_macros` dep
 
 ```toml
 [dependencies]
-dojo = "1.7.0"
-dojo_cairo_macros = "1.7.0"
+dojo = "=1.7.0"
+dojo_cairo_macros = "=1.7.0"
 
 [dev-dependencies]
 cairo_test = "2.12.2"
-dojo_cairo_test = "1.7.0"
+dojo_cairo_test = "=1.7.0"
 ```
 
 Also, precompiled proc macros are only available if you are using `1.7.1` or later.
