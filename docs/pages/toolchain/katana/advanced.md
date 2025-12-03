@@ -51,6 +51,116 @@ Monitor execution metrics to optimize step limits for your specific workload.
 Use `--metrics` to track Cairo steps processed and execution times.
 :::
 
+## Optimistic Katana
+
+Optimistic Katana provides a pre-confirmed execution layer on top of Starknet by combining Katana's forking feature with transaction forwarding and strict whitelisting.
+
+It allows us to:
+
+- Execute and serve transactions locally, almost instantly
+- Forward those transactions to Starknet for canonical inclusion
+- Ensure state consistency through infrastructure-level control, not by reconciliation (shortcut that typically Sharding execution will solve)
+
+Optimistic Katana does not need to roll back any state.
+Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical on-chain result.
+
+This approach delivers near-instant feedback for users while maintaining trust and state consistency across the network.
+
+### Architecture
+
+#### Fork-Based Execution
+
+Optimistic Katana builds upon Katana's fork mode.
+
+In this setup:
+
+- Katana forks a live Starknet network
+- All user transactions are sent to the forked Katana instance
+- Katana executes these transactions locally, producing immediate state updates and events
+- In parallel, Katana forwards the same transactions to a real Starknet node for canonical inclusion
+
+Since Katana executes transactions faster than the actual network, it can serve "pre-confirmed" results almost instantly — enabling frontends and clients to interact with what feels like a live, responsive chain.
+
+Importantly, Optimistic Katana does not produce blocks itself.
+Instead, it maintains a local view of pre-confirmed transactions (executed locally) and exposes them as part of its state until the corresponding Starknet confirmations arrive.
+
+Every block mined on Starknet is still reflected in Optimistic Katana (only block number, the state is fetched lazily).
+
+#### State Integrity and Whitelisting
+
+To prevent state contention and ensure consistency with the canonical Starknet state, Optimistic Katana is combined with strict operator whitelisting.
+
+Only designated operator accounts (typically Cartridge's paymaster executors) are permitted to modify the on-chain state of the world.
+This guarantees that:
+
+- Only transactions forwarded from Katana are authorized by infrastructure to land on Starknet for this world
+- No external actor can submit conflicting transactions to the same contract state on Starknet
+- The optimistic state served by Katana will always converge with the canonical one without rollback or reconciliation logic
+
+At the infrastructure level, it ensures that only transactions originating from the authorized Optimistic Katana instance are propagated downstream to Starknet nodes.
+This prevents race conditions and ensures deterministic state updates across both layers.
+
+#### World Layer: Operator Component
+
+At the smart contract level, the World contract implements the on-chain enforcement of the operator whitelist through the Operator component.
+
+This component defines a simple but flexible interface for managing authorized executors, controlling who can mutate world entities on-chain.
+
+```cairo
+#[derive(Default, Serde, Drop, starknet::Store)]
+pub enum OperatorMode {
+    #[default]
+    Disabled,
+    NeverExpire,
+    ExpireAt: u64,
+}
+
+#[starknet::interface]
+pub trait IOperator<T> {
+    /// Changes the mode of the operator component.
+    fn change_mode(ref self: T, mode: OperatorMode);
+
+    /// Grants an operator to the contract.
+    fn grant_operator(ref self: T, operator: ContractAddress);
+
+    /// Revokes an operator from the contract.
+    fn revoke_operator(ref self: T, operator: ContractAddress);
+}
+```
+
+The `OperatorMode` allows dynamic control over when and how operators can act (e.g., permanent or time-limited authorization).
+Only the creator of the world can change the mode.
+
+More importantly, the `set_entity` function within the world contract is gated by this operator check.
+
+This means that no contract state or world entity can be mutated unless the sender is a whitelisted operator.
+
+In practice:
+
+- Katana instances executing optimistically are assigned authorized operator addresses
+- The infrastructure ensures that only these operators can push mutations to Starknet
+- Any unauthorized attempt to modify entities is rejected at the contract level
+
+This mechanism establishes a trust boundary: Katana can optimistically execute and stage updates, but only the approved executors have authority to finalize them on-chain.
+
+It is the contract-level foundation that enables Optimistic Katana to function safely without reconciliation or rollback logic.
+
+#### Torii Integration (Indexer)
+
+On the Torii side, a caching layer has been added to handle optimistic execution correctly.
+Specifically:
+
+- Torii now maintains a cache of processed transactions (instead of only a cursor to latest processed transaction), ensuring that pre-confirmed events are not re-processed multiple times
+- It is resistant to missed transactions — cases where a transaction was forwarded to Starknet before Torii fetched the corresponding pre-confirmed state (for example, if a block is very long to process)
+- When such cases occur, Torii will backfill the missing events once the canonical Starknet state includes them, ensuring complete and consistent indexing
+
+This design ensures that Torii's view of the world remains consistent across both the optimistic and canonical layers without duplication or event loss.
+
+:::note
+A possible latency can be observed if blocks are too long for Torii to process, which will cause Torii to fallback in range mode.
+Since Katana is in forking mode, syncing historical events may take additional time since they are lazily fetched from the Starknet network.
+:::
+
 ## Cross-Layer Messaging
 
 Cross-layer messaging enables communication between Katana and external blockchain networks, supporting L1 ↔ L2 message passing for complex multi-chain applications.
