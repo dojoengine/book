@@ -218,6 +218,26 @@ sozo migrate -vvv
 You can use `-P` instead of `--profile` for simplicity.
 :::
 
+The migration outputs a manifest file, which is a JSON file that contains information about deployed contracts and resources.
+By default, the manifest will contains all the ABIs merged in only one entry "abis", where Sozo deduplicates the ABIs and makes the manifest easier to read/track diffs (this is called the `all_in_one` format). There is a second per contract (`per_contract` format), where the ABIs are separated by contract.
+
+:::warning
+The `per_contract` format is currently required in one specific case: if you are using `dojo.js` and if you have the same function name in multiple contracts.
+
+You can toggle the abi format mode by using `--manifest-abi-format all_in_one/per_contract` directly from the command line when running the `sozo migrate` command.
+
+```bash
+sozo migrate --manifest-abi-format per_contract
+```
+
+You can also set the default abi format mode in your `dojo_<profile>.toml` file by setting the `manifest_abi_format` key to `all_in_one` or `per_contract`.
+
+```toml
+[migration]
+manifest_abi_format = "per_contract"
+```
+:::
+
 :::info
 Since the 0.14 network upgrade, the PRE-CONFIRMED state may be lagging on nodes
 with load-balanced infrastructure.
