@@ -1,0 +1,5 @@
+{
+  "name": "book",
+  "description": "Comprehensive toolkit for building provable games and autonomous worlds with Dojo on Starknet. Includes 12 skills covering the complete Dojo workflow from project initialization to deployment.",
+  "version": "0.1.0"
+}
