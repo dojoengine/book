@@ -1,6 +1,6 @@
 # Dojo Skills Overview
 
-This document provides a complete overview of all 12 Dojo skills.
+This document provides a complete overview of all 12 Dojo skills in the `book` plugin for Claude Code, replacing the functionality of the[ Sensei MCP server](https://github.com/dojoengine/sensei-mcp).
 
 ## Quickstart
 
@@ -8,11 +8,15 @@ Inside of a Claude Code session:
 
 ```
 # Add the marketplace
-/plugin marketplace add dojoengine/book
+/plugin marketplace add dojoengine/marketplace
 
 # Install the plugin
 /plugin install book@dojoengine
 ```
+
+**Note:** Installing the plugin gives you all 12 skills. Claude Code doesn't support installing subsets or individual skills from a plugin.
+
+Skills are automatically invoked based on your conversation context - use what you need, when you need it.
 
 ## Architecture
 
@@ -20,6 +24,21 @@ Inside of a Claude Code session:
 - Each skill handles ONE specific workflow
 - Skills are self-contained with embedded knowledge
 - Progressive disclosure: SKILL.md → detailed reference files
+
+List of skills:
+
+- `dojo-init`
+- `dojo-model`
+- `dojo-system`
+- `dojo-test`
+- `dojo-config`
+- `dojo-review`
+- `dojo-deploy`
+- `dojo-migrate`
+- `dojo-client`
+- `dojo-world`
+- `dojo-indexer`
+- `dojo-token`
 
 ---
 
@@ -373,19 +392,6 @@ dojo-world → dojo-indexer → dojo-migrate
 
 ---
 
-## Installation
-
-```bash
-# Install the complete plugin with all 12 skills
-/plugin add dojo/book
-```
-
-**Note:** Installing the plugin gives you all 12 skills. Claude Code doesn't support installing subsets or individual skills from a plugin.
-
-Skills are automatically invoked based on your conversation context - use what you need, when you need it.
-
----
-
 ## Content Strategy
 
 Each skill follows this structure:
@@ -433,6 +439,5 @@ For each skill:
 ## Related Documentation
 
 - **Plugin Metadata:** `.claude-plugin/plugin.json`
-- **README:** `.claude-plugin/README.md`
 - **Official Docs:** https://book.dojoengine.org
 - **Skills Guide:** https://code.claude.com/docs/en/skills.md
