@@ -68,6 +68,8 @@ If the upgrade would break existing data, the upgrade will fail.
 - A key model member is upgradeable only if its type is an upgreadable primitive or an enum with new variants only (existing variants cannot be
   modified for a key member).
 
+- The new fields must be added at the end of the model to ease the upgrade checks in Cairo.
+
 ## Primitive upgrades
 
 This table lists the allowed upgrades for every primitive type.
