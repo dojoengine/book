@@ -1,0 +1,16 @@
+{
+  "name": "book",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": [
+    "dojo",
+    "starknet",
+    "cairo",
+    "blockchain",
+    "gaming",
+    "provable-games",
+    "onchain-gaming",
+    "game-development"
+  ],
+  "category": "Development Tools"
+}
