@@ -1,0 +1,80 @@
+name: Sync Skills to Dojoengine Marketplace
+
+on:
+    push:
+        branches: [main]
+        paths:
+            - "skills/**"
+            - ".claude-plugin/**"
+    workflow_dispatch:
+
+jobs:
+    sync:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout book repo
+              uses: actions/checkout@v4
+
+            - name: Clone marketplace repo
+              env:
+                  GH_TOKEN: ${{ secrets.DOJOENGINE_MARKETPLACE_PAT }}
+              run: |
+                  git clone https://x-access-token:${GH_TOKEN}@github.com/dojoengine/marketplace.git marketplace
+
+            - name: Sync skills and plugin metadata
+              run: |
+                  # Remove existing content to handle deletions
+                  rm -rf marketplace/plugins/book/skills
+                  rm -rf marketplace/plugins/book/.claude-plugin
+
+                  # Copy updated content
+                  cp -r skills marketplace/plugins/book/
+                  cp -r .claude-plugin marketplace/plugins/book/
+
+            - name: Create PR if changes exist
+              env:
+                  GH_TOKEN: ${{ secrets.DOJOENGINE_MARKETPLACE_PAT }}
+              run: |
+                  cd marketplace
+
+                  # Check if there are changes
+                  if [ -z "$(git status --porcelain)" ]; then
+                    echo "No changes to sync"
+                    exit 0
+                  fi
+
+                  # Configure git
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+
+                  # Create branch with timestamp
+                  BRANCH="sync-book-skills-$(date +%Y%m%d-%H%M%S)"
+                  git checkout -b "$BRANCH"
+
+                  # Commit changes
+                  git add .
+                  COMMIT_SHA="${{ github.sha }}"
+                  git commit -m "chore: sync book skills from dojoengine/book
+
+              Source commit: dojoengine/book@${COMMIT_SHA:0:7}
+              Triggered by: ${{ github.event_name }}"
+
+                  # Push branch
+                  git push origin "$BRANCH"
+
+                  # Create PR
+                  gh pr create \
+                    --title "chore: sync book skills plugin" \
+                    --body "This PR syncs the book skills plugin from [dojoengine/book](https://github.com/dojoengine/book).
+
+              **Source commit:** dojoengine/book@${COMMIT_SHA:0:7}
+
+              **Changes synced:**
+              - \`skills/\` directory
+              - \`.claude-plugin/\` directory
+
+              ---
+              *This PR was automatically created by GitHub Actions.*" \
+                    --base main \
+                    --head "$BRANCH"
