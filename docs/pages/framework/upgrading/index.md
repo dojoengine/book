@@ -91,3 +91,5 @@ Please consult this guide for release and compatibility information.
 :::info
 Compatibility data drawn from [this file](https://github.com/dojoengine/dojo/blob/main/versions.json).
 :::
+
+> For Starknet-wide compatibility information, see the Starknet [version notes](https://docs.starknet.io/learn/cheatsheets/version-notes) and[ compatibility guide](https://docs.starknet.io/learn/cheatsheets/compatibility).
