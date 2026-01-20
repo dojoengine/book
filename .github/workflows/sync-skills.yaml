@@ -57,8 +57,8 @@ jobs:
                   COMMIT_SHA="${{ github.sha }}"
                   git commit -m "chore: sync book skills from dojoengine/book
 
-              Source commit: dojoengine/book@${COMMIT_SHA:0:7}
-              Triggered by: ${{ github.event_name }}"
+                  Source commit: dojoengine/book@${COMMIT_SHA:0:7}
+                  Triggered by: ${{ github.event_name }}"
 
                   # Push branch
                   git push origin "$BRANCH"
@@ -68,13 +68,13 @@ jobs:
                     --title "chore: sync book skills plugin" \
                     --body "This PR syncs the book skills plugin from [dojoengine/book](https://github.com/dojoengine/book).
 
-              **Source commit:** dojoengine/book@${COMMIT_SHA:0:7}
+                  **Source commit:** dojoengine/book@${COMMIT_SHA:0:7}
 
-              **Changes synced:**
-              - \`skills/\` directory
-              - \`.claude-plugin/\` directory
+                  **Changes synced:**
+                  - \`skills/\` directory
+                  - \`.claude-plugin/\` directory
 
-              ---
-              *This PR was automatically created by GitHub Actions.*" \
+                  ---
+                  *This PR was automatically created by GitHub Actions.*" \
                     --base main \
                     --head "$BRANCH"
