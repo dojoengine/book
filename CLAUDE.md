@@ -157,34 +157,123 @@ git submodule status
     ```
 
 - **CRITICAL: Omit best practices**: LLM-generated "best practices" are often generic, do not include them in generated documentation
-- **Ensure code correctness**: Query the Sensei MCP and source code in src/ for guidance when producing Dojo code samples
+- **Ensure code correctness**: Verify all code examples against source code in src/ submodules (see "Code Verification Workflow" below)
 - **Maintain cross-references**: Link related content appropriately
 - **Follow navigation structure**: Use existing routing patterns in `routes.ts`
 - **Never commit without testing**: Run `pnpm run build` before commits
 
 ### Code Example Requirements
 
-- **Accuracy**: All Cairo code must be verified against src/ references or Sensei MCP results
+- **Accuracy**: All Cairo code must be verified against src/ submodule source code
 - **Realism**: Use realistic game scenarios, not abstract examples
 - **References**: Include links to source-code references whenever possible
 
-### Sensei MCP Command Reference
+## Documentation Workflows
 
-- **mcp**sensei-mcp**dojo_101**: At the beginning of a new project, To initialize the project structure, introduce Dojo development, and handle boilerplate.
-- **mcp**sensei-mcp**dojo_model**: After project setup, for defining the game's state, To create and manage Dojo models, ensuring correct trait derivation and key fields.
-- **mcp**sensei-mcp**dojo_logic**: After defining models, for implementing game mechanics, To create system contracts, implement game logic, and handle state changes.
-- **mcp**sensei-mcp**dojo_config**: During project setup and as needed for configuration changes, To manage Scarb.toml, configure Dojo profiles, and handle dependencies.
-- **mcp**sensei-mcp**dojo_test**: After implementing models and systems, To write comprehensive tests and verify game logic.
-- **mcp**sensei-mcp**dojo_token**: When implementing token standards, For detailed guidance on implementing token standards in Dojo.
+### Workflow 1: Updating Existing Documentation
 
-### Content Update Process
+Use this workflow when updating docs after version changes or to fix inaccuracies.
 
-1. **Update submodules**: `git submodule update --remote` if needed (should not need to be run frequently)
-2. **Check references**: Look at the references indicated in "Repository Structure" to identify the most relevant references for any given section
-3. **Load context**: load src/\* into context for source code and code samples, according to the references in the previous section
-4. **Review changes**: Check for breaking changes in source code, or the deletion of existing correct content
-5. **Update documentation**: Modify relevant MDX files with updates content and code samples
-6. **Build verification**: `pnpm run build`, ensure all internal links are functional
+1. **Identify scope**: Determine which docs sections are affected using the REFERENCE annotations in the architecture section above
+2. **Update submodules** (if needed): `git submodule update --remote`
+3. **Review source changes**:
+   ```bash
+   cd src/<relevant-submodule>
+   git log --oneline -20  # See recent changes
+   git diff HEAD~10 -- <relevant-files>  # See what changed
+   ```
+4. **Load source context**: Read the relevant src/ code to understand current behavior
+5. **Compare with docs**: Read the existing documentation and identify discrepancies
+6. **Make targeted edits**: Update only what's changed; preserve correct existing content
+7. **Verify**: Run `pnpm run build` and check for broken links
+
+### Workflow 2: Writing New Documentation
+
+Use this workflow when creating new pages or sections.
+
+1. **Determine page type**: Using Diátaxis (see `spec/page-types.md`):
+   - Tutorial: Teaching a concept through building something
+   - How-to: Solving a specific problem
+   - Reference: API/CLI specifications
+   - Explanation: Conceptual understanding
+
+2. **Gather source material**:
+   - For framework docs: Read `src/framework/dojo` and `src/starters`
+   - For toolchain docs: Read `src/toolchain/<tool>`
+   - For SDK docs: Read `src/sdks/<sdk>`
+   - For library docs: Read `src/libraries/<library>`
+
+3. **Study existing patterns**: Read 2-3 similar pages in the same section to match style and depth
+
+4. **Draft content**: Follow the template from `spec/page-types.md` for your chosen type
+
+5. **Add code examples**: Extract real examples from src/ or adapt from existing games in `src/games`
+
+6. **Update navigation**: Add the new page to `routes.ts`
+
+7. **Verify**: Run `pnpm run build`
+
+### Code Verification Workflow
+
+All Cairo/Dojo code examples must be verified before inclusion.
+
+**For model definitions:**
+1. Check `src/framework/dojo/crates/dojo/core` for current trait names and derive macros
+2. Verify required attributes (`#[dojo::model]`, `#[key]`, etc.)
+3. Confirm field types match what's supported
+
+**For system implementations:**
+1. Check `src/framework/dojo/crates/dojo/core` for system traits and interfaces
+2. Verify world interaction patterns (get/set model syntax)
+3. Confirm event emission patterns
+
+**For CLI commands:**
+```bash
+# Verify command exists and syntax is correct
+sozo --help
+katana --help
+torii --help
+
+# For detailed options
+<command> <subcommand> --help
+```
+
+**For configuration:**
+1. Check `src/framework/dojo` for Scarb.toml patterns
+2. Verify against working examples in `src/starters` or `src/games`
+
+### Domain Knowledge Acquisition
+
+When unfamiliar with a Dojo concept, follow this process:
+
+1. **Start with existing docs**: Read the current documentation for context and terminology
+2. **Read source code**: The src/ submodules are the source of truth
+   - Core concepts: `src/framework/dojo/crates/dojo/core`
+   - Working examples: `src/starters`, `src/games`
+3. **Study tests**: Test files often demonstrate correct usage patterns
+4. **Check examples**: `src/games` contains full game implementations
+
+**Key Dojo concepts to understand:**
+- **World**: The root contract that manages all state
+- **Models**: Data structures with `#[dojo::model]` that define game state
+- **Systems**: Functions that modify models, implementing game logic
+- **Events**: On-chain events for client synchronization
+- **Torii**: Indexer that makes World state queryable
+- **Katana**: Local Starknet sequencer for development
+
+### Quality Checklist
+
+Before considering documentation complete:
+
+- [ ] One sentence per line (non-negotiable)
+- [ ] No generic "best practices" sections
+- [ ] All code examples verified against src/
+- [ ] Code examples use realistic game scenarios
+- [ ] Cross-references to related pages included
+- [ ] Page type matches content (Tutorial/How-to/Reference/Explanation)
+- [ ] Navigation updated in `routes.ts` if new page
+- [ ] Build passes: `pnpm run build`
+- [ ] No broken internal links
 
 ---
 

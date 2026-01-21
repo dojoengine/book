@@ -208,7 +208,7 @@ For each new page:
 1. **Choose the correct page type** (Tutorial, How-to, Reference, Explanation)
 2. **Use the appropriate template** from `spec/page-types.md`
 3. **Follow style guidelines** from `spec/style-guide.md`
-4. **Include proper code examples** with comments and expected output; consult Sensei MCP when writing Dojo code
+4. **Include proper code examples** with comments and expected output; verify against src/ submodules
 5. **Add cross-references** to related content
 
 ### 5.3 Update Navigation
