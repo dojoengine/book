@@ -239,27 +239,36 @@ torii --world <WORLD_ADDRESS>
 
 ## Sample Deploy Script
 
-This skill includes a ready-to-use deploy script: `deploy_local.sh`
+This skill includes `deploy_local.sh`, a template script for automated local development.
+Copy it into your project's `scripts/` directory and customize it for your needs.
 
-**Usage:**
+**Setup:**
+1. Copy the script to your project: `cp deploy_local.sh your-project/scripts/`
+2. Adjust configuration variables (profile name, URLs) as needed
+3. Make executable: `chmod +x scripts/deploy_local.sh`
+
+**Run:**
 ```bash
-# Copy to your project
-cp /path/to/skill/deploy_local.sh scripts/
-
-# Run with default dev profile
+# Default dev profile
 ./scripts/deploy_local.sh
 
-# Run with specific profile
+# Specific profile
 PROFILE=staging ./scripts/deploy_local.sh
 ```
 
-The script:
+**What it does:**
 1. Checks for required tools (katana, sozo, torii, jq)
 2. Starts Katana with health checking
 3. Builds and deploys contracts
 4. Extracts addresses from the manifest
 5. Starts Torii indexer
 6. Cleans up all services on exit (Ctrl+C)
+
+**Customization points:**
+- `PROFILE`: Default build/deploy profile
+- `RPC_URL`: Katana endpoint (default: `http://localhost:5050`)
+- `TORII_URL`: Torii endpoint (default: `http://localhost:8080`)
+- Add project-specific post-deploy steps (e.g., seeding data, running migrations)
 
 ## Manifest File
 
