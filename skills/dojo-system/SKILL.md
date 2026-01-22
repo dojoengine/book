@@ -19,12 +19,10 @@ Create Dojo systems (smart contracts) that implement your game's logic and modif
 
 Generates Cairo system contracts with:
 - `#[dojo::contract]` attribute
-- Interface definition with `#[dojo::interface]`
+- Interface definition with `#[starknet::interface]`
 - System implementation
 - World access (`world.read_model()`, `world.write_model()`)
-- Optional: Event emissions
-- Optional: Authorization checks
-- Optional: System tests
+- Event emissions with `#[dojo::event]`
 
 ## Quick Start
 
@@ -44,23 +42,38 @@ I'll ask about:
 "Create a move system that updates Position based on Direction"
 ```
 
-## System Pattern
+## System Structure
 
-### Basic System Structure
+A Dojo contract consists of an interface trait and a contract module:
 
 ```cairo
-use dojo::model::{ModelStorage, ModelValueStorage};
-use dojo::event::EventStorage;
+use dojo_starter::models::{Direction, Position};
 
-#[dojo::interface]
-pub trait IActions {
-    fn spawn(ref self: ContractState);
-    fn move(ref self: ContractState, direction: Direction);
+// Define the interface
+#[starknet::interface]
+trait IActions<T> {
+    fn spawn(ref self: T);
+    fn move(ref self: T, direction: Direction);
 }
 
+// Dojo contract
 #[dojo::contract]
 pub mod actions {
-    use super::IActions;
+    use super::{IActions, Direction, Position};
+    use starknet::{ContractAddress, get_caller_address};
+    use dojo_starter::models::{Vec2, Moves};
+
+    use dojo::model::{ModelStorage, ModelValueStorage};
+    use dojo::event::EventStorage;
+
+    // Define a custom event
+    #[derive(Copy, Drop, Serde)]
+    #[dojo::event]
+    pub struct Moved {
+        #[key]
+        pub player: ContractAddress,
+        pub direction: Direction,
+    }
 
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
@@ -68,12 +81,24 @@ pub mod actions {
             let mut world = self.world_default();
             let player = get_caller_address();
 
-            // Create initial state
-            world.write_model(@Position {
+            // Read current position (defaults to zero if not set)
+            let position: Position = world.read_model(player);
+
+            // Set initial position
+            let new_position = Position {
                 player,
-                x: 0,
-                y: 0
-            });
+                vec: Vec2 { x: position.vec.x + 10, y: position.vec.y + 10 }
+            };
+            world.write_model(@new_position);
+
+            // Set initial moves
+            let moves = Moves {
+                player,
+                remaining: 100,
+                last_direction: Direction::None(()),
+                can_move: true
+            };
+            world.write_model(@moves);
         }
 
         fn move(ref self: ContractState, direction: Direction) {
@@ -81,47 +106,64 @@ pub mod actions {
             let player = get_caller_address();
 
             // Read current state
-            let mut position: Position = world.read_model(player);
+            let position: Position = world.read_model(player);
+            let mut moves: Moves = world.read_model(player);
 
-            // Modify state
-            match direction {
-                Direction::Up => position.y += 1,
-                Direction::Down => position.y -= 1,
-                Direction::Left => position.x -= 1,
-                Direction::Right => position.x += 1,
-            }
+            // Update moves
+            moves.remaining -= 1;
+            moves.last_direction = direction;
+
+            // Calculate next position
+            let next = next_position(position, direction);
 
             // Write updated state
-            world.write_model(@position);
+            world.write_model(@next);
+            world.write_model(@moves);
 
             // Emit event
             world.emit_event(@Moved { player, direction });
         }
     }
+
+    // Internal helper to get world with namespace
+    #[generate_trait]
+    impl InternalImpl of InternalTrait {
+        fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
+            self.world(@"dojo_starter")
+        }
+    }
+}
+
+// Helper function outside the contract
+fn next_position(mut position: Position, direction: Direction) -> Position {
+    match direction {
+        Direction::None => { return position; },
+        Direction::Left => { position.vec.x -= 1; },
+        Direction::Right => { position.vec.x += 1; },
+        Direction::Up => { position.vec.y -= 1; },
+        Direction::Down => { position.vec.y += 1; },
+    };
+    position
 }
 ```
 
-## System Types
+## Key Concepts
 
-### Action Systems
-Handle player actions:
-- spawn, move, attack
-- craft, trade, use_item
-- Player-triggered logic
+### World Access
+Get the world storage using your namespace:
+```cairo
+let mut world = self.world(@"my_namespace");
+```
 
-### Lifecycle Systems
-Manage entity lifecycle:
-- spawn_entity, despawn_entity
-- initialize, cleanup
-- Creation and destruction
-
-### Automated Systems
-Time-based or conditional:
-- process_turn, tick
-- auto_regen, decay
-- Background processing
-
-## Core Patterns
+Create a helper function to avoid repeating the namespace:
+```cairo
+#[generate_trait]
+impl InternalImpl of InternalTrait {
+    fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
+        self.world(@"my_namespace")
+    }
+}
+```
 
 ### Reading Models
 ```cairo
@@ -130,95 +172,93 @@ let position: Position = world.read_model(player);
 
 ### Writing Models
 ```cairo
-world.write_model(@Position { player, x: 10, y: 20 });
-```
-
-### Updating Models
-```cairo
-let mut health: Health = world.read_model(entity_id);
-health.current -= damage;
-world.write_model(@health);
+world.write_model(@Position { player, vec: Vec2 { x: 10, y: 20 } });
 ```
 
 ### Emitting Events
+Define events with `#[dojo::event]`:
 ```cairo
-world.emit_event(@PlayerMoved {
-    player,
-    from: old_pos,
-    to: new_pos
-});
-```
-
-### Authorization
-```cairo
-// Only owner can call
-world.assert_owner(player);
-
-// Only writer can call
-world.assert_writer(get_caller_address());
-```
-
-## Best Practices
-
-- One system per logical group of actions
-- Validate inputs before state changes
-- Use `get_caller_address()` for player identity
-- Emit events for off-chain tracking
-- Keep functions atomic (one clear purpose)
-- Add clear error messages with `assert!`
-
-## Common Patterns
-
-### Movement System
-```cairo
-fn move(ref self: ContractState, direction: Direction) {
-    let player = get_caller_address();
-    let mut pos: Position = world.read_model(player);
-
-    // Update based on direction
-    match direction {
-        Direction::Up => pos.y += 1,
-        _ => // ...
-    }
-
-    world.write_model(@pos);
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+pub struct PlayerMoved {
+    #[key]
+    pub player: ContractAddress,
+    pub from: Vec2,
+    pub to: Vec2,
 }
+
+// Emit in your function
+world.emit_event(@PlayerMoved { player, from: old_pos, to: new_pos });
 ```
 
-### Combat System
+### Getting Caller
 ```cairo
-fn attack(ref self: ContractState, target: u32) {
+use starknet::get_caller_address;
+
+let player = get_caller_address();
+```
+
+### Generating Unique IDs
+```cairo
+let entity_id = world.uuid();
+```
+
+## System Design
+
+### Single Responsibility
+Each system should have one clear purpose:
+- `MovementSystem`: Handles player/entity movement
+- `CombatSystem`: Manages battles and damage
+- `InventorySystem`: Manages items
+
+### Stateless Design
+Systems should be stateless, reading state from models:
+```cairo
+fn attack(ref self: ContractState, target: ContractAddress) {
+    let mut world = self.world_default();
     let attacker = get_caller_address();
 
-    // Get attacker and target stats
-    let atk_stats: Stats = world.read_model(attacker);
-    let mut def_health: Health = world.read_model(target);
+    // Read current state
+    let attacker_stats: Combat = world.read_model(attacker);
+    let mut target_stats: Combat = world.read_model(target);
 
-    // Calculate damage
-    let damage = calculate_damage(atk_stats.strength);
-    def_health.current -= damage;
+    // Apply logic
+    target_stats.health -= attacker_stats.damage;
 
-    // Update and emit
-    world.write_model(@def_health);
-    world.emit_event(@AttackEvent { attacker, target, damage });
+    // Write updated state
+    world.write_model(@target_stats);
 }
 ```
 
-### Resource Gathering
+### Input Validation
+Validate inputs before modifying state:
 ```cairo
-fn gather(ref self: ContractState, x: u32, y: u32) {
+fn move(ref self: ContractState, direction: Direction) {
+    let mut world = self.world_default();
     let player = get_caller_address();
 
-    // Check tile
-    let tile: Tile = world.read_model((x, y));
-    assert(tile.has_resource, 'no resource here');
+    let moves: Moves = world.read_model(player);
+    assert(moves.remaining > 0, 'No moves remaining');
+    assert(moves.can_move, 'Movement disabled');
 
-    // Update inventory
-    let mut inventory: Inventory = world.read_model(player);
-    inventory.resources += tile.resource_amount;
-
-    world.write_model(@inventory);
+    // Proceed with movement
 }
+```
+
+## Permissions
+
+Systems need writer permission to modify models.
+Configure in `dojo_dev.toml`:
+```toml
+[writers]
+"my_namespace" = ["my_namespace-actions"]
+```
+
+Or grant specific model access:
+```toml
+[writers]
+"my_namespace-Position" = ["my_namespace-actions"]
+"my_namespace-Moves" = ["my_namespace-actions"]
 ```
 
 ## Next Steps

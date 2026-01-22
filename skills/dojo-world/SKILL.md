@@ -19,11 +19,9 @@ Manage your Dojo world's permissions, namespaces, resource registration, and acc
 
 Handles world management:
 - Namespace configuration
-- Resource registration
-- Writer permissions
-- Owner permissions
-- Role-based access
-- Permission transfers
+- Writer permissions (can write data)
+- Owner permissions (can write data + manage permissions)
+- Permission hierarchy management
 
 ## Quick Start
 
@@ -32,371 +30,316 @@ Handles world management:
 "Grant writer permission to my system"
 ```
 
-**Namespace setup:**
+**Check permissions:**
 ```
-"Create a namespace for my game"
-```
-
-**Transfer ownership:**
-```
-"Transfer world ownership to new address"
+"List permissions for my world"
 ```
 
-## World Concepts
+## Permission Concepts
 
-### World Contract
-Central registry that:
-- Manages all models and systems
-- Controls permissions
-- Handles namespaces
-- Stores metadata
+### Permission Types
 
-### Namespaces
-Logical groupings of resources:
-- Models belong to namespaces
-- Systems belong to namespaces
-- Permissions granted per namespace
-- Prevents naming conflicts
+**Owner Permission:**
+- Write data to the resource
+- Grant and revoke permissions to others
+- Upgrade the resource
+- Set resource metadata
 
-### Permissions
-Two types:
-- **Owner**: Full control (grant/revoke permissions)
-- **Writer**: Can write to models
+**Writer Permission:**
+- Write data to the resource
+- Cannot grant permissions to others
+- Cannot upgrade the resource
 
-## Permission Management
+**Reading is always permissionless.**
 
-### Granting Writer Permission
+### Permission Hierarchy
 
-Allow a system to write to models:
-```bash
-sozo auth grant writer \
-    MODEL_NAME,SYSTEM_ADDRESS \
-    --world WORLD_ADDRESS
+```
+World Owner (highest)
+    └── Namespace Owner
+        └── Resource Owner / Writer (lowest)
 ```
 
-**Example:**
-```bash
-# Grant actions system writer to Position model
-sozo auth grant writer \
-    Position,0x123... \
-    --world 0xabc...
+- **World Owner**: Can do anything in the world
+- **Namespace Owner**: Can manage all resources in their namespace
+- **Resource Owner**: Can manage a specific resource (model/contract/event)
+- **Writer**: Can only write data to a resource
+
+## Configuration-Based Permissions
+
+Set permissions during deployment in `dojo_<profile>.toml`:
+
+```toml
+[writers]
+# Namespace-level: actions can write to all resources in my_game
+"my_game" = ["my_game-actions"]
+# Resource-specific: movement can only write to Position
+"my_game-Position" = ["my_game-movement"]
+
+[owners]
+# Namespace ownership
+"my_game" = ["my_game-admin"]
 ```
 
-### Granting Owner Permission
+**Format:** `"<TARGET_TAG>" = ["<GRANTEE_TAG>"]`
 
-Transfer ownership or grant admin access:
-```bash
-sozo auth grant owner \
-    RESOURCE_NAME,NEW_OWNER_ADDRESS \
-    --world WORLD_ADDRESS
-```
+## CLI Permission Management
 
-### Revoking Permissions
-
-Remove access:
-```bash
-sozo auth revoke writer \
-    MODEL_NAME,SYSTEM_ADDRESS \
-    --world WORLD_ADDRESS
-```
-
-## Namespace Management
-
-### Creating Namespace
+### Grant Permissions
 
 ```bash
-sozo auth create-namespace \
-    my_namespace \
-    --world WORLD_ADDRESS
+# Grant writer permission
+sozo auth grant writer my_game-Position,my_game-actions
+
+# Grant owner permission
+sozo auth grant owner my_game,my_game-admin
 ```
 
-### Registering Resources
+### Revoke Permissions
 
 ```bash
-# Register model to namespace
-sozo auth register model \
-    Position \
-    --namespace my_namespace \
-    --world WORLD_ADDRESS
+# Revoke writer permission
+sozo auth revoke writer my_game-Position,my_game-actions
 
-# Register system to namespace
-sozo auth register contract \
-    actions \
-    --namespace my_namespace \
-    --world WORLD_ADDRESS
+# Revoke owner permission
+sozo auth revoke owner my_game,my_game-admin
 ```
 
-## Common Permission Patterns
+### List Permissions
 
-### Game System Permissions
-
-Grant system access to all game models:
 ```bash
-# Actions system can write to Position
-sozo auth grant writer Position,ACTIONS_ADDRESS
-
-# Actions system can write to Health
-sozo auth grant writer Health,ACTIONS_ADDRESS
-
-# Actions system can write to Inventory
-sozo auth grant writer Inventory,ACTIONS_ADDRESS
+# List all permissions
+sozo auth list
 ```
 
-### Admin System
+## Runtime Permission Management (Cairo)
 
-Grant admin system owner permissions:
-```bash
-sozo auth grant owner Position,ADMIN_SYSTEM_ADDRESS
-sozo auth grant owner Config,ADMIN_SYSTEM_ADDRESS
+### Grant Permissions
+
+```cairo
+use dojo::world::WorldStorage;
+
+// Grant writer permission to a contract
+world.grant_writer(
+    selector_from_tag!("my_game-Position"),
+    movement_system_address
+);
+
+// Grant owner permission
+world.grant_owner(
+    selector_from_tag!("my_game-GameState"),
+    new_owner_address
+);
+```
+
+### Revoke Permissions
+
+```cairo
+// Revoke writer permission
+world.revoke_writer(
+    selector_from_tag!("my_game-Position"),
+    old_system_address
+);
+
+// Revoke owner permission
+world.revoke_owner(
+    selector_from_tag!("my_game-GameState"),
+    old_owner_address
+);
+```
+
+### Check Permissions
+
+```cairo
+// Check if address is owner
+let is_owner = world.is_owner(resource_selector, address);
+
+// Check if address is writer
+let can_write = world.is_writer(resource_selector, address);
+```
+
+## Permission Patterns
+
+### Principle of Least Privilege
+
+```cairo
+// Good: Specific permissions for specific functions
+world.grant_writer(selector_from_tag!("my_game-Position"), movement_contract);
+world.grant_writer(selector_from_tag!("my_game-Health"), combat_contract);
+
+// Bad: Overly broad permissions
+world.grant_owner(selector_from_tag!("my_game"), movement_contract);
 ```
 
 ### Multi-System Architecture
 
-Different systems for different aspects:
-```bash
-# Movement system writes to Position
-sozo auth grant writer Position,MOVEMENT_SYSTEM
+```cairo
+// Different systems handle different aspects
+world.grant_writer(selector_from_tag!("my_game-Position"), movement_system);
+world.grant_writer(selector_from_tag!("my_game-Health"), combat_system);
+world.grant_writer(selector_from_tag!("my_game-Inventory"), inventory_system);
 
-# Combat system writes to Health
-sozo auth grant writer Health,COMBAT_SYSTEM
-
-# Inventory system writes to Inventory
-sozo auth grant writer Inventory,INVENTORY_SYSTEM
+// Trading system needs access to Inventory too
+world.grant_writer(selector_from_tag!("my_game-Inventory"), trading_system);
 ```
 
-## World API
+### Namespace-Level Permissions
 
-### In Systems (Cairo)
+Grant access to all resources in a namespace:
 
-**Check permissions:**
 ```cairo
-#[dojo::contract]
-pub mod system {
-    fn restricted_action(ref self: ContractState) {
-        let world = self.world_default();
-
-        // Only owner can call
-        world.assert_owner(get_caller_address());
-
-        // Or check writer
-        world.assert_writer(get_caller_address());
-    }
-}
-```
-
-**Grant permissions from system:**
-```cairo
-fn setup_permissions(ref self: ContractState) {
-    let world = self.world_default();
-
-    // Grant writer permission
-    world.grant_writer(MODEL_SELECTOR, system_address);
-
-    // Grant owner permission
-    world.grant_owner(RESOURCE_SELECTOR, new_owner);
-}
-```
-
-## Authorization Patterns
-
-### Public Systems
-Anyone can call:
-```cairo
-fn spawn(ref self: ContractState) {
-    // No permission check - anyone can spawn
-    let player = get_caller_address();
-    world.write_model(@Position { player, x: 0, y: 0 });
-}
-```
-
-### Owner-Only Systems
-Only world owner:
-```cairo
-fn admin_function(ref self: ContractState) {
-    let world = self.world_default();
-    world.assert_owner(get_caller_address());
-
-    // Admin logic
-}
-```
-
-### Writer-Only Systems
-Only authorized writers:
-```cairo
-fn internal_update(ref self: ContractState) {
-    let world = self.world_default();
-    world.assert_writer(get_caller_address());
-
-    // Update logic
-}
-```
-
-### Custom Authorization
-Check specific conditions:
-```cairo
-fn guild_action(ref self: ContractState, guild_id: u32) {
-    let player = get_caller_address();
-
-    // Read player's guild membership
-    let member: GuildMember = world.read_model((guild_id, player));
-    assert(member.role >= OFFICER, 'not authorized');
-
-    // Guild logic
-}
-```
-
-## Metadata Management
-
-### World Metadata
-
-Set world information:
-```cairo
-fn set_metadata(ref self: ContractState) {
-    let world = self.world_default();
-
-    world.set_metadata_uri("https://example.com/metadata.json");
-}
-```
-
-### Resource Metadata
-
-Set model/system metadata:
-```cairo
-world.set_resource_metadata(
-    MODEL_SELECTOR,
-    "ipfs://QmHash..."
+// This system can write to ANY resource in "my_game" namespace
+world.grant_writer(
+    selector_from_tag!("my_game"),
+    system_contract
 );
 ```
 
-## Security Best Practices
+### Admin System
 
-### Principle of Least Privilege
-Grant minimal permissions:
-```bash
-# ❌ Don't grant owner when writer is enough
-sozo auth grant owner Position,SYSTEM_ADDRESS
-
-# ✅ Grant only writer
-sozo auth grant writer Position,SYSTEM_ADDRESS
-```
-
-### Audit Permissions Regularly
-```bash
-# Check who has access to model
-sozo auth list writers Position --world WORLD_ADDRESS
-
-# Check owners
-sozo auth list owners Position --world WORLD_ADDRESS
-```
-
-### Secure Owner Key
-- Use hardware wallet for owner account
-- Consider multi-sig for production
-- Rotate keys if compromised
-
-### Test Permission Checks
 ```cairo
-#[test]
-#[should_panic(expected: ('not authorized',))]
-fn test_unauthorized_access() {
-    let unauthorized = starknet::contract_address_const::<0x999>();
-    prank(world, unauthorized);
+// Admin has owner permission on namespace
+world.grant_owner(selector_from_tag!("my_game"), game_admin);
 
-    system.admin_function();  // Should panic
+// Admin has owner permission on critical resources
+world.grant_owner(selector_from_tag!("my_game-GameConfig"), game_admin);
+```
+
+## Authorization in Systems
+
+### Public Functions
+
+Anyone can call:
+```cairo
+fn spawn(ref self: ContractState) {
+    let mut world = self.world_default();
+    let player = get_caller_address();
+
+    // No permission check - anyone can spawn
+    world.write_model(@Position { player, vec: Vec2 { x: 0, y: 0 } });
 }
 ```
 
-## World Management Checklist
+### Checking Permissions
 
-### Initial Setup
-- [ ] Deploy world (`dojo-deploy` skill)
-- [ ] Record world address
-- [ ] Set up namespaces
-- [ ] Register models and systems
-- [ ] Configure world metadata
+```cairo
+fn admin_function(ref self: ContractState) {
+    let mut world = self.world_default();
+    let caller = get_caller_address();
 
-### Permission Configuration
-- [ ] Grant writer permissions to all systems
-- [ ] Set up admin accounts
-- [ ] Configure authorization in systems
-- [ ] Test permission checks
-- [ ] Document permission structure
+    // Check caller is owner of the namespace
+    assert(
+        world.is_owner(selector_from_tag!("my_game"), caller),
+        'not authorized'
+    );
 
-### Production Readiness
-- [ ] Audit all permissions
-- [ ] Remove unnecessary permissions
-- [ ] Secure owner keys
-- [ ] Set up monitoring
-- [ ] Document emergency procedures
+    // Proceed with admin logic
+}
+```
+
+## Permission Events
+
+The World contract emits events when permissions change:
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct OwnerUpdated {
+    #[key]
+    pub resource: felt252,
+    #[key]
+    pub contract: ContractAddress,
+    pub value: bool,
+}
+
+#[derive(Drop, starknet::Event)]
+pub struct WriterUpdated {
+    #[key]
+    pub resource: felt252,
+    #[key]
+    pub contract: ContractAddress,
+    pub value: bool,
+}
+```
 
 ## Common Scenarios
 
-### Setting Up New Game
+### Initial Setup (via config)
 
-```bash
-# 1. Deploy world
-sozo migrate --name my_game
+```toml
+# dojo_dev.toml
+[namespace]
+default = "my_game"
 
-# 2. Record addresses from manifest
-WORLD_ADDRESS=...
-ACTIONS_ADDRESS=...
+[writers]
+# All resources in my_game can be written by actions
+"my_game" = ["my_game-actions"]
 
-# 3. Grant permissions
-sozo auth grant writer Position,$ACTIONS_ADDRESS --world $WORLD_ADDRESS
-sozo auth grant writer Health,$ACTIONS_ADDRESS --world $WORLD_ADDRESS
-
-# 4. Verify
-sozo auth list writers Position --world $WORLD_ADDRESS
+[owners]
+# Admin system owns the namespace
+"my_game" = ["my_game-admin"]
 ```
 
-### Adding New System
+### Adding New System (runtime)
 
-```bash
-# 1. Deploy new system
-sozo migrate --world WORLD_ADDRESS
+```cairo
+fn add_new_system(ref self: ContractState, new_system_address: ContractAddress) {
+    let mut world = self.world_default();
 
-# 2. Grant necessary permissions
-sozo auth grant writer NewModel,NEW_SYSTEM_ADDRESS --world WORLD_ADDRESS
-
-# 3. Test
-sozo execute new_system test_function --world WORLD_ADDRESS
+    // Must be namespace owner to grant permissions
+    world.grant_writer(
+        selector_from_tag!("my_game-Position"),
+        new_system_address
+    );
+}
 ```
 
-### Transferring Ownership
+### Transfer Namespace Ownership
 
-```bash
-# Transfer world ownership
-sozo auth transfer-ownership NEW_OWNER_ADDRESS --world WORLD_ADDRESS
+```cairo
+fn transfer_ownership(ref self: ContractState, new_owner: ContractAddress) {
+    let mut world = self.world_default();
+
+    // Grant owner to new address
+    world.grant_owner(selector_from_tag!("my_game"), new_owner);
+
+    // Revoke from current owner
+    world.revoke_owner(selector_from_tag!("my_game"), get_caller_address());
+}
 ```
 
 ## Troubleshooting
 
 ### "Not authorized" errors
-- Check writer permissions granted
-- Verify system address is correct
-- Ensure caller has required permission
-
-### "Resource not found"
-- Verify resource is registered
-- Check namespace is correct
-- Ensure resource is deployed
+- Check writer permissions are granted
+- Verify the system address is correct
+- Check if permission is at namespace or resource level
 
 ### "Permission denied"
-- Check owner permissions
-- Verify transaction from correct account
-- Ensure not trying to grant higher than owned
+- Check you have owner permission to grant/revoke
+- Verify you're calling from the correct account
+
+### Debugging Permissions
+
+```cairo
+fn debug_permissions(world: @WorldStorage, resource: felt252, address: ContractAddress) {
+    let is_owner = world.is_owner(resource, address);
+    let is_writer = world.is_writer(resource, address);
+
+    // Log or print these values for debugging
+}
+```
 
 ## Next Steps
 
-After world setup:
-1. Test all permission checks
-2. Document permission structure
+After permission setup:
+1. Test all permission checks work correctly
+2. Document the permission structure
 3. Set up monitoring for permission changes
-4. Configure client with appropriate accounts
+4. Consider using a multi-sig for production owner accounts
 
 ## Related Skills
 
 - **dojo-deploy**: Deploy world first
 - **dojo-system**: Add authorization to systems
+- **dojo-config**: Configure permissions in profile
 - **dojo-review**: Audit permission setup
-- **dojo-migrate**: Update permissions after changes

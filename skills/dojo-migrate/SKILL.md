@@ -23,7 +23,6 @@ Manages migration workflows:
 - Execute migrations
 - Handle breaking changes
 - Upgrade Dojo versions
-- Rollback if needed
 
 ## Quick Start
 
@@ -34,52 +33,39 @@ Manages migration workflows:
 
 **Version upgrade:**
 ```
-"Upgrade my project to Dojo v1.1.0"
-```
-
-**Breaking changes:**
-```
-"Help me handle breaking changes in my models"
+"Upgrade my project to Dojo v1.8.0"
 ```
 
 ## Migration Workflow
 
-### 1. Analyze Changes
+### 1. Inspect Changes
 
-**Check diff:**
 ```bash
-sozo migrate --diff
+sozo inspect
 ```
 
 Shows:
 - New models
 - Modified models
-- New systems
+- New systems/contracts
 - Modified systems
-- Removed items
+- Status of all resources
 
-### 2. Plan Migration
+### 2. Build and Test
 
-**Review changes:**
-- Breaking: Model key changes, field removals
-- Safe: New models, new systems, field additions
-- Risky: Field type changes, system logic changes
-
-**Strategy:**
-- Safe changes: Direct migration
-- Breaking changes: Data migration needed
-- Major changes: Consider new world
+```bash
+sozo build
+sozo test
+```
 
 ### 3. Execute Migration
 
-**Apply changes:**
 ```bash
-sozo migrate --world WORLD_ADDRESS
-```
+# Deploy with default dev profile
+sozo migrate
 
-**With specific profile:**
-```bash
-sozo migrate --world WORLD_ADDRESS --profile sepolia
+# Deploy with specific profile
+sozo migrate --profile sepolia
 ```
 
 ## Migration Types
@@ -109,19 +95,12 @@ pub mod new_system {
 
 **Adding model field:**
 ```cairo
-// Old
+// Adding field - existing data will have default (zero) value
 struct Position {
     #[key] player: ContractAddress,
     x: u32,
     y: u32,
-}
-
-// New - adding field (careful!)
-struct Position {
-    #[key] player: ContractAddress,
-    x: u32,
-    y: u32,
-    z: u32,  // New field - existing data needs handling
+    z: u32,  // New field
 }
 ```
 
@@ -135,9 +114,9 @@ struct Position {
     x: u32, y: u32,
 }
 
-// New - BREAKING! Cannot migrate
+// New - BREAKING! Different key structure
 struct Position {
-    #[key] entity_id: u32,  // Different key type
+    #[key] entity_id: u32,  // Changed key
     x: u32, y: u32,
 }
 ```
@@ -180,43 +159,20 @@ struct Position {
 
 ### Option 1: New World
 
-Deploy fresh world with new schema:
+Deploy fresh world with different seed:
+```toml
+# dojo_dev.toml
+[world]
+seed = "my_game_v2"  # Different seed = new world address
+```
+
 ```bash
-# Deploy new world with different name
-sozo migrate --name my_game_v2
+sozo build && sozo migrate
 ```
 
-**Pros:**
-- Clean slate
-- No data migration complexity
+### Option 2: Parallel Models
 
-**Cons:**
-- Lose existing data
-- Users must migrate
-
-### Option 2: Data Migration
-
-Migrate data from old to new:
-```cairo
-// Migration system
-#[dojo::contract]
-pub mod migrator {
-    fn migrate_positions(ref self: ContractState) {
-        // Read old format
-        let old_pos = world.read_model_old(player);
-
-        // Transform to new format
-        let new_pos = transform(old_pos);
-
-        // Write new format
-        world.write_model(@new_pos);
-    }
-}
-```
-
-### Option 3: Parallel Models
-
-Keep both old and new:
+Keep both old and new versions:
 ```cairo
 // Keep old model
 #[derive(Copy, Drop, Serde)]
@@ -235,71 +191,64 @@ pub struct PositionV2 {
 }
 ```
 
+### Option 3: Data Migration System
+
+Create a migration system to transform data:
+```cairo
+#[dojo::contract]
+pub mod migrator {
+    fn migrate_positions(ref self: ContractState, players: Array<ContractAddress>) {
+        let mut world = self.world_default();
+
+        for player in players {
+            // Read old format
+            let old_pos: PositionV1 = world.read_model(player);
+
+            // Transform to new format
+            let new_pos = PositionV2 {
+                entity_id: world.uuid(),
+                x: old_pos.x,
+                y: old_pos.y,
+                z: 0,
+            };
+
+            // Write new format
+            world.write_model(@new_pos);
+        }
+    }
+}
+```
+
 ## Version Upgrades
 
-### Patch Versions (v1.0.0 → v1.0.1)
+### Update Dojo Version
 
-Usually safe:
+1. Update `Scarb.toml`:
 ```toml
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.1" }
+dojo = "1.8.0"
+
+[dev-dependencies]
+dojo_cairo_test = "1.8.0"
 ```
 
+2. Review changelog for breaking changes
+
+3. Build and test:
 ```bash
-scarb update
 sozo build
 sozo test
-sozo migrate --world WORLD_ADDRESS
 ```
 
-### Minor Versions (v1.0.0 → v1.1.0)
-
-Check changelog for:
-- New features
-- Deprecations
-- API changes
-
+4. Migrate:
 ```bash
-# Update dependency
-# Update Scarb.toml
-
-# Rebuild
-sozo build
-
-# Test thoroughly
-sozo test
-
-# Migrate
-sozo migrate --world WORLD_ADDRESS
-```
-
-### Major Versions (v1.0.0 → v2.0.0)
-
-Breaking changes likely:
-- Read migration guide
-- Update all breaking changes
-- Test extensively
-- Consider new world deployment
-
-```bash
-# Read CHANGELOG.md and migration guide
-
-# Update code for breaking changes
-# Update Scarb.toml
-
-# Build and test
-sozo build
-sozo test
-
-# Deploy new world or migrate carefully
-sozo migrate --name my_game_v2
+sozo migrate
 ```
 
 ## Migration Checklist
 
 ### Pre-Migration
-- [ ] Backup world address and manifest
-- [ ] Review migration diff (`sozo migrate --diff`)
+- [ ] Review changes with `sozo inspect`
 - [ ] Test changes locally on Katana
 - [ ] Identify breaking changes
 - [ ] Plan data migration if needed
@@ -308,34 +257,35 @@ sozo migrate --name my_game_v2
 ### Migration
 - [ ] Build succeeds (`sozo build`)
 - [ ] Tests pass (`sozo test`)
-- [ ] Migration executes (`sozo migrate --world ADDR`)
-- [ ] Verify new models/systems
+- [ ] Migration executes (`sozo migrate`)
+- [ ] Verify new models/systems work
 - [ ] Check existing data integrity
-- [ ] Update client with new ABI
 
 ### Post-Migration
 - [ ] Test all systems still work
-- [ ] Verify client integration
 - [ ] Update Torii indexer if needed
+- [ ] Regenerate client bindings
+- [ ] Update client integration
 - [ ] Monitor for issues
-- [ ] Document changes
 
 ## Common Scenarios
 
 ### Adding a New Model
+
 ```bash
 # 1. Add model to code
 # 2. Build
 sozo build
 
 # 3. Migrate
-sozo migrate --world WORLD_ADDRESS
+sozo migrate
 
 # 4. Verify
-sozo model get NewModel KEY
+sozo inspect
 ```
 
 ### Updating System Logic
+
 ```bash
 # 1. Update system code
 # 2. Build and test
@@ -343,94 +293,34 @@ sozo build
 sozo test
 
 # 3. Migrate (redeploys system)
-sozo migrate --world WORLD_ADDRESS
+sozo migrate
 
 # 4. Test updated system
-sozo execute actions updated_function
+sozo execute my_game-actions spawn
 ```
-
-### Adding Model Field
-```bash
-# 1. Add field to model
-# 2. Handle existing data:
-#    - New field will be zero/default for existing entities
-#    - May need migration system to populate
-
-# 3. Build and migrate
-sozo build
-sozo migrate --world WORLD_ADDRESS
-```
-
-## Rollback Strategies
-
-### Revert Code Changes
-```bash
-# Revert to previous commit
-git revert HEAD
-
-# Rebuild and migrate
-sozo build
-sozo migrate --world WORLD_ADDRESS
-```
-
-### Deploy Previous Version
-```bash
-# Switch to previous tag
-git checkout v1.0.0
-
-# Redeploy
-sozo build
-sozo migrate --world WORLD_ADDRESS
-```
-
-### Keep Both Versions
-```bash
-# Deploy new world with new name
-sozo migrate --name my_game_legacy  # Old version
-sozo migrate --name my_game_v2      # New version
-
-# Run both in parallel during transition
-```
-
-## Best Practices
-
-- Always test migrations on Katana first
-- Then test on testnet before mainnet
-- Keep manifest backups
-- Document breaking changes
-- Version your worlds (my_game_v1, my_game_v2)
-- Plan data migration for breaking changes
-- Monitor after migration
-- Keep rollback plan ready
 
 ## Troubleshooting
 
 ### "Class hash not found"
 - Run `sozo build` first
-- Check Scarb.toml is correct
-- Verify world address
+- Check Scarb.toml version compatibility
+- Clear `target/` directory and rebuild
 
 ### "Model already exists"
-- Model cannot be removed from world
-- Can only add or upgrade
-- Use new model name if needed
+- Models cannot be removed from world
+- Use versioned model names if structure changes
+- Consider deploying new world
 
 ### "Migration failed"
-- Check account has funds
-- Verify world address
-- Check for breaking changes
-- Review diff output
-
-### "Data corrupted after migration"
-- Breaking change likely occurred
-- May need data migration system
-- Consider rolling back
+- Check account has funds for gas
+- Verify profile configuration
+- Review `sozo inspect` output
 
 ## Next Steps
 
 After migration:
 1. Test all functionality
-2. Update client with new ABIs (`dojo-client` skill)
+2. Update client bindings (`sozo build --typescript`)
 3. Update Torii if model changes (`dojo-indexer` skill)
 4. Monitor world for issues
 

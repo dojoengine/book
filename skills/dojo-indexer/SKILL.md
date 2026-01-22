@@ -20,26 +20,24 @@ Set up and use Torii, the Dojo indexer, for efficient querying and real-time sub
 Manages Torii indexer:
 - Start and configure Torii
 - Create GraphQL queries
-- Set up gRPC subscriptions
-- Use SQL access patterns
-- Handle custom indexing
-- Optimize query performance
+- Set up real-time subscriptions
+- Access SQL database directly
 
 ## Quick Start
 
 **Start Torii:**
-```
-"Start Torii indexer for my deployed world"
-```
-
-**GraphQL queries:**
-```
-"Create GraphQL query for all player positions"
+```bash
+torii --world <WORLD_ADDRESS>
 ```
 
-**Subscriptions:**
-```
-"Set up real-time subscriptions for entity updates"
+This starts Torii with default settings:
+- GraphQL API at `http://localhost:8080/graphql`
+- gRPC API at `http://localhost:8080`
+- In-memory database (for development)
+
+**Production configuration:**
+```bash
+torii --world <WORLD_ADDRESS> --db-dir ./torii-db
 ```
 
 ## What is Torii?
@@ -50,114 +48,63 @@ Torii is the Dojo indexer that:
 - Provides GraphQL API for queries
 - Provides gRPC API for subscriptions
 - Offers SQL access for complex queries
-- Caches data for fast access
 
 **Why use Torii:**
-- ✓ Faster than direct RPC queries
-- ✓ Complex queries (filters, joins, pagination)
-- ✓ Real-time subscriptions
-- ✓ SQL access for analytics
-- ✓ Caching for performance
-
-## Starting Torii
-
-### Basic Usage
-
-```bash
-torii \
-    --world WORLD_ADDRESS \
-    --rpc http://localhost:5050
-```
-
-### With All Options
-
-```bash
-torii \
-    --world 0xabc... \
-    --rpc http://localhost:5050 \
-    --database torii.db \
-    --indexing-from-block 0 \
-    --allowed-origins "*"
-```
-
-### Configuration Options
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| `--world` | World contract address | Required |
-| `--rpc` | RPC endpoint URL | Required |
-| `--database` | SQLite database path | `torii.db` |
-| `--indexing-from-block` | Start block | `0` |
-| `--allowed-origins` | CORS origins | `*` |
-| `--graphql-port` | GraphQL port | `8080` |
-| `--grpc-port` | gRPC port | `8081` |
+- Faster than direct RPC queries
+- Complex queries (filters, pagination)
+- Real-time subscriptions
+- Type-safe GraphQL schema
 
 ## GraphQL API
 
 Torii provides GraphQL endpoint at `http://localhost:8080/graphql`
+
+Use the GraphiQL IDE in your browser to explore the schema and test queries.
+
+### Schema Structure
+
+Torii generates two types of queries:
+
+**Generic Queries:**
+- `entities` - Access all entities with filtering
+- `models` - Retrieve model definitions
+- `transactions` - Query indexed transactions
+
+**Model-Specific Queries:**
+- `{modelName}Models` - Custom queries for each model
+- Example: `positionModels`, `movesModels`
 
 ### Basic Queries
 
 **Get all entities of a model:**
 ```graphql
 query {
-  positions {
-    edges {
-      node {
-        player
-        x
-        y
-      }
+    movesModels {
+        edges {
+            node {
+                player
+                remaining
+                last_direction
+            }
+        }
     }
-  }
 }
 ```
 
-**Get single entity:**
+**Get model metadata:**
 ```graphql
 query {
-  position(id: "0x123") {
-    player
-    x
-    y
-  }
-}
-```
-
-### Filtering
-
-**Filter by field value:**
-```graphql
-query {
-  positions(where: { x: { eq: 10 } }) {
-    edges {
-      node {
-        player
-        x
-        y
-      }
+    models {
+        edges {
+            node {
+                id
+                name
+                classHash
+                contractAddress
+            }
+        }
+        totalCount
     }
-  }
-}
-```
-
-**Multiple conditions:**
-```graphql
-query {
-  positions(
-    where: {
-      x: { gte: 10, lte: 20 }
-      y: { eq: 5 }
-    }
-  ) {
-    edges {
-      node {
-        player
-        x
-        y
-      }
-    }
-  }
 }
 ```
 
@@ -166,167 +113,117 @@ query {
 **Cursor-based pagination:**
 ```graphql
 query {
-  positions(first: 10, after: "cursor_value") {
-    edges {
-      node {
-        player
-        x
-        y
-      }
-      cursor
+    entities(first: 10) {
+        edges {
+            cursor
+            node {
+                id
+            }
+        }
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
     }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-  }
 }
 ```
 
-### Sorting
-
+**Get next page:**
 ```graphql
 query {
-  positions(orderBy: { x: ASC }, first: 10) {
-    edges {
-      node {
-        player
-        x
-        y
-      }
+    entities(first: 10, after: "cursor_value") {
+        edges {
+            cursor
+            node { id }
+        }
     }
-  }
 }
 ```
 
-### Relationships
-
-**Query related entities:**
+**Offset/limit pagination:**
 ```graphql
 query {
-  players {
-    edges {
-      node {
-        address
-        position {
-          x
-          y
+    entities(offset: 20, limit: 10) {
+        edges {
+            node { id }
         }
-        health {
-          current
-          max
-        }
-        inventory {
-          gold
-          items
-        }
-      }
+        totalCount
     }
-  }
 }
 ```
 
-## gRPC Subscriptions
+## Real-time Subscriptions
 
-Real-time updates via gRPC at `grpc://localhost:8081`
+Subscribe to world state changes via WebSocket.
 
-### Entity Subscriptions
+### Entity Updates
 
-Subscribe to specific entity changes:
-```typescript
-import { createClient } from '@dojoengine/torii-client';
-
-const client = await createClient({
-    rpcUrl: "http://localhost:5050",
-    toriiUrl: "http://localhost:8080",
-    worldAddress: WORLD_ADDRESS,
-});
-
-// Subscribe to Position changes
-await client.onEntityUpdated(
-    [{ model: "Position", keys: [playerId] }],
-    (entity) => {
-        console.log("Position updated:", entity);
+```graphql
+subscription {
+    entityUpdated(id: "0x54f58...") {
+        id
+        updatedAt
+        models {
+            __typename
+            ... on Position {
+                vec {
+                    x
+                    y
+                }
+            }
+            ... on Moves {
+                remaining
+            }
+        }
     }
-);
+}
 ```
 
-### Model Subscriptions
+### Event Stream
 
-Subscribe to all entities of a model:
-```typescript
-// Subscribe to all Position updates
-await client.onModelUpdated(
-    "Position",
-    (entities) => {
-        console.log("Positions updated:", entities);
+Monitor all world events:
+
+```graphql
+subscription {
+    eventEmitted {
+        id
+        keys
+        data
+        transactionHash
     }
-);
+}
 ```
 
-### Event Subscriptions
+### Model Registration
 
-Subscribe to world events:
-```typescript
-await client.onEventEmitted(
-    "Moved",
-    (event) => {
-        console.log("Player moved:", event);
+Listen for new model registrations:
+
+```graphql
+subscription {
+    modelRegistered {
+        id
+        name
+        namespace
     }
-);
+}
 ```
 
 ## SQL Access
 
 Torii stores data in SQLite, accessible for complex queries.
 
-### Connection
-
+**Connect to database:**
 ```bash
 sqlite3 torii.db
 ```
 
-### Schema
-
-Torii creates tables for each model:
+**Example queries:**
 ```sql
--- Position model table
-CREATE TABLE position (
-    id TEXT PRIMARY KEY,
-    player TEXT NOT NULL,
-    x INTEGER NOT NULL,
-    y INTEGER NOT NULL,
-    updated_at INTEGER NOT NULL
-);
-```
+-- Count entities
+SELECT COUNT(*) FROM entities;
 
-### Complex Queries
-
-**Spatial queries:**
-```sql
-SELECT * FROM position
-WHERE x BETWEEN 10 AND 20
-  AND y BETWEEN 5 AND 15;
-```
-
-**Aggregations:**
-```sql
-SELECT
-    AVG(health.current) as avg_health,
-    COUNT(*) as player_count
-FROM health;
-```
-
-**Joins:**
-```sql
-SELECT
-    p.player,
-    p.x,
-    p.y,
-    h.current as health
-FROM position p
-JOIN health h ON p.player = h.player
-WHERE h.current < 50;
+-- Custom aggregations
+SELECT AVG(value) FROM model_data WHERE model_name = 'Health';
 ```
 
 ## Client Integration
@@ -345,18 +242,17 @@ const client = await createClient({
 // Query entities
 const positions = await client.getEntities({
     model: "Position",
-    where: { x: { $gte: 10 } },
     limit: 10
 });
 
 // Subscribe to updates
 await client.onEntityUpdated(
     [{ model: "Position", keys: [playerId] }],
-    (entity) => updateUI(entity)
+    (entity) => console.log("Position updated:", entity)
 );
 ```
 
-### GraphQL Client (Apollo)
+### Apollo Client (GraphQL)
 
 ```typescript
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
@@ -366,16 +262,14 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
 });
 
-// Query
 const { data } = await client.query({
     query: gql`
-        query GetPositions {
-            positions(where: { x: { gte: 10 } }) {
+        query GetMoves {
+            movesModels {
                 edges {
                     node {
                         player
-                        x
-                        y
+                        remaining
                     }
                 }
             }
@@ -384,123 +278,30 @@ const { data } = await client.query({
 });
 ```
 
-## Performance Optimization
+## Configuration Options
 
-### Indexing Strategies
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--world` | World contract address | Required |
+| `--rpc` | RPC endpoint URL | `http://localhost:5050` |
+| `--db-dir` | Database directory | In-memory |
+| `--http.cors_origins` | CORS origins | `*` |
 
-**Index from specific block:**
+## Development Workflow
+
+**Terminal 1: Start Katana**
 ```bash
-# Skip early blocks with no data
-torii --indexing-from-block 1000 ...
+katana --dev --dev.no-fee
 ```
 
-**Selective model indexing:**
-Configure in `torii.toml`:
-```toml
-[indexing]
-models = ["Position", "Health"]  # Only index these models
-```
-
-### Query Optimization
-
-**Use pagination:**
-```graphql
-query {
-  positions(first: 50) {  # Limit results
-    edges {
-      node { player x y }
-      cursor
-    }
-  }
-}
-```
-
-**Filter early:**
-```graphql
-query {
-  # ✅ Filter in query
-  positions(where: { x: { gte: 10 } }) {
-    edges { node { player x y } }
-  }
-}
-
-# ❌ Don't fetch all then filter client-side
-```
-
-**Select only needed fields:**
-```graphql
-query {
-  positions {
-    edges {
-      node {
-        x y  # Only fields needed
-      }
-    }
-  }
-}
-```
-
-## Deployment Patterns
-
-### Development Setup
-
+**Terminal 2: Deploy world**
 ```bash
-# Terminal 1: Katana
-katana --dev
-
-# Terminal 2: Deploy world
-sozo migrate
-
-# Terminal 3: Torii
-torii --world WORLD_ADDRESS --rpc http://localhost:5050
+sozo build && sozo migrate
 ```
 
-### Production Setup
-
+**Terminal 3: Start Torii**
 ```bash
-# Use production RPC
-torii \
-    --world 0xabc... \
-    --rpc https://api.cartridge.gg/x/starknet/mainnet \
-    --database /data/torii.db \
-    --allowed-origins "https://mygame.com"
-```
-
-### Docker Deployment
-
-```dockerfile
-FROM ghcr.io/dojoengine/torii:latest
-
-CMD ["torii", \
-     "--world", "${WORLD_ADDRESS}", \
-     "--rpc", "${RPC_URL}", \
-     "--database", "/data/torii.db"]
-```
-
-## Monitoring
-
-### Health Check
-
-```bash
-curl http://localhost:8080/health
-```
-
-### Indexing Status
-
-```graphql
-query {
-  indexingStatus {
-    currentBlock
-    latestBlock
-    synced
-  }
-}
-```
-
-### Database Size
-
-```bash
-du -h torii.db
+torii --world <WORLD_ADDRESS> --http.cors_origins "*"
 ```
 
 ## Troubleshooting
@@ -512,31 +313,13 @@ du -h torii.db
 
 ### "World not found"
 - Verify world address is correct
-- Check RPC URL is correct
-- Ensure world is deployed on that network
+- Check RPC URL is accessible
+- Ensure world is deployed
 
 ### "Slow queries"
-- Add database indexes
+- Use model-specific queries instead of generic `entities`
 - Use pagination
-- Filter results early
-- Reduce field selection
-
-### "Out of sync"
-- Check RPC connection
-- Restart Torii
-- Verify starting block
-- Check database isn't corrupted
-
-## Best Practices
-
-- Start Torii immediately after world deployment
-- Use GraphQL for complex queries
-- Use gRPC for real-time updates
-- Don't query RPC directly from clients
-- Monitor indexing lag
-- Backup database regularly
-- Use appropriate pagination
-- Filter queries server-side
+- Request only needed fields
 
 ## Next Steps
 
@@ -545,7 +328,6 @@ After Torii setup:
 2. Create optimized queries
 3. Set up subscriptions
 4. Monitor performance
-5. Scale horizontally if needed
 
 ## Related Skills
 
