@@ -23,24 +23,6 @@ Implements token standards:
 - Token minting and burning
 - Transfer mechanics
 - Balance tracking
-- Integration with Origami library
-
-## Quick Start
-
-**ERC20 (fungible):**
-```
-"Implement ERC20 token for gold currency"
-```
-
-**ERC721 (NFT):**
-```
-"Create ERC721 for equipment items"
-```
-
-**With Origami:**
-```
-"Use Origami library to add token support"
-```
 
 ## Token Standards
 
@@ -50,7 +32,6 @@ For interchangeable assets:
 - Game currency (gold, gems)
 - Resources (wood, stone)
 - Experience points
-- Reputation/score
 
 **Properties:**
 - Divisible (can have fractions)
@@ -80,24 +61,16 @@ Add to `Scarb.toml`:
 origami_token = { git = "https://github.com/dojoengine/origami", tag = "v1.0.0" }
 ```
 
-### Origami Components
+Origami provides reusable token components following standard interfaces.
+Refer to the [Origami documentation](https://github.com/dojoengine/origami) for the latest API.
 
-Origami provides reusable token components:
-- `Balance` - Token balances
-- `ERC20Allowance` - Spending approvals
-- `ERC20Metadata` - Token info
-- `ERC721Owner` - NFT ownership
-- `ERC721TokenApproval` - NFT approvals
+## Simple Token Implementation
 
-## ERC20 Implementation
+You can implement tokens using standard Dojo models without Origami:
 
-### Basic ERC20 Model
+### ERC20-like Currency
 
 ```cairo
-use origami_token::components::token::erc20::erc20_balance::{
-    ERC20Balance, ERC20BalanceTrait
-};
-
 #[derive(Copy, Drop, Serde)]
 #[dojo::model]
 pub struct Gold {
@@ -105,68 +78,44 @@ pub struct Gold {
     pub player: ContractAddress,
     pub amount: u256,
 }
-```
 
-### ERC20 System
-
-```cairo
-use dojo::model::{ModelStorage, ModelValueStorage};
-use origami_token::components::token::erc20::erc20_balance::ERC20Balance;
-
-#[dojo::interface]
-trait IGoldToken {
-    fn mint(ref self: ContractState, to: ContractAddress, amount: u256);
-    fn transfer(ref self: ContractState, to: ContractAddress, amount: u256);
-    fn balance_of(self: @ContractState, account: ContractAddress) -> u256;
+#[starknet::interface]
+trait IGoldToken<T> {
+    fn mint(ref self: T, to: ContractAddress, amount: u256);
+    fn transfer(ref self: T, to: ContractAddress, amount: u256);
+    fn balance_of(self: @T, account: ContractAddress) -> u256;
 }
 
 #[dojo::contract]
 mod gold_token {
-    use super::IGoldToken;
+    use super::{IGoldToken, Gold};
+    use starknet::{ContractAddress, get_caller_address};
+    use dojo::model::ModelStorage;
 
     #[abi(embed_v0)]
     impl GoldTokenImpl of IGoldToken<ContractState> {
         fn mint(ref self: ContractState, to: ContractAddress, amount: u256) {
             let mut world = self.world_default();
 
-            // Get current balance
             let mut balance: Gold = world.read_model(to);
-
-            // Add amount
             balance.amount += amount;
-
-            // Save
             world.write_model(@balance);
-
-            // Emit event
-            world.emit_event(@TokenMinted { to, amount });
         }
 
-        fn transfer(
-            ref self: ContractState,
-            to: ContractAddress,
-            amount: u256
-        ) {
+        fn transfer(ref self: ContractState, to: ContractAddress, amount: u256) {
             let mut world = self.world_default();
             let from = get_caller_address();
 
-            // Get balances
             let mut from_balance: Gold = world.read_model(from);
             let mut to_balance: Gold = world.read_model(to);
 
-            // Check sufficient balance
             assert(from_balance.amount >= amount, 'insufficient balance');
 
-            // Transfer
             from_balance.amount -= amount;
             to_balance.amount += amount;
 
-            // Save
             world.write_model(@from_balance);
             world.write_model(@to_balance);
-
-            // Emit event
-            world.emit_event(@TokenTransferred { from, to, amount });
         }
 
         fn balance_of(self: @ContractState, account: ContractAddress) -> u256 {
@@ -175,39 +124,17 @@ mod gold_token {
             balance.amount
         }
     }
-}
-```
 
-### ERC20 With Origami
-
-Using Origami components:
-```cairo
-use origami_token::components::token::erc20::erc20_balance::{
-    ERC20Balance, ERC20BalanceTrait
-};
-
-#[dojo::contract]
-mod gold_token {
-    fn transfer(ref self: ContractState, to: ContractAddress, amount: u256) {
-        let mut world = self.world_default();
-        let from = get_caller_address();
-
-        // Use Origami trait
-        let mut from_balance: ERC20Balance = world.read_model(from);
-        let mut to_balance: ERC20Balance = world.read_model(to);
-
-        // Origami provides safe transfer
-        from_balance.transfer(ref to_balance, amount);
-
-        world.write_model(@from_balance);
-        world.write_model(@to_balance);
+    #[generate_trait]
+    impl InternalImpl of InternalTrait {
+        fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
+            self.world(@"my_game")
+        }
     }
 }
 ```
 
-## ERC721 Implementation
-
-### Basic ERC721 Model
+### ERC721-like NFT
 
 ```cairo
 #[derive(Copy, Drop, Serde)]
@@ -219,43 +146,35 @@ pub struct Weapon {
     pub damage: u32,
     pub rarity: u8,
 }
-```
 
-### ERC721 System
-
-```cairo
-#[dojo::interface]
-trait IWeaponNFT {
-    fn mint(ref self: ContractState, to: ContractAddress, damage: u32) -> u256;
-    fn transfer(ref self: ContractState, to: ContractAddress, token_id: u256);
-    fn owner_of(self: @ContractState, token_id: u256) -> ContractAddress;
+#[starknet::interface]
+trait IWeaponNFT<T> {
+    fn mint(ref self: T, to: ContractAddress, damage: u32) -> u256;
+    fn transfer(ref self: T, to: ContractAddress, token_id: u256);
+    fn owner_of(self: @T, token_id: u256) -> ContractAddress;
 }
 
 #[dojo::contract]
 mod weapon_nft {
-    use super::IWeaponNFT;
+    use super::{IWeaponNFT, Weapon};
+    use starknet::{ContractAddress, get_caller_address};
+    use dojo::model::ModelStorage;
 
     #[abi(embed_v0)]
     impl WeaponNFTImpl of IWeaponNFT<ContractState> {
         fn mint(ref self: ContractState, to: ContractAddress, damage: u32) -> u256 {
             let mut world = self.world_default();
 
-            // Generate unique token ID
             let token_id: u256 = world.uuid().into();
 
-            // Create NFT
             let weapon = Weapon {
                 token_id,
                 owner: to,
                 damage,
-                rarity: calculate_rarity(damage),
+                rarity: 1,
             };
 
             world.write_model(@weapon);
-
-            // Emit event
-            world.emit_event(@NFTMinted { to, token_id });
-
             token_id
         }
 
@@ -263,18 +182,11 @@ mod weapon_nft {
             let mut world = self.world_default();
             let from = get_caller_address();
 
-            // Get NFT
             let mut weapon: Weapon = world.read_model(token_id);
-
-            // Check ownership
             assert(weapon.owner == from, 'not owner');
 
-            // Transfer
             weapon.owner = to;
             world.write_model(@weapon);
-
-            // Emit event
-            world.emit_event(@NFTTransferred { from, to, token_id });
         }
 
         fn owner_of(self: @ContractState, token_id: u256) -> ContractAddress {
@@ -283,95 +195,68 @@ mod weapon_nft {
             weapon.owner
         }
     }
+
+    #[generate_trait]
+    impl InternalImpl of InternalTrait {
+        fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
+            self.world(@"my_game")
+        }
+    }
 }
 ```
 
-## Token Patterns
+## Game Patterns
 
-### In-Game Currency (ERC20)
+### In-Game Currency
 
 ```cairo
-// Gold token model
-#[derive(Copy, Drop, Serde)]
-#[dojo::model]
-pub struct Gold {
-    #[key]
-    pub player: ContractAddress,
-    pub amount: u256,
-}
-
 // Award gold for completing quest
-fn complete_quest(ref self: ContractState, player: ContractAddress) {
+fn complete_quest(ref self: ContractState, quest_id: u32) {
     let mut world = self.world_default();
+    let player = get_caller_address();
 
-    // Get current gold
+    // Check quest is completed
+    // ...
+
+    // Award gold
     let mut gold: Gold = world.read_model(player);
-
-    // Award 100 gold
     gold.amount += 100;
-
     world.write_model(@gold);
 }
 
 // Spend gold to buy item
-fn buy_item(ref self: ContractState, item_id: u32) {
+fn buy_item(ref self: ContractState, item_id: u32, price: u256) {
     let mut world = self.world_default();
     let player = get_caller_address();
 
-    // Get gold balance
     let mut gold: Gold = world.read_model(player);
+    assert(gold.amount >= price, 'insufficient gold');
 
-    // Check price
-    let item_price = get_item_price(item_id);
-    assert(gold.amount >= item_price, 'insufficient gold');
-
-    // Deduct gold
-    gold.amount -= item_price;
+    gold.amount -= price;
     world.write_model(@gold);
 
-    // Give item
-    give_item(player, item_id);
+    // Give item to player
+    // ...
 }
 ```
 
-### Equipment NFTs (ERC721)
+### Multiple Resource Types
 
 ```cairo
-// Weapon NFT model
 #[derive(Copy, Drop, Serde)]
 #[dojo::model]
-pub struct Weapon {
+pub struct Resources {
     #[key]
-    pub token_id: u256,
-    pub owner: ContractAddress,
-    pub weapon_type: u8,  // 0=sword, 1=axe, 2=bow
-    pub damage: u32,
-    pub durability: u32,
+    pub player: ContractAddress,
+    pub wood: u256,
+    pub stone: u256,
+    pub iron: u256,
 }
+```
 
-// Craft new weapon
-fn craft_weapon(ref self: ContractState, weapon_type: u8) -> u256 {
-    let mut world = self.world_default();
-    let player = get_caller_address();
+### Equipment NFTs
 
-    // Check materials
-    require_materials(player, weapon_type);
-
-    // Create weapon NFT
-    let token_id = world.uuid().into();
-    let weapon = Weapon {
-        token_id,
-        owner: player,
-        weapon_type,
-        damage: calculate_damage(weapon_type),
-        durability: 100,
-    };
-
-    world.write_model(@weapon);
-    token_id
-}
-
-// Equip weapon
+```cairo
 fn equip_weapon(ref self: ContractState, token_id: u256) {
     let mut world = self.world_default();
     let player = get_caller_address();
@@ -387,119 +272,39 @@ fn equip_weapon(ref self: ContractState, token_id: u256) {
 }
 ```
 
-### Resource Tokens (ERC20)
-
-```cairo
-// Multiple resource types
-#[derive(Copy, Drop, Serde)]
-#[dojo::model]
-pub struct Resources {
-    #[key]
-    pub player: ContractAddress,
-    pub wood: u256,
-    pub stone: u256,
-    pub iron: u256,
-}
-
-// Gather resources
-fn gather(ref self: ContractState, resource_type: u8) {
-    let mut world = self.world_default();
-    let player = get_caller_address();
-
-    let mut resources: Resources = world.read_model(player);
-
-    match resource_type {
-        0 => resources.wood += 10,
-        1 => resources.stone += 10,
-        2 => resources.iron += 5,
-        _ => panic!("invalid resource"),
-    }
-
-    world.write_model(@resources);
-}
-```
-
 ## Token Events
 
 ```cairo
 #[derive(Copy, Drop, Serde)]
 #[dojo::event]
-pub struct TokenMinted {
-    pub to: ContractAddress,
-    pub amount: u256,
-}
-
-#[derive(Copy, Drop, Serde)]
-#[dojo::event]
 pub struct TokenTransferred {
+    #[key]
     pub from: ContractAddress,
+    #[key]
     pub to: ContractAddress,
     pub amount: u256,
-}
-
-#[derive(Copy, Drop, Serde)]
-#[dojo::event]
-pub struct NFTMinted {
-    pub to: ContractAddress,
-    pub token_id: u256,
 }
 
 #[derive(Copy, Drop, Serde)]
 #[dojo::event]
 pub struct NFTTransferred {
+    #[key]
+    pub token_id: u256,
     pub from: ContractAddress,
     pub to: ContractAddress,
-    pub token_id: u256,
 }
+
+// Emit in your functions
+world.emit_event(@TokenTransferred { from, to, amount });
 ```
 
-## Best Practices
+## Considerations
 
-- Use Origami library for standard implementations
-- Always check balances before transfers
-- Emit events for all token operations
-- Use u256 for token amounts (large numbers)
-- Check ownership before NFT operations
-- Consider approval mechanics for trading
-- Test with edge cases (zero amounts, non-existent tokens)
-
-## Testing Tokens
-
-```cairo
-#[test]
-fn test_gold_transfer() {
-    let mut world = spawn_test_world(...);
-
-    // Mint gold to player1
-    gold_token.mint(player1, 100);
-
-    // Transfer to player2
-    prank(world, player1);
-    gold_token.transfer(player2, 50);
-
-    // Check balances
-    assert(gold_token.balance_of(player1) == 50, 'wrong sender balance');
-    assert(gold_token.balance_of(player2) == 50, 'wrong receiver balance');
-}
-
-#[test]
-fn test_weapon_nft() {
-    let mut world = spawn_test_world(...);
-
-    // Mint weapon to player1
-    let token_id = weapon_nft.mint(player1, 50);
-
-    // Check ownership
-    assert(weapon_nft.owner_of(token_id) == player1, 'wrong owner');
-
-    // Transfer to player2
-    prank(world, player1);
-    weapon_nft.transfer(player2, token_id);
-
-    // Check new owner
-    assert(weapon_nft.owner_of(token_id) == player2, 'transfer failed');
-}
-```
+- **Balance checks**: Always verify sufficient balance before transfers
+- **Ownership**: Always verify ownership before NFT operations
+- **Overflow**: Use u256 for token amounts to avoid overflow
+- **Events**: Emit events for all token operations for indexing
+- **Permissions**: Grant writer permission to token contracts
 
 ## Next Steps
 

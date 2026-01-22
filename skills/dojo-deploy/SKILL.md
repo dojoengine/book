@@ -47,18 +47,27 @@ Handles deployment workflows:
 
 **Start Katana:**
 ```bash
-katana --dev --dev.accounts 10
+katana --dev --dev.no-fee
 ```
 
-**Deploy world:**
+This launches Katana with:
+- RPC server at `http://localhost:5050`
+- 10 pre-funded accounts
+- Instant block mining
+- Gas fees disabled
+
+**Build and deploy:**
 ```bash
-sozo migrate --name my_game
+sozo build && sozo migrate
 ```
 
 **Verify:**
 ```bash
-# Check manifest for addresses
-cat target/dev/manifest.json
+# Preview deployment
+sozo inspect
+
+# Execute a system
+sozo execute dojo_starter-actions spawn
 ```
 
 ### 2. Testnet Deployment (Sepolia)
@@ -66,14 +75,25 @@ cat target/dev/manifest.json
 **Configure profile:**
 ```toml
 # dojo_sepolia.toml
+[world]
+name = "My Game"
+seed = "my-game-sepolia"
+
 [env]
 rpc_url = "https://api.cartridge.gg/x/starknet/sepolia"
 account_address = "YOUR_ACCOUNT"
 private_key = "YOUR_KEY"
+
+[namespace]
+default = "my_game"
+
+[writers]
+"my_game" = ["my_game-actions"]
 ```
 
 **Deploy:**
 ```bash
+sozo build --profile sepolia
 sozo migrate --profile sepolia
 ```
 
@@ -82,104 +102,100 @@ sozo migrate --profile sepolia
 **Configure profile:**
 ```toml
 # dojo_mainnet.toml
+[world]
+name = "My Game"
+seed = "my-game-mainnet"
+
 [env]
 rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"
 account_address = "YOUR_ACCOUNT"
-private_key = "YOUR_KEY"
+keystore_path = "~/.starknet_accounts/mainnet.json"
+
+[namespace]
+default = "my_game"
+
+[writers]
+"my_game" = ["my_game-actions"]
 ```
 
 **Deploy:**
 ```bash
+sozo build --profile mainnet
 sozo migrate --profile mainnet
 ```
 
 ## Katana Configuration
 
+### Quick Start (Development)
+
+```bash
+katana --dev --dev.no-fee
+```
+
 ### Mining Modes
 
 **Instant (default):**
 ```bash
-katana --dev
+katana --dev --dev.no-fee
 ```
 Mines block immediately on transaction.
 
 **Interval:**
 ```bash
-katana --dev --block-time 6000
+katana --block-time 10000
 ```
-Mines block every 6 seconds.
+Mines block every 10 seconds.
 
-**On-demand:**
+### Persistent Storage
+
 ```bash
-katana --dev --no-mining
+katana --db-dir ./katana-db
 ```
-Manual block production.
-
-### Account Configuration
-
-**Default accounts:**
-```bash
-katana --dev --dev.accounts 10
-```
-Generates 10 pre-funded accounts.
-
-**Custom seed:**
-```bash
-katana --dev --seed 0x123
-```
-Deterministic account generation.
 
 ### Network Forking
 
-**Fork Sepolia:**
+**Fork Starknet mainnet:**
 ```bash
-katana --dev --fork https://api.cartridge.gg/x/starknet/sepolia
+katana --fork.provider https://api.cartridge.gg/x/starknet/mainnet
 ```
 
-**Fork at block:**
+**Fork at specific block:**
 ```bash
-katana --dev --fork https://... --fork-block-number 100000
+katana --fork.provider https://api.cartridge.gg/x/starknet/mainnet --fork.block 1000000
 ```
 
 ## Sozo Commands
 
 ### Build
 ```bash
-# Build project
 sozo build
+```
 
-# Build and verify
-sozo build --check
+### Inspect (Preview Deployment)
+```bash
+# See what will be deployed/changed
+sozo inspect
 ```
 
 ### Migrate (Deploy)
 ```bash
-# Deploy to default (Katana)
+# Deploy with default dev profile
 sozo migrate
 
-# Deploy with profile
+# Deploy with specific profile
 sozo migrate --profile sepolia
-
-# Deploy with name
-sozo migrate --name my_game_v2
 ```
 
-### Execute
+### Execute System
 ```bash
-# Call a system
-sozo execute SYSTEM_CONTRACT FUNCTION_NAME --calldata ARG1,ARG2
+# Call a system function
+sozo execute <CONTRACT_TAG> <FUNCTION> [ARGS...]
 
 # Example: spawn
-sozo execute actions spawn
-```
+sozo execute dojo_starter-actions spawn
 
-### Model Management
-```bash
-# Read a model
-sozo model get Position 0x123
-
-# Read with composite key
-sozo model get Tile 10,20
+# Example: move with argument
+sozo execute dojo_starter-actions move 1
 ```
 
 ## Deployment Checklist
@@ -193,64 +209,73 @@ sozo model get Tile 10,20
 
 ### Deployment
 - [ ] Build succeeds (`sozo build`)
+- [ ] Inspect looks correct (`sozo inspect`)
 - [ ] Migration succeeds (`sozo migrate`)
-- [ ] Manifest generated (check `target/*/manifest.json`)
+- [ ] Manifest generated (check `manifest_<profile>.json`)
 - [ ] World address recorded
-- [ ] Models registered (check manifest)
-- [ ] Systems deployed (check manifest)
 
 ### Post-Deployment
-- [ ] Deployment verified (read models, call systems)
+- [ ] Deployment verified (execute systems, query models)
 - [ ] Torii indexer configured (`dojo-indexer` skill)
 - [ ] Client connected (`dojo-client` skill)
-- [ ] World permissions set (`dojo-world` skill)
+- [ ] World permissions verified (`dojo-world` skill)
 
-## Common Deployment Patterns
+## Development Workflow
 
-### Development Workflow
+**Terminal 1: Start Katana**
 ```bash
-# Terminal 1: Start Katana
-katana --dev --dev.accounts 10
-
-# Terminal 2: Build and deploy
-sozo build
-sozo migrate
-
-# Terminal 3: Start Torii
-torii --world WORLD_ADDRESS --rpc http://localhost:5050
+katana --dev --dev.no-fee
 ```
 
-### Testnet Workflow
+**Terminal 2: Build and deploy**
 ```bash
-# Build
-sozo build
-
-# Deploy to Sepolia
-sozo migrate --profile sepolia
-
-# Verify
-sozo model get Position PLAYER_ADDRESS --profile sepolia
+sozo build && sozo migrate
 ```
 
-### Mainnet Workflow
+**Terminal 3: Start Torii**
 ```bash
-# Final checks
-sozo test
-sozo build --check
-
-# Deploy to mainnet
-sozo migrate --profile mainnet
-
-# Verify deployment
-sozo model get Config CONFIG_ID --profile mainnet
+torii --world <WORLD_ADDRESS>
 ```
+
+## Sample Deploy Script
+
+This skill includes `deploy_local.sh`, a template script for automated local development.
+Copy it into your project's `scripts/` directory and customize it for your needs.
+
+**Setup:**
+1. Copy the script to your project: `cp deploy_local.sh your-project/scripts/`
+2. Adjust configuration variables (profile name, URLs) as needed
+3. Make executable: `chmod +x scripts/deploy_local.sh`
+
+**Run:**
+```bash
+# Default dev profile
+./scripts/deploy_local.sh
+
+# Specific profile
+PROFILE=staging ./scripts/deploy_local.sh
+```
+
+**What it does:**
+1. Checks for required tools (katana, sozo, torii, jq)
+2. Starts Katana with health checking
+3. Builds and deploys contracts
+4. Extracts addresses from the manifest
+5. Starts Torii indexer
+6. Cleans up all services on exit (Ctrl+C)
+
+**Customization points:**
+- `PROFILE`: Default build/deploy profile
+- `RPC_URL`: Katana endpoint (default: `http://localhost:5050`)
+- `TORII_URL`: Torii endpoint (default: `http://localhost:8080`)
+- Add project-specific post-deploy steps (e.g., seeding data, running migrations)
 
 ## Manifest File
 
-After deployment, `target/*/manifest.json` contains:
+After deployment, `manifest_<profile>.json` contains:
 - World address
-- Model class hashes
-- System class hashes
+- Model addresses and class hashes
+- System/contract addresses
 - ABI information
 
 **Example:**
@@ -262,13 +287,13 @@ After deployment, `target/*/manifest.json` contains:
   },
   "models": [
     {
-      "name": "Position",
-      "class_hash": "0x..."
+      "tag": "dojo_starter-Position",
+      "address": "0x..."
     }
   ],
   "contracts": [
     {
-      "name": "actions",
+      "tag": "dojo_starter-actions",
       "address": "0x..."
     }
   ]
@@ -289,19 +314,17 @@ After deployment, `target/*/manifest.json` contains:
 
 ### "Insufficient funds"
 - Fund account with ETH/STRK for gas
-- Check gas settings in profile
-- Use `--max-fee` flag if needed
+- Use Sepolia faucet: https://faucet.starknet.io
 
-### "World already exists"
-- Use different world name/seed
-- Or plan migration to existing world
+### "Profile not found"
+- Ensure `dojo_<profile>.toml` exists
+- Check spelling matches the `--profile` flag
 
 ## Network Information
 
 ### Katana (Local)
 - RPC: `http://localhost:5050`
-- Default account: `0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca`
-- Default key: `0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a`
+- Pre-funded accounts printed on startup
 
 ### Sepolia (Testnet)
 - RPC: `https://api.cartridge.gg/x/starknet/sepolia`
@@ -311,15 +334,6 @@ After deployment, `target/*/manifest.json` contains:
 ### Mainnet
 - RPC: `https://api.cartridge.gg/x/starknet/mainnet`
 - Explorer: https://voyager.online
-
-## Best Practices
-
-- Test on Katana first, then Sepolia, then mainnet
-- Use different world names/seeds per environment
-- Keep manifest files for reference
-- Record world addresses securely
-- Verify deployments before client integration
-- Set up Torii indexer after deployment
 
 ## Next Steps
 

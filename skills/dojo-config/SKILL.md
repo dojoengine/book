@@ -18,10 +18,10 @@ Manage Dojo project configuration including Scarb.toml, deployment profiles, and
 ## What This Skill Does
 
 Manages configuration files:
-- `Scarb.toml` - Package and dependencies
+- `Scarb.toml` - Package manifest and dependencies
 - `dojo_dev.toml` - Local development profile
-- `dojo_release.toml` - Production deployment profile
-- World configuration and namespaces
+- `dojo_<profile>.toml` - Other environment profiles
+- World configuration, namespaces, and permissions
 
 ## Quick Start
 
@@ -43,237 +43,271 @@ I'll ask about:
 
 ## Configuration Files
 
-### Scarb.toml
+Dojo projects use two types of configuration files:
 
-Package manager configuration:
+### `Scarb.toml` - Project Manifest
+
+Defines project dependencies and build settings:
 
 ```toml
 [package]
-name = "my_game"
-version = "0.1.0"
+cairo-version = "2.12.2"
+name = "my-dojo-game"
+version = "1.0.0"
 edition = "2024_07"
 
+[[target.starknet-contract]]
+sierra = true
+build-external-contracts = ["dojo::world::world_contract::world"]
+
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0" }
+starknet = "2.12.2"
+dojo = "1.7.1"
 
-[[target.dojo]]
+[dev-dependencies]
+cairo_test = "2.12.2"
+dojo_cairo_test = "1.7.1"
 
-[tool.dojo]
-initializer_class_hash = "0x..."
-
-[tool.dojo.env]
-rpc_url = "http://localhost:5050/"
-account_address = "0x..."
-private_key = "0x..."
-world_address = "0x..."
+[tool.scarb]
+allow-prebuilt-plugins = ["dojo_cairo_macros"]
 ```
 
-**Key sections:**
-- `[package]` - Project metadata
-- `[dependencies]` - Dojo and library versions
-- `[[target.dojo]]` - Build target
-- `[tool.dojo]` - Dojo-specific settings
-- `[tool.dojo.env]` - Environment variables
+### `dojo_<profile>.toml` - Profile Configuration
 
-### dojo_dev.toml
+Profile-specific deployment settings.
+Dojo looks for `dojo_dev.toml` by default.
 
-Local development configuration:
+```toml
+[world]
+name = "My Game"
+description = "An awesome on-chain game"
+seed = "my-unique-seed"
+cover_uri = "file://assets/cover.png"
+icon_uri = "file://assets/icon.png"
+
+[env]
+rpc_url = "http://localhost:5050/"
+account_address = "0x127fd..."
+private_key = "0xc5b2f..."
+
+[namespace]
+default = "my_game"
+
+[writers]
+"my_game" = ["my_game-actions"]
+
+[owners]
+"my_game" = ["my_game-admin"]
+```
+
+## Profile System
+
+Dojo uses profiles to manage different environments:
+
+```bash
+# Use default 'dev' profile (dojo_dev.toml)
+sozo build
+sozo migrate
+
+# Use specific profile (dojo_mainnet.toml)
+sozo build --profile mainnet
+sozo migrate --profile mainnet
+```
+
+**Profile file naming:** `dojo_<profile>.toml`
+- `dojo_dev.toml` - Development (default)
+- `dojo_staging.toml` - Staging
+- `dojo_mainnet.toml` - Production
+
+## World Configuration
+
+```toml
+[world]
+name = "My Game"                    # Human-readable name
+description = "A provable game"     # Description
+seed = "my-unique-seed"             # Unique seed for address generation
+cover_uri = "ipfs://Qm..."          # Cover image (ipfs:// or file://)
+icon_uri = "ipfs://Qm..."           # Icon image
+
+[world.socials]
+x = "https://x.com/mygame"
+discord = "https://discord.gg/mygame"
+```
+
+## Environment Settings
 
 ```toml
 [env]
 rpc_url = "http://localhost:5050/"
-account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
-private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a"
-world_address = ""
-
-[world]
-name = "my_game"
-seed = "my_game"
+account_address = "0x127fd..."
+private_key = "0xc5b2f..."
+# Or use keystore for production:
+# keystore_path = "/path/to/keystore"
+world_address = "0x077c0..."        # Set after first deployment
 ```
 
-### dojo_release.toml
+## Namespace Configuration
 
-Production deployment configuration:
+Namespaces organize your resources:
 
 ```toml
-[env]
-rpc_url = "https://api.cartridge.gg/x/starknet/sepolia"
-account_address = "YOUR_ACCOUNT_ADDRESS"
-private_key = "YOUR_PRIVATE_KEY"
-world_address = "DEPLOYED_WORLD_ADDRESS"
+[namespace]
+default = "my_game"                 # Default namespace for all resources
 
-[world]
-name = "my_game_production"
-seed = "my_game_prod"
+# Optional: Map specific resources to namespaces
+mappings = { "weapons" = ["Sword", "Bow"], "characters" = ["Player", "Enemy"] }
 ```
 
-## Common Configuration Tasks
+Resources get tagged as `<namespace>-<resource_name>`.
 
-### Add Dependencies
+## Permission Configuration
 
-**Origami library:**
+Set up initial permissions at deployment time:
+
+```toml
+[writers]
+# Namespace-level: actions can write to all resources in my_game
+"my_game" = ["my_game-actions"]
+# Resource-specific: movement can only write to Position
+"my_game-Position" = ["my_game-movement"]
+
+[owners]
+# Namespace ownership
+"my_game" = ["my_game-admin"]
+```
+
+## Dependencies
+
+### Add Dojo Dependencies
+
+```toml
+[dependencies]
+starknet = "2.12.2"
+dojo = "1.7.1"
+
+[dev-dependencies]
+cairo_test = "2.12.2"
+dojo_cairo_test = "1.7.1"
+```
+
+### Add External Libraries
+
+**Origami (game utilities):**
 ```toml
 [dependencies]
 origami_token = { git = "https://github.com/dojoengine/origami", tag = "v1.0.0" }
 ```
 
-**Alexandria library:**
+**Alexandria (math utilities):**
 ```toml
 [dependencies]
 alexandria_math = { git = "https://github.com/keep-starknet-strange/alexandria" }
 ```
 
-### Configure Profiles
+### External Contracts
 
-**Development (Katana):**
+When using external libraries with models:
+
 ```toml
+[[target.starknet-contract]]
+build-external-contracts = [
+    "dojo::world::world_contract::world",
+    "armory::models::m_Flatbow",        # Format: <crate>::<path>::m_<ModelName>
+]
+```
+
+## Environment Examples
+
+### Development (dojo_dev.toml)
+
+```toml
+[world]
+name = "My Game (Dev)"
+seed = "dev-my-game"
+
 [env]
 rpc_url = "http://localhost:5050/"
-account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
+account_address = "0x127fd..."
+private_key = "0xc5b2f..."
+
+[namespace]
+default = "dev"
+
+[writers]
+"dev" = ["dev-actions"]
 ```
 
-**Testnet (Sepolia):**
-```toml
-[env]
-rpc_url = "https://api.cartridge.gg/x/starknet/sepolia"
-account_address = "YOUR_ACCOUNT"
-```
+### Production (dojo_mainnet.toml)
 
-**Mainnet:**
 ```toml
+[world]
+name = "My Game"
+seed = "prod-my-game"
+description = "Production deployment"
+cover_uri = "ipfs://YourCoverHash"
+icon_uri = "ipfs://YourIconHash"
+
 [env]
 rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"
-account_address = "YOUR_ACCOUNT"
+account_address = "0x..."
+keystore_path = "~/.starknet_accounts/mainnet.json"
+
+[namespace]
+default = "game"
+
+[writers]
+"game" = ["game-actions"]
+
+[owners]
+"game" = ["game-admin"]
 ```
-
-### World Configuration
-
-**Namespace setup:**
-```toml
-[world]
-name = "my_game"
-namespace = "my_game"
-seed = "my_game_v1"
-```
-
-**Description and metadata:**
-```toml
-[world]
-name = "my_game"
-description = "A provable on-chain game"
-icon_uri = "https://example.com/icon.png"
-cover_uri = "https://example.com/cover.png"
-```
-
-## Configuration Patterns
-
-### Multi-Environment Setup
-
-Create separate profile files:
-- `dojo_dev.toml` - Local Katana
-- `dojo_sepolia.toml` - Sepolia testnet
-- `dojo_mainnet.toml` - Mainnet
-
-Deploy with:
-```bash
-sozo migrate --profile dev
-sozo migrate --profile sepolia
-sozo migrate --profile mainnet
-```
-
-### Version Management
-
-Pin Dojo version:
-```toml
-[dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0" }
-```
-
-Use latest:
-```toml
-[dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo" }
-```
-
-### Account Configuration
-
-**Development (Katana default):**
-```toml
-account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
-private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a"
-```
-
-**Production (Argent/Braavos):**
-```toml
-account_address = "YOUR_WALLET_ADDRESS"
-private_key = "YOUR_PRIVATE_KEY"  # Store securely!
-```
-
-## Best Practices
-
-- **Never commit private keys** - Use `.gitignore` for `dojo_release.toml`
-- **Pin versions** - Use specific tags for production
-- **Separate profiles** - Different configs for dev/test/prod
-- **Document settings** - Add comments explaining non-obvious config
-- **Test configurations** - Verify RPC connectivity before deploying
 
 ## Security
 
 ### Protecting Secrets
 
-**Option 1: Environment variables**
-```toml
-[env]
-private_key = "${DOJO_PRIVATE_KEY}"
-```
+**Never commit private keys.** Use `.gitignore`:
 
-**Option 2: Separate secrets file**
-```toml
-# dojo_release.toml (committed)
-[env]
-rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"
-
-# dojo_secrets.toml (gitignored)
-[env]
-account_address = "..."
-private_key = "..."
-```
-
-### .gitignore
 ```
 # Ignore sensitive configs
-dojo_release.toml
-dojo_secrets.toml
-dojo_*.toml
+dojo_mainnet.toml
+dojo_*_secrets.toml
 
 # Keep development config
 !dojo_dev.toml
 ```
 
+**Use keystore for production:**
+```toml
+[env]
+keystore_path = "~/.starknet_accounts/mainnet.json"
+# Instead of: private_key = "0x..."
+```
+
 ## Troubleshooting
 
+**"Profile not found":**
+- Ensure `dojo_<profile>.toml` exists in project root
+- Check spelling matches the `--profile` flag
+
 **"World not found":**
-- Check `world_address` is set after migration
+- Set `world_address` in `[env]` after first deployment
 - Verify RPC URL is correct
 
 **"Account not found":**
 - Ensure account is deployed on target network
-- Check account_address format
-
-**"Invalid private key":**
-- Verify private key starts with "0x"
-- Ensure no extra whitespace
+- Check account_address format (should start with 0x)
 
 ## Next Steps
 
 After configuration:
 1. Use `dojo-deploy` skill to deploy with your config
 2. Use `dojo-migrate` skill when updating deployments
-3. Use `dojo-init` skill to regenerate configs if needed
+3. Use `dojo-world` skill to manage runtime permissions
 
 ## Related Skills
 
-- **dojo-init**: Initialize configuration
+- **dojo-init**: Initialize new project with config
 - **dojo-deploy**: Deploy using configuration
 - **dojo-migrate**: Update deployed worlds
 - **dojo-world**: Manage world permissions

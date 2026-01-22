@@ -13,36 +13,15 @@ Connect your game client or frontend to your deployed Dojo world across multiple
 - "Set up JavaScript SDK for my Dojo game"
 - "Integrate Dojo with Unity"
 - "Generate TypeScript bindings"
-- "Connect Unreal Engine to my world"
+- "Connect React app to my world"
 
 ## What This Skill Does
 
 Handles client integration for:
-- JavaScript/TypeScript SDK
-- Unity (C#)
-- Unreal Engine (C++)
-- Rust client
-- Godot, Bevy, and other platforms
+- JavaScript/TypeScript SDK (primary)
+- Unity, Unreal, Godot, Bevy (game engines)
 - Typed binding generation
-- Connection code
 - Query/subscription patterns
-
-## Quick Start
-
-**JavaScript:**
-```
-"Set up the Dojo JavaScript SDK"
-```
-
-**Unity:**
-```
-"Integrate my Dojo world with Unity"
-```
-
-**Unreal:**
-```
-"Connect Unreal Engine to my deployed world"
-```
 
 ## Supported Platforms
 
@@ -51,336 +30,221 @@ Handles client integration for:
 | JavaScript/TypeScript | JS/TS | `@dojoengine/sdk` |
 | Unity | C# | `dojo.unity` |
 | Unreal Engine | C++ | `dojo.unreal` |
-| Rust | Rust | `dojo::client` |
 | Godot | GDScript | `dojo.godot` |
 | Bevy | Rust | `dojo.bevy` |
 | C/C++ | C/C++ | `dojo.c` |
 
 ## JavaScript/TypeScript Integration
 
-### Installation
+### Quick Start
+
+Use the quickstart wizard:
 
 ```bash
-npm install @dojoengine/sdk
-# or
-pnpm add @dojoengine/sdk
+pnpx @dojoengine/create-dojo start
 ```
 
-### Generate Bindings
+### Manual Setup
+
+1. **Install dependencies:**
 
 ```bash
-sozo build --typescript-output ./src/generated
+# Essential packages
+pnpm add @dojoengine/core @dojoengine/sdk @dojoengine/torii-client
+
+# For React integration
+pnpm add @dojoengine/create-burner @dojoengine/utils
+
+# For state management
+pnpm add @dojoengine/state zustand immer
+
+# Build tools for WASM support
+pnpm add -D vite-plugin-wasm vite-plugin-top-level-await
 ```
 
-### Basic Setup
+2. **Create `dojoConfig.ts`:**
 
 ```typescript
-import { DojoProvider } from "@dojoengine/sdk";
-import manifest from "./manifest.json";
+import { createDojoConfig } from "@dojoengine/core";
+import manifest from "../path/to/manifest_dev.json";
 
-// Create provider
-const provider = new DojoProvider(
-    manifest,
-    "http://localhost:5050"  // Katana RPC
-);
-
-// Read a model
-const position = await provider.getEntity("Position", playerId);
-console.log(position.x, position.y);
-
-// Execute a system
-await provider.execute("actions", "spawn", []);
+export const dojoConfig = createDojoConfig({ manifest });
 ```
 
-### Query Patterns
+3. **Generate TypeScript bindings:**
+
+```bash
+DOJO_MANIFEST_PATH="../path/to/Scarb.toml" sozo build --typescript
+```
+
+4. **Initialize the SDK:**
 
 ```typescript
-// Get single entity
-const player = await provider.getEntity("Player", address);
+import { init } from "@dojoengine/sdk";
+import { DojoSdkProvider } from "@dojoengine/sdk/react";
+import { dojoConfig } from "./dojoConfig.ts";
+import { setupWorld } from "./bindings/typescript/contracts.gen.ts";
+import type { SchemaType } from "./bindings/typescript/models.gen.ts";
 
-// Get multiple entities
-const positions = await provider.getEntities("Position");
+async function main() {
+    const sdk = await init<SchemaType>({
+        client: {
+            worldAddress: dojoConfig.manifest.world.address,
+            toriiUrl: "http://localhost:8080",
+            relayUrl: "/ip4/127.0.0.1/tcp/9090",
+        },
+        domain: {
+            name: "MyDojoProject",
+            version: "1.0",
+            chainId: "KATANA",
+            revision: "1",
+        },
+    });
 
-// Query with filters
-const positions = await provider.query("Position", {
-    where: { x: { $gt: 10 } }
+    // Use in React
+    createRoot(document.getElementById("root")!).render(
+        <DojoSdkProvider sdk={sdk} dojoConfig={dojoConfig} clientFn={setupWorld}>
+            <App />
+        </DojoSdkProvider>
+    );
+}
+```
+
+### Querying Entities
+
+```typescript
+import { ToriiQueryBuilder, KeysClause, MemberClause } from "@dojoengine/sdk";
+
+// Simple query: Find a specific player
+const entities = await sdk.getEntities({
+    query: new ToriiQueryBuilder().withClause(
+        KeysClause(["dojo_starter-Player"], ["0xabcde..."], "FixedLen").build()
+    ),
+});
+
+// Access the results
+entities.items.forEach((entity) => {
+    const player = entity.models.dojo_starter.Player;
+    console.log(`Player: ${player?.name}, Score: ${player?.score}`);
 });
 ```
 
-### Subscriptions
+### Complex Queries
 
 ```typescript
-// Subscribe to entity changes
-const unsubscribe = provider.subscribe(
-    "Position",
-    playerId,
-    (position) => {
-        console.log("Position updated:", position);
-    }
-);
-
-// Unsubscribe later
-unsubscribe();
+const entities = await sdk.getEntities({
+    query: new ToriiQueryBuilder()
+        .withClause(
+            MemberClause("dojo_starter-Player", "score", "Gt", 0).build()
+        )
+        .withLimit(10)
+        .withOffset(0)
+        .withOrderBy([{ field: "score", direction: "Desc" }]),
+});
 ```
 
-### Transaction Signing
+### Subscribing to Changes
 
 ```typescript
-import { Account } from "starknet";
+const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
+    query: new ToriiQueryBuilder()
+        .withClause(
+            MemberClause("dojo_starter-Player", "score", "Gt", 100).build()
+        )
+        .includeHashedKeys(),
+    callback: ({ data, error }) => {
+        if (data) {
+            data.forEach((entity) => {
+                const player = entity.models.dojo_starter.Player;
+                console.log(`Player ${player?.id}: ${player?.score} points`);
+            });
+        }
+    },
+});
 
-// Create account
-const account = new Account(
-    provider.provider,
-    accountAddress,
-    privateKey
-);
-
-// Execute with account
-await provider.execute(
-    "actions",
-    "move",
-    [Direction.Up],
-    { account }
-);
+// Cancel later
+// subscription.cancel();
 ```
 
-## Unity Integration
+### React Hooks
 
-### Installation
+```typescript
+import { useEntityQuery, useModels, useModel, useEntityId } from "@dojoengine/sdk/react";
 
-Add to `manifest.json`:
-```json
-{
-  "dependencies": {
-    "com.dojoengine.sdk": "https://github.com/dojoengine/dojo.unity.git"
-  }
-}
-```
-
-### Generate Bindings
-
-```bash
-sozo build --unity-output ./Assets/Generated
-```
-
-### Basic Setup
-
-```csharp
-using Dojo;
-using Dojo.Starknet;
-
-public class DojoManager : MonoBehaviour
-{
-    private DojoConnection connection;
-
-    async void Start()
-    {
-        // Connect to world
-        connection = new DojoConnection(
-            "http://localhost:5050",
-            worldAddress
-        );
-
-        await connection.Connect();
-
-        // Read model
-        var position = await connection.GetEntity<Position>(playerId);
-        Debug.Log($"Position: {position.x}, {position.y}");
-
-        // Execute system
-        await connection.Execute("actions", "spawn");
-    }
-}
-```
-
-### Entity Synchronization
-
-```csharp
-public class PlayerController : MonoBehaviour
-{
-    private Position position;
-
-    async void Start()
-    {
-        // Subscribe to position updates
-        await connection.Subscribe<Position>(playerId, OnPositionUpdate);
-    }
-
-    void OnPositionUpdate(Position newPosition)
-    {
-        position = newPosition;
-        transform.position = new Vector3(position.x, 0, position.y);
-    }
-
-    public async void Move(Direction direction)
-    {
-        await connection.Execute("actions", "move", direction);
-    }
-}
-```
-
-## Unreal Engine Integration
-
-### Installation
-
-1. Clone `dojo.unreal` plugin
-2. Add to `Plugins/` folder
-3. Enable in project settings
-
-### Generate Bindings
-
-```bash
-sozo build --cpp-output ./Source/MyGame/Generated
-```
-
-### Basic Setup
-
-```cpp
-#include "DojoClient.h"
-
-void AGameMode::BeginPlay()
-{
-    Super::BeginPlay();
-
-    // Create client
-    DojoClient = NewObject<UDojoClient>();
-    DojoClient->Initialize(
-        TEXT("http://localhost:5050"),
-        WorldAddress
+function MyComponent() {
+    // Subscribe to entity changes
+    useEntityQuery(
+        new ToriiQueryBuilder()
+            .withClause(MemberClause("dojo_starter-Item", "durability", "Eq", 2).build())
+            .includeHashedKeys()
     );
 
-    // Read model
-    FPosition Position = DojoClient->GetEntity<FPosition>(PlayerId);
-    UE_LOG(LogTemp, Log, TEXT("Position: %d, %d"), Position.X, Position.Y);
+    // Get all items from the store
+    const items = useModels("dojo_starter-Item");
 
-    // Execute system
-    DojoClient->Execute(TEXT("actions"), TEXT("spawn"));
+    // Get a single item by entity ID
+    const entityId = useEntityId(1);
+    const item = useModel(entityId, "dojo_starter-Item");
+
+    return (
+        <div>
+            {Object.entries(items).map(([id, item]) => (
+                <div key={id}>Item {id}: durability {item?.durability}</div>
+            ))}
+        </div>
+    );
 }
 ```
 
-### Blueprint Integration
+### Executing Systems
 
-```cpp
-UCLASS(BlueprintType)
-class UDojoFunctionLibrary : public UBlueprintFunctionLibrary
-{
-    GENERATED_BODY()
+```typescript
+import { useDojoSDK } from "@dojoengine/sdk/react";
+import { useAccount } from "@starknet-react/core";
 
-    UFUNCTION(BlueprintCallable, Category = "Dojo")
-    static void ExecuteSpawn(UDojoClient* Client)
-    {
-        Client->Execute(TEXT("actions"), TEXT("spawn"));
+function GameActions() {
+    const { client } = useDojoSDK();
+    const { account } = useAccount();
+
+    async function spawn() {
+        await client.actions.spawn({ account });
     }
 
-    UFUNCTION(BlueprintCallable, Category = "Dojo")
-    static FPosition GetPlayerPosition(UDojoClient* Client, FString PlayerId)
-    {
-        return Client->GetEntity<FPosition>(PlayerId);
+    async function move(direction: number) {
+        await client.actions.move({ account, direction });
     }
-};
-```
 
-## Rust Integration
-
-### Installation
-
-```toml
-[dependencies]
-dojo-client = { git = "https://github.com/dojoengine/dojo" }
-tokio = { version = "1", features = ["full"] }
-```
-
-### Basic Setup
-
-```rust
-use dojo_client::{DojoClient, WorldReader};
-
-#[tokio::main]
-async fn main() {
-    // Create client
-    let client = DojoClient::new(
-        "http://localhost:5050",
-        world_address
-    ).await.unwrap();
-
-    // Read model
-    let position: Position = client
-        .read_model(player_id)
-        .await
-        .unwrap();
-
-    println!("Position: {}, {}", position.x, position.y);
-
-    // Execute system
-    client
-        .execute("actions", "spawn", vec![])
-        .await
-        .unwrap();
+    return (
+        <div>
+            <button onClick={spawn}>Spawn</button>
+            <button onClick={() => move(1)}>Move Right</button>
+        </div>
+    );
 }
 ```
 
-## Common Integration Patterns
+## Game Engine Integration
 
-### Connecting to Deployed World
+### Unity
 
-```typescript
-// Get world address from manifest
-import manifest from "./manifest.json";
-const worldAddress = manifest.world.address;
+See [dojo.unity documentation](https://github.com/dojoengine/dojo.unity) for:
+- Package installation via Unity Package Manager
+- C# bindings generation
+- Entity synchronization patterns
+- Transaction handling
 
-// Create provider
-const provider = new DojoProvider(manifest, rpcUrl);
-```
+### Unreal Engine
 
-### Polling vs Subscriptions
+See [dojo.unreal documentation](https://github.com/dojoengine/dojo.unreal) for:
+- Plugin installation
+- Blueprint integration
+- C++ SDK usage
 
-**Polling (simple):**
-```typescript
-setInterval(async () => {
-    const position = await provider.getEntity("Position", playerId);
-    updateUI(position);
-}, 1000);
-```
+### Godot
 
-**Subscriptions (efficient):**
-```typescript
-provider.subscribe("Position", playerId, (position) => {
-    updateUI(position);
-});
-```
-
-### Handling Transactions
-
-```typescript
-try {
-    // Execute transaction
-    const tx = await provider.execute("actions", "move", [Direction.Up]);
-
-    // Wait for confirmation
-    await provider.waitForTransaction(tx.transaction_hash);
-
-    // Update UI
-    console.log("Move successful!");
-} catch (error) {
-    console.error("Move failed:", error);
-}
-```
-
-### Batch Operations
-
-```typescript
-// Execute multiple actions
-const txs = await Promise.all([
-    provider.execute("actions", "move", [Direction.Up]),
-    provider.execute("actions", "attack", [targetId]),
-    provider.execute("actions", "heal", []),
-]);
-
-// Wait for all
-await Promise.all(
-    txs.map(tx => provider.waitForTransaction(tx.transaction_hash))
-);
-```
+See [dojo.godot documentation](https://github.com/dojoengine/dojo.godot) for:
+- GDScript integration
+- Signal-based subscriptions
 
 ## Client Integration Checklist
 
@@ -392,35 +256,16 @@ await Promise.all(
 
 ### Setup
 - [ ] SDK/package installed
-- [ ] Bindings generated (`sozo build --<platform>-output`)
+- [ ] Bindings generated (`sozo build --typescript`)
 - [ ] Manifest imported
-- [ ] Connection code added
+- [ ] SDK initialized
 - [ ] Test queries work
 
 ### Integration
 - [ ] Entity reads working
 - [ ] System executions working
-- [ ] Subscriptions configured (if using)
-- [ ] Transaction handling implemented
+- [ ] Subscriptions configured
 - [ ] Error handling added
-
-### Testing
-- [ ] Test on local Katana
-- [ ] Test on testnet
-- [ ] Test subscriptions
-- [ ] Test error cases
-- [ ] Performance test queries
-
-## Best Practices
-
-- Use subscriptions instead of polling when possible
-- Generate typed bindings for type safety
-- Handle transaction failures gracefully
-- Cache frequently accessed data
-- Use Torii for complex queries (don't query RPC directly)
-- Implement connection retry logic
-- Validate data from chain
-- Use account abstraction when available
 
 ## Troubleshooting
 
@@ -436,22 +281,16 @@ await Promise.all(
 
 ### "Model not found"
 - Ensure model is deployed
-- Check model name spelling
+- Check model name includes namespace (`dojo_starter-Position`)
 - Verify entity exists with that key
-
-### "Transaction failed"
-- Check account has funds
-- Verify system parameters are correct
-- Check authorization/permissions
 
 ## Next Steps
 
 After client integration:
 1. Test end-to-end workflow
-2. Optimize query patterns
+2. Implement optimistic updates
 3. Add error handling
-4. Implement UI updates
-5. Test with real users
+4. Connect wallet for transactions
 
 ## Related Skills
 

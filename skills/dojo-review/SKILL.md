@@ -6,7 +6,7 @@ allowed-tools: Read, Grep, Glob
 
 # Dojo Code Review
 
-Review your Dojo code for best practices, potential issues, security concerns, and optimization opportunities.
+Review your Dojo code for common issues, security concerns, and optimization opportunities.
 
 ## When to Use This Skill
 
@@ -34,7 +34,7 @@ Analyzes your code for:
 
 I'll ask about:
 - What to review (models, systems, tests, all)
-- Focus areas (security, performance, best practices)
+- Focus areas (security, performance)
 
 **Direct mode:**
 ```
@@ -47,11 +47,11 @@ I'll ask about:
 ### Model Review
 
 **Checks:**
-- ✓ Proper trait derivations (Drop, Serde)
-- ✓ Key fields defined correctly
-- ✓ Appropriate field types
-- ✓ Small, focused models (ECS principle)
-- ✓ Key patterns match use case
+- Required trait derivations (`Drop`, `Serde`)
+- Key fields defined correctly (`#[key]`)
+- Keys come before data fields
+- Appropriate field types
+- Small, focused models (ECS principle)
 
 **Common issues:**
 ```cairo
@@ -59,8 +59,8 @@ I'll ask about:
 #[dojo::model]
 struct Position { ... }
 
-// ✅ Proper traits
-#[derive(Copy, Drop, Serde)]
+// ✅ Required traits
+#[derive(Drop, Serde)]
 #[dojo::model]
 struct Position { ... }
 
@@ -82,26 +82,15 @@ struct Example {
 ### System Review
 
 **Checks:**
-- ✓ Proper authorization checks
-- ✓ Input validation
-- ✓ Correct model read/write patterns
-- ✓ Event emissions
-- ✓ Error messages
-- ✓ Gas efficiency
+- Proper interface definition (`#[starknet::interface]`)
+- Contract attribute (`#[dojo::contract]`)
+- World access with namespace (`self.world(@"namespace")`)
+- Input validation
+- Event emissions
+- Error messages
 
 **Common issues:**
 ```cairo
-// ❌ No authorization check
-fn admin_function(ref self: ContractState) {
-    // Anyone can call!
-}
-
-// ✅ Authorization check
-fn admin_function(ref self: ContractState) {
-    let world = self.world_default();
-    world.assert_owner(get_caller_address());
-}
-
 // ❌ No input validation
 fn set_health(ref self: ContractState, health: u8) {
     // Could be zero or invalid!
@@ -111,21 +100,35 @@ fn set_health(ref self: ContractState, health: u8) {
 fn set_health(ref self: ContractState, health: u8) {
     assert(health > 0 && health <= 100, 'invalid health');
 }
+
+// ❌ No authorization check for sensitive function
+fn admin_function(ref self: ContractState) {
+    // Anyone can call!
+}
+
+// ✅ Authorization check
+fn admin_function(ref self: ContractState) {
+    let mut world = self.world_default();
+    let caller = get_caller_address();
+    assert(
+        world.is_owner(selector_from_tag!("my_game"), caller),
+        'not authorized'
+    );
+}
 ```
 
 ### Security Review
 
 **Checks:**
-- ✓ Authorization on sensitive functions
-- ✓ Reentrancy protection
-- ✓ Integer overflow/underflow
-- ✓ Access control
-- ✓ State consistency
+- Authorization on sensitive functions
+- Integer overflow/underflow
+- Access control for model writes
+- State consistency
 
 **Common vulnerabilities:**
 ```cairo
 // ❌ Integer underflow
-health.current -= damage;  // Could underflow!
+health.current -= damage;  // Could underflow if damage > current!
 
 // ✅ Safe subtraction
 health.current = if health.current > damage {
@@ -134,32 +137,40 @@ health.current = if health.current > damage {
     0
 };
 
-// ❌ Missing permission check
-fn transfer_ownership(ref self: ContractState, new_owner: ContractAddress) {
-    // Anyone can call!
+// ❌ Missing ownership check
+fn transfer_nft(ref self: ContractState, token_id: u256, to: ContractAddress) {
+    // Anyone can transfer anyone's NFT!
+    let mut nft: NFT = world.read_model(token_id);
+    nft.owner = to;
+    world.write_model(@nft);
 }
 
-// ✅ Permission check
-fn transfer_ownership(ref self: ContractState, new_owner: ContractAddress) {
-    let world = self.world_default();
-    world.assert_owner(get_caller_address());
+// ✅ Ownership check
+fn transfer_nft(ref self: ContractState, token_id: u256, to: ContractAddress) {
+    let mut world = self.world_default();
+    let caller = get_caller_address();
+
+    let mut nft: NFT = world.read_model(token_id);
+    assert(nft.owner == caller, 'not owner');
+
+    nft.owner = to;
+    world.write_model(@nft);
 }
 ```
 
 ### Gas Optimization
 
 **Checks:**
-- ✓ Minimal model reads/writes
-- ✓ Efficient data types
-- ✓ Unnecessary computations
-- ✓ Storage patterns
+- Minimal model reads/writes
+- Efficient data types
+- Unnecessary computations
 
 **Optimization opportunities:**
 ```cairo
-// ❌ Multiple reads
+// ❌ Multiple reads of same model
 let pos: Position = world.read_model(player);
 let x = pos.x;
-let pos2: Position = world.read_model(player);  // Duplicate read!
+let pos2: Position = world.read_model(player);  // Duplicate!
 let y = pos2.y;
 
 // ✅ Single read
@@ -171,7 +182,7 @@ let y = pos.y;
 struct Position {
     #[key]
     player: ContractAddress,
-    x: u128,  // Overkill for coordinates!
+    x: u128,  // Overkill for coordinates
     y: u128,
 }
 
@@ -187,27 +198,26 @@ struct Position {
 ### Test Coverage
 
 **Checks:**
-- ✓ Unit tests for models
-- ✓ Unit tests for systems
-- ✓ Integration tests
-- ✓ Edge case coverage
-- ✓ Failure case testing
+- Unit tests for models
+- Integration tests for systems
+- Edge case coverage
+- Failure case testing
 
 **Coverage gaps:**
 ```cairo
 // Missing tests:
-- ✗ No test for boundary values (max health, zero health)
-- ✗ No test for unauthorized access
-- ✗ No test for invalid inputs
-- ✗ No integration test for full workflow
+// - Boundary values (max health, zero health)
+// - Unauthorized access
+// - Invalid inputs
+// - Full workflow integration
 
 // Add:
 #[test]
 fn test_health_bounds() { ... }
 
 #[test]
-#[should_panic]
-fn test_unauthorized_attack() { ... }
+#[should_panic(expected: ('not authorized',))]
+fn test_unauthorized_access() { ... }
 
 #[test]
 fn test_spawn_move_attack_flow() { ... }
@@ -216,71 +226,38 @@ fn test_spawn_move_attack_flow() { ... }
 ## Review Checklist
 
 ### Models
-- [ ] All models have required traits (Drop, Serde)
-- [ ] Key fields defined with #[key]
+- [ ] All models derive `Drop` and `Serde`
+- [ ] Key fields have `#[key]` attribute
 - [ ] Keys come before data fields
-- [ ] Models are small and focused (single concern)
-- [ ] Field types are appropriate (u8 vs u32 vs u128)
-- [ ] Composite keys used correctly (all provided when reading)
+- [ ] Models are small and focused
+- [ ] Field types are appropriate size
+- [ ] Custom types derive `Introspect`
 
 ### Systems
-- [ ] Authorization checks on sensitive functions
+- [ ] Interface uses `#[starknet::interface]`
+- [ ] Contract uses `#[dojo::contract]`
+- [ ] World access uses correct namespace
 - [ ] Input validation for all parameters
 - [ ] Clear error messages
 - [ ] Events emitted for important actions
-- [ ] Model reads minimized
-- [ ] State changes are atomic
-- [ ] Caller identity verified (get_caller_address)
+- [ ] Caller identity verified when needed
 
 ### Security
-- [ ] No public admin functions
-- [ ] Integer overflow/underflow handled
-- [ ] Access control implemented
-- [ ] State changes validated
-- [ ] Reentrancy considered
+- [ ] Sensitive functions check permissions
+- [ ] Integer math handles over/underflow
+- [ ] Ownership verified before transfers
+- [ ] State changes are atomic
 
 ### Performance
-- [ ] Minimal storage operations
-- [ ] Efficient data types
+- [ ] Minimal model reads per function
+- [ ] Efficient data types used
 - [ ] No unnecessary computations
-- [ ] Batch operations where possible
 
 ### Tests
-- [ ] Unit tests for all models
-- [ ] Unit tests for all systems
-- [ ] Integration tests for workflows
+- [ ] Unit tests for models
+- [ ] Integration tests for systems
 - [ ] Edge cases tested
-- [ ] Failure cases tested with #[should_panic]
-- [ ] Cheat codes used appropriately
-
-## Best Practices
-
-### Model Design
-- Keep models small (ECS principle)
-- One model per concept
-- Use appropriate key patterns
-- Choose smallest sufficient types
-
-### System Implementation
-- Validate all inputs
-- Check authorization early
-- Emit events for tracking
-- Write clear error messages
-- Keep functions atomic
-
-### Testing
-- Test happy paths first
-- Add edge case tests
-- Test authorization failures
-- Use descriptive test names
-- Add assertion messages
-
-### Security
-- Always check permissions
-- Validate user input
-- Handle integer math carefully
-- Test failure scenarios
-- Review before deploying
+- [ ] Failure cases tested with `#[should_panic]`
 
 ## Common Anti-Patterns
 
@@ -296,36 +273,52 @@ struct Player {
     level: u8, xp: u32,  // Progress
 }
 
-// ✅ Separate concerns
+// ✅ Separate concerns (ECS pattern)
 Position { player, x, y }
 Stats { player, health, mana }
 Inventory { player, gold, items }
 Progress { player, level, xp }
 ```
 
-### Missing Authorization
+### Missing world_default Helper
 ```cairo
-// ❌ No checks
-fn set_admin(ref self: ContractState, new_admin: ContractAddress) {
-    // Anyone can become admin!
+// ❌ Repeating namespace everywhere
+fn spawn(ref self: ContractState) {
+    let mut world = self.world(@"my_game");
+    // ...
 }
 
-// ✅ Check permissions
-fn set_admin(ref self: ContractState, new_admin: ContractAddress) {
-    let world = self.world_default();
-    world.assert_owner(get_caller_address());
+fn move(ref self: ContractState, direction: u8) {
+    let mut world = self.world(@"my_game");
+    // ...
+}
+
+// ✅ Use internal helper
+#[generate_trait]
+impl InternalImpl of InternalTrait {
+    fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
+        self.world(@"my_game")
+    }
+}
+
+fn spawn(ref self: ContractState) {
+    let mut world = self.world_default();
+    // ...
 }
 ```
 
-### Inefficient Storage
+### Not Emitting Events
 ```cairo
-// ❌ Reading same model multiple times
-let pos = world.read_model(player);
-let health = world.read_model(player);
-let mana = world.read_model(player);
+// ❌ No events
+fn transfer(ref self: ContractState, to: ContractAddress, amount: u256) {
+    // Transfer logic but no event
+}
 
-// ✅ Read once if possible, or use separate models
-let stats = world.read_model(player);  // Single read
+// ✅ Emit events for indexing
+fn transfer(ref self: ContractState, to: ContractAddress, amount: u256) {
+    // Transfer logic
+    world.emit_event(@Transferred { from, to, amount });
+}
 ```
 
 ## Next Steps
