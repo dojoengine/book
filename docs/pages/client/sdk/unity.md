@@ -19,12 +19,12 @@ Before diving into the exciting world of onchain games and worlds with Unity, le
 
 The **World Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
 
-![world-manager](/client/unity/world-manager.png)
+![world-manager](/client/unity/world-manager.webp)
 
 During initialization, the World Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
 While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
 
-![world-manager-data](/client/unity/world-manager-data.png)
+![world-manager-data](/client/unity/world-manager-data.webp)
 
 In Unity, entities are represented by `GameObject` instances.
 The World Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
@@ -33,7 +33,7 @@ The World Manager simplifies their management by offering methods to both add/re
 
 The Synchronization Master acts as the bridge between Unity and your Dojo world, seamlessly synchronizing and managing entities.
 
-![sync-master](/client/unity/sync-master.png)
+![sync-master](/client/unity/sync-master.webp)
 
 Key Features:
 
@@ -79,11 +79,11 @@ Launch Unity and either create a new project or open an existing one where you i
 Navigate to `Assets/Import Package/Custom Package` within your Unity project.
 Choose the downloaded `dojo.unitypackage` file.
 
-![unitypackage01](/client/unity/import-unitypackage-01.png)
+![unitypackage01](/client/unity/import-unitypackage-01.webp)
 
 Finally, ensure to check only the intended platforms for your project.
 
-![unitypackage02](/client/unity/import-unitypackage-02.png)
+![unitypackage02](/client/unity/import-unitypackage-02.webp)
 
 :::warning
 If your project includes the `Plugins/iOS` directory, note that it requires **Git Large File Storage (LFS)** to be uploaded.
@@ -94,11 +94,11 @@ Refer to [GitHub's documentation](https://docs.github.com/en/repositories/workin
 
 In Unity, navigate to `Window/Package Manager`.
 
-![unitypackage01](/client/unity/unitypackage-dependencies-01.png)
+![unitypackage01](/client/unity/unitypackage-dependencies-01.webp)
 
 Once the `Package Manager` window opens, select `Add package from git URL`
 
-![unitypackage02](/client/unity/unitypackage-dependencies-02.png)
+![unitypackage02](/client/unity/unitypackage-dependencies-02.webp)
 
 Enter `com.unity.nuget.newtonsoft-json` as the package URL, click `Add` and then `Done` to import the dependency.
 
@@ -122,7 +122,7 @@ In your Unity project, navigate to the scene where you want to integrate the SDK
 
 The World Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
 
-![world-manager-data](/client/unity/world-manager-data.png)
+![world-manager-data](/client/unity/world-manager-data.webp)
 
 Feel free to modify this configuration directly if it suits your project's requirements.
 
@@ -143,7 +143,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
 
-![bindings-example](/client/unity/bindings-example.png)
+![bindings-example](/client/unity/bindings-example.webp)
 
 ::::
 
@@ -304,7 +304,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 3. From the Platform dropdown, select the target desktop platform.
 4. Click the Build button to initiate the build process.
 
-![build-desktop](/client/unity/build-desktop.png)
+![build-desktop](/client/unity/build-desktop.webp)
 
 ### Building for WebGL
 
@@ -318,7 +318,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 4. Click `Add Modules`.
 5. Under the Modules tab, locate and install the `WebGL` module.
 
-![unityhub-add-module](/client/unity/webgl-module.png)
+![unityhub-add-module](/client/unity/webgl-module.webp)
 
 #### Configure the WebGL player settings
 
@@ -326,7 +326,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 2. Select the `WebGL` tab.
 3. Under `Resolution and Presentation`, ensure the `Dojo Template` is selected.
 
-![unityhub-add-module](/client/unity/webgl-player-settings.png)
+![unityhub-add-module](/client/unity/webgl-player-settings.webp)
 
 #### Build your project
 
@@ -334,7 +334,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 2. From the right menu choose `WebGL` option.
 3. Click the Build button to build your game for WebGL.
 
-![build-webgl](/client/unity/build-webgl.png)
+![build-webgl](/client/unity/build-webgl.webp)
 
 ::::
 
@@ -354,14 +354,14 @@ Failing to do so can result in the values of the fields not being loaded properl
 
 You may encounter the following error while building for WebGL:
 
-![webgl-error](/client/unity/webgl-error.png)
+![webgl-error](/client/unity/webgl-error.webp)
 
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
 
     - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
-      ![webgl-error](/client/unity/webgl-build-fail.png)
+      ![webgl-error](/client/unity/webgl-build-fail.webp)
         > Example without `Dojo` template selected
     - Select the WebGL tab.
     - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
@@ -430,7 +430,7 @@ Execution failed. Failure reason: 0x6e6f7420777269746572 ('not writer').
 
 The solution is to navigate to the `src` directory within your Dojo project and run the `default_auth.sh` script in your shell.
 
-![auth](/client/unity/auth.png)
+![auth](/client/unity/auth.webp)
 
 ## Example Project
 
