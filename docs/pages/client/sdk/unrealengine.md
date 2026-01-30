@@ -24,18 +24,18 @@ To get started with the dojo.unreal SDK, follow these steps:
 Obtain the Dojo plugin by visiting [dojo.unreal](https://github.com/dojoengine/dojo.unreal).
 Either clone the repository or download it as a ZIP file to access the plugin.
 
-![unrealdl](/client/unreal/downloadzip.png)
+![unrealdl](/client/unreal/downloadzip.webp)
 
 #### Set Up Your Unreal Project
 
 Launch Unreal Engine 5 and create a new project or open an existing one where you'll implement dojo.unreal.
 
-![unrealcreate](/client/unreal/create_new_cpp_project.png)
+![unrealcreate](/client/unreal/create_new_cpp_project.webp)
 
 #### Import the Plugin
 
 1. Navigate to your project directory by right-clicking the project in Epic Games Launcher (Unreal Engine > Library > My Projects)
-   ![unrealdir](/client/unreal/open_project_directory.png)
+   ![unrealdir](/client/unreal/open_project_directory.webp)
 
 2. Create a Plugins directory if one doesn't exist
 
@@ -52,19 +52,19 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 #### Configure the Project
 
 1. Open your project in Unreal Engine 5 to initiate the rebuild
-   ![ue5rebuild](/client/unreal/rebuild.png)
+   ![ue5rebuild](/client/unreal/rebuild.webp)
 
 2. Create a new blueprint
-   ![unrealbp](/client/unreal/create_new_blueprint.png)
+   ![unrealbp](/client/unreal/create_new_blueprint.webp)
 
 3. Initialize the DojoHelpers actor and store it as a variable
-   ![unrealspawnactor](/client/unreal/create_dojo_helpers_actor.png)
+   ![unrealspawnactor](/client/unreal/create_dojo_helpers_actor.webp)
 
 4. Implement Torii connections and other desired functionality
-   ![unrealusehelpers](/client/unreal/use_dojo_helpers.png)
+   ![unrealusehelpers](/client/unreal/use_dojo_helpers.webp)
 
 5. Launch the game and verify the connection in the Output Log
-   ![unrealtoriiconnected](/client/unreal/torii_connected.png)
+   ![unrealtoriiconnected](/client/unreal/torii_connected.webp)
 
 ::::
 
@@ -132,21 +132,21 @@ Here are all the things you need to set up:
 
 #### Create public variables in your `DojoGameLogic` Blueprint
 
-![unrealinspector](/client/unreal/configinspector2.png)
+![unrealinspector](/client/unreal/configinspector2.webp)
 
 :::tip
 Click on the closed eye to be able to change it in the Inspector.
 :::
 
-![unrealinspector2](/client/unreal/configinspector.png)
+![unrealinspector2](/client/unreal/configinspector.webp)
 
 #### Create your `DojoHelpers` actor
 
-![unrealhelpers](/client/unreal/spawnhelpers.png)
+![unrealhelpers](/client/unreal/spawnhelpers.webp)
 
 #### Connect to Torii and set contract addresses
 
-![unrealtoriicontracts](/client/unreal/connect_setup.png)
+![unrealtoriicontracts](/client/unreal/connect_setup.webp)
 
 #### Subscribe to and fetch existing models
 
@@ -155,11 +155,11 @@ This is where you will retrieve all the models that are stored on-chain.
 Both subscription and fetch existing models will trigger a custom event called `OnDojoModelUpdate`.
 Always bind this custom event before calling any of these functions.
 
-![unrealmodels0](/client/unreal/getmodelupdate.png)
+![unrealmodels0](/client/unreal/getmodelupdate.webp)
 
 You can then create functions for each model to retrieve the values and update your game.
 
-![unrealmodels3](/client/unreal/accessmodel2.png)
+![unrealmodels3](/client/unreal/accessmodel2.webp)
 
 Generated models follow the Unreal Engine 5 convention in `cpp`.
 For example, if you have a `Vec2` model, it will be called `FVec2`.
@@ -189,7 +189,7 @@ If the account address is `0x0`, it means the player did not connect to the Cont
 
 We also call the `CallControllerDojoStarterActionsSpawn` function.
 
-![unrealcontroller](/client/unreal/controllerconnectandcall.png)
+![unrealcontroller](/client/unreal/controllerconnectandcall.webp)
 
 More information about calls is provided below.
 
@@ -202,7 +202,7 @@ If you used the Controller Connect, use functions prefixed with `CallController`
 
 The format for each function is `<PREFIX><NAMESPACE><CONTRACT><SELECTOR>` with all the required parameters
 
-![unrealcall](/client/unreal/callmethod.png)
+![unrealcall](/client/unreal/callmethod.webp)
 
 ::::
 
