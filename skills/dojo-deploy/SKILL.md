@@ -234,7 +234,7 @@ sozo build && sozo migrate
 
 **Terminal 3: Start Torii**
 ```bash
-torii --world <WORLD_ADDRESS>
+torii --world <WORLD_ADDRESS> --indexing.controllers
 ```
 
 ## Sample Deploy Script
@@ -269,6 +269,52 @@ PROFILE=staging ./scripts/deploy_local.sh
 - `RPC_URL`: Katana endpoint (default: `http://localhost:5050`)
 - `TORII_URL`: Torii endpoint (default: `http://localhost:8080`)
 - Add project-specific post-deploy steps (e.g., seeding data, running migrations)
+
+## Slot Deployment (Remote)
+
+[Slot](https://docs.cartridge.gg/slot) provides hosted Katana and Torii instances.
+
+### Authentication
+
+```bash
+slot auth login
+```
+
+### Katana on Slot
+
+**Optimistic mode (simplest):**
+```bash
+slot deployments create <PROJECT_NAME> katana --optimistic
+```
+
+**With configuration file:**
+```bash
+slot deployments create <PROJECT_NAME> katana --config katana.toml
+```
+
+See the [Katana configuration guide](/toolchain/katana/configuration) for TOML options.
+
+### Torii on Slot
+
+Create a `torii.toml` with your world address and RPC endpoint, then deploy:
+
+```bash
+slot deployments create <PROJECT_NAME> torii --config torii.toml --version <DOJO_VERSION>
+```
+
+See the `dojo-indexer` skill for full Torii configuration details.
+
+### Useful Commands
+
+```bash
+# Stream logs
+slot deployments logs <PROJECT_NAME> katana -f
+slot deployments logs <PROJECT_NAME> torii -f
+
+# Delete a deployment
+slot deployments delete <PROJECT_NAME> katana
+slot deployments delete <PROJECT_NAME> torii
+```
 
 ## Manifest File
 

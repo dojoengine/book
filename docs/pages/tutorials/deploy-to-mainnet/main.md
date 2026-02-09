@@ -159,14 +159,22 @@ slotup
 slot auth login
 ```
 
-- Create Torii service with this command, replacing...
-    - `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
-    - `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
+- Create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
     - `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
     - `RPC_URL`: your RPC provider url
 
+```toml
+# torii.toml
+world_address = "<WORLD_ADDRESS>"
+rpc = "<RPC_URL>"
+```
+
+- Create Torii service with this command, replacing...
+    - `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
+    - `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
+
 ```sh
-slot deployments create <PROJECT_NAME> torii --version <DOJO_VERSION> --world <WORLD_ADDRESS> --rpc <RPC_URL>
+slot deployments create <SERVICE_NAME> torii --config torii.toml --version <DOJO_VERSION>
 ```
 
 - slot will output something like this. Save it for later, you will need the endpoints on your client.
