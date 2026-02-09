@@ -28,10 +28,18 @@ slot auth login
 rm ~/Library/Application\ Support/slot/credentials.json
 ```
 
-Once successful, you can create a new deployment with a unique `DEPLOYMENT_NAME`. To do this, run the following command:
+Once successful, you can create a new deployment with a unique `DEPLOYMENT_NAME`.
+
+The simplest way to get started is using `--optimistic` mode:
 
 ```sh
-slot deployments create DEPLOYMENT_NAME katana
+slot deployments create DEPLOYMENT_NAME katana --optimistic
+```
+
+Alternatively, you can provide a [Katana configuration file](/toolchain/katana/configuration) via `--config`:
+
+```sh
+slot deployments create DEPLOYMENT_NAME katana --config katana.toml
 ```
 
 After that, you should receive the RPC endpoint for the katana slot. Now, you can use that and update your `Scarb.toml` file with the new RPC endpoint as follows:
@@ -85,10 +93,24 @@ Congratulations! You have successfully deployed your project with a Katana slot.
 
 ## Torii
 
-To initiate a Torri indexer slot, execute the following command:
+To deploy a Torii indexer slot, first create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
+
+```toml
+# torii.toml
+world_address = "YOUR_WORLD_ADDRESS"
+rpc = "YOUR_NEW_RPC_URL"
+```
+
+Then create the deployment:
 
 ```sh
-slot deployments create DEPLOYMENT_NAME torii --world YOUR_WORLD_ADDRESS --rpc YOUR_NEW_RPC_URL --start-block 1
+slot deployments create DEPLOYMENT_NAME torii --config torii.toml
+```
+
+You can also specify a Dojo version with `--version`:
+
+```sh
+slot deployments create DEPLOYMENT_NAME torii --config torii.toml --version v1.8.0
 ```
 
 Once deployment is successful, you should receive the endpoints for GraphQL and gRPC.

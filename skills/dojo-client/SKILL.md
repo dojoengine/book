@@ -52,8 +52,8 @@ pnpx @dojoengine/create-dojo start
 # Essential packages
 pnpm add @dojoengine/core @dojoengine/sdk @dojoengine/torii-client
 
-# For React integration
-pnpm add @dojoengine/create-burner @dojoengine/utils
+# Controller + starknet-react (recommended)
+pnpm add @cartridge/connector @cartridge/controller @starknet-react/core @starknet-react/chains starknet
 
 # For state management
 pnpm add @dojoengine/state zustand immer
@@ -104,11 +104,80 @@ async function main() {
     // Use in React
     createRoot(document.getElementById("root")!).render(
         <DojoSdkProvider sdk={sdk} dojoConfig={dojoConfig} clientFn={setupWorld}>
-            <App />
+            <StarknetProvider>
+                <App />
+            </StarknetProvider>
         </DojoSdkProvider>
     );
 }
 ```
+
+### Controller Integration (starknet-react)
+
+[Cartridge Controller](https://docs.cartridge.gg/controller/getting-started) is the recommended way to handle account management in Dojo games.
+It provides session-based authentication via starknet-react.
+
+**Define policies and create the connector (outside React components):**
+
+```typescript
+import { ControllerConnector } from "@cartridge/connector";
+import { SessionPolicies } from "@cartridge/controller";
+
+const policies: SessionPolicies = {
+    contracts: {
+        [ACTIONS_CONTRACT_ADDRESS]: {
+            methods: [
+                { name: "spawn", entrypoint: "spawn" },
+                { name: "move", entrypoint: "move" },
+            ],
+        },
+    },
+};
+
+const connector = new ControllerConnector({ policies });
+```
+
+**Wrap your app with StarknetConfig:**
+
+```typescript
+import { StarknetConfig } from "@starknet-react/core";
+import { sepolia, mainnet } from "@starknet-react/chains";
+
+function StarknetProvider({ children }: { children: React.ReactNode }) {
+    return (
+        <StarknetConfig
+            autoConnect
+            chains={[mainnet, sepolia]}
+            connectors={[connector]}
+            provider={provider}
+        >
+            {children}
+        </StarknetConfig>
+    );
+}
+```
+
+**Connect/disconnect:**
+
+```typescript
+import { useConnect, useDisconnect, useAccount } from "@starknet-react/core";
+
+function ConnectWallet() {
+    const { connect, connectors } = useConnect();
+    const { disconnect } = useDisconnect();
+    const { address } = useAccount();
+
+    return address ? (
+        <button onClick={() => disconnect()}>Disconnect</button>
+    ) : (
+        <button onClick={() => connect({ connector: connectors[0] })}>
+            Connect
+        </button>
+    );
+}
+```
+
+The `useAccount()` hook used in the "Executing Systems" section below returns the Controller session account once connected.
 
 ### Querying Entities
 

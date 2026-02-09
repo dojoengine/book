@@ -35,9 +35,14 @@ This starts Torii with default settings:
 - gRPC API at `http://localhost:8080`
 - In-memory database (for development)
 
+**With Controller indexing (recommended):**
+```bash
+torii --world <WORLD_ADDRESS> --indexing.controllers
+```
+
 **Production configuration:**
 ```bash
-torii --world <WORLD_ADDRESS> --db-dir ./torii-db
+torii --world <WORLD_ADDRESS> --db-dir ./torii-db --indexing.controllers
 ```
 
 ## What is Torii?
@@ -282,10 +287,46 @@ const { data } = await client.query({
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `--world` | World contract address | Required |
+| `--world` | World contract address | Optional (since Torii 1.6.0) |
 | `--rpc` | RPC endpoint URL | `http://localhost:5050` |
 | `--db-dir` | Database directory | In-memory |
+| `--config` | Path to TOML configuration file | None |
 | `--http.cors_origins` | CORS origins | `*` |
+
+## Slot Deployment (Remote)
+
+[Slot](https://docs.cartridge.gg/slot) provides hosted Torii instances. Slot requires a TOML configuration file.
+
+### Create Configuration
+
+```toml
+# torii.toml
+world_address = "<WORLD_ADDRESS>"
+rpc = "<RPC_URL>"
+
+[indexing]
+controllers = true
+```
+
+See the [Torii configuration guide](/toolchain/torii/configuration) for all TOML options (indexing, polling, namespaces, etc.).
+
+### Deploy
+
+```bash
+slot auth login
+
+slot deployments create <PROJECT_NAME> torii --config torii.toml --version <DOJO_VERSION>
+```
+
+### Manage
+
+```bash
+# Stream logs
+slot deployments logs <PROJECT_NAME> torii -f
+
+# Delete and recreate (safe — all data is on-chain)
+slot deployments delete <PROJECT_NAME> torii
+```
 
 ## Development Workflow
 
