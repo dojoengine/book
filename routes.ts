@@ -2,14 +2,14 @@ export const routes = [
     { text: "Overview", link: "/overview" },
     { text: "Installation", link: "/installation" },
     { text: "FAQ", link: "/faq" },
-    // Blog section - currently not surfaced
-    // {
-    // 	text: "Blog",
-    // 	items: [
-    // 		{ text: "Overview", link: "/blog" },
-    // 		{ text: "Provable Games", link: "/blog/provable-games" },
-    // 	],
-    // },
+    {
+        text: "Blog",
+        items: [
+            { text: "Overview", link: "/blog" },
+            { text: "Provable Games", link: "/blog/provable-games" },
+            { text: "Building Games on Starknet", link: "/blog/building-games-starknet" },
+        ],
+    },
     {
         text: "Getting Started",
         items: [

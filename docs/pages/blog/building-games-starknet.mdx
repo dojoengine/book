@@ -1,0 +1,141 @@
+---
+title: "Building Games on Starknet: The Complete Stack"
+description: "A practical guide to the tools and infrastructure for building onchain games on Starknet with Dojo"
+layout: minimal
+authors:
+    - "[Dojo Team](https://x.com/ohayo_dojo)"
+date: 2026-02-12
+---
+
+![Cover Image](/blog/building-games-starknet/cover.png)
+
+# Building Games on Starknet: The Complete Stack
+
+::authors
+
+Building a game on Starknet isn't just about writing Cairo. You need a full stack: an execution environment, state management, client synchronization, and player onboarding. Here's how the pieces fit together.
+
+## The Challenge
+
+Traditional game development has decades of tooling. Engines like Unity and Unreal handle rendering, physics, networking, and asset management out of the box.
+
+Onchain games are different. The blockchain is your backend, but you still need:
+- A way to model game state
+- Fast, cheap execution for player actions
+- Clients that stay in sync with onchain state
+- Wallets that don't interrupt gameplay
+
+Dojo solves this by providing a complete framework purpose-built for onchain games.
+
+## Layer 1: The Framework
+
+Dojo brings familiar game development patterns to Cairo:
+
+**Entity Component System (ECS)**
+
+Games think in entities (players, items, tiles) and components (position, health, inventory). Dojo's ECS maps directly to onchain storage while generating typed clients automatically.
+
+```cairo
+#[derive(Component)]
+struct Position {
+    x: u32,
+    y: u32,
+}
+
+#[derive(Component)]
+struct Health {
+    current: u32,
+    max: u32,
+}
+```
+
+**World Contract**
+
+Every Dojo game deploys a World contract that manages all state. Systems (your game logic) read and write through the World, keeping everything consistent.
+
+**Typed Clients**
+
+Dojo generates TypeScript and Unity clients from your contracts. No manual ABI parsing. State updates flow automatically from chain to client.
+
+## Layer 2: Execution
+
+Games can't run on Starknet mainnet directly — transaction costs and latency would kill the experience. Instead, games run on dedicated execution layers.
+
+[Cartridge Slot](https://cartridge.gg) provides application-specific rollups for Dojo games:
+- Sub-second transaction finality
+- Negligible costs per action
+- Full Starknet compatibility
+- Proofs that settle back to L1
+
+This means your game logic executes fast and cheap while inheriting Starknet's security guarantees.
+
+## Layer 3: Indexing
+
+Onchain state is authoritative but slow to query. Torii, Dojo's indexer, maintains a synchronized database of your World state.
+
+Your client queries Torii for fast reads while writes go directly to the chain. When state changes onchain, Torii updates and pushes to connected clients via GraphQL subscriptions.
+
+```typescript
+// Subscribe to position changes
+const positions = await client.getEntities({
+  model: "Position",
+  where: { player_id: playerId }
+});
+```
+
+## Layer 4: Player Identity
+
+The final piece is onboarding. Players shouldn't need to understand gas, transactions, or seed phrases.
+
+[Cartridge Controller](https://cartridge.gg) handles this:
+- Email/social login that creates a Starknet account
+- Session keys for seamless gameplay (no popups per action)
+- Account abstraction for gas sponsorship
+- Cross-game identity and inventory
+
+From the player's perspective, they're just logging into a game. The blockchain complexity is invisible.
+
+## Putting It Together
+
+Here's the full stack for a Dojo game:
+
+```
+┌─────────────────────────────────────────┐
+│           Game Client (React/Unity)      │
+├─────────────────────────────────────────┤
+│  Cartridge Controller (Identity + Wallet)│
+├─────────────────────────────────────────┤
+│         Torii (Indexer + Subscriptions)  │
+├─────────────────────────────────────────┤
+│         Cartridge Slot (Execution Layer) │
+├─────────────────────────────────────────┤
+│      Dojo World Contract (Game Logic)    │
+├─────────────────────────────────────────┤
+│              Starknet (Settlement)       │
+└─────────────────────────────────────────┘
+```
+
+Each layer handles a specific concern. Developers focus on game design while the infrastructure handles the hard parts.
+
+## Getting Started
+
+The fastest path to a running game:
+
+1. **Install Dojo**: `curl -L https://install.dojoengine.org | bash`
+2. **Scaffold a project**: `sozo init my-game`
+3. **Deploy locally**: `katana` for a local devnet, then `sozo build && sozo migrate`
+4. **Generate client**: Dojo outputs TypeScript bindings automatically
+
+From zero to playable prototype in an afternoon.
+
+## What's Next
+
+The stack keeps improving. Faster provers mean quicker settlement. Better indexers mean richer queries. More client SDKs mean more platforms.
+
+Games shipping today on Dojo — like [Eternum](https://realms.world), [Loot Survivor](https://lootsurvivor.io), and others in the [Cartridge ecosystem](https://cartridge.gg) — are stress-testing this infrastructure and pushing it forward.
+
+The goal: make building onchain games as straightforward as building traditional ones, while preserving everything that makes them special.
+
+---
+
+*Ready to build? Check out the [Dojo documentation](https://book.dojoengine.org), join the [Discord](https://discord.gg/dojoengine), or explore games on [Cartridge](https://cartridge.gg).*

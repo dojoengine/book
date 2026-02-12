@@ -32,7 +32,7 @@ export default defineConfig({
     // Navigation
     sidebar: routes,
     topNav: [
-        // { text: "Blog", link: "https://www.dojoengine.org/posts" },
+        { text: "Blog", link: "/blog" },
         {
             text: `${version}`,
             items: [
