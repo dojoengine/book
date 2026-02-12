@@ -1,0 +1,850 @@
+---
+title: "Building Your First Dojo Game Agent"
+description: "A hands-on tutorial for building autonomous game agents on Starknet using Dojo, Torii, and Controller CLI. Learn to query game state, make decisions, and execute transactions programmatically."
+layout: minimal
+authors:
+    - "[Dojo Team](https://x.com/dojoengine)"
+date: 2026-02-12
+---
+
+# Building Your First Dojo Game Agent
+
+You've read about why onchain games are perfect for AI agents. The theory makes sense—verifiable state, permissionless execution, real stakes. But how do you actually *build* one?
+
+That's what we're doing today. No hand-waving, no "exercise left to the reader" cop-outs. By the end of this tutorial, you'll have a working game agent that can observe game state, make decisions, and execute actions on a Dojo-powered game. The whole loop.
+
+We'll build something simple: an agent for a hypothetical resource management game. Think Settlers of Catan meets automation. Your agent will monitor resources, spot opportunities, and act on them—all without you clicking a single button.
+
+Let's get into it.
+
+## What You'll Need
+
+Before we start coding, make sure you've got:
+
+- **Node.js 18+** — We're writing the agent in JavaScript/TypeScript. You could use Python or Rust, but JS has the lowest friction for a tutorial.
+- **Controller CLI** — Cartridge's tool for programmatic Starknet transactions. This is how your agent gets hands.
+- **Basic Starknet knowledge** — You should know what a transaction is, what felt252 means, and roughly how smart contracts work. If terms like "calldata" make you nervous, spend 30 minutes with the Starknet docs first.
+- **A Dojo game to target** — We'll use examples from a generic game, but you'll want to adapt this to a real deployed game. Eternum is a great candidate once you're comfortable.
+
+Got all that? Good. Let's build.
+
+## Step 1: Understanding the Game World Contract
+
+Before your agent can play a game, it needs to understand the game. This isn't like screen-scraping a traditional game where you're guessing at internal state from pixels. Onchain games give you *everything*.
+
+### The World Contract
+
+Every Dojo game has a World contract—the single source of truth for all game state. Models (think of them as tables) store entities and their components. Events emit whenever something interesting happens.
+
+For our example game, imagine these models exist:
+
+```cairo
+#[derive(Model, Copy, Drop, Serde)]
+struct Player {
+    #[key]
+    player_id: ContractAddress,
+    wood: u32,
+    stone: u32,
+    gold: u32,
+    last_harvest: u64,
+}
+
+#[derive(Model, Copy, Drop, Serde)]
+struct ResourceNode {
+    #[key]
+    node_id: u32,
+    resource_type: ResourceType,
+    amount: u32,
+    position_x: u32,
+    position_y: u32,
+}
+```
+
+Your agent needs to read this data. How? Not by calling the contract directly (that's slow and limited). Instead, we use Torii.
+
+### Torii: Your Window into the Game
+
+Torii is Dojo's indexer. It watches the blockchain, processes events, and serves game state through a GraphQL API. Think of it as a read-optimized view of the World contract.
+
+Every Dojo game deployment includes a Torii instance. You'll typically find it at a URL like:
+
+```
+https://api.cartridge.gg/x/your-game/torii
+```
+
+Let's explore what's available. Open GraphQL Playground (usually at `/graphql` on the Torii URL) and run:
+
+```graphql
+{
+  __schema {
+    types {
+      name
+    }
+  }
+}
+```
+
+This shows you all the queryable types—essentially, all the models your target game has defined. For our resource game, we'd see `Player`, `ResourceNode`, and whatever else the devs created.
+
+### Reading Your Player State
+
+Here's a practical query to get a player's resources:
+
+```graphql
+query GetPlayer($playerId: String!) {
+  playerModels(where: { player_id: $playerId }) {
+    edges {
+      node {
+        player_id
+        wood
+        stone
+        gold
+        last_harvest
+      }
+    }
+  }
+}
+```
+
+Run this with your wallet address as `playerId` and you'll see exactly what the blockchain knows about your position in the game. No API keys. No rate limits (usually). Just direct access to truth.
+
+This is the first superpower of onchain game agents: perfect information. Your agent sees the same state the game sees, because they're reading from the same source.
+
+## Step 2: Setting Up Controller
+
+Reading state is only half the equation. Your agent also needs to *act*—submit transactions that change game state. That's where Controller CLI comes in.
+
+### Why Controller?
+
+Normally, Starknet transactions require a wallet signature. Every. Single. Time. That's fine for humans clicking buttons, but disastrous for an agent that might execute hundreds of actions per hour.
+
+Controller solves this with session keys. You authorize a temporary keypair to sign transactions on your behalf, scoped to specific contracts and methods. Even if someone steals the session key, the damage is limited—they can only call what you authorized, and the session expires.
+
+### Installing Controller CLI
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/cartridge-gg/controller-cli/main/install.sh | bash
+```
+
+Add it to your PATH if needed:
+
+```bash
+export PATH="$PATH:$HOME/.local/bin"
+```
+
+Verify it works:
+
+```bash
+controller --version
+```
+
+### Generating Your Keypair
+
+First, create the session keypair that'll live on your agent's machine:
+
+```bash
+controller generate --json
+```
+
+You'll get something like:
+
+```json
+{
+  "public_key": "0x1234567890abcdef...",
+  "stored_at": "~/.config/controller-cli",
+  "message": "Keypair generated successfully."
+}
+```
+
+Keep that public key handy—you'll need it for registration.
+
+The private key is stored locally. Even if someone got it, they couldn't do much without an authorized session. But still, treat it like a credential.
+
+### Creating Your Session Policy
+
+The policy defines what your agent can do. This is the most important security boundary. Be specific.
+
+Create `policy.json`:
+
+```json
+{
+  "contracts": {
+    "0x<GAME_WORLD_CONTRACT>": {
+      "name": "ResourceGame",
+      "methods": [
+        {
+          "name": "harvest",
+          "entrypoint": "harvest",
+          "description": "Harvest resources from a node"
+        },
+        {
+          "name": "build",
+          "entrypoint": "build",
+          "description": "Build structures"
+        },
+        {
+          "name": "trade",
+          "entrypoint": "trade",
+          "description": "Trade resources with other players"
+        }
+      ]
+    }
+  }
+}
+```
+
+Notice what's *not* here: `transfer`, `withdraw`, or anything that moves tokens out of the game. Your agent can play the game but can't drain your wallet. That's intentional.
+
+### Registering the Session
+
+This is the one step that requires human involvement. By design.
+
+```bash
+controller register \
+  --file policy.json \
+  --rpc-url https://api.cartridge.gg/x/starknet/sepolia \
+  --json
+```
+
+You'll get a URL:
+
+```json
+{
+  "authorization_url": "https://x.cartridge.gg/session?public_key=0x...",
+  "short_url": "https://api.cartridge.gg/s/abc123",
+  "message": "Open this URL in your browser to authorize..."
+}
+```
+
+Open that URL in your browser. Review the permissions (they should match your policy). Approve with your wallet.
+
+The CLI waits for confirmation, then stores the active session. Run `controller status --json` to verify:
+
+```json
+{
+  "status": "active",
+  "session": {
+    "address": "0x<YOUR_WALLET>",
+    "chain_id": "SN_SEPOLIA",
+    "expires_at": 1735689600,
+    "expires_in_seconds": 604800
+  }
+}
+```
+
+You're authorized. Your agent now has hands.
+
+## Step 3: Querying State via Torii
+
+Let's write real code. We'll create a function that fetches game state from Torii.
+
+```javascript
+// agent.js
+const TORII_URL = 'https://api.cartridge.gg/x/resource-game/torii/graphql';
+
+async function queryTorii(query, variables = {}) {
+  const response = await fetch(TORII_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, variables }),
+  });
+  
+  const result = await response.json();
+  if (result.errors) {
+    throw new Error(`Torii query failed: ${JSON.stringify(result.errors)}`);
+  }
+  return result.data;
+}
+
+async function getPlayerState(playerId) {
+  const query = `
+    query GetPlayer($playerId: String!) {
+      playerModels(where: { player_id: $playerId }) {
+        edges {
+          node {
+            player_id
+            wood
+            stone
+            gold
+            last_harvest
+          }
+        }
+      }
+    }
+  `;
+  
+  const data = await queryTorii(query, { playerId });
+  const edges = data.playerModels?.edges || [];
+  return edges[0]?.node || null;
+}
+
+async function getResourceNodes() {
+  const query = `
+    query GetNodes {
+      resourceNodeModels(first: 100) {
+        edges {
+          node {
+            node_id
+            resource_type
+            amount
+            position_x
+            position_y
+          }
+        }
+      }
+    }
+  `;
+  
+  const data = await queryTorii(query);
+  return data.resourceNodeModels?.edges.map(e => e.node) || [];
+}
+```
+
+Simple, right? GraphQL makes this feel almost like querying a regular database. But remember—this "database" is cryptographically verifiable and can't lie to you.
+
+### Subscribing to Events
+
+For more sophisticated agents, you might want real-time updates instead of polling. Torii supports GraphQL subscriptions:
+
+```javascript
+// Using graphql-ws (simplified example)
+import { createClient } from 'graphql-ws';
+
+const client = createClient({
+  url: 'wss://api.cartridge.gg/x/resource-game/torii/graphql',
+});
+
+function subscribeToEvents(callback) {
+  return client.subscribe(
+    {
+      query: `
+        subscription {
+          eventEmitted {
+            keys
+            data
+            transactionHash
+          }
+        }
+      `,
+    },
+    {
+      next: (data) => callback(data.data.eventEmitted),
+      error: console.error,
+      complete: () => console.log('Subscription closed'),
+    }
+  );
+}
+```
+
+For this tutorial, we'll stick with polling. It's simpler and good enough for most use cases.
+
+## Step 4: Making Decisions
+
+Here's where your agent gets a brain. Given the game state, what should it do?
+
+### Rule-Based Logic (Start Here)
+
+Don't overcomplicate it. Start with simple rules:
+
+```javascript
+function decideAction(playerState, resourceNodes) {
+  // Rule 1: If we have few resources, harvest
+  if (playerState.wood < 50 || playerState.stone < 50) {
+    const bestNode = findBestHarvestNode(playerState, resourceNodes);
+    if (bestNode) {
+      return {
+        type: 'harvest',
+        nodeId: bestNode.node_id,
+      };
+    }
+  }
+  
+  // Rule 2: If we have enough resources, build
+  if (playerState.wood >= 100 && playerState.stone >= 100) {
+    return {
+      type: 'build',
+      structure: 'workshop',
+    };
+  }
+  
+  // Rule 3: If we have excess gold, trade for what we need
+  if (playerState.gold > 500 && playerState.wood < 50) {
+    return {
+      type: 'trade',
+      give: { gold: 100 },
+      receive: { wood: 50 },
+    };
+  }
+  
+  // No action needed
+  return null;
+}
+
+function findBestHarvestNode(playerState, nodes) {
+  // Find the node with the most resources
+  // In a real game, you'd factor in distance, competition, etc.
+  return nodes
+    .filter(n => n.amount > 0)
+    .sort((a, b) => b.amount - a.amount)[0];
+}
+```
+
+These rules are dumb. They don't consider timing, other players, or strategy. But they *work*. You can watch your agent play and improve the rules based on what you observe.
+
+### LLM-Powered Decisions (Advanced)
+
+Want your agent to think more like a human? You can use an LLM:
+
+```javascript
+import Anthropic from '@anthropic-ai/sdk';
+
+const anthropic = new Anthropic();
+
+async function decideLLM(playerState, resourceNodes, recentEvents) {
+  const gameContext = `
+You're playing a resource management game. Your current state:
+- Wood: ${playerState.wood}
+- Stone: ${playerState.stone}  
+- Gold: ${playerState.gold}
+- Last harvest: ${playerState.last_harvest}
+
+Available resource nodes:
+${JSON.stringify(resourceNodes, null, 2)}
+
+Recent game events:
+${JSON.stringify(recentEvents, null, 2)}
+
+What action should you take? Respond with JSON:
+{
+  "action": "harvest" | "build" | "trade" | "wait",
+  "params": { ... },
+  "reasoning": "brief explanation"
+}
+`;
+
+  const response = await anthropic.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 500,
+    messages: [{ role: 'user', content: gameContext }],
+  });
+  
+  return JSON.parse(response.content[0].text);
+}
+```
+
+LLMs shine when the optimal action depends on context that's hard to encode in rules. But they're slower, cost money per request, and can make bizarre mistakes. Start with rules, add LLM reasoning when you hit limits.
+
+A hybrid approach often works best:
+
+```javascript
+async function decideHybrid(playerState, resourceNodes, recentEvents) {
+  // Try rule-based first (fast, free, predictable)
+  const rulesAction = decideAction(playerState, resourceNodes);
+  
+  // If rules have a clear answer, use it
+  if (rulesAction && rulesAction.confidence > 0.8) {
+    return rulesAction;
+  }
+  
+  // For ambiguous situations, ask the LLM
+  if (shouldConsultLLM(playerState, recentEvents)) {
+    return await decideLLM(playerState, resourceNodes, recentEvents);
+  }
+  
+  return rulesAction;
+}
+
+function shouldConsultLLM(playerState, recentEvents) {
+  // Consult LLM for complex scenarios:
+  // - Multiple viable options
+  // - Recent threatening player activity
+  // - Resource levels are moderate (not obviously low or high)
+  const hasThreats = recentEvents.some(e => e.type === 'attack_nearby');
+  const resourcesAmbiguous = 
+    playerState.wood > 30 && playerState.wood < 150;
+  
+  return hasThreats || resourcesAmbiguous;
+}
+```
+
+This gives you the best of both worlds: fast execution for obvious decisions, nuanced reasoning when it matters.
+
+## Step 5: Executing Actions
+
+Decision made. Now your agent needs to do something about it.
+
+### Building Calldata
+
+Each action becomes a transaction. The game's contract defines what calldata it expects:
+
+```javascript
+function buildCalldata(action) {
+  switch (action.type) {
+    case 'harvest':
+      // harvest(node_id: u32)
+      return {
+        contract: GAME_CONTRACT,
+        entrypoint: 'harvest',
+        calldata: [action.nodeId.toString()],
+      };
+      
+    case 'build':
+      // build(structure_type: felt252)
+      const structureTypes = {
+        workshop: '0x1',
+        warehouse: '0x2',
+        barracks: '0x3',
+      };
+      return {
+        contract: GAME_CONTRACT,
+        entrypoint: 'build',
+        calldata: [structureTypes[action.structure]],
+      };
+      
+    case 'trade':
+      // trade(give_type: felt, give_amount: u32, receive_type: felt, receive_amount: u32)
+      return {
+        contract: GAME_CONTRACT,
+        entrypoint: 'trade',
+        calldata: [
+          resourceToFelt(Object.keys(action.give)[0]),
+          Object.values(action.give)[0].toString(),
+          resourceToFelt(Object.keys(action.receive)[0]),
+          Object.values(action.receive)[0].toString(),
+        ],
+      };
+      
+    default:
+      return null;
+  }
+}
+
+function resourceToFelt(resource) {
+  const mapping = { wood: '0x1', stone: '0x2', gold: '0x3' };
+  return mapping[resource];
+}
+```
+
+The exact format depends on the game's contract. Read the source (it's public!) or check their docs.
+
+### Executing via Controller
+
+Now we call Controller CLI to submit the transaction:
+
+```javascript
+import { execSync } from 'child_process';
+
+function executeAction(calldata) {
+  if (!calldata) return null;
+  
+  const { contract, entrypoint, calldata: args } = calldata;
+  const calldataStr = args.join(',');
+  
+  try {
+    const result = execSync(
+      `controller execute ${contract} ${entrypoint} ${calldataStr} \
+        --rpc-url https://api.cartridge.gg/x/starknet/sepolia \
+        --json`,
+      { encoding: 'utf-8' }
+    );
+    
+    const parsed = JSON.parse(result);
+    console.log(`Transaction submitted: ${parsed.transaction_hash}`);
+    console.log(`View on Voyager: https://sepolia.voyager.online/tx/${parsed.transaction_hash}`);
+    
+    return parsed;
+  } catch (error) {
+    console.error('Execution failed:', error.message);
+    throw error;
+  }
+}
+```
+
+### Handling Failures
+
+Transactions can fail for many reasons. Handle them gracefully:
+
+```javascript
+async function executeWithRetry(calldata, maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const result = executeAction(calldata);
+      
+      // Check for known error codes
+      if (result.status === 'error') {
+        const { error_code, recovery_hint } = result;
+        
+        if (error_code === 'SessionExpired') {
+          console.log('Session expired. Please re-register.');
+          // In practice, you might notify yourself to re-auth
+          process.exit(1);
+        }
+        
+        if (error_code === 'ManualExecutionRequired') {
+          console.log('Action not authorized in session policy');
+          return null;
+        }
+        
+        console.log(`Error: ${error_code}. Hint: ${recovery_hint}`);
+      }
+      
+      return result;
+    } catch (error) {
+      console.log(`Attempt ${attempt} failed: ${error.message}`);
+      if (attempt < maxRetries) {
+        await sleep(1000 * attempt); // Exponential backoff
+      }
+    }
+  }
+  
+  console.error('All retries exhausted');
+  return null;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+```
+
+The recovery hints from Controller are genuinely useful. Don't ignore them.
+
+## Step 6: The Game Loop
+
+Time to put it all together. The classic agent loop: observe, decide, act, repeat.
+
+```javascript
+const PLAYER_ADDRESS = '0x<YOUR_WALLET_ADDRESS>';
+const POLL_INTERVAL = 30000; // 30 seconds
+
+async function runAgent() {
+  console.log('Starting game agent...');
+  console.log(`Player: ${PLAYER_ADDRESS}`);
+  console.log(`Polling every ${POLL_INTERVAL / 1000}s`);
+  
+  // Check session is active
+  const status = JSON.parse(
+    execSync('controller status --json', { encoding: 'utf-8' })
+  );
+  
+  if (status.status !== 'active') {
+    console.error('No active session. Run: controller register --file policy.json ...');
+    process.exit(1);
+  }
+  
+  console.log(`Session expires: ${status.session.expires_at_formatted}`);
+  console.log('---');
+  
+  while (true) {
+    try {
+      // 1. OBSERVE: Get current game state
+      const playerState = await getPlayerState(PLAYER_ADDRESS);
+      const resourceNodes = await getResourceNodes();
+      
+      if (!playerState) {
+        console.log('Player not found in game. Have you joined?');
+        await sleep(POLL_INTERVAL);
+        continue;
+      }
+      
+      console.log(`[${new Date().toISOString()}] State:`, {
+        wood: playerState.wood,
+        stone: playerState.stone,
+        gold: playerState.gold,
+      });
+      
+      // 2. DECIDE: What should we do?
+      const action = decideAction(playerState, resourceNodes);
+      
+      if (!action) {
+        console.log('No action needed.');
+        await sleep(POLL_INTERVAL);
+        continue;
+      }
+      
+      console.log('Decided action:', action);
+      
+      // 3. ACT: Execute the decision
+      const calldata = buildCalldata(action);
+      const result = await executeWithRetry(calldata);
+      
+      if (result?.transaction_hash) {
+        console.log('Action executed successfully!');
+        // Wait a bit longer after acting to let state update
+        await sleep(5000);
+      }
+      
+    } catch (error) {
+      console.error('Loop error:', error.message);
+    }
+    
+    await sleep(POLL_INTERVAL);
+  }
+}
+
+// Entry point
+runAgent().catch(console.error);
+```
+
+Run it:
+
+```bash
+node agent.js
+```
+
+And watch your agent play. It'll log what it sees, what it decides, and what it does. When something looks wrong, stop it, tweak the rules, and restart.
+
+### Making It Robust
+
+The loop above works, but it's fragile. Here's how to make it production-ready:
+
+**Graceful shutdown**: Handle signals properly so you don't corrupt state mid-action.
+
+```javascript
+let running = true;
+
+process.on('SIGINT', () => {
+  console.log('\nShutting down gracefully...');
+  running = false;
+});
+
+// In your loop:
+while (running) {
+  // ... your logic
+}
+```
+
+**Session monitoring**: Don't wait for your session to expire mid-execution. Check proactively:
+
+```javascript
+function checkSessionHealth() {
+  const status = JSON.parse(
+    execSync('controller status --json', { encoding: 'utf-8' })
+  );
+  
+  // Warn if less than 24 hours remaining
+  if (status.session?.expires_in_seconds < 86400) {
+    console.warn('⚠️ Session expires in <24h. Consider re-registering.');
+  }
+  
+  // Stop if less than 1 hour remaining
+  if (status.session?.expires_in_seconds < 3600) {
+    console.error('Session nearly expired. Stopping agent.');
+    return false;
+  }
+  
+  return status.status === 'active';
+}
+```
+
+**Rate limiting**: Blockchains have throughput limits, and games often have cooldowns. Respect both:
+
+```javascript
+const actionCooldowns = new Map();
+
+function canExecute(actionType) {
+  const lastExecution = actionCooldowns.get(actionType) || 0;
+  const cooldownMs = 60000; // 1 minute between same actions
+  
+  if (Date.now() - lastExecution < cooldownMs) {
+    return false;
+  }
+  
+  actionCooldowns.set(actionType, Date.now());
+  return true;
+}
+```
+
+**Logging and metrics**: You'll want to know what your agent did while you were asleep:
+
+```javascript
+const fs = require('fs');
+
+function logAction(action, result) {
+  const entry = {
+    timestamp: new Date().toISOString(),
+    action,
+    success: !!result?.transaction_hash,
+    txHash: result?.transaction_hash,
+  };
+  
+  fs.appendFileSync(
+    'agent-log.jsonl',
+    JSON.stringify(entry) + '\n'
+  );
+}
+```
+
+**Multiple agents**: Some strategies work better with coordination. But be careful—this can get complex fast. Start with one agent that works reliably before scaling up.
+
+## Debugging Your Agent
+
+Things will go wrong. Here's how to figure out what:
+
+**State mismatch**: Your agent thinks it should harvest, but the transaction fails. Check if someone else harvested the node first. Onchain games are competitive—state changes between your read and your write.
+
+```javascript
+// Before executing, verify the opportunity still exists
+async function verifyOpportunity(action, currentNodes) {
+  if (action.type === 'harvest') {
+    const node = currentNodes.find(n => n.node_id === action.nodeId);
+    if (!node || node.amount === 0) {
+      console.log('Node depleted since we last checked. Skipping.');
+      return false;
+    }
+  }
+  return true;
+}
+```
+
+**Session issues**: If you see `ManualExecutionRequired`, your session doesn't authorize the action you're trying to take. Either update your policy or your decision logic is generating invalid actions.
+
+**Transaction debugging**: Use Voyager to inspect failed transactions. The error message is usually in the execution trace. Common issues:
+- Wrong calldata format (check argument types)
+- Insufficient resources (your agent tried to spend what it doesn't have)
+- Game-specific validation (cooldowns, turn requirements, etc.)
+
+**Torii lag**: The indexer isn't instant. If you act immediately after state changes, you might read stale data. Add a small delay after your own transactions:
+
+```javascript
+if (result?.transaction_hash) {
+  console.log('Action executed. Waiting for indexer...');
+  await sleep(10000); // Give Torii time to process
+}
+```
+
+Most bugs fall into these categories. When something new happens, add it to your logging and you'll spot patterns.
+
+## What You've Built
+
+Let's recap. You now have:
+
+1. **State observation** via Torii GraphQL—perfect information about the game
+2. **Autonomous signing** via Controller sessions—scoped, time-limited, secure
+3. **Decision logic** that can be as simple or sophisticated as you want
+4. **Transaction execution** with proper error handling
+5. **A running loop** that ties it all together
+
+This isn't a toy. Agents built on this pattern are already playing real games with real tokens at stake. The architecture scales from hobby experiments to serious autonomous systems.
+
+## Next Steps
+
+You've got the foundation. Where you take it depends on your interests:
+
+**Better strategies**: The decision function is where competitive advantage lives. Can you model other players? Predict market movements? Find arbitrage opportunities?
+
+**Multi-agent coordination**: What if you had 10 agents working together? Or competing against each other to test strategies?
+
+**LLM integration**: We showed a basic example. But you could give the LLM memory, tools for analysis, or let it learn from outcomes.
+
+**Real deployment**: Run this on a server 24/7. Add monitoring. Maybe even let it manage meaningful amounts of value.
+
+The code from this tutorial is a starting point, not a ceiling. Fork it, break it, make it your own.
+
+---
+
+*This article is part of the Agent-Native Games series. Read the previous article: [Why Onchain Games Are Perfect for AI Agents](/blog/why-onchain-games-are-perfect-for-ai-agents)*
+
+**Resources:**
+- [Controller CLI Documentation](https://github.com/cartridge-gg/controller-cli/blob/main/LLM_USAGE.md)
+- [Torii Documentation](https://book.dojoengine.org/toolchain/torii)
+- [Dojo Book](https://book.dojoengine.org/)

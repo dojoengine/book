@@ -1,0 +1,482 @@
+---
+title: "Why Onchain Games Are Perfect for AI Agents"
+description: "A technical deep dive into how blockchain games provide the observable state, permissionless execution, and verifiable outcomes that AI agents need to play effectively."
+layout: minimal
+authors:
+    - "[Dojo Team](https://x.com/dojoengine)"
+date: 2026-02-12
+---
+
+# Why Onchain Games Are Perfect for AI Agents
+
+AI agents are getting good at games. Really good. But here's the thing most people miss: the limiting factor isn't intelligence anymore. It's access.
+
+An agent can reason about complex strategy, optimize resource allocation, and learn from thousands of simulated games. What it can't do? Reliably interact with most games. Traditional games weren't built for programmatic players — they were built to keep them out.
+
+Onchain games flip this entirely. They're permissionless by default, transparent by design, and cryptographically verifiable. For developers building AI game agents, this isn't just convenient. It's transformative.
+
+Let's break down exactly why onchain architecture gives agents what they need, and how you can use the Dojo stack to build agents that actually work.
+
+![Diagram showing agent architecture connecting to onchain game state](placeholder: technical diagram showing AI agent → Torii → World Contract → execution flow, clean line art style)
+*The agent stack: query state via Torii, reason locally, execute via Controller*
+
+## What Agents Actually Need
+
+Before we talk about solutions, let's be precise about the problem. An AI agent trying to play a game needs four things:
+
+**Observable state.** The agent needs to see what's happening. Not through pixel parsing or screen scraping — through structured data it can reason about. Give it a JSON object with game state, not a 1920x1080 screenshot.
+
+**Reliable execution.** When the agent decides to make a move, that move needs to happen. Consistently. No random failures, no "please complete this CAPTCHA," no silent drops.
+
+**Verifiable outcomes.** The agent needs to know its action worked. Not "the server said it worked" — cryptographic proof that the state changed as expected. This matters when real value is on the line.
+
+**Economic alignment.** Agents need skin in the game. If playing well leads to real rewards (and playing poorly to real losses), you get agents that optimize for actually winning, not just exploring the action space.
+
+Traditional games give you maybe one of these. Onchain games give you all four.
+
+## Why Traditional Games Fail Agents
+
+I've built game bots before. You probably have too. And you know the pain.
+
+### Screen Scraping Is Brittle
+
+The classic approach: capture frames, run computer vision, extract state. It works... until it doesn't.
+
+```python
+# The traditional approach
+screenshot = capture_screen()
+health_bar = detect_region(screenshot, HEALTH_BAR_COORDS)
+current_health = ocr_number(health_bar)  # Good luck with this
+```
+
+Font changes break your OCR. UI updates shift your detection regions. Anti-aliasing makes edge detection unreliable. You spend more time maintaining the scraper than building the actual agent logic.
+
+And that's assuming you can capture the screen at all. Many games detect and block screen capture software.
+
+### Private Servers Mean Trust Issues
+
+Some games offer APIs. Great! Except you're trusting that:
+- The server isn't lying about game state
+- Other players aren't getting different information
+- The server won't change behavior when it detects bot-like patterns
+- Your API access won't get revoked
+
+With private servers, you're playing in someone else's sandbox. They can change the rules whenever they want.
+
+### Permission Gates Kill Innovation
+
+Want to build an agent for a popular game? Here's your path:
+
+1. Apply for API access
+2. Wait weeks/months for approval
+3. Get rejected because "bots hurt player experience"
+4. Try to reverse-engineer the protocol
+5. Get banned
+
+The games that do allow programmatic access typically lock it behind expensive licensing deals or restrict it to "approved partners." Innovation happens at the edges, and these gates keep independent developers out.
+
+### Anti-Bot Measures Are Adversarial
+
+Game companies spend millions fighting bots. CAPTCHAs, behavioral analysis, device fingerprinting, rate limiting, shadow bans. It's an arms race, and as an agent developer, you're the enemy.
+
+Even if your agent provides value — even if it makes the game more interesting — you're fighting the infrastructure instead of building cool stuff.
+
+## How Onchain Games Deliver
+
+Now let's flip the script. Here's what building agents looks like with onchain games.
+
+### Verifiable State via Torii
+
+Every Dojo game exposes its state through Torii, an indexer that makes all game data queryable via GraphQL or gRPC. No screen scraping. No reverse engineering. Just query the data you need.
+
+```graphql
+# Query all realms with their resources and positions
+query GetGameState {
+  entities(keys: ["*"]) {
+    edges {
+      node {
+        keys
+        models {
+          ... on Position {
+            x
+            y
+          }
+          ... on Resources {
+            wood
+            stone
+            food
+          }
+          ... on Army {
+            units
+            strength
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+This isn't cached data from a friendly API. It's indexed directly from the blockchain. The state you're querying is the same state everyone else sees — cryptographically guaranteed.
+
+Want to know if an opponent is massing troops near your border? Query it. Want historical data about price movements in the in-game market? It's all there, indexed and searchable.
+
+```javascript
+// Real-time subscription to game events
+const subscription = gql`
+  subscription OnGameEvents {
+    events(keys: ["game_id"]) {
+      data
+      keys
+      transactionHash
+    }
+  }
+`;
+
+client.subscribe({ query: subscription }).subscribe({
+  next(event) {
+    agent.processEvent(event.data);
+  }
+});
+```
+
+Your agent can subscribe to events and react in real-time. When an opponent moves, you know immediately — not when the game client decides to render it.
+
+### Permissionless Execution
+
+Here's the part that changes everything: you don't need permission to play.
+
+Onchain games are smart contracts. Anyone can call them. No API keys, no approval process, no Terms of Service that ban "automated play." If you can construct a valid transaction, you can execute it.
+
+```bash
+# Execute a game action via Controller CLI
+controller execute \
+  --contract 0x123...abc \
+  --entrypoint move_army \
+  --calldata 0x5,0x10,0x3 \
+  --rpc-url https://api.cartridge.gg/x/starknet/mainnet \
+  --json
+```
+
+Your agent has the exact same interface as a human player. Better, actually — humans use clunky GUIs while your agent talks directly to the contract.
+
+This isn't just convenient. It's a different relationship with the game. You're not a guest hoping the game company lets you play. You're a participant in a permissionless protocol.
+
+### Provable Logic with Cairo
+
+Dojo games are written in Cairo, a provably-correct smart contract language. This means:
+
+**Deterministic outcomes.** Given the same inputs, you always get the same outputs. Your agent can simulate actions locally before committing them onchain.
+
+**Auditable rules.** The game logic is public. You can read the contracts, understand exactly how combat resolves, how resources accumulate, how edge cases are handled. No hidden mechanics.
+
+**Guaranteed execution.** If your transaction is valid and included in a block, it will execute exactly as the contract specifies. No server-side fudging.
+
+```rust
+// Cairo game logic - completely transparent
+fn attack(
+    ref self: ContractState,
+    attacker_id: u128,
+    defender_id: u128
+) {
+    let attacker = get!(self.world, attacker_id, (Army));
+    let defender = get!(self.world, defender_id, (Army));
+    
+    // Combat resolution is deterministic and auditable
+    let damage = calculate_damage(attacker.strength, defender.defense);
+    
+    // State changes are atomic - all or nothing
+    set!(self.world, (
+        Army { id: defender_id, health: defender.health - damage }
+    ));
+    
+    emit!(self.world, AttackEvent { attacker_id, defender_id, damage });
+}
+```
+
+Your agent can reason about this logic directly. No guessing how the black box works.
+
+### Real Economic Stakes
+
+Onchain games use real tokens. Not points. Not "premium currency." Actual transferable assets with market value.
+
+This creates genuine incentives. An agent that plays well accumulates valuable resources. One that plays poorly loses them. The feedback loop is real, immediate, and denominated in something that matters.
+
+For agent developers, this is huge. You can build agents that earn their own operating costs. You can create agents that compete for profit. The economics align with performance.
+
+Consider the training implications. With traditional games, you might run millions of simulated games to train an agent, but deployment is disconnected from training. The simulation doesn't match reality perfectly, and there's no economic feedback.
+
+With onchain games, your agent learns from real stakes from day one. Bad decisions cost real resources. Good decisions accumulate real value. The agent isn't optimizing for a proxy metric — it's optimizing for the actual thing that matters.
+
+This also enables new business models. Imagine an agent-as-a-service that plays on behalf of users, taking a cut of winnings. Or a DAO-owned agent that distributes profits to token holders. The permissionless nature of onchain games makes these arrangements enforceable and trustless.
+
+## The Dojo Stack for Agents
+
+Let's get concrete. Here's how the pieces fit together.
+
+### World Contract
+
+Every Dojo game has a World contract — a single entry point that manages all game state. Think of it as the game's database and execution engine rolled into one.
+
+```
+World Contract (0x123...abc)
+├── Models (data schemas)
+│   ├── Position { entity_id, x, y }
+│   ├── Resources { entity_id, wood, stone, food }
+│   └── Army { entity_id, units, strength }
+├── Systems (game logic)
+│   ├── move_army(army_id, target_x, target_y)
+│   ├── gather_resources(worker_id)
+│   └── attack(attacker_id, defender_id)
+└── Events (state changes)
+    ├── ArmyMoved
+    ├── ResourcesGathered
+    └── CombatResolved
+```
+
+For agents, this is the API. Query models for state, call systems to take actions, subscribe to events for updates.
+
+### Torii Indexer
+
+Torii watches the blockchain and indexes everything that happens in the game. It provides:
+
+- **GraphQL API** for complex queries
+- **gRPC** for high-performance streaming
+- **WebSocket subscriptions** for real-time updates
+
+```javascript
+// Initialize Torii client
+import { ToriiClient } from "@dojoengine/torii-client";
+
+const client = await ToriiClient.create({
+  toriiUrl: "https://api.cartridge.gg/x/eternum/torii",
+  worldAddress: "0x123...abc",
+});
+
+// Fetch all entities matching a query
+const entities = await client.getEntities({
+  model: "Position",
+  query: { x: { $gte: 0, $lte: 100 } }
+});
+
+// Subscribe to model updates
+client.onEntityUpdated((entity) => {
+  console.log("Entity changed:", entity);
+  agent.onStateChange(entity);
+});
+```
+
+The indexer is your agent's eyes. Query frequently, subscribe to what matters, and keep your local state synchronized.
+
+### Controller CLI
+
+Here's where agent execution gets practical. The Controller CLI lets you sign and submit transactions programmatically — no browser wallet, no popup confirmations.
+
+**Generate a keypair:**
+```bash
+controller generate-keypair --json
+# Output: { "publicKey": "0x...", "privateKey": "0x..." }
+```
+
+**Check session status:**
+```bash
+controller status --json
+# Output: { "status": "no_session" | "keypair_only" | "active" }
+```
+
+**Register a session with policies:**
+```json
+// policy.json - defines what actions the session can take
+{
+  "contracts": {
+    "0x123...abc": {
+      "methods": ["move_army", "gather_resources", "attack"]
+    }
+  },
+  "expires": "2026-03-12T00:00:00Z"
+}
+```
+
+```bash
+controller register-session policy.json \
+  --rpc-url https://api.cartridge.gg/x/starknet/mainnet \
+  --json
+# Opens browser for user approval, then session is active
+```
+
+**Execute transactions:**
+```bash
+controller execute \
+  --contract 0x123...abc \
+  --entrypoint move_army \
+  --calldata 0x42,0x10,0x15 \
+  --rpc-url https://api.cartridge.gg/x/starknet/mainnet \
+  --json
+```
+
+The key insight: sessions are pre-authorized. Once a user approves a session policy, the agent can execute any action within that policy without further human intervention. Your agent can run autonomously for days or weeks.
+
+### Session Key Security
+
+"Wait, doesn't that mean if someone gets my session key, they can drain my account?"
+
+Not quite. Session keys are scoped:
+
+- **Contract whitelist** — only call specific game contracts
+- **Method whitelist** — only call specific functions
+- **Expiration** — sessions automatically expire
+- **No token transfers** — session can't move assets out of the game
+
+Even in a worst case leak, the damage is limited to in-game actions the session was authorized for. An attacker could make your agent play badly, but they can't steal your tokens.
+
+## Design Patterns for Agent-Friendly Games
+
+If you're building a game (not just an agent), here's how to make it agent-friendly.
+
+### Atomic Actions
+
+Each transaction should represent one complete decision. Don't make agents submit multi-step flows.
+
+```rust
+// Good: single atomic action
+fn reinforce_and_attack(
+    ref self: ContractState,
+    reinforcement_count: u32,
+    target_id: u128
+) {
+    // Reinforcement and attack in one tx
+}
+
+// Bad: requires two transactions with state between them
+fn prepare_attack(...) { }  // First tx
+fn execute_attack(...) { }  // Second tx, might fail if state changed
+```
+
+Atomic actions let agents reason about outcomes confidently. Multi-step flows create race conditions.
+
+### Rich Event Emission
+
+Emit events for everything. Agents need to know what happened and why.
+
+```rust
+// Emit detailed events
+emit!(self.world, CombatResolved {
+    attacker_id,
+    defender_id,
+    damage_dealt,
+    defender_destroyed: defender.health <= 0,
+    attacker_remaining_strength,
+    block_timestamp: starknet::get_block_timestamp()
+});
+```
+
+Events are cheap. Debugging agents without them is expensive.
+
+### Composable Game Logic
+
+Build systems that can be combined. Agents excel at finding optimal combinations humans wouldn't try.
+
+```rust
+// Separate systems that compose
+fn move_army(...) { }
+fn set_army_stance(...) { }
+fn declare_alliance(...) { }
+fn trade_resources(...) { }
+
+// Agents can orchestrate these in creative ways
+// Human: move, then attack
+// Agent: move, set defensive stance, trade resources to ally, 
+//        have ally attack while you defend
+```
+
+The more composable your systems, the more interesting the agent strategies.
+
+### Query-Friendly State
+
+Structure your models for efficient querying. Agents will hammer your indexer.
+
+```rust
+// Include commonly-queried fields directly
+struct Army {
+    id: u128,
+    owner: ContractAddress,
+    position_x: u32,    // Denormalized for query efficiency
+    position_y: u32,
+    strength: u32,
+    last_action_time: u64,  // Useful for cooldown calculations
+}
+```
+
+Think about what queries agents will run and optimize for them.
+
+### Information Visibility
+
+Be intentional about what's public and what's hidden. Onchain state is public by default, but you can design around this.
+
+Some information should be visible — it creates strategic depth when agents can observe and react to each other. Army positions, resource levels, territorial control.
+
+Other information might benefit from fog of war. You can implement commitment schemes where agents commit to actions in one transaction and reveal them later. This prevents reactive counter-play and rewards genuine prediction.
+
+```rust
+// Commitment scheme for hidden actions
+fn commit_action(ref self: ContractState, commitment: felt252) {
+    // Store hash of (action, salt)
+    set!(self.world, (Commitment { player: get_caller_address(), hash: commitment }));
+}
+
+fn reveal_action(ref self: ContractState, action: felt252, salt: felt252) {
+    let commitment = get!(self.world, get_caller_address(), (Commitment));
+    assert(poseidon_hash(action, salt) == commitment.hash, 'invalid reveal');
+    // Execute the revealed action
+}
+```
+
+The key is making information visibility a deliberate design choice, not an accident of architecture.
+
+## The Agent Development Loop
+
+Here's the actual workflow for building a game agent:
+
+1. **Explore state** — Query Torii, understand what data is available
+2. **Understand actions** — Read the system contracts, know what you can do
+3. **Build perception** — Write code to fetch and parse game state into useful representations
+4. **Implement strategy** — Rule-based, ML-powered, or LLM-driven decision making
+5. **Execute actions** — Submit transactions via Controller
+6. **Monitor and iterate** — Watch performance, refine strategy
+
+```python
+# The core agent loop
+async def agent_loop():
+    while True:
+        # Perceive
+        state = await torii.query_game_state()
+        
+        # Decide
+        action = strategy.decide(state)
+        
+        # Act
+        if action:
+            tx = await controller.execute(action)
+            await wait_for_confirmation(tx)
+        
+        # Rate limit appropriately
+        await asyncio.sleep(POLL_INTERVAL)
+```
+
+It's simple in structure, complex in the details. But the infrastructure handles the hard parts — you focus on strategy.
+
+## What's Next
+
+We're at the early days of agent-native gaming. The tools exist. The games are launching. What's missing is developers building agents.
+
+If you want to go deeper:
+
+- **Build something**: Check out [Building Your First Dojo Game Agent](/docs/tutorial-agent) for a hands-on walkthrough
+- **Understand the context**: Read [The Rise of Agent-Native Gaming](https://cartridge.gg/blog/agent-native-gaming) for the bigger picture
+- **Get the tools**: [Controller CLI documentation](https://github.com/cartridge-gg/controller-cli) has everything you need to start executing transactions
+
+Onchain games aren't just compatible with AI agents. They're waiting for them. The question is: what will you build?
+
+---
+
+*Building an agent for a Dojo game? Share what you're working on — we'd love to see it.*
