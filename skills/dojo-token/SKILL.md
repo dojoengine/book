@@ -1,59 +1,30 @@
 ---
 name: dojo-token
-description: Implement ERC20 and ERC721 token standards in Dojo using Origami library. Use when adding fungible tokens, NFTs, or token-based game mechanics.
-allowed-tools: Read, Write, Edit, Glob, Grep
+description: Implement, deploy, and index ERC20 and ERC721 tokens in Dojo. Use when adding token contracts, deploying them, or configuring Torii to index balances and transfers.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# Dojo Token Standards
+# Dojo Tokens
 
-Implement ERC20 fungible tokens and ERC721 NFTs in your Dojo game using the Origami library.
+Implement ERC20/ERC721 tokens in Cairo, deploy them alongside your Dojo world, and configure Torii to index balances, transfers, and metadata.
 
 ## When to Use This Skill
 
 - "Implement ERC20 token for game currency"
 - "Create NFT items with ERC721"
-- "Add token standard to my game"
+- "Deploy an ERC20 token with my world"
+- "Index token balances with Torii"
+- "Query token transfers"
 - "Use Origami for tokens"
 
 ## What This Skill Does
 
-Implements token standards:
-- ERC20 fungible tokens (currency, resources)
-- ERC721 non-fungible tokens (items, characters)
-- Token minting and burning
-- Transfer mechanics
-- Balance tracking
-
-## Token Standards
-
-### ERC20 - Fungible Tokens
-
-For interchangeable assets:
-- Game currency (gold, gems)
-- Resources (wood, stone)
-- Experience points
-
-**Properties:**
-- Divisible (can have fractions)
-- Interchangeable (any token = any other)
-- Track balances per account
-
-### ERC721 - Non-Fungible Tokens
-
-For unique assets:
-- Character NFTs
-- Equipment/items
-- Land plots
-- Achievements
-
-**Properties:**
-- Unique (each has token ID)
-- Indivisible (whole units only)
-- Individual ownership tracking
+- Implement ERC20 fungible tokens and ERC721 NFTs in Cairo
+- Deploy token contracts as external contracts via `sozo migrate`
+- Configure Torii to index token balances, transfers, and metadata
+- Query token data via SQL and client SDKs
 
 ## Using Origami Library
-
-### Installation
 
 Add to `Scarb.toml`:
 ```toml
@@ -66,7 +37,7 @@ Refer to the [Origami documentation](https://github.com/dojoengine/origami) for 
 
 ## Simple Token Implementation
 
-You can implement tokens using standard Dojo models without Origami:
+You can implement tokens using standard Dojo models without Origami.
 
 ### ERC20-like Currency
 
@@ -205,74 +176,9 @@ mod weapon_nft {
 }
 ```
 
-## Game Patterns
-
-### In-Game Currency
-
-```cairo
-// Award gold for completing quest
-fn complete_quest(ref self: ContractState, quest_id: u32) {
-    let mut world = self.world_default();
-    let player = get_caller_address();
-
-    // Check quest is completed
-    // ...
-
-    // Award gold
-    let mut gold: Gold = world.read_model(player);
-    gold.amount += 100;
-    world.write_model(@gold);
-}
-
-// Spend gold to buy item
-fn buy_item(ref self: ContractState, item_id: u32, price: u256) {
-    let mut world = self.world_default();
-    let player = get_caller_address();
-
-    let mut gold: Gold = world.read_model(player);
-    assert(gold.amount >= price, 'insufficient gold');
-
-    gold.amount -= price;
-    world.write_model(@gold);
-
-    // Give item to player
-    // ...
-}
-```
-
-### Multiple Resource Types
-
-```cairo
-#[derive(Copy, Drop, Serde)]
-#[dojo::model]
-pub struct Resources {
-    #[key]
-    pub player: ContractAddress,
-    pub wood: u256,
-    pub stone: u256,
-    pub iron: u256,
-}
-```
-
-### Equipment NFTs
-
-```cairo
-fn equip_weapon(ref self: ContractState, token_id: u256) {
-    let mut world = self.world_default();
-    let player = get_caller_address();
-
-    // Check ownership
-    let weapon: Weapon = world.read_model(token_id);
-    assert(weapon.owner == player, 'not owner');
-
-    // Equip
-    let mut equipment: Equipment = world.read_model(player);
-    equipment.weapon_id = token_id;
-    world.write_model(@equipment);
-}
-```
-
 ## Token Events
+
+Emit events so Torii and clients can track token operations:
 
 ```cairo
 #[derive(Copy, Drop, Serde)]
@@ -285,38 +191,140 @@ pub struct TokenTransferred {
     pub amount: u256,
 }
 
-#[derive(Copy, Drop, Serde)]
-#[dojo::event]
-pub struct NFTTransferred {
-    #[key]
-    pub token_id: u256,
-    pub from: ContractAddress,
-    pub to: ContractAddress,
-}
-
 // Emit in your functions
 world.emit_event(@TokenTransferred { from, to, amount });
 ```
 
-## Considerations
+## Deploying Token Contracts
 
-- **Balance checks**: Always verify sufficient balance before transfers
-- **Ownership**: Always verify ownership before NFT operations
-- **Overflow**: Use u256 for token amounts to avoid overflow
-- **Events**: Emit events for all token operations for indexing
-- **Permissions**: Grant writer permission to token contracts
+Token contracts are deployed as **external contracts** alongside your Dojo world.
+See `dojo-deploy` skill for general deployment workflow.
 
-## Next Steps
+### Add to Scarb.toml
 
-After implementing tokens:
-1. Test thoroughly with `dojo-test` skill
-2. Deploy with `dojo-deploy` skill
-3. Integrate with client (`dojo-client` skill)
-4. Set up permissions (`dojo-world` skill)
+```toml
+[[target.starknet-contract]]
+build-external-contracts = [
+    "dojo::world::world_contract::world",
+    "tokens::models::m_ERC20Token"
+]
+```
+
+### Configure in Profile
+
+In `dojo_dev.toml`, define the token as an external contract:
+
+```toml
+[[external_contracts]]
+contract_name = "ERC20Token"
+instance_name = "GoldToken"
+salt = "1"
+constructor_data = [
+    "str:Gold Coin",                # Token name
+    "sstr:GOLD",                    # Symbol
+    "u256:1000000000000000000",     # Total supply (1e18)
+    "0x1234567890abcdef..."         # Owner address
+]
+```
+
+Add more `[[external_contracts]]` blocks for additional tokens.
+Deploy with `sozo build && sozo migrate`.
+Note the contract addresses from the output — you need them for Torii.
+
+## Indexing Tokens with Torii
+
+Torii indexes ERC token contracts separately from Dojo world state.
+You must explicitly tell Torii which contracts to watch.
+See `dojo-indexer` skill for general Torii configuration.
+
+### Configuration
+
+Add token contracts to `[indexing]` using the `ERC20:` or `ERC721:` prefix:
+
+```toml
+# torii.toml
+[indexing]
+contracts = [
+    "ERC20:0xYOUR_GOLD_TOKEN_ADDRESS",
+    "ERC721:0xYOUR_WEAPON_NFT_ADDRESS",
+]
+```
+
+Or via CLI:
+
+```bash
+torii --world 0xYOUR_WORLD \
+  --indexing.contracts "ERC20:0xGOLD_TOKEN" \
+  --indexing.contracts "ERC721:0xWEAPON_NFT"
+```
+
+You can also index well-known tokens on the network:
+
+```toml
+[indexing]
+contracts = [
+    "ERC20:0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7", # ETH
+    "ERC20:0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d", # STRK
+]
+```
+
+## Querying Token Data
+
+Once indexed, three database tables become available:
+- **`tokens`** — metadata (name, symbol, decimals)
+- **`balances`** — per-account balances
+- **`erc_transfers`** — transfer history
+
+### SQL
+
+```sql
+SELECT * FROM tokens;
+SELECT * FROM balances WHERE account_address = '0xPLAYER';
+SELECT * FROM erc_transfers ORDER BY rowid DESC LIMIT 20;
+```
+
+### JavaScript SDK
+
+```typescript
+import { useTokens } from "@dojoengine/sdk/react";
+
+function TokenBalance({ address }: { address: string }) {
+    const { tokens, getBalance, toDecimal } = useTokens({
+        accountAddresses: [address],
+    });
+
+    return (
+        <div>
+            {tokens.map((token, idx) => (
+                <div key={idx}>
+                    {token.symbol}: {toDecimal(token, getBalance(token))}
+                </div>
+            ))}
+        </div>
+    );
+}
+```
+
+## Troubleshooting
+
+### "Empty tokens/balances tables"
+- Verify the contract address matches what was deployed
+- Check the prefix is correct (`ERC20:` vs `ERC721:`)
+- Ensure the contract implements standard ERC Transfer events
+
+### "Token not showing in Torii"
+- Restart Torii after adding new contracts
+- Check Torii logs for indexing errors
+
+### "Balance shows 0"
+- Tokens are indexed from transfer events, not storage reads
+- Mint or transfer tokens to generate events Torii can index
 
 ## Related Skills
 
 - **dojo-model**: Token models extend Dojo models
 - **dojo-system**: Token logic in systems
 - **dojo-test**: Test token operations
-- **dojo-review**: Audit token implementation
+- **dojo-deploy**: General world deployment workflow
+- **dojo-indexer**: Full Torii configuration and queries
+- **dojo-client**: Client SDK integration
