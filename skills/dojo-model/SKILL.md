@@ -40,6 +40,37 @@ I'll ask about:
 "Create a Position model with player as key and x, y coordinates"
 ```
 
+## Essential Imports for Models
+
+**In your model file (e.g., `models.cairo`):**
+```cairo
+use starknet::ContractAddress;
+
+// For nested structs that aren't models
+use dojo::meta::Introspect;
+```
+
+**In systems that use models:**
+```cairo
+// Import your models
+use my_project::models::{Player, Position, Inventory};
+
+// Import Dojo storage traits
+use dojo::model::{ModelStorage, ModelValueStorage};
+```
+
+**Reading/Writing models in a system:**
+```cairo
+// Get world storage
+let mut world = self.world_default();
+
+// Read - provide all #[key] values
+let player: Player = world.read_model(player_address);
+
+// Write - model must contain all keys and data
+world.write_model(@player);
+```
+
 ## Model Structure
 
 Models are Cairo structs annotated with `#[dojo::model]`.
