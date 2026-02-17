@@ -21,34 +21,71 @@ use dojo::event::EventStorage;
 use starknet::{ContractAddress, get_caller_address, get_block_timestamp};
 ```
 
-**Inside a `#[dojo::contract]`, get world storage:**
+### Where does `self.world_default()` come from?
+
+**`self.world_default()` is provided automatically by `#[dojo::contract]`** - no import needed!
+
 ```cairo
-fn my_function(ref self: ContractState) {
-    // Get world storage - this is THE entry point for all Dojo operations
-    let mut world = self.world_default();
-    
-    // Read a model (provide all #[key] values)
-    let player: Player = world.read_model(player_address);
-    
-    // Write a model
-    world.write_model(@player);
-    
-    // Emit an event
-    world.emit_event(@MyEvent { player: player_address, action: 'moved' });
+#[dojo::contract]  // <-- This macro provides world_default()
+mod my_system {
+    use dojo::model::{ModelStorage, ModelValueStorage};
+    use dojo::event::EventStorage;
+
+    #[abi(embed_v0)]
+    impl MyImpl of IMySystem<ContractState> {
+        fn my_function(ref self: ContractState) {
+            // world_default() is available because of #[dojo::contract]
+            let mut world = self.world_default();
+            
+            // Now use world for all operations...
+        }
+    }
 }
 ```
 
-**Full import reference:**
+### How to emit events
+
+**Requires:** `use dojo::event::EventStorage;`
+
 ```cairo
-// For reading/writing models (most common)
-use dojo::model::{ModelStorage, ModelValueStorage};
+// 1. Define the event (outside impl block)
+#[derive(Copy, Drop, Serde)]
+#[dojo::event]
+struct PlayerMoved {
+    #[key]
+    player: ContractAddress,
+    from_x: u32,
+    from_y: u32,
+    to_x: u32,
+    to_y: u32,
+}
 
-// For emitting events
-use dojo::event::EventStorage;
-
-// For world operations (rarely needed directly)
-use dojo::world::{WorldStorage, WorldStorageTrait, IWorldDispatcher, IWorldDispatcherTrait};
+// 2. Emit it (inside a function)
+fn move_player(ref self: ContractState, direction: u8) {
+    let mut world = self.world_default();
+    
+    // ... game logic ...
+    
+    // Emit event - note the @ for snapshot
+    world.emit_event(@PlayerMoved {
+        player: get_caller_address(),
+        from_x: 0,
+        from_y: 0, 
+        to_x: 1,
+        to_y: 1,
+    });
+}
 ```
+
+### Quick reference: What imports what
+
+| You want to use | Import this |
+|----------------|-------------|
+| `world.read_model()` | `use dojo::model::ModelStorage;` |
+| `world.write_model()` | `use dojo::model::ModelStorage;` |
+| `world.emit_event()` | `use dojo::event::EventStorage;` |
+| `self.world_default()` | Nothing! Provided by `#[dojo::contract]` |
+| `get_caller_address()` | `use starknet::get_caller_address;` |
 
 ## When to Use This Skill
 
