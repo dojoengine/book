@@ -8,6 +8,48 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 Create Dojo systems (smart contracts) that implement your game's logic and modify model state.
 
+## Essential Imports (Dojo 1.0+)
+
+**Copy these imports for any Dojo system:**
+
+```cairo
+// Core Dojo imports - ALWAYS needed for systems
+use dojo::model::{ModelStorage, ModelValueStorage};
+use dojo::event::EventStorage;
+
+// Starknet essentials
+use starknet::{ContractAddress, get_caller_address, get_block_timestamp};
+```
+
+**Inside a `#[dojo::contract]`, get world storage:**
+```cairo
+fn my_function(ref self: ContractState) {
+    // Get world storage - this is THE entry point for all Dojo operations
+    let mut world = self.world_default();
+    
+    // Read a model (provide all #[key] values)
+    let player: Player = world.read_model(player_address);
+    
+    // Write a model
+    world.write_model(@player);
+    
+    // Emit an event
+    world.emit_event(@MyEvent { player: player_address, action: 'moved' });
+}
+```
+
+**Full import reference:**
+```cairo
+// For reading/writing models (most common)
+use dojo::model::{ModelStorage, ModelValueStorage};
+
+// For emitting events
+use dojo::event::EventStorage;
+
+// For world operations (rarely needed directly)
+use dojo::world::{WorldStorage, WorldStorageTrait, IWorldDispatcher, IWorldDispatcherTrait};
+```
+
 ## When to Use This Skill
 
 - "Create a spawn system"
