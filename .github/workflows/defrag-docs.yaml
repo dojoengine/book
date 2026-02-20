@@ -1,0 +1,94 @@
+name: Monthly docs defragmentation
+
+on:
+    schedule:
+        - cron: "0 0 1 * *" # 1st of each month, midnight UTC
+    workflow_dispatch:
+
+jobs:
+    defrag:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Run defragmentation
+              env:
+                  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+              run: node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
+
+            - name: Normalize formatting
+              run: pnpm run prettier
+
+            - name: Verify build
+              run: pnpm run build
+
+            - name: Create PR if changes exist
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  if [ -z "$(git status --porcelain docs/)" ]; then
+                    echo "No documentation changes to commit"
+                    exit 0
+                  fi
+
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+
+                  BRANCH="defrag-docs-$(date +%Y%m%d)"
+                  git checkout -b "$BRANCH"
+
+                  git add docs/
+                  git commit -m "chore: monthly docs defragmentation
+
+                  Automated cleanup of documentation:
+                  - Removed redundant content across pages
+                  - Fixed terminology inconsistencies
+                  - Enforced one-sentence-per-line formatting
+                  - Added missing cross-references
+
+                  $(tail -20 defrag-output.txt)"
+
+                  git push origin "$BRANCH"
+
+                  # Build PR body from script output
+                  SUMMARY=$(sed -n '/=== Summary ===/,$ p' defrag-output.txt)
+
+                  gh pr create \
+                    --title "chore: monthly docs defragmentation" \
+                    --body "$(cat <<EOF
+                  ## Monthly docs defragmentation
+
+                  Automated review and cleanup of documentation pages using Claude.
+
+                  ### What this does
+                  - **Cross-page analysis**: Finds duplicated explanations, inconsistent terminology, and missing cross-references within each doc section
+                  - **Per-page cleanup**: Fixes one-sentence-per-line violations, formatting inconsistencies, and redundant prose
+
+                  ### Run output
+                  \`\`\`
+                  ${SUMMARY}
+                  \`\`\`
+
+                  ### Review notes
+                  Please review the diff carefully — all changes are LLM-generated editorial fixes.
+                  The build has been verified to pass.
+
+                  ---
+                  *This PR was automatically created by the monthly defragmentation workflow.*
+                  EOF
+                  )" \
+                    --base main \
+                    --head "$BRANCH"
