@@ -115,7 +115,30 @@ struct Potions {
 ```
 
 Human entities will have `Health`, `Position`, and `Potions` models, while Orcs will have only `Health` and `Position`.
-This let's us re-use models to create a variety of different entities.
+This lets us re-use models to create a variety of different entities.
+
+:::warning
+A `#[dojo::model]` struct cannot be used as a field inside another model.
+This is because the key retrieval system requires fields to be serializable in a way that nested models do not support.
+
+If you need a composite data type as a model field, define a plain struct and derive [`Introspect`](/framework/models/introspection) instead:
+
+```cairo
+#[derive(Drop, Serde, Introspect)]
+struct Stats {
+    atk: u8,
+    def: u8,
+}
+
+#[derive(Drop, Serde)]
+#[dojo::model]
+struct Player {
+    #[key]
+    id: u32,
+    stats: Stats, // Plain struct with Introspect, not a model
+}
+```
+:::
 
 The game contract would look like this:
 
