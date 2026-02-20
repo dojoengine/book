@@ -167,8 +167,21 @@ mod game_actions {
 
 ### Initialization
 
-Systems don't require explicit initialization - they're stateless functions.
-However, systems may need to initialize world state on first use.
+Systems are stateless functions and don't have constructors.
+However, Dojo contracts support a `dojo_init` function that acts as a constructor-equivalent.
+The World calls `dojo_init` on each contract during `sozo migrate`, after the contract is registered.
+
+```cairo
+#[dojo::contract]
+mod my_system {
+    fn dojo_init(ref self: ContractState, arg1: felt252, arg2: u256) {
+        // Called once during migration - use for one-time setup
+    }
+}
+```
+
+Initialization arguments are configured in your profile's `[init_call_args]` section.
+See [Contract Initialization](/framework/configuration#contract-initialization) for details.
 
 ### Execution
 

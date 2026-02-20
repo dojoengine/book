@@ -43,10 +43,6 @@ h6 {
     padding-bottom: 0;
 }
 
-.vocs_DesktopTopNav_withLogo {
-    padding-left: 175px;
-}
-
 :not(.vocs_Header) + .vocs_H2:not(:only-child),
 .vocs_Sidebar_navigation
     > .vocs_Sidebar_group

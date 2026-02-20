@@ -68,3 +68,18 @@ If you have ideas for the project, please open an issue.
 ### How do I get involved?
 
 Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine).
+
+## Known Limitations
+
+### Starknet contract size limit
+
+Starknet enforces a maximum size for contract classes.
+If your Dojo contract grows too large (many systems or complex logic in a single contract), deployment will fail with a size limit error.
+
+The mitigation is to split logic across multiple contracts or use [Dojo libraries](/framework/systems/libraries) to separate reusable logic from your contracts via library calls.
+
+### Models inside models
+
+A `#[dojo::model]` struct cannot be used as a field inside another model.
+Use a plain struct deriving `Introspect` instead.
+See [Model Composition](/framework/models#model-composition) for details.

@@ -107,19 +107,10 @@ The `Position` model, like `Moves`, is indexed by the `player` field and include
 
 ## Contract Systems
 
-A dojo contract is just a regular Starknet contract which is defined with the `#[dojo::contract]` attribute.
+A dojo contract is a Starknet contract annotated with the `#[dojo::contract]` attribute.
+Like any Starknet contract, it defines an interface and an implementation.
 
-First, a dojo contract must define one (or more) Dojo interfaces.
-
-```rust
-#[starknet::interface]
-pub trait IActions<T> {
-    fn spawn(ref self: T);
-    fn move(ref self: T, direction: Direction);
-}
-```
-
-Now, let's examine a contract implementation of the `src/systems/actions.cairo` file.
+Let's examine the `src/systems/actions.cairo` file.
 
 ```rust
 use dojo_starter::models::{Direction, Position};
