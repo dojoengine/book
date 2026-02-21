@@ -1,0 +1,1093 @@
+---
+title: "Building World Model Agents for Onchain Games"
+description: "A deep technical exploration of world model architectures for game-playing AI agents, and how to implement them for onchain games using Dojo and Torii. Learn to build agents that imagine, plan, and act."
+keywords: world model AI agents, onchain game AI, dojo game agent, learned simulator, latent state planning, autonomous game agents, starknet AI
+author: Dojo Team
+date: 2026-02-21
+series: "Agent-Native Games"
+part: 4
+---
+
+# Building World Model Agents for Onchain Games
+
+Most game agents react. They see a state, they pick an action. It works—until it doesn't. When the game gets complex, when opponents adapt, when you need to think three moves ahead, reactive agents hit a wall.
+
+World model agents think differently. They build an internal model of how the game works, then *imagine* what happens if they take different actions. They simulate futures before committing to one. This is closer to how humans actually play games—we don't just react to the board, we picture what happens next.
+
+And here's the twist: onchain games are uniquely suited for this approach. The state is fully observable, transitions are deterministic, and historical data is permanently indexed. You don't have to guess how the game engine works—you can learn it from data that can't lie.
+
+This article is technical. We'll cover the theory, the architecture, and actual implementation patterns. By the end, you'll understand how to build agents that don't just play games—they understand them.
+
+## What World Models Actually Are
+
+Let's be precise about terminology. A world model is a learned function that predicts future states given current state and actions.
+
+More formally:
+
+```
+s_{t+1} = f(s_t, a_t)
+```
+
+Where `s_t` is the state at time t, `a_t` is the action taken, and `f` is your world model. Simple in principle, complicated in practice.
+
+### The Classic Frame: Ha & Schmidhuber's Architecture
+
+The 2018 "World Models" paper by Ha and Schmidhuber laid out an architecture that's become the standard reference point. It has three components:
+
+1. **Vision Model (V)**: Compresses raw observations into a compact latent representation
+2. **Memory Model (M)**: An RNN (they used MDN-RNN) that predicts future latent states
+3. **Controller (C)**: A small neural network that selects actions given the latent state
+
+The key insight was training inside the "dream"—the controller can be trained entirely within the world model's imagination, without touching the real environment. This is massively more sample-efficient than reinforcement learning directly on the environment.
+
+### Why Latent Spaces Matter
+
+You might wonder: why not just predict raw states directly? For visual games, that means predicting pixels. This works but it's wasteful. Most pixels in a game frame are irrelevant noise—background textures, UI elements, decorative particles.
+
+A latent space compresses the observation to what matters strategically. In the learned representation, a "dangerous enemy nearby" and "safe path ahead" might be just a few dimensions, not thousands of pixels.
+
+For onchain games, raw observations aren't pixels—they're structured data from Torii. But the principle still applies. A game might have hundreds of entity properties, but the strategically relevant state might be much smaller. Your world model learns that compression automatically.
+
+```python
+# Raw game state from Torii: hundreds of fields
+raw_state = {
+    "player": {"x": 45, "y": 120, "health": 80, "mana": 35, ...},
+    "enemies": [...],  # Could be dozens
+    "items": [...],
+    "terrain": [...],
+    "events": [...],
+    # ... many more
+}
+
+# Latent representation: 64-dimensional vector
+# Captures: "medium health, near enemy cluster, low resources"
+latent = encoder(raw_state)  # shape: (64,)
+```
+
+The encoder learns which aspects of `raw_state` actually affect what happens next. Everything else gets discarded.
+
+### Determinism Changes Everything
+
+Here's where onchain games diverge from the scenarios most world model research tackles. Traditional game AI deals with:
+
+- Partially observable states (fog of war, hidden information)
+- Stochastic transitions (random enemy spawns, dice rolls)
+- Complex physics that are hard to model exactly
+
+Onchain games, by design, have:
+
+- **Fully observable state**: Everything is on-chain. You can query every player's position, every item's location, every variable in every contract.
+- **Deterministic transitions**: Given the same state and action, you get the same next state. Always. (Even "random" events use verifiable randomness with known seeds.)
+- **Perfect historical record**: Torii indexes every state change. You have complete ground truth for training.
+
+This means your world model can be *exact* for the game mechanics. Not a statistical approximation—an exact function. The only uncertainty is what other players will do.
+
+```python
+# In a stochastic environment (traditional games):
+# Model must learn P(s_{t+1} | s_t, a_t) - a probability distribution
+
+# In a deterministic onchain game:
+# Model learns s_{t+1} = f(s_t, a_t) - a direct mapping
+# Uncertainty only in opponent actions
+```
+
+This changes the architecture. You don't need probabilistic world models with variance estimation. You need accurate state prediction, plus opponent modeling as a separate concern.
+
+## The Architecture: Perception → World Model → Planning → Action
+
+Let's break down the complete pipeline for a world model agent on Dojo.
+
+### 1. Perception: Torii → Structured State
+
+Your agent starts by querying Torii. Here's a practical Python setup:
+
+```python
+import httpx
+from dataclasses import dataclass
+from typing import List, Optional
+import json
+
+TORII_URL = "https://api.cartridge.gg/x/your-game/torii/graphql"
+
+@dataclass
+class PlayerState:
+    address: str
+    position_x: int
+    position_y: int
+    health: int
+    resources: dict
+    inventory: List[str]
+    
+@dataclass
+class GameState:
+    tick: int
+    players: List[PlayerState]
+    world_entities: List[dict]
+    
+async def fetch_game_state(client: httpx.AsyncClient) -> GameState:
+    """Fetch complete game state from Torii."""
+    query = """
+    query GetWorld {
+        playerModels(first: 100) {
+            edges {
+                node {
+                    address
+                    position_x
+                    position_y
+                    health
+                    resources
+                    inventory
+                }
+            }
+        }
+        worldModels(first: 1) {
+            edges {
+                node {
+                    current_tick
+                }
+            }
+        }
+        entityModels(first: 500) {
+            edges {
+                node {
+                    entity_id
+                    entity_type
+                    position_x
+                    position_y
+                    properties
+                }
+            }
+        }
+    }
+    """
+    
+    response = await client.post(
+        TORII_URL,
+        json={"query": query}
+    )
+    data = response.json()["data"]
+    
+    players = [
+        PlayerState(
+            address=edge["node"]["address"],
+            position_x=edge["node"]["position_x"],
+            position_y=edge["node"]["position_y"],
+            health=edge["node"]["health"],
+            resources=json.loads(edge["node"]["resources"]),
+            inventory=json.loads(edge["node"]["inventory"])
+        )
+        for edge in data["playerModels"]["edges"]
+    ]
+    
+    tick = data["worldModels"]["edges"][0]["node"]["current_tick"]
+    entities = [edge["node"] for edge in data["entityModels"]["edges"]]
+    
+    return GameState(tick=tick, players=players, world_entities=entities)
+```
+
+Notice we're pulling *everything*—not just our own player. World models need to understand the complete game state to predict what happens when we act.
+
+### 2. State Encoding: Structured Data → Latent Vector
+
+The world model operates on fixed-size vectors, not variable-length GraphQL responses. We need an encoder:
+
+```python
+import torch
+import torch.nn as nn
+from typing import Tuple
+
+class GameStateEncoder(nn.Module):
+    """Encode variable-size game state into fixed latent vector."""
+    
+    def __init__(
+        self, 
+        player_dim: int = 32,
+        entity_dim: int = 16,
+        latent_dim: int = 128,
+        max_players: int = 50,
+        max_entities: int = 200
+    ):
+        super().__init__()
+        self.max_players = max_players
+        self.max_entities = max_entities
+        
+        # Player encoder
+        self.player_encoder = nn.Sequential(
+            nn.Linear(10, 64),  # position, health, resources
+            nn.ReLU(),
+            nn.Linear(64, player_dim)
+        )
+        
+        # Entity encoder
+        self.entity_encoder = nn.Sequential(
+            nn.Linear(8, 32),
+            nn.ReLU(),
+            nn.Linear(32, entity_dim)
+        )
+        
+        # Attention pooling for variable-length sequences
+        self.player_attention = nn.MultiheadAttention(
+            embed_dim=player_dim, 
+            num_heads=4, 
+            batch_first=True
+        )
+        self.entity_attention = nn.MultiheadAttention(
+            embed_dim=entity_dim,
+            num_heads=4,
+            batch_first=True
+        )
+        
+        # Final projection
+        self.project = nn.Sequential(
+            nn.Linear(player_dim + entity_dim, 256),
+            nn.ReLU(),
+            nn.Linear(256, latent_dim)
+        )
+        
+    def forward(
+        self, 
+        player_features: torch.Tensor,  # (batch, n_players, 10)
+        entity_features: torch.Tensor,  # (batch, n_entities, 8)
+        player_mask: torch.Tensor,
+        entity_mask: torch.Tensor
+    ) -> torch.Tensor:
+        # Encode each player/entity
+        players_encoded = self.player_encoder(player_features)
+        entities_encoded = self.entity_encoder(entity_features)
+        
+        # Attention pooling with masks
+        players_pooled, _ = self.player_attention(
+            players_encoded, players_encoded, players_encoded,
+            key_padding_mask=~player_mask
+        )
+        entities_pooled, _ = self.entity_attention(
+            entities_encoded, entities_encoded, entities_encoded,
+            key_padding_mask=~entity_mask
+        )
+        
+        # Mean pool over sequence
+        player_repr = (players_pooled * player_mask.unsqueeze(-1)).sum(1)
+        player_repr = player_repr / player_mask.sum(1, keepdim=True).clamp(min=1)
+        
+        entity_repr = (entities_pooled * entity_mask.unsqueeze(-1)).sum(1)
+        entity_repr = entity_repr / entity_mask.sum(1, keepdim=True).clamp(min=1)
+        
+        # Combine and project
+        combined = torch.cat([player_repr, entity_repr], dim=-1)
+        return self.project(combined)
+
+
+def preprocess_game_state(state: GameState, my_address: str) -> Tuple[torch.Tensor, torch.Tensor]:
+    """Convert GameState to tensors for the encoder."""
+    # Player features: relative position to me, health, resources
+    my_player = next(p for p in state.players if p.address == my_address)
+    
+    player_features = []
+    for p in state.players:
+        features = [
+            p.position_x - my_player.position_x,  # Relative x
+            p.position_y - my_player.position_y,  # Relative y
+            p.health / 100.0,  # Normalized health
+            p.resources.get("wood", 0) / 1000.0,
+            p.resources.get("stone", 0) / 1000.0,
+            p.resources.get("gold", 0) / 1000.0,
+            1.0 if p.address == my_address else 0.0,  # Is self
+            len(p.inventory) / 10.0,  # Inventory fullness
+            # ... more features
+        ]
+        player_features.append(features)
+    
+    # Pad to fixed size
+    while len(player_features) < 50:
+        player_features.append([0.0] * 10)
+    
+    # Entity features: type, position, properties
+    entity_features = []
+    for e in state.world_entities:
+        features = [
+            e["position_x"] - my_player.position_x,
+            e["position_y"] - my_player.position_y,
+            hash(e["entity_type"]) % 100 / 100.0,  # Type embedding
+            # ... extract relevant properties
+        ]
+        entity_features.append(features)
+    
+    while len(entity_features) < 200:
+        entity_features.append([0.0] * 8)
+        
+    return (
+        torch.tensor(player_features[:50], dtype=torch.float32),
+        torch.tensor(entity_features[:200], dtype=torch.float32)
+    )
+```
+
+This encoder handles variable numbers of players and entities through attention pooling—a technique borrowed from transformer architectures. It's more sophisticated than simple concatenation but handles the variability gracefully.
+
+### 3. The World Model: Predicting Future States
+
+Now the core: a model that predicts what happens when actions are taken.
+
+```python
+class WorldModel(nn.Module):
+    """
+    Deterministic world model for onchain games.
+    Predicts next latent state given current state and action.
+    """
+    
+    def __init__(
+        self,
+        latent_dim: int = 128,
+        action_dim: int = 16,  # One-hot or embedded action
+        hidden_dim: int = 256
+    ):
+        super().__init__()
+        
+        # Action embedding
+        self.action_embed = nn.Embedding(20, action_dim)  # 20 possible actions
+        
+        # Transition model
+        self.transition = nn.Sequential(
+            nn.Linear(latent_dim + action_dim, hidden_dim),
+            nn.LayerNorm(hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.LayerNorm(hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, latent_dim)
+        )
+        
+        # Reward predictor (auxiliary task)
+        self.reward_head = nn.Sequential(
+            nn.Linear(latent_dim, 64),
+            nn.ReLU(),
+            nn.Linear(64, 1)
+        )
+        
+        # Done predictor (game over / death)
+        self.done_head = nn.Sequential(
+            nn.Linear(latent_dim, 64),
+            nn.ReLU(),
+            nn.Linear(64, 1),
+            nn.Sigmoid()
+        )
+    
+    def forward(
+        self, 
+        state: torch.Tensor,    # (batch, latent_dim)
+        action: torch.Tensor    # (batch,) action indices
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Predict next state, reward, and done probability."""
+        action_emb = self.action_embed(action)
+        combined = torch.cat([state, action_emb], dim=-1)
+        
+        next_state = self.transition(combined)
+        reward = self.reward_head(next_state)
+        done = self.done_head(next_state)
+        
+        return next_state, reward.squeeze(-1), done.squeeze(-1)
+    
+    def rollout(
+        self,
+        initial_state: torch.Tensor,
+        action_sequence: torch.Tensor,  # (batch, horizon)
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """
+        Simulate a sequence of actions.
+        Returns trajectory of states, rewards, and done flags.
+        """
+        batch_size, horizon = action_sequence.shape
+        
+        states = [initial_state]
+        rewards = []
+        dones = []
+        
+        current_state = initial_state
+        for t in range(horizon):
+            next_state, reward, done = self(current_state, action_sequence[:, t])
+            states.append(next_state)
+            rewards.append(reward)
+            dones.append(done)
+            current_state = next_state
+        
+        return (
+            torch.stack(states, dim=1),      # (batch, horizon+1, latent_dim)
+            torch.stack(rewards, dim=1),     # (batch, horizon)
+            torch.stack(dones, dim=1)        # (batch, horizon)
+        )
+```
+
+The `rollout` method is where the magic happens. Given an initial state and a sequence of planned actions, the model imagines the entire trajectory. This lets us evaluate plans before executing them.
+
+### 4. Training: Learning from Torii History
+
+Here's the beautiful part of onchain games: you have perfect training data. Torii stores every state transition that ever happened.
+
+```python
+async def fetch_historical_transitions(
+    client: httpx.AsyncClient,
+    limit: int = 10000
+) -> List[dict]:
+    """
+    Fetch historical state transitions from Torii.
+    Each transition is a (state, action, next_state, reward) tuple.
+    """
+    query = """
+    query GetHistory($limit: Int!) {
+        eventMessagesHistorical(
+            first: $limit,
+            orderBy: { field: TIMESTAMP, direction: DESC }
+        ) {
+            edges {
+                node {
+                    keys
+                    data
+                    transactionHash
+                    createdAt
+                }
+            }
+        }
+    }
+    """
+    
+    response = await client.post(
+        TORII_URL,
+        json={"query": query, "variables": {"limit": limit}}
+    )
+    
+    events = response.json()["data"]["eventMessagesHistorical"]["edges"]
+    
+    # Parse events into transitions
+    transitions = []
+    for event in events:
+        parsed = parse_game_event(event["node"])
+        if parsed:
+            transitions.append(parsed)
+    
+    return transitions
+
+
+def parse_game_event(event: dict) -> Optional[dict]:
+    """
+    Parse raw event into a structured transition.
+    This is game-specific—adapt to your game's events.
+    """
+    keys = event["keys"]
+    data = event["data"]
+    
+    # Example: "PlayerMoved" event
+    if "PlayerMoved" in keys[0]:
+        return {
+            "event_type": "move",
+            "player": keys[1],
+            "from_x": int(data[0], 16),
+            "from_y": int(data[1], 16),
+            "to_x": int(data[2], 16),
+            "to_y": int(data[3], 16),
+            "timestamp": event["createdAt"]
+        }
+    
+    # Example: "ResourceHarvested" event
+    if "ResourceHarvested" in keys[0]:
+        return {
+            "event_type": "harvest",
+            "player": keys[1],
+            "resource": data[0],
+            "amount": int(data[1], 16),
+            "timestamp": event["createdAt"]
+        }
+    
+    return None
+
+
+class TransitionDataset(torch.utils.data.Dataset):
+    """Dataset of (state, action, next_state, reward) tuples."""
+    
+    def __init__(self, transitions: List[dict], encoder: GameStateEncoder):
+        self.transitions = transitions
+        self.encoder = encoder
+        self.data = self._process_transitions()
+    
+    def _process_transitions(self):
+        # Group events by timestamp to reconstruct state snapshots
+        # This is the tricky part—you need to reconstruct
+        # what the full game state was at each transition
+        processed = []
+        
+        for i, transition in enumerate(self.transitions[:-1]):
+            # Get state before and after
+            state_before = self._reconstruct_state(i)
+            state_after = self._reconstruct_state(i + 1)
+            action = self._extract_action(transition)
+            reward = self._compute_reward(transition)
+            
+            processed.append({
+                "state": state_before,
+                "action": action,
+                "next_state": state_after,
+                "reward": reward
+            })
+        
+        return processed
+    
+    def __len__(self):
+        return len(self.data)
+    
+    def __getitem__(self, idx):
+        item = self.data[idx]
+        return {
+            "state": torch.tensor(item["state"], dtype=torch.float32),
+            "action": torch.tensor(item["action"], dtype=torch.long),
+            "next_state": torch.tensor(item["next_state"], dtype=torch.float32),
+            "reward": torch.tensor(item["reward"], dtype=torch.float32)
+        }
+
+
+def train_world_model(
+    model: WorldModel,
+    dataset: TransitionDataset,
+    epochs: int = 100,
+    batch_size: int = 64,
+    lr: float = 1e-4
+):
+    """Train the world model on historical transitions."""
+    dataloader = torch.utils.data.DataLoader(
+        dataset, 
+        batch_size=batch_size, 
+        shuffle=True
+    )
+    
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+    state_loss_fn = nn.MSELoss()
+    reward_loss_fn = nn.MSELoss()
+    
+    for epoch in range(epochs):
+        total_loss = 0.0
+        
+        for batch in dataloader:
+            optimizer.zero_grad()
+            
+            pred_next, pred_reward, pred_done = model(
+                batch["state"],
+                batch["action"]
+            )
+            
+            # State prediction loss
+            state_loss = state_loss_fn(pred_next, batch["next_state"])
+            
+            # Reward prediction loss
+            reward_loss = reward_loss_fn(pred_reward, batch["reward"])
+            
+            # Combined loss
+            loss = state_loss + 0.1 * reward_loss
+            
+            loss.backward()
+            optimizer.step()
+            
+            total_loss += loss.item()
+        
+        if epoch % 10 == 0:
+            avg_loss = total_loss / len(dataloader)
+            print(f"Epoch {epoch}: Loss = {avg_loss:.4f}")
+```
+
+The training loop is standard supervised learning. The key insight is that *Torii gives you perfect supervision*. Every state transition that occurred in the game's history is recorded and queryable. You're not estimating—you're learning from ground truth.
+
+### 5. Planning: Imagining Futures
+
+With a trained world model, your agent can simulate futures before acting. The simplest approach is random shooting:
+
+```python
+class PlanningAgent:
+    """
+    Agent that uses world model for planning.
+    Evaluates many action sequences and picks the best.
+    """
+    
+    def __init__(
+        self,
+        encoder: GameStateEncoder,
+        world_model: WorldModel,
+        n_candidates: int = 256,
+        horizon: int = 10
+    ):
+        self.encoder = encoder
+        self.world_model = world_model
+        self.n_candidates = n_candidates
+        self.horizon = horizon
+        self.n_actions = 20  # Number of possible actions
+    
+    def plan(self, current_state: torch.Tensor) -> int:
+        """
+        Find the best action by simulating many possible futures.
+        Returns the first action of the best trajectory.
+        """
+        # Generate random action sequences
+        action_sequences = torch.randint(
+            0, self.n_actions,
+            (self.n_candidates, self.horizon)
+        )
+        
+        # Expand state for all candidates
+        states = current_state.unsqueeze(0).expand(self.n_candidates, -1)
+        
+        # Simulate all candidates
+        with torch.no_grad():
+            _, rewards, dones = self.world_model.rollout(
+                states, 
+                action_sequences
+            )
+        
+        # Compute trajectory values (sum of discounted rewards)
+        discount = 0.99
+        discounts = discount ** torch.arange(self.horizon)
+        
+        # Mask rewards after done
+        done_mask = torch.cumprod(1 - dones, dim=1)
+        masked_rewards = rewards * done_mask
+        
+        trajectory_values = (masked_rewards * discounts).sum(dim=1)
+        
+        # Pick best trajectory
+        best_idx = trajectory_values.argmax()
+        best_action = action_sequences[best_idx, 0].item()
+        
+        return best_action
+    
+    async def act(self, game_state: GameState, my_address: str) -> int:
+        """Full pipeline: observe → encode → plan → return action."""
+        # Encode current state
+        player_features, entity_features = preprocess_game_state(
+            game_state, 
+            my_address
+        )
+        
+        latent = self.encoder(
+            player_features.unsqueeze(0),
+            entity_features.unsqueeze(0),
+            torch.ones(1, 50, dtype=torch.bool),
+            torch.ones(1, 200, dtype=torch.bool)
+        )
+        
+        # Plan best action
+        action = self.plan(latent.squeeze(0))
+        
+        return action
+```
+
+Random shooting works surprisingly well for short horizons. For longer planning, you'd want something smarter:
+
+- **Cross-Entropy Method (CEM)**: Iteratively refine the action distribution toward higher rewards
+- **Model Predictive Control (MPC)**: Re-plan every step as new observations arrive
+- **Monte Carlo Tree Search (MCTS)**: Build a search tree, especially powerful for discrete action games
+
+```python
+def cem_planning(
+    world_model: WorldModel,
+    initial_state: torch.Tensor,
+    n_iterations: int = 5,
+    n_candidates: int = 256,
+    n_elite: int = 32,
+    horizon: int = 10,
+    n_actions: int = 20
+) -> int:
+    """
+    Cross-Entropy Method planning.
+    Iteratively improves action distribution toward high-reward sequences.
+    """
+    # Initialize uniform action distribution
+    action_means = torch.ones(horizon, n_actions) / n_actions
+    
+    for iteration in range(n_iterations):
+        # Sample action sequences from current distribution
+        action_probs = action_means.unsqueeze(0).expand(n_candidates, -1, -1)
+        action_sequences = torch.multinomial(
+            action_probs.reshape(-1, n_actions),
+            num_samples=1
+        ).reshape(n_candidates, horizon)
+        
+        # Evaluate all sequences
+        states = initial_state.unsqueeze(0).expand(n_candidates, -1)
+        with torch.no_grad():
+            _, rewards, dones = world_model.rollout(states, action_sequences)
+        
+        # Compute trajectory values
+        discount = 0.99
+        discounts = discount ** torch.arange(horizon)
+        done_mask = torch.cumprod(1 - dones, dim=1)
+        values = (rewards * done_mask * discounts).sum(dim=1)
+        
+        # Select elite trajectories
+        elite_indices = values.topk(n_elite).indices
+        elite_sequences = action_sequences[elite_indices]
+        
+        # Update action distribution toward elite actions
+        for t in range(horizon):
+            counts = torch.zeros(n_actions)
+            for seq in elite_sequences:
+                counts[seq[t]] += 1
+            action_means[t] = counts / n_elite
+        
+        # Add small uniform noise to prevent collapse
+        action_means = 0.9 * action_means + 0.1 / n_actions
+    
+    # Return most likely first action
+    return action_means[0].argmax().item()
+```
+
+CEM typically finds better plans than random shooting because it focuses sampling on promising regions of action space.
+
+### 6. Action Execution: Controller CLI
+
+Once planning selects an action, execute it via Controller:
+
+```python
+import subprocess
+import json
+
+ACTION_MAPPING = {
+    0: {"entrypoint": "move", "calldata_fn": lambda: ["1", "0"]},    # Move right
+    1: {"entrypoint": "move", "calldata_fn": lambda: ["-1", "0"]},   # Move left
+    2: {"entrypoint": "move", "calldata_fn": lambda: ["0", "1"]},    # Move up
+    3: {"entrypoint": "move", "calldata_fn": lambda: ["0", "-1"]},   # Move down
+    4: {"entrypoint": "harvest", "calldata_fn": lambda: []},
+    5: {"entrypoint": "attack", "calldata_fn": lambda: []},
+    # ... more actions
+}
+
+GAME_CONTRACT = "0x..."  # Your game's contract address
+RPC_URL = "https://api.cartridge.gg/x/starknet/sepolia"
+
+def execute_action(action_id: int) -> dict:
+    """Execute a planned action via Controller CLI."""
+    if action_id not in ACTION_MAPPING:
+        raise ValueError(f"Unknown action: {action_id}")
+    
+    action = ACTION_MAPPING[action_id]
+    calldata = action["calldata_fn"]()
+    
+    cmd = [
+        "controller", "execute",
+        "--contract", GAME_CONTRACT,
+        "--entrypoint", action["entrypoint"],
+        "--calldata", ",".join(calldata) if calldata else "",
+        "--rpc-url", RPC_URL,
+        "--json"
+    ]
+    
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    
+    if result.returncode != 0:
+        raise RuntimeError(f"Execution failed: {result.stderr}")
+    
+    return json.loads(result.stdout)
+```
+
+## Handling Opponents: The Multi-Agent Problem
+
+So far we've modeled the world as if our agent acts alone. Real games have opponents. Their actions affect our state too.
+
+There are several approaches:
+
+### 1. Opponent Modeling as Distribution
+
+Treat opponent actions as a learned distribution:
+
+```python
+class OpponentModel(nn.Module):
+    """Predict probability distribution over opponent's next action."""
+    
+    def __init__(self, latent_dim: int, n_actions: int):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(latent_dim, 128),
+            nn.ReLU(),
+            nn.Linear(128, n_actions),
+            nn.Softmax(dim=-1)
+        )
+    
+    def forward(self, state: torch.Tensor) -> torch.Tensor:
+        return self.net(state)
+```
+
+Train this on historical opponent behavior from Torii. Then sample from it during planning:
+
+```python
+def plan_with_opponents(
+    world_model: WorldModel,
+    opponent_model: OpponentModel,
+    initial_state: torch.Tensor,
+    n_candidates: int = 256,
+    n_opponent_samples: int = 8
+) -> int:
+    """Plan considering likely opponent responses."""
+    # For each candidate action sequence, simulate multiple
+    # possible opponent behaviors
+    
+    my_actions = torch.randint(0, 20, (n_candidates, 10))
+    
+    total_values = torch.zeros(n_candidates)
+    
+    for _ in range(n_opponent_samples):
+        states = initial_state.unsqueeze(0).expand(n_candidates, -1)
+        trajectory_reward = torch.zeros(n_candidates)
+        
+        for t in range(10):
+            # Predict opponent action distribution
+            opp_probs = opponent_model(states)
+            opp_actions = torch.multinomial(opp_probs, 1).squeeze()
+            
+            # Combined state transition (my action + opponent action)
+            # This requires a world model that handles multi-agent transitions
+            next_states, rewards, _ = world_model.step_multi_agent(
+                states, 
+                my_actions[:, t],
+                opp_actions
+            )
+            
+            trajectory_reward += rewards * (0.99 ** t)
+            states = next_states
+        
+        total_values += trajectory_reward
+    
+    # Average across opponent samples
+    total_values /= n_opponent_samples
+    
+    return my_actions[total_values.argmax(), 0].item()
+```
+
+### 2. Best-Response Planning
+
+Assume opponents play optimally against you. This is conservative—it prevents strategies that only work against weak opponents:
+
+```python
+def minimax_planning(world_model, state, depth=3):
+    """
+    Minimax search: assume opponent plays optimally.
+    Good for zero-sum competitive games.
+    """
+    def evaluate(state, is_my_turn, d):
+        if d == 0:
+            return reward_head(state).item(), None
+        
+        if is_my_turn:
+            best_value = -float('inf')
+            best_action = None
+            for action in range(n_actions):
+                next_state = world_model(state, action)
+                value, _ = evaluate(next_state, False, d-1)
+                if value > best_value:
+                    best_value = value
+                    best_action = action
+            return best_value, best_action
+        else:
+            # Opponent's turn: assume they minimize our value
+            worst_value = float('inf')
+            for action in range(n_actions):
+                next_state = world_model(state, action)
+                value, _ = evaluate(next_state, True, d-1)
+                worst_value = min(worst_value, value)
+            return worst_value, None
+    
+    _, best_action = evaluate(state, True, depth)
+    return best_action
+```
+
+### 3. Population-Based Opponent Modeling
+
+Train your world model against a diverse population of agent policies. This creates robust behavior:
+
+```python
+# Train world model that's seen many opponent types
+opponent_policies = load_diverse_policies()  # Historical winners, rule-based, etc.
+
+for epoch in range(epochs):
+    # Sample opponent from population
+    opponent = random.choice(opponent_policies)
+    
+    # Generate rollouts against this opponent
+    transitions = generate_rollouts(world_model, opponent)
+    
+    # Train world model on these transitions
+    train_step(world_model, transitions)
+```
+
+## Challenges and Solutions
+
+### Compute Constraints
+
+World models need GPU compute for training and inference. For onchain games, you're running this off-chain—the model lives on your server, not on Starknet.
+
+**Solutions:**
+- Train offline on historical data (cheap, one-time cost)
+- Use small models (64-128 dim latent spaces work fine for most games)
+- Cache planning results for similar states
+- Run inference on CPU for simple games (it's fast enough)
+
+### Partial Observability
+
+Some onchain games have fog of war or hidden information (e.g., opponent's hand in a card game).
+
+**Solutions:**
+- Learn a belief state that represents uncertainty
+- Use recurrent models that accumulate information over time
+- Monte Carlo rollouts over possible hidden states
+
+```python
+class BeliefWorldModel(nn.Module):
+    """World model that maintains uncertainty over hidden state."""
+    
+    def __init__(self, obs_dim, hidden_dim, latent_dim):
+        super().__init__()
+        # GRU to accumulate observations into belief
+        self.belief_rnn = nn.GRU(obs_dim, hidden_dim, batch_first=True)
+        # Standard world model on belief state
+        self.transition = WorldModel(hidden_dim, latent_dim)
+    
+    def forward(self, observation_sequence, actions):
+        # Build belief from observation history
+        belief, _ = self.belief_rnn(observation_sequence)
+        belief_current = belief[:, -1]  # Final belief state
+        
+        # Predict from belief
+        return self.transition(belief_current, actions)
+```
+
+### Distribution Shift
+
+Your world model was trained on historical data. But as you deploy better agents, the game dynamics change—other players adapt, meta shifts. Your model becomes stale.
+
+**Solutions:**
+- Continual learning: fine-tune on recent data periodically
+- Ensemble models: train multiple world models, use disagreement as uncertainty
+- Online learning: update the model after every episode
+
+```python
+def update_world_model_online(model, buffer, batch_size=32):
+    """Lightweight online update from recent experience."""
+    if len(buffer) < batch_size:
+        return
+    
+    batch = random.sample(buffer, batch_size)
+    
+    # Quick gradient update
+    optimizer.zero_grad()
+    loss = compute_loss(model, batch)
+    loss.backward()
+    optimizer.step()
+    
+    # Keep buffer bounded
+    while len(buffer) > 10000:
+        buffer.pop(0)
+```
+
+## The Full Pipeline
+
+Let's put it all together into a complete agent:
+
+```python
+import asyncio
+import httpx
+
+async def run_world_model_agent(
+    my_address: str,
+    game_contract: str,
+    torii_url: str,
+    model_path: str
+):
+    """Complete world model agent loop."""
+    
+    # Load trained models
+    encoder = GameStateEncoder()
+    world_model = WorldModel()
+    encoder.load_state_dict(torch.load(f"{model_path}/encoder.pt"))
+    world_model.load_state_dict(torch.load(f"{model_path}/world_model.pt"))
+    encoder.eval()
+    world_model.eval()
+    
+    # Initialize planner
+    agent = PlanningAgent(encoder, world_model)
+    
+    # Experience buffer for online learning
+    experience_buffer = []
+    
+    async with httpx.AsyncClient() as client:
+        while True:
+            # 1. Observe
+            game_state = await fetch_game_state(client)
+            
+            # 2. Encode & Plan
+            action = await agent.act(game_state, my_address)
+            
+            # 3. Execute
+            print(f"Executing action {action}")
+            result = execute_action(action)
+            print(f"TX: {result.get('transaction_hash')}")
+            
+            # 4. Wait for state update
+            await asyncio.sleep(5)
+            
+            # 5. Observe new state
+            new_state = await fetch_game_state(client)
+            
+            # 6. Store experience for online learning
+            experience_buffer.append({
+                "state": game_state,
+                "action": action,
+                "next_state": new_state,
+                "reward": compute_reward(game_state, new_state)
+            })
+            
+            # 7. Periodic online update
+            if len(experience_buffer) % 100 == 0:
+                update_world_model_online(world_model, experience_buffer)
+            
+            # Loop delay
+            await asyncio.sleep(30)
+
+
+if __name__ == "__main__":
+    asyncio.run(run_world_model_agent(
+        my_address="0x...",
+        game_contract="0x...",
+        torii_url="https://api.cartridge.gg/x/your-game/torii/graphql",
+        model_path="./trained_models"
+    ))
+```
+
+## Looking Forward: Shared Infrastructure
+
+Today, every developer trains their own world model for their own game. But there's an interesting future: shared world models.
+
+Imagine a foundation model trained on every Dojo game's transition data. It learns the grammar of onchain games—how entities move, how resources flow, how combat resolves. Fine-tuning this foundation for a specific game would be much cheaper than training from scratch.
+
+The data is already there. Torii indexes it all. The model architectures exist. Someone just needs to build it.
+
+Even more speculative: decentralized world model training. Multiple agents contribute training compute and share the resulting model. The model itself could live on-chain (well, the weights could be committed to IPFS with hashes on-chain). True AI infrastructure for autonomous worlds.
+
+We're not there yet. But the pieces are falling into place.
+
+## Conclusion
+
+World model agents represent a shift from reactive to predictive game AI. Instead of learning a policy directly (state → action), they learn a simulator (state + action → next state) and plan within that simulation.
+
+For onchain games built on Dojo:
+
+1. **Torii gives you perfect training data**—every transition ever, with ground truth labels
+2. **Deterministic game logic** means your world model can be exact, not probabilistic
+3. **Controller CLI** provides secure, scoped execution for agent actions
+4. **The full pipeline**—observe, encode, simulate, plan, act—runs off-chain while interacting with on-chain state
+
+Start with the basics: a simple encoder, a feedforward world model, random shooting for planning. Get that working. Then add complexity—better architectures, smarter planning, opponent modeling.
+
+The code in this article is a foundation, not a finished product. The architecture scales from simple experiments to sophisticated autonomous systems. Where you take it depends on how deeply you want to understand the game you're playing.
+
+---
+
+*This article is part of the Agent-Native Games series. Previous: [Building Your First Dojo Game Agent](/blog/building-first-dojo-agent)*
+
+**Resources:**
+- [World Models paper (Ha & Schmidhuber, 2018)](https://worldmodels.github.io/)
+- [Dreamer (Hafner et al.)](https://danijar.com/project/dreamer/)
+- [Torii Documentation](https://book.dojoengine.org/toolchain/torii)
+- [Controller CLI](https://github.com/cartridge-gg/controller-cli)
+- [Dojo Book](https://book.dojoengine.org/)
