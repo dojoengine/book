@@ -11,7 +11,11 @@ export default defineConfig({
     logoUrl: "/dojo-word.svg",
     ogImageUrl:
         "https://og.cartridge.gg/api/dojo?title=%title&description=%description",
-    aiCta: true,
+    aiCta: {
+        query({ location }) {
+            return `You are helping a developer build with Dojo, a toolchain for provable onchain games on Starknet. The developer is reading: ${location}. For coding agent support, install Dojo skills: npx skills add dojoengine/book`;
+        },
+    },
 
     // Theme configuration
     font: {
