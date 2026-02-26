@@ -2,6 +2,24 @@
 
 > Welcome to the official Dojo documentation - your comprehensive guide to building onchain games and applications.
 
+## For AI Agents
+
+Install Dojo skills for your coding agent:
+
+```
+npx skills add dojoengine/book
+```
+
+Raw markdown source for any documentation page is available on GitHub:
+
+```
+https://raw.githubusercontent.com/dojoengine/book/main/docs/pages/{path}.md
+https://raw.githubusercontent.com/dojoengine/book/main/docs/pages/{path}/index.md
+```
+
+For example, the Models page at `/framework/models` has its source at:
+`https://raw.githubusercontent.com/dojoengine/book/main/docs/pages/framework/models/index.md`
+
 ## TOOLCHAIN FOR PROVABLE APPLICATIONS
 
 - [Welcome to Dojo](https://www.dojoengine.org/overview): A comprehensive overview of Dojo features, including core concepts, world interaction, permissions, events, and testing.
