@@ -3,4 +3,3 @@ Allow: /
 
 # AI agent discovery
 # See https://llmstxt.org for the llms.txt standard
-Sitemap: https://www.dojoengine.org/sitemap.xml
