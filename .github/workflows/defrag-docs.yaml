@@ -1,4 +1,4 @@
-name: Monthly docs defragmentation
+name: Docs Defragmentation
 
 on:
     schedule:
