@@ -3,11 +3,13 @@
 /**
  * Docs defragmentation script.
  *
- * Two-stage flow:
+ * Three-stage flow:
  *   1. Analysis: Read all pages in each section together, produce a report
  *      of cross-page issues (redundancy, terminology drift, missing links).
  *   2. Editing: For each file that needs changes, send the file + the
  *      relevant report, get back the complete corrected file.
+ *   3. Build verification: Run `pnpm run build` and if it fails, send the
+ *      errors back to Claude to fix. Retries up to 3 times.
  *
  * Usage:
  *   ANTHROPIC_API_KEY=sk-... node scripts/defrag-docs.mjs
@@ -16,6 +18,7 @@
 
 import { readFileSync, writeFileSync, readdirSync, statSync } from "fs";
 import { join, relative, dirname } from "path";
+import { execSync } from "child_process";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const DOCS_DIR = join(ROOT, "docs", "pages");
@@ -266,6 +269,103 @@ async function main() {
         }
     } else {
         console.log("\nNo changes needed — docs are clean!");
+    }
+
+    // Stage 3: Build verification — fix errors up to 3 times
+    if (!DRY_RUN) {
+        await verifyBuild(editSystemPrompt);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Stage 3: Build verification loop
+// ---------------------------------------------------------------------------
+
+const BUILD_FIX_SYSTEM = `You are a documentation editor for the Dojo framework.
+
+You will receive a documentation file and build errors that reference it.
+Fix the file so the build errors are resolved.
+
+## Rules
+- Return ONLY the corrected file content — no commentary, no wrapping, no code fences.
+- Fix only what is needed to resolve the reported errors.
+- Do not make other changes to the file.
+- For dead links: this site uses vocs, which requires extensionless relative links (e.g. "./introspection" not "../introspection.md"). Check relative path depth carefully.
+- If a link target clearly does not exist, replace the link href with "#TODO".`;
+
+function parseBuildErrors(output) {
+    // Strip ANSI codes
+    const clean = output.replace(/\x1b\[[0-9;]*m/g, "");
+
+    // Group errors by source file
+    const byFile = {};
+
+    // Dead links: "<broken-link> in <source-file>"
+    for (const line of clean.split("\n")) {
+        const match = line.trim().match(/^(\S+)\s+in\s+(\S+)$/);
+        if (match) {
+            const [, link, file] = match;
+            if (!byFile[file]) byFile[file] = [];
+            byFile[file].push(`Dead link: ${link}`);
+        }
+    }
+
+    return byFile;
+}
+
+async function verifyBuild(editSystemPrompt) {
+    const MAX_ATTEMPTS = 3;
+
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+        console.log(`\n=== Build verification (attempt ${attempt}/${MAX_ATTEMPTS}) ===`);
+
+        try {
+            execSync("pnpm run build", { cwd: ROOT, stdio: "pipe" });
+            console.log("Build passed.");
+            return;
+        } catch (err) {
+            const output = (err.stdout?.toString() || "") + (err.stderr?.toString() || "");
+            const errorsByFile = parseBuildErrors(output);
+            const fileCount = Object.keys(errorsByFile).length;
+
+            if (fileCount === 0) {
+                console.error("Build failed with unknown errors:");
+                console.error(output.slice(-2000));
+                throw new Error("Build failed with non-fixable errors");
+            }
+
+            console.log(`Build failed. Found errors in ${fileCount} file(s).`);
+
+            for (const [filePath, errors] of Object.entries(errorsByFile)) {
+                console.log(`  Fixing ${filePath}...`);
+                const content = loadTextFile(filePath);
+                const prompt = `## Build errors for this file\n\n${errors.join("\n")}\n\n## File to fix: ${filePath}\n\n${content}`;
+
+                try {
+                    const fixed = await callClaude(
+                        BUILD_FIX_SYSTEM,
+                        prompt,
+                        Math.max(16000, Math.ceil(content.length / 3))
+                    );
+                    writeFileSync(filePath, fixed, "utf-8");
+                    console.log(`    Fixed.`);
+                } catch (fixErr) {
+                    console.error(`    Fix failed: ${fixErr.message}`);
+                }
+            }
+
+            // Re-run prettier on fixed files
+            console.log("  Re-running prettier...");
+            execSync("pnpm run prettier", { cwd: ROOT, stdio: "pipe" });
+        }
+    }
+
+    // Final check
+    try {
+        execSync("pnpm run build", { cwd: ROOT, stdio: "pipe" });
+        console.log("Build passed after fixes.");
+    } catch {
+        throw new Error(`Build still failing after ${MAX_ATTEMPTS} fix attempts`);
     }
 }
 
