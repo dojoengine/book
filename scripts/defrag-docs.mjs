@@ -165,14 +165,19 @@ ${styleGuide}
 - Do not invent new content or add explanations that weren't there.
 - Do not remove content that is unique and correct — only trim true redundancy.
 - When the report says to replace duplicated content with a cross-reference, use a brief mention with a markdown link to the canonical page.
+- When adding or modifying links, ONLY use targets from the valid routes list provided. Use extensionless relative links (e.g. "./introspection" not "../introspection.md").
 - If the file needs no changes, return it exactly as-is.
 - Preserve the original voice and technical accuracy.`;
 }
 
-function buildEditPrompt(report, file) {
+function buildEditPrompt(report, file, routeList) {
     const content = loadTextFile(file.path);
 
-    return `## Editorial report for this section
+    return `## Valid routes in this site
+
+${routeList}
+
+## Editorial report for this section
 
 ${report}
 
@@ -194,6 +199,8 @@ async function main() {
     const editSystemPrompt = buildEditSystemPrompt(styleGuide);
 
     const allFiles = collectDocFiles(DOCS_DIR);
+    const validRoutes = getValidRoutes();
+    const routeList = validRoutes.join("\n");
     const sections = groupBySection(allFiles);
 
     console.log(
@@ -234,7 +241,7 @@ async function main() {
             try {
                 const corrected = await callClaude(
                     editSystemPrompt,
-                    buildEditPrompt(report, file),
+                    buildEditPrompt(report, file, routeList),
                     Math.max(16000, Math.ceil(original.length / 3))
                 );
 
@@ -271,6 +278,12 @@ async function main() {
         console.log("\nNo changes needed — docs are clean!");
     }
 
+    // Normalize formatting before build verification
+    if (!DRY_RUN) {
+        console.log("\nRunning prettier...");
+        execSync("pnpm run prettier", { cwd: ROOT, stdio: "pipe" });
+    }
+
     // Stage 3: Build verification — fix errors up to 3 times
     if (!DRY_RUN) {
         await verifyBuild(editSystemPrompt);
@@ -280,6 +293,11 @@ async function main() {
 // ---------------------------------------------------------------------------
 // Stage 3: Build verification loop
 // ---------------------------------------------------------------------------
+
+function getValidRoutes() {
+    const files = collectDocFiles(DOCS_DIR);
+    return files.map((f) => "/" + f.rel.replace(/\.(md|mdx)$/, "").replace(/\/index$/, ""));
+}
 
 const BUILD_FIX_SYSTEM = `You are a documentation editor for the Dojo framework.
 
@@ -291,7 +309,8 @@ Fix the file so the build errors are resolved.
 - Fix only what is needed to resolve the reported errors.
 - Do not make other changes to the file.
 - For dead links: this site uses vocs, which requires extensionless relative links (e.g. "./introspection" not "../introspection.md"). Check relative path depth carefully.
-- If a link target clearly does not exist, replace the link href with "#TODO".`;
+- You will be given the complete list of valid routes. ONLY use link targets that resolve to one of these routes.
+- If a link target clearly does not exist in the valid routes, replace the link href with "#TODO".`;
 
 function parseBuildErrors(output) {
     // Strip ANSI codes
@@ -315,6 +334,8 @@ function parseBuildErrors(output) {
 
 async function verifyBuild(editSystemPrompt) {
     const MAX_ATTEMPTS = 3;
+    const validRoutes = getValidRoutes();
+    const routeList = validRoutes.join("\n");
 
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
         console.log(`\n=== Build verification (attempt ${attempt}/${MAX_ATTEMPTS}) ===`);
@@ -339,7 +360,7 @@ async function verifyBuild(editSystemPrompt) {
             for (const [filePath, errors] of Object.entries(errorsByFile)) {
                 console.log(`  Fixing ${filePath}...`);
                 const content = loadTextFile(filePath);
-                const prompt = `## Build errors for this file\n\n${errors.join("\n")}\n\n## File to fix: ${filePath}\n\n${content}`;
+                const prompt = `## Valid routes in this site\n\n${routeList}\n\n## Build errors for this file\n\n${errors.join("\n")}\n\n## File to fix: ${filePath}\n\n${content}`;
 
                 try {
                     const fixed = await callClaude(
