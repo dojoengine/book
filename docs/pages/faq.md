@@ -5,16 +5,16 @@ description: Find answers to common questions about Dojo, onchain games, Autonom
 
 # FAQ
 
-## Provable Games
+## Provable Applications
 
 ### What is an onchain game?
 
 Onchain games are games that exist entirely on a public blockchain network; all states and logic are onchain.
 Clients (like web browsers) do not exist on the chain but exist purely to interact with and interpret the onchain state.
 
-### What is a provable game?
+### What is a provable application?
 
-Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain.
+Thanks to the magic of zero-knowledge proofs, we can ensure an application is fair by verifying a zk proof created off-chain.
 But what does that entail? Consider a game of chess.
 We aim for an experience where players trust each other's moves.
 In a straightforward approach — and given the simple rules of chess — if this were in a blockchain environment, every move would be a transaction on the blockchain.
@@ -23,13 +23,13 @@ We just want to know the winner, not every move.
 
 With zk proofs and client communications, players can establish a state channel, sharing moves off-chain and ensuring their validity.
 At the end, a zk proof can be submitted to the blockchain to confirm the game's fairness.
-This constitutes a provable game.
+This constitutes a provable application.
 
-### What is an autonomous world?
+### What is an Autonomous World?
 
-An autonomous world is one that exists entirely onchain.
+An Autonomous World is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
@@ -56,7 +56,7 @@ If you are a specalist in this, jump into the Github and help out!
 
 ### Who maintains Dojo?
 
-Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promoting and advancing the concept of Autonomous Worlds (AWs).
+Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promoting and advancing the concept of Autonomous Worlds.
 It is developement is led by [Cartridge](https://cartridge.gg/), with significant contributions from [Realms](https://realms.world/), [BibliothecaDAO](https://bibliothecadao.xyz/) and [many more](https://github.com/orgs/dojoengine/people).
 
 ### Where is the Dojo roadmap?
@@ -64,6 +64,10 @@ It is developement is led by [Cartridge](https://cartridge.gg/), with significan
 Dojo is rapidly evolving.
 You can find open issues on the [Dojo Github](https://github.com/dojoengine/dojo/issues) and join the [Discord](https://discord.gg/invite/dojoengine) to get involved.
 If you have ideas for the project, please open an issue.
+
+### How do I get started?
+
+To get started with Dojo development, check out our [installation guide](/installation) and [getting started tutorial](/getting-started).
 
 ### How do I get involved?
 

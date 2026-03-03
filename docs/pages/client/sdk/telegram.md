@@ -18,15 +18,15 @@ A typical Dojo Telegram app consists of:
 3. **Blockchain Layer**: Dojo smart contracts on Starknet
 4. **State Management**: Torii client for real-time entity subscriptions
 
+For foundational Dojo concepts and architecture, see the [Client SDK overview](./index).
+
 ## Getting Started
 
 ### Prerequisites
 
 Before building your Telegram Mini App, ensure you have a Bot Token from [@BotFather](https://t.me/botfather).
 
-:::tip
-See the [Dojo.js docs](/client/sdk/javascript) for more information about using Dojo with React.
-:::
+For detailed setup instructions and project configuration, see the [JavaScript SDK guide](./javascript).
 
 ### Quick Start
 
@@ -116,11 +116,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 ## Account Management with Controller
 
+For comprehensive account management concepts including burner accounts and session accounts, refer to the [JavaScript SDK guide](./javascript).
+The following shows Telegram-specific session persistence patterns.
+
 ### Session Key Management
 
 Beast Slayers demonstrates a robust account management pattern using Telegram's cloud storage for session persistence.
-
-**Key concepts:**
 
 ```typescript
 import { useUtils } from "@telegram-apps/sdk-react";
@@ -149,12 +150,11 @@ utils.openLink(keychainUrl + sessionParams);
 
 **Complete implementation**: See [`src/hooks/useAccount.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useAccount.tsx)
 
-**Key integration points:**
+**Telegram-specific integration points:**
 
 - **Telegram Cloud Storage**: Persists session keys across app sessions
 - **Launch Parameters**: Receives account data via `initData.startParam`
 - **Session Policies**: Define which contract methods the session can execute
-- **Dojo Integration**: Uses Dojo's cryptographic utilities for key generation
 
 ## Dojo Integration
 
@@ -178,6 +178,7 @@ const handleAttack = async () => {
 
 ### Torii Client Setup
 
+For detailed Torii client configuration and usage patterns, see the [JavaScript SDK guide](./javascript).
 Initialize the Torii client for real-time blockchain data synchronization:
 
 ```typescript

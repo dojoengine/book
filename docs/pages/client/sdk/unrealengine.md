@@ -8,6 +8,9 @@ description: "Introduction to the official Unreal Engine 5 SDK for building Dojo
 [Dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
+> **Note**: The Unreal SDK is built on [dojo.c](/client/sdk/c), providing native performance for game development.
+> For foundational SDK concepts like entities, models, and world state, see the [SDK overview](/client/sdk).
+
 ## Prerequisites
 
 Before getting started, ensure you have the Unreal Engine installed.
@@ -45,7 +48,7 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 
 5. Enable the Dojo plugin by adding `"Dojo"` to the `PublicDependencyModuleNames.AddRange` list in `Source/DojoBookTest/PROJECTNAME.Build.cs`
 
-6. Generate bindings using `sozo build --unrealengine` and add the resulting `DojoHelpers.cpp` and `DojoHelpers.h` to `Source/PROJECTNAME`
+6. Generate contract bindings using `sozo build --unrealengine` and add the resulting `DojoHelpers.cpp` and `DojoHelpers.h` to `Source/PROJECTNAME`
 
 7. Regenerate project files (see [Regenerate project files](#regenerate-project-files) for detailed instructions)
 
@@ -60,7 +63,7 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 3. Initialize the DojoHelpers actor and store it as a variable
    ![unrealspawnactor](/client/unreal/create_dojo_helpers_actor.webp)
 
-4. Implement Torii connections and other desired functionality
+4. Implement Torii client connections and other desired functionality
    ![unrealusehelpers](/client/unreal/use_dojo_helpers.webp)
 
 5. Launch the game and verify the connection in the Output Log
@@ -144,7 +147,7 @@ Click on the closed eye to be able to change it in the Inspector.
 
 ![unrealhelpers](/client/unreal/spawnhelpers.webp)
 
-#### Connect to Torii and set contract addresses
+#### Connect to Torii client and set contract addresses
 
 ![unrealtoriicontracts](/client/unreal/connect_setup.webp)
 
@@ -255,7 +258,7 @@ To add support for a new platform:
 The dojo.unreal repository contains `ue5dojostarter`, a complete sample project that demonstrates how Dojo can be integrated with Unreal Engine.
 This sample is built on top of the Unreal Engine 5 First Person template and showcases:
 
-- **Complete Dojo Integration**: Working examples of connecting to Torii, subscribing to model updates, and calling system functions
+- **Complete Dojo Integration**: Working examples of connecting to Torii client, subscribing to model updates, and calling system functions
 - **Blueprint Implementation**: All Dojo functionality implemented through Blueprint nodes for easy understanding
 - **Game Mechanics**: A simple boat movement game where players can spawn and move around a world
 - **Controller Authentication**: Integration with Cartridge Controller for wallet authentication

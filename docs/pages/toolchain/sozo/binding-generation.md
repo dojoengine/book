@@ -32,9 +32,7 @@ Bindings are saved to the `bindings/` directory by default.
 - **Contract interaction methods** with proper typing
 - **Integration helpers** for each platform
 
-:::tip
-For the architectural details of binding generation, see the [Cainome documentation](/toolchain/cainome).
-:::
+> **Tip**: For the architectural details of binding generation, see the [Cainome documentation](../cainome).
 
 ## Supported Platforms
 
@@ -165,9 +163,7 @@ public class GameManager : MonoBehaviour
 }
 ```
 
-:::note
-Ensure your generated bindings are in the `Assets/` folder of your Unity project.
-:::
+> **Note**: Ensure your generated bindings are in the `Assets/` folder of your Unity project.
 
 ### Additional Targets
 

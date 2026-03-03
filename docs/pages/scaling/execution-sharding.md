@@ -19,7 +19,8 @@ Shards are independent sequencers that branch from Starknet mainnet, process tra
 This enables parallel processing across multiple shards while maintaining unified state anchored to Starknet mainnet.
 
 :::info
-Execution sharding differs from sovereign chains, in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+Execution sharding differs from [sovereign chains](/scaling/sovereign-rollups), in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+For more details on this architectural distinction, see the [sovereign rollups documentation](/scaling/sovereign-rollups).
 :::
 
 ### Key Benefits
@@ -113,7 +114,6 @@ A specific event emitted by a designated Cairo contract signals shard completion
 Once the completion event is detected, Saya would initiate the settlement process:
 
 1. **Execution Trace Generation**: DojoOS generates an execution trace similar to SNOS but optimized for shard validation:
-
     - Validates transaction sequences rather than blocks
     - Outputs only modified storage addresses per settlement config
     - Supports shard-specific validation rules

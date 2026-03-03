@@ -8,7 +8,9 @@ description: Complete guide to configuring Katana using TOML files and command-l
 Katana supports flexible configuration through TOML files and command-line options.
 This enables you to customize everything from network settings to gas prices for both development and production deployments.
 
-### Configuration Priority
+## Configuration Priority
+
+Katana resolves configuration values in the following order (highest to lowest precedence):
 
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
@@ -212,7 +214,7 @@ katana init --id my-rollup --settlement-chain sepolia
 katana init --sovereign --id my-chain --output-path ./chain-config
 ```
 
-For detailed chain initialization examples and configuration options, see the [Chain Initialization](/toolchain/katana/advanced#chain-initialization-and-settlement) section in the Advanced Features guide.
+For detailed chain initialization examples and configuration options, see the [Chain Initialization](./advanced#chain-initialization-and-settlement) section in the Advanced Features guide.
 
 ## Genesis Configuration
 

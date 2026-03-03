@@ -43,9 +43,7 @@ Set up initial permissions during deployment via your `dojo_<profile>.toml` file
 "dojo_starter" = ["dojo_starter-admin"]
 ```
 
-:::note
-In this example, permissions are given to **systems**, indicated by tags.
-:::
+> **Note**: In this example, permissions are given to **systems**, indicated by tags.
 
 ### Runtime Permissions
 
@@ -57,14 +55,14 @@ world.grant_owner(selector_from_tag!("dojo_starter-GameState"), new_owner_addres
 world.grant_writer(selector_from_tag!("dojo_starter-Position"), new_writer_address);
 ```
 
-:::note
-In this example, permissions are given to **addresses**, which can be systems or accounts.
-:::
+> **Note**: In this example, permissions are given to **addresses**, which can be systems or accounts.
 
 **When to Use Each:**
 
 - **Configuration**: Initial setup, predictable permissions, deployment automation
 - **Runtime**: Dynamic permission changes, game progression, admin functions
+
+For comprehensive configuration options, see [Configuration](../configuration).
 
 ## Permission Types
 
@@ -98,6 +96,8 @@ let can_write = world.is_writer(resource_selector, address);
 let position: Position = world.read_model(player);
 ```
 
+For detailed information about the World contract API methods, see [World API](./api).
+
 ## Permission Hierarchy
 
 The permission system is resource-based with the following hierarchy:
@@ -112,10 +112,7 @@ world.grant_writer(any_resource_selector, any_address);
 world.upgrade_model(any_namespace, any_class_hash);
 ```
 
-:::note
-Currently, the **address that deployed the world contract** is the default world owner.
-In the future, Dojo will add support for a governance system where a contract manages the world, rather than a single address.
-:::
+> **Note**: Currently, the **address that deployed the world contract** is the default world owner. In the future, Dojo will add support for a governance system where a contract manages the world, rather than a single address.
 
 ### 2. Namespace Owner
 
@@ -127,9 +124,7 @@ world.grant_writer(selector_from_tag!("my_game"), new_writer_address);
 world.grant_owner(selector_from_tag!("my_game"), new_owner_ddress);
 ```
 
-:::note
-When you deploy to a world, you automatically become the owner of that namespace, if it's not already registered.
-:::
+> **Note**: When you deploy to a world, you automatically become the owner of that namespace, if it's not already registered.
 
 **Namespace Owner Rights**:
 
@@ -171,9 +166,10 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a resource:
 
-- **World** → A resource (selector `0`)
+- **World** → A resource (resource selector `0`)
 - **Namespace** → A resource (e.g., `"my_game"`)
 - **Model** → A resource (e.g., `"my_game-Position"`)
 - **Contract** → A resource (e.g., `"my_game-actions"`)
@@ -317,7 +313,8 @@ world.grant_writer(selector_from_tag!("my_game-MagicSpells"), expansion_contract
 
 ## Permission Events
 
-The World contract emits events when permissions change:
+The World contract emits events when permissions change.
+For details about event structures and event emission, see [World Events](./events).
 
 ```cairo
 // Emitted when owner permission is granted/revoked
@@ -402,9 +399,6 @@ sozo call world is_owner 0x123 0x456   # resource_selector contract_address
 # List all permissions
 sozo auth list
 ```
-
-**Configuration Reference:**
-For detailed configuration options, see [Configuration](/framework/configuration).
 
 ## Debugging Permission Issues
 

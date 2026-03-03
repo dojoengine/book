@@ -10,6 +10,8 @@ Configuration provides structured control over indexing, performance, security, 
 
 ## Configuration Priority
 
+Configuration follows the standard priority order used across Dojo toolchain components:
+
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**

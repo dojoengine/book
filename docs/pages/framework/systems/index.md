@@ -35,10 +35,8 @@ Systems are **stateless functions** that:
 - Write updated state back to models
 - Emit events for external observation
 
-:::warning
-In order to write data to the world, a system needs explicit permission from the model owner.
-Permissions are defined at the contract (address) level, which means that all the systems inside the same contract will inherit the same permissions.
-:::
+> **Warning**: In order to write data to the world, a system needs explicit permission from the model owner.
+> Permissions are defined at the contract (address) level, which means that all the systems inside the same contract will inherit the same permissions.
 
 ## System Design Philosophy
 
@@ -259,7 +257,7 @@ Systems should be designed for testability:
 Understanding system design philosophy is crucial for building robust Dojo applications.
 Explore the deeper aspects of system implementation:
 
-- **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
-- **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
+- **[System Architecture](./architecture)** - Structural patterns and organization
+- **[System Coordination](./coordination)** - How systems interact and coordinate
 
 Systems are the heart of your application - design them thoughtfully and they'll serve you well.

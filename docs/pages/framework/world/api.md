@@ -36,9 +36,7 @@ let position: Position = world.read_model(player);
 let resource: GameResource = world.read_model((player, location));
 ```
 
-:::note
-Cairo's strong typing allows it to infer that the `Position` model is being read.
-:::
+> **Note**: Cairo's strong typing allows it to infer that the `Position` model is being read.
 
 **Key Points:**
 
@@ -57,10 +55,7 @@ let vec: Vec2 = world.read_member(
 );
 ```
 
-:::note
-The `ptr_from_keys` function is used to get the pointer to the model in storage, as type inference is not possible.
-The `selector!` macro is used to get the member to target.
-:::
+> **Note**: The `ptr_from_keys` function is used to get the pointer to the model in storage, as type inference is not possible. The `selector!` macro is used to get the member to target.
 
 **When to Use:**
 
@@ -195,7 +190,7 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Custom Events
+## Event System
 
 #### `emit_event<T>`
 
@@ -225,7 +220,11 @@ world.emit_event(@PlayerMoved {
 - Must have at least one `#[key]` field
 - All types must derive `Introspect`
 
+For detailed information about event handling and best practices, see the [World Events guide](./events).
+
 ## Permission Management
+
+For comprehensive information about permission management, including role-based permissions and resource access control, see the [World Permissions guide](./permissions).
 
 ### Checking Permissions
 
@@ -318,6 +317,8 @@ let metadata = ResourceMetadata {
 world.set_metadata(metadata);
 ```
 
+For more information about resource metadata configuration, see the [World Metadata guide](./metadata).
+
 ## Utility Functions
 
 ### `uuid`
@@ -329,10 +330,7 @@ let game_id = world.uuid();
 let match_id = world.uuid();
 ```
 
-:::warning
-This impacts transaction parallelization since it writes to the same storage slot.
-Use sparingly in high-throughput scenarios.
-:::
+> **Warning**: This impacts transaction parallelization since it writes to the same storage slot. Use sparingly in high-throughput scenarios.
 
 ### DNS Functions
 

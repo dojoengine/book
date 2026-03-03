@@ -11,6 +11,8 @@ Known for its performance, modularity, and ergonomic API, Bevy enables developer
 Dojo.bevy is the official Bevy engine SDK for interacting with Dojo worlds, providing native Rust integration for building high-performance onchain games.
 Built specifically for Bevy's ECS architecture, it seamlessly integrates with Bevy's component system while maintaining the performance and safety guarantees that Rust developers expect.
 
+For a complete overview of Dojo's client architecture and SDK fundamentals, see the [Client SDK overview](./index).
+
 ## Core Concepts
 
 Before diving into building onchain games with Bevy, let's explore the essential components of the Dojo.bevy architecture:
@@ -44,7 +46,7 @@ fn connect_to_dojo(
     mut dojo: ResMut<DojoResource>,
     tokio: Res<TokioRuntime>
 ) {
-    // Connect to Torii indexer
+    // Connect to Torii client
     dojo.connect_torii(&tokio, "http://localhost:8080".to_string(), world_address);
 
     // Connect to Starknet using predeployed account
@@ -82,6 +84,8 @@ The **`TokioRuntime`** resource provides async execution capabilities within Bev
 This is essential for blockchain operations that require asynchronous processing.
 
 ## Getting Started
+
+For detailed setup instructions including project configuration and dependency management, see the [JavaScript SDK Getting Started guide](./javascript#getting-started) which provides comprehensive setup patterns that apply across all Dojo SDKs.
 
 ### Prerequisites
 
@@ -154,6 +158,8 @@ fn handle_dojo_events(
 ```
 
 ## Usage Patterns
+
+For comprehensive account management patterns including session accounts and burner accounts, see the [JavaScript SDK account management section](./javascript#account-management).
 
 ### Querying Entities
 
@@ -275,7 +281,7 @@ fn setup_dojo(
     mut dojo: ResMut<DojoResource>,
     tokio: Res<TokioRuntime>
 ) {
-    // 2. Connect to Torii and Starknet
+    // 2. Connect to Torii client and Starknet
     dojo.connect_torii(&tokio, "http://localhost:8080".to_string(), WORLD_ADDRESS);
     dojo.connect_predeployed_account(&tokio, "http://localhost:5050".to_string(), 0);
 }
@@ -322,6 +328,8 @@ fn handle_dojo_events(
 For a complete implementation including 3D rendering, entity tracking, and full game logic, see the [full example](https://github.com/dojoengine/dojo.bevy/blob/main/examples/intro.rs).
 
 ## Advanced Features
+
+For native Rust development patterns including memory management and performance optimization, see the [Rust SDK documentation](./rust).
 
 ### Account Management
 

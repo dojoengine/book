@@ -51,9 +51,7 @@ struct Query {
 }
 ```
 
-:::info
-The `HashedKeys` clause can be used with the model's underlying [hashed composite key](https://dojoengine.org/framework/models/entities)
-:::
+> **Note**: The `HashedKeys` clause can be used with the model's underlying [hashed composite key](/framework/models/entities).
 
 **Member Clause** - Query by field values:
 
@@ -235,10 +233,7 @@ gRPC supports streaming subscriptions for real-time updates:
 - **Event Streams**: Monitor world events as they occur
 - **Model Changes**: Track updates to specific model types
 
-:::note
-Subscription examples require protocol buffer definitions.
-See the [protocol files](https://github.com/dojoengine/torii/blob/main/crates/proto/proto/types.proto) for complete streaming API documentation.
-:::
+> **Note**: Subscription examples require protocol buffer definitions. See the [protocol files](https://github.com/dojoengine/torii/blob/main/crates/proto/proto/types.proto) for complete streaming API documentation.
 
 ## Best Practices
 

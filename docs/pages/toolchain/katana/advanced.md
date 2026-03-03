@@ -46,10 +46,7 @@ Production environments should use conservative limits to prevent DoS attacks.
 **Memory Management**: The execution engine uses LRU caching for compiled contract classes.
 Native compilation can significantly improve execution performance for compute-intensive contracts.
 
-:::tip
-Monitor execution metrics to optimize step limits for your specific workload.
-Use `--metrics` to track Cairo steps processed and execution times.
-:::
+> **Tip**: Monitor execution metrics to optimize step limits for your specific workload. Use `--metrics` to track Cairo steps processed and execution times.
 
 ## Optimistic Katana
 
@@ -156,10 +153,7 @@ Specifically:
 
 This design ensures that Torii's view of the world remains consistent across both the optimistic and canonical layers without duplication or event loss.
 
-:::note
-A possible latency can be observed if blocks are too long for Torii to process, which will cause Torii to fallback in range mode.
-Since Katana is in forking mode, syncing historical events may take additional time since they are lazily fetched from the Starknet network.
-:::
+> **Note**: A possible latency can be observed if blocks are too long for Torii to process, which will cause Torii to fallback in range mode. Since Katana is in forking mode, syncing historical events may take additional time since they are lazily fetched from the Starknet network.
 
 ## Cross-Layer Messaging
 
@@ -174,10 +168,7 @@ Messages are sent directly to L1 contracts without requiring block proof verific
 **Starknet Integration**: Experimental feature for Starknet-to-Starknet messaging.
 This creates a hierarchical Starknet architecture where Katana acts as an L3 settling to another Starknet L2.
 
-:::warning
-Starknet messaging is experimental and not recommended for production use.
-Use Ethereum messaging for production deployments.
-:::
+> **Warning**: Starknet messaging is experimental and not recommended for production use. Use Ethereum messaging for production deployments.
 
 ### Configuration Setup
 
@@ -321,10 +312,7 @@ chain-config/
 4. **Launch Network**: Start Katana using the generated configuration
 5. **Monitor Settlement**: Track settlement transactions and proof submissions
 
-:::tip
-Use Sepolia testnet for initial development and testing before moving to mainnet settlement.
-This allows you to validate your rollup configuration without mainnet costs.
-:::
+> **Tip**: Use Sepolia testnet for initial development and testing before moving to mainnet settlement. This allows you to validate your rollup configuration without mainnet costs.
 
 ## Starknet Toolchain Integration
 
@@ -366,7 +354,4 @@ starkli call <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
 starkli invoke <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
 ```
 
-:::note
-[Sozo](/toolchain/sozo) is the preferred build and deployment for Dojo development.
-Starkli integration is useful for standard Cairo contracts and production validation workflows.
-:::
+> **Note**: [Sozo](/toolchain/sozo) is the preferred tool for Dojo development. Starkli integration is useful for standard Cairo contracts and production validation workflows.

@@ -29,7 +29,7 @@ This separation allows for:
 
 ### Entity as Primary Key
 
-Entities in Dojo are not objects themselves (they have no state), but rather unique identifiers that models use as storage keys.
+Entities in Dojo are not objects themselves (they have no state), but rather unique identifiers that [models](../models) use as storage keys.
 Multiple models can share the same entity ID, effectively creating a collection of components for that entity.
 
 ```cairo

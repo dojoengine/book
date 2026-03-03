@@ -11,7 +11,7 @@ There is no core contract on a settlement layer.
 ![saya](/toolchain/saya-celestia.png)
 
 :::tip
-For settlement layer integration with state updates, see [Persistent mode](/toolchain/saya/persistent).
+For settlement layer integration with state updates, see [Persistent mode](./persistent).
 :::
 
 Once available, this allows any Katana to sync from the data availability layer information given the `commitment` and the `block height` of the latest Katana block that has been posted to the data availability layer.
@@ -56,6 +56,7 @@ $request <CELESTIA-ADDRESS>
 ## Setup Katana
 
 Katana must be configured in provable mode to work with Saya.
+For detailed setup instructions, see the [Katana guide](../katana).
 
 You can choose to just enter `katana init` and follow the instructions to set up a new instance.
 Or you can go quicker by using the following arguments:
@@ -88,7 +89,7 @@ You will then want to start katana with the `--chain /path` instead of `--chain 
 
 ## Run Saya
 
-If you haven't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
+If you haven't already, consult the [Herodotus guide](../saya) to get an account and an API key.
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.

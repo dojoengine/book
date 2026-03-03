@@ -14,7 +14,7 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 
 ### Layer 1: Cainome - Type-Safe Binding Generation
 
-**Cainome** generates type-safe bindings from Cairo contract ABIs, providing the compile-time foundation for all SDK interactions.
+**Cainome** generates contract bindings from Cairo contract ABIs, providing the compile-time foundation for all SDK interactions.
 
 **Key capabilities:**
 

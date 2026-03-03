@@ -268,6 +268,8 @@ World Owner (Admin)
 │   └── Trading System (Inventory, Market models)
 ```
 
+For detailed permission configuration, see [World Permissions](../world/permissions).
+
 ## Modular Design
 
 ### Core Systems
@@ -360,7 +362,8 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits
@@ -578,4 +581,4 @@ Take time to design your architecture thoughtfully - it will pay dividends as yo
 
 ## Next Steps
 
-- **[System Coordination](/framework/systems/coordination)** - Learn how systems interact and coordinate
+- **[System Coordination](./coordination)** - Learn how systems interact and coordinate

@@ -10,7 +10,7 @@ In persistent mode, Saya fetches blocks from Katana, verifies proofs, and update
 ![saya](/toolchain/saya-persistent.png)
 
 :::tip
-For data availability without settlement layer integration, see [Sovereign mode](/toolchain/saya/sovereign).
+For data availability without settlement layer integration, see [Sovereign mode](./sovereign).
 :::
 
 :::info
@@ -21,6 +21,8 @@ Piltover acts as the settlement layer contract that receives and verifies state 
 ## Setup Katana
 
 Katana must be configured in provable mode to work with Saya.
+For complete setup instructions, see [Katana configuration](../katana/configuration).
+
 First, initialize a new chain spec:
 
 ```bash
@@ -73,7 +75,7 @@ You will then want to start katana with the `--chain /path` instead of `--chain 
 
 ## Run Saya
 
-If you haven't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
+If you haven't already, consult the [main Saya guide](.) to get an account and an API key.
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.

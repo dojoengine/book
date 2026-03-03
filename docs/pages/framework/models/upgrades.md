@@ -44,17 +44,14 @@ For example, querying `player_id = 123` with `username = "Alice"` and `score = 1
 
 In addition, post-upgrade, we can now store the `level` value for the `Player`.
 
-:::info
-When you upgrade a model, Dojo checks that the new model definition is compatible with the existing data layout.
-If the upgrade would break existing data, the upgrade will fail.
-:::
+> **Note**: When you upgrade a model, Dojo checks that the new model definition is compatible with the existing data layout.
+> If the upgrade would break existing data, the upgrade will fail.
 
 ## General rules
 
 - To be upgradeable, the layout of a model must not be packed (using `IntrospectPacked`).
 
 - For composite data structures like `struct`, `enum`, `tuple` and `array`:
-
     - they are upgreadable as long as all their elements are upgreadable
     - existing elements cannot be removed, only modified
     - new elements can be freely added.
@@ -74,9 +71,7 @@ If the upgrade would break existing data, the upgrade will fail.
 
 This table lists the allowed upgrades for every primitive type.
 
-:::note
-The type `usize` is not supported since it is a architecture-dependent type.
-:::
+> **Note**: The type `usize` is not supported since it is a architecture-dependent type.
 
 | Current         | Allowed upgrades                                |
 | --------------- | ----------------------------------------------- |

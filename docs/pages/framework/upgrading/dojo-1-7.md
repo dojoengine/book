@@ -35,36 +35,31 @@ dojo_cairo_test = "=1.7.2"
 allow-prebuilt-plugins = ["dojo_cairo_macros"]
 ```
 
-:::note
-Since `1.8.0` contains a very small but breaking change, you must use the `=1.7.2` to ensure that Scarb is not fetching `1.8.0` or greater instead.
-:::
+> **Note**: Since `1.8.0` contains a very small but breaking change, you must use the `=1.7.2` to ensure that Scarb is not fetching `1.8.0` or greater instead.
 
-The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier. You need to add the `dojo_cairo_macros` dependency instead.
+The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier.
+You need to add the `dojo_cairo_macros` dependency instead.
 See the note below for more details.
 
-:::note
-If you are using `1.7.0` or earlier, you need to add the `dojo_cairo_macros` dependency.
-
-```toml
-[dependencies]
-dojo = "=1.7.0"
-dojo_cairo_macros = "=1.7.0"
-
-[dev-dependencies]
-cairo_test = "2.12.2"
-dojo_cairo_test = "=1.7.0"
-```
-
-Also, precompiled proc macros are only available if you are using `1.7.1` or later.
-Therefore, if you have an issue while compiling the project, ensure that you have rust `1.90` correctly installed locally.
-Starting from `1.7.1`, the dojo proc macros are pre-compiled which removes the need of having Cargo installed locally.
-:::
+> **Note**: If you are using `1.7.0` or earlier, you need to add the `dojo_cairo_macros` dependency.
+>
+> ```toml
+> [dependencies]
+> dojo = "=1.7.0"
+> dojo_cairo_macros = "=1.7.0"
+>
+> [dev-dependencies]
+> cairo_test = "2.12.2"
+> dojo_cairo_test = "=1.7.0"
+> ```
+>
+> Also, precompiled proc macros are only available if you are using `1.7.1` or later.
+> Therefore, if you have an issue while compiling the project, ensure that you have rust `1.90` correctly installed locally.
+> Starting from `1.7.1`, the dojo proc macros are pre-compiled which removes the need of having Cargo installed locally.
 
 ## Starknet 0.14.0
 
-:::info
-Starknet's 0.14.0 upgrade went live on mainnet September 1, 2025.
-:::
+> **Note**: Starknet's 0.14.0 upgrade went live on mainnet September 1, 2025.
 
 Dojo 1.7 was timed to coincide with [Starknet's 0.14.0 upgrade](https://governance.starknet.io/voting-proposals/9), which brought several major changes to the network:
 
@@ -78,151 +73,43 @@ See [this guide](https://hackmd.io/8ILy9nLgTmaEJ98mrtPP3A) for more context and 
 
 ## The `DojoStore` trait
 
-:::warning
-This is a **breaking change**; while migration is straightforward, existing projects which do not migrate are at risk of data loss.
-:::
+> **Warning**: This is a **breaking change**; while migration is straightforward, existing projects which do not migrate are at risk of data loss.
 
 **TL;DR: all Enums which are stored inside of Dojo models must derive the `Default` trait and set a `#[default]` value.**
 
 In response to a potential vulnerability identified with the existing implementation of Dojo storage and uninitialized storage, a new `DojoStore` trait was introduced to give developers more fine-grained control of model storage.
 
-This trait will affect data serialization and requires some code updates to handle correctly if you have an existing project.
+For comprehensive documentation on the `DojoStore` trait and model serialization, see the [Model API documentation](../models/api).
+This guide focuses only on migration-specific changes.
 
-### Dojo Storage Overview
+### Security Considerations for Uninitialized Storage
 
-Before describing the issue, here's a brief summary of how Dojo storage works:
+This section covers migration-specific security considerations for enum storage.
+For complete Model API documentation including storage operations and serialization, see the [Model API guide](../models/api).
 
-1. A model is defined as a Cairo struct.
-2. This model is serialized using the `Serde` trait and written to world storage via `world.model_write(@m)`.
-3. The world contract's storage acts as a database, where serialized data is written through syscalls to specific storage locations.
+If this model is read from storage before being explicitly written, the world's storage remains uninitialized (filled with `0x0`s).
+This results in unexpected behavior with enum variants.
 
-Since serialization is handled by the `Serde` trait, enums are serialized as follows:
+### Migration Guide
 
-1. The variant index is stored as the first `felt`.
-2. If the variant contains a value (i.e., is not the unit type `()`), the serialized value occupies the remaining `felt`s.
+For comprehensive `DojoStore` trait documentation, see the [Model API reference](../models/api).
+The migration steps below focus specifically on upgrading existing projects:
 
-For example, the `Option<T>` enum is serialized as:
-
-```rust
-enum Option<T> {
-    Some: T,
-    None,
-}
-
-let a = Option::None;
-// Serialized = [0x1]
-
-let b = Option::Some(2);
-// Serialized = [0x0, 0x2]
-```
-
-In Starknet contracts, the Cairo compiler increments variant indices by `1`, ensuring that uninitialized storage defaults to a predictable variant.
-Since Dojo uses `Serde`, this increment is not happening.
-
-### Security Considerations
-
-Given this behavior, consider the following model:
-
-```rust
-struct MyModel {
-    #[key]
-    id: u32,
-    score: Option<u32>,
-}
-```
-
-If this model is read from storage before being explicitly written, the world’s storage remains uninitialized (filled with `0x0`s). This results in:
-
-```rust
-let my_key: u32 = 0x1234;
-
-// Reading an uninitialized model from storage.
-let m = world.read_model(my_key);
-
-// This assertion will revert Cairo execution.
-// assert(m == None)
-
-if m.score.is_some() {
-    // Unexpected execution: `Some(0)` is returned instead of `None`.
-} else {
-    // Expected behavior, but will not occur in this case.
-}
-```
-
-Here, `Some(0)` is returned instead of `None` because `Some` is the first variant of `Option<T>`, leading to unintended behavior when relying on `score` for logic for uninitialized models.
-
-For custom enums, consider:
-
-```rust
-enum HeroState {
-    Alive: u32,
-    Injured: u32,
-    Dead,
-}
-```
-
-Reading uninitialized storage will return `HeroState::Alive(0)`, as it is the first variant but we might expect another default value associated to `HeroState::Alive`.
-
-### Introduction of a new `DojoStore` trait
-
-From Dojo 1.7.0, models are serialized using a new `DojoStore` trait, which basically does the same thing than `Serde` except for enums.
-
-When reading an uninitialized model containing an enum, `DojoStore` will automatically use the default variant configured at enum level for deserialization.
-
-Let's see an example:
-
-```rust
-#[derive(Drop)]
-enum HeroState {
-    Alive: u32,
-    Injured: u32,
-    Dead,
-}
-
-impl HeroStateDefault of Default<HeroState> {
-    fn default() -> HeroState {
-        HeroState::Alive(200)
-    }
-}
-
-#[derive(Drop, Default)]
-struct MyModel {
-    state: HeroState,
-}
-```
-
-Here, when `DojoStore` deserializes an uninitialized model, it uses the default value of `HeroState` which is `HeroState::Alive(200)`.
-
-Of course, you can also use the `Default` derive attribute and tag the default variant when there is no need to configure a specific variant data:
-
-```rust
-#[derive(Drop, Default)]
-enum MyEnum {
-    Variant1,
-    #[default]
-    Variant2,
-    Variant3
-}
-```
-
-In this case, `Variant2` is used for deserializing an uninitialized model containing a `MyEnum` field.
-
-For `Option<T>`, the default value is already configured as `None`.
-
-### What to do for a new Dojo project ?
+#### For New Dojo Projects
 
 For a new Dojo project, just add the `DojoStore` derive attribute to all the data structures used in models (basically all the data structures aimed to be stored).
 
-For stored enums, you must also add the `Default` derive attribute and configure a default variant (or implement the `Default` trait like in the previous example).
+For stored enums, you must also add the `Default` derive attribute and configure a default variant (or implement the `Default` trait).
 
-You can omit the `DojoStore` attribute on the model `struct` itself because it will be automatically added when a `struct` is tagged with `dojo::model`. Same for `Introspect`, `Drop` and `Serde`.
+You can omit the `DojoStore` attribute on the model `struct` itself because it will be automatically added when a `struct` is tagged with `dojo::model`.
+Same for `Introspect`, `Drop` and `Serde`.
 
-Note that Dojo events and all the data structures used in events are not stored and so, don't need the `DojoStore` attribute. Of course, if a data structure is used in both Dojo models and events, you have to add the `DojoStore` attribute.
+Note that Dojo events and all the data structures used in events are not stored and so, don't need the `DojoStore` attribute.
+Of course, if a data structure is used in both Dojo models and events, you have to add the `DojoStore` attribute.
 
 Some examples:
 
 ```rust
-
 #[derive(Drop, Serde, DojoStore, Default)]
 enum MyEnum {
     Variant1,
@@ -254,7 +141,7 @@ struct E2 {
 }
 ```
 
-### How to migrate an existing Dojo project ?
+#### For Existing Dojo Projects
 
 If your project is already deployed on mainnet, there are two cases for each of your models.
 
@@ -287,36 +174,25 @@ That means, you still have the potential issue described earlier with uninitiali
 - Avoid relying on `Option<T>` for initialization checks. Instead, use a separate `bool` or `integer` field, as these default to `0x0`.
 - Define the default variant as the first variant to ensure correct behavior when reading uninitialized storage, and if you define an associated variant data, keep in mind that it will be set to 0 by default.
 
-:::warning
-Due to how `DojoStore` is implemented, you may have to rename few methods to interact with models.
-All the following methods now have an additional `_legacy` version that must be used for the models using `DojoLegacyStore`.
-
-```
-read_member_legacy
-read_member_of_models_legacy
-write_member_legacy
-write_member_of_models_legacy
-read_schema_legacy
-read_schemas_legacy
-```
-
-:::
-
-### Conclusion to avoid an issue with uninitialized storage and enums
-
-If your project relies on `Option<T>` or custom enums, this issue may be critical. We recommend reviewing your usage and considering explicit initialization strategies when applicable.
-
-For projects already on `mainnet`, upgrading the contract to modify logic or adding a dedicated initialization field can mitigate potential security risks.
-
-This issue affects all versions since Dojo `1.0.0`.
-
-From Dojo `1.7.0`, the `DojoStore` trait ensures that uninitialized storage is handled correctly for enums and `Option<T>` and custom enums with a default variant.
+> **Warning**: Due to how `DojoStore` is implemented, you may have to rename few methods to interact with models.
+> All the following methods now have an additional `_legacy` version that must be used for the models using `DojoLegacyStore`.
+>
+> ```
+> read_member_legacy
+> read_member_of_models_legacy
+> write_member_legacy
+> write_member_of_models_legacy
+> read_schema_legacy
+> read_schemas_legacy
+> ```
 
 ### Testing with `dojo-cairo-test`
 
-Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`. The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
+Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`.
+The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
 
-You now have to import the `world` and pass its class hash to the `spawn_test_world` function. There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
+You now have to import the `world` and pass its class hash to the `spawn_test_world` function.
+There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
 
 ```rust
 use dojo::world::{WorldStorageTrait, world};
@@ -349,7 +225,7 @@ fn test_world_test_set() {
 ### Using Starknet Foundry
 
 Now that Starknet Foundry is supported for Dojo contracts, you can opt to use it instead of `dojo-cairo-test` for testing.
-YOu can use the whole Starknet Foundry test suite and cheatcodes.
+You can use the whole Starknet Foundry test suite and cheatcodes.
 
 Update your `Scarb.toml` to add the `dojo_snf_test` dependency:
 
@@ -402,10 +278,8 @@ This section will help you address some common issues.
 
 ### Toolchain compatibility guide
 
-:::warning
-This compatibility guide is rapidly changing and may be slightly out of date.
-For the most up-to-date information, [visit our Discord](https://discord.gg/dojoengine).
-:::
+> **Warning**: This compatibility guide is rapidly changing and may be slightly out of date.
+> For the most up-to-date information, [visit our Discord](https://discord.gg/dojoengine).
 
 The following is the **latest** compatibility guide for Dojo 1.7.
 

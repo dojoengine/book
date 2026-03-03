@@ -79,7 +79,7 @@ export const dojoConfig = createDojoConfig({ manifest });
 
 #### Generate TypeScript Bindings
 
-[Generate code bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
+[Generate contract bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
 
 ```bash
 DOJO_MANIFEST_PATH="../path/to/Scarb.toml" sozo build --typescript
@@ -91,7 +91,7 @@ These instructions assume you have Dojo contracts relative to your client root.
 
 #### Initialize the SDK
 
-With your bindings generated, you can now link Dojo models to your UI.
+With your contract bindings generated, you can now link Dojo models to your UI.
 
 ```typescript
 // main.tsx
@@ -159,6 +159,8 @@ Call `init` only once to avoid creating multiple Torii clients.
 ::::
 
 ## Usage Overview
+
+For foundational Dojo architecture concepts, see the [SDK overview](./index).
 
 ### Core SDK Methods
 
@@ -286,7 +288,7 @@ const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
 
 ### Saving State With Zustand
 
-The SDK integrates with Zustand for reactive state management, updating your components automatically when blockchain data changes:
+The SDK integrates with Zustand for reactive state management, updating your components automatically when world state changes:
 
 ```
 1. useEntityQuery() subscribes to Torii for real-time updates
@@ -380,6 +382,10 @@ function MyComponent() {
 }
 ```
 
+### Account Management
+
+For account management concepts including burner accounts and session accounts, see the [account management documentation](./index).
+
 ### Sending Signed Messages
 
 Signed messages allow you to send **authenticated off-chain data** to Torii without expensive blockchain transactions.
@@ -412,14 +418,15 @@ try {
 ```
 
 :::note
-If you want messages to be broadcast to all of your torii client instances, you'll have to pass a `relayUrl` to `init`.
+If you want messages to be broadcast to all of your Torii client instances, you'll have to pass a `relayUrl` to `init`.
 `relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot:
 `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
 :::
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
+First, configure Torii to index your tokens:
 
 ```toml
 # dojo_dev.toml
@@ -456,7 +463,8 @@ function TokenBalance({ address }: { address: string }) {
 
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

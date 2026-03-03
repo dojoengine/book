@@ -69,7 +69,8 @@ Sozo automatically generates and maintains deployment manifests that eliminate m
 
 **Generated Manifests**: After each `sozo migrate`, Sozo writes a `manifest_{profile}.json` file containing complete deployment state: contract addresses, class hashes, ABIs, and metadata for all resources.
 
-**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses. Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
+**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses.
+Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
 
 **Fallback to Chain State**: When manifests are missing or `--diff` is used, Sozo rebuilds contract mappings by querying deployed world state directly.
 
@@ -89,23 +90,7 @@ sozo build && sozo migrate
 
 ## Installation
 
-Sozo can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
-
-```bash
-curl -L https://install.dojoengine.org | bash
-
-# Restart your terminal
-
-dojoup install
-```
-
-:::note
-This will install the `sozo` binary at `~/.dojo/bin`
-:::
-
-:::tip
-Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
-:::
+For installation instructions, see the [Installation guide](/installation).
 
 ### Installing with `asdf`
 

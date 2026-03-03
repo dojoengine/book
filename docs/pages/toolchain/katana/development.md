@@ -219,7 +219,7 @@ katana --dev --metrics --dev.no-fee
 watch -n 1 'curl -s http://127.0.0.1:9100/metrics | grep block_producer'
 ```
 
-This provides real-time visibility into your local blockchain's performance characteristics during development and testing.
+This provides real-time visibility into your local sequencer's performance characteristics during development and testing.
 
 ### Enabling explorer
 
@@ -239,7 +239,7 @@ RPC commands are organized across multiple namespaces:
 - **`starknet`**: Standard Starknet RPC methods for contract calls and queries
 - **`dev`**: Development utilities like manual block mining and time control
 - **`katana`**: Node-specific endpoints for configuration and account info
-- **`torii`**: ECS entity/component queries for Dojo integration
+- **`torii`**: ECS entity/component queries for Dojo integration with [Torii](/toolchain/torii)
 
 #### Usage Example
 

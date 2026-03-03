@@ -23,10 +23,8 @@ The RPC methods are categorized into the following namespaces:
 Each RPC method can be invoked by prefixing the method name with the namespace name and an underscore.
 For example, the `generateBlock` method in the `dev` namespace can be invoked as `dev_generateBlock`.
 
-:::note
-Torii provides its own separate gRPC server queries and does not integrate with Katana's JSON-RPC interface.
-See the [Torii documentation](/toolchain/torii) for Torii's API reference.
-:::
+> **Note**: Torii provides its own separate gRPC server queries and does not integrate with Katana's JSON-RPC interface.
+> See the [Torii documentation](/toolchain/torii) for Torii's API reference.
 
 ### Common Development Workflow
 
@@ -110,7 +108,8 @@ The full documentation for the RPC methods can be found [here](https://github.co
 
 ### `dev` Namespace
 
-The `dev` API provides a way to manipulate the blockchain state at runtime. This namespace is only accessible when the `--dev` flag is enabled.
+The `dev` API provides a way to manipulate the blockchain state at runtime.
+This namespace is only accessible when the `--dev` flag is enabled.
 
 #### `dev_generateBlock`
 
@@ -228,9 +227,7 @@ Set storage value at a specific key for a contract address.
 
 Cartridge-specific methods for paymaster support and external execution in local development.
 
-:::info
-The `cartridge` namespace is only available when Katana is built with the `cartridge` feature enabled.
-:::
+> **Note**: The `cartridge` namespace is only available when Katana is built with the `cartridge` feature enabled.
 
 #### `cartridge_addExecuteOutsideTransaction`
 
@@ -263,13 +260,12 @@ Execute an outside transaction with paymaster support.
 - `outside_execution`: Outside execution object with caller, nonce, timing, and calls
 - `signature`: Array of signature components
 
-:::note
-This API is designed for local development with Cartridge controllers and is not intended for production use.
-:::
+> **Note**: This API is designed for local development with Cartridge controllers and is not intended for production use.
 
 ## Supported Transaction Types
 
-Katana aims to follow the Starknet specifications as closely as possible, mimicking the features currently supported on mainnet. Katana currently supports the following Starknet transaction types:
+Katana aims to follow the Starknet specifications as closely as possible, mimicking the features currently supported on mainnet.
+Katana currently supports the following Starknet transaction types:
 
 | Type               | Version | Description                             |
 | ------------------ | ------- | --------------------------------------- |
@@ -281,12 +277,11 @@ Katana aims to follow the Starknet specifications as closely as possible, mimick
 
 **Version 1**: Legacy transaction format with lower gas efficiency.
 
-**Version 3**: Current transaction format with improved gas efficiency and fee estimation. Recommended for new development.
+**Version 3**: Current transaction format with improved gas efficiency and fee estimation.
+Recommended for new development.
 
 **DECLARE Version 2**: Introduces Sierra compilation for improved contract verification.
 
-:::tip
-Use transaction version 3 for new development to benefit from improved gas efficiency and better fee estimation.
-:::
+> **Tip**: Use transaction version 3 for new development to benefit from improved gas efficiency and better fee estimation.
 
 To learn more about the different transaction types, refer to the [Starknet documentation](https://docs.starknet.io/architecture/transactions/).

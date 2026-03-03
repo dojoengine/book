@@ -91,10 +91,8 @@ let ptr: ModelPtr<Position> = Model::<Position>::ptr_from_id(entity_id);
 let ptr: ModelPtr<Position> = model.ptr();
 ```
 
-:::note
-Model pointers are primarily used internally for advanced operations like field-level access.
-For most use cases, prefer the simpler `world.read_model()` and `world.write_model()` methods.
-:::
+> **Note**: Model pointers are primarily used internally for advanced operations like field-level access.
+> For most use cases, prefer the simpler `world.read_model()` and `world.write_model()` methods.
 
 ## Model Storage Operations
 
@@ -160,10 +158,8 @@ world.erase_models_ptrs(ptrs);
 
 Field operations are more efficient when you only need to update specific fields:
 
-:::warning
-Field-level operations are advanced features that require careful use. For most applications,
-use the simpler `world.read_model()` and `world.write_model()` methods.
-:::
+> **Warning**: Field-level operations are advanced features that require careful use.
+> For most applications, use the simpler `world.read_model()` and `world.write_model()` methods.
 
 #### Reading Fields
 
@@ -199,7 +195,7 @@ world.write_member_of_models(ptrs, selector!("x"), new_x_values.span());
 
 ### Schema Reading
 
-You can read models using custom schemas that implement the `Introspect` trait:
+You can read models using custom schemas that implement the [`Introspect`](./introspection) trait:
 
 ```cairo
 #[derive(Drop, Serde, Introspect)]
@@ -241,10 +237,8 @@ struct Player {
 // }
 ```
 
-:::info
-Under-the-hood, the `*Value` structs are what actually get stored onchain.
-The `key` fields are stripped out, and are used only for storage addressing.
-:::
+> **Note**: Under-the-hood, the `*Value` structs are what actually get stored onchain.
+> The `key` fields are stripped out, and are used only for storage addressing.
 
 ### Model Value Operations
 
@@ -270,9 +264,7 @@ let selector: felt252 = ModelValue::<PlayerValue>::selector(namespace_hash);
 let instance_layout: Layout = player_value.instance_layout();
 ```
 
-:::info
-Under the hood, Dojo addresses models as `poseidon(selector, entity_id)`
-:::
+> **Note**: Under the hood, Dojo addresses models as `poseidon(selector, entity_id)`
 
 ### Model Value Storage Operations
 

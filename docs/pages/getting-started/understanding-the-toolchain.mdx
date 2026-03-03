@@ -90,6 +90,8 @@ katana --cartridge.controllers
 katana --rpc-url <RPC_URL> --fork-block-number <BLOCK_NUM>
 ```
 
+For detailed configuration options, see the [Katana documentation](/toolchain/katana).
+
 ## Torii: Your Data Layer
 
 **What it is**: Torii is an automatic indexing engine that makes your World's data easily queryable.
@@ -148,20 +150,7 @@ You can learn more about GraphQL [here](https://graphql.org/learn).
 
 For high-performance applications, use the gRPC endpoint at `localhost:8080`.
 
-### Torii Configuration
-
-Customize Torii's behavior:
-
-```bash
-# Set the RPC endpoint to index (default localhost:5050)
-torii --rpc <RPC_ENDPOINT>
-
-# Path to persistent storage (recommended for production)
-torii --db-dir torii.db
-
-# Enable CORS for local development
-torii --http.cors_origins "*"
-```
+For more information about Torii's APIs and configuration, see the [Torii documentation](/toolchain/torii).
 
 ## Sozo: Your Command Center
 
@@ -175,7 +164,7 @@ torii --http.cors_origins "*"
 - Manages World interactions
 - Handles authorization
 
-> **New to Sozo?** See our [complete Sozo reference](/toolchain/sozo/) for all available commands and options.
+For complete command reference and advanced features, see the [Sozo documentation](/toolchain/sozo).
 
 ### Project Lifecycle with Sozo
 
@@ -240,7 +229,7 @@ You **must** have a `dojo_dev.toml` file in your contract directory, or Sozo wil
 :::
 
 After migrating, Sozo will generate a `manifest_<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
-Thsi file is meant to be consumed by clients to help them interact with the world.
+This file is meant to be consumed by clients to help them interact with the World.
 
 #### 4. Interaction
 
@@ -288,7 +277,7 @@ world_address = "0x04d9..." # For previously deployed worlds
 "di" = ["di-actions"] # target = grantee
 ```
 
-See [this page](/framework/configuration) for more information about Sozo profiles.
+For more information about Sozo profiles, see the [configuration documentation](/framework/configuration).
 
 ## Saya: Your Proof Generator
 
@@ -313,7 +302,7 @@ Saya becomes important when you want:
 - **L1 settlement**: Settle state changes on Ethereum or other chains
 - **Competition integrity**: Tamper-proof tournaments and rankings
 
-For more information about Saya, [see the docs](/toolchain/saya).
+For more information about Saya, see the [Saya documentation](/toolchain/saya).
 
 ## How The Toolchain Works Together
 
@@ -343,6 +332,8 @@ Each tool can be configured through various methods:
 - `katana.toml`: Katana network configuration settings
 
 ## Development Best Practices
+
+For a complete guide on using these tools together effectively in your development workflow, see the [development workflow guide](/getting-started/development-workflow).
 
 ### Keep Tools Running
 

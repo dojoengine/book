@@ -28,9 +28,7 @@ sozo migrate --profile staging
 2. **Default fallback**: If no profile is specified, Dojo uses the `dev` profile (`dojo_dev.toml`)
 3. **Configuration loading**: Each profile file contains deployment and environment settings for that specific context
 
-:::warning
-If a `dojo_dev.toml` does not exist in the contract directory, Dojo will return an error.
-:::
+> **Warning**: If a `dojo_dev.toml` does not exist in the contract directory, Dojo will return an error.
 
 ## Configuration Files
 
@@ -103,9 +101,7 @@ Add custom profiles to control build settings for different environments:
 # Optimized builds for production
 ```
 
-:::note
-Every `dojo_<profile>.toml` must have a matching section header in `Scarb.toml`.
-:::
+> **Note**: Every `dojo_<profile>.toml` must have a matching section header in `Scarb.toml`.
 
 ### External Contract Dependencies
 
@@ -125,9 +121,7 @@ build-external-contracts = [
 - Format: `<crate>::<path>::m_<ModelName>`
 - Example: If `armory` crate has `models::Flatbow` model, include `"armory::models::m_Flatbow"`
 
-:::warning
-Missing external contracts won't cause compilation errors but will cause runtime failures when the World tries to interact with missing model contracts, or when Torii cannot find model definitions to match blockchain event data.
-:::
+> **Warning**: Missing external contracts won't cause compilation errors but will cause runtime failures when the World tries to interact with missing model contracts, or when Torii cannot find model definitions to match blockchain event data.
 
 ## Profile Configuration (`dojo_<profile>.toml`)
 
@@ -163,7 +157,7 @@ github = "https://github.com/mydojogame/contracts"
 - `website` - Project website URL
 - `socials` - Social media links
 
-See more information about world metadata [here](/framework/world/metadata).
+See the [World Metadata guide](../world/metadata) for detailed configuration options.
 
 ### Environment Settings
 
@@ -232,6 +226,8 @@ mappings = {
 - **Writers** - Can modify data in models
 - **Owners** - Can modify data AND manage permissions
 
+See the [World Permissions guide](../world/permissions) for comprehensive permission management documentation.
+
 ### Contract Initialization
 
 By default, Dojo contracts don't have initialization arguments.
@@ -251,9 +247,7 @@ mod my_system {
 "game-my_system" = ["0x123", "u256:0x456"]
 ```
 
-:::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
-:::
+> **Tip**: See the [Sozo calldata format](../../toolchain/sozo) for initialization argument formatting.
 
 ### External Contract Deployment
 
@@ -279,9 +273,7 @@ constructor_data = [
 - `salt` - Deterministic address generation salt
 - `constructor_data` - Arguments for contract constructor
 
-:::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
-:::
+> **Tip**: See the [Sozo calldata format](../../toolchain/sozo) for initialization argument formatting.
 
 ### Migration Control
 
@@ -318,7 +310,7 @@ tag = "game-PlayerMoved"
 description = "Emitted when a player changes position"
 ```
 
-See more information about resource metadata [here](/framework/world/metadata).
+See the [World Metadata guide](../world/metadata) for detailed resource metadata configuration.
 
 ## Configuration Examples
 
@@ -379,7 +371,6 @@ mappings = { "items" = ["Sword", "Shield", "Potion"] }
 
 ## See Also
 
-- **[World Permissions](/framework/world/permissions)** - Runtime permission management
-- **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
-- **[Calldata Format](/toolchain/sozo/index.md#data-format-reference)** - Constructor argument formatting
-- **[World Metadata](/framework/world/metadata)** - World and resource metadata
+- **[World Permissions](../world/permissions)** - Runtime permission management
+- **[World Metadata](../world/metadata)** - World and resource metadata configuration
+- **[Sozo Reference](../../toolchain/sozo)** - Command-line tool documentation

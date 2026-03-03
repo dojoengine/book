@@ -5,7 +5,8 @@ description: "Understanding and working with events in Dojo worlds - from built-
 
 # World Events
 
-Events are the backbone of real-time updates and indexing in Dojo worlds. The World contract automatically emits events for all state changes, and you can create custom events for your specific use cases.
+Events are the backbone of real-time updates and indexing in Dojo worlds.
+The World contract automatically emits events for all state changes, and you can create custom events for your specific use cases.
 
 ## Overview
 
@@ -14,15 +15,13 @@ Dojo uses a two-tier event system:
 1. **Built-in World Events**: Automatically emitted by the World contract for all operations
 2. **Custom Events**: Developer-defined events for specific application needs
 
-All events are automatically indexed by [Torii](/toolchain/torii), making them queryable from your frontend applications.
+All events are automatically indexed by [Torii](../../toolchain/torii), making them queryable from your frontend applications.
 
 ## Built-in World Events
 
 The World contract emits comprehensive events for all operations, providing a complete audit trail of your world's state changes.
 
-:::info
-For the definitive list of world events and their signatures, see the [world contract source code](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/world/world_contract.cairo).
-:::
+> **Note**: For the definitive list of world events and their signatures, see the [world contract source code](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/world/world_contract.cairo).
 
 ### Model Events
 
@@ -156,6 +155,8 @@ pub struct StoreDelRecord {
 
 ### Permission Events
 
+For more details on permission management, see the [permissions guide](./permissions).
+
 #### `OwnerUpdated`
 
 Emitted when owner permissions change.
@@ -210,9 +211,12 @@ pub struct EventEmitted {
 
 **Key fields**: `resource`, `uri`
 
+For more information on metadata configuration, see the [metadata guide](./metadata).
+
 ## Custom Events
 
-Custom events allow you to emit domain-specific events for your application. They're particularly useful for:
+Custom events allow you to emit domain-specific events for your application.
+They're particularly useful for:
 
 - Game-specific UI updates
 - Non-historical data

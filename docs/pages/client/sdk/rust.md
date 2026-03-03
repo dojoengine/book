@@ -8,6 +8,8 @@ description: "Native Rust integration for building Dojo applications with Rust"
 Dojo is built in Rust, making it seamless to integrate into your Rust projects.
 Simply import the required crates and you're ready to build powerful applications that interact with Dojo worlds.
 
+For foundational concepts about Dojo's architecture including entities, models, and world state, see the [SDK overview](./index).
+
 ## Core Components
 
 The Dojo Rust ecosystem provides several key crates for different use cases:
@@ -47,6 +49,15 @@ tokio = { version = "1.39", features = ["full"] }
 ```
 
 ## Basic Usage
+
+### Contract Bindings
+
+For generating contract bindings in your Rust project, see the [complete guide in the Cainome documentation](../../toolchain/cainome).
+This allows you to create type-safe interfaces to your Dojo models and systems.
+
+### Account Management
+
+For comprehensive account management patterns including burner accounts and session accounts, refer to the [JavaScript SDK account documentation](./javascript) which covers the foundational concepts that apply across all SDKs.
 
 ### Connecting to a Dojo World
 
@@ -117,6 +128,10 @@ while let Some(Ok((_, entity))) = subscription.next().await {
     // For example: update a database, trigger game logic, send notifications, etc.
 }
 ```
+
+## Bevy Integration
+
+For native Bevy integration with additional ECS features and game-specific utilities, see the [Bevy SDK documentation](./bevy).
 
 ## Discord Bot Example
 
