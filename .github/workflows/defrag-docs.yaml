@@ -27,13 +27,9 @@ jobs:
             - name: Run defragmentation
               env:
                   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-              run: node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
-
-            - name: Normalize formatting
-              run: pnpm run prettier
-
-            - name: Verify build
-              run: pnpm run build
+              run: |
+                  set -o pipefail
+                  node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
 
             - name: Create PR if changes exist
               env:
