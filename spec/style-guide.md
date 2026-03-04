@@ -108,12 +108,21 @@ Follow these guidelines to create documentation that serves both newcomers to on
 
 ### Callouts and Admonitions
 
+This site uses Vocs, which renders `:::` blocks as styled callout boxes.
+Always use `:::` syntax — never convert to blockquote format.
+
 ```markdown
-> **Note**: Use for helpful information that supplements the main content.
+:::note
+Use for helpful information that supplements the main content.
+:::
 
-> **Warning**: Use for actions that could cause problems or data loss.
+:::warning
+Use for actions that could cause problems or data loss.
+:::
 
-> **Tip**: Use for pro tips and best practices.
+:::tip
+Use for pro tips and best practices.
+:::
 ```
 
 ## Accessibility Guidelines

@@ -5,11 +5,14 @@
  *
  * Three-stage flow:
  *   1. Analysis: Read all pages in each section together, produce a report
- *      of cross-page issues (redundancy, terminology drift, missing links).
- *   2. Editing: For each file that needs changes, send the file + the
+ *      of cross-page issues (redundancy, terminology drift, missing links)
+ *      including structured content relocations.
+ *   2. Relocation: For each identified relocation, send source + target
+ *      files together and get both back edited atomically.
+ *   3. Editing: For each file that needs changes, send the file + the
  *      relevant report, get back the complete corrected file.
- *   3. Build verification: Run `pnpm run build` and if it fails, send the
- *      errors back to Claude to fix. Retries up to 3 times.
+ *
+ * Build verification is handled separately by confirm-build.mjs.
  *
  * Usage:
  *   ANTHROPIC_API_KEY=sk-... node scripts/defrag-docs.mjs
@@ -109,7 +112,7 @@ Focus on:
 1. **Redundancy**: Content duplicated or substantially repeated across pages. Identify which page has the best version and which pages should defer to it.
 2. **Terminology inconsistency**: The same concept referred to with different terms across pages.
 3. **Missing cross-references**: Pages that discuss related topics but don't link to each other.
-4. **Structural issues**: Pages that overlap in scope or whose boundaries are unclear.
+4. **Content relocations**: Content that lives in the wrong page and should be moved to a more appropriate one. Only flag this for substantial blocks of content (multiple paragraphs or sections), not individual sentences.
 
 Do NOT flag:
 - Issues that are purely within a single page (formatting, sentence structure)
@@ -127,10 +130,17 @@ Output format — a plain text report with sections:
 ## Missing cross-references
 - file A should link to file B when discussing [topic]
 
-## Structural issues
-- [description]
+## Relocations
 
-If a category has no issues, write "None found." under it.`;
+For each content relocation, use this exact format (one per block):
+
+RELOCATE
+from: [source filename relative to docs/pages/]
+to: [target filename relative to docs/pages/]
+description: [what content to move and where to place it in the target]
+END_RELOCATE
+
+If no relocations are needed, write "None found." under this section.`;
 
 function buildAnalysisPrompt(section, files) {
     const fileContents = files
@@ -138,6 +148,78 @@ function buildAnalysisPrompt(section, files) {
         .join("\n\n");
 
     return `Analyze these ${files.length} documentation pages from the "${section}" section:\n\n${fileContents}`;
+}
+
+// ---------------------------------------------------------------------------
+// Stage 1.5: Relocation — move content between files atomically
+// ---------------------------------------------------------------------------
+
+function parseRelocations(report) {
+    const relocations = [];
+    const regex = /RELOCATE\nfrom:\s*(.+)\nto:\s*(.+)\ndescription:\s*(.+(?:\n(?!END_RELOCATE).+)*)\nEND_RELOCATE/g;
+    let match;
+    while ((match = regex.exec(report)) !== null) {
+        relocations.push({
+            from: match[1].trim(),
+            to: match[2].trim(),
+            description: match[3].trim(),
+        });
+    }
+    return relocations;
+}
+
+const RELOCATION_SYSTEM = `You are a documentation editor for the Dojo framework.
+
+You will receive two documentation files and a description of content that should be moved from the source file to the target file.
+
+Your job is to:
+1. Move the described content from the source to an appropriate location in the target.
+2. In the source, replace the moved content with a brief cross-reference link to the target.
+3. Preserve all other content in both files exactly as-is.
+
+Return your response in this exact format:
+
+--- SOURCE ---
+[complete corrected source file content]
+--- TARGET ---
+[complete corrected target file content]
+
+Rules:
+- Return ONLY the two file contents in the format above — no other commentary.
+- Preserve all frontmatter, code blocks, and existing links.
+- The moved content should fit naturally into the target page's structure.
+- The cross-reference in the source should be a brief sentence with a markdown link.
+- Do not make any other changes to either file beyond the relocation.`;
+
+function buildRelocationPrompt(relocation, allFiles) {
+    const sourceFile = allFiles.find((f) => f.rel === relocation.from);
+    const targetFile = allFiles.find((f) => f.rel === relocation.to);
+    if (!sourceFile || !targetFile) return null;
+
+    const sourceContent = loadTextFile(sourceFile.path);
+    const targetContent = loadTextFile(targetFile.path);
+
+    return `## Relocation description
+
+${relocation.description}
+
+## Source file: ${relocation.from}
+
+${sourceContent}
+
+## Target file: ${relocation.to}
+
+${targetContent}`;
+}
+
+function parseRelocationResponse(response) {
+    const sourceMatch = response.match(/--- SOURCE ---\n([\s\S]*?)(?=--- TARGET ---)/);
+    const targetMatch = response.match(/--- TARGET ---\n([\s\S]*?)$/);
+    if (!sourceMatch || !targetMatch) return null;
+    return {
+        source: sourceMatch[1].trim(),
+        target: targetMatch[1].trim(),
+    };
 }
 
 // ---------------------------------------------------------------------------
@@ -162,9 +244,11 @@ ${styleGuide}
 - Return ONLY the corrected file content — no commentary, no wrapping, no code fences.
 - Preserve all frontmatter, code blocks, and link URLs exactly.
 - One sentence per line is MANDATORY for prose paragraphs. This does NOT apply to list items, headings, code blocks, or frontmatter.
+- Do NOT convert :::note, :::warning, :::tip, or :::info blocks to blockquote format. This site uses Vocs, which renders ::: blocks as styled callout boxes.
 - Do not invent new content or add explanations that weren't there.
 - Do not remove content that is unique and correct — only trim true redundancy.
-- When the report says to replace duplicated content with a cross-reference, use a brief mention with a markdown link to the canonical page.
+- Do NOT delete content and replace it with a cross-reference unless you are certain the target page already contains equivalent information. If unsure, leave the content in place.
+- When the report says to replace duplicated content with a cross-reference, verify that the linked page covers the same material before removing anything.
 - When adding or modifying links, ONLY use targets from the valid routes list provided. Use extensionless relative links (e.g. "./introspection" not "../introspection.md").
 - If the file needs no changes, return it exactly as-is.
 - Preserve the original voice and technical accuracy.`;
@@ -233,6 +317,56 @@ async function main() {
             }
         }
 
+        // Stage 1.5: Process relocations from the report
+        const relocations = parseRelocations(report);
+        if (relocations.length > 0) {
+            console.log(
+                `  Found ${relocations.length} relocation(s) to process.`
+            );
+            for (const reloc of relocations) {
+                console.log(`    Moving content: ${reloc.from} → ${reloc.to}`);
+                const prompt = buildRelocationPrompt(reloc, allFiles);
+                if (!prompt) {
+                    console.log(`    Skipped: file not found.`);
+                    continue;
+                }
+                try {
+                    const response = await callClaude(
+                        RELOCATION_SYSTEM,
+                        prompt,
+                        32000
+                    );
+                    const parsed = parseRelocationResponse(response);
+                    if (!parsed) {
+                        console.log(`    Skipped: could not parse response.`);
+                        continue;
+                    }
+                    const sourceFile = allFiles.find(
+                        (f) => f.rel === reloc.from
+                    );
+                    const targetFile = allFiles.find(
+                        (f) => f.rel === reloc.to
+                    );
+                    if (!DRY_RUN) {
+                        writeFileSync(sourceFile.path, parsed.source, "utf-8");
+                        writeFileSync(targetFile.path, parsed.target, "utf-8");
+                    }
+                    // Track both files as changed
+                    if (!changeLog.includes(reloc.from)) {
+                        changeLog.push(reloc.from);
+                        filesChanged++;
+                    }
+                    if (!changeLog.includes(reloc.to)) {
+                        changeLog.push(reloc.to);
+                        filesChanged++;
+                    }
+                    console.log(`    Done.`);
+                } catch (err) {
+                    console.error(`    Relocation failed: ${err.message}`);
+                }
+            }
+        }
+
         // Stage 2: Edit each file with the report as context
         for (const file of files) {
             const original = loadTextFile(file.path);
@@ -278,116 +412,20 @@ async function main() {
         console.log("\nNo changes needed — docs are clean!");
     }
 
-    // Normalize formatting before build verification
+    // Normalize formatting
     if (!DRY_RUN) {
         console.log("\nRunning prettier...");
         execSync("pnpm run prettier", { cwd: ROOT, stdio: "pipe" });
     }
-
-    // Stage 3: Build verification — fix errors up to 3 times
-    if (!DRY_RUN) {
-        await verifyBuild(editSystemPrompt);
-    }
 }
 
 // ---------------------------------------------------------------------------
-// Stage 3: Build verification loop
+// Helpers used by both this script and the route list
 // ---------------------------------------------------------------------------
 
 function getValidRoutes() {
     const files = collectDocFiles(DOCS_DIR);
     return files.map((f) => "/" + f.rel.replace(/\.(md|mdx)$/, "").replace(/\/index$/, ""));
-}
-
-const BUILD_FIX_SYSTEM = `You are a documentation editor for the Dojo framework.
-
-You will receive a documentation file and build errors that reference it.
-Fix the file so the build errors are resolved.
-
-## Rules
-- Return ONLY the corrected file content — no commentary, no wrapping, no code fences.
-- Fix only what is needed to resolve the reported errors.
-- Do not make other changes to the file.
-- For dead links: this site uses vocs, which requires extensionless relative links (e.g. "./introspection" not "../introspection.md"). Check relative path depth carefully.
-- You will be given the complete list of valid routes. ONLY use link targets that resolve to one of these routes.
-- If a link target clearly does not exist in the valid routes, replace the link href with "#TODO".`;
-
-function parseBuildErrors(output) {
-    // Strip ANSI codes
-    const clean = output.replace(/\x1b\[[0-9;]*m/g, "");
-
-    // Group errors by source file
-    const byFile = {};
-
-    // Dead links: "<broken-link> in <source-file>"
-    for (const line of clean.split("\n")) {
-        const match = line.trim().match(/^(\S+)\s+in\s+(\S+)$/);
-        if (match) {
-            const [, link, file] = match;
-            if (!byFile[file]) byFile[file] = [];
-            byFile[file].push(`Dead link: ${link}`);
-        }
-    }
-
-    return byFile;
-}
-
-async function verifyBuild(editSystemPrompt) {
-    const MAX_ATTEMPTS = 3;
-    const validRoutes = getValidRoutes();
-    const routeList = validRoutes.join("\n");
-
-    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-        console.log(`\n=== Build verification (attempt ${attempt}/${MAX_ATTEMPTS}) ===`);
-
-        try {
-            execSync("pnpm run build", { cwd: ROOT, stdio: "pipe" });
-            console.log("Build passed.");
-            return;
-        } catch (err) {
-            const output = (err.stdout?.toString() || "") + (err.stderr?.toString() || "");
-            const errorsByFile = parseBuildErrors(output);
-            const fileCount = Object.keys(errorsByFile).length;
-
-            if (fileCount === 0) {
-                console.error("Build failed with unknown errors:");
-                console.error(output.slice(-2000));
-                throw new Error("Build failed with non-fixable errors");
-            }
-
-            console.log(`Build failed. Found errors in ${fileCount} file(s).`);
-
-            for (const [filePath, errors] of Object.entries(errorsByFile)) {
-                console.log(`  Fixing ${filePath}...`);
-                const content = loadTextFile(filePath);
-                const prompt = `## Valid routes in this site\n\n${routeList}\n\n## Build errors for this file\n\n${errors.join("\n")}\n\n## File to fix: ${filePath}\n\n${content}`;
-
-                try {
-                    const fixed = await callClaude(
-                        BUILD_FIX_SYSTEM,
-                        prompt,
-                        Math.max(16000, Math.ceil(content.length / 3))
-                    );
-                    writeFileSync(filePath, fixed, "utf-8");
-                    console.log(`    Fixed.`);
-                } catch (fixErr) {
-                    console.error(`    Fix failed: ${fixErr.message}`);
-                }
-            }
-
-            // Re-run prettier on fixed files
-            console.log("  Re-running prettier...");
-            execSync("pnpm run prettier", { cwd: ROOT, stdio: "pipe" });
-        }
-    }
-
-    // Final check
-    try {
-        execSync("pnpm run build", { cwd: ROOT, stdio: "pipe" });
-        console.log("Build passed after fixes.");
-    } catch {
-        throw new Error(`Build still failing after ${MAX_ATTEMPTS} fix attempts`);
-    }
 }
 
 main().catch((err) => {
