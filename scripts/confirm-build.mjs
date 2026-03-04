@@ -166,16 +166,53 @@ async function main() {
         }
     }
 
-    // Final check
-    try {
-        execSync("pnpm run build", { cwd: ROOT, stdio: "pipe" });
-        console.log("Build passed after fixes.");
-    } catch {
-        console.error(
-            `Build still failing after ${MAX_ATTEMPTS} fix attempts.`
-        );
-        process.exit(1);
+    // Deterministic fallback: replace remaining dead links with #TODO.
+    // Loop because vocs may not report all dead links in a single pass.
+    const FALLBACK_MAX = 5;
+    for (let i = 1; i <= FALLBACK_MAX; i++) {
+        console.log(`Deterministic fallback pass ${i}/${FALLBACK_MAX}...`);
+        try {
+            execSync("pnpm run build", { cwd: ROOT, stdio: "pipe" });
+            console.log("Build passed.");
+            return;
+        } catch (err) {
+            const output =
+                (err.stdout?.toString() || "") +
+                (err.stderr?.toString() || "");
+            const errorsByFile = parseBuildErrors(output);
+            const fileCount = Object.keys(errorsByFile).length;
+
+            if (fileCount === 0) {
+                console.error("Build failed with non-link errors:");
+                console.error(output.slice(-2000));
+                process.exit(1);
+            }
+
+            for (const [filePath, errors] of Object.entries(errorsByFile)) {
+                let content = readFileSync(filePath, "utf-8");
+                for (const error of errors) {
+                    const link = error.replace("Dead link: ", "");
+                    const escaped = link.replace(
+                        /[.*+?^${}()|[\]\\]/g,
+                        "\\$&"
+                    );
+                    content = content.replace(
+                        new RegExp(`(\\]\\()${escaped}(\\))`, "g"),
+                        "$1#TODO$2"
+                    );
+                }
+                writeFileSync(filePath, content, "utf-8");
+                console.log(
+                    `  Replaced dead links with #TODO in ${filePath}`
+                );
+            }
+
+            execSync("pnpm run prettier", { cwd: ROOT, stdio: "pipe" });
+        }
     }
+
+    console.error("Build still failing after all fix attempts.");
+    process.exit(1);
 }
 
 main().catch((err) => {
