@@ -51,7 +51,7 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
 
-                  BRANCH="defrag-docs-$(date +%Y%m%d)"
+                  BRANCH="defrag-docs-$(date +%s)"
                   echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
                   git checkout -b "$BRANCH"
 
