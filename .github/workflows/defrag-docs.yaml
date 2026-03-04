@@ -140,7 +140,7 @@ jobs:
               run: node scripts/confirm-build.mjs
 
             - name: Commit fixes
-              if: steps.build-check.outputs.status == 'fail'
+              if: always() && steps.build-check.outputs.status == 'fail'
               run: |
                   if [ -z "$(git status --porcelain docs/)" ]; then
                     echo "No fixes needed"
