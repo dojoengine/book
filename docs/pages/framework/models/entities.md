@@ -9,6 +9,98 @@ description: Understand how entities work in Dojo's ECS architecture and how the
 
 An entity is described by a `felt252` identifier that serves as a common key across models, allowing you to group related data together.
 
+## Understanding ECS Architecture
+
+[Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern that separates data from logic, enabling highly modular and scalable applications.
+
+**The Problem ECS Solves:**
+Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior.
+ECS addresses these issues by decomposing your application into three distinct parts:
+
+### The ECS Trinity
+
+![ECS Pattern](/framework/ECS.png)
+
+- **Entities**: The _objects_ in your game — characters, items, etc.
+- **Components**: The _properties_ of your entities — position, durability, etc.
+- **Systems**: The _rules_ that govern your game — movement, combat, etc.
+
+With ECS, you assign **components** to **entities**, and operate on them using **systems**.
+This approach allows for a more modular and scalable design, as well as better performance and memory usage.
+Entities are typically represented as a unique identifier, to which components are assigned.
+Systems can then operate over large numbers of entities at once, depending on the components they have.
+
+As an example, a combat system might reduce the durability of all weapons used in a battle, while a rest system might increase the health of all members of a party.
+
+**ECS Benefits:**
+
+- **Modularity**: Components can be mixed and matched across entity types
+- **Performance**: Systems can efficiently process large numbers of entities
+- **Flexibility**: Easy to add new components or systems without affecting existing code
+
+### Real-World Example
+
+Consider a simple RPG where both players and monsters can move and fight:
+
+```rust
+// Components (Data)
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Position {
+    #[key]
+    entity_id: u32,
+    x: u32,
+    y: u32,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Health {
+    #[key]
+    entity_id: u32,
+    hp: u32,
+    max_hp: u32,
+}
+
+// Systems (Logic)
+#[starknet::interface]
+trait IGameSystem<T> {
+    fn move(ref self: T, entity_id: u32, direction: Direction);
+    fn fight(ref self: T, attacker_id: u32, target_id: u32);
+}
+
+#[dojo::contract]
+mod game_system {
+    use super::{Position, Health, Direction, IGameSystem};
+    use dojo::model::{ModelStorage};
+    use dojo::world::{WorldStorage, WorldStorageTrait};
+
+    #[abi(embed_v0)]
+    impl GameSystemImpl of IGameSystem<ContractState> {
+        fn move(ref self: ContractState, entity_id: u32, direction: Direction) {
+            let mut world = self.world(@"my_game");
+            let mut position: Position = world.read_model(entity_id);
+
+            // Update position based on direction
+
+            world.write_model(@position);
+        }
+
+        fn fight(ref self: ContractState, attacker_id: u32, target_id: u32) {
+            let mut world = self.world(@"my_game");
+            let mut attacker_health: Health = world.read_model(attacker_id);
+            let mut target_health: Health = world.read_model(target_id);
+
+            // Handle combat logic
+
+            world.write_model(@target_health);
+        }
+    }
+}
+```
+
+Both player and monsters can have Position and Health components, and the same systems work for both.
+
 ## ECS Theory
 
 Entities in Dojo follow the Entity-Component-System (ECS) architectural pattern:

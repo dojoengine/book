@@ -7,13 +7,14 @@ import { LinkCard } from "../../components/LinkCard";
 
 ### Quickstart with React
 
-Concise. Get started with Dojo in minutes.
+Concise.
+Get started with Dojo in minutes.
 
 This assumes knowledge of React and the Dojo CLI.
 
 Prerequisites:
 
-- [Dojo CLI installed](/installation.mdx)
+- [Dojo CLI installed](/installation)
 
 1. Create project
 
@@ -36,7 +37,8 @@ sozo build
 sozo migrate
 ```
 
-From the `sozo migrate` command output, find the deployed world address. For example:
+From the `sozo migrate` command output, find the deployed world address.
+For example:
 
 ```log
  profile | chain_id | rpc_url
@@ -52,7 +54,7 @@ The world address in this case would be `0x00e2ea9b5dd9804d13903edf712998943b7d5
 
 4. Run indexer with `torii`
 
-Start the indexer `torii` with the world address from the last step:
+Start the Torii indexer with the world address from the last step:
 
 ```bash
 # In new terminal
@@ -74,11 +76,143 @@ pnpm i
 pnpm dev
 ```
 
-Visit `http://localhost:5173` to view the project. You should now see the project connected to the network and indexed!
+Visit `http://localhost:5173` to view the project.
+You should now see the project connected to the network and indexed!
+
+### GraphQL Queries
+
+Next, let's use the GraphQL playground to retrieve data from all the models that have been registered.
+In your web browser, navigate to `http://localhost:8080/graphql`, and enter the following query:
+
+```graphql
+query {
+    models {
+        edges {
+            node {
+                id
+                name
+                classHash
+                contractAddress
+            }
+        }
+        totalCount
+    }
+}
+```
+
+After you run the query, you will receive an output like this:
+
+```json
+{
+    "data": {
+        "models": {
+            "edges": [
+                {
+                    "node": {
+                        "id": "0x77844f1facb51e60e546a9832d56c6bd04fa23be4fd5b57290caae5e9a3c1e4",
+                        "name": "DirectionsAvailable",
+                        "classHash": "0x7deb48ccf95cc441a0489cfefdae54aeb6f8ec462ba13ff25e23f080e66cc2f",
+                        "contractAddress": "0x410c3b01e8209f1bb0c6591283efebddd5034b4baed4f0e9ea3c318d9fbae0b"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x504403e5c02b6442527721fc464d9ea5fc8f1ee600ab5ccd5c0845d36fd45f1",
+                        "name": "Moved",
+                        "classHash": "0x5be0a05a5df3bd3b4fc17f8b1feb395cb463ced20ea41d4fbb9b86a4d7efc66",
+                        "contractAddress": "0x47d654cf2ea600e9689219b1b8545c742c1229ac948c87a01787462f3e93f96"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x2ac8b4c190f7031b9fc44312e6b047a1dce0b3f2957c33a935ca7846a46dd5b",
+                        "name": "Position",
+                        "classHash": "0x2283c68ecba5c60bbbbd3b00659808a02244468e41a1d2cdba1312d65b83594",
+                        "contractAddress": "0x6e2770c9bbcf3f4f11529780fc04c2041f186225634541da225b93fe98b5bfd"
+                    }
+                },
+                {
+                    "node": {
+                        "id": "0x2a29373f1af8348bd366a990eb3a342ef2cbe5e85160539eaca3441a673f468",
+                        "name": "Moves",
+                        "classHash": "0x70edf8f3be0b118e78f856f3ea9ebb652cba3684abaf7f299bfa6f93bf907c9",
+                        "contractAddress": "0x554606894a9be2241c0dc3735c0f322c8d4816bfe292165614ca9a455b47503"
+                    }
+                }
+            ],
+            "totalCount": 4
+        }
+    }
+}
+```
+
+Awesome, now let's work with subscriptions to get real-time updates.
+Let's clean up your workspace on the GraphQL playground and input the following subscription:
+
+```graphql
+subscription {
+    entityUpdated {
+        id
+        keys
+        eventId
+        createdAt
+        updatedAt
+    }
+}
+```
+
+Once you execute the subscription, you will receive notifications whenever new entities are updated or created.
+For now, don't make any changes to it, and proceed to create a new entities.
+
+To accomplish this, we have to execute `spawn` function from `actions` contract.
+In your main local terminal, run the following command:
+
+```bash
+sozo execute dojo_starter-actions spawn
+```
+
+By running this command, you've executed the spawn system, resulting in the creation of a new entity.
+
+Now, go back to your GraphQL playground, and you will notice that you have received the subscription's results, which should look something like this:
+
+```json
+{
+  "data": {
+    "entityUpdated": {
+      "id": "0x43ebbfee0476dcc36cae36dfa9b47935cc20c36cb4dc7d014076e5f875cf164",
+      "keys": [
+        "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec"
+      ],
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000b:0x3baa02ae902388ed39ba124d1538e889d8265cfc99d461dc30781c478f4799:0x01",
+      "createdAt": "2024-11-12T13:23:35Z",
+      "updatedAt": "2024-11-12T13:23:35Z"
+    }
+  }
+}
+--------------------------------------------------------------------------------------------------------
+{
+  "data": {
+    "entityUpdated": {
+      "id": "0x43ebbfee0476dcc36cae36dfa9b47935cc20c36cb4dc7d014076e5f875cf164",
+      "keys": [
+        "0x127fd5f1fe78a71f8bcd1fec63e3fe2f0486b6ecd5c86a0466c3a21fa5cfcec"
+      ],
+      "eventId": "0x0000000000000000000000000000000000000000000000000000000000000b:0x3baa02ae902388ed39ba124d1538e889d8265cfc99d461dc30781c478f4799:0x00",
+      "createdAt": "2024-11-12T13:23:35Z",
+      "updatedAt": "2024-11-12T13:23:35Z"
+    }
+  }
+}
+```
+
+In the GraphQL playground, by clicking the `DOCS`-button on the right, you can open the API documentation.
+This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema.
+In order to know more about query and subscription, you can jump to [GraphQL](/toolchain/torii/graphql) section.
 
 ### Next Steps
 
-This should have given you a good starting point to build your first application with Dojo. Here are some next steps to take:
+This should have given you a good starting point to build your first application with Dojo.
+Here are some next steps to take:
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard

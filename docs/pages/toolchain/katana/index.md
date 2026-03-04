@@ -66,7 +66,7 @@ This launches Katana in development mode with:
 
 - An RPC server at `http://localhost:5050`
 - 10 pre-funded accounts
-- Instant block mining
+- Instant block production
 - Gas fees disabled
 
 ### Production Configuration
@@ -89,55 +89,11 @@ katana --block-time 10000 --db-dir ./katana-db
 
 ## Installation
 
-Katana can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
-
-```bash
-curl -L https://install.dojoengine.org | bash
-
-# Restart your terminal
-
-dojoup install
-```
-
-:::note
-This will install the `katana` binary at `~/.dojo/bin`
-:::
-
-:::tip
-Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
-:::
-
-### Installing with `asdf`
-
-If you prefer to install with the `asdf` version manager:
-
-```bash
-asdf plugin add katana https://github.com/dojoengine/asdf-katana.git
-
-asdf install katana latest
-```
-
-:::note
-This will install the `katana` binary at `~/.asdf/shims`
-:::
-
-### Building from Source
-
-If you prefer to build from source:
-
-```bash
-git clone https://github.com/dojoengine/katana
-
-cargo install --path ./katana/bin/katana --locked --force
-```
-
-:::note
-This will install the `katana` binary at `~/.cargo/bin`
-:::
+For installation instructions, see the [Dojo toolchain installation guide](/installation).
 
 ## Next Steps
 
-- **[Development Features](/toolchain/katana/development)**: Explore mining, storage, forking, and contract deployment
-- **[Configuration Guide](/toolchain/katana/configuration)**: Learn about TOML configuration files and advanced options
-- **[CLI and RPC Reference](/toolchain/katana/reference)**: Complete reference for commands and API endpoints
-- **[Advanced Features](/toolchain/katana/advanced)**: Understand execution, messaging, and settlement
+- **[Development Features](./development)**: Explore mining, storage, forking, and contract deployment
+- **[Configuration Guide](./configuration)**: Learn about TOML configuration files and advanced options
+- **[CLI and RPC Reference](./reference)**: Complete reference for commands and API endpoints
+- **[Advanced Features](./advanced)**: Understand execution, messaging, and settlement

@@ -7,17 +7,17 @@ description: Guide to Katana's development features including mining modes, stor
 
 Katana provides essential development features designed to streamline local blockchain development and testing workflows.
 
-## Mining Modes
+## Block Production Modes
 
-Katana offers flexible block production through different mining modes.
+Katana offers flexible block production through different modes.
 
 :::info
-By default, blocks are mined instantly when transactions are received.
+By default, blocks are produced instantly when transactions are received.
 :::
 
-### Interval Mining
+### Interval Block Production
 
-Interval mining creates blocks at regular time intervals rather than on each transaction.
+Interval block production creates blocks at regular time intervals rather than on each transaction.
 Enable this mode with the `--block-time <MILLISECONDS>` flag:
 
 ```sh
@@ -25,15 +25,15 @@ Enable this mode with the `--block-time <MILLISECONDS>` flag:
 katana --block-time 10000
 ```
 
-### On-demand Mining
+### On-demand Block Production
 
-On-demand mining gives you complete control over when blocks are created.
+On-demand block production gives you complete control over when blocks are created.
 This mode is ideal for testing scenarios where you need precise timing control.
 
 Transactions are processed immediately but remain pending until you manually trigger block creation using the [`generateBlock`](/toolchain/katana/reference#dev-namespace) RPC method.
 When called, all pending transactions are included in the new block.
 
-To enable on-demand mining, use the `--no-mining` flag.
+To enable on-demand block production, use the `--no-mining` flag.
 
 ```sh
 katana --no-mining
@@ -237,9 +237,13 @@ Katana provides a comprehensive RPC interface for development and interaction.
 RPC commands are organized across multiple namespaces:
 
 - **`starknet`**: Standard Starknet RPC methods for contract calls and queries
-- **`dev`**: Development utilities like manual block mining and time control
+- **`dev`**: Development utilities like manual block creation and time control
 - **`katana`**: Node-specific endpoints for configuration and account info
 - **`torii`**: ECS entity/component queries for Dojo integration
+
+### Deployment Integration
+
+For deploying contracts to your local Katana instance, [Sozo](/toolchain/sozo/project-management) is the recommended deployment tool with built-in Dojo integration.
 
 #### Usage Example
 

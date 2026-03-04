@@ -13,13 +13,13 @@ See the [Saya docs](/toolchain/saya/persistent) for more information.
 
 ## Overview
 
-Execution sharding enables isolated transaction execution within independent shard environments ("Layer 3"s).
+Execution sharding enables isolated transaction execution within independent shard environments.
 Shards are independent sequencers that branch from Starknet mainnet, process transactions, then merge final state back to mainnet.
 
 This enables parallel processing across multiple shards while maintaining unified state anchored to Starknet mainnet.
 
 :::info
-Execution sharding differs from sovereign chains, in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+Execution sharding differs from [sovereign rollups](/scaling/sovereign-rollups), in that sovereign chains are long-lived and **do not** commit state back to Starknet.
 :::
 
 ### Key Benefits
@@ -35,8 +35,8 @@ The proposed execution sharding system involves five key components:
 
 1. **Starknet Mainnet**: The settlement layer where Dojo worlds are deployed
 2. **World Contract**: Receives and incorporates state changes from completed shards
-3. **Katana**: Acts as the sequencer running individual shards
-4. **Saya**: Generates proofs of shard execution and submits them to the World Contract
+3. **[Katana](/toolchain/katana)**: Acts as the sequencer running individual shards
+4. **[Saya](/toolchain/saya)**: Generates proofs of shard execution and submits them to the World Contract
 5. **DojoOS**: A specialized Cairo program generating execution traces for validation
 
 ![Sharding execution overview](https://hackmd.io/_uploads/HyF9QoVX1g.png)
@@ -113,7 +113,6 @@ A specific event emitted by a designated Cairo contract signals shard completion
 Once the completion event is detected, Saya would initiate the settlement process:
 
 1. **Execution Trace Generation**: DojoOS generates an execution trace similar to SNOS but optimized for shard validation:
-
     - Validates transaction sequences rather than blocks
     - Outputs only modified storage addresses per settlement config
     - Supports shard-specific validation rules

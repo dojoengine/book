@@ -1,14 +1,59 @@
+---
+description: In this tutorial, you'll create your first Dojo project from scratch and deploy it locally.
+---
+
 # Your First Dojo App
 
-In this tutorial, you'll create your first Dojo project from scratch and deploy it locally. By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
+In this tutorial, you'll create your first Dojo project from scratch and deploy it locally.
+By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
 
 ## What You'll Learn
 
 - The structure of a Dojo project
 - Basic Entity Component System (ECS) concepts
 - How to start the development environment
-- Deploying your first World contract
+- Deploying your first World
 - Interacting with your deployed game
+
+## Setting Up Your Development Environment
+
+Now let's get the development tools running.
+You'll run three tools simultaneously, each in its own terminal:
+
+| Tool                                               | Purpose                         | Terminal   |
+| -------------------------------------------------- | ------------------------------- | ---------- |
+| **[Katana](./understanding-the-toolchain#katana)** | Local blockchain sequencer      | Terminal 1 |
+| **[Sozo](./understanding-the-toolchain#sozo)**     | Build and deploy your contracts | Terminal 2 |
+| **[Torii](./understanding-the-toolchain#torii)**   | Index and serve game data       | Terminal 3 |
+
+Start each development session by launching your tools:
+
+```bash
+# Terminal 1: Start Katana
+katana --dev
+
+# Terminal 2: Deploy and start Torii
+sozo migrate --dev
+torii --dev
+
+# Terminal 3: Your workspace for commands
+# (keep this free for running sozo commands)
+```
+
+:::tip
+Create a simple script to start all tools at once. Save this as `start-dev.sh`:
+
+```bash
+#!/bin/bash
+# Start development environment
+katana --dev &
+sleep 2
+sozo migrate --dev
+torii --dev &
+echo "🚀 Development environment ready!"
+```
+
+:::
 
 ## Step 1: Create Your Project
 
@@ -36,7 +81,9 @@ dojo-intro/
 └── README.md                   # Project readme
 ```
 
-> Note: Some files and directories are omitted for simplicity
+:::note
+Some files and directories are omitted for simplicity
+:::
 
 ## Step 2: Understand the Contract Structure
 
@@ -103,7 +150,7 @@ pub mod actions {
     }
 
     fn move_random(ref self: ContractState) {
-        // Move the player randomly and decrease remaining moves
+        // Use the [Cartridge vRNG](https://docs.cartridge.gg/slot/vrng) to move in a random direction
     }
 }
 ```
@@ -139,17 +186,9 @@ Specifically, it defines `di` as the default namespace and permits the systems d
 
 ## Step 3: Start the Development Environment
 
-Now let's get the development tools running. You'll run three tools simultaneously, each in its own terminal:
-
-| Tool       | Purpose                         | Terminal   |
-| ---------- | ------------------------------- | ---------- |
-| **Katana** | Local blockchain sequencer      | Terminal 1 |
-| **Sozo**   | Build and deploy your contracts | Terminal 2 |
-| **Torii**  | Index and serve game data       | Terminal 3 |
-
 ### Terminal 1: Start Katana (Local Blockchain)
 
-First, start [Katana](/toolchain/katana), Dojo's high-performance sequencer:
+First, start Katana, Dojo's high-performance sequencer:
 
 ```bash
 cd contracts && katana --config katana.toml
@@ -203,7 +242,7 @@ By default, Katana runs on port 5050
 
 ### Terminal 2: Deploy Your World
 
-In a new terminal, run the following command using [Sozo](/toolchain/sozo), Dojo's build tool.
+In a new terminal, run the following command using Sozo, Dojo's build tool:
 
 ```bash
 cd contracts && sozo build && sozo migrate
@@ -330,7 +369,7 @@ Let's break down what you just accomplished:
 
 1. **Defined Components**: `Position` and `Moves` store data about each player
 2. **Implemented Systems**: The `spawn` and `move` functions modify component data
-3. **Created a World**: Your World contract acts as the central registry for all game data, logic, and access control
+3. **Created a World**: Your World acts as the central registry for all game data, logic, and access control
 4. **Used the Toolchain**:
     - Katana provided a local blockchain
     - Sozo managed compilation and deployment
@@ -346,7 +385,7 @@ Let's break down what you just accomplished:
 
 ### Dojo World
 
-Your World contract coordinates everything:
+Your World coordinates everything:
 
 - Registers all models and systems
 - Handles permissions and authorization

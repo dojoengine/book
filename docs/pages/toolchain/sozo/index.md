@@ -69,7 +69,8 @@ Sozo automatically generates and maintains deployment manifests that eliminate m
 
 **Generated Manifests**: After each `sozo migrate`, Sozo writes a `manifest_{profile}.json` file containing complete deployment state: contract addresses, class hashes, ABIs, and metadata for all resources.
 
-**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses. Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
+**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses.
+Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
 
 **Fallback to Chain State**: When manifests are missing or `--diff` is used, Sozo rebuilds contract mappings by querying deployed world state directly.
 
@@ -79,7 +80,7 @@ Sozo automatically generates and maintains deployment manifests that eliminate m
 
 ### Quick Start
 
-Initialize a new Dojo project and deploy to local Katana:
+Initialize a new Dojo project and deploy to local [Katana](/toolchain/katana):
 
 ```bash
 # Start `katana --dev --dev.no-fee` in a separate terminal
@@ -89,87 +90,12 @@ sozo build && sozo migrate
 
 ## Installation
 
-Sozo can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+For installation instructions, see the [Toolchain Installation Guide](/toolchain#installation) which covers all Dojo toolchain components.
 
-```bash
-curl -L https://install.dojoengine.org | bash
-
-# Restart your terminal
-
-dojoup install
-```
-
-:::note
-This will install the `sozo` binary at `~/.dojo/bin`
-:::
-
-:::tip
-Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
-:::
-
-### Installing with `asdf`
-
-If you prefer to install with the `asdf` version manager:
-
-```bash
-asdf plugin add sozo https://github.com/dojoengine/asdf-sozo.git
-
-asdf install sozo latest
-```
-
-:::note
-This will install the `sozo` binary at `~/.asdf/shims`
-:::
-
-### Building from Source
-
-If you prefer to build from source:
-
-```bash
-git clone https://github.com/dojoengine/dojo
-
-cargo install --path .dojo/bin/sozo --locked --force
-```
-
-:::note
-This will install the `sozo` binary at `~/.cargo/bin`
-:::
-
-## Data Format Reference
-
-When interacting with Dojo systems through Sozo, you'll need to provide calldata in the proper format.
-Sozo uses a prefixed format that allows explicit type specification for Cairo values.
-
-By default, calldata values are treated as a `felt252` or any type that fits into one felt:
-
-```bash
-sozo execute Actions move 10 20  # Two felt252 values
-```
-
-For complex Cairo types, use these prefixes to ensure proper encoding:
-
-| Prefix     | Description                                          | Example                              |
-| ---------- | ---------------------------------------------------- | ------------------------------------ |
-| `u256`     | a 256-bit unsigned integer                           | `u256:0x1234`                        |
-| `str`      | a Cairo string (ByteArray)                           | `str:hello` or `str:'hello world'`   |
-| `sstr`     | a Cairo short string                                 | `sstr:hello` or `sstr:'hello world'` |
-| `int`      | a signed integer that fits into an `i128`            | `int:-1234`                          |
-| `arr`      | a dynamic array of values that fits into one felt    | `arr:0x01,0x02,0x03`                 |
-| `u256arr`  | a dynamic array of 256-bit unsigned integers         | `u256arr:0x01,0x02,0x03`             |
-| `farr`     | a fixed-size array of values that fits into one felt | `farr:0x01,0x02,0x03`                |
-| `u256farr` | a fixed-size array of 256-bit unsigned integers      | `u256farr:0x01,0x02,0x03`            |
-
-### Usage Examples
-
-```bash
-# Execute a system with mixed types
-sozo execute Actions create_player str:Alice u256:1000 arr:1,2,3
-
-# Call a view function with complex parameters
-sozo call GameSystem get_player_stats str:Alice int:-50
-```
+For detailed data format specifications when executing commands, see the [Project Management](/toolchain/sozo/project-management#data-format-reference) guide.
 
 ## Next Steps
 
 - **[Project Management](/toolchain/sozo/project-management)**: Learn the development workflow from init to deploy
 - **[World Interaction](/toolchain/sozo/world-interaction)**: Master runtime operations for deployed worlds
+- **[Binding Generation](/toolchain/sozo/binding-generation)**: Generate type-safe client bindings

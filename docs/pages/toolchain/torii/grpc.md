@@ -16,7 +16,7 @@ It's designed for applications requiring low latency and efficient data fetching
 
 **Client Libraries**:
 
-- [dojo.js](/client/sdk/javascript) - JavaScript/TypeScript
+- [dojo.js](./client/sdk/javascript) - JavaScript/TypeScript
 - [dojo.c playground](https://github.com/dojoengine/dojo.c/tree/main/playground) - C/C++
 
 ## Core Concepts
@@ -52,7 +52,7 @@ struct Query {
 ```
 
 :::info
-The `HashedKeys` clause can be used with the model's underlying [hashed composite key](https://dojoengine.org/framework/models/entities)
+The `HashedKeys` clause can be used with the model's underlying [hashed composite key](./framework/models/entities)
 :::
 
 **Member Clause** - Query by field values:

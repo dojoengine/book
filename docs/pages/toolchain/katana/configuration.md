@@ -10,6 +10,8 @@ This enables you to customize everything from network settings to gas prices for
 
 ### Configuration Priority
 
+Configuration follows a clear hierarchy where higher priority sources override lower ones:
+
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**

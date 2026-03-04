@@ -38,6 +38,7 @@ Systems are **stateless functions** that:
 :::warning
 In order to write data to the world, a system needs explicit permission from the model owner.
 Permissions are defined at the contract (address) level, which means that all the systems inside the same contract will inherit the same permissions.
+For detailed information about permissions and access control, see the [World Permissions](/framework/world/permissions) guide.
 :::
 
 ## System Design Philosophy

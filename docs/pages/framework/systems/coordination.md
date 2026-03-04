@@ -259,3 +259,5 @@ fn player_action(ref self: ContractState, action: PlayerAction) {
 
 Effective system coordination is essential for creating complex, engaging applications.
 By understanding these patterns, you can build systems that work together seamlessly to create emergent behaviors and rich user experiences.
+
+For more information about configuring system permissions for coordination, see the [permissions documentation](./world/permissions).

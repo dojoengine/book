@@ -41,15 +41,17 @@ katana init --id per1 \
     --settlement-facts-registry <ADDRESS>
 ```
 
-::::tip
+:::tip
 You can inspect the chain by running `katana config per1`
-::::
+:::
 
-::::note
-The settlement core contract must receive configuration parameters on deployment.
+:::note
+The settlement layer core contract must receive configuration parameters on deployment.
 It's recommended to let Katana handle this.
 If the core contract is already deployed, you should provide it so Katana can verify the configuration parameters.
-::::
+:::
+
+For detailed chain initialization configuration options, see the [Katana advanced configuration guide](/toolchain/katana/advanced).
 
 When working with Katana in provable mode, two additional parameters are required:
 
@@ -66,10 +68,10 @@ katana --chain per1 \
     --sequencing.block-max-cairo-steps 16000000
 ```
 
-::::note
+:::note
 You can define an `--output-path` when working with katana init to output the configuration files in the given directory.
 You will then want to start katana with the `--chain /path` instead of `--chain <CHAIN_ID>`.
-::::
+:::
 
 ## Run Saya
 
@@ -108,7 +110,7 @@ ROLLUP_RPC=http://0.0.0.0:5050
 # https://github.com/HerodotusDev/integrity/blob/main/deployed_contracts.md
 SETTLEMENT_INTEGRITY_ADDRESS=0x04ce7851f00b6c3289674841fd7a1b96b6fd41ed1edc248faccd672c26371b8c
 
-# Settlement chain.
+# Settlement layer.
 SETTLEMENT_RPC=https://api.cartridge.gg/x/starknet/sepolia
 SETTLEMENT_PILTOVER_ADDRESS=
 SETTLEMENT_ACCOUNT_ADDRESS=
@@ -127,7 +129,7 @@ Then, you can start Saya with:
 saya persistent start
 ```
 
-::::info
+:::info
 To avoid double spending of Herodotus credits, Saya has an internal database to track the blocks that have been proven.
 The `DB_DIR` is important to ensure that the database is not lost when Saya is restarted if you have a long running Saya instance.
-::::
+:::

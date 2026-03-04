@@ -1,1 +1,395 @@
+---
+description: "A full walkthrough creating a React Dojo client"
+---
+
 # Dojo React
+
+This comprehensive guide will walk you through building a complete React client for Dojo games.
+
+:::note
+Before continuing, make sure you have completed the [Dojo Starter tutorial](./dojo-starter) to understand the fundamentals.
+:::
+
+## Prerequisites
+
+- Node.js (v16 or higher)
+- Basic React knowledge
+- Completed Dojo Starter tutorial
+
+## Project Setup
+
+Let's set up the React environment for your Dojo game:
+
+```bash
+npm create react-app my-dojo-game --template typescript
+cd my-dojo-game
+```
+
+Install the Dojo SDK dependencies:
+
+```bash
+npm install @dojoengine/core @dojoengine/recs @dojoengine/utils @dojoengine/state
+```
+
+## Connecting to Dojo
+
+Create a client configuration file `src/dojo/config.ts`:
+
+```typescript
+import { createDojoConfig } from "@dojoengine/core";
+
+export const dojoConfig = createDojoConfig({
+    rpcUrl: "http://localhost:5050",
+    toriiUrl: "http://localhost:8080",
+    relayUrl: "",
+    worldAddress: "your-world-address-here",
+});
+```
+
+Set up the Dojo client in `src/dojo/client.ts`:
+
+```typescript
+import { init } from "@dojoengine/sdk";
+import { dojoConfig } from "./config";
+
+export async function createClient() {
+    return await init(dojoConfig);
+}
+```
+
+## Component Setup
+
+Create a React hook for managing the Dojo client in `src/hooks/useDojo.ts`:
+
+```typescript
+import { useEffect, useState } from "react";
+import { createClient } from "../dojo/client";
+
+export function useDojo() {
+    const [client, setClient] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const initClient = async () => {
+            try {
+                const dojoClient = await createClient();
+                setClient(dojoClient);
+            } catch (error) {
+                console.error("Failed to initialize Dojo client:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        initClient();
+    }, []);
+
+    return { client, loading };
+}
+```
+
+## Querying Game State
+
+To retrieve and display game data, create a component that queries the Dojo world:
+
+```typescript
+import { useEntityQuery } from "@dojoengine/react";
+import { Component, getComponentValue } from "@dojoengine/recs";
+
+function GameState({ client }) {
+    const entities = useEntityQuery([client.Position, client.Health]);
+
+    return (
+        <div>
+            <h2>Game Entities</h2>
+            {entities.map((entity) => {
+                const position = getComponentValue(client.Position, entity);
+                const health = getComponentValue(client.Health, entity);
+
+                return (
+                    <div key={entity}>
+                        <p>Entity: {entity}</p>
+                        <p>Position: ({position?.x}, {position?.y})</p>
+                        <p>Health: {health?.value}</p>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+```
+
+## Executing Actions
+
+Create a component for interacting with your game systems:
+
+```typescript
+import { useDojo } from "../hooks/useDojo";
+
+function GameActions() {
+    const { client } = useDojo();
+
+    const handleMove = async (direction: string) => {
+        if (!client) return;
+
+        try {
+            await client.actions.move({
+                direction: direction
+            });
+        } catch (error) {
+            console.error("Move failed:", error);
+        }
+    };
+
+    return (
+        <div>
+            <h2>Game Actions</h2>
+            <button onClick={() => handleMove("north")}>Move North</button>
+            <button onClick={() => handleMove("south")}>Move South</button>
+            <button onClick={() => handleMove("east")}>Move East</button>
+            <button onClick={() => handleMove("west")}>Move West</button>
+        </div>
+    );
+}
+```
+
+## Real-time Updates
+
+Set up subscriptions for real-time game state updates:
+
+```typescript
+import { useEffect, useState } from "react";
+import { useDojo } from "../hooks/useDojo";
+
+function RealtimeGameState() {
+    const { client } = useDojo();
+    const [gameEvents, setGameEvents] = useState([]);
+
+    useEffect(() => {
+        if (!client) return;
+
+        const subscription = client.subscribeEntityQuery(
+            [client.Position, client.Health],
+            (update) => {
+                setGameEvents(prev => [...prev, update]);
+            }
+        );
+
+        return () => subscription.unsubscribe();
+    }, [client]);
+
+    return (
+        <div>
+            <h2>Live Updates</h2>
+            {gameEvents.map((event, index) => (
+                <div key={index}>
+                    <p>Entity {event.entity} updated</p>
+                    <pre>{JSON.stringify(event.component, null, 2)}</pre>
+                </div>
+            ))}
+        </div>
+    );
+}
+```
+
+## Complete App Integration
+
+Update your main App component to bring everything together:
+
+```typescript
+import React from "react";
+import { useDojo } from "./hooks/useDojo";
+import GameState from "./components/GameState";
+import GameActions from "./components/GameActions";
+import RealtimeGameState from "./components/RealtimeGameState";
+
+function App() {
+    const { client, loading } = useDojo();
+
+    if (loading) {
+        return <div>Loading Dojo client...</div>;
+    }
+
+    if (!client) {
+        return <div>Failed to connect to Dojo world</div>;
+    }
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1>My Dojo Game</h1>
+            </header>
+            <main>
+                <GameState client={client} />
+                <GameActions />
+                <RealtimeGameState />
+            </main>
+        </div>
+    );
+}
+
+export default App;
+```
+
+## Error Handling
+
+Implement robust error handling for network failures and transaction errors:
+
+```typescript
+import { useState } from "react";
+
+function useGameActions(client) {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const executeAction = async (actionName, params) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const result = await client.actions[actionName](params);
+            return result;
+        } catch (err) {
+            setError(err.message);
+            console.error(`Action ${actionName} failed:`, err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { executeAction, loading, error };
+}
+```
+
+## Styling and UI
+
+Add responsive styling to make your game interface user-friendly:
+
+```css
+/* src/App.css */
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.game-board {
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.game-controls {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background: #0056b3;
+}
+
+.action-button:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+```
+
+## Testing Your React Client
+
+Create tests for your Dojo React components:
+
+```typescript
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
+import App from "./App";
+
+// Mock the Dojo client
+vi.mock("./hooks/useDojo", () => ({
+    useDojo: () => ({
+        client: {
+            actions: {
+                move: vi.fn().mockResolvedValue({}),
+            },
+            Position: {},
+            Health: {},
+        },
+        loading: false,
+    }),
+}));
+
+test("renders game interface", () => {
+    render(<App />);
+    expect(screen.getByText("My Dojo Game")).toBeInTheDocument();
+});
+
+test("handles move action", async () => {
+    render(<App />);
+    const moveButton = screen.getByText("Move North");
+
+    fireEvent.click(moveButton);
+
+    await waitFor(() => {
+        // Assert that the move was executed
+        // Add your specific assertions here
+    });
+});
+```
+
+## Production Deployment
+
+When deploying to production, update your configuration:
+
+```typescript
+export const dojoConfig = createDojoConfig({
+    rpcUrl: process.env.REACT_APP_RPC_URL || "http://localhost:5050",
+    toriiUrl: process.env.REACT_APP_TORII_URL || "http://localhost:8080",
+    relayUrl: process.env.REACT_APP_RELAY_URL || "",
+    worldAddress: process.env.REACT_APP_WORLD_ADDRESS || "",
+});
+```
+
+Create a `.env.production` file:
+
+```bash
+REACT_APP_RPC_URL=https://your-production-rpc.com
+REACT_APP_TORII_URL=https://your-production-torii.com
+REACT_APP_WORLD_ADDRESS=0x1234567890abcdef
+```
+
+## Next Steps
+
+Your React client is now ready for development.
+Consider exploring:
+
+- [Advanced client patterns](./advanced) for complex game logic
+- [State management](../framework/models) for large applications
+- [Performance optimization](../client/sdk/javascript) techniques
+- [Multi-chain deployment](./deploy-to-mainnet/main) strategies
+
+## Troubleshooting
+
+Common issues and solutions:
+
+**Client connection fails**: Verify that Katana and Torii are running on the correct ports.
+
+**Component updates not reflecting**: Check that your component subscriptions are properly configured.
+
+**Transaction errors**: Ensure your wallet has sufficient tokens and permissions.
+
+**GraphQL queries failing**: Verify the Torii indexer is synced with the latest world state.

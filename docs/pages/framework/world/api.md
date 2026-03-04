@@ -21,6 +21,64 @@ The World API is organized into these main categories:
 
 ## Model Operations
 
+### Basic Storage Operations
+
+These are the fundamental operations for working with models in the world state.
+
+```cairo
+use dojo::model::{ModelStorage};
+use dojo::world::{WorldStorage, WorldStorageTrait};
+use starknet::get_caller_address;
+
+let mut world: WorldStorage = self.world(@"my_game");
+```
+
+#### Writing Models
+
+```cairo
+// Write single model
+let player = get_caller_address();
+let position = Position { player, x: 10, y: 20 };
+world.write_model(@position);
+
+// Write multiple models
+let positions = array![
+    @Position { player: player1, x: 10, y: 20 },
+    @Position { player: player2, x: 30, y: 40 }
+];
+world.write_models(positions.span());
+```
+
+#### Reading Models
+
+```cairo
+// Read single model
+let player = get_caller_address();
+let position: Position = world.read_model(player);
+
+// Read multiple models
+let players = array![player1, player2, player3];
+let positions: Array<Position> = world.read_models(players.span());
+```
+
+#### Erasing Models
+
+```cairo
+// Erase single model
+world.erase_model(@position);
+
+// Erase multiple models
+world.erase_models(positions.span());
+
+// Erase by model pointer
+let ptr = Model::<Position>::ptr_from_keys(player_address);
+world.erase_model_ptr(ptr);
+
+// Erase multiple models by pointers
+let ptrs = Model::<Position>::ptrs_from_keys(players.span());
+world.erase_models_ptrs(ptrs);
+```
+
 ### Reading Models
 
 #### `read_model<T>`
@@ -195,7 +253,9 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Custom Events
+## Event System
+
+### Custom Events
 
 #### `emit_event<T>`
 

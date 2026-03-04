@@ -16,7 +16,9 @@ A typical Dojo Telegram app consists of:
 1. **Frontend**: React-based web app using the Telegram SDK
 2. **Wallet Integration**: Cartridge Controller for account management
 3. **Blockchain Layer**: Dojo smart contracts on Starknet
-4. **State Management**: Torii client for real-time entity subscriptions
+4. **State Management**: ToriiClient for real-time entity subscriptions
+
+For a complete overview of Dojo's architecture and common patterns across all platforms, see the [Dojo SDKs overview](./index).
 
 ## Getting Started
 
@@ -25,7 +27,7 @@ A typical Dojo Telegram app consists of:
 Before building your Telegram Mini App, ensure you have a Bot Token from [@BotFather](https://t.me/botfather).
 
 :::tip
-See the [Dojo.js docs](/client/sdk/javascript) for more information about using Dojo with React.
+See the [Dojo.js docs](./javascript) for detailed information about core Dojo concepts and React integration patterns.
 :::
 
 ### Quick Start
@@ -116,6 +118,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 ## Account Management with Controller
 
+Session accounts enable seamless interactions within Telegram while maintaining security.
+For detailed explanations of session accounts, controller accounts, and the complete account management model, see the [JavaScript SDK guide](./javascript).
+
 ### Session Key Management
 
 Beast Slayers demonstrates a robust account management pattern using Telegram's cloud storage for session persistence.
@@ -176,9 +181,9 @@ const handleAttack = async () => {
 
 **Complete Implementation**: [`src/App.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/App.tsx)
 
-### Torii Client Setup
+### ToriiClient Setup
 
-Initialize the Torii client for real-time blockchain data synchronization:
+Initialize the ToriiClient for real-time blockchain data synchronization:
 
 ```typescript
 import { useState, useEffect } from "react";
@@ -196,7 +201,7 @@ useEffect(() => {
 
 ### Entity Queries and Subscriptions
 
-Use the Torii client to query and subscribe to entities:
+Use the ToriiClient to query and subscribe to entities:
 
 ```typescript
 // Entity queries

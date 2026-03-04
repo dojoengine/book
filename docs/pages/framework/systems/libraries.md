@@ -5,7 +5,7 @@ description: "How to separate logic from your Dojo contracts with libraries"
 
 # Libraries in Starknet
 
-In Starknet, a contract can call an other contract in two ways:
+In Starknet, a contract can call another contract in two ways:
 
 1. [Contract call](https://www.starknet.io/cairo-book/ch102-02-interacting-with-another-contract.html?highlight=contract%20call#interacting-with-another-contract), where the caller and called contract have their own respective storage.
 2. [Library call](https://www.starknet.io/cairo-book/ch102-03-executing-code-from-another-class.html?highlight=library%20call#library-calls), where the called contract is only used as an execution library, but the storage is still the same as the caller.
@@ -13,7 +13,9 @@ In Starknet, a contract can call an other contract in two ways:
 Doing a library call only requires the contract to be declared (no need to have it deployed).
 
 :::warning
-Calling an other contract with a library call can be very unsafe. Ensure you only call libraries you trust. An untrusted library may upgrade your own contract and take control over it.
+Calling another contract with a library call can be very unsafe.
+Ensure you only call libraries you trust.
+An untrusted library may upgrade your own contract and take control over it.
 :::
 
 # Libraries in Dojo
@@ -22,9 +24,10 @@ In Dojo, this concept is abstracted by the `#[dojo::library]` attribute, which e
 
 In comparison to contracts which are deployed (hence have an address), libraries are not deployed, but rather only declared.
 
-As you may expect already, this means that libraries **are not upgradeable**. Changing the logic of a library requires to re-declare a new class.
+As you may expect already, this means that libraries **are not upgradeable**.
+Changing the logic of a library requires to re-declare a new class.
 
-Dojo has a special way to treat libraries upgrades to mirror how package managers would do it, using versions.
+Dojo has a special way to treat library upgrades to mirror how package managers would do it, using versions.
 
 ## Define a library
 
@@ -51,11 +54,11 @@ pub mod simple_math {
 }
 ```
 
-As you can see, as contracts we can have a trait defining a `#[starknet::interface]` which will be used to define the library.
+As you can see, like contracts we can have a trait defining a `#[starknet::interface]` which will be used to define the library.
 
 ## Configure a library
 
-In order to instruct the Dojo toolchain that you have a library to use, you need to configure it in your [Dojo configuration file](/framework/configuration/index.md#project-manifest).
+In order to instruct the Dojo toolchain that you have a library to use, you need to configure it in your [Dojo configuration file](./../../configuration).
 
 If we take the example of the previous library, we would need to configure it like this:
 
@@ -64,9 +67,13 @@ If we take the example of the previous library, we would need to configure it li
 "<NAMESPACE>-simple_math" = "0_1_0"
 ```
 
-Doing so, we instruct Sozo to register the library in the world with the version `0_1_0`. Sozo will use the code you have locally defined in your project for this library. If you change the library, rebuild the code with `sozo build` and then change the version in the configuration file. Then, run `sozo migrate` to declare the new library class and register it in the world.
+Doing so, we instruct Sozo to register the library in the world with the version `0_1_0`.
+Sozo will use the code you have locally defined in your project for this library.
+If you change the library, rebuild the code with `sozo build` and then change the version in the configuration file.
+Then, run `sozo migrate` to declare the new library class and register it in the world.
 
-As you have already seen, the Dojo resources are identified by a selector, which is for contracts/models/events the poseidon hash of the namespace and the resource name. For libraries, it is similar but the version has to be added in order to avoid collisions:
+As you have already seen, the Dojo resources are identified by a selector, which is for contracts/models/events the poseidon hash of the namespace and the resource name.
+For libraries, it is similar but the version has to be added in order to avoid collisions:
 
 ```
 poseidon_hash("<NAMESPACE>", "<LIBRARY_NAME>_v<VERSION>")
@@ -76,7 +83,7 @@ This concatenation is done automatically by the world while registering the libr
 
 ## Use a library
 
-Once the library is registered in the world, you can leverage the Dojo's DNS in order to get the library's class hash without having to hardcode it.
+Once the library is registered in the world, you can leverage Dojo's DNS in order to get the library's class hash without having to hardcode it.
 
 ```rust
 use path::to::libary::{SimpleMathLibraryDispatcher, SimpleMathLibraryDispatcherTrait};
@@ -97,6 +104,7 @@ Instead of `unwrap`, in production code you can use `.expect` in order to have t
 
 ## Why using libraries?
 
-The major benefits of using libraries are to separate the logic from the contract and therefore reducing the code size of contracts. Either related to storage or not, libraries are a way to share logic between contracts.
+The major benefits of using libraries are to separate the logic from the contract and therefore reducing the code size of contracts.
+Either related to storage or not, libraries are a way to share logic between contracts.
 
 When you face yourself hitting the limit of the contract size of the network, libraries are a way to split your code into smaller pieces.

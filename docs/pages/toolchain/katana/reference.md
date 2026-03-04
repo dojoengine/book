@@ -14,11 +14,11 @@ The RPC server runs on `http://127.0.0.1:5050` by default and supports both HTTP
 
 The RPC methods are categorized into the following namespaces:
 
-| Namespace                           | Description                   | Use Case                              |
-| ----------------------------------- | ----------------------------- | ------------------------------------- |
-| [`starknet`](#starknet-namespace)   | Standard Starknet RPC methods | Contract calls, transaction queries   |
-| [`dev`](#dev-namespace)             | Development utilities         | Block mining, time control, debugging |
-| [`cartridge`](#cartridge-namespace) | Cartridge-specific methods    | Paymaster and external execution      |
+| Namespace                           | Description                   | Use Case                                  |
+| ----------------------------------- | ----------------------------- | ----------------------------------------- |
+| [`starknet`](#starknet-namespace)   | Standard Starknet RPC methods | Contract calls, transaction queries       |
+| [`dev`](#dev-namespace)             | Development utilities         | Block production, time control, debugging |
+| [`cartridge`](#cartridge-namespace) | Cartridge-specific methods    | Paymaster and external execution          |
 
 Each RPC method can be invoked by prefixing the method name with the namespace name and an underscore.
 For example, the `generateBlock` method in the `dev` namespace can be invoked as `dev_generateBlock`.
@@ -110,11 +110,12 @@ The full documentation for the RPC methods can be found [here](https://github.co
 
 ### `dev` Namespace
 
-The `dev` API provides a way to manipulate the blockchain state at runtime. This namespace is only accessible when the `--dev` flag is enabled.
+The `dev` API provides a way to manipulate the blockchain state at runtime.
+This namespace is only accessible when the `--dev` flag is enabled.
 
 #### `dev_generateBlock`
 
-Mines a new block which includes all currently pending transactions.
+Produces a new block which includes all currently pending transactions.
 
 **Method invocation:**
 
@@ -269,7 +270,8 @@ This API is designed for local development with Cartridge controllers and is not
 
 ## Supported Transaction Types
 
-Katana aims to follow the Starknet specifications as closely as possible, mimicking the features currently supported on mainnet. Katana currently supports the following Starknet transaction types:
+Katana aims to follow the Starknet specifications as closely as possible, mimicking the features currently supported on mainnet.
+Katana currently supports the following Starknet transaction types:
 
 | Type               | Version | Description                             |
 | ------------------ | ------- | --------------------------------------- |
@@ -281,7 +283,8 @@ Katana aims to follow the Starknet specifications as closely as possible, mimick
 
 **Version 1**: Legacy transaction format with lower gas efficiency.
 
-**Version 3**: Current transaction format with improved gas efficiency and fee estimation. Recommended for new development.
+**Version 3**: Current transaction format with improved gas efficiency and fee estimation.
+Recommended for new development.
 
 **DECLARE Version 2**: Introduces Sierra compilation for improved contract verification.
 

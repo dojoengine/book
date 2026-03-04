@@ -96,73 +96,19 @@ Model pointers are primarily used internally for advanced operations like field-
 For most use cases, prefer the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
-## Model Storage Operations
+## Advanced Model Storage Operations
 
-The [`ModelStorage` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/storage.cairo) provides all storage operations for models:
+The [`ModelStorage` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/storage.cairo) provides all storage operations for models.
 
-```cairo
-use dojo::model::{ModelStorage};
-use dojo::world::{WorldStorage, WorldStorageTrait};
-use starknet::get_caller_address;
-
-let mut world: WorldStorage = self.world(@"my_game");
-```
-
-### Basic Storage Operations
-
-#### Writing Models
-
-```cairo
-// Write single model
-let player = get_caller_address();
-let position = Position { player, x: 10, y: 20 };
-world.write_model(@position);
-
-// Write multiple models
-let positions = array![
-    @Position { player: player1, x: 10, y: 20 },
-    @Position { player: player2, x: 30, y: 40 }
-];
-world.write_models(positions.span());
-```
-
-#### Reading Models
-
-```cairo
-// Read single model
-let player = get_caller_address();
-let position: Position = world.read_model(player);
-
-// Read multiple models
-let players = array![player1, player2, player3];
-let positions: Array<Position> = world.read_models(players.span());
-```
-
-#### Erasing Models
-
-```cairo
-// Erase single model
-world.erase_model(@position);
-
-// Erase multiple models
-world.erase_models(positions.span());
-
-// Erase by model pointer
-let ptr = Model::<Position>::ptr_from_keys(player_address);
-world.erase_model_ptr(ptr);
-
-// Erase multiple models by pointers
-let ptrs = Model::<Position>::ptrs_from_keys(players.span());
-world.erase_models_ptrs(ptrs);
-```
+For basic storage operations (reading, writing, and erasing models), see the [Model Operations section](/framework/world/api#model-operations) in the World API reference.
 
 ### Field-Level Operations
 
 Field operations are more efficient when you only need to update specific fields:
 
 :::warning
-Field-level operations are advanced features that require careful use. For most applications,
-use the simpler `world.read_model()` and `world.write_model()` methods.
+Field-level operations are advanced features that require careful use.
+For most applications, use the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
 #### Reading Fields
@@ -457,6 +403,10 @@ if is_default {
     // Handle case where model might not exist
 }
 ```
+
+## Testing Model Operations
+
+For testing patterns and examples with models, see the [Testing Guide](/framework/testing) which covers model verification, state assertions, and integration testing approaches.
 
 ## Best Practices
 

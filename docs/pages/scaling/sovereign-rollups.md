@@ -12,6 +12,9 @@ description: Learn about implementing sovereign rollups using Celestia's data av
 This documentation outlines the design and implementation of sovereign rollups built with Celestia and Dojo's infrastructure stack.
 Sovereign rollups provide scalable and decentralized execution by leveraging Celestia's modular data availability layer combined with Starknet's cryptographic proofs.
 
+This approach differs from [execution sharding](/scaling/execution-sharding), which focuses on parallelizing execution across multiple shards that settle back to a main chain.
+Sovereign rollups operate independently with their own execution environment while using Celestia for data availability.
+
 :::tip
 See [Mage Duel](https://mageduel.evolute.network/) for an example of a game built using this architecture.
 :::
@@ -42,7 +45,7 @@ Both approaches enable developers to deploy customizable sovereign rollups with 
 
 ### 1. Katana - Block Producer
 
-Katana sequences transactions into blocks within the sovereign rollup.
+[Katana](/toolchain/katana) sequences transactions into blocks within the sovereign rollup.
 
 #### Sync Mode
 
@@ -55,7 +58,7 @@ Katana reconstructs complete state from Celestia proofs:
 
 ### 2. Saya - Prover and Proof Poster
 
-Saya generates proofs from Katana blocks and posts them to Celestia.
+[Saya](/toolchain/saya) generates proofs from Katana blocks and posts them to Celestia.
 
 #### Workflow
 

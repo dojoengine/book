@@ -8,6 +8,58 @@ description: "Overview of client SDKs for building Dojo applications"
 Dojo provides a comprehensive suite of SDKs for building onchain games and applications across multiple platforms.
 All SDKs share a unified foundation built on **dojo.c**, ensuring consistent functionality with platform-specific optimizations.
 
+## Implementation Architecture
+
+Rather than implementing blockchain logic separately in each SDK, all Dojo integrations build on this single foundation:
+
+- **Unity SDK** uses dojo.c via C# P/Invoke
+- **JavaScript SDK** uses dojo.c compiled to WebAssembly
+- **Unreal Engine** integrates dojo.c through C++ bindings
+- **Custom integrations** can use dojo.c directly
+
+This ensures consistent behavior, shared bug fixes, and optimal performance across all platforms.
+Implementing in Rust provides the following advantages:
+
+- **Memory Safety**: Eliminates classes of bugs (buffer overflows, use-after-free, etc.)
+- **Performance**: Zero-cost abstractions compile to optimal machine code
+- **Concurrency**: Safe async/await and threading without data races
+- **Ecosystem**: Built on battle-tested Rust libraries (tokio, serde, starknet-rs)
+- **Cross-Platform**: Single codebase compiles to all target platforms
+
+```
+dojo.c Repository (Rust Implementation)
+├── Core Rust Logic (types.rs, utils.rs, constants.rs)
+├── Conditional Compilation:
+│   ├── Native Target → C Bindings (cbindgen)
+│   └── WASM Target → JavaScript Bindings (wasm-bindgen)
+└── Generated Outputs:
+    ├── libdojo_c.{so,dylib,dll} + dojo.h
+    └── dojo_c.js + dojo_c.wasm
+```
+
+The key insight: **two interfaces, one implementation**.
+Both C and WASM APIs share identical Rust core logic, ensuring consistency.
+
+The two interfaces are designed for different use cases:
+
+### C Bindings API
+
+**Target**: Native platform integrations, custom SDKs, maximum performance
+
+- **Style**: Procedural C functions with callback-based async operations
+- **Use Cases**: Building Unity/Unreal plugins, system-level integrations
+- **Memory Management**: Manual with explicit cleanup functions
+- **Threading**: Callback-driven with internal runtime management
+
+### WASM JavaScript API
+
+**Target**: Web applications, Node.js, rapid prototyping
+
+- **Style**: Modern async/await with object-oriented design
+- **Use Cases**: Browser games, web apps, Node.js backends, testing
+- **Memory Management**: Automatic garbage collection
+- **Threading**: Promise-based with native async support
+
 ## Foundation-First Architecture
 
 The Dojo SDK ecosystem is built on a two-layer foundation that ensures both consistency and type safety across all platforms.
@@ -31,7 +83,7 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 
 - **Account Management**: Support for controller accounts, session accounts, and burner wallets
 - **Transaction Handling**: Sign and execute transactions with proper gas estimation
-- **Torii Client Integration**: Query entities, subscribe to real-time updates, and sync world state
+- **ToriiClient Integration**: Query entities, subscribe to real-time updates, and sync world state
 - **Cross-Platform Compatibility**: Compiles to both native binaries (via C bindings) and WebAssembly
 
 **Dual Compilation Strategy:**
@@ -66,9 +118,73 @@ The client can then query the world state to get the latest state, which is then
 
 ### Account Management
 
-- **Session Accounts**: Temporary accounts for seamless gameplay
-- **Controller Accounts**: Delegate specific permissions to game contracts
-- **Burner Accounts**: Disposable accounts funded by a master account
+Dojo supports three primary account types for different use cases:
+
+#### Session Accounts
+
+**Session accounts** are temporary accounts that allow players to interact with your game without repeatedly signing transactions.
+They work by delegating limited permissions from a master account to a session-specific account.
+
+**Key features:**
+
+- **Seamless gameplay**: Players sign once to authorize a session, then play without interruption
+- **Limited scope**: Sessions can be restricted to specific contracts, methods, and time periods
+- **Automatic expiration**: Sessions expire after a set duration for security
+- **Funding flexibility**: Can be funded by the master account or externally
+
+**Common use cases:**
+
+- Turn-based games where players make multiple moves
+- Real-time games requiring frequent state updates
+- Any application where UX friction from repeated signing would be problematic
+
+**Implementation pattern:**
+
+```
+1. Player connects with master wallet (MetaMask, Argent, etc.)
+2. Game requests session permissions for specific contracts/methods
+3. Master account signs session authorization
+4. Session account handles all game transactions automatically
+5. Session expires after set duration or can be revoked manually
+```
+
+#### Controller Accounts
+
+**Controller accounts** are accounts that have been granted specific permissions to act on behalf of another account.
+Unlike session accounts, controllers can have longer-term or permanent permissions.
+
+**Key features:**
+
+- **Delegated permissions**: Can be granted specific roles or permissions in your world
+- **Persistent access**: Don't expire automatically like session accounts
+- **Fine-grained control**: Can be limited to specific functions or given broader permissions
+- **Revocable**: Master account can revoke permissions at any time
+
+**Common use cases:**
+
+- Automated game mechanics (bots, NPCs)
+- Server-side operations that need to act on behalf of players
+- Shared accounts for teams or guilds
+- Administrative functions
+
+#### Burner Accounts
+
+**Burner accounts** are disposable accounts that are created on-demand and funded by a master account.
+They're designed for quick testing, onboarding new users, or temporary gameplay.
+
+**Key features:**
+
+- **Disposable**: Meant to be used and discarded
+- **Pre-funded**: Usually funded with a small amount for immediate use
+- **No private key management**: Often generated client-side for convenience
+- **Low security requirements**: Not meant for high-value operations
+
+**Common use cases:**
+
+- Onboarding new users without requiring wallet setup
+- Testing and development
+- Temporary accounts for demos or trials
+- Situations where account persistence isn't required
 
 ### Transaction Flow
 

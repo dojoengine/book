@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Understanding the Toolchain
 
 Now that you've built your first Dojo app, let's explore the tools that made it possible.
@@ -17,6 +21,8 @@ The code examples are run in the context of the `dojo-intro` repo.
 - Mines blocks instantly for fast development
 - Comes with pre-funded accounts for testing
 - Supports gRPC for faster network communication
+
+For detailed setup instructions, see the [Your first Dojo app guide](./your-first-dojo-app).
 
 ### Key Features
 
@@ -101,6 +107,8 @@ katana --rpc-url <RPC_URL> --fork-block-number <BLOCK_NUM>
 - Provides flexible GraphQL and gRPC APIs
 - Enables real-time client subscriptions
 
+For detailed setup instructions, see the [Your first Dojo app guide](./your-first-dojo-app).
+
 ### How Torii Works
 
 1. **Event Listening**: Monitors your World for state changes
@@ -177,6 +185,8 @@ torii --http.cors_origins "*"
 
 > **New to Sozo?** See our [complete Sozo reference](/toolchain/sozo/) for all available commands and options.
 
+For detailed setup instructions, see the [Your first Dojo app guide](./your-first-dojo-app).
+
 ### Project Lifecycle with Sozo
 
 #### 1: Project Creation
@@ -240,7 +250,7 @@ You **must** have a `dojo_dev.toml` file in your contract directory, or Sozo wil
 :::
 
 After migrating, Sozo will generate a `manifest_<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
-Thsi file is meant to be consumed by clients to help them interact with the world.
+This file is meant to be consumed by clients to help them interact with the World.
 
 #### 4. Interaction
 
@@ -390,6 +400,6 @@ sozo execute di-actions spawn --profile staging
 
 ## Next Steps
 
-Now that you understand the toolchain, you're ready to learn about the [development workflow](/getting-started/development-workflow) and start building more complex applications.
+Now that you understand the toolchain, you're ready to learn about the [development workflow](./development-workflow) and start building more complex applications.
 
 Each tool has extensive documentation in the toolchain section for when you need to dive deeper into specific features and configurations.

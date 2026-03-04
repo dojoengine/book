@@ -20,51 +20,9 @@ They can also be **the addresses of game systems**, typical for regular applicat
 
 Permissions are given for **resources**.
 A **resource** can be a world, namespace, system, or model.
-Resources are indicated by **tags** -- written as `"namespace-resource"`.
+Resources are indicated by **resource tags** -- written as `"namespace-resource"`.
 
 ![Dojo Permission System](/framework/dojo-auth.png)
-
-## Configuration vs. Runtime Permissions
-
-Dojo provides two complementary approaches to permission management:
-
-### Configuration-Time Permissions
-
-Set up initial permissions during deployment via your `dojo_<profile>.toml` file:
-
-```toml
-[writers]
-# Any model in the `dojo_starter` namespace can be written by the `dojo_starter-actions` contract
-"dojo_starter" = ["dojo_starter-actions"]
-# Only the `dojo_starter-DirectionsAvailable` model can be written by the `dojo_starter-actions` contract
-"dojo_starter-DirectionsAvailable" = ["dojo_starter-actions"]
-
-[owners]
-"dojo_starter" = ["dojo_starter-admin"]
-```
-
-:::note
-In this example, permissions are given to **systems**, indicated by tags.
-:::
-
-### Runtime Permissions
-
-Manage permissions dynamically after deployment using the World contract API:
-
-```cairo
-// Grant runtime permissions
-world.grant_owner(selector_from_tag!("dojo_starter-GameState"), new_owner_address);
-world.grant_writer(selector_from_tag!("dojo_starter-Position"), new_writer_address);
-```
-
-:::note
-In this example, permissions are given to **addresses**, which can be systems or accounts.
-:::
-
-**When to Use Each:**
-
-- **Configuration**: Initial setup, predictable permissions, deployment automation
-- **Runtime**: Dynamic permission changes, game progression, admin functions
 
 ## Permission Types
 
@@ -100,7 +58,19 @@ let position: Position = world.read_model(player);
 
 ## Permission Hierarchy
 
-The permission system is resource-based with the following hierarchy:
+The World contract implements a resource-based permission system with a clear hierarchy that determines access rights throughout your application.
+
+### Resource Hierarchy (Order of Precedence)
+
+1. **World** → Can access all resources
+2. **Namespace** → Can access all resources in that namespace
+3. **Model/Contract/Event** → Can access the specific resource
+
+### Key Principles
+
+- Reading is always permissionless
+- Writing requires Writer permission on the resource or its namespace
+- When you deploy to a world, you automatically become owner of your namespace
 
 ### 1. World Owner (Highest Level)
 
@@ -179,12 +149,6 @@ All permissions in Dojo are resource-based. Every component is a resource:
 - **Contract** → A resource (e.g., `"my_game-actions"`)
 - **Event** → A resource (e.g., `"my_game-PlayerMoved"`)
 
-**Permission Hierarchy** (order of precedence):
-
-1. **World** (highest)
-2. **Namespace**
-3. **Model/Contract/Event** (lowest)
-
 **Key Points**:
 
 - Managing permissions requires **Owner** permission on the resource or its namespace
@@ -202,6 +166,50 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);  // Namespac
 Here is a simple way to think about organizing permissions in your Dojo application:
 
 ![System Permissions](/framework/world/permissions.png)
+
+## Configuration vs. Runtime Permissions
+
+Dojo provides two complementary approaches to permission management:
+
+### Configuration-Time Permissions
+
+Set up initial permissions during deployment via your `dojo_<profile>.toml` file:
+
+```toml
+[writers]
+# Any model in the `dojo_starter` namespace can be written by the `dojo_starter-actions` contract
+"dojo_starter" = ["dojo_starter-actions"]
+# Only the `dojo_starter-DirectionsAvailable` model can be written by the `dojo_starter-actions` contract
+"dojo_starter-DirectionsAvailable" = ["dojo_starter-actions"]
+
+[owners]
+"dojo_starter" = ["dojo_starter-admin"]
+```
+
+:::note
+In this example, permissions are given to **systems**, indicated by resource tags.
+:::
+
+See the [Configuration guide](/framework/configuration) for detailed configuration options.
+
+### Runtime Permissions
+
+Manage permissions dynamically after deployment using the World contract API:
+
+```cairo
+// Grant runtime permissions
+world.grant_owner(selector_from_tag!("dojo_starter-GameState"), new_owner_address);
+world.grant_writer(selector_from_tag!("dojo_starter-Position"), new_writer_address);
+```
+
+:::note
+In this example, permissions are given to **addresses**, which can be systems or accounts.
+:::
+
+**When to Use Each:**
+
+- **Configuration**: Initial setup, predictable permissions, deployment automation
+- **Runtime**: Dynamic permission changes, game progression, admin functions
 
 ## Managing Permissions
 
@@ -402,9 +410,6 @@ sozo call world is_owner 0x123 0x456   # resource_selector contract_address
 # List all permissions
 sozo auth list
 ```
-
-**Configuration Reference:**
-For detailed configuration options, see [Configuration](/framework/configuration).
 
 ## Debugging Permission Issues
 

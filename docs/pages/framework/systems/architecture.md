@@ -225,6 +225,9 @@ mod game_coordinator {
 
 ## Permission Architecture
 
+System permissions control which resources a system can access.
+See the [permissions guide](./permissions) for detailed configuration.
+
 ### Granular Permissions
 
 Assign permissions at the finest grain possible while maintaining operational efficiency.
@@ -360,7 +363,8 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits
@@ -578,4 +582,4 @@ Take time to design your architecture thoughtfully - it will pay dividends as yo
 
 ## Next Steps
 
-- **[System Coordination](/framework/systems/coordination)** - Learn how systems interact and coordinate
+- **[System Coordination](./coordination)** - Learn how systems interact and coordinate

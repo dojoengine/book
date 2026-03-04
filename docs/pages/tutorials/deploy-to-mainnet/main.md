@@ -10,7 +10,7 @@ The steps for Mainnet are exactly the same, just replace the chain name and ID w
 
 ### Setup
 
-- You need a [Starknet RPC Provider](https://www.starknet.io/fullnodes-rpc-services/) to deploy contracts on-chain.
+You need a [Starknet RPC Provider](https://www.starknet.io/fullnodes-rpc-services/) to deploy contracts on-chain.
 
 You can use the _Cartridge RPC provider_ for this.
 
@@ -19,7 +19,7 @@ https://api.cartridge.gg/x/starknet/mainnet # mainnet
 https://api.cartridge.gg/x/starknet/sepolia # sepolia
 ```
 
-After you get yours, you can check if it works and is on the correct chain (`SN_SEPOLIA` or `SN_MAIN`)
+After you get yours, you can check if it works and is on the correct chain (`SN_SEPOLIA` or `SN_MAIN`):
 
 ```sh
 # run this...
@@ -37,13 +37,13 @@ echo 0x534e5f5345504f4c4941 | xxd -r -p
 SN_SEPOLIA
 ```
 
-- Declare the `sepolia` profile in [`Scarb.toml`](https://github.com/rsodre/512karat/blob/main/dojo/Scarb.toml)
+Declare the `sepolia` profile in [`Scarb.toml`](https://github.com/rsodre/512karat/blob/main/dojo/Scarb.toml):
 
 ```toml
 [profile.sepolia]
 ```
 
-- Create the [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml) dojo config file, with the same contents of [`dojo_dev.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_dev.toml), except for `[env]`, in which we're going to expose the `world_address` only:
+Create the [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml) dojo config file, with the same contents of [`dojo_dev.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_dev.toml), except for `[env]`, in which we're going to expose the `world_address` only:
 
 ```toml
 [env]
@@ -53,11 +53,15 @@ SN_SEPOLIA
 # world_address = "<World Address>"
 ```
 
-- It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script. Then you should expose it.
+It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script.
+Then you should expose it.
 
-- Clone the [`dev`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/dev/) overlays to [`sepolia`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/sepolia/)
+Clone the [`dev`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/dev/) overlays to [`sepolia`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/sepolia/).
 
-- Create `.env.sepolia` containing your RPC provider, account and private key. Make sure that account is deployed and has some [ETH](https://starknet-faucet.vercel.app) in it (0.001 is more than enough).
+### Environment Variables Setup
+
+Create `.env.sepolia` containing your RPC provider, account and private key.
+Make sure that account is deployed and has some [ETH](https://starknet-faucet.vercel.app) in it (0.001 is more than enough).
 
 ```sh
 # usage: source .env.sepolia
@@ -66,9 +70,22 @@ export DOJO_ACCOUNT_ADDRESS=<YOUR_ACCOUNT_ADDRESS>
 export DOJO_PRIVATE_KEY=<YOUR_ACCOUNT_PRIVATE_KEY>
 ```
 
+Alternatively, for general Starknet contract deployment, place the following environment variables in a .env file:
+
+```bash
+export STARKNET_ACCOUNT=katana-0        #A pre-funded account on the local development network.
+export STARKNET_RPC=http://0.0.0.0:5050 #To specify the network, targeting the local katana devnet.
+```
+
+Then, ensure your project acknowledges the environment variables:
+
+```bash
+source .env
+```
+
 ### Deployment
 
-- To load the env variables and deploy to the chain you can use this script (for mainnet, just replace `sepolia` with `mainnet`):
+To load the env variables and deploy to the chain you can use this script (for mainnet, just replace `sepolia` with `mainnet`):
 
 ```bash
 # Stop script on error
@@ -109,12 +126,12 @@ sozo -P sepolia migrate
 echo "Deployment completed successfully."
 ```
 
-- For this script to work don't forget to give it execution permissions:
-  `chmod +x <script_name>.sh`
+For this script to work don't forget to give it execution permissions:
+`chmod +x <script_name>.sh`
 
-- This localises the env variables to the deployment script, so if for any reason the deployment is aborted, it cleans up the env variables.
+This localises the env variables to the deployment script, so if for any reason the deployment is aborted, it cleans up the env variables.
 
-- sozo will output the rpc url, account address and deployed block.
+sozo will output the rpc url, account address and deployed block:
 
 ```sh
  profile | chain_id | rpc_url
@@ -133,7 +150,7 @@ This will yield a different world address.
 
 Your world is deployed!
 
-- Once the world is deployed, you need to add the world*block in the `dojo*<PROFILE>.toml` file.
+Once the world is deployed, you need to add the world*block in the `dojo*<PROFILE>.toml` file:
 
 ```toml
 rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"
@@ -145,23 +162,25 @@ world_block = 42069 # Here you add the block number where the world was deployed
 
 ### Torii Indexer
 
-Now, if you're building a Dojo client, you will need a Torii service to index our world...
+Now, if you're building a Dojo client, you will need a Torii indexer to index our world...
 
-- Install [slot](https://github.com/cartridge-gg/slot) or update it. You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
+Install [slot](https://github.com/cartridge-gg/slot) or update it.
+You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
 
 ```sh
 slotup
 ```
 
-- Authorize
+Authorize:
 
 ```sh
 slot auth login
 ```
 
-- Create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
-    - `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
-    - `RPC_URL`: your RPC provider url
+Create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
+
+- `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
+- `RPC_URL`: your RPC provider url
 
 ```toml
 # torii.toml
@@ -169,15 +188,17 @@ world_address = "<WORLD_ADDRESS>"
 rpc = "<RPC_URL>"
 ```
 
-- Create Torii service with this command, replacing...
-    - `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
-    - `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
+Create Torii indexer with this command, replacing:
+
+- `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
+- `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
 
 ```sh
 slot deployments create <SERVICE_NAME> torii --config torii.toml --version <DOJO_VERSION>
 ```
 
-- slot will output something like this. Save it for later, you will need the endpoints on your client.
+slot will output something like this.
+Save it for later, you will need the endpoints on your client.
 
 ```
 Deployment success 🚀
@@ -185,7 +206,8 @@ Deployment success 🚀
 Stream logs with `slot deployments logs <SERVICE_NAME> torii -f`
 ```
 
-- If for any reasons we need to recreate Torii, we can just delete it and run the create command again. This is safe, all your data is on-chain.
+If for any reasons we need to recreate Torii, we can just delete it and run the create command again.
+This is safe, all your data is on-chain.
 
 ```sh
 slot deployments delete <SERVICE_NAME> torii
@@ -193,9 +215,10 @@ slot deployments delete <SERVICE_NAME> torii
 
 ### Some notes on the client side
 
-- The `migrate` script is copying manifests to `/client/src/dojo/generated/<PROFILE>`, each chain needs to use their own manifest!
+The `migrate` script is copying manifests to `/client/src/dojo/generated/<PROFILE>`, each chain needs to use their own manifest!
 
-- The client needs the env variable `VITE_PUBLIC_CHAIN_ID` to be set to your chain id. Configure on your sever and add it to your `.env` to access your deployment localy:
+The client needs the env variable `VITE_PUBLIC_CHAIN_ID` to be set to your chain id.
+Configure on your sever and add it to your `.env` to access your deployment localy:
 
 ```
 VITE_PUBLIC_CHAIN_ID=SN_SEPOLIA
@@ -209,7 +232,8 @@ VITE_PUBLIC_CHAIN_ID=SN_MAIN
 
 ### Debug with Walnut
 
-Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
+Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments.
+Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
 
 #### Step 1: Verify your Contracts
 

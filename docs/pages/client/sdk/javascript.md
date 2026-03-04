@@ -18,8 +18,8 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 - **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
 :::note
-dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes Torii client features via WASM.
-For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
+dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes ToriiClient features via WASM.
+For more information about the ToriiClient gRPC client, check out [this documentation](/toolchain/torii/grpc).
 :::
 
 ## Getting Started
@@ -79,7 +79,7 @@ export const dojoConfig = createDojoConfig({ manifest });
 
 #### Generate TypeScript Bindings
 
-[Generate code bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
+[Generate contract bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
 
 ```bash
 DOJO_MANIFEST_PATH="../path/to/Scarb.toml" sozo build --typescript
@@ -91,7 +91,7 @@ These instructions assume you have Dojo contracts relative to your client root.
 
 #### Initialize the SDK
 
-With your bindings generated, you can now link Dojo models to your UI.
+With your contract bindings generated, you can now link Dojo models to your UI.
 
 ```typescript
 // main.tsx
@@ -115,7 +115,7 @@ async function main() {
         client: {
             // Required: Address of the deployed World contract
             worldAddress: dojoConfig.manifest.world.address,
-            // Optional: Torii indexer URL (defaults to http://localhost:8080)
+            // Optional: ToriiClient indexer URL (defaults to http://localhost:8080)
             toriiUrl: dojoConfig.toriiUrl || "http://localhost:8080",
             // Optional: Relay URL for real-time messaging
             relayUrl: dojoConfig.relayUrl || "/ip4/127.0.0.1/tcp/9090",
@@ -153,7 +153,7 @@ If using `starknet-react`, wrap `DojoSdkProvider` _around_ `StarknetProvider`:
 :::
 
 :::warning
-Call `init` only once to avoid creating multiple Torii clients.
+Call `init` only once to avoid creating multiple ToriiClient instances.
 :::
 
 ::::
@@ -173,7 +173,7 @@ The SDK provides several key methods for interacting with your Dojo world:
 All queries use the same `ToriiQueryBuilder` and support the same filtering operators: `Eq`, `Neq`, `Gt`, `Gte`, `Lt`, `Lte`, `In`, `NotIn`.
 
 :::note
-For more information about Torii queries, consult the [Torii gRPC API reference](/toolchain/torii/grpc).
+For more information about ToriiClient queries, consult the [ToriiClient gRPC API reference](/toolchain/torii/grpc).
 :::
 
 ### Querying Entities
@@ -289,11 +289,11 @@ const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
 The SDK integrates with Zustand for reactive state management, updating your components automatically when blockchain data changes:
 
 ```
-1. useEntityQuery() subscribes to Torii for real-time updates
+1. useEntityQuery() subscribes to ToriiClient for real-time updates
               ↓
 2. Blockchain state changes (transaction, new entity, etc.)
               ↓
-3. Torii detects the change and pushes update to your client
+3. ToriiClient detects the change and pushes update to your client
               ↓
 4. SDK automatically updates the Zustand store
               ↓
@@ -382,10 +382,10 @@ function MyComponent() {
 
 ### Sending Signed Messages
 
-Signed messages allow you to send **authenticated off-chain data** to Torii without expensive blockchain transactions.
+Signed messages allow you to send **authenticated off-chain data** to ToriiClient without expensive blockchain transactions.
 This can be used to implement things like **chat systems, leaderboards, social features, game coordination, and real-time events.**
 
-The key benefit: **Players authenticate the data** (proving it came from them) **without gas fees**, while Torii broadcasts it to all connected clients in real-time.
+The key benefit: **Players authenticate the data** (proving it came from them) **without gas fees**, while ToriiClient broadcasts it to all connected clients in real-time.
 
 Here's an example of how to send a signed message:
 
@@ -412,14 +412,15 @@ try {
 ```
 
 :::note
-If you want messages to be broadcast to all of your torii client instances, you'll have to pass a `relayUrl` to `init`.
+If you want messages to be broadcast to all of your ToriiClient instances, you'll have to pass a `relayUrl` to `init`.
 `relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot:
 `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
 :::
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by ToriiClient.
+First, configure ToriiClient to index your tokens:
 
 ```toml
 # dojo_dev.toml
@@ -456,7 +457,8 @@ function TokenBalance({ address }: { address: string }) {
 
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

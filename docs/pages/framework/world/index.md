@@ -5,7 +5,8 @@ description: "The World contract - your application's central database and orche
 
 # World Contract
 
-The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application. Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
+The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
+Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
 ![World Contract Overview](/framework/world-map.png)
 
@@ -37,7 +38,8 @@ world.emit_event(@Moved { player, direction });
 
 ### Resources and Namespaces
 
-In Dojo, everything is a **resource** - models, systems, events, and even the world itself. Resources are organized within **namespaces** to prevent conflicts and enable modular development.
+In Dojo, everything is a **resource** - models, systems, events, and even the world itself.
+Resources are organized within **namespaces** to prevent conflicts and enable modular development.
 
 ```cairo
 // Resources are identified by their namespace and name
@@ -49,8 +51,8 @@ let position: Position = world.read_model(player);
 
 #### Resource Tags and Selectors
 
-Resources in Dojo are identified by **tags**, which follow the `namespace-resource` format.
-Tags provide a human-readable way to reference resources in code.
+Resources in Dojo are identified by **resource tags**, which follow the `namespace-resource` format.
+Resource tags provide a human-readable way to reference resources in code.
 
 ```cairo
 // Resource tags follow the "namespace-resource" format
@@ -88,7 +90,7 @@ world.grant_owner(selector_from_tag!("my_game-PlayerStats"), address);
 
 **Selectors:**
 
-Tags are converted to `felt252` **selectors** using `selector_from_tag!`, which computes:
+Resource tags are converted to `felt252` **selectors** using `selector_from_tag!`, which computes:
 
 ```
 resource_selector = poseidon_hash(
@@ -123,22 +125,10 @@ world.write_model(@updated_position);
 
 ### Permissions and Security
 
-The World contract implements a resource-based permission system with two permission types:
+The World contract implements a hierarchical resource-based permission system that controls access to your application's resources.
+The system includes multiple permission types (owner, writer) organized in a hierarchical structure where namespace permissions can grant access to all resources within that namespace.
 
-- **Owner**: Can manage resources, grant permissions, and upgrade resources
-- **Writer**: Can write data into resource storage
-
-**Resource Hierarchy** (order of precedence):
-
-1. **World** → Can access all resources
-2. **Namespace** → Can access all resources in that namespace
-3. **Model/Contract/Event** → Can access the specific resource
-
-**Key Points**:
-
-- Reading is always permissionless
-- Writing requires Writer permission on the resource or its namespace
-- When you deploy to a world, you automatically become owner of your namespace
+For complete details about permission types, hierarchy, and management, see the [Permissions documentation](/framework/world/permissions).
 
 ## Getting Started
 
@@ -247,7 +237,8 @@ The World contract includes several optimizations:
 
 ## The World Interface
 
-The World contract exposes a complete interface for external interactions. While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
+The World contract exposes a complete interface for external interactions.
+While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
 
 ```cairo
 // Generate unique IDs
@@ -275,6 +266,7 @@ The World contract integrates seamlessly with other Dojo components:
 
 - **[Models](/framework/models)** - Define your data structures
 - **[Systems](/framework/systems)** - Implement your game logic
+- **[Configuration](/framework/configuration)** - Configure your world and resource settings
 - **[Sozo](/toolchain/sozo)** - Deploy and manage your world
 - **[Torii](/toolchain/torii)** - Index and query your world's data
 

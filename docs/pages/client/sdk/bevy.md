@@ -10,6 +10,9 @@ Known for its performance, modularity, and ergonomic API, Bevy enables developer
 
 Dojo.bevy is the official Bevy engine SDK for interacting with Dojo worlds, providing native Rust integration for building high-performance onchain games.
 Built specifically for Bevy's ECS architecture, it seamlessly integrates with Bevy's component system while maintaining the performance and safety guarantees that Rust developers expect.
+Like other Dojo SDKs, it builds on the [dojo.c foundation](./c) to provide robust blockchain connectivity.
+
+For an overview of Dojo's SDK architecture and common patterns across all client implementations, see the [SDK overview](./index).
 
 ## Core Concepts
 
@@ -17,7 +20,7 @@ Before diving into building onchain games with Bevy, let's explore the essential
 
 ### `DojoPlugin`
 
-The **`DojoPlugin`** is the central Bevy plugin that manages all connections to Torii and Starknet.
+The **`DojoPlugin`** is the central Bevy plugin that manages all connections to ToriiClient and Starknet.
 It handles async task coordination and event emission within Bevy's single-threaded execution model.
 
 ```rust
@@ -35,7 +38,7 @@ fn main() {
 ### `DojoResource`
 
 The **`DojoResource`** serves as the main interface for all Dojo operations.
-It manages connections to both Torii (for querying entities) and Starknet (for executing transactions).
+It manages connections to both ToriiClient (for querying entities) and Starknet (for executing transactions).
 
 ```rust
 use dojo_bevy_plugin::{DojoResource, TokioRuntime};
@@ -44,7 +47,7 @@ fn connect_to_dojo(
     mut dojo: ResMut<DojoResource>,
     tokio: Res<TokioRuntime>
 ) {
-    // Connect to Torii indexer
+    // Connect to ToriiClient indexer
     dojo.connect_torii(&tokio, "http://localhost:8080".to_string(), world_address);
 
     // Connect to Starknet using predeployed account
@@ -56,8 +59,8 @@ fn connect_to_dojo(
 
 Dojo.bevy leverages Bevy's event system for reactive blockchain interactions:
 
-- **`DojoInitializedEvent`**: Emitted when connections to Torii and Starknet are established
-- **`DojoEntityUpdated`**: Emitted when entity state changes are received from Torii
+- **`DojoInitializedEvent`**: Emitted when connections to ToriiClient and Starknet are established
+- **`DojoEntityUpdated`**: Emitted when entity state changes are received from ToriiClient
 
 ```rust
 use dojo_bevy_plugin::{DojoInitializedEvent, DojoEntityUpdated};
@@ -157,7 +160,7 @@ fn handle_dojo_events(
 
 ### Querying Entities
 
-Fetch entities from your Dojo world using Torii queries:
+Fetch entities from your Dojo world using ToriiClient queries:
 
 ```rust
 use torii_grpc_client::types::{Query as ToriiQuery, Pagination, PaginationDirection};
@@ -275,7 +278,7 @@ fn setup_dojo(
     mut dojo: ResMut<DojoResource>,
     tokio: Res<TokioRuntime>
 ) {
-    // 2. Connect to Torii and Starknet
+    // 2. Connect to ToriiClient and Starknet
     dojo.connect_torii(&tokio, "http://localhost:8080".to_string(), WORLD_ADDRESS);
     dojo.connect_predeployed_account(&tokio, "http://localhost:5050".to_string(), 0);
 }
@@ -325,7 +328,8 @@ For a complete implementation including 3D rendering, entity tracking, and full 
 
 ### Account Management
 
-For production applications, you'll want to use custom accounts instead of predeployed ones:
+For production applications, you'll want to use custom accounts instead of predeployed ones.
+For detailed account management patterns, see the [SDK overview account management section](./index#account-management).
 
 ```rust
 fn setup_custom_account(

@@ -14,7 +14,7 @@ description: Learn about Dojo models, their role in data storage, key attributes
 - Models must have at least one key.
 - Define the key(s) using the `#[key]` attribute.
 - Models are Cairo structs with automatic on-chain introspection.
-- Custom enums and types are supported if they implement [`Introspect`](/framework/models/introspection).
+- Custom enums and types are supported if they implement [`Introspect`](./introspection).
 
 ## What are models?
 
@@ -23,6 +23,7 @@ Consider these models as a key-value store, where the `#[key]` attribute defines
 While models can contain any number of fields, adhering to best practices in Entity-Component-System (ECS) design involves maintaining small, isolated models.
 
 This approach fosters modularity and composability, enabling you to reuse models across various entity types.
+For more details on how entities work in the ECS architecture, see the [entities guide](./entities).
 
 ```cairo
 #[derive(Drop, Serde)]
@@ -66,7 +67,7 @@ struct GameResource {
 }
 ```
 
-In this case you would then use [`read_model`](/framework/world/api.md#read_model) with both the player and location fields:
+In this case you would then use [`read_model`](../world/api#read_model) with both the player and location fields:
 
 ```cairo
 let player = get_caller_address();
@@ -121,7 +122,7 @@ This lets us re-use models to create a variety of different entities.
 A `#[dojo::model]` struct cannot be used as a field inside another model.
 This is because the key retrieval system requires fields to be serializable in a way that nested models do not support.
 
-If you need a composite data type as a model field, define a plain struct and derive [`Introspect`](/framework/models/introspection) instead:
+If you need a composite data type as a model field, define a plain struct and derive [`Introspect`](./introspection) instead:
 
 ```cairo
 #[derive(Drop, Serde, Introspect)]
@@ -138,6 +139,7 @@ struct Player {
     stats: Stats, // Plain struct with Introspect, not a model
 }
 ```
+
 :::
 
 The game contract would look like this:
