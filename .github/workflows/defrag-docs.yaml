@@ -54,12 +54,12 @@ jobs:
                   - Fixed terminology inconsistencies
                   - Enforced one-sentence-per-line formatting
                   - Added missing cross-references
+                  - Relocated misplaced content to canonical pages
 
                   $(tail -20 defrag-output.txt)"
 
                   git push origin "$BRANCH"
 
-                  # Build PR body from script output
                   SUMMARY=$(sed -n '/=== Summary ===/,$ p' defrag-output.txt)
 
                   gh pr create \
@@ -71,6 +71,7 @@ jobs:
 
                   ### What this does
                   - **Cross-page analysis**: Finds duplicated explanations, inconsistent terminology, and missing cross-references within each doc section
+                  - **Content relocation**: Moves misplaced content to canonical pages and replaces with cross-references
                   - **Per-page cleanup**: Fixes one-sentence-per-line violations, formatting inconsistencies, and redundant prose
 
                   ### Run output
@@ -80,7 +81,7 @@ jobs:
 
                   ### Review notes
                   Please review the diff carefully — all changes are LLM-generated editorial fixes.
-                  The build has been verified to pass.
+                  Build errors (if any) will be fixed automatically by a follow-up workflow.
 
                   ---
                   *This PR was automatically created by the monthly defragmentation workflow.*
