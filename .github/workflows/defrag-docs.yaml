@@ -9,6 +9,10 @@ jobs:
     defrag:
         runs-on: ubuntu-latest
 
+        outputs:
+            branch: ${{ steps.create-pr.outputs.branch }}
+            has-changes: ${{ steps.create-pr.outputs.has-changes }}
+
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -32,18 +36,23 @@ jobs:
                   node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
 
             - name: Create PR if changes exist
+              id: create-pr
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   if [ -z "$(git status --porcelain docs/)" ]; then
                     echo "No documentation changes to commit"
+                    echo "has-changes=false" >> "$GITHUB_OUTPUT"
                     exit 0
                   fi
+
+                  echo "has-changes=true" >> "$GITHUB_OUTPUT"
 
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
 
                   BRANCH="defrag-docs-$(date +%Y%m%d)"
+                  echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
                   git checkout -b "$BRANCH"
 
                   git add docs/
@@ -81,7 +90,7 @@ jobs:
 
                   ### Review notes
                   Please review the diff carefully — all changes are LLM-generated editorial fixes.
-                  Build errors (if any) will be fixed automatically by a follow-up workflow.
+                  Build errors (if any) will be fixed automatically by the confirm-build job.
 
                   ---
                   *This PR was automatically created by the monthly defragmentation workflow.*
@@ -89,3 +98,58 @@ jobs:
                   )" \
                     --base main \
                     --head "$BRANCH"
+
+    confirm-build:
+        needs: defrag
+        if: needs.defrag.outputs.has-changes == 'true'
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout PR branch
+              uses: actions/checkout@v4
+              with:
+                  ref: ${{ needs.defrag.outputs.branch }}
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Check if build passes
+              id: build-check
+              run: |
+                  if pnpm run build 2>&1; then
+                    echo "status=pass" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "status=fail" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Fix build errors
+              if: steps.build-check.outputs.status == 'fail'
+              env:
+                  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+              run: node scripts/confirm-build.mjs
+
+            - name: Commit fixes
+              if: steps.build-check.outputs.status == 'fail'
+              run: |
+                  if [ -z "$(git status --porcelain docs/)" ]; then
+                    echo "No fixes needed"
+                    exit 0
+                  fi
+
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+
+                  git add docs/
+                  git commit -m "fix: auto-fix docs build errors"
+                  git push
