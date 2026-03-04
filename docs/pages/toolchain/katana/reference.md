@@ -41,7 +41,7 @@ curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
 curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","method":"dev_setNextBlockTimestamp","params":[1704067200],"id":2}'
 
-# 3. Generate block with transactions
+# 3. Mine block with transactions
 curl -X POST http://127.0.0.1:5050 -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":3}'
 ```
@@ -110,7 +110,8 @@ The full documentation for the RPC methods can be found [here](https://github.co
 
 ### `dev` Namespace
 
-The `dev` API provides a way to manipulate the blockchain state at runtime. This namespace is only accessible when the `--dev` flag is enabled.
+The `dev` API provides a way to manipulate the blockchain state at runtime.
+This namespace is only accessible when the `--dev` flag is enabled.
 
 #### `dev_generateBlock`
 
@@ -269,7 +270,8 @@ This API is designed for local development with Cartridge controllers and is not
 
 ## Supported Transaction Types
 
-Katana aims to follow the Starknet specifications as closely as possible, mimicking the features currently supported on mainnet. Katana currently supports the following Starknet transaction types:
+Katana aims to follow the Starknet specifications as closely as possible, mimicking the features currently supported on mainnet.
+Katana currently supports the following Starknet transaction types:
 
 | Type               | Version | Description                             |
 | ------------------ | ------- | --------------------------------------- |
@@ -281,7 +283,8 @@ Katana aims to follow the Starknet specifications as closely as possible, mimick
 
 **Version 1**: Legacy transaction format with lower gas efficiency.
 
-**Version 3**: Current transaction format with improved gas efficiency and fee estimation. Recommended for new development.
+**Version 3**: Current transaction format with improved gas efficiency and fee estimation.
+Recommended for new development.
 
 **DECLARE Version 2**: Introduces Sierra compilation for improved contract verification.
 

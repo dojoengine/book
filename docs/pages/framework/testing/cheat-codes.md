@@ -28,7 +28,8 @@ fn f1() {
 
 ## `set_caller_address`
 
-This cheat code helps you set the caller address to the provided contract address, enabling you to test contract interactions with different callers. This cheat code can be applied when:
+This cheat code helps you set the caller address to the provided contract address, enabling you to test contract interactions with different callers.
+This cheat code can be applied when:
 
 - Testing a contract's access control mechanisms, such as only allowing certain addresses to call specific functions.
 - Simulating a scenario where a contract is called by a different address.
@@ -48,7 +49,8 @@ fn f2() {
 
 This cheat code helps you set the contract address to the provided value, allowing you to test contract deployment and interactions.
 
-It is important to note that any test function is considered a contract, which by default uses the `0` address. Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
+It is important to note that any test function is considered a contract, which by default uses the `0` address.
+Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
 
 ```rust
 use starknet::{testing, get_contract_address, contract_address_const};
@@ -63,7 +65,8 @@ fn f3() {
 
 ## `set_block_timestamp`
 
-This cheat code helps you set the block timestamp to the specified value, allowing you to test contract behavior at different points in time. You can apply this code when:
+This cheat code helps you set the block timestamp to the specified value, allowing you to test contract behavior at different points in time.
+You can apply this code when:
 
 - Testing a contract's behavior at a specific point in time, such as checking if a certain function is only callable during a certain time period.
 - Simulating a scenario where a contract is deployed at a different point in time.
@@ -96,7 +99,8 @@ fn f5() {
 
 ## `set_account_contract_address`
 
-This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply when simulating a scenario where a contract is called by a different account contract.
+This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts.
+You can apply when simulating a scenario where a contract is called by a different account contract.
 
 ```rust
 use starknet::{testing, get_tx_info, contract_address_const};
@@ -112,7 +116,8 @@ fn f6() {
 
 ## `set_max_fee`
 
-This cheat code helps you set the maximum fee to the provided value, enabling you to test contract behavior with different fee structures. You can apply this when:
+This cheat code helps you set the maximum fee to the provided value, enabling you to test contract behavior with different fee structures.
+You can apply this when:
 
 - Testing a contract's behavior with different fee structures, such as checking if a certain function is only callable with a specific fee.
 - Simulating a scenario where a contract is deployed with a different fee structure.
@@ -130,7 +135,8 @@ fn f7() {
 
 ## `set_transaction_hash`
 
-This cheat code helps one set the transaction hash to the provided value, allowing you to test contract behavior with different transaction hashes. You can apply this when:
+This cheat code helps one set the transaction hash to the provided value, allowing you to test contract behavior with different transaction hashes.
+You can apply this when:
 
 - Testing a contract's behavior with different transaction hashes, such as checking if a certain function is only callable with a specific transaction hash.
 - Simulating a scenario where a contract is called with a different transaction hash.
@@ -148,7 +154,8 @@ fn f8() {
 
 ## `set_chain_id`
 
-This cheat code helps one set the chain ID to the provided value, enabling you to test contract behavior on different chains. You can apply this when:
+This cheat code helps one set the chain ID to the provided value, enabling you to test contract behavior on different chains.
+You can apply this when:
 
 - Testing a contract's behavior on different chains, such as checking if a certain function is only callable on a specific chain.
 - Simulating a scenario where a contract is deployed on a different chain.
@@ -166,7 +173,8 @@ fn f9() {
 
 ## `set_nonce`
 
-This cheat code helps one set the nonce to the provided value, allowing you to test contract behavior with different nonces. You can apply this when:
+This cheat code helps one set the nonce to the provided value, allowing you to test contract behavior with different nonces.
+You can apply this when:
 
 - Testing a contract's behavior with different nonces, such as checking if a certain function is only callable with a specific nonce.
 - Simulating a scenario where a contract is called with a different nonce.
@@ -199,21 +207,6 @@ fn f11() {
 
 ```
 
-## `set_block_number`
-
-This cheat code helps one set a specific block number, allowing you to test contract behavior with different block numbers.
-
-```rust
-use starknet::{testing, get_block_info};
-
-#[test]
-fn f12() {
-    testing::set_block_number(12345678);
-    assert_eq!(get_block_info().unbox().block_number, 12345678);
-}
-
-```
-
 ## `pop_log_raw`
 
 This cheat code helps one pop the earliest unpopped logged event for the contract, returning the event data and keys.
@@ -231,7 +224,8 @@ fn f13() {
 
 ## `pop_log`
 
-This cheat code helps one pop the earliest unpopped logged event for the contract as the requested type, deserializing the event data into the specified type. You can apply this when:
+This cheat code helps one pop the earliest unpopped logged event for the contract as the requested type, deserializing the event data into the specified type.
+You can apply this when:
 
 - Testing a contract's event handling mechanism, such as checking if a certain event is handled correctly.
 - Debugging a contract's behavior by inspecting the handled events.
@@ -289,9 +283,10 @@ fn f14() {
 
 ## `pop_l2_to_l1_message`
 
-This cheat code helps one pop the earliest unpopped L2 to L1 message for the contract, returning the message data and keys. You can apply this when:
--Testing a contract's L2 to L1 messaging mechanism, such as checking if a certain message is sent correctly.
+This cheat code helps one pop the earliest unpopped L2 to L1 message for the contract, returning the message data and keys.
+You can apply this when:
 
+- Testing a contract's L2 to L1 messaging mechanism, such as checking if a certain message is sent correctly.
 - Debugging a contract's behavior by inspecting the sent messages.
 
 ```rust

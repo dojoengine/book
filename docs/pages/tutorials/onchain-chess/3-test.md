@@ -15,7 +15,9 @@ Here's what we'll do in our test:
 4. Move `white_pawn` to (1,4)
 5. Capture `black_pawn`
 
-To place the pieces, use our `spawn` function in our `actions` contract. For moving them, use the `move` contract. Remember to check if a piece can be captured when using `move`.
+To place the pieces, use our `spawn` function in our `actions` contract.
+For moving them, use the `move` contract.
+Remember to check if a piece can be captured when using `move`.
 
 Before we get to the code, set up your integration test like this:
 
@@ -94,7 +96,11 @@ Keep moving pieces and checking if they're in the right places.
 
 ## Congratulations!
 
-You've made the basic contracts for a chess game using the Dojo engine! This tutorial was just the beginning. There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases. If you want to do more with this chess game, try these challenges:
+You've made the basic contracts for a chess game using the Dojo engine!
+This tutorial was just the beginning.
+There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases.
+For a deeper understanding of Dojo's core concepts and patterns, see the [dojo-starter tutorial](../dojo-starter).
+If you want to do more with this chess game, try these challenges:
 
 - Add a checkmate feature. Our game doesn't end now, so decide when it should!
 - Include special moves like castling, En Passant Capture, or Pawn Promotion.

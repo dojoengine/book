@@ -43,6 +43,11 @@ Before installing Dojo, ensure your system meets these requirements:
 - **Storage**: 2GB free disk space for toolchains and dependencies
 - **Network**: Stable internet connection for downloading binaries
 - **Dependencies**: `curl`, `jq`, and `git` (usually pre-installed on most systems)
+- **glibc**: Version 2.33 or higher (required for Katana)
+
+:::note
+Katana is not available on Ubuntu 20.04 LTS, Debian 10 Buster, CentOS 7, or below due to glibc requirements.
+:::
 
 ## Prerequisites
 
@@ -103,6 +108,50 @@ The Dojo framework consists of a Cairo framework and three Rust-based tools: `ka
 The Cairo framework is managed by Scarb as a compile-time dependency.
 See the [Dojo configuration](/framework/configuration#project-manifest-scarbtoml) documentation for more info.
 :::
+
+### Installing with `dojoup`
+
+[`dojoup`](https://install.dojoengine.org) is Dojo's dedicated package manager that automatically synchronizes compatible versions.
+
+::::steps
+
+#### Install `dojoup`
+
+```bash
+curl -L https://install.dojoengine.org | bash
+```
+
+This command installs `dojoup` in the `~/.dojo` directory and adds it to your shell profile.
+
+:::info
+You need to restart your terminal for the `dojoup` command to be available.
+:::
+
+#### Install the Dojo toolchain
+
+In a new terminal window, run:
+
+```bash
+dojoup install
+```
+
+This installs `katana`, `torii`, and `sozo` in the `~/.dojo` directory.
+
+:::tip
+Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
+:::
+
+#### Advanced Usage
+
+```bash
+# Install a specific version
+dojoup install 1.6.0
+
+# Get help
+dojoup --help
+```
+
+::::
 
 ### Installing with `asdf`
 
@@ -174,51 +223,78 @@ If needed, `asdf` will download the correct version of all dependencies.
 
 ::::
 
-### Installing with `dojoup`
+### Building from Source
 
-[`dojoup`](https://install.dojoengine.org) is an alternative way to install and manage Dojo installations.
-Dojoup is version-aware and will automatically install compatible versions of `katana`, `torii`, and `sozo`.
-
-:::warning
-Dojoup is deprecated and will be removed in the future.
-Use the `asdf` installer instead.
-:::
-
-::::steps
-
-#### Install `dojoup`
+If you prefer to build from source, you can compile the tools directly from the repository:
 
 ```bash
-curl -L https://raw.githubusercontent.com/dojoengine/dojo/main/dojoup/dojoup-install | bash
+git clone https://github.com/dojoengine/dojo
+
+# Build Katana
+cargo install --path ./katana/bin/katana --locked --force
+
+# Build Torii
+cargo install --path ./torii/bin/torii --locked --force
+
+# Build Sozo
+cargo install --path ./sozo/bin/sozo --locked --force
 ```
 
-This command installs `dojoup` in the `~/.dojo` directory and adds it to your shell profile.
-
-:::info
-You need to restart your terminal for the `dojoup` command to be available.
+:::note
+Building from source will install the binaries at `~/.cargo/bin`
 :::
 
-#### Install the Dojo toolchain
+### Installing Individual Components
 
-In a new terminal window, run:
+Each component of the Dojo toolchain can also be installed separately:
 
-```bash
+#### Torii (Indexing Engine)
+
+Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+
+```sh
+curl -L https://install.dojoengine.org | bash
+
+# Restart your terminal
+
 dojoup install
 ```
 
-This installs `katana`, `torii`, and `sozo` in the `~/.dojo` directory.
+:::note
+This will install the `torii` binary at `~/.dojo/bin`
+:::
 
-#### Advanced Usage
+:::tip
+Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
+:::
 
-```bash
-# Install a specific version
-dojoup install 1.6.0
+##### Installing with `asdf`
 
-# Get help
-dojoup --help
+If you prefer to install with the `asdf` version manager:
+
+```sh
+asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
+
+asdf install torii latest
 ```
 
-::::
+:::note
+This will install the `torii` binary at `~/.asdf/shims`
+:::
+
+##### Building from Source
+
+If you prefer to build from the source code:
+
+```sh
+git clone https://github.com/dojoengine/torii.git
+
+cargo install --path ./torii/bin/torii --profile local --force
+```
+
+:::note
+This will install the `torii` binary at `~/.cargo/bin`
+:::
 
 ## Verification
 
@@ -266,6 +342,8 @@ To install the skills, run the following in your terminal:
 ```bash
 npx skills add dojoengine/book
 ```
+
+For comprehensive details on using Claude Code skills with Dojo, see our dedicated [AI installation guide](/installation).
 
 ## Troubleshooting
 
@@ -350,7 +428,8 @@ If you run into problems getting started with Dojo, join our [Discord](https://d
 
 ## Next Steps
 
-With Dojo installed, you're ready to start building:
+With Dojo installed, you're ready to explore what you can build with provable games.
+See the [Dojo overview](/overview) to understand the framework's capabilities and architecture.
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard

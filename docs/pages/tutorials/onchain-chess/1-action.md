@@ -9,7 +9,8 @@ This chapter will address implementing `actions.cairo`, which spawns the game & 
 
 ## What is `actions` contract?
 
-To play chess, you need, to start game, spawn the pieces, and move around the board. The `actions` contract has two dominant functions `spawn` function which spawns the game entity, places each piece in its proper position on the board and returns the game_id, and the `move` funtion which allows pieces to be moved around the board.
+To play chess, you need, to start game, spawn the pieces, and move around the board.
+The `actions` contract has two dominant functions `spawn` function which spawns the game entity, places each piece in its proper position on the board and returns the game_id, and the `move` funtion which allows pieces to be moved around the board.
 
 <p align="center">
 <img src="/images/board.png" alt="image" width="300" height="auto" />
@@ -17,7 +18,8 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
 
 ## Requirements
 
-1. Write an interface for the `actions` contract on top of the code you already have. In this case, `move` and `spawn`
+1. Write an interface for the `actions` contract on top of the code you already have.
+   In this case, `move` and `spawn`
 
 ```rust
     use starknet::ContractAddress;
@@ -44,7 +46,10 @@ To play chess, you need, to start game, spawn the pieces, and move around the bo
 
 Should be noted that `actions` is the contract name.
 
-3. Write a `spawn` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`. Define the `player` entity from player model. Define the game entity, consisting of the `Game` model and `GameTurn` model we created in the `game.cairo`, and define the piece entities from a1 to h8 containing the correct `PieceType` in the `spawn` fn. Paste the following code inside `mod actions`.
+3. Write a `spawn` function that accepts the `white address`, and `black address` as input and set necessary states using `set!(...)`.
+   Define the `player` entity from player model.
+   Define the game entity, consisting of the `Game` model and `GameTurn` model we created in the `game.cairo`, and define the piece entities from a1 to h8 containing the correct `PieceType` in the `spawn` fn.
+   Paste the following code inside `mod actions`.
 
 ```rust
     #[abi(embed_v0)]

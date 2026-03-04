@@ -17,15 +17,16 @@ _- George Bernard Shaw_
 It is a collection of useful algorithms and data structures implemented in Cairo.
 
 Alexandria provides essential building blocks for Cairo and Starknet development, covering mathematics, data structures, algorithms, and utilities that complement Dojo's game development framework.
+For game-specific primitives and utilities, see the [Origami package](../origami).
 
 :::warning
 This library is built outside of the Dojo stack development.
-There is no online documentation yet but most of the implemented features are referenced in the readme files of the crates.
+There is no online documentation yet but most of the implemented features are referenced in the readme files of the packages.
 :::
 
 ## Installation
 
-Add the crates you need to your `Scarb.toml`:
+Add the packages you need to your `Scarb.toml`:
 
 ```toml
 [dependencies]
@@ -41,6 +42,7 @@ alexandria_sorting = { git = "https://github.com/keep-starknet-strange/alexandri
 ### [Math](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/math)
 
 Mathematical operations and utilities for numerical computations, cryptography, and algorithm implementation.
+For game-specific mathematical functions like collision detection or pathfinding, consider [Origami's algebra package](../origami#algebra).
 
 **Key Features**: Prime number testing, fast power/root calculations, bitwise operations, cryptographic hashes
 

@@ -1,1 +1,150 @@
+---
+title: Dojo React
+description: A tutorial for building React applications with Dojo.
+---
+
 # Dojo React
+
+This tutorial guides you through building React applications with Dojo.
+
+For a comprehensive understanding of Dojo concepts and project setup, see the [Dojo Starter tutorial](./dojo-starter).
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+- Node.js and npm installed
+- A basic understanding of React
+- A Dojo project set up (see [Dojo Starter tutorial](./dojo-starter))
+
+## Installation
+
+Install the required dependencies:
+
+```bash
+npm install @dojoengine/core @dojoengine/state
+```
+
+## Setting up the Dojo context
+
+First, create a Dojo context provider to manage your application state:
+
+```tsx
+import { DojoProvider } from "@dojoengine/core";
+import { dojoConfig } from "./dojoConfig";
+
+function App() {
+    return (
+        <DojoProvider config={dojoConfig}>
+            <YourApp />
+        </DojoProvider>
+    );
+}
+```
+
+## Configuration
+
+Create a `dojoConfig.ts` file with your Dojo configuration:
+
+```typescript
+import { DojoConfig } from "@dojoengine/core";
+
+export const dojoConfig: DojoConfig = {
+    masterAddress: "0x...",
+    masterPrivateKey: "0x...",
+    accountClassHash: "0x...",
+    rpcUrl: "http://localhost:5050",
+    toriiUrl: "http://localhost:8080",
+    worldAddress: "0x...",
+};
+```
+
+## Using Dojo hooks
+
+The Dojo React SDK provides several hooks for interacting with your Dojo world:
+
+### useDojoCall
+
+Execute systems in your Dojo world:
+
+```tsx
+import { useDojoCall } from "@dojoengine/state";
+
+function GameComponent() {
+    const { call } = useDojoCall();
+
+    const handleMove = async () => {
+        await call("move", ["0x1", "0x2"]);
+    };
+
+    return <button onClick={handleMove}>Make Move</button>;
+}
+```
+
+### useDojoStore
+
+Access and subscribe to entity state:
+
+```tsx
+import { useDojoStore } from "@dojoengine/state";
+
+function PlayerComponent({ playerId }: { playerId: string }) {
+    const { entities } = useDojoStore();
+
+    const player = entities[playerId];
+
+    return (
+        <div>
+            <h3>Player: {player?.name}</h3>
+            <p>Health: {player?.health}</p>
+        </div>
+    );
+}
+```
+
+## Building your React components
+
+Create React components that interact with your Dojo systems and models:
+
+```tsx
+import { useState, useEffect } from "react";
+import { useDojoCall, useDojoStore } from "@dojoengine/state";
+
+function GameBoard() {
+    const { call } = useDojoCall();
+    const { entities } = useDojoStore();
+    const [gameState, setGameState] = useState(null);
+
+    useEffect(() => {
+        // Subscribe to game state changes
+        const unsubscribe = entities.subscribe((state) => {
+            setGameState(state);
+        });
+
+        return () => unsubscribe();
+    }, [entities]);
+
+    const makeMove = async (position: number) => {
+        try {
+            await call("make_move", [position]);
+        } catch (error) {
+            console.error("Move failed:", error);
+        }
+    };
+
+    return (
+        <div>
+            {/* Render your game board */}
+            <button onClick={() => makeMove(1)}>Move to position 1</button>
+        </div>
+    );
+}
+```
+
+## Next steps
+
+Now that you have a basic React application connected to Dojo:
+
+1. Explore the [Dojo Starter tutorial](./dojo-starter) for more advanced Dojo concepts
+2. Learn about [deployment options](./deploy-using-slot/main) for production applications
+3. Check out more [advanced tutorials](./advanced) for complex game mechanics

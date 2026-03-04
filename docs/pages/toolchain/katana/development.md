@@ -47,7 +47,7 @@ Katana supports two storage modes to match different development needs:
 This provides best performance by avoiding disk operations, making it perfect for rapid testing and experimentation.
 
 **Persistent Storage**: Chain state is saved to disk and restored on restart.
-This is useful for production deployments, extended testing sessions, or when you need to preserve complex game states.
+This is useful for production deployments, extended testing sessions, or when you need to preserve complex world states.
 
 ### Persistent Storage
 
@@ -164,7 +164,7 @@ katana --dev --enable-native-compilation --block-time 1000
 
 Katana includes a built-in metrics system that exposes performance data in [Prometheus](https://prometheus.io/) format.
 This enables monitoring of blockchain performance, resource usage, and transaction processing statistics.
-Katana also includes a browser-based block explorer for easy visualization of sequencer activity.
+For comprehensive blockchain monitoring and querying capabilities, see [Torii indexing](/toolchain/torii).
 
 ### Available Metrics
 
@@ -222,6 +222,8 @@ watch -n 1 'curl -s http://127.0.0.1:9100/metrics | grep block_producer'
 This provides real-time visibility into your local blockchain's performance characteristics during development and testing.
 
 ### Enabling explorer
+
+Katana also includes a browser-based block explorer for easy visualization of sequencer activity.
 
 Enable the browser-based explorer:
 

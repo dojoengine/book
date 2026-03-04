@@ -29,13 +29,13 @@ This constitutes a provable game.
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
 ### Why Dojo?
 
-Dojo was created to solve problems the founders faced when building onchain games in Cairo.
+[Dojo](/framework) was created to solve problems the founders faced when building onchain games in Cairo.
 It standardizes the process of building such games and provides a suite of tools to make it easier.
 
 ### What is Cairo?
@@ -47,7 +47,7 @@ Learn more about it here: [Cairo](https://www.cairo-lang.org/).
 ### Can I deploy Dojo to Starknet?
 
 Yes! Dojo can run on any StarknetVM including the public blockchains.
-Within the dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
+Within the dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer for local development and testing, which is perfectly suited to Dojo games.
 
 ### Can Dojo do client side proofs?
 

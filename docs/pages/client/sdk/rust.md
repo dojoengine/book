@@ -446,3 +446,7 @@ You can extend it by:
 - Adding database persistence using Shuttle's shared database
 - Implementing user authentication and authorization
 - Adding custom event processing logic
+
+:::note
+For more advanced use cases, consider exploring the [Bevy SDK](./bevy) which builds on this native Rust integration to provide a complete game engine integration.
+:::

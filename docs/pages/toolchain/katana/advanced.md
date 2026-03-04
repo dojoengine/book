@@ -62,7 +62,7 @@ It allows us to:
 - Ensure state consistency through infrastructure-level control, not by reconciliation (shortcut that typically Sharding execution will solve)
 
 Optimistic Katana does not need to roll back any state.
-Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical on-chain result.
+Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified World, ensuring that no conflicts arise between the local optimistic execution and the canonical on-chain result.
 
 This approach delivers near-instant feedback for users while maintaining trust and state consistency across the network.
 
@@ -77,7 +77,7 @@ In this setup:
 - Katana forks a live Starknet network
 - All user transactions are sent to the forked Katana instance
 - Katana executes these transactions locally, producing immediate state updates and events
-- In parallel, Katana forwards the same transactions to a real Starknet node for canonical inclusion
+- In parallel, Katana forwards the same transactions to a real Starknet sequencer for canonical inclusion
 
 Since Katana executes transactions faster than the actual network, it can serve "pre-confirmed" results almost instantly — enabling frontends and clients to interact with what feels like a live, responsive chain.
 
@@ -90,21 +90,21 @@ Every block mined on Starknet is still reflected in Optimistic Katana (only bloc
 
 To prevent state contention and ensure consistency with the canonical Starknet state, Optimistic Katana is combined with strict operator whitelisting.
 
-Only designated operator accounts (typically Cartridge's paymaster executors) are permitted to modify the on-chain state of the world.
+Only designated operator accounts (typically Cartridge's paymaster executors) are permitted to modify the on-chain state of the World.
 This guarantees that:
 
-- Only transactions forwarded from Katana are authorized by infrastructure to land on Starknet for this world
+- Only transactions forwarded from Katana are authorized by infrastructure to land on Starknet for this World
 - No external actor can submit conflicting transactions to the same contract state on Starknet
 - The optimistic state served by Katana will always converge with the canonical one without rollback or reconciliation logic
 
-At the infrastructure level, it ensures that only transactions originating from the authorized Optimistic Katana instance are propagated downstream to Starknet nodes.
+At the infrastructure level, it ensures that only transactions originating from the authorized Optimistic Katana instance are propagated downstream to Starknet sequencers.
 This prevents race conditions and ensures deterministic state updates across both layers.
 
 #### World Layer: Operator Component
 
-At the smart contract level, the World contract implements the on-chain enforcement of the operator whitelist through the Operator component.
+At the smart contract level, the World contract implements the on-chain enforcement of the operator whitelist through the Operator Component.
 
-This component defines a simple but flexible interface for managing authorized executors, controlling who can mutate world entities on-chain.
+This Component defines a simple but flexible interface for managing authorized executors, controlling who can mutate World entities on-chain.
 
 ```cairo
 #[derive(Default, Serde, Drop, starknet::Store)]
@@ -129,17 +129,17 @@ pub trait IOperator<T> {
 ```
 
 The `OperatorMode` allows dynamic control over when and how operators can act (e.g., permanent or time-limited authorization).
-Only the creator of the world can change the mode.
+Only the creator of the World can change the mode.
 
-More importantly, the `set_entity` function within the world contract is gated by this operator check.
+More importantly, the `set_entity` function within the World contract is gated by this operator check.
 
-This means that no contract state or world entity can be mutated unless the sender is a whitelisted operator.
+This means that no contract state or World Entity can be mutated unless the sender is a whitelisted operator.
 
 In practice:
 
 - Katana instances executing optimistically are assigned authorized operator addresses
 - The infrastructure ensures that only these operators can push mutations to Starknet
-- Any unauthorized attempt to modify entities is rejected at the contract level
+- Any unauthorized attempt to modify Entities is rejected at the contract level
 
 This mechanism establishes a trust boundary: Katana can optimistically execute and stage updates, but only the approved executors have authority to finalize them on-chain.
 
@@ -154,7 +154,7 @@ Specifically:
 - It is resistant to missed transactions — cases where a transaction was forwarded to Starknet before Torii fetched the corresponding pre-confirmed state (for example, if a block is very long to process)
 - When such cases occur, Torii will backfill the missing events once the canonical Starknet state includes them, ensuring complete and consistent indexing
 
-This design ensures that Torii's view of the world remains consistent across both the optimistic and canonical layers without duplication or event loss.
+This design ensures that Torii's view of the World remains consistent across both the optimistic and canonical layers without duplication or event loss.
 
 :::note
 A possible latency can be observed if blocks are too long for Torii to process, which will cause Torii to fallback in range mode.
@@ -367,6 +367,7 @@ starkli invoke <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
 ```
 
 :::note
-[Sozo](/toolchain/sozo) is the preferred build and deployment for Dojo development.
-Starkli integration is useful for standard Cairo contracts and production validation workflows.
+[Sozo](/toolchain/sozo) is the preferred tool for Dojo development workflows.
+Starkli integration is useful for standard Cairo contracts and production validation.
+For details on Sozo project management features, see the [Sozo project management guide](/toolchain/sozo/project-management).
 :::

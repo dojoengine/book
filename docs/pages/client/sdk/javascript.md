@@ -18,7 +18,7 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 - **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
 :::note
-dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes Torii client features via WASM.
+dojo.js is a wrapper around [dojo.c](./c/wasm-bindings) that exposes Torii client features via WASM.
 For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
 :::
 
@@ -286,7 +286,7 @@ const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
 
 ### Saving State With Zustand
 
-The SDK integrates with Zustand for reactive state management, updating your components automatically when blockchain data changes:
+The SDK integrates with Zustand for reactive state management, updating your components automatically when world state changes:
 
 ```
 1. useEntityQuery() subscribes to Torii for real-time updates
@@ -419,7 +419,8 @@ If you want messages to be broadcast to all of your torii client instances, you'
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
+First, configure Torii to index your tokens:
 
 ```toml
 # dojo_dev.toml
@@ -456,7 +457,8 @@ function TokenBalance({ address }: { address: string }) {
 
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

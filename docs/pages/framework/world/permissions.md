@@ -66,6 +66,8 @@ In this example, permissions are given to **addresses**, which can be systems or
 - **Configuration**: Initial setup, predictable permissions, deployment automation
 - **Runtime**: Dynamic permission changes, game progression, admin functions
 
+For detailed configuration options, see the [Configuration guide](./framework/configuration).
+
 ## Permission Types
 
 Dojo has two permission types:
@@ -171,7 +173,8 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a resource:
 
 - **World** → A resource (selector `0`)
 - **Namespace** → A resource (e.g., `"my_game"`)
@@ -402,9 +405,6 @@ sozo call world is_owner 0x123 0x456   # resource_selector contract_address
 # List all permissions
 sozo auth list
 ```
-
-**Configuration Reference:**
-For detailed configuration options, see [Configuration](/framework/configuration).
 
 ## Debugging Permission Issues
 

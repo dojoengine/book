@@ -26,18 +26,13 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 ### Layer 2: dojo.c - Runtime Blockchain Integration
 
 **dojo.c** provides the runtime foundation that handles all blockchain interactions across platforms.
+For detailed information about the complete implementation architecture and comprehensive features included in this foundation, see [dojo.c - Complete Dojo Client SDK](./c).
 
 **Key capabilities:**
 
-- **Account Management**: Support for controller accounts, session accounts, and burner wallets
-- **Transaction Handling**: Sign and execute transactions with proper gas estimation
-- **Torii Client Integration**: Query entities, subscribe to real-time updates, and sync world state
 - **Cross-Platform Compatibility**: Compiles to both native binaries (via C bindings) and WebAssembly
-
-**Dual Compilation Strategy:**
-
-- **Native Platforms**: Uses `cbindgen` to generate C headers for Unity, Unreal, and other native integrations
-- **Web Platforms**: Uses `wasm-bindgen` to generate WebAssembly modules for JavaScript/TypeScript applications
+- **Dual Compilation Strategy**: Uses `cbindgen` for native platforms and `wasm-bindgen` for web platforms
+- **Unified API Surface**: Consistent interface across all target platforms
 
 ### The Complete Foundation
 
@@ -90,12 +85,13 @@ The client can then query the world state to get the latest state, which is then
 - Multiple examples: Vanilla JS, React, Vue, Svelte, Phaser integration
 - Real-time entity synchronization with RECS (Reactive Entity Component System)
 - Built-in support for wallet connections and burner accounts
+- Built on [dojo.c WASM bindings](./c/wasm-bindings) for consistent blockchain integration
 
 #### Unity SDK
 
 **Best for:** 2D and 3D games, cross-platform game development
 
-- Native C# bindings built on dojo.c foundation
+- Native C# bindings built on [dojo.c C bindings](./c/c-bindings) foundation
 - Unity-specific components and prefabs for common patterns
 - Support for WebGL, desktop, and mobile platforms
 - Integrated world state synchronization with Unity's component system
@@ -108,7 +104,7 @@ The client can then query the world state to get the latest state, which is then
 
 - ECS-native integration with Bevy's component system
 - Rust-first development experience with compile-time safety
-- Direct access to dojo.c functionality without FFI overhead
+- Built on [native Rust integration](./rust) with direct access to dojo.c functionality
 
 #### Unreal Engine SDK
 
@@ -118,7 +114,22 @@ The client can then query the world state to get the latest state, which is then
 - Support for complex game mechanics and AAA-quality experiences
 - Native performance with dojo.c foundation
 
+#### Telegram SDK
+
+**Best for:** Telegram Mini Apps and bot integrations
+
+- Built on the [JavaScript SDK](./javascript) foundation
+- Telegram-specific authentication and UI components
+- Seamless integration with Telegram's ecosystem
+
 ### Experimental
+
+#### Godot SDK
+
+**Best for:** Cross-platform game development with Godot Engine
+
+- GDScript and C# integration options
+- Built on dojo.c foundation for consistent blockchain operations
 
 #### C/C++ Bindings
 
@@ -144,6 +155,8 @@ The client can then query the world state to get the latest state, which is then
 | Unity Games              | Unity SDK             | ✅ Production         |
 | Bevy Games               | Bevy SDK              | 🔄 Active Development |
 | Unreal Engine            | Unreal SDK            | 🔄 Active Development |
+| Telegram Mini Apps       | Telegram SDK          | 🔄 Active Development |
+| Godot Engine             | Godot SDK             | 🔄 Active Development |
 | Custom C/C++             | C Bindings            | ⚗️ Experimental       |
 | Rust Applications        | Native Rust           | ⚗️ Experimental       |
 
@@ -162,6 +175,8 @@ To begin development with any Dojo SDK:
 - [Unity SDK →](./unity)
 - [Bevy SDK →](./bevy)
 - [Unreal Engine SDK →](./unrealengine)
+- [Telegram SDK →](./telegram)
+- [Godot SDK →](./godot)
 - [C Bindings →](./c)
 - [Rust Integration →](./rust)
 

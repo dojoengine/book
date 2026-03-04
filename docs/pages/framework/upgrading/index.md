@@ -7,7 +7,7 @@ description: An overview of Dojo upgrading guides
 
 ## Major Releases
 
-### [Dojo 1.x](dojo-1-0)
+### [Dojo 1.x](./dojo-1-0)
 
 Dojo's first **major release** in November 2024, which stabilized the Dojo API.
 
@@ -19,7 +19,7 @@ It is unlikely that a new Dojo developer will need to upgrade from Dojo 0.x
 
 ## Minor Releases
 
-### [Dojo 1.7.x](dojo-1-7)
+### [Dojo 1.7.x](./dojo-1-7)
 
 **Dojo 1.7.0 key changes:**
 
@@ -53,7 +53,8 @@ As such, this is the first release in which version compatibility became an issu
 
 - Support for Cairo 2.10 (Dojo lang is still a built-in compiler plugin, no scarbs.xyz at the moment).
 
-- The world now keeps track of the ownership counter on resources. It has a new API to verify the ownership of a resource owners_count.
+- The world now keeps track of the ownership counter on resources.
+  It has a new API to verify the ownership of a resource owners_count.
 
 - Signed integers are now fully supported by the introspection.
 

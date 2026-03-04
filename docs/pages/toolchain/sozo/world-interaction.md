@@ -1,3 +1,8 @@
+---
+title: World Interaction
+description: Execute, query, and manage deployed worlds with Sozo
+---
+
 # World Interaction
 
 Once your world is deployed, these commands let you interact with it during development, testing, and runtime operations.
@@ -41,7 +46,7 @@ sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 - **Transaction-based**: Requires account/signer configuration
 - **Tag resolution**: Use contract tags (e.g., `Actions`) or addresses
 - **Multicall support**: Batch multiple system calls efficiently
-- **Type-aware calldata**: Supports Dojo's [calldata format](/toolchain/sozo/index.md#data-format-reference)
+- **Type-aware calldata**: Supports Dojo's [calldata format](./index#data-format-reference)
 
 **Common Use Cases:**
 
@@ -143,6 +148,8 @@ sozo events --chunk-size 100 --json > game_events.json
 - Track player activity and game metrics
 - Build event-driven analytics
 - Monitor world activity during development
+
+For more advanced querying capabilities with GraphQL and gRPC, see the [Torii GraphQL guide](../torii/graphql) and [Torii gRPC guide](../torii/grpc).
 
 ## Permissions Management
 

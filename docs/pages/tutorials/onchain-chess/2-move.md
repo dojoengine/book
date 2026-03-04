@@ -5,7 +5,8 @@ description: Learn how to implement and test chess piece movement logic, includi
 
 # 2 Move function
 
-1. Write a `move` function that accepts the `current position`, `next position`, `caller address`, and `game_id`. The `move` function should look like this:
+1. Write a `move` function that accepts the `current position`, `next position`, `caller address`, and `game_id`.
+   The `move` function should look like this:
 
 ```rust
     #[abi(embed_v0)]
@@ -59,7 +60,7 @@ description: Learn how to implement and test chess piece movement logic, includi
 
 2. Run `sozo build` to compile the code.
 
-    Great, Now we can start testing our functions
+Great, Now we can start testing our functions
 
 ## Test Flow
 
@@ -179,7 +180,7 @@ We should list all models with each having CLASS_HASH as elements and then we de
     let world = spawn_test_world(models);
 ```
 
-After that, we deploy our system contracts, then we return our `world` and `actions_systems` dispatchers.
+After that, we deploy our contract, then we return our `world` and `actions_systems` dispatchers.
 
 ```rust
     let contract_address = world
@@ -198,14 +199,18 @@ First, we'll set up the players address and their colors.
     let black = starknet::contract_address_const::<0x02>();
 ```
 
-We use `spawn` function in `actions.cairo` to put our pieces on the board. Each square position holds a piece. The system's `spawn` function needs some input i.e the addresses of the players.
+We use `spawn` function in `actions.cairo` to put our pieces on the board.
+Each square position holds a piece.
+The contract's `spawn` function needs some input i.e the addresses of the players.
 
 ```rust
     // spawn
     let game_id = actions_system.spawn(white, black);
 ```
 
-Then we check if the players got their setup address. After that we check if a White rook is at (0,0). Remember, to get a piece that exists on the position, you need to use the keys of the `Piece` model, which are `game_id`, and `curr_pos`.
+Then we check if the players got their setup address.
+After that we check if a White rook is at (0,0).
+Remember, to get a piece that exists on the position, you need to use the keys of the `Piece` model, which are `game_id`, and `curr_pos`.
 
 ```rust
     //get a1 square
@@ -218,7 +223,8 @@ Then we check if the players got their setup address. After that we check if a W
 
 ### test_move
 
-Here, after setting up the board, we use `move` function in the contract to make moves. Provide the current position, the next position, the player's address, and the game id.
+Here, after setting up the board, we use `move` function in the contract to make moves.
+Provide the current position, the next position, the player's address, and the game id.
 
 ```rust
     //Move White Pawn to (0,2)

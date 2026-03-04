@@ -5,7 +5,8 @@ description: Complete guide to Torii's GraphQL interface, including queries, sub
 
 # GraphQL API
 
-Torii's GraphQL API provides type-safe access to your indexed Dojo world data. The schema is dynamically generated from your world's models, offering both flexible queries and real-time subscriptions.
+Torii's GraphQL API provides type-safe access to your indexed Dojo world data.
+The schema is dynamically generated from your world's models, offering both flexible queries and real-time subscriptions.
 
 ## Quick Start
 
@@ -74,7 +75,9 @@ This query will return an output like this:
 }
 ```
 
-> **Tip**: Use [stark-utils](https://www.stark-utils.xyz/) or `starkli` to compute model selectors.
+:::tip
+Use [stark-utils](https://www.stark-utils.xyz/) or `starkli` to compute model selectors.
+:::
 
 :::info
 You can find information about your schema definitions in the **Documentation Explorer** section of the GraphQL IDE.
@@ -149,15 +152,9 @@ This query will return an output like this:
                         "id": "0x00000...:0x4b264...",
                         "transactionHash": "0x4b264...",
                         "senderAddress": "0xb3ff4...",
-                        "calldata": [
-                            "0x1",
-                            "0x7ec42...",
-                            "0x217c7...",
-                            "0x0"
-                        ]
+                        "calldata": ["0x1", "0x7ec42...", "0x217c7...", "0x0"]
                     }
-                },
-                # ... four more results
+                }
             ],
             "totalCount": 5
         }
@@ -171,7 +168,8 @@ Torii supports both cursor-based and offset/limit pagination using GraphQL [Conn
 
 ### Cursor-Based Pagination
 
-Recommended for performance. Use `first`/`after` for forward pagination, `last`/`before` for backward:
+Recommended for performance.
+Use `first`/`after` for forward pagination, `last`/`before` for backward:
 
 ```graphql
 query {
@@ -190,7 +188,7 @@ query {
 }
 ```
 
-This query will return an output like this, with two results out of five.
+This query will return an output like this, with two results out of five:
 
 ```json
 {
@@ -214,7 +212,7 @@ This query will return an output like this, with two results out of five.
 }
 ```
 
-Next page, using the cursor from the previous query.
+Next page, using the cursor from the previous query:
 
 ```graphql
 query {

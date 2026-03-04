@@ -7,6 +7,122 @@ description: Comprehensive guide to Dojo's Model API, including storage operatio
 
 This reference covers the complete Model API in Dojo, including storage operations, field access patterns, and performance optimizations.
 
+## Models in Practice
+
+### Model Composition
+
+Let's explore ECS composition through a concrete gaming analogy: Orcs and Humans.
+While they possess intrinsic differences, they share common traits, such as having a position and health.
+Humans, however, possess an additional model - potions.
+
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Position {
+    #[key]
+    id: u32,
+    x: u32,
+    y: u32
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Health {
+    #[key]
+    id: u32,
+    health: u8,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Potions {
+    #[key]
+    id: u32,
+    quantity: u8,
+}
+```
+
+Human entities will have `Health`, `Position`, and `Potions` models, while Orcs will have only `Health` and `Position`.
+This lets us re-use models to create a variety of different entities.
+
+:::warning
+A `#[dojo::model]` struct cannot be used as a field inside another model.
+This is because the key retrieval system requires fields to be serializable in a way that nested models do not support.
+
+If you need a composite data type as a model field, define a plain struct and derive [`Introspect`](/framework/models/introspection) instead:
+
+```cairo
+#[derive(Drop, Serde, Introspect)]
+struct Stats {
+    atk: u8,
+    def: u8,
+}
+
+#[derive(Drop, Serde)]
+#[dojo::model]
+struct Player {
+    #[key]
+    id: u32,
+    stats: Stats, // Plain struct with Introspect, not a model
+}
+```
+
+:::
+
+The game contract would look like this:
+
+```cairo
+#[dojo::contract]
+mod spawnHuman {
+    use dojo::model::{ModelStorage};
+    use dojo::world::{WorldStorage, WorldStorageTrait};
+
+    use dojo_examples::models::{Position, Health, Potions};
+
+    #[abi(embed_v0)]
+    impl ActionsImpl of IActions<ContractState> {
+        fn spawn_entities(ref self: ContractState) {
+            let mut world = self.world(@"dojo_starter");
+
+            // spawn a human
+            let human_id = world.uuid()
+            world.write_model(@Health { id: human_id, health: 100 });
+            world.write_model(@Position { id: human_id, x: 0, y: 0 });
+            world.write_model(@Potions { id: human_id, quantity: 10 });
+
+            // spawn an orc
+            let orc_id = world.uuid()
+            world.write_model(@Health { id: orc_id, health: 100 });
+            world.write_model(@Position { id: orc_id, x: 10, y: 10 });
+        }
+    }
+}
+```
+
+### Global Settings
+
+Suppose we want to store a global game value, which we may want to modify in the future.
+To achieve this, we can create a model to store this value, while also allowing for its future modification.
+The key difference is that, instead of a variable key, we would use a **constant identifie**r.
+
+```cairo
+const RESPAWN_DELAY: u128 = 9999999999999;
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct GameSetting {
+    #[key]
+    setting_id: u128,
+    setting_value: felt252,
+}
+
+// Set respawn delay to 10 minutes
+world.write_model(@GameSetting {
+    setting_id: RESPAWN_DELAY,
+    setting_value: (10 * 60).into()
+});
+```
+
 ## Core Model Trait
 
 Every model in Dojo implements the [`Model<M>` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/model.cairo), which provides comprehensive functionality for model operations.
@@ -161,8 +277,8 @@ world.erase_models_ptrs(ptrs);
 Field operations are more efficient when you only need to update specific fields:
 
 :::warning
-Field-level operations are advanced features that require careful use. For most applications,
-use the simpler `world.read_model()` and `world.write_model()` methods.
+Field-level operations are advanced features that require careful use.
+For most applications, use the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
 #### Reading Fields

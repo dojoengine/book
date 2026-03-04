@@ -53,11 +53,13 @@ SN_SEPOLIA
 # world_address = "<World Address>"
 ```
 
-- It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script. Then you should expose it.
+- It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script.
+  Then you should expose it.
 
 - Clone the [`dev`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/dev/) overlays to [`sepolia`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/sepolia/)
 
-- Create `.env.sepolia` containing your RPC provider, account and private key. Make sure that account is deployed and has some [ETH](https://starknet-faucet.vercel.app) in it (0.001 is more than enough).
+- Create `.env.sepolia` containing your RPC provider, account and private key.
+  Make sure that account is deployed and has some [ETH](https://starknet-faucet.vercel.app) in it (0.001 is more than enough).
 
 ```sh
 # usage: source .env.sepolia
@@ -145,57 +147,14 @@ world_block = 42069 # Here you add the block number where the world was deployed
 
 ### Torii Indexer
 
-Now, if you're building a Dojo client, you will need a Torii service to index our world...
-
-- Install [slot](https://github.com/cartridge-gg/slot) or update it. You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
-
-```sh
-slotup
-```
-
-- Authorize
-
-```sh
-slot auth login
-```
-
-- Create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
-    - `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
-    - `RPC_URL`: your RPC provider url
-
-```toml
-# torii.toml
-world_address = "<WORLD_ADDRESS>"
-rpc = "<RPC_URL>"
-```
-
-- Create Torii service with this command, replacing...
-    - `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
-    - `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
-
-```sh
-slot deployments create <SERVICE_NAME> torii --config torii.toml --version <DOJO_VERSION>
-```
-
-- slot will output something like this. Save it for later, you will need the endpoints on your client.
-
-```
-Deployment success 🚀
-
-Stream logs with `slot deployments logs <SERVICE_NAME> torii -f`
-```
-
-- If for any reasons we need to recreate Torii, we can just delete it and run the create command again. This is safe, all your data is on-chain.
-
-```sh
-slot deployments delete <SERVICE_NAME> torii
-```
+For deploying a Torii indexer on Sepolia or Mainnet, see the [deploying with Slot tutorial](/tutorials/deploy-using-slot#torii) for detailed configuration and deployment steps using the Slot platform.
 
 ### Some notes on the client side
 
 - The `migrate` script is copying manifests to `/client/src/dojo/generated/<PROFILE>`, each chain needs to use their own manifest!
 
-- The client needs the env variable `VITE_PUBLIC_CHAIN_ID` to be set to your chain id. Configure on your sever and add it to your `.env` to access your deployment localy:
+- The client needs the env variable `VITE_PUBLIC_CHAIN_ID` to be set to your chain id.
+  Configure on your sever and add it to your `.env` to access your deployment localy:
 
 ```
 VITE_PUBLIC_CHAIN_ID=SN_SEPOLIA
@@ -209,7 +168,8 @@ VITE_PUBLIC_CHAIN_ID=SN_MAIN
 
 ### Debug with Walnut
 
-Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
+Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments.
+Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
 
 #### Step 1: Verify your Contracts
 

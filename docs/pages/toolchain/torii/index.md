@@ -7,7 +7,7 @@ description: Comprehensive indexing engine for Dojo worlds, providing real-time 
 
 # Torii
 
-Torii is the official indexing engine for Dojo worlds, designed to provide real-time synchronization between on-chain game state and client applications.
+Torii is the official indexing engine for Dojo worlds, designed to provide real-time synchronization between on-chain game world state and client applications.
 Built in Rust for performance and reliability, Torii automatically tracks all changes to your game's Entity Component System (ECS) data and makes it accessible through multiple API interfaces.
 
 ## Architecture Overview
@@ -24,9 +24,9 @@ The database schema is dynamically generated based on your world's model definit
 
 **API Layer**: Multiple interfaces for accessing indexed data:
 
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Provides a flexible, typed interface with real-time subscriptions
-- **[gRPC API](/toolchain/torii/grpc.md)**: High-performance binary protocol for efficient data fetching
-- **[SQL Endpoint](/toolchain/torii/sql.md)**: Direct database access for custom queries
+- **[GraphQL API](/toolchain/torii/graphql)**: Provides a flexible, typed interface with real-time subscriptions
+- **[gRPC API](/toolchain/torii/grpc)**: High-performance binary protocol for efficient data fetching
+- **[SQL Endpoint](/toolchain/torii/sql)**: Direct database access for custom queries
 
 ### Data Flow
 
@@ -68,56 +68,16 @@ For production deployments, use persistent storage and custom configuration:
 torii --world <WORLD_ADDRESS> --db-dir ./torii-db --config torii_prod.toml
 ```
 
+### Monitoring and Metrics
+
+Torii integrates with [Katana's development tools](/toolchain/katana/development) to provide comprehensive monitoring of blockchain event processing and indexing performance.
+
 ## Installation
 
-Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
-
-```sh
-curl -L https://install.dojoengine.org | bash
-
-# Restart your terminal
-
-dojoup install
-```
-
-:::note
-This will install the `torii` binary at `~/.dojo/bin`
-:::
-
-:::tip
-Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
-:::
-
-### Installing with `asdf`
-
-If you prefer to install with the `asdf` version manager:
-
-```sh
-asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
-
-asdf install torii latest
-```
-
-:::note
-This will install the `torii` binary at `~/.asdf/shims`
-:::
-
-### Building from Source
-
-If you prefer to build from the source code:
-
-```sh
-git clone https://github.com/dojoengine/torii.git
-
-cargo install --path ./torii/bin/torii --profile local --force
-```
-
-:::note
-This will install the `torii` binary at `~/.cargo/bin`
-:::
+For installation instructions, see the [Dojo installation guide](/installation).
 
 ## Next Steps
 
-- **[Configuration Guide](/toolchain/katana/configuration.md)**: Learn how to configure Torii with TOML files and CLI arguments
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Explore the GraphQL interface for flexible data queries
-- **[gRPC API](/toolchain/torii/grpc.md)**: Use the high-performance gRPC interface
+- **[Configuration Guide](/toolchain/torii/configuration)**: Learn how to configure Torii with TOML files and CLI arguments
+- **[GraphQL API](/toolchain/torii/graphql)**: Explore the GraphQL interface for flexible data queries
+- **[gRPC API](/toolchain/torii/grpc)**: Use the high-performance gRPC interface

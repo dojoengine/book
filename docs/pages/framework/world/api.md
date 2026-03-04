@@ -195,7 +195,7 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Custom Events
+## Event System
 
 #### `emit_event<T>`
 
@@ -224,6 +224,8 @@ world.emit_event(@PlayerMoved {
 - Must be annotated with `#[dojo::event]`
 - Must have at least one `#[key]` field
 - All types must derive `Introspect`
+
+For detailed information about events, see the [Events guide](/framework/world/events).
 
 ## Permission Management
 
@@ -284,6 +286,8 @@ Revokes writer permission from a contract.
 world.revoke_writer(resource_selector, contract_address);
 ```
 
+For comprehensive permission management information, see the [Permissions guide](/framework/world/permissions).
+
 ## Resource Management
 
 ### Resource Information
@@ -317,6 +321,8 @@ let metadata = ResourceMetadata {
 
 world.set_metadata(metadata);
 ```
+
+For detailed resource metadata management, see the [Metadata guide](/framework/world/metadata).
 
 ## Utility Functions
 

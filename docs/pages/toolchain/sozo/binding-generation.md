@@ -8,6 +8,39 @@ description: "Generate type-safe client bindings for your Dojo world across mult
 Client bindings bridge the gap between your Cairo smart contracts and client applications.
 Sozo's `bindgen` generates type-safe, platform-specific code that enables native interaction with your Dojo world.
 
+## What are Bindings?
+
+**Language bindings** are code libraries that allow programs written in one language to interact with systems written in another language.
+In blockchain development, smart contracts are often written in specialized languages (like Cairo or Solidity), while client applications use general-purpose languages (like Rust or TypeScript).
+
+Bindings solve this integration challenge by:
+
+- **Translating function calls** from the client language to the contract's native format
+- **Converting data types** between different language type systems
+- **Handling serialization** to transform data for network transmission
+- **Providing type safety** to catch errors at compile-time rather than runtime
+
+For example, without bindings, calling a Cairo contract from Rust would require manually:
+
+```rust
+// Manual contract interaction (error-prone)
+let calldata = vec![
+    Felt::from_hex("0x123...")?,  // What does this represent?
+    Felt::from(42_u32),           // Raw numeric conversion
+    // ... more manual serialization
+];
+let result = provider.call(contract_address, "mystery_function", calldata).await?;
+// Result is raw Felt values - what do they mean?
+```
+
+With generated bindings, the same interaction becomes:
+
+```rust
+// Type-safe binding (clear and safe)
+let result = contract.transfer_tokens(recipient_address, amount).call().await?;
+// Result is a strongly-typed struct with meaningful fields
+```
+
 ## Basic Workflow
 
 ```bash

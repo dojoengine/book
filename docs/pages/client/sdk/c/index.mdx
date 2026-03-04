@@ -8,13 +8,47 @@ description: "The comprehensive client library that powers all Dojo SDKs across 
 [**dojo.c**](https://github.com/dojoengine/dojo.c) is the comprehensive client library that powers all Dojo SDKs.
 Written in Rust, it provides everything you need for Dojo game development: world state queries via Torii, account management, transaction execution, and real-time subscriptions that work consistently across all platforms.
 
+## What You Get
+
+dojo.c is a "batteries included" SDK that bundles everything needed for Dojo game development:
+
+### Torii Client (Primary Focus)
+
+- **Entity Queries**: Fetch world state with powerful filtering and pagination
+- **Real-time Subscriptions**: Subscribe to entity changes and events
+- **Transaction Monitoring**: Track transaction status and confirmations
+
+### Integrated Account Management
+
+- **Controller Accounts**: Session-based accounts with policy-restricted permissions
+- **Burner Accounts**: Disposable accounts funded by a master account
+- **Direct Accounts**: Full control accounts for advanced use cases
+
+### Built-in Starknet Provider
+
+- **Transaction Execution**: Submit transactions directly without separate RPC setup
+- **System Calls**: Query contract view functions
+- **Chain Operations**: Handle nonces, block IDs, and transaction waiting
+
+### Asset & Token Operations
+
+- **Token Queries**: Fetch ERC20/721/1155 token information
+- **Balance Tracking**: Monitor token balances across accounts
+- **Real-time Updates**: Subscribe to token and balance changes
+
+### Event & Message System
+
+- **Event Subscriptions**: Listen to Starknet events and Dojo model changes
+- **Message Publishing**: Send messages through the Dojo messaging system
+- **Transaction History**: Query historical transactions and events
+
 ## Implementation Architecture
 
 Rather than implementing blockchain logic separately in each SDK, all Dojo integrations build on this single foundation:
 
-- **Unity SDK** uses dojo.c via C# P/Invoke
-- **JavaScript SDK** uses dojo.c compiled to WebAssembly
-- **Unreal Engine** integrates dojo.c through C++ bindings
+- **Unity SDK** uses dojo.c via [C# P/Invoke](./c-bindings)
+- **JavaScript SDK** uses dojo.c compiled to [WebAssembly](./wasm-bindings)
+- **Unreal Engine** integrates dojo.c through [C++ bindings](./c-bindings)
 - **Custom integrations** can use dojo.c directly
 
 This ensures consistent behavior, shared bug fixes, and optimal performance across all platforms.
@@ -59,40 +93,6 @@ The two interfaces are designed for different use cases:
 - **Use Cases**: Browser games, web apps, Node.js backends, testing
 - **Memory Management**: Automatic garbage collection
 - **Threading**: Promise-based with native async support
-
-## What You Get
-
-dojo.c is a "batteries included" SDK that bundles everything needed for Dojo game development:
-
-### Torii Client (Primary Focus)
-
-- **Entity Queries**: Fetch world state with powerful filtering and pagination
-- **Real-time Subscriptions**: Subscribe to entity changes and events
-- **Transaction Monitoring**: Track transaction status and confirmations
-
-### Integrated Account Management
-
-- **Controller Accounts**: Session-based accounts with policy-restricted permissions
-- **Burner Accounts**: Disposable accounts funded by a master account
-- **Direct Accounts**: Full control accounts for advanced use cases
-
-### Built-in Starknet Provider
-
-- **Transaction Execution**: Submit transactions directly without separate RPC setup
-- **Contract Calls**: Query contract view functions
-- **Chain Operations**: Handle nonces, block IDs, and transaction waiting
-
-### Asset & Token Operations
-
-- **Token Queries**: Fetch ERC20/721/1155 token information
-- **Balance Tracking**: Monitor token balances across accounts
-- **Real-time Updates**: Subscribe to token and balance changes
-
-### Event & Message System
-
-- **Event Subscriptions**: Listen to Starknet events and Dojo model changes
-- **Message Publishing**: Send messages through the Dojo messaging system
-- **Transaction History**: Query historical transactions and events
 
 ## Choosing the Right API
 

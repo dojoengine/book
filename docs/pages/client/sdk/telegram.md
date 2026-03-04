@@ -18,6 +18,8 @@ A typical Dojo Telegram app consists of:
 3. **Blockchain Layer**: Dojo smart contracts on Starknet
 4. **State Management**: Torii client for real-time entity subscriptions
 
+The Telegram SDK for Dojo is built on the [JavaScript SDK](/client/sdk/javascript), providing React-specific hooks and components optimized for Telegram Mini Apps.
+
 ## Getting Started
 
 ### Prerequisites
@@ -25,7 +27,7 @@ A typical Dojo Telegram app consists of:
 Before building your Telegram Mini App, ensure you have a Bot Token from [@BotFather](https://t.me/botfather).
 
 :::tip
-See the [Dojo.js docs](/client/sdk/javascript) for more information about using Dojo with React.
+See the [JavaScript SDK documentation](/client/sdk/javascript) for more information about using Dojo with React.
 :::
 
 ### Quick Start

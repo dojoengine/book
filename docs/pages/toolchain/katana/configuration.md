@@ -127,7 +127,7 @@ katana --validate-max-steps 2000000 --invoke-max-steps 20000000
 ```
 
 :::tip
-Use `katana --help` for a full command reference.
+Use `katana --help` for complete command reference.
 :::
 
 ### Subcommands

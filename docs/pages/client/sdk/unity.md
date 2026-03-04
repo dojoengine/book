@@ -11,6 +11,9 @@ With its intuitive visual editor, robust scripting capabilities in C#, and exten
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
 Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
+The Unity SDK builds on Dojo's C# bindings through P/Invoke integration.
+For detailed information about the underlying C++ implementation and architecture, see the [C SDK documentation](../c).
+
 ## Core Concepts
 
 Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
@@ -40,7 +43,6 @@ Key Features:
 - Control synchronization: Set the maximum number of entities to synchronize.
 
 - Event-driven communication:
-
     - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
     - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
 
@@ -53,8 +55,8 @@ Key Features:
 In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as a "code binding".
 A code binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
 
-Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](/toolchain/cainome).
-You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
+Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](../../../toolchain/cainome).
+You can learn more about Sozo's binding generation features [here](../../../toolchain/sozo/binding-generation).
 
 ## Getting Started
 
@@ -138,7 +140,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 #### Adding model bindings
 
-1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
+1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](../../../toolchain/sozo/binding-generation#unity) for instructions.
 
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
@@ -153,8 +155,8 @@ This section explores the process of interacting with Dojo systems from Unity.
 
 ### Account Creation
 
-Every transaction to a Dojo system must come from an **account**.
-Accounts are required to sign and execute transactions that modify your game's on-chain state.
+Every system call to a Dojo world must come from an **account**.
+Accounts are required to sign and execute transactions that modify your game's world state.
 
 We have two options for creating an account: a simple account, or a burner account.
 
@@ -205,7 +207,7 @@ Replace `masterAddress` and `masterPrivateKey` with the **account Address** and 
 Once we have an [account](#account-creation), we must execute a call to a Dojo system.
 To do this, we must first teach our Unity project about our Dojo contracts using [code bindings](#code-bindings).
 
-Sozo's [bindgen](/toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
+Sozo's [bindgen](../../../toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
 
 Let's consider a practical example: a `PlayerActions` contract that handles player creation in an RPG game.
 This system allows players to create their character by choosing a name and selecting their gender, then stores this information on-chain as part of the game state.
@@ -344,7 +346,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 
 #### Model Binding Errors
 
-When modifying the bindings generated during [bindgen](/toolchain/sozo/binding-generation#unity), ensure that all fields in the model bindings are declared as public.
+When modifying the bindings generated during [bindgen](../../../toolchain/sozo/binding-generation#unity), ensure that all fields in the model bindings are declared as public.
 
 :::warning
 Failing to do so can result in the values of the fields not being loaded properly.
@@ -359,7 +361,6 @@ You may encounter the following error while building for WebGL:
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
-
     - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
       ![webgl-error](/client/unity/webgl-build-fail.webp)
         > Example without `Dojo` template selected
@@ -368,7 +369,6 @@ Here are the steps to address it:
     - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
-
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
     - Add this folder to your project's Assets directory.
@@ -446,7 +446,7 @@ Clone the [dojo.unity](https://github.com/dojoengine/dojo.unity) and [Dojo Start
 
 #### Setting up Dojo Starter
 
-Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter.mdx) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
+Follow the steps outlined in the [Dojo Starter setup guide](../../../tutorials/dojo-starter) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
 
 #### Setting up dojo.unity
 

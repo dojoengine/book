@@ -15,18 +15,7 @@ They encapsulate business logic, orchestrate state changes, and define how your 
 In Dojo's ECS paradigm, systems represent the **logic** that operates on data stored in models.
 While models define **what** your world contains, systems define **how** it behaves.
 
-```
-┌─────────────────────────────────────────────────┐
-│                    ECS Trinity                  │
-├─────────────────────────────────────────────────┤
-│  Entities  │  Components  │      Systems        │
-│  (Who)     │  (What)      │       (How)         │
-├─────────────────────────────────────────────────┤
-│  Players   │  Position    │   Movement Logic    │
-│  Monsters  │  Health      │   Combat Logic      │
-│  Items     │  Inventory   │   Trading Logic     │
-└─────────────────────────────────────────────────┘
-```
+For a detailed explanation of ECS architecture and its benefits, see the [Framework Overview](../index).
 
 Systems are **stateless functions** that:
 
@@ -38,6 +27,7 @@ Systems are **stateless functions** that:
 :::warning
 In order to write data to the world, a system needs explicit permission from the model owner.
 Permissions are defined at the contract (address) level, which means that all the systems inside the same contract will inherit the same permissions.
+For details on permission configuration, see [World Permissions](../world/permissions).
 :::
 
 ## System Design Philosophy
@@ -181,7 +171,7 @@ mod my_system {
 ```
 
 Initialization arguments are configured in your profile's `[init_call_args]` section.
-See [Contract Initialization](/framework/configuration#contract-initialization) for details.
+See [Contract Initialization](../configuration#contract-initialization) for details.
 
 ### Execution
 
@@ -259,7 +249,7 @@ Systems should be designed for testability:
 Understanding system design philosophy is crucial for building robust Dojo applications.
 Explore the deeper aspects of system implementation:
 
-- **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
-- **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
+- **[System Architecture](./architecture)** - Structural patterns and organization
+- **[System Coordination](./coordination)** - How systems interact and coordinate
 
 Systems are the heart of your application - design them thoughtfully and they'll serve you well.

@@ -11,7 +11,8 @@ Welcome to this tutorial where we'll guide you through deploying a project using
 
 ---
 
-Before we start, make sure you are using the latest dojo version. Run `dojoup` to have the latest version installed.
+Before we start, make sure you are using the latest dojo version.
+Run `dojoup` to have the latest version installed.
 
 Now, let's create a new project and initialize it with sozo.
 
@@ -19,7 +20,8 @@ Now, let's create a new project and initialize it with sozo.
 sozo init dojo-starter && cd dojo-starter
 ```
 
-First, we need to set up our configuration, starting by authenticating with Cartridge. To do this, run the following command, which will then prompt a new screen where you will need to go through the authentication process.
+First, we need to set up our configuration, starting by authenticating with Cartridge.
+To do this, run the following command, which will then prompt a new screen where you will need to go through the authentication process.
 
 ```sh
 slot auth login
@@ -42,14 +44,16 @@ Alternatively, you can provide a [Katana configuration file](/toolchain/katana/c
 slot deployments create DEPLOYMENT_NAME katana --config katana.toml
 ```
 
-After that, you should receive the RPC endpoint for the katana slot. Now, you can use that and update your `Scarb.toml` file with the new RPC endpoint as follows:
+After that, you should receive the RPC endpoint for the katana slot.
+Now, you can use that and update your `Scarb.toml` file with the new RPC endpoint as follows:
 
 ```toml
 [tool.dojo.env]
 rpc_url = "YOUR_NEW_RPC_URL"
 ```
 
-Now, you can stream katana in a new terminal. Open a new terminal and run the following command:
+Now, you can stream katana in a new terminal.
+Open a new terminal and run the following command:
 
 ```sh
 slot deployments logs DEPLOYMENT_NAME katana -f
@@ -66,7 +70,8 @@ Note: For each new Katana slot, a different account seed is used, making all the
 
 ---
 
-Once finished with the new configurations, we are ready to build and migrate the project. To build the project, run the following command:
+Once finished with the new configurations, we are ready to build and migrate the project.
+To build the project, run the following command:
 
 ```sh
 sozo build
@@ -89,34 +94,58 @@ If the migrations have been successful, you will receive the `WORLD_ADDRESS`, wh
 
 ```
 
-Congratulations! You have successfully deployed your project with a Katana slot.
+Congratulations!
+You have successfully deployed your project with a Katana slot.
 
-## Torii
+## Deploying a Torii Indexer
 
-To deploy a Torii indexer slot, first create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
+Now, if you're building a Dojo client, you will need a Torii indexer to index your world.
+
+Install [slot](https://github.com/cartridge-gg/slot) or update it.
+You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
+
+```sh
+slotup
+```
+
+Authorize:
+
+```sh
+slot auth login
+```
+
+Create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
+
+- `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
+- `RPC_URL`: your RPC provider url
 
 ```toml
 # torii.toml
-world_address = "YOUR_WORLD_ADDRESS"
-rpc = "YOUR_NEW_RPC_URL"
+world_address = "<WORLD_ADDRESS>"
+rpc = "<RPC_URL>"
 ```
 
-Then create the deployment:
+Create Torii indexer with this command, replacing:
+
+- `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
+- `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
 
 ```sh
-slot deployments create DEPLOYMENT_NAME torii --config torii.toml
+slot deployments create <SERVICE_NAME> torii --config torii.toml --version <DOJO_VERSION>
 ```
 
-You can also specify a Dojo version with `--version`:
+Slot will output something like this.
+Save it for later, you will need the endpoints on your client.
 
-```sh
-slot deployments create DEPLOYMENT_NAME torii --config torii.toml --version v1.8.0
+```
+Deployment success 🚀
+
+Stream logs with `slot deployments logs <SERVICE_NAME> torii -f`
 ```
 
-Once deployment is successful, you should receive the endpoints for GraphQL and gRPC.
-
-If you wish to stream the logs, you can run the following command in a new terminal:
+If for any reasons we need to recreate Torii, we can just delete it and run the create command again.
+This is safe, all your data is on-chain.
 
 ```sh
-slot deployments logs DEPLOYMENT_NAME torii -f
+slot deployments delete <SERVICE_NAME> torii
 ```
