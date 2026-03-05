@@ -124,23 +124,10 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
-            - name: Check if build passes
-              id: build-check
-              run: |
-                  if pnpm run build 2>&1; then
-                    echo "status=pass" >> "$GITHUB_OUTPUT"
-                  else
-                    echo "status=fail" >> "$GITHUB_OUTPUT"
-                  fi
-
-            - name: Fix build errors
-              if: steps.build-check.outputs.status == 'fail'
-              env:
-                  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+            - name: Fix dead links
               run: node scripts/confirm-build.mjs
 
             - name: Commit fixes
-              if: always() && steps.build-check.outputs.status == 'fail'
               run: |
                   if [ -z "$(git status --porcelain docs/)" ]; then
                     echo "No fixes needed"
