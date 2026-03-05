@@ -11,6 +11,9 @@ With its intuitive visual editor, robust scripting capabilities in C#, and exten
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
 Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
+Built on the foundation of [dojo.c](./c), the Unity SDK provides high-level C# bindings and Unity-specific components while leveraging the robust architecture of the underlying C library.
+This approach ensures optimal performance, reliability, and consistency across all supported platforms.
+
 ## Core Concepts
 
 Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
@@ -40,7 +43,6 @@ Key Features:
 - Control synchronization: Set the maximum number of entities to synchronize.
 
 - Event-driven communication:
-
     - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
     - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
 
@@ -53,7 +55,7 @@ Key Features:
 In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as a "code binding".
 A code binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
 
-Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](/toolchain/cainome).
+Dojo's Sozo CLI provides built-in support for bindings, through [Cainome](/toolchain/cainome).
 You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
 
 ## Getting Started
@@ -203,7 +205,7 @@ Replace `masterAddress` and `masterPrivateKey` with the **account Address** and 
 ### System Execution
 
 Once we have an [account](#account-creation), we must execute a call to a Dojo system.
-To do this, we must first teach our Unity project about our Dojo contracts using [code bindings](#code-bindings).
+To do this, we must first teach our Unity project about our Dojo contracts using [bindings](#code-bindings).
 
 Sozo's [bindgen](/toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
 
@@ -359,7 +361,6 @@ You may encounter the following error while building for WebGL:
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
-
     - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
       ![webgl-error](/client/unity/webgl-build-fail.webp)
         > Example without `Dojo` template selected
@@ -368,7 +369,6 @@ Here are the steps to address it:
     - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
-
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
     - Add this folder to your project's Assets directory.

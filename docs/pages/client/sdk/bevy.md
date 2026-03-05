@@ -11,6 +11,11 @@ Known for its performance, modularity, and ergonomic API, Bevy enables developer
 Dojo.bevy is the official Bevy engine SDK for interacting with Dojo worlds, providing native Rust integration for building high-performance onchain games.
 Built specifically for Bevy's ECS architecture, it seamlessly integrates with Bevy's component system while maintaining the performance and safety guarantees that Rust developers expect.
 
+## Foundation Architecture
+
+Dojo.bevy is built on top of [dojo.c](../c/index.mdx), which provides the foundational bindings for all Dojo SDKs.
+This ensures consistency across different platforms while maintaining the performance characteristics that make Rust and Bevy ideal for game development.
+
 ## Core Concepts
 
 Before diving into building onchain games with Bevy, let's explore the essential components of the Dojo.bevy architecture:

@@ -203,9 +203,9 @@ katana --messaging messaging_config.json
 
 **Configuration Parameters**:
 
-- **`chain`**: Settlement chain type (`"ethereum"` or `"starknet"`)
-- **`rpc_url`**: RPC endpoint for the settlement chain
-- **`contract_address`**: Messaging contract address on settlement chain
+- **`chain`**: Settlement layer type (`"ethereum"` or `"starknet"`)
+- **`rpc_url`**: RPC URL for the settlement layer
+- **`contract_address`**: Messaging contract address on settlement layer
 - **`sender_address`**: Account address for sending settlement transactions
 - **`private_key`**: Private key for the sender account (keep secure!)
 - **`interval`**: Message polling interval in seconds
@@ -242,6 +242,8 @@ See the [starknet-messaging-dev](https://github.com/glihm/starknet-messaging-dev
 Katana provides `katana init` for initializing new blockchain networks with configurable settlement layers.
 This enables deployment of rollup chains that settle to Starknet networks or sovereign chains with data availability layers.
 
+For detailed information about settlement architecture and Saya-based rollup deployment, see the [Saya documentation](../saya).
+
 ### Settlement Models
 
 **Rollup Settlement**: Deploy a rollup chain that settles to Starknet mainnet or testnet.
@@ -256,7 +258,7 @@ Initialize a new rollup settling to Starknet mainnet:
 ```bash
 katana init \
   --id "my_rollup" \
-  --settlement-chain mainnet \
+  --settlement-layer mainnet \
   --settlement-account-address 0x123... \
   --settlement-account-private-key 0xabc... \
   --output-path ./chain-config
@@ -280,7 +282,7 @@ katana init \
 
 **Settlement Configuration**:
 
-- `--settlement-chain`: Target settlement network (`mainnet`, `sepolia`, or custom)
+- `--settlement-layer`: Target settlement network (`mainnet`, `sepolia`, or custom)
 - `--settlement-account-address`: Account address for settlement operations
 - `--settlement-account-private-key`: Private key for settlement account
 - `--settlement-facts-registry`: Custom fact registry contract address
@@ -291,7 +293,7 @@ katana init \
 - `--settlement-contract-deployed-block`: Block number of contract deployment
 - If no contract address provided, init will deploy a new settlement contract
 
-### Settlement Chain Options
+### Settlement Layer Options
 
 **Starknet Mainnet**: Production settlement with maximum security.
 Uses Herodotus Atlantic Fact Registry for proof verification.
@@ -299,7 +301,7 @@ Uses Herodotus Atlantic Fact Registry for proof verification.
 **Starknet Sepolia**: Testnet settlement for development and testing.
 Lower cost alternative with same security model.
 
-**Custom Settlement**: Specify custom RPC endpoint and fact registry.
+**Custom Settlement**: Specify custom RPC URL and fact registry.
 Requires `--settlement-facts-registry` parameter.
 
 ### Generated Configuration
@@ -315,7 +317,7 @@ chain-config/
 
 ### Example Workflow
 
-1. **Prepare Settlement Account**: Create and fund an account on the settlement chain
+1. **Prepare Settlement Account**: Create and fund an account on the settlement layer
 2. **Initialize Chain**: Run `katana init` with appropriate parameters
 3. **Review Configuration**: Examine generated config files and adjust as needed
 4. **Launch Network**: Start Katana using the generated configuration
@@ -367,6 +369,6 @@ starkli invoke <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
 ```
 
 :::note
-[Sozo](/toolchain/sozo) is the preferred build and deployment for Dojo development.
+[Sozo](../sozo) is the preferred build and deployment tool for Dojo development.
 Starkli integration is useful for standard Cairo contracts and production validation workflows.
 :::

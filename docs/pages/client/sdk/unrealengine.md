@@ -8,6 +8,8 @@ description: "Introduction to the official Unreal Engine 5 SDK for building Dojo
 [Dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
+Built on the foundation of [dojo.c](./c), this SDK provides Unreal Engine-specific bindings and Blueprint integration while leveraging the core performance and cross-platform compatibility of the underlying C library.
+
 ## Prerequisites
 
 Before getting started, ensure you have the Unreal Engine installed.

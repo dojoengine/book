@@ -91,6 +91,8 @@ Forking currently supports blockchain state (storage, classes, nonces) but not h
 Full historical data support is planned.
 :::
 
+For advanced forking configuration including settlement layer integration, see the [Katana advanced features](/toolchain/katana/advanced) documentation.
+
 #### Usage Example
 
 Fork Starknet mainnet at a specific block.
@@ -240,6 +242,8 @@ RPC commands are organized across multiple namespaces:
 - **`dev`**: Development utilities like manual block mining and time control
 - **`katana`**: Node-specific endpoints for configuration and account info
 - **`torii`**: ECS entity/component queries for Dojo integration
+
+For guidance on using Katana in contract deployment workflows, see the [Sozo project management](/toolchain/sozo/project-management) documentation.
 
 #### Usage Example
 

@@ -5,7 +5,8 @@ description: "The World contract - your application's central database and orche
 
 # World Contract
 
-The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application. Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
+The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
+Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
 ![World Contract Overview](/framework/world-map.png)
 
@@ -37,7 +38,8 @@ world.emit_event(@Moved { player, direction });
 
 ### Resources and Namespaces
 
-In Dojo, everything is a **resource** - models, systems, events, and even the world itself. Resources are organized within **namespaces** to prevent conflicts and enable modular development.
+In Dojo, everything is a **resource** - models, systems, events, and even the world itself.
+Resources are organized within **namespaces** to prevent conflicts and enable modular development.
 
 ```cairo
 // Resources are identified by their namespace and name
@@ -139,6 +141,8 @@ The World contract implements a resource-based permission system with two permis
 - Reading is always permissionless
 - Writing requires Writer permission on the resource or its namespace
 - When you deploy to a world, you automatically become owner of your namespace
+
+For detailed permission management, see the [Permissions guide](/framework/world/permissions).
 
 ## Getting Started
 
@@ -247,7 +251,8 @@ The World contract includes several optimizations:
 
 ## The World Interface
 
-The World contract exposes a complete interface for external interactions. While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
+The World contract exposes a complete interface for external interactions.
+While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
 
 ```cairo
 // Generate unique IDs

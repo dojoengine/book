@@ -24,6 +24,10 @@ For more information about the Torii gRPC client, check out [this documentation]
 
 ## Getting Started
 
+For details on the underlying SDK architecture, see the [Foundation-First Architecture section](./index#foundation-first-architecture).
+
+For common patterns that apply across all Dojo SDKs, see the [Common Patterns section](./index#common-patterns).
+
 ### Quickstart Wizard
 
 The fastest way to get started is using our quickstart wizard.
@@ -79,7 +83,7 @@ export const dojoConfig = createDojoConfig({ manifest });
 
 #### Generate TypeScript Bindings
 
-[Generate code bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
+[Generate bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
 
 ```bash
 DOJO_MANIFEST_PATH="../path/to/Scarb.toml" sozo build --typescript
@@ -417,6 +421,11 @@ If you want messages to be broadcast to all of your torii client instances, you'
 `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
 :::
 
+### Telegram Integration
+
+Dojo.js integrates seamlessly with Telegram Mini Apps for building social gaming experiences.
+For detailed implementation guides and examples, see the [Telegram SDK documentation](./telegram).
+
 ### Querying Tokens
 
 Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
@@ -456,7 +465,8 @@ function TokenBalance({ address }: { address: string }) {
 
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

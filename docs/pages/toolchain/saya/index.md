@@ -5,8 +5,8 @@ description: Overview of Saya, the settlement orchestrator for Katana.
 
 ![saya](/toolchain/saya-icon-word.png)
 
-Saya is the settlement orchestrator for Katana, it is responsible for fetching the blocks from Katana and prove them.
-Once the block execution is proven, Saya can settle the block either by verifying it on a settlement layer and update the state of the core contract, or by posting the data to a data availability layer.
+Saya is the settlement orchestrator for Katana, responsible for fetching blocks from Katana and proving them.
+Once the block execution is proven, Saya can settle the block either by verifying it on a settlement layer and updating the state of the core contract, or by posting the data to a data availability layer.
 
 ## Architecture
 
@@ -30,15 +30,15 @@ Currently, Saya can operate in two modes:
 
 1. [**Persistent mode**](/toolchain/saya/persistent): Saya will fetch the blocks from Katana and will verify the proof and update the state of the core contract on the settlement layer.
 
-    ::::info
+    :::info
     At the moment only [Starknet](https://starknet.io/) is supported as a settlement layer.
-    ::::
+    :::
 
 2. [**Sovereign mode**](/toolchain/saya/sovereign): Saya will fetch the blocks from Katana and will post the proof and associated compressed state diff to a data availability layer.
 
-    ::::info
+    :::info
     At the moment only [Celestia](https://celestia.org/) is supported as a data availability layer.
-    ::::
+    :::
 
 ## Herodotus
 
@@ -47,9 +47,9 @@ This service can handle trace generation and proof generation, by proxying the p
 
 You will need to create an account on the [Herodotus portal](https://herodotus.cloud) and provide the account API key in the `ATLANTIC_KEY` environment variable.
 
-::::tip
+:::tip
 If you are testing Saya for a Dojo project, contact us in the [Dojo Discord](https://discord.gg/dojoengine) for some credits.
-::::
+:::
 
 ## Installation
 

@@ -175,7 +175,7 @@ torii --http.cors_origins "*"
 - Manages World interactions
 - Handles authorization
 
-> **New to Sozo?** See our [complete Sozo reference](/toolchain/sozo/) for all available commands and options.
+> **New to Sozo?** See our [complete Sozo reference](./toolchain/sozo/) for all available commands and options.
 
 ### Project Lifecycle with Sozo
 
@@ -202,7 +202,7 @@ sozo test
 sozo clean
 ```
 
-:::info
+:::note
 To build new profiles, add `[profile.<PROFILE>]` to your project's `Scarb.toml`.
 :::
 
@@ -231,7 +231,7 @@ Finished `dev` profile target(s) in 8 seconds
 ⛩️ Migration successful with world at address 0x04d97...
 ```
 
-:::info
+:::note
 To define new profiles, create a `dojo_<PROFILE>.toml` file in your contract directory.
 :::
 
@@ -240,7 +240,7 @@ You **must** have a `dojo_dev.toml` file in your contract directory, or Sozo wil
 :::
 
 After migrating, Sozo will generate a `manifest_<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
-Thsi file is meant to be consumed by clients to help them interact with the world.
+This file is meant to be consumed by clients to help them interact with the World.
 
 #### 4. Interaction
 
@@ -288,7 +288,7 @@ world_address = "0x04d9..." # For previously deployed worlds
 "di" = ["di-actions"] # target = grantee
 ```
 
-See [this page](/framework/configuration) for more information about Sozo profiles.
+See [this page](./framework/configuration) for more information about Sozo profiles.
 
 ## Saya: Your Proof Generator
 
@@ -310,10 +310,10 @@ You **do not** need Saya for basic Dojo development.
 Saya becomes important when you want:
 
 - **Provable fairness**: Public guarantees of correct execution
-- **L1 settlement**: Settle state changes on Ethereum or other chains
 - **Competition integrity**: Tamper-proof tournaments and rankings
+- **L1 settlement**: Settle state changes on Ethereum or other chains
 
-For more information about Saya, [see the docs](/toolchain/saya).
+For more information about Saya, [see the docs](./toolchain/saya).
 
 ## How The Toolchain Works Together
 
@@ -321,7 +321,7 @@ Here's the typical development flow:
 
 1. **Sozo** compiles your Cairo code into deployable contracts
 2. **Katana** provides a local blockchain to deploy and test on
-3. **Sozo** deploys your World contract to Katana
+3. **Sozo** deploys your World to Katana
 4. **Torii** automatically indexes your World's data
 5. **Saya** (optionally) generates proofs for settlement
 
@@ -388,8 +388,89 @@ sozo execute di-actions spawn --profile staging
 - Verify you're in a Dojo project directory (look for `Scarb.toml`)
 - Check that you're using the correct account address and private key
 
+## Setting Up Your Development Environment
+
+Start each development session by launching your tools:
+
+```bash
+# Terminal 1: Start Katana
+katana --dev
+
+# Terminal 2: Deploy and start Torii
+sozo migrate --dev
+torii --dev
+
+# Terminal 3: Your workspace for commands
+# (keep this free for running sozo commands)
+```
+
+> **Tip**: Create a simple script to start all tools at once. Save this as `start-dev.sh`:
+
+```bash
+#!/bin/bash
+# Start development environment
+katana --dev &
+sleep 2
+sozo migrate --dev
+torii --dev &
+echo "🚀 Development environment ready!"
+```
+
+## Appendix: Development Commands Quick Reference
+
+### Starting Fresh
+
+```bash
+# Terminal 1: Start blockchain
+katana --dev
+
+# Terminal 2: Build and deploy
+sozo build && sozo migrate
+
+# Terminal 3: Start indexer
+torii --dev
+```
+
+### Making Changes
+
+```bash
+# After editing contracts
+sozo build && sozo migrate
+
+# After changing configuration
+# Restart the affected service
+```
+
+### Testing Your Changes
+
+```bash
+# Execute a system to test
+sozo execute di-actions spawn
+
+# Query model data
+sozo model get Position <PLAYER_ADDRESS>
+
+# Check events
+sozo events
+```
+
+### Common Issues
+
+```bash
+# Clean rebuild
+sozo clean && sozo build && sozo migrate
+
+# Check service status
+curl http://localhost:5050  # Katana
+curl http://localhost:8080  # Torii
+
+# Restart development environment
+pkill katana && pkill torii
+# Then restart services
+```
+
 ## Next Steps
 
-Now that you understand the toolchain, you're ready to learn about the [development workflow](/getting-started/development-workflow) and start building more complex applications.
+Now that you understand the toolchain, you're ready to learn about the [development workflow](./development-workflow) and start building more complex applications.
 
 Each tool has extensive documentation in the toolchain section for when you need to dive deeper into specific features and configurations.

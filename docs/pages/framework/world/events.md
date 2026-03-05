@@ -5,7 +5,8 @@ description: "Understanding and working with events in Dojo worlds - from built-
 
 # World Events
 
-Events are the backbone of real-time updates and indexing in Dojo worlds. The World contract automatically emits events for all state changes, and you can create custom events for your specific use cases.
+Events are the backbone of real-time updates and indexing in Dojo worlds.
+The World contract automatically emits events for all state changes, and you can create custom events for your specific use cases.
 
 ## Overview
 
@@ -100,11 +101,37 @@ pub struct StoreDelRecord {
 
 #### `ModelRegistered`
 
+Emitted when a new model is registered with the world.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct ModelRegistered {
+    #[key]
+    pub name: ByteArray,
+    pub namespace: ByteArray,
+    pub class_hash: ClassHash,
+    pub address: ContractAddress,
+}
+```
+
 **When emitted**: When a new model is registered with the world
 
 **Key fields**: `name`, `namespace`, `class_hash`, `address`
 
 #### `EventRegistered`
+
+Emitted when a new event is registered with the world.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct EventRegistered {
+    #[key]
+    pub name: ByteArray,
+    pub namespace: ByteArray,
+    pub class_hash: ClassHash,
+    pub address: ContractAddress,
+}
+```
 
 **When emitted**: When a new event is registered with the world
 
@@ -112,17 +139,54 @@ pub struct StoreDelRecord {
 
 #### `ContractRegistered`
 
+Emitted when a new contract is registered with the world.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct ContractRegistered {
+    #[key]
+    pub name: ByteArray,
+    pub namespace: ByteArray,
+    pub address: ContractAddress,
+    pub class_hash: ClassHash,
+    pub salt: felt252,
+}
+```
+
 **When emitted**: When a new contract is registered with the world
 
 **Key fields**: `name`, `namespace`, `address`, `class_hash`, `salt`
 
 #### `NamespaceRegistered`
 
+Emitted when a new namespace is registered.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct NamespaceRegistered {
+    #[key]
+    pub namespace: ByteArray,
+    pub hash: felt252,
+}
+```
+
 **When emitted**: When a new namespace is registered
 
 **Key fields**: `namespace`, `hash`
 
 #### `LibraryRegistered`
+
+Emitted when a new library is registered with the world.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct LibraryRegistered {
+    #[key]
+    pub name: ByteArray,
+    pub namespace: ByteArray,
+    pub class_hash: ClassHash,
+}
+```
 
 **When emitted**: When a new library is registered with the world
 
@@ -132,11 +196,37 @@ pub struct StoreDelRecord {
 
 #### `ModelUpgraded`
 
+Emitted when a model is upgraded to a new class hash.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct ModelUpgraded {
+    #[key]
+    pub selector: felt252,
+    pub class_hash: ClassHash,
+    pub address: ContractAddress,
+    pub prev_address: ContractAddress,
+}
+```
+
 **When emitted**: When a model is upgraded to a new class hash
 
 **Key fields**: `selector`, `class_hash`, `address`, `prev_address`
 
 #### `EventUpgraded`
+
+Emitted when an event is upgraded to a new class hash.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct EventUpgraded {
+    #[key]
+    pub selector: felt252,
+    pub class_hash: ClassHash,
+    pub address: ContractAddress,
+    pub prev_address: ContractAddress,
+}
+```
 
 **When emitted**: When an event is upgraded to a new class hash
 
@@ -144,11 +234,32 @@ pub struct StoreDelRecord {
 
 #### `ContractUpgraded`
 
+Emitted when a contract is upgraded to a new class hash.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct ContractUpgraded {
+    #[key]
+    pub selector: felt252,
+    pub class_hash: ClassHash,
+}
+```
+
 **When emitted**: When a contract is upgraded to a new class hash
 
 **Key fields**: `selector`, `class_hash`
 
 #### `WorldUpgraded`
+
+Emitted when the world contract itself is upgraded.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct WorldUpgraded {
+    #[key]
+    pub class_hash: ClassHash,
+}
+```
 
 **When emitted**: When the world contract itself is upgraded
 
@@ -160,11 +271,35 @@ pub struct StoreDelRecord {
 
 Emitted when owner permissions change.
 
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct OwnerUpdated {
+    #[key]
+    pub resource: felt252,
+    #[key]
+    pub contract: ContractAddress,
+    pub value: bool,
+}
+```
+
 **When emitted**: When owner permissions change.
 
 **Key fields**: `resource`, `contract`, `value`
 
 #### `WriterUpdated`
+
+Emitted when writer permissions change.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct WriterUpdated {
+    #[key]
+    pub resource: felt252,
+    #[key]
+    pub contract: ContractAddress,
+    pub value: bool,
+}
+```
 
 **When emitted**: When writer permissions change.
 
@@ -174,17 +309,24 @@ Emitted when owner permissions change.
 
 #### `WorldSpawned`
 
+Emitted when the world contract is deployed.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct WorldSpawned {
+    #[key]
+    pub creator: ContractAddress,
+    pub class_hash: ClassHash,
+}
+```
+
 **When emitted**: When the world contract is deployed
 
 **Key fields**: `creator`, `class_hash`
 
 #### `EventEmitted`
 
-**When emitted**: When calling the `emit_event()` function.
-
-**Key fields**: `selector`, `system_address`, `keys`, `values`
-
-**Full signature** (this is the most commonly used system event):
+Emitted when calling the `emit_event()` function.
 
 ```cairo
 #[derive(Drop, starknet::Event)]
@@ -198,7 +340,24 @@ pub struct EventEmitted {
 }
 ```
 
+**When emitted**: When calling the `emit_event()` function.
+
+**Key fields**: `selector`, `system_address`, `keys`, `values`
+
+**Full signature** (this is the most commonly used system event)
+
 #### `ContractInitialized`
+
+Emitted when a contract's `dojo_init` function is called.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct ContractInitialized {
+    #[key]
+    pub selector: felt252,
+    pub init_calldata: Span<felt252>,
+}
+```
 
 **When emitted**: When a contract's `dojo_init` function is called
 
@@ -206,13 +365,25 @@ pub struct EventEmitted {
 
 #### `MetadataUpdate`
 
+Emitted when resource metadata is updated.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+pub struct MetadataUpdate {
+    #[key]
+    pub resource: felt252,
+    pub uri: ByteArray,
+}
+```
+
 **When emitted**: When resource metadata is updated
 
 **Key fields**: `resource`, `uri`
 
 ## Custom Events
 
-Custom events allow you to emit domain-specific events for your application. They're particularly useful for:
+Custom events allow you to emit domain-specific events for your application.
+They're particularly useful for:
 
 - Game-specific UI updates
 - Non-historical data

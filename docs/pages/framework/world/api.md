@@ -195,7 +195,9 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Custom Events
+## Event System
+
+For comprehensive information about world events, including the complete list of built-in events and their signatures, see the [Events documentation](/framework/world/events).
 
 #### `emit_event<T>`
 

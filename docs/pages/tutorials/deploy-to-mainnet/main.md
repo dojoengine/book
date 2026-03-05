@@ -123,7 +123,7 @@ echo "Deployment completed successfully."
 
 
 🌍 World deployed at block <DEPLOYED_BLOCK> with txn hash: <DEPLOYMENT_TXN_HASH>
-⛩️  Migration successful with world at address <WORLD_ADDRESS>
+⛩️  Migration successful with world at address <world_address>
 ```
 
 :::note
@@ -143,9 +143,52 @@ world_address = <world address>
 world_block = 42069 # Here you add the block number where the world was deployed
 ```
 
-### Torii Indexer
+### Debug with Walnut
 
-Now, if you're building a Dojo client, you will need a Torii service to index our world...
+Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments.
+Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
+
+#### Step 1: Verify your Contracts
+
+To use full debugging capabilities, first verify your contracts using Walnut:
+
+```bash
+sozo walnut verify
+```
+
+You'll see output similar to:
+
+```console
+🌰 Verifying classes with Walnut...
+
+  > "Contract verification has started. You can check the verification status at the following link: https://app.walnut.dev/verification/status/c9f415ec-1257-4f34-959c-5ccf51662e53"
+```
+
+#### Step 2: Debug Your Transaction
+
+After successful verification, follow these steps to debug your transaction on Walnut:
+
+**For Starknet Mainnet or Testnet(Sepolia):**
+
+1. Open the [Walnut app](https://app.walnut.dev).
+2. Enter your transaction hash in the search bar.
+3. Click on your transaction to view debug information.
+
+> Example: To see Walnut Debugger in action, open this [example Dojo transaction](https://app.walnut.dev/transactions?chainId=SN_SEPOLIA&txHash=0x06553f6543e0afbfcfa3ba22223a50cd36db75c7be7e53fba38786908a550c9b).
+
+**For Slot Deployments:**
+
+You need to set up your Slot RPC URL in Walnut before debugging:
+
+1. Follow this [custom networks setup guide](https://docs.walnut.dev/custom-networks).
+2. Once set up, use the Walnut app as described above.
+
+For detailed instructions and advanced use cases, visit the official [Walnut Documentation](https://docs.walnut.dev).
+
+## Torii Indexer
+
+Now, if you're building a Dojo client, you will need a Torii service to index our world.
+For basic Katana deployments, see the [Katana deployment guide](/tutorials/katana-starkli-scarb).
 
 - Install [slot](https://github.com/cartridge-gg/slot) or update it. You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
 
@@ -159,13 +202,13 @@ slotup
 slot auth login
 ```
 
-- Create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
-    - `WORLD_ADDRESS`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
+- Create a Torii configuration file with your world address and RPC endpoint:
+    - `world_address`: from your Dojo config file `dojo_sepolia.toml` or from the deployment output
     - `RPC_URL`: your RPC provider url
 
 ```toml
 # torii.toml
-world_address = "<WORLD_ADDRESS>"
+world_address = "<world_address>"
 rpc = "<RPC_URL>"
 ```
 
@@ -206,44 +249,3 @@ or...
 ```
 VITE_PUBLIC_CHAIN_ID=SN_MAIN
 ```
-
-### Debug with Walnut
-
-Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
-
-#### Step 1: Verify your Contracts
-
-To use full debugging capabilities, first verify your contracts using Walnut:
-
-```bash
-sozo walnut verify
-```
-
-You'll see output similar to:
-
-```console
-🌰 Verifying classes with Walnut...
-
-  > "Contract verification has started. You can check the verification status at the following link: https://app.walnut.dev/verification/status/c9f415ec-1257-4f34-959c-5ccf51662e53"
-```
-
-#### Step 2: Debug Your Transaction
-
-After successful verification, follow these steps to debug your transaction on Walnut:
-
-**For Starknet Mainnet or Testnet(Sepolia):**
-
-1. Open the [Walnut app](https://app.walnut.dev).
-2. Enter your transaction hash in the search bar.
-3. Click on your transaction to view debug information.
-
-> Example: To see Walnut Debugger in action, open this [example Dojo transaction](https://app.walnut.dev/transactions?chainId=SN_SEPOLIA&txHash=0x06553f6543e0afbfcfa3ba22223a50cd36db75c7be7e53fba38786908a550c9b).
-
-**For Slot Deployments:**
-
-You need to set up your Slot RPC URL in Walnut before debugging:
-
-1. Follow this [custom networks setup guide](https://docs.walnut.dev/custom-networks).
-2. Once set up, use the Walnut app as described above.
-
-For detailed instructions and advanced use cases, visit the official [Walnut Documentation](https://docs.walnut.dev).

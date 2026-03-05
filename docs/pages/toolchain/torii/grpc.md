@@ -52,7 +52,7 @@ struct Query {
 ```
 
 :::info
-The `HashedKeys` clause can be used with the model's underlying [hashed composite key](https://dojoengine.org/framework/models/entities)
+The `HashedKeys` clause can be used with the model's underlying [hashed composite key](./../../framework/models/entities)
 :::
 
 **Member Clause** - Query by field values:

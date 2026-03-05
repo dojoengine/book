@@ -1,3 +1,7 @@
+---
+description: "Execute systems, query models, manage permissions, and debug your deployed Dojo worlds."
+---
+
 # World Interaction
 
 Once your world is deployed, these commands let you interact with it during development, testing, and runtime operations.
@@ -41,7 +45,7 @@ sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 - **Transaction-based**: Requires account/signer configuration
 - **Tag resolution**: Use contract tags (e.g., `Actions`) or addresses
 - **Multicall support**: Batch multiple system calls efficiently
-- **Type-aware calldata**: Supports Dojo's [calldata format](/toolchain/sozo/index.md#data-format-reference)
+- **Type-aware calldata**: Supports Dojo's [calldata format](../sozo#data-format-reference)
 
 **Common Use Cases:**
 

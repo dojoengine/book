@@ -208,29 +208,17 @@ mappings = {
 
 ### Permission Configuration
 
-```toml
-# Format: "<TARGET_TAG>" = ["<GRANTEE_TAG>"]
+Dojo supports configuring permissions at deployment time through the `[writers]` and `[owners]` sections:
 
+```toml
 [writers]
-# Namespace-level permissions
-"game" = ["game-actions", "game-admin"]
-# Resource-specific permissions
-"game-Position" = ["game-movement"]
-"weapons-Sword" = ["weapons-combat", "game-actions"]
+"namespace" = ["contract-tag1", "contract-tag2"]
 
 [owners]
-# Namespace ownership
-"game" = ["game-admin"]
-# Resource ownership
-"weapons" = ["weapons-manager"]
+"namespace" = ["contract-tag1"]
 ```
 
-**Permission Hierarchy:**
-
-- **Namespace permissions** - Control access to all resources in a namespace
-- **Resource permissions** - Control access to specific models/contracts
-- **Writers** - Can modify data in models
-- **Owners** - Can modify data AND manage permissions
+For comprehensive permission management including runtime permission changes and architectural considerations, see the [Permission Architecture section](/framework/systems/architecture#permission-architecture).
 
 ### Contract Initialization
 

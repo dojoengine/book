@@ -8,6 +8,8 @@ description: "Native Rust integration for building Dojo applications with Rust"
 Dojo is built in Rust, making it seamless to integrate into your Rust projects.
 Simply import the required crates and you're ready to build powerful applications that interact with Dojo worlds.
 
+For information about the underlying foundation architecture that enables cross-platform compatibility while maintaining native Rust performance, see the [SDK architecture overview](./index).
+
 ## Core Components
 
 The Dojo Rust ecosystem provides several key crates for different use cases:

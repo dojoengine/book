@@ -1,1 +1,511 @@
+---
+id: dojo-react
+title: Dojo React
+description: Build a React client with Dojo
+---
+
+import { Steps } from "nextra-theme-docs";
+import { Callout } from "nextra-theme-docs";
+
 # Dojo React
+
+Let's build a basic counter React application using Dojo.
+
+:::note
+This tutorial will guide you through building a React client for your Dojo world.
+You should have some familiarity with React and TypeScript.
+If you're new to Dojo, we recommend starting with the [Dojo Starter tutorial](/tutorials/dojo-starter).
+:::
+
+## What we're building
+
+We will build a simple counter application where:
+
+1. Players can increase and decrease a global counter
+2. Each player has their own moves counter
+3. The UI updates in real-time using subscriptions
+
+<Steps>
+
+### Setup the Dojo project
+
+First, ensure you have Dojo installed by following the [installation guide](/installation).
+
+Create a new Dojo project:
+
+```bash
+dojoup -v 1.0.0-rc.6
+sozo init dojo-react-tutorial
+cd dojo-react-tutorial
+```
+
+### Create the Counter Model
+
+Let's start by defining our game state.
+Replace the contents of `src/models.cairo`:
+
+```rust
+use starknet::ContractAddress;
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Counter {
+    #[key]
+    pub counter_id: u32,
+    pub value: u32,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+pub struct Moves {
+    #[key]
+    pub player: ContractAddress,
+    pub remaining: u8,
+    pub last_direction: Direction,
+}
+
+#[derive(Serde, Copy, Drop, Introspect, PartialEq)]
+pub enum Direction {
+    None,
+    Up,
+    Down,
+}
+
+impl DirectionIntoFelt252 of Into<Direction, felt252> {
+    fn into(self: Direction) -> felt252 {
+        match self {
+            Direction::None => 0,
+            Direction::Up => 1,
+            Direction::Down => 2,
+        }
+    }
+}
+```
+
+### Create the Actions System
+
+Now let's create the system that will handle our counter logic.
+Replace the contents of `src/actions.cairo`:
+
+```rust
+use dojo_react_tutorial::models::{Counter, Moves, Direction};
+use starknet::{ContractAddress, get_caller_address};
+
+#[dojo::interface]
+trait IActions {
+    fn spawn();
+    fn increment();
+    fn decrement();
+}
+
+#[dojo::contract]
+mod actions {
+    use super::{IActions, Counter, Moves, Direction, ContractAddress, get_caller_address};
+
+    #[abi(embed_v0)]
+    impl ActionsImpl of IActions<ContractState> {
+        fn spawn(world: @IWorldDispatcher) {
+            let player = get_caller_address();
+
+            set!(
+                world,
+                (
+                    Moves {
+                        player,
+                        remaining: 10,
+                        last_direction: Direction::None,
+                    },
+                    Counter { counter_id: 0, value: 0 },
+                )
+            );
+        }
+
+        fn increment(world: @IWorldDispatcher) {
+            let player = get_caller_address();
+
+            let mut moves = get!(world, player, (Moves));
+            assert(moves.remaining > 0, 'no moves remaining');
+
+            let mut counter = get!(world, 0, (Counter));
+            counter.value += 1;
+
+            moves.remaining -= 1;
+            moves.last_direction = Direction::Up;
+
+            set!(world, (moves, counter));
+        }
+
+        fn decrement(world: @IWorldDispatcher) {
+            let player = get_caller_address();
+
+            let mut moves = get!(world, player, (Moves));
+            assert(moves.remaining > 0, 'no moves remaining');
+
+            let mut counter = get!(world, 0, (Counter));
+            counter.value -= 1;
+
+            moves.remaining -= 1;
+            moves.last_direction = Direction::Down;
+
+            set!(world, (moves, counter));
+        }
+    }
+}
+```
+
+### Update the lib.cairo
+
+Update `src/lib.cairo` to include our modules:
+
+```rust
+mod models;
+mod actions;
+
+use models::{Counter, Moves, Direction};
+```
+
+### Build and Deploy
+
+Build the project:
+
+```bash
+sozo build
+```
+
+Start Katana (our local testnet):
+
+```bash
+katana --disable-fee --allowed-origins "*"
+```
+
+In another terminal, migrate the world:
+
+```bash
+sozo migrate apply
+```
+
+This will deploy our world and contracts to Katana.
+
+### Create the React Application
+
+Now let's create our React frontend.
+First, create a new React app in your project:
+
+```bash
+npm create vite@latest client -- --template react-ts
+cd client
+npm install
+```
+
+Install the Dojo SDK:
+
+```bash
+npm install @dojoengine/core @dojoengine/react @dojoengine/utils
+```
+
+### Generate TypeScript bindings
+
+First, we need to generate TypeScript bindings for our Dojo models and systems.
+From the project root (not the client directory):
+
+```bash
+sozo build --typescript
+```
+
+This creates TypeScript definitions in `typescript/` directory.
+
+### Setup Dojo Provider
+
+Create `client/src/DojoContext.tsx`:
+
+```tsx
+import React, { createContext, ReactNode, useContext } from "react";
+import { BurnerManager, useBurnerManager } from "@dojoengine/react";
+import { Account } from "starknet";
+
+interface DojoContextType {
+    account: Account;
+    burnerManager: BurnerManager;
+}
+
+const DojoContext = createContext<DojoContextType | undefined>(undefined);
+
+export const useDojo = () => {
+    const context = useContext(DojoContext);
+    if (!context) {
+        throw new Error("useDojo must be used within a DojoProvider");
+    }
+    return context;
+};
+
+interface DojoProviderProps {
+    children: ReactNode;
+}
+
+export const DojoProvider = ({ children }: DojoProviderProps) => {
+    const burnerManager = useBurnerManager({
+        burnerManagerOptions: {
+            rpcProvider: "http://localhost:5050",
+        },
+    });
+
+    return (
+        <DojoContext.Provider
+            value={{
+                account: burnerManager.account as Account,
+                burnerManager,
+            }}
+        >
+            {children}
+        </DojoContext.Provider>
+    );
+};
+```
+
+### Create the main component
+
+Replace `client/src/App.tsx`:
+
+```tsx
+import { useEffect, useState } from "react";
+import "./App.css";
+import { useDojo } from "./DojoContext";
+import { Account } from "starknet";
+
+// World contract address from migration
+const WORLD_ADDRESS = "0x..."; // Replace with your world address
+
+interface Counter {
+    counter_id: number;
+    value: number;
+}
+
+interface Moves {
+    player: string;
+    remaining: number;
+    last_direction: number;
+}
+
+function App() {
+    const { account } = useDojo();
+    const [counter, setCounter] = useState<Counter | null>(null);
+    const [moves, setMoves] = useState<Moves | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Call spawn to initialize player
+    const spawn = async () => {
+        setIsLoading(true);
+        try {
+            const call = {
+                contractAddress: WORLD_ADDRESS,
+                entrypoint: "spawn",
+                calldata: [],
+            };
+            await account.execute([call]);
+            // Refresh data after spawn
+            fetchGameState();
+        } catch (error) {
+            console.error("Spawn failed:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Increment counter
+    const increment = async () => {
+        if (!moves || moves.remaining <= 0) return;
+
+        setIsLoading(true);
+        try {
+            const call = {
+                contractAddress: WORLD_ADDRESS,
+                entrypoint: "increment",
+                calldata: [],
+            };
+            await account.execute([call]);
+            fetchGameState();
+        } catch (error) {
+            console.error("Increment failed:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Decrement counter
+    const decrement = async () => {
+        if (!moves || moves.remaining <= 0) return;
+
+        setIsLoading(true);
+        try {
+            const call = {
+                contractAddress: WORLD_ADDRESS,
+                entrypoint: "decrement",
+                calldata: [],
+            };
+            await account.execute([call]);
+            fetchGameState();
+        } catch (error) {
+            console.error("Decrement failed:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Fetch current game state
+    const fetchGameState = async () => {
+        try {
+            // Fetch counter state
+            // In a real app, you'd use the generated SDK or GraphQL
+            // For now, this is a placeholder for the fetch logic
+
+            // You would typically use Torii GraphQL endpoint here
+            // or the generated SDK to fetch model state
+
+            console.log("Fetching game state...");
+        } catch (error) {
+            console.error("Failed to fetch game state:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (account) {
+            fetchGameState();
+        }
+    }, [account]);
+
+    return (
+        <div className="App">
+            <div>
+                <h1>Dojo React Counter</h1>
+
+                <div className="card">
+                    <h2>Account: {account?.address}</h2>
+
+                    {counter ? (
+                        <div>
+                            <h3>Counter Value: {counter.value}</h3>
+                        </div>
+                    ) : (
+                        <button onClick={spawn} disabled={isLoading}>
+                            {isLoading ? "Loading..." : "Spawn Player"}
+                        </button>
+                    )}
+
+                    {moves && (
+                        <div>
+                            <h3>Moves Remaining: {moves.remaining}</h3>
+                            <h3>
+                                Last Direction:{" "}
+                                {moves.last_direction === 1
+                                    ? "Up"
+                                    : moves.last_direction === 2
+                                      ? "Down"
+                                      : "None"}
+                            </h3>
+                        </div>
+                    )}
+
+                    {counter && moves && (
+                        <div>
+                            <button
+                                onClick={increment}
+                                disabled={isLoading || moves.remaining <= 0}
+                            >
+                                Increment (+)
+                            </button>
+                            <button
+                                onClick={decrement}
+                                disabled={isLoading || moves.remaining <= 0}
+                            >
+                                Decrement (-)
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default App;
+```
+
+### Update main.tsx
+
+Replace `client/src/main.tsx`:
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { DojoProvider } from "./DojoContext";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+        <DojoProvider>
+            <App />
+        </DojoProvider>
+    </React.StrictMode>
+);
+```
+
+### Get your World Address
+
+To get your world address, run:
+
+```bash
+sozo inspect
+```
+
+Look for the world address in the output and update the `WORLD_ADDRESS` constant in your React app.
+
+### Run the Application
+
+Start the React development server:
+
+```bash
+cd client
+npm run dev
+```
+
+Visit `http://localhost:5173` to see your application!
+
+</Steps>
+
+## Understanding the Architecture
+
+### Models
+
+Our Dojo models define the shape of our game state:
+
+- `Counter`: Stores the global counter value
+- `Moves`: Tracks each player's remaining moves and last action
+
+### Systems
+
+The `actions` contract contains our game logic:
+
+- `spawn`: Initializes a new player with 10 moves
+- `increment`/`decrement`: Modifies the counter and updates player state
+
+### React Integration
+
+The React app uses:
+
+- **DojoContext**: Manages account and connection state
+- **Burner Manager**: Handles temporary accounts for testing
+- **Direct Contract Calls**: Executes transactions on our world
+
+## Next Steps
+
+This tutorial showed you the basics of building with Dojo and React.
+To build a production application, consider:
+
+1. **Using Torii**: Set up a GraphQL indexer for efficient data fetching
+2. **Real-time Updates**: Implement subscriptions for live state updates
+3. **Generated SDK**: Use `sozo build --typescript` output for type-safe contract interactions
+4. **Better State Management**: Consider using React Query or similar for caching
+5. **Error Handling**: Add comprehensive error handling and user feedback
+
+For more advanced examples, check out the [onchain chess tutorial](/tutorials/onchain-chess/README) which demonstrates more complex game mechanics and state management.

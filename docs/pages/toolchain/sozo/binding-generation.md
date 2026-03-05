@@ -8,6 +8,8 @@ description: "Generate type-safe client bindings for your Dojo world across mult
 Client bindings bridge the gap between your Cairo smart contracts and client applications.
 Sozo's `bindgen` generates type-safe, platform-specific code that enables native interaction with your Dojo world.
 
+For the conceptual overview and architectural details of binding generation, see the [Cainome documentation](/toolchain/cainome).
+
 ## Basic Workflow
 
 ```bash
@@ -31,10 +33,6 @@ Bindings are saved to the `bindings/` directory by default.
 - **Serialization/deserialization** handling
 - **Contract interaction methods** with proper typing
 - **Integration helpers** for each platform
-
-:::tip
-For the architectural details of binding generation, see the [Cainome documentation](/toolchain/cainome).
-:::
 
 ## Supported Platforms
 

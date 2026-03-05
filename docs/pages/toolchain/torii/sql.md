@@ -179,7 +179,8 @@ You can submit the query using a `GET` or `POST` request.
 
 ### Using GET
 
-The query is sent as a URL parameter. Both `q` and `query` parameters are supported:
+The query is sent as a URL parameter.
+Both `q` and `query` parameters are supported:
 
 ```bash
 query=$(printf '%s' "SELECT * FROM [ns-Position];" | jq -s -R -r @uri)

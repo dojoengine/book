@@ -220,6 +220,156 @@ dojoup --help
 
 ::::
 
+## Installing Individual Tools
+
+### Installing Sozo
+
+Sozo can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+
+```bash
+curl -L https://install.dojoengine.org | bash
+
+# Restart your terminal
+
+dojoup install
+```
+
+:::note
+This will install the `sozo` binary at `~/.dojo/bin`
+:::
+
+:::tip
+Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
+:::
+
+#### Installing with `asdf`
+
+If you prefer to install with the `asdf` version manager:
+
+```bash
+asdf plugin add sozo https://github.com/dojoengine/asdf-sozo.git
+
+asdf install sozo latest
+```
+
+:::note
+This will install the `sozo` binary at `~/.asdf/shims`
+:::
+
+#### Building from Source
+
+If you prefer to build from source:
+
+```bash
+git clone https://github.com/dojoengine/dojo
+
+cargo install --path .dojo/bin/sozo --locked --force
+```
+
+:::note
+This will install the `sozo` binary at `~/.cargo/bin`
+:::
+
+### Installing Katana
+
+Katana can be installed via the same methods as other Dojo tools:
+
+#### Installing with `dojoup`
+
+Katana can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+
+```bash
+curl -L https://install.dojoengine.org | bash
+
+# Restart your terminal
+
+dojoup install
+```
+
+:::note
+This will install the `katana` binary at `~/.dojo/bin`
+:::
+
+:::tip
+Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
+:::
+
+#### Installing with `asdf`
+
+If you prefer to install with the `asdf` version manager:
+
+```bash
+asdf plugin add katana https://github.com/dojoengine/asdf-katana.git
+
+asdf install katana latest
+```
+
+:::note
+This will install the `katana` binary at `~/.asdf/shims`
+:::
+
+#### Building from Source
+
+If you prefer to build from source:
+
+```bash
+git clone https://github.com/dojoengine/katana
+
+cargo install --path ./katana/bin/katana --locked --force
+```
+
+:::note
+This will install the `katana` binary at `~/.cargo/bin`
+:::
+
+### Installing Torii
+
+Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+
+```bash
+curl -L https://install.dojoengine.org | bash
+
+# Restart your terminal
+
+dojoup install
+```
+
+:::note
+This will install the `torii` binary at `~/.dojo/bin`
+:::
+
+:::tip
+Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
+:::
+
+#### Installing with `asdf`
+
+If you prefer to install with the `asdf` version manager:
+
+```bash
+asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
+
+asdf install torii latest
+```
+
+:::note
+This will install the `torii` binary at `~/.asdf/shims`
+:::
+
+#### Building from Source
+
+If you prefer to build from the source code:
+
+```bash
+git clone https://github.com/dojoengine/torii.git
+
+cargo install --path ./torii/bin/torii --profile local --force
+```
+
+:::note
+This will install the `torii` binary at `~/.cargo/bin`
+:::
+
 ## Verification
 
 After installation, verify that all tools are working correctly:
@@ -257,15 +407,23 @@ sozo build
 # Test successful if no errors appear
 ```
 
-## Claude Code Skills
+## Slot
 
-Dojo provides official [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) skills that give Claude relevant context for working with models, systems, testing, deployment, and more.
+[Slot](https://github.com/cartridge-gg/slot) is an alternative deployment tool for Dojo worlds that simplifies the deployment process.
+While `sozo` manages development and testing, Slot provides streamlined production deployments.
 
-To install the skills, run the following in your terminal:
+### Installing Slot
+
+Slot is distributed as a pre-built binary:
 
 ```bash
-npx skills add dojoengine/book
+# Download and install the latest version
+curl -L https://slot.cartridge.gg/install | bash
 ```
+
+### Using Slot
+
+For detailed usage instructions and deployment workflows, see the [deployment tutorials](/tutorials/deploy-using-slot/main).
 
 ## Troubleshooting
 
@@ -343,6 +501,20 @@ Install the [Cairo 1.0](https://marketplace.visualstudio.com/items?itemName=star
 - Error detection
 - Auto-completion
 - Code formatting
+
+## AI Development Tools
+
+Dojo provides official [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) skills that give Claude relevant context for working with models, systems, testing, deployment, and more.
+
+To install the skills, run the following in your terminal:
+
+```bash
+npx skills add dojoengine/book
+```
+
+Available skills: `dojo-model`, `dojo-system`, `dojo-test`, `dojo-client`, `dojo-config`, `dojo-deploy`, `dojo-init`, `dojo-migrate`, `dojo-token`, `dojo-world`, `dojo-indexer`, `dojo-review`
+
+[Browse all skills](https://github.com/dojoengine/book/tree/main/skills)
 
 ## Getting Help
 

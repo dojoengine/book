@@ -25,7 +25,7 @@ A typical Dojo Telegram app consists of:
 Before building your Telegram Mini App, ensure you have a Bot Token from [@BotFather](https://t.me/botfather).
 
 :::tip
-See the [Dojo.js docs](/client/sdk/javascript) for more information about using Dojo with React.
+See the [JavaScript SDK documentation](./javascript) for more information about using Dojo with React.
 :::
 
 ### Quick Start

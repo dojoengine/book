@@ -71,7 +71,7 @@ validate_max_steps = 1000000      # Max steps for validation (default: 1000000)
 invoke_max_steps = 10000000       # Max steps for execution (default: 10000000)
 
 [forking]
-fork_provider = "https://api.cartridge.gg/x/starknet/mainnet"  # Fork provider URL
+fork_provider = "https://api.cartridge.gg/x/starknet/mainnet"  # Fork provider RPC URL
 fork_block = 1000000              # Fork at specific block number/hash
 
 [metrics]
@@ -90,7 +90,7 @@ l1_strk_data_gas_price = "10000000000"  # L1 STRK data gas price in fri
 [cartridge]
 controllers = false               # Declare Controller classes at genesis (default: false)
 paymaster = false                 # Use Cartridge paymaster (default: false)
-api = "https://api.cartridge.gg"  # Cartridge API URL (default: https://api.cartridge.gg)
+api = "https://api.cartridge.gg"  # Cartridge API RPC URL (default: https://api.cartridge.gg)
 
 [explorer]
 explorer = false                  # Enable explorer frontend (default: false)
@@ -206,7 +206,7 @@ katana init [OPTIONS]
 
 ```bash
 # Initialize a rollup settling to Starknet Sepolia
-katana init --id my-rollup --settlement-chain sepolia
+katana init --id my-rollup --settlement-layer sepolia
 
 # Create a sovereign chain
 katana init --sovereign --id my-chain --output-path ./chain-config

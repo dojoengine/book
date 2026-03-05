@@ -52,9 +52,9 @@ If the upgrade would break existing data, the upgrade will fail.
 ## General rules
 
 - To be upgradeable, the layout of a model must not be packed (using `IntrospectPacked`).
+  For detailed information about model introspection, see the [introspection guide](./introspection).
 
 - For composite data structures like `struct`, `enum`, `tuple` and `array`:
-
     - they are upgreadable as long as all their elements are upgreadable
     - existing elements cannot be removed, only modified
     - new elements can be freely added.

@@ -14,7 +14,7 @@ description: Learn about Dojo models, their role in data storage, key attributes
 - Models must have at least one key.
 - Define the key(s) using the `#[key]` attribute.
 - Models are Cairo structs with automatic on-chain introspection.
-- Custom enums and types are supported if they implement [`Introspect`](/framework/models/introspection).
+- Custom enums and types are supported if they implement [`Introspect`](./introspection).
 
 ## What are models?
 
@@ -66,7 +66,7 @@ struct GameResource {
 }
 ```
 
-In this case you would then use [`read_model`](/framework/world/api.md#read_model) with both the player and location fields:
+For composite keys, you would use [`read_model`](./api) with both key fields:
 
 ```cairo
 let player = get_caller_address();
@@ -121,7 +121,7 @@ This lets us re-use models to create a variety of different entities.
 A `#[dojo::model]` struct cannot be used as a field inside another model.
 This is because the key retrieval system requires fields to be serializable in a way that nested models do not support.
 
-If you need a composite data type as a model field, define a plain struct and derive [`Introspect`](/framework/models/introspection) instead:
+If you need a composite data type as a model field, define a plain struct and derive [`Introspect`](./introspection) instead:
 
 ```cairo
 #[derive(Drop, Serde, Introspect)]
@@ -138,6 +138,7 @@ struct Player {
     stats: Stats, // Plain struct with Introspect, not a model
 }
 ```
+
 :::
 
 The game contract would look like this:
@@ -174,7 +175,7 @@ mod spawnHuman {
 
 Suppose we want to store a global game value, which we may want to modify in the future.
 To achieve this, we can create a model to store this value, while also allowing for its future modification.
-The key difference is that, instead of a variable key, we would use a **constant identifie**r.
+The key difference is that, instead of a variable key, we would use a **constant identifier**.
 
 ```cairo
 const RESPAWN_DELAY: u128 = 9999999999999;
@@ -193,3 +194,5 @@ world.write_model(@GameSetting {
     setting_value: (10 * 60).into()
 });
 ```
+
+For comprehensive examples of reading and writing models, see the [Model API reference](./api).

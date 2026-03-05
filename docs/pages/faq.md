@@ -1,21 +1,20 @@
 ---
 title: Frequently Asked Questions
-description: Find answers to common questions about Dojo, onchain games, Autonomous Worlds, and how to get involved.
+description: Find answers to common questions about Dojo, provable games, Autonomous Worlds, and how to get involved.
 ---
 
 # FAQ
 
 ## Provable Games
 
-### What is an onchain game?
-
-Onchain games are games that exist entirely on a public blockchain network; all states and logic are onchain.
-Clients (like web browsers) do not exist on the chain but exist purely to interact with and interpret the onchain state.
-
 ### What is a provable game?
 
+Provable games are games that exist entirely on a public blockchain network; all states and logic are onchain.
+Clients (like web browsers) do not exist on the chain but exist purely to interact with and interpret the onchain state.
+
 Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain.
-But what does that entail? Consider a game of chess.
+But what does that entail?
+Consider a game of chess.
 We aim for an experience where players trust each other's moves.
 In a straightforward approach — and given the simple rules of chess — if this were in a blockchain environment, every move would be a transaction on the blockchain.
 This is costly.
@@ -29,13 +28,13 @@ This constitutes a provable game.
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
 ### Why Dojo?
 
-Dojo was created to solve problems the founders faced when building onchain games in Cairo.
+Dojo was created to solve problems the founders faced when building provable games in Cairo.
 It standardizes the process of building such games and provides a suite of tools to make it easier.
 
 ### What is Cairo?
@@ -46,7 +45,8 @@ Learn more about it here: [Cairo](https://www.cairo-lang.org/).
 
 ### Can I deploy Dojo to Starknet?
 
-Yes! Dojo can run on any StarknetVM including the public blockchains.
+Yes!
+Dojo can run on any StarknetVM including the public blockchains.
 Within the dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
 
 ### Can Dojo do client side proofs?

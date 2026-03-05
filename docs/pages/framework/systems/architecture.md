@@ -255,6 +255,34 @@ Use namespace-level permissions for systems that need broad access.
 "game-MarketData" = ["game-trading_system"]
 ```
 
+### Permission Configuration
+
+Control access to resource through a hierarchical permission system that balances security with operational flexibility.
+
+```toml
+# Format: "<TARGET_TAG>" = ["<GRANTEE_TAG>"]
+
+[writers]
+# Namespace-level permissions
+"game" = ["game-actions", "game-admin"]
+# Resource-specific permissions
+"game-Position" = ["game-movement"]
+"weapons-Sword" = ["weapons-combat", "game-actions"]
+
+[owners]
+# Namespace ownership
+"game" = ["game-admin"]
+# Resource ownership
+"weapons" = ["weapons-manager"]
+```
+
+**Permission Hierarchy:**
+
+- **Namespace permissions** - Control access to all resource in a namespace
+- **Resource permissions** - Control access to specific models/contracts
+- **Writers** - Can modify data in models
+- **Owners** - Can modify data AND manage permissions
+
 ### Permission Hierarchies
 
 Design permission hierarchies that reflect your system architecture.
@@ -360,7 +388,8 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits
@@ -523,7 +552,7 @@ mod movement_system {
 
 ### Shared Mutable State
 
-Avoid systems that share mutable state outside of the world contract.
+Avoid systems that share mutable state outside of the World contract.
 
 ```cairo
 // Bad: Shared mutable state
