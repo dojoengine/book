@@ -11,6 +11,7 @@ description: Learn about implementing sovereign rollups using Celestia's data av
 
 This documentation outlines the design and implementation of sovereign rollups built with Celestia and Dojo's infrastructure stack.
 Sovereign rollups provide scalable and decentralized execution by leveraging Celestia's modular data availability layer combined with Starknet's cryptographic proofs.
+Unlike [execution sharding](/scaling/execution-sharding) which commits state back to the main chain, sovereign rollups maintain their state independence on a separate data availability layer.
 
 :::tip
 See [Mage Duel](https://mageduel.evolute.network/) for an example of a game built using this architecture.

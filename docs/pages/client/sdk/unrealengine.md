@@ -8,6 +8,8 @@ description: "Introduction to the official Unreal Engine 5 SDK for building Dojo
 [Dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
+The Unreal Engine SDK is built on top of the [C bindings](../c) that provide the foundation for all Dojo platform integrations.
+
 ## Prerequisites
 
 Before getting started, ensure you have the Unreal Engine installed.
@@ -169,7 +171,7 @@ For example, `Direction` enum becomes `EDDirection`.
 
 When used in a Blueprint, the prefix is removed.
 
-#### Controller
+#### Controller Accounts
 
 To send transactions, you need to use the [Cartridge Controller](https://docs.cartridge.gg/controller/overview).
 
@@ -181,7 +183,7 @@ Always bind this Custom Event before calling either `ControllerConnect` or `Cont
 :::
 
 The `ControllerAccount` method always opens a new browser tab for authentication.
-`GetAccountOrConnect` first attempts to retrieve a previously stored account, and only opens a new browser tab if no existing account is found.
+`GetAccountOrConnect` first attempts to retrieve a previously stored controller account, and only opens a new browser tab if no existing account is found.
 
 :::tip
 If the account address is `0x0`, it means the player did not connect to the Controller.

@@ -54,7 +54,6 @@ If the upgrade would break existing data, the upgrade will fail.
 - To be upgradeable, the layout of a model must not be packed (using `IntrospectPacked`).
 
 - For composite data structures like `struct`, `enum`, `tuple` and `array`:
-
     - they are upgreadable as long as all their elements are upgreadable
     - existing elements cannot be removed, only modified
     - new elements can be freely added.
@@ -313,6 +312,11 @@ mod migration {
     }
 }
 ```
+
+## Configuration and Migration Setup
+
+For advanced migration configuration options, including versioning strategies and automated migration workflows, see the [Configuration guide](./configuration).
+This includes setting up proper migration environments and handling complex upgrade scenarios.
 
 ## Best Practices
 

@@ -29,7 +29,7 @@ This constitutes a provable game.
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
@@ -57,7 +57,7 @@ If you are a specalist in this, jump into the Github and help out!
 ### Who maintains Dojo?
 
 Dojo is an open-source initiative, licensed under Apache 2.0, dedicated to promoting and advancing the concept of Autonomous Worlds (AWs).
-It is developement is led by [Cartridge](https://cartridge.gg/), with significant contributions from [Realms](https://realms.world/), [BibliothecaDAO](https://bibliothecadao.xyz/) and [many more](https://github.com/orgs/dojoengine/people).
+It is development is led by [Cartridge](https://cartridge.gg/), with significant contributions from [Realms](https://realms.world/), [BibliothecaDAO](https://bibliothecadao.xyz/) and [many more](https://github.com/orgs/dojoengine/people).
 
 ### Where is the Dojo roadmap?
 
@@ -67,7 +67,8 @@ If you have ideas for the project, please open an issue.
 
 ### How do I get involved?
 
-Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine).
+Check out the [installation guide](/installation) to start developing with Dojo.
+Join our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine) to connect with the community.
 
 ## Known Limitations
 

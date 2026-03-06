@@ -16,8 +16,8 @@ Windows is not natively supported. We recommend [WSL2](https://learn.microsoft.c
 
 ## Quick Start
 
-For existing Cairo developers, the fastest way to get started is with our `asdf` installer.
-Simply run the following command in your terminal to install the Dojo toolchain.
+For existing Cairo developers, the fastest way to get started is with our asdf installer.
+Simply run the following command in your terminal to install the [Dojo toolchain](/overview).
 
 ```bash
 curl -L https://install.dojoengine.org | bash
@@ -104,18 +104,50 @@ The Cairo framework is managed by Scarb as a compile-time dependency.
 See the [Dojo configuration](/framework/configuration#project-manifest-scarbtoml) documentation for more info.
 :::
 
+### Installing with `dojoup`
+
+Sozo can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+
+```bash
+curl -L https://install.dojoengine.org | bash
+
+# Restart your terminal
+
+dojoup install
+```
+
+:::note
+This will install the `sozo` binary at `~/.dojo/bin`
+:::
+
+:::tip
+Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
+:::
+
 ### Installing with `asdf`
 
 [`asdf`](https://asdf-vm.com/) is a popular version manager, supporting programmatic management of dependencies.
 `asdf` is the preferred way to install Dojo.
 
 :::tip
-You can use our `asdf` installer to install the toolchain in a single command:
+You can use our asdf installer to install the toolchain in a single command:
 
 ```bash
 curl -L https://install.dojoengine.org | bash
 ```
 
+:::
+
+If you prefer to install with the `asdf` version manager:
+
+```bash
+asdf plugin add sozo https://github.com/dojoengine/asdf-sozo.git
+
+asdf install sozo latest
+```
+
+:::note
+This will install the `sozo` binary at `~/.asdf/shims`
 :::
 
 ::::steps
@@ -174,14 +206,23 @@ If needed, `asdf` will download the correct version of all dependencies.
 
 ::::
 
-### Installing with `dojoup`
+### Building from Source
 
-[`dojoup`](https://install.dojoengine.org) is an alternative way to install and manage Dojo installations.
-Dojoup is version-aware and will automatically install compatible versions of `katana`, `torii`, and `sozo`.
+If you prefer to build from source:
+
+```bash
+git clone https://github.com/dojoengine/dojo
+
+cargo install --path .dojo/bin/sozo --locked --force
+```
+
+:::note
+This will install the `sozo` binary at `~/.cargo/bin`
+:::
 
 :::warning
 Dojoup is deprecated and will be removed in the future.
-Use the `asdf` installer instead.
+Use the asdf installer instead.
 :::
 
 ::::steps
@@ -255,16 +296,6 @@ cd dojo-starter
 sozo build
 
 # Test successful if no errors appear
-```
-
-## Claude Code Skills
-
-Dojo provides official [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) skills that give Claude relevant context for working with models, systems, testing, deployment, and more.
-
-To install the skills, run the following in your terminal:
-
-```bash
-npx skills add dojoengine/book
 ```
 
 ## Troubleshooting

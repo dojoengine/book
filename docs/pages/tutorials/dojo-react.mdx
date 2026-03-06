@@ -1,1 +1,201 @@
+---
+description: "Learn how to build a React frontend for your Dojo game using create-dojo and the React SDK."
+---
+
 # Dojo React
+
+This tutorial walks you through setting up a React frontend for your Dojo game using the `create-dojo` template.
+You'll learn how to connect your frontend to a Dojo world and interact with systems.
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+- Node.js installed (version 16 or higher)
+- A basic understanding of React
+- Familiarity with Dojo concepts from the [dojo-starter tutorial](./dojo-starter)
+
+## Project Setup
+
+Create a new Dojo React project using the `create-dojo` command:
+
+```bash
+npx create-dojo@latest my-dojo-game --template react
+```
+
+This creates a project with:
+
+- A Dojo contracts workspace in the `contracts/` directory
+- A React frontend in the `client/` directory
+- Configuration files for development
+
+Navigate to your project:
+
+```bash
+cd my-dojo-game
+```
+
+## Project Structure
+
+The generated project has this structure:
+
+```
+my-dojo-game/
+├── contracts/           # Dojo contracts
+│   ├── src/
+│   └── dojo_dev.toml
+├── client/             # React frontend
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.ts
+└── README.md
+```
+
+## Development Setup
+
+Start the development environment with the provided scripts:
+
+```bash
+# Terminal 1: Start Katana (local testnet)
+npm run katana
+
+# Terminal 2: Build and migrate contracts
+npm run build
+
+# Terminal 3: Start React development server
+npm run dev
+```
+
+Your React app will be available at `http://localhost:3000`.
+
+## Understanding the React Integration
+
+The template includes several key components for Dojo integration:
+
+### SDK Configuration
+
+The React SDK is configured in `client/src/dojo/setup.ts`:
+
+```typescript
+import { DojoConfig } from "@dojoengine/core";
+
+export const dojoConfig: DojoConfig = {
+    rpcUrl: "http://localhost:5050",
+    toriiUrl: "http://localhost:8080",
+    relayUrl: "http://localhost:9090",
+    worldAddress: "0x...", // Set after deployment
+};
+```
+
+### Dojo Context
+
+The app uses React Context to provide Dojo functionality throughout your component tree:
+
+```typescript
+import { DojoProvider } from "@dojoengine/core";
+import { dojoConfig } from "./dojo/setup";
+
+function App() {
+    return (
+        <DojoProvider config={dojoConfig}>
+            <YourGameComponent />
+        </DojoProvider>
+    );
+}
+```
+
+### Using Dojo Hooks
+
+The React SDK provides hooks for common operations:
+
+```typescript
+import { useDojo } from "@dojoengine/core";
+
+function GameComponent() {
+    const {
+        setup: {
+            systemCalls: { spawn, move },
+        },
+        account: { create, list, select, account },
+    } = useDojo();
+
+    // Spawn a new entity
+    const handleSpawn = async () => {
+        await spawn();
+    };
+
+    // Move an entity
+    const handleMove = async (direction) => {
+        await move({ direction });
+    };
+
+    return (
+        <div>
+            <button onClick={handleSpawn}>Spawn</button>
+            <button onClick={() => handleMove("North")}>Move North</button>
+        </div>
+    );
+}
+```
+
+## Querying Game State
+
+Use the `useEntityQuery` hook to subscribe to entity changes:
+
+```typescript
+import { useEntityQuery } from "@dojoengine/react";
+import { HasValue } from "@dojoengine/recs";
+
+function PlayerList() {
+    const players = useEntityQuery([HasValue(Position, { x: 0, y: 0 })]);
+
+    return (
+        <div>
+            {players.map((entityId) => (
+                <PlayerCard key={entityId} entityId={entityId} />
+            ))}
+        </div>
+    );
+}
+```
+
+## System Interactions
+
+Call system contracts through the generated bindings:
+
+```typescript
+function GameActions() {
+    const {
+        setup: { systemCalls },
+        account: { account }
+    } = useDojo();
+
+    const spawnPlayer = async () => {
+        try {
+            await systemCalls.spawn({
+                account,
+            });
+        } catch (error) {
+            console.error("Failed to spawn:", error);
+        }
+    };
+
+    return <button onClick={spawnPlayer}>Join Game</button>;
+}
+```
+
+## Styling and UI
+
+The template includes basic styling with Tailwind CSS.
+Customize the appearance in `client/src/index.css` or create your own component styles.
+
+## Next Steps
+
+Now that you have a working React frontend:
+
+1. Customize the game logic in your contracts
+2. Build React components that match your game's needs
+3. Add more sophisticated UI patterns
+4. Explore the [onchain chess tutorial](./onchain-chess) for a complete game implementation
+
+For more advanced React patterns with Dojo, see the [React SDK documentation](../client/sdk/javascript).

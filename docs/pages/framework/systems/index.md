@@ -36,15 +36,15 @@ Systems are **stateless functions** that:
 - Emit events for external observation
 
 :::warning
-In order to write data to the world, a system needs explicit permission from the model owner.
-Permissions are defined at the contract (address) level, which means that all the systems inside the same contract will inherit the same permissions.
+In order to write data to the world, a System needs explicit permission from the model owner.
+Permissions are defined at the contract (address) level, which means that all the Systems inside the same contract will inherit the same permissions.
 :::
 
 ## System Design Philosophy
 
 ### Single Responsibility Principle
 
-Each system should have one clear, focused responsibility.
+Each System should have one clear, focused responsibility.
 This promotes modularity, testability, and maintainability.
 
 **Good Examples:**
@@ -65,7 +65,7 @@ Systems should be stateless, deriving all necessary information from the world s
 This ensures predictable behavior and easier testing.
 
 ```cairo
-// Good: Stateless system
+// Good: Stateless System
 fn attack(ref self: ContractState, target: ContractAddress) {
     let mut world = self.world(@"game");
     let attacker = get_caller_address();
@@ -150,7 +150,7 @@ This allows for shared permissions and coordinated operations.
 ```cairo
 #[dojo::contract]
 mod game_actions {
-    // Multiple related systems in one contract
+    // Multiple related Systems in one contract
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         fn move(ref self: ContractState, direction: Direction) { /* ... */ }
         fn rest(ref self: ContractState) { /* ... */ }
@@ -206,48 +206,18 @@ fn move(ref self: ContractState, direction: Direction) {
 }
 ```
 
-## Design Patterns
-
-### Command Pattern
-
-Systems often implement the command pattern, where each public function represents a discrete action.
-
-```cairo
-// Each function is a command
-fn spawn(ref self: ContractState) { /* ... */ }
-fn move(ref self: ContractState, direction: Direction) { /* ... */ }
-fn attack(ref self: ContractState, target: ContractAddress) { /* ... */ }
-```
-
-### State Machine Pattern
-
-Systems can implement state machines for complex entity behaviors.
-
-```cairo
-fn process_turn(ref self: ContractState, player: ContractAddress) {
-    let mut world = self.world(@"game");
-    let mut game_state: GameState = world.read_model(player);
-
-    match game_state.phase {
-        GamePhase::Setup => self.handle_setup(player),
-        GamePhase::Playing => self.handle_playing(player),
-        GamePhase::Ended => self.handle_ended(player),
-    }
-}
-```
-
 ## System Testing Philosophy
 
 Systems should be designed for testability:
 
 1. **Pure Functions**: Business logic should be extractable as pure functions
 2. **Dependency Injection**: Use world storage abstraction for mocking
-3. **Isolated Testing**: Each system should be testable in isolation
-4. **Integration Testing**: Test system interactions through the world contract
+3. **Isolated Testing**: Each System should be testable in isolation
+4. **Integration Testing**: Test System interactions through the world contract
 
 ## Best Practices
 
-1. **Keep Systems Small**: A system should fit in your head
+1. **Keep Systems Small**: A System should fit in your head
 2. **Use Descriptive Names**: Function names should clearly indicate their purpose
 3. **Validate Early**: Check preconditions before making changes
 4. **Handle Errors Gracefully**: Use meaningful error messages
@@ -256,10 +226,10 @@ Systems should be designed for testability:
 
 ## Next Steps
 
-Understanding system design philosophy is crucial for building robust Dojo applications.
-Explore the deeper aspects of system implementation:
+Understanding System design philosophy is crucial for building robust Dojo applications.
+Explore the deeper aspects of System implementation:
 
 - **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
-- **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
+- **[System Coordination](/framework/systems/coordination)** - How Systems interact and coordinate
 
 Systems are the heart of your application - design them thoughtfully and they'll serve you well.

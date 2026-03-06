@@ -11,6 +11,8 @@ With its intuitive visual editor, robust scripting capabilities in C#, and exten
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
 Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
+The Unity SDK is built on the [C bindings](./c/c-bindings) foundation, providing high-performance native integration while maintaining Unity's familiar C# development experience.
+
 ## Core Concepts
 
 Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
@@ -40,7 +42,6 @@ Key Features:
 - Control synchronization: Set the maximum number of entities to synchronize.
 
 - Event-driven communication:
-
     - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
     - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
 
@@ -156,7 +157,7 @@ This section explores the process of interacting with Dojo systems from Unity.
 Every transaction to a Dojo system must come from an **account**.
 Accounts are required to sign and execute transactions that modify your game's on-chain state.
 
-We have two options for creating an account: a simple account, or a burner account.
+We have two options for creating an account: a simple account, or a controller account.
 
 To create a **simple account**, use this code:
 
@@ -173,7 +174,7 @@ void Start()
 }
 ```
 
-For a **burner account**, use this code:
+For a **controller account**, use this code:
 
 ```cs
 using Dojo;
@@ -182,10 +183,10 @@ using UnityEngine;
 
 async void Start()
 {
-    Account burnerAccount = await CreateBurnerAccount(dojoConfig.rpcUrl, masterAddress, masterPrivateKey);
+    Account controllerAccount = await CreateControllerAccount(dojoConfig.rpcUrl, masterAddress, masterPrivateKey);
 }
 
-private async Task<Account> CreateBurnerAccount(string rpcUrl, string masterAddress, string masterPrivateKey )
+private async Task<Account> CreateControllerAccount(string rpcUrl, string masterAddress, string masterPrivateKey )
 {
     var provider = new JsonRpcClient(rpcUrl);
     var signer = new SigningKey(masterPrivateKey);
@@ -282,7 +283,7 @@ Let's break down the concepts:
 
 - `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
 - `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
-- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a burner account.
+- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a controller account.
 
 When this function is called from Unity (e.g., when a player fills out a character creation form), it will create a new on-chain player entity that persists in your Dojo world and can be queried by other systems or clients.
 
@@ -359,7 +360,6 @@ You may encounter the following error while building for WebGL:
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
-
     - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
       ![webgl-error](/client/unity/webgl-build-fail.webp)
         > Example without `Dojo` template selected
@@ -368,7 +368,6 @@ Here are the steps to address it:
     - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
-
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
     - Add this folder to your project's Assets directory.

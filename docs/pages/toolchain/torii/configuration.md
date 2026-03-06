@@ -10,10 +10,14 @@ Configuration provides structured control over indexing, performance, security, 
 
 ## Configuration Priority
 
-1. **Command-line arguments** (highest)
+Configuration options are applied in the following priority order:
+
+1. **Command-line arguments** (highest priority)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**
-4. **Default values** (lowest)
+4. **Default values** (lowest priority)
+
+For detailed information about configuration priority across the Dojo toolchain, see the [Katana configuration guide](./katana/configuration).
 
 ## CLI Usage
 

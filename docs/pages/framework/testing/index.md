@@ -5,7 +5,9 @@ description: Learn how to write and run unit tests and integration tests for you
 
 # Testing
 
-Testing is a crucial part of any software development process. Dojo provides a testing framework that allows you to write tests for your smart contracts. Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.
+Testing is a crucial part of any software development process.
+Dojo provides a testing framework that allows you to write tests for your smart contracts.
+Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.
 
 From your project directory, run:
 
@@ -17,7 +19,7 @@ This will search for all tests within your project and run them.
 
 ## Writing Unit Tests
 
-It is best practise to include unit tests in the same file as the [model](/framework/models/) / [system](/framework/systems/) you are writing.
+It is best practise to include unit tests in the same file as the [model](/framework/models/) / [System](/framework/systems/) you are writing.
 Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 ```cairo
@@ -52,7 +54,9 @@ It is good practise to test all functions of your models.
 
 ## Writing Integration Tests
 
-Integration tests are e2e tests that test the entire [system](/framework/systems/). You can write integration tests for your world by creating a `tests` directory in your project root. Then create a file for each integration test you want to write.
+Integration tests are e2e tests that test the entire [System](/framework/systems/).
+You can write integration tests for your world by creating a `tests` directory in your project root.
+Then create a file for each integration test you want to write.
 
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
@@ -155,3 +159,5 @@ Dojo includes some helpful utilities to make testing easier:
 - [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/dojo-snf-test/src/world.cairo#L140) - Deploy a new world and register the models passed in.
 
 - [`deploy_contract`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/dojo-snf-test/src/world.cairo#L106) - Deploy a new contract and return the contract address.
+
+For advanced testing techniques and additional utilities, see the [cheat codes guide](/framework/testing/cheat-codes).

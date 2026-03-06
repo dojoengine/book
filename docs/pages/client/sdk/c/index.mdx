@@ -8,57 +8,7 @@ description: "The comprehensive client library that powers all Dojo SDKs across 
 [**dojo.c**](https://github.com/dojoengine/dojo.c) is the comprehensive client library that powers all Dojo SDKs.
 Written in Rust, it provides everything you need for Dojo game development: world state queries via Torii, account management, transaction execution, and real-time subscriptions that work consistently across all platforms.
 
-## Implementation Architecture
-
-Rather than implementing blockchain logic separately in each SDK, all Dojo integrations build on this single foundation:
-
-- **Unity SDK** uses dojo.c via C# P/Invoke
-- **JavaScript SDK** uses dojo.c compiled to WebAssembly
-- **Unreal Engine** integrates dojo.c through C++ bindings
-- **Custom integrations** can use dojo.c directly
-
-This ensures consistent behavior, shared bug fixes, and optimal performance across all platforms.
-Implementing in Rust provides the following advantages:
-
-- **Memory Safety**: Eliminates classes of bugs (buffer overflows, use-after-free, etc.)
-- **Performance**: Zero-cost abstractions compile to optimal machine code
-- **Concurrency**: Safe async/await and threading without data races
-- **Ecosystem**: Built on battle-tested Rust libraries (tokio, serde, starknet-rs)
-- **Cross-Platform**: Single codebase compiles to all target platforms
-
-```
-dojo.c Repository (Rust Implementation)
-├── Core Rust Logic (types.rs, utils.rs, constants.rs)
-├── Conditional Compilation:
-│   ├── Native Target → C Bindings (cbindgen)
-│   └── WASM Target → JavaScript Bindings (wasm-bindgen)
-└── Generated Outputs:
-    ├── libdojo_c.{so,dylib,dll} + dojo.h
-    └── dojo_c.js + dojo_c.wasm
-```
-
-The key insight: **two interfaces, one implementation**.
-Both C and WASM APIs share identical Rust core logic, ensuring consistency.
-
-The two interfaces are designed for different use cases:
-
-### C Bindings API
-
-**Target**: Native platform integrations, custom SDKs, maximum performance
-
-- **Style**: Procedural C functions with callback-based async operations
-- **Use Cases**: Building Unity/Unreal plugins, system-level integrations
-- **Memory Management**: Manual with explicit cleanup functions
-- **Threading**: Callback-driven with internal runtime management
-
-### WASM JavaScript API
-
-**Target**: Web applications, Node.js, rapid prototyping
-
-- **Style**: Modern async/await with object-oriented design
-- **Use Cases**: Browser games, web apps, Node.js backends, testing
-- **Memory Management**: Automatic garbage collection
-- **Threading**: Promise-based with native async support
+This library serves as the foundation for Unity, Unreal Engine, and JavaScript SDKs, providing consistent functionality across platforms through C bindings and WebAssembly.
 
 ## What You Get
 
@@ -139,6 +89,13 @@ const client = await new ToriiClient(config);
 
 dojo.c provides everything you need for Dojo game development in one comprehensive package.
 Whether you're building Unity games, web applications, or custom integrations, it delivers consistent, reliable blockchain interaction with the convenience of an integrated Torii client, account management, and Starknet provider.
+
+## Platform SDK Integration
+
+The C bindings power several platform-specific SDKs:
+
+- [Unity SDK](../unity) - Uses C bindings for native Unity integration
+- [Unreal Engine SDK](../unrealengine) - Built on C bindings for high-performance games
 
 ## Next Steps
 

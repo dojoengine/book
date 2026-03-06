@@ -163,7 +163,7 @@ github = "https://github.com/mydojogame/contracts"
 - `website` - Project website URL
 - `socials` - Social media links
 
-See more information about world metadata [here](/framework/world/metadata).
+See more information about world metadata [here](./world/metadata).
 
 ### Environment Settings
 
@@ -232,6 +232,8 @@ mappings = {
 - **Writers** - Can modify data in models
 - **Owners** - Can modify data AND manage permissions
 
+See the [World Permissions](./world/permissions) guide for detailed runtime permission management.
+
 ### Contract Initialization
 
 By default, Dojo contracts don't have initialization arguments.
@@ -252,7 +254,7 @@ mod my_system {
 ```
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](../toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### External Contract Deployment
@@ -280,7 +282,7 @@ constructor_data = [
 - `constructor_data` - Arguments for contract constructor
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](../toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### Migration Control
@@ -318,7 +320,7 @@ tag = "game-PlayerMoved"
 description = "Emitted when a player changes position"
 ```
 
-See more information about resource metadata [here](/framework/world/metadata).
+See more information about resource metadata [here](./world/metadata).
 
 ## Configuration Examples
 
@@ -379,7 +381,7 @@ mappings = { "items" = ["Sword", "Shield", "Potion"] }
 
 ## See Also
 
-- **[World Permissions](/framework/world/permissions)** - Runtime permission management
-- **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
-- **[Calldata Format](/toolchain/sozo/index.md#data-format-reference)** - Constructor argument formatting
-- **[World Metadata](/framework/world/metadata)** - World and resource metadata
+- **[World Permissions](./world/permissions)** - Runtime permission management
+- **[Sozo Reference](../toolchain/sozo)** - Command-line tool documentation
+- **[Calldata Format](../toolchain/sozo#data-format-reference)** - Constructor argument formatting
+- **[World Metadata](./world/metadata)** - World and resource metadata

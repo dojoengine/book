@@ -5,7 +5,8 @@ description: "The World contract - your application's central database and orche
 
 # World Contract
 
-The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application. Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
+The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
+Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
 ![World Contract Overview](/framework/world-map.png)
 
@@ -37,7 +38,8 @@ world.emit_event(@Moved { player, direction });
 
 ### Resources and Namespaces
 
-In Dojo, everything is a **resource** - models, systems, events, and even the world itself. Resources are organized within **namespaces** to prevent conflicts and enable modular development.
+In Dojo, everything is a **resource** - models, systems, events, and even the world itself.
+Resources are organized within **namespaces** to prevent conflicts and enable modular development.
 
 ```cairo
 // Resources are identified by their namespace and name
@@ -123,22 +125,8 @@ world.write_model(@updated_position);
 
 ### Permissions and Security
 
-The World contract implements a resource-based permission system with two permission types:
-
-- **Owner**: Can manage resources, grant permissions, and upgrade resources
-- **Writer**: Can write data into resource storage
-
-**Resource Hierarchy** (order of precedence):
-
-1. **World** → Can access all resources
-2. **Namespace** → Can access all resources in that namespace
-3. **Model/Contract/Event** → Can access the specific resource
-
-**Key Points**:
-
-- Reading is always permissionless
-- Writing requires Writer permission on the resource or its namespace
-- When you deploy to a world, you automatically become owner of your namespace
+The World contract implements a comprehensive resource-based permission system.
+For detailed information about managing permissions, user roles, and security considerations, see the [Permissions](/framework/world/permissions) page.
 
 ## Getting Started
 
@@ -247,7 +235,8 @@ The World contract includes several optimizations:
 
 ## The World Interface
 
-The World contract exposes a complete interface for external interactions. While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
+The World contract exposes a complete interface for external interactions.
+While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
 
 ```cairo
 // Generate unique IDs

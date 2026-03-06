@@ -10,6 +10,8 @@ This enables you to customize everything from network settings to gas prices for
 
 ### Configuration Priority
 
+Configuration values are resolved in the following order of precedence:
+
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**
@@ -212,7 +214,7 @@ katana init --id my-rollup --settlement-chain sepolia
 katana init --sovereign --id my-chain --output-path ./chain-config
 ```
 
-For detailed chain initialization examples and configuration options, see the [Chain Initialization](/toolchain/katana/advanced#chain-initialization-and-settlement) section in the Advanced Features guide.
+For detailed chain initialization examples and configuration options, see the [Chain Initialization](./advanced#chain-initialization-and-settlement) section in the Advanced Features guide.
 
 ## Genesis Configuration
 

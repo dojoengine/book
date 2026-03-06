@@ -325,6 +325,36 @@ mod achievement_extension {
 }
 ```
 
+## Design Patterns
+
+### Command Pattern
+
+Systems often implement the command pattern, where each public function represents a discrete action.
+
+```cairo
+// Each function is a command
+fn spawn(ref self: ContractState) { /* ... */ }
+fn move(ref self: ContractState, direction: Direction) { /* ... */ }
+fn attack(ref self: ContractState, target: ContractAddress) { /* ... */ }
+```
+
+### State Machine Pattern
+
+Systems can implement state machines for complex entity behaviors.
+
+```cairo
+fn process_turn(ref self: ContractState, player: ContractAddress) {
+    let mut world = self.world(@"game");
+    let mut game_state: GameState = world.read_model(player);
+
+    match game_state.phase {
+        GamePhase::Setup => self.handle_setup(player),
+        GamePhase::Playing => self.handle_playing(player),
+        GamePhase::Ended => self.handle_ended(player),
+    }
+}
+```
+
 ## Composability Patterns
 
 ### Mixin Pattern
@@ -360,7 +390,8 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits
@@ -578,4 +609,4 @@ Take time to design your architecture thoughtfully - it will pay dividends as yo
 
 ## Next Steps
 
-- **[System Coordination](/framework/systems/coordination)** - Learn how systems interact and coordinate
+- **[System Coordination](./coordination)** - Learn how systems interact and coordinate

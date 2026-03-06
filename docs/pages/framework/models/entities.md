@@ -145,6 +145,9 @@ let stats: PlayerStats = world.read_model(player);
 
 ## Entity Relationships
 
+Understanding how entities relate to each other is crucial for designing complex game systems.
+For detailed information on how different types of model relationships work in Dojo, see the [Models overview](./index.md).
+
 ### One-to-One Relationships
 
 Each entity has exactly one instance of a model:
