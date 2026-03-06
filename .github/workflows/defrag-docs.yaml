@@ -5,13 +5,12 @@ on:
         - cron: "0 0 1 * *" # 1st of each month, midnight UTC
     workflow_dispatch:
 
+permissions:
+    contents: write
+
 jobs:
     defrag:
         runs-on: ubuntu-latest
-
-        outputs:
-            branch: ${{ steps.create-pr.outputs.branch }}
-            has-changes: ${{ steps.create-pr.outputs.has-changes }}
 
         steps:
             - name: Checkout repository
@@ -90,7 +89,7 @@ jobs:
 
                   ### Review notes
                   Please review the diff carefully — all changes are LLM-generated editorial fixes.
-                  Build errors (if any) will be fixed automatically by the confirm-build job.
+                  Build errors (if any) will be fixed automatically in a follow-up commit.
 
                   ---
                   *This PR was automatically created by the monthly defragmentation workflow.*
@@ -99,43 +98,17 @@ jobs:
                     --base main \
                     --head "$BRANCH"
 
-    confirm-build:
-        needs: defrag
-        if: needs.defrag.outputs.has-changes == 'true'
-        runs-on: ubuntu-latest
-
-        permissions:
-            contents: write
-
-        steps:
-            - name: Checkout PR branch
-              uses: actions/checkout@v4
-              with:
-                  ref: ${{ needs.defrag.outputs.branch }}
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "20"
-
-            - name: Set up pnpm
-              uses: pnpm/action-setup@v4
-
-            - name: Install dependencies
-              run: pnpm install
-
             - name: Fix dead links
+              if: steps.create-pr.outputs.has-changes == 'true'
               run: node scripts/confirm-build.mjs
 
-            - name: Commit fixes
+            - name: Commit build fixes
+              if: steps.create-pr.outputs.has-changes == 'true'
               run: |
                   if [ -z "$(git status --porcelain docs/)" ]; then
                     echo "No fixes needed"
                     exit 0
                   fi
-
-                  git config user.name "github-actions[bot]"
-                  git config user.email "github-actions[bot]@users.noreply.github.com"
 
                   git add docs/
                   git commit -m "fix: auto-fix docs build errors"
