@@ -5,9 +5,6 @@ on:
         - cron: "0 0 1 * *" # 1st of each month, midnight UTC
     workflow_dispatch:
 
-permissions:
-    contents: write
-
 jobs:
     defrag:
         runs-on: ubuntu-latest
