@@ -5,7 +5,9 @@ description: Learn how to write and run unit tests and integration tests for you
 
 # Testing
 
-Testing is a crucial part of any software development process. Dojo provides a testing framework that allows you to write tests for your smart contracts. Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.
+Testing is a crucial part of any software development process.
+Dojo provides a testing framework that allows you to write tests for your smart contracts.
+Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.
 
 From your project directory, run:
 
@@ -52,7 +54,9 @@ It is good practise to test all functions of your models.
 
 ## Writing Integration Tests
 
-Integration tests are e2e tests that test the entire [system](/framework/systems/). You can write integration tests for your world by creating a `tests` directory in your project root. Then create a file for each integration test you want to write.
+Integration tests are e2e tests that test the entire [system](/framework/systems/).
+You can write integration tests for your world by creating a `tests` directory in your project root.
+Then create a file for each integration test you want to write.
 
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
@@ -155,3 +159,90 @@ Dojo includes some helpful utilities to make testing easier:
 - [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/dojo-snf-test/src/world.cairo#L140) - Deploy a new world and register the models passed in.
 
 - [`deploy_contract`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/dojo-snf-test/src/world.cairo#L106) - Deploy a new contract and return the contract address.
+
+For more advanced testing features and capabilities, see [Cheat Codes](/framework/testing/cheat-codes).
+
+## Testing with `dojo-cairo-test`
+
+Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`.
+The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
+
+You now have to import the `world` and pass its class hash to the `spawn_test_world` function.
+There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
+
+```rust
+use dojo::world::{WorldStorageTrait, world};
+use dojo_cairo_test::{
+    NamespaceDef, TestResource, spawn_test_world,
+};
+
+fn namespace_def() -> NamespaceDef {
+    let ndef = NamespaceDef {
+        namespace: "dojo_starter",
+        resources: [
+            TestResource::Model(m_Position::TEST_CLASS_HASH),
+            TestResource::Model(m_Moves::TEST_CLASS_HASH),
+            TestResource::Event(actions::e_Moved::TEST_CLASS_HASH),
+            TestResource::Contract(actions::TEST_CLASS_HASH),
+        ]
+            .span(),
+    };
+
+    ndef
+}
+
+#[test]
+fn test_world_test_set() {
+    let ndef = namespace_def();
+    let mut world = spawn_test_world(world::TEST_CLASS_HASH, [ndef].span());
+}
+```
+
+## Using Starknet Foundry
+
+Now that Starknet Foundry is supported for Dojo contracts, you can opt to use it instead of `dojo-cairo-test` for testing.
+You can use the whole Starknet Foundry test suite and cheatcodes.
+
+Update your `Scarb.toml` to add the `dojo_snf_test` dependency:
+
+```toml
+[dev-dependencies]
+dojo_snf_test = "1.7.0"
+```
+
+The API is very similar to `dojo-cairo-test` to setup your tests:
+
+```rust
+use dojo::model::{ModelStorage, ModelStorageTest, ModelValueStorage};
+use dojo::world::WorldStorageTrait;
+use dojo_examples::models::{Direction, Moves, Position, PositionValue};
+use dojo_snf_test::{
+    ContractDef, ContractDefTrait, NamespaceDef, TestResource, WorldStorageTestTrait,
+    set_caller_address, spawn_test_world,
+};
+use starknet::ContractAddress;
+
+fn namespace_def() -> NamespaceDef {
+    let ndef = NamespaceDef {
+        namespace: "ns",
+        resources: [
+            TestResource::Model("Position"), TestResource::Model("Moves"),
+            TestResource::Event("Moved"), TestResource::Contract("actions"),
+            TestResource::Library(("simple_math", "0_1_0")),
+        ]
+            .span(),
+    };
+
+    ndef
+}
+
+#[test]
+fn test_world_test_set() {
+    let caller = NULL_ADDRESS;
+
+    let ndef = namespace_def();
+    let mut world = spawn_test_world([ndef].span());
+
+    world.sync_perms_and_inits(contract_defs());
+}
+```

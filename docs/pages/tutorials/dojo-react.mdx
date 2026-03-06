@@ -1,1 +1,405 @@
+---
+description: "Learn to build client applications for your Dojo world using React and TypeScript."
+---
+
 # Dojo React
+
+This guide will teach you how to build client applications for your Dojo world using React and TypeScript.
+
+:::note
+This tutorial assumes you have completed the [Dojo Starter Tutorial](./dojo-starter) and have a basic understanding of Dojo concepts like Systems, Models, and the World.
+:::
+
+## Prerequisites
+
+Before starting this tutorial, ensure you have:
+
+- Node.js 18+ installed
+- A completed Dojo project from the [Dojo Starter Tutorial](./dojo-starter)
+- Basic knowledge of React and TypeScript
+
+## Setting Up the React Client
+
+First, let's create a new React project for our Dojo client:
+
+```bash
+npx create-react-app dojo-client --template typescript
+cd dojo-client
+```
+
+Install the Dojo.js SDK:
+
+```bash
+npm install @dojoengine/core @dojoengine/state @dojoengine/torii-client
+```
+
+## Connecting to Your Dojo World
+
+Create a configuration file for your Dojo world connection:
+
+```typescript
+// src/dojo/config.ts
+export const dojoConfig = {
+    rpcUrl: "http://localhost:5050", // Katana RPC URL
+    toriiUrl: "http://localhost:8080", // Torii GraphQL endpoint
+    worldAddress: "0x...", // Your world contract address
+    relayUrl: "", // Optional relay URL for gasless transactions
+};
+```
+
+## Creating the Dojo Setup Hook
+
+Create a custom hook to manage the Dojo connection:
+
+```typescript
+// src/hooks/useDojo.ts
+import { useMemo } from "react";
+import { DojoProvider } from "@dojoengine/core";
+import { Account } from "starknet";
+import { dojoConfig } from "../dojo/config";
+
+export const useDojo = () => {
+    const provider = useMemo(() => new DojoProvider(dojoConfig.rpcUrl), []);
+
+    const createBurnerAccount = async () => {
+        // Create a burner account for testing
+        const account = new Account(provider, "0x...", "0x...");
+        return account;
+    };
+
+    return {
+        provider,
+        createBurnerAccount,
+    };
+};
+```
+
+## Querying Game State with GraphQL
+
+Use the Torii GraphQL endpoint to query your game state:
+
+```typescript
+// src/hooks/useGameState.ts
+import { useEffect, useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+
+const GET_MOVES = gql`
+    query GetMoves {
+        moves {
+            player
+            direction
+        }
+    }
+`;
+
+export const useGameState = () => {
+    const { data, loading, error } = useQuery(GET_MOVES);
+
+    return {
+        moves: data?.moves || [],
+        loading,
+        error,
+    };
+};
+```
+
+## Executing Systems
+
+Create functions to execute your Dojo Systems from the React client:
+
+```typescript
+// src/utils/systems.ts
+import { Account } from "starknet";
+import { DojoProvider } from "@dojoengine/core";
+
+export const executeMove = async (
+    provider: DojoProvider,
+    account: Account,
+    direction: string
+) => {
+    try {
+        const { transaction_hash } = await provider.execute(
+            account,
+            "actions",
+            "move",
+            [direction]
+        );
+
+        console.log("Move executed:", transaction_hash);
+        return transaction_hash;
+    } catch (error) {
+        console.error("Failed to execute move:", error);
+        throw error;
+    }
+};
+```
+
+## Building the Game Interface
+
+Create React components that interact with your Dojo world:
+
+```tsx
+// src/components/GameBoard.tsx
+import React from "react";
+import { useGameState } from "../hooks/useGameState";
+import { useDojo } from "../hooks/useDojo";
+import { executeMove } from "../utils/systems";
+
+export const GameBoard: React.FC = () => {
+    const { moves, loading } = useGameState();
+    const { provider, createBurnerAccount } = useDojo();
+
+    const handleMove = async (direction: string) => {
+        try {
+            const account = await createBurnerAccount();
+            await executeMove(provider, account, direction);
+        } catch (error) {
+            console.error("Move failed:", error);
+        }
+    };
+
+    if (loading) return <div>Loading game state...</div>;
+
+    return (
+        <div className="game-board">
+            <h2>Game State</h2>
+
+            <div className="controls">
+                <button onClick={() => handleMove("Up")}>↑</button>
+                <button onClick={() => handleMove("Down")}>↓</button>
+                <button onClick={() => handleMove("Left")}>←</button>
+                <button onClick={() => handleMove("Right")}>→</button>
+            </div>
+
+            <div className="moves-history">
+                <h3>Moves History</h3>
+                {moves.map((move: any, index: number) => (
+                    <div key={index}>
+                        Player {move.player} moved {move.direction}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+```
+
+## Real-time Updates with Subscriptions
+
+Subscribe to real-time updates from Torii:
+
+```typescript
+// src/hooks/useRealtimeUpdates.ts
+import { useEffect } from "react";
+import { gql, useSubscription } from "@apollo/client";
+
+const MOVES_SUBSCRIPTION = gql`
+    subscription OnMoveAdded {
+        moveAdded {
+            player
+            direction
+        }
+    }
+`;
+
+export const useRealtimeUpdates = () => {
+    const { data, loading } = useSubscription(MOVES_SUBSCRIPTION);
+
+    useEffect(() => {
+        if (data?.moveAdded) {
+            console.log("New move:", data.moveAdded);
+            // Update local state or trigger re-fetch
+        }
+    }, [data]);
+
+    return { data, loading };
+};
+```
+
+## Managing Game State
+
+Use React state management to handle your game data:
+
+```typescript
+// src/context/GameContext.tsx
+import React, { createContext, useContext, useReducer } from 'react';
+
+interface GameState {
+    playerPosition: { x: number; y: number };
+    moves: Array<{ player: string; direction: string }>;
+}
+
+interface GameAction {
+    type: 'MOVE' | 'UPDATE_MOVES';
+    payload: any;
+}
+
+const gameReducer = (state: GameState, action: GameAction): GameState => {
+    switch (action.type) {
+        case 'MOVE':
+            return {
+                ...state,
+                playerPosition: action.payload
+            };
+        case 'UPDATE_MOVES':
+            return {
+                ...state,
+                moves: action.payload
+            };
+        default:
+            return state;
+    }
+};
+
+const GameContext = createContext<{
+    state: GameState;
+    dispatch: React.Dispatch<GameAction>;
+} | null>(null);
+
+export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [state, dispatch] = useReducer(gameReducer, {
+        playerPosition: { x: 0, y: 0 },
+        moves: []
+    });
+
+    return (
+        <GameContext.Provider value={{ state, dispatch }}>
+            {children}
+        </GameContext.Provider>
+    );
+};
+
+export const useGameContext = () => {
+    const context = useContext(GameContext);
+    if (!context) {
+        throw new Error('useGameContext must be used within GameProvider');
+    }
+    return context;
+};
+```
+
+## Error Handling and Loading States
+
+Implement proper error handling and loading states:
+
+```tsx
+// src/components/ErrorBoundary.tsx
+import React from "react";
+
+interface ErrorBoundaryState {
+    hasError: boolean;
+    error?: Error;
+}
+
+export class ErrorBoundary extends React.Component<
+    React.PropsWithChildren<{}>,
+    ErrorBoundaryState
+> {
+    constructor(props: React.PropsWithChildren<{}>) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+        return { hasError: true, error };
+    }
+
+    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+        console.error("Dojo React Error:", error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div className="error-boundary">
+                    <h2>Something went wrong with the Dojo connection.</h2>
+                    <details>{this.state.error?.message}</details>
+                    <button onClick={() => this.setState({ hasError: false })}>
+                        Try again
+                    </button>
+                </div>
+            );
+        }
+
+        return this.props.children;
+    }
+}
+```
+
+## Testing Your React Client
+
+Test your components with React Testing Library:
+
+```typescript
+// src/__tests__/GameBoard.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { GameBoard } from '../components/GameBoard';
+import { MockedProvider } from '@apollo/client/testing';
+
+const mocks = [
+    {
+        request: {
+            query: GET_MOVES,
+        },
+        result: {
+            data: {
+                moves: [
+                    { player: "0x123", direction: "Up" }
+                ]
+            }
+        }
+    }
+];
+
+test('renders game board with moves', async () => {
+    render(
+        <MockedProvider mocks={mocks}>
+            <GameBoard />
+        </MockedProvider>
+    );
+
+    expect(await screen.findByText(/Game State/)).toBeInTheDocument();
+    expect(await screen.findByText(/Player.*moved Up/)).toBeInTheDocument();
+});
+
+test('executes move when button clicked', async () => {
+    render(
+        <MockedProvider mocks={mocks}>
+            <GameBoard />
+        </MockedProvider>
+    );
+
+    const upButton = await screen.findByText('↑');
+    fireEvent.click(upButton);
+
+    // Assert that move execution was triggered
+    // This would require mocking the executeMove function
+});
+```
+
+## Deployment
+
+Build and deploy your React application:
+
+```bash
+# Build the production app
+npm run build
+
+# Serve locally to test
+npx serve -s build
+
+# Deploy to your preferred hosting platform
+# (Vercel, Netlify, etc.)
+```
+
+## Next Steps
+
+Now that you have a working React client for your Dojo world, you can:
+
+- Add more sophisticated UI components
+- Implement user authentication and wallet integration
+- Add animations and visual effects
+- Optimize performance with proper caching strategies
+- Explore advanced Dojo.js features like entity subscriptions
+
+For more advanced client development patterns, see the [Dojo SDK documentation](../client/sdk).

@@ -89,7 +89,7 @@ katana --block-time 10000 --db-dir ./katana-db
 
 ## Installation
 
-Katana can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+Install Katana via [`dojoup`](/installation), Dojo's dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash
@@ -99,15 +99,11 @@ curl -L https://install.dojoengine.org | bash
 dojoup install
 ```
 
-:::note
-This will install the `katana` binary at `~/.dojo/bin`
-:::
-
 :::tip
 Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
 :::
 
-### Installing with `asdf`
+### Alternative Installation Methods
 
 If you prefer to install with the `asdf` version manager:
 
@@ -117,23 +113,13 @@ asdf plugin add katana https://github.com/dojoengine/asdf-katana.git
 asdf install katana latest
 ```
 
-:::note
-This will install the `katana` binary at `~/.asdf/shims`
-:::
-
-### Building from Source
-
-If you prefer to build from source:
+To build from source:
 
 ```bash
 git clone https://github.com/dojoengine/katana
 
 cargo install --path ./katana/bin/katana --locked --force
 ```
-
-:::note
-This will install the `katana` binary at `~/.cargo/bin`
-:::
 
 ## Next Steps
 

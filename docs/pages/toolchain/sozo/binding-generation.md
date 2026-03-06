@@ -33,7 +33,7 @@ Bindings are saved to the `bindings/` directory by default.
 - **Integration helpers** for each platform
 
 :::tip
-For the architectural details of binding generation, see the [Cainome documentation](/toolchain/cainome).
+For the architectural details of binding generation, see the [Cainome documentation](./cainome).
 :::
 
 ## Supported Platforms

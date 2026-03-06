@@ -212,7 +212,7 @@ katana init --id my-rollup --settlement-chain sepolia
 katana init --sovereign --id my-chain --output-path ./chain-config
 ```
 
-For detailed chain initialization examples and configuration options, see the [Chain Initialization](/toolchain/katana/advanced#chain-initialization-and-settlement) section in the Advanced Features guide.
+For detailed chain initialization examples and configuration options, see the [Advanced Features guide](/toolchain/katana/advanced).
 
 ## Genesis Configuration
 

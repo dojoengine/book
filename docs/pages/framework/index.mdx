@@ -8,12 +8,14 @@ import { LinkCard } from "../../components/LinkCard";
 # Dojo Framework Overview
 
 :::note
-Dojo is built on top of Cairo. We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
+Dojo is built on top of Cairo.
+We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
 :::
 
 ## What is Dojo?
 
-Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet. It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
+Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet.
+It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
 
 **Key Benefits:**
 
@@ -29,7 +31,8 @@ Dojo is a comprehensive framework for building provable games and autonomous wor
 [Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern that separates data from logic, enabling highly modular and scalable applications.
 
 **The Problem ECS Solves:**
-Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior. ECS addresses these issues by decomposing your application into three distinct parts:
+Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior.
+ECS addresses these issues by decomposing your application into three distinct parts:
 
 ### The ECS Trinity
 
@@ -45,6 +48,22 @@ Entities are typically represented as a unique identifier, to which components a
 Systems can then operate over large numbers of entities at once, depending on the components they have.
 
 As an example, a combat system might reduce the durability of all weapons used in a battle, while a rest system might increase the health of all members of a party.
+
+### ECS Theory
+
+Entities in Dojo follow the Entity-Component-System (ECS) architectural pattern:
+
+- **Entities**: Unique identifiers that group related components
+- **Components**: Data containers (your Dojo models) that store entity state
+- **Systems**: Functions that operate on entities with specific component combinations
+
+This separation allows for:
+
+- **Composition over inheritance**: Build complex entities from simple components
+- **Performance**: Efficient data access and cache-friendly operations
+- **Flexibility**: Easy to add, remove, or modify entity behaviors
+
+> For deeper understanding of ECS concepts, read the [ECS-FAQ](https://github.com/SanderMertens/ecs-faq)
 
 **ECS Benefits:**
 
@@ -121,7 +140,8 @@ Dojo adapts ECS for the onchain environment with three core concepts:
 
 ### 1. Models (Components)
 
-Models are Cairo structs that define your application's data structures. They act as _components_ in the ECS pattern.
+Models are Cairo structs that define your application's data structures.
+They act as _components_ in the ECS pattern.
 
 ```rust
 #[derive(Copy, Drop, Serde)]
@@ -215,7 +235,7 @@ world.emit_event(@PlayerMoved { player, direction });
 **Key Features:**
 
 - **Centralized state**: Single source of truth for all application data
-- **Permission management**: Hierarchical authorization system
+- **Permission management**: Hierarchical authorization system (see the [permissions guide](./world/permissions) for details)
 - **Upgradeability**: Safe model and system upgrades
 - **Introspection**: Rich metadata and schema information
 

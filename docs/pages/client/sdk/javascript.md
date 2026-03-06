@@ -20,7 +20,43 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 :::note
 dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes Torii client features via WASM.
 For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
+For more about the WASM compilation strategy, see [WASM bindings](/client/sdk/c/wasm-bindings).
 :::
+
+## Common Patterns
+
+The following patterns demonstrate how all Dojo applications work, regardless of which SDK you choose:
+
+### Core Game Loop
+
+All SDKs follow this fundamental flow:
+
+```
+Client → SDK → Katana (sequencer) → Torii (indexer) → SDK → Client
+```
+
+All SDKs provide mechanisms to send transactions and query entities from your world.
+Player actions in the client are translated by the SDK into transactions that are sent to the sequencer.
+The sequencer executes the transactions and the indexer updates the world state.
+The client can then query the world state to get the latest state, which is then rendered to the user.
+
+### Account Management
+
+Every Dojo application needs to handle player accounts:
+
+- **Session Accounts**: Temporary accounts for seamless gameplay
+- **Controller Accounts**: Delegate specific permissions to game contracts
+- **Burner Accounts**: Disposable accounts funded by a master account
+
+### Transaction Flow
+
+The standard pattern for executing actions:
+
+1. **Prepare**: Build transaction calls using contract bindings
+2. **Sign**: Use account credentials to sign transaction
+3. **Execute**: Submit transaction to Katana sequencer
+4. **Wait**: Monitor transaction status and confirmation
+5. **Sync**: Update local state with new world state
 
 ## Getting Started
 
@@ -79,7 +115,7 @@ export const dojoConfig = createDojoConfig({ manifest });
 
 #### Generate TypeScript Bindings
 
-[Generate code bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
+[Generate contract bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
 
 ```bash
 DOJO_MANIFEST_PATH="../path/to/Scarb.toml" sozo build --typescript
@@ -176,7 +212,7 @@ All queries use the same `ToriiQueryBuilder` and support the same filtering oper
 For more information about Torii queries, consult the [Torii gRPC API reference](/toolchain/torii/grpc).
 :::
 
-### Querying Entities
+### Entity Queries
 
 Fetch entities using the `ToriiQueryBuilder` with various clause types:
 
@@ -419,7 +455,8 @@ If you want messages to be broadcast to all of your torii client instances, you'
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
+First, configure Torii to index your tokens:
 
 ```toml
 # dojo_dev.toml
@@ -454,9 +491,40 @@ function TokenBalance({ address }: { address: string }) {
 }
 ```
 
+### System Calls
+
+Execute actions on your Dojo world by calling systems through the SDK:
+
+```typescript
+import { useCallback } from "react";
+import { useDojoSDK } from "@dojoengine/sdk/react";
+import { useAccount } from "@starknet-react/core";
+
+export function useSystemCalls() {
+    const { account } = useAccount();
+    const { client } = useDojoSDK();
+
+    const spawn = useCallback(async () => {
+        if (!account) return;
+
+        try {
+            // Execute the spawn action
+            const result = await client.actions.spawn({ account });
+            console.log("Spawn successful:", result);
+        } catch (error) {
+            console.error("Error executing spawn:", error);
+            throw error;
+        }
+    }, [account, client]);
+
+    return { spawn };
+}
+```
+
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

@@ -57,7 +57,7 @@ db_dir = "torii.db"             # Persistent database (omit for in-memory)
 ```
 
 :::info
-AS of Torii 1.6.0, the World address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
+As of Torii 1.6.0, the world address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
 Under the hood, a value passed to `world` is simply appended to the `contracts` array.
 :::
 

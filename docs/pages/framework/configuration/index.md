@@ -208,6 +208,9 @@ mappings = {
 
 ### Permission Configuration
 
+Define who can access and modify your world's resources using the permission system.
+Resource selectors identify specific models or contracts, while grantee tags specify which entities receive permissions.
+
 ```toml
 # Format: "<TARGET_TAG>" = ["<GRANTEE_TAG>"]
 
@@ -232,6 +235,8 @@ mappings = {
 - **Writers** - Can modify data in models
 - **Owners** - Can modify data AND manage permissions
 
+For detailed information about permission management, see [World Permissions](/framework/world/permissions).
+
 ### Contract Initialization
 
 By default, Dojo contracts don't have initialization arguments.
@@ -252,7 +257,7 @@ mod my_system {
 ```
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### External Contract Deployment
@@ -280,7 +285,7 @@ constructor_data = [
 - `constructor_data` - Arguments for contract constructor
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### Migration Control
@@ -381,5 +386,5 @@ mappings = { "items" = ["Sword", "Shield", "Potion"] }
 
 - **[World Permissions](/framework/world/permissions)** - Runtime permission management
 - **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
-- **[Calldata Format](/toolchain/sozo/index.md#data-format-reference)** - Constructor argument formatting
+- **[Calldata Format](/toolchain/sozo#data-format-reference)** - Constructor argument formatting
 - **[World Metadata](/framework/world/metadata)** - World and resource metadata

@@ -161,8 +161,8 @@ world.erase_models_ptrs(ptrs);
 Field operations are more efficient when you only need to update specific fields:
 
 :::warning
-Field-level operations are advanced features that require careful use. For most applications,
-use the simpler `world.read_model()` and `world.write_model()` methods.
+Field-level operations are advanced features that require careful use.
+For most applications, use the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
 #### Reading Fields
@@ -217,6 +217,8 @@ let summary: PositionSummary = world.read_schema(ptr);
 let ptrs = Model::<Position>::ptrs_from_keys(players.span());
 let summaries: Array<PositionSummary> = world.read_schemas(ptrs);
 ```
+
+Learn more about the [Introspect trait](./introspection) and its requirements.
 
 ## Model Values
 

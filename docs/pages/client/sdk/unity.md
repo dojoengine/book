@@ -11,50 +11,10 @@ With its intuitive visual editor, robust scripting capabilities in C#, and exten
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
 Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
-## Core Concepts
+Unity leverages dojo.c through C# P/Invoke to provide efficient native integration.
+For more details on the underlying C implementation, see the [dojo.c documentation](./c).
 
-Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
-
-### World Manager
-
-The **World Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
-
-![world-manager](/client/unity/world-manager.webp)
-
-During initialization, the World Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
-While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
-
-![world-manager-data](/client/unity/world-manager-data.webp)
-
-In Unity, entities are represented by `GameObject` instances.
-The World Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
-
-### Synchronization Master
-
-The Synchronization Master acts as the bridge between Unity and your Dojo world, seamlessly synchronizing and managing entities.
-
-![sync-master](/client/unity/sync-master.webp)
-
-Key Features:
-
-- Control synchronization: Set the maximum number of entities to synchronize.
-
-- Event-driven communication:
-
-    - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
-    - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
-
-- Dynamic entity management:
-    - `SynchronizeEntities`: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
-    - `HandleEntityUpdate`: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
-
-### Code Bindings
-
-In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as a "code binding".
-A code binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
-
-Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](/toolchain/cainome).
-You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
+For the foundational concepts that apply across all Dojo SDKs, including architecture patterns and setup approaches, see the [main SDK overview](.).
 
 ## Getting Started
 
@@ -147,7 +107,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 ::::
 
-## Calling Dojo Systems
+## System calls
 
 This section explores the process of interacting with Dojo systems from Unity.
 
@@ -203,7 +163,7 @@ Replace `masterAddress` and `masterPrivateKey` with the **account Address** and 
 ### System Execution
 
 Once we have an [account](#account-creation), we must execute a call to a Dojo system.
-To do this, we must first teach our Unity project about our Dojo contracts using [code bindings](#code-bindings).
+To do this, we must first teach our Unity project about our Dojo contracts using [contract bindings](#contract-bindings).
 
 Sozo's [bindgen](/toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
 
@@ -359,7 +319,6 @@ You may encounter the following error while building for WebGL:
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
-
     - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
       ![webgl-error](/client/unity/webgl-build-fail.webp)
         > Example without `Dojo` template selected
@@ -368,7 +327,6 @@ Here are the steps to address it:
     - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
-
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
     - Add this folder to your project's Assets directory.

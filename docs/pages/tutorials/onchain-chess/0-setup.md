@@ -5,11 +5,12 @@ description: Learn how to set up a Dojo chess game project, including project st
 
 # 0. Setup
 
-_Before starting recommend following the [`hello-dojo`](/tutorials/dojo-starter.mdx) chapter to gain a basic understanding of the Dojo game._
+_Before starting recommend following the [`hello-dojo`](/tutorials/dojo-starter) chapter to gain a basic understanding of the Dojo game._
 
 ## Initializing the Project
 
-Create and initialize a new Dojo project. You can name your project what you want.
+Create and initialize a new Dojo project.
+You can name your project what you want.
 
 ```sh
 sozo init chess
@@ -17,7 +18,9 @@ sozo init chess
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure your directory looks like this
+The project comes with a lot of boilerplate codes.
+Clear it all.
+Make sure your directory looks like this
 
 ```shell
 ├── README.md
@@ -92,13 +95,8 @@ Compile your project with:
 sozo build
 ```
 
-## Basic Models
-
-While there are many ways to design a chess game using the ECS model, we'll follow this approach:
-
-> Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square position, that position will hold that piece.
-
-First, add this basic `player` model to `models/player.cairo` file. If you are not familar with model syntax in Dojo engine, go back to this [chapter](/framework/models).
+First, add this basic `player` model to `models/player.cairo` file.
+If you are not familar with model syntax in Dojo engine, go back to this [chapter](/framework/models).
 
 ```rust
 use starknet::ContractAddress;
@@ -120,7 +118,8 @@ enum Color {
 }
 ```
 
-Second, we do the same for `game` model. Edit your `models/game.cairo` file and add this content.
+Second, we do the same for `game` model.
+Edit your `models/game.cairo` file and add this content.
 
 ```rust
 use chess::models::player::Color;
@@ -179,7 +178,8 @@ enum PieceType {
 
 ## Basic systems
 
-Starting from the next chapter, you will implement the `actions.cairo` file. This is where our game logic/contract will reside.
+Starting from the next chapter, you will implement the `actions.cairo` file.
+This is where our game logic/contract will reside.
 
 For now, `actions.cairo` should look like this:
 
@@ -195,7 +195,8 @@ It should be noted that Systems function are contract methods, by implication, r
 
 Now try `sozo build` to build.
 
-Complied? Great! then let's move on. If not fix the issues, so that you can run the `sozo build` command successfully.
+Complied? Great! then let's move on.
+If not fix the issues, so that you can run the `sozo build` command successfully.
 
 ## Implement Traits for models
 

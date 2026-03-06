@@ -38,6 +38,7 @@ Systems are **stateless functions** that:
 :::warning
 In order to write data to the world, a system needs explicit permission from the model owner.
 Permissions are defined at the contract (address) level, which means that all the systems inside the same contract will inherit the same permissions.
+See [World Permissions](/framework/world/permissions) for detailed permission management information.
 :::
 
 ## System Design Philosophy
@@ -181,7 +182,7 @@ mod my_system {
 ```
 
 Initialization arguments are configured in your profile's `[init_call_args]` section.
-See [Contract Initialization](/framework/configuration#contract-initialization) for details.
+See [Contract Initialization](/framework/configuration) for details.
 
 ### Execution
 

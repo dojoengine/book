@@ -20,6 +20,7 @@ Building a game on Starknet isn't just about writing Cairo. You need a full stac
 Traditional game development has decades of tooling. Engines like Unity and Unreal handle rendering, physics, networking, and asset management out of the box.
 
 Onchain games are different. The blockchain is your backend, but you still need:
+
 - A way to model game state
 - Fast, cheap execution for player actions
 - Clients that stay in sync with onchain state
@@ -62,6 +63,7 @@ Dojo generates TypeScript and Unity clients from your contracts. No manual ABI p
 Games can't run on Starknet mainnet directly — transaction costs and latency would kill the experience. Instead, games run on dedicated execution layers.
 
 [Cartridge Slot](https://cartridge.gg) provides application-specific rollups for Dojo games:
+
 - Sub-second transaction finality
 - Negligible costs per action
 - Full Starknet compatibility
@@ -78,8 +80,8 @@ Your client queries Torii for fast reads while writes go directly to the chain. 
 ```typescript
 // Subscribe to position changes
 const positions = await client.getEntities({
-  model: "Position",
-  where: { player_id: playerId }
+    model: "Position",
+    where: { player_id: playerId },
 });
 ```
 
@@ -88,6 +90,7 @@ const positions = await client.getEntities({
 The final piece is onboarding. Players shouldn't need to understand gas, transactions, or seed phrases.
 
 [Cartridge Controller](https://cartridge.gg) handles this:
+
 - Email/social login that creates a Starknet account
 - Session keys for seamless gameplay (no popups per action)
 - Account abstraction for gas sponsorship
@@ -138,4 +141,4 @@ The goal: make building onchain games as straightforward as building traditional
 
 ---
 
-*Ready to build? Check out the [Dojo documentation](https://book.dojoengine.org), join the [Discord](https://discord.gg/dojoengine), or explore games on [Cartridge](https://cartridge.gg).*
+_Ready to build? Check out the [Dojo documentation](https://book.dojoengine.org), join the [Discord](https://discord.gg/dojoengine), or explore games on [Cartridge](https://cartridge.gg)._
