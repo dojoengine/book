@@ -36,6 +36,12 @@ The difference lies in the underlying infrastructure: this solution is built spe
 Both approaches enable developers to deploy customizable sovereign rollups with similar capabilities.
 :::
 
+## Scaling Approaches Comparison
+
+Sovereign rollups differ from other scaling solutions like [execution sharding](/scaling/execution-sharding).
+While execution sharding creates temporary parallel environments that settle back to Starknet mainnet, sovereign rollups establish permanent independent chains using Celestia for data availability.
+This provides complete sovereignty and customization at the cost of reduced composability with other applications on the main chain.
+
 ## Technical Architecture
 
 ![Sovereign Rollup Architecture](/scaling/celestia-sw-diagram.png)

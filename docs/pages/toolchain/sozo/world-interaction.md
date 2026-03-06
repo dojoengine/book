@@ -41,13 +41,47 @@ sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 - **Transaction-based**: Requires account/signer configuration
 - **Tag resolution**: Use contract tags (e.g., `Actions`) or addresses
 - **Multicall support**: Batch multiple system calls efficiently
-- **Type-aware calldata**: Supports Dojo's [calldata format](/toolchain/sozo/index.md#data-format-reference)
+- **Type-aware calldata**: Supports Dojo's [calldata format](#data-format-reference)
 
 **Common Use Cases:**
 
 - Player actions (move, attack, trade)
 - Game state changes (spawn entities, update scores)
 - Administrative actions (set permissions, update config)
+
+## Data Format Reference
+
+When interacting with Dojo systems through Sozo, you'll need to provide calldata in the proper format.
+Sozo uses a prefixed format that allows explicit type specification for Cairo values.
+
+By default, calldata values are treated as a `felt252` or any type that fits into one felt:
+
+```bash
+sozo execute Actions move 10 20  # Two felt252 values
+```
+
+For complex Cairo types, use these prefixes to ensure proper encoding:
+
+| Prefix     | Description                                          | Example                              |
+| ---------- | ---------------------------------------------------- | ------------------------------------ |
+| `u256`     | a 256-bit unsigned integer                           | `u256:0x1234`                        |
+| `str`      | a Cairo string (ByteArray)                           | `str:hello` or `str:'hello world'`   |
+| `sstr`     | a Cairo short string                                 | `sstr:hello` or `sstr:'hello world'` |
+| `int`      | a signed integer that fits into an `i128`            | `int:-1234`                          |
+| `arr`      | a dynamic array of values that fits into one felt    | `arr:0x01,0x02,0x03`                 |
+| `u256arr`  | a dynamic array of 256-bit unsigned integers         | `u256arr:0x01,0x02,0x03`             |
+| `farr`     | a fixed-size array of values that fits into one felt | `farr:0x01,0x02,0x03`                |
+| `u256farr` | a fixed-size array of 256-bit unsigned integers      | `u256farr:0x01,0x02,0x03`            |
+
+### Usage Examples
+
+```bash
+# Execute a system with mixed types
+sozo execute Actions create_player str:Alice u256:1000 arr:1,2,3
+
+# Call a view function with complex parameters
+sozo call GameSystem get_player_stats str:Alice int:-50
+```
 
 ## Data Querying
 

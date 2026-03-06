@@ -241,6 +241,8 @@ RPC commands are organized across multiple namespaces:
 - **`katana`**: Node-specific endpoints for configuration and account info
 - **`torii`**: ECS entity/component queries for Dojo integration
 
+For complete method documentation and examples, see the [RPC Reference](/toolchain/katana/reference).
+
 #### Usage Example
 
 Generate blocks on-demand when using `--no-mining` mode:
@@ -250,7 +252,3 @@ curl -X POST http://127.0.0.1:5050 \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":1}'
 ```
-
-:::tip
-See the complete [RPC Reference](/toolchain/katana/reference#rpc-method-namespaces) for detailed method documentation and examples.
-:::

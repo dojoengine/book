@@ -5,31 +5,31 @@ description: Find answers to common questions about Dojo, onchain games, Autonom
 
 # FAQ
 
-## Provable Games
+## Provable Applications
 
 ### What is an onchain game?
 
 Onchain games are games that exist entirely on a public blockchain network; all states and logic are onchain.
 Clients (like web browsers) do not exist on the chain but exist purely to interact with and interpret the onchain state.
 
-### What is a provable game?
+### What is a provable application?
 
-Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain.
+Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created offchain.
 But what does that entail? Consider a game of chess.
 We aim for an experience where players trust each other's moves.
 In a straightforward approach — and given the simple rules of chess — if this were in a blockchain environment, every move would be a transaction on the blockchain.
 This is costly.
 We just want to know the winner, not every move.
 
-With zk proofs and client communications, players can establish a state channel, sharing moves off-chain and ensuring their validity.
+With zk proofs and client communications, players can establish a state channel, sharing moves offchain and ensuring their validity.
 At the end, a zk proof can be submitted to the blockchain to confirm the game's fairness.
-This constitutes a provable game.
+This constitutes a provable application.
 
 ### What is an autonomous world?
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
@@ -68,6 +68,7 @@ If you have ideas for the project, please open an issue.
 ### How do I get involved?
 
 Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine).
+To get started with Dojo development, visit our [installation guide](/installation).
 
 ## Known Limitations
 

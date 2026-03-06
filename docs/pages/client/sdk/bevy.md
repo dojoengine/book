@@ -10,6 +10,7 @@ Known for its performance, modularity, and ergonomic API, Bevy enables developer
 
 Dojo.bevy is the official Bevy engine SDK for interacting with Dojo worlds, providing native Rust integration for building high-performance onchain games.
 Built specifically for Bevy's ECS architecture, it seamlessly integrates with Bevy's component system while maintaining the performance and safety guarantees that Rust developers expect.
+For comprehensive SDK patterns and common concepts, see the [SDK overview](./index).
 
 ## Core Concepts
 
@@ -153,9 +154,7 @@ fn handle_dojo_events(
 }
 ```
 
-## Usage Patterns
-
-### Querying Entities
+## Entity Queries
 
 Fetch entities from your Dojo world using Torii queries:
 
@@ -203,7 +202,7 @@ fn setup_subscriptions(
 }
 ```
 
-### Executing Transactions
+## System Calls
 
 Send transactions to your Dojo systems:
 
@@ -322,6 +321,8 @@ fn handle_dojo_events(
 For a complete implementation including 3D rendering, entity tracking, and full game logic, see the [full example](https://github.com/dojoengine/dojo.bevy/blob/main/examples/intro.rs).
 
 ## Advanced Features
+
+The Dojo.bevy SDK leverages the native Rust integration advantages through the [Rust SDK](./rust).
 
 ### Account Management
 

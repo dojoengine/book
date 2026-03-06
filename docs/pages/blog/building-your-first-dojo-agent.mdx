@@ -9,7 +9,7 @@ date: 2026-02-12
 
 # Building Your First Dojo Game Agent
 
-You've read about why onchain games are perfect for AI agents. The theory makes sense—verifiable state, permissionless execution, real stakes. But how do you actually *build* one?
+You've read about why onchain games are perfect for AI agents. The theory makes sense—verifiable state, permissionless execution, real stakes. But how do you actually _build_ one?
 
 That's what we're doing today. No hand-waving, no "exercise left to the reader" cop-outs. By the end of this tutorial, you'll have a working game agent that can observe game state, make decisions, and execute actions on a Dojo-powered game. The whole loop.
 
@@ -30,7 +30,7 @@ Got all that? Good. Let's build.
 
 ## Step 1: Understanding the Game World Contract
 
-Before your agent can play a game, it needs to understand the game. This isn't like screen-scraping a traditional game where you're guessing at internal state from pixels. Onchain games give you *everything*.
+Before your agent can play a game, it needs to understand the game. This isn't like screen-scraping a traditional game where you're guessing at internal state from pixels. Onchain games give you _everything_.
 
 ### The World Contract
 
@@ -76,11 +76,11 @@ Let's explore what's available. Open GraphQL Playground (usually at `/graphql` o
 
 ```graphql
 {
-  __schema {
-    types {
-      name
+    __schema {
+        types {
+            name
+        }
     }
-  }
 }
 ```
 
@@ -92,17 +92,17 @@ Here's a practical query to get a player's resources:
 
 ```graphql
 query GetPlayer($playerId: String!) {
-  playerModels(where: { player_id: $playerId }) {
-    edges {
-      node {
-        player_id
-        wood
-        stone
-        gold
-        last_harvest
-      }
+    playerModels(where: { player_id: $playerId }) {
+        edges {
+            node {
+                player_id
+                wood
+                stone
+                gold
+                last_harvest
+            }
+        }
     }
-  }
 }
 ```
 
@@ -112,7 +112,7 @@ This is the first superpower of onchain game agents: perfect information. Your a
 
 ## Step 2: Setting Up Controller
 
-Reading state is only half the equation. Your agent also needs to *act*—submit transactions that change game state. That's where Controller CLI comes in.
+Reading state is only half the equation. Your agent also needs to _act_—submit transactions that change game state. That's where Controller CLI comes in.
 
 ### Why Controller?
 
@@ -150,9 +150,9 @@ You'll get something like:
 
 ```json
 {
-  "public_key": "0x1234567890abcdef...",
-  "stored_at": "~/.config/controller-cli",
-  "message": "Keypair generated successfully."
+    "public_key": "0x1234567890abcdef...",
+    "stored_at": "~/.config/controller-cli",
+    "message": "Keypair generated successfully."
 }
 ```
 
@@ -168,32 +168,32 @@ Create `policy.json`:
 
 ```json
 {
-  "contracts": {
-    "0x<GAME_WORLD_CONTRACT>": {
-      "name": "ResourceGame",
-      "methods": [
-        {
-          "name": "harvest",
-          "entrypoint": "harvest",
-          "description": "Harvest resources from a node"
-        },
-        {
-          "name": "build",
-          "entrypoint": "build",
-          "description": "Build structures"
-        },
-        {
-          "name": "trade",
-          "entrypoint": "trade",
-          "description": "Trade resources with other players"
+    "contracts": {
+        "0x<GAME_WORLD_CONTRACT>": {
+            "name": "ResourceGame",
+            "methods": [
+                {
+                    "name": "harvest",
+                    "entrypoint": "harvest",
+                    "description": "Harvest resources from a node"
+                },
+                {
+                    "name": "build",
+                    "entrypoint": "build",
+                    "description": "Build structures"
+                },
+                {
+                    "name": "trade",
+                    "entrypoint": "trade",
+                    "description": "Trade resources with other players"
+                }
+            ]
         }
-      ]
     }
-  }
 }
 ```
 
-Notice what's *not* here: `transfer`, `withdraw`, or anything that moves tokens out of the game. Your agent can play the game but can't drain your wallet. That's intentional.
+Notice what's _not_ here: `transfer`, `withdraw`, or anything that moves tokens out of the game. Your agent can play the game but can't drain your wallet. That's intentional.
 
 ### Registering the Session
 
@@ -210,9 +210,9 @@ You'll get a URL:
 
 ```json
 {
-  "authorization_url": "https://x.cartridge.gg/session?public_key=0x...",
-  "short_url": "https://api.cartridge.gg/s/abc123",
-  "message": "Open this URL in your browser to authorize..."
+    "authorization_url": "https://x.cartridge.gg/session?public_key=0x...",
+    "short_url": "https://api.cartridge.gg/s/abc123",
+    "message": "Open this URL in your browser to authorize..."
 }
 ```
 
@@ -222,13 +222,13 @@ The CLI waits for confirmation, then stores the active session. Run `controller 
 
 ```json
 {
-  "status": "active",
-  "session": {
-    "address": "0x<YOUR_WALLET>",
-    "chain_id": "SN_SEPOLIA",
-    "expires_at": 1735689600,
-    "expires_in_seconds": 604800
-  }
+    "status": "active",
+    "session": {
+        "address": "0x<YOUR_WALLET>",
+        "chain_id": "SN_SEPOLIA",
+        "expires_at": 1735689600,
+        "expires_in_seconds": 604800
+    }
 }
 ```
 
@@ -240,24 +240,24 @@ Let's write real code. We'll create a function that fetches game state from Tori
 
 ```javascript
 // agent.js
-const TORII_URL = 'https://api.cartridge.gg/x/resource-game/torii/graphql';
+const TORII_URL = "https://api.cartridge.gg/x/resource-game/torii/graphql";
 
 async function queryTorii(query, variables = {}) {
-  const response = await fetch(TORII_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, variables }),
-  });
-  
-  const result = await response.json();
-  if (result.errors) {
-    throw new Error(`Torii query failed: ${JSON.stringify(result.errors)}`);
-  }
-  return result.data;
+    const response = await fetch(TORII_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query, variables }),
+    });
+
+    const result = await response.json();
+    if (result.errors) {
+        throw new Error(`Torii query failed: ${JSON.stringify(result.errors)}`);
+    }
+    return result.data;
 }
 
 async function getPlayerState(playerId) {
-  const query = `
+    const query = `
     query GetPlayer($playerId: String!) {
       playerModels(where: { player_id: $playerId }) {
         edges {
@@ -272,14 +272,14 @@ async function getPlayerState(playerId) {
       }
     }
   `;
-  
-  const data = await queryTorii(query, { playerId });
-  const edges = data.playerModels?.edges || [];
-  return edges[0]?.node || null;
+
+    const data = await queryTorii(query, { playerId });
+    const edges = data.playerModels?.edges || [];
+    return edges[0]?.node || null;
 }
 
 async function getResourceNodes() {
-  const query = `
+    const query = `
     query GetNodes {
       resourceNodeModels(first: 100) {
         edges {
@@ -294,9 +294,9 @@ async function getResourceNodes() {
       }
     }
   `;
-  
-  const data = await queryTorii(query);
-  return data.resourceNodeModels?.edges.map(e => e.node) || [];
+
+    const data = await queryTorii(query);
+    return data.resourceNodeModels?.edges.map((e) => e.node) || [];
 }
 ```
 
@@ -308,16 +308,16 @@ For more sophisticated agents, you might want real-time updates instead of polli
 
 ```javascript
 // Using graphql-ws (simplified example)
-import { createClient } from 'graphql-ws';
+import { createClient } from "graphql-ws";
 
 const client = createClient({
-  url: 'wss://api.cartridge.gg/x/resource-game/torii/graphql',
+    url: "wss://api.cartridge.gg/x/resource-game/torii/graphql",
 });
 
 function subscribeToEvents(callback) {
-  return client.subscribe(
-    {
-      query: `
+    return client.subscribe(
+        {
+            query: `
         subscription {
           eventEmitted {
             keys
@@ -326,13 +326,13 @@ function subscribeToEvents(callback) {
           }
         }
       `,
-    },
-    {
-      next: (data) => callback(data.data.eventEmitted),
-      error: console.error,
-      complete: () => console.log('Subscription closed'),
-    }
-  );
+        },
+        {
+            next: (data) => callback(data.data.eventEmitted),
+            error: console.error,
+            complete: () => console.log("Subscription closed"),
+        }
+    );
 }
 ```
 
@@ -348,60 +348,60 @@ Don't overcomplicate it. Start with simple rules:
 
 ```javascript
 function decideAction(playerState, resourceNodes) {
-  // Rule 1: If we have few resources, harvest
-  if (playerState.wood < 50 || playerState.stone < 50) {
-    const bestNode = findBestHarvestNode(playerState, resourceNodes);
-    if (bestNode) {
-      return {
-        type: 'harvest',
-        nodeId: bestNode.node_id,
-      };
+    // Rule 1: If we have few resources, harvest
+    if (playerState.wood < 50 || playerState.stone < 50) {
+        const bestNode = findBestHarvestNode(playerState, resourceNodes);
+        if (bestNode) {
+            return {
+                type: "harvest",
+                nodeId: bestNode.node_id,
+            };
+        }
     }
-  }
-  
-  // Rule 2: If we have enough resources, build
-  if (playerState.wood >= 100 && playerState.stone >= 100) {
-    return {
-      type: 'build',
-      structure: 'workshop',
-    };
-  }
-  
-  // Rule 3: If we have excess gold, trade for what we need
-  if (playerState.gold > 500 && playerState.wood < 50) {
-    return {
-      type: 'trade',
-      give: { gold: 100 },
-      receive: { wood: 50 },
-    };
-  }
-  
-  // No action needed
-  return null;
+
+    // Rule 2: If we have enough resources, build
+    if (playerState.wood >= 100 && playerState.stone >= 100) {
+        return {
+            type: "build",
+            structure: "workshop",
+        };
+    }
+
+    // Rule 3: If we have excess gold, trade for what we need
+    if (playerState.gold > 500 && playerState.wood < 50) {
+        return {
+            type: "trade",
+            give: { gold: 100 },
+            receive: { wood: 50 },
+        };
+    }
+
+    // No action needed
+    return null;
 }
 
 function findBestHarvestNode(playerState, nodes) {
-  // Find the node with the most resources
-  // In a real game, you'd factor in distance, competition, etc.
-  return nodes
-    .filter(n => n.amount > 0)
-    .sort((a, b) => b.amount - a.amount)[0];
+    // Find the node with the most resources
+    // In a real game, you'd factor in distance, competition, etc.
+    return nodes
+        .filter((n) => n.amount > 0)
+        .sort((a, b) => b.amount - a.amount)[0];
 }
 ```
 
-These rules are dumb. They don't consider timing, other players, or strategy. But they *work*. You can watch your agent play and improve the rules based on what you observe.
+These rules are dumb. They don't consider timing, other players, or strategy. But they _work_. You can watch your agent play and improve the rules based on what you observe.
 
 ### LLM-Powered Decisions (Advanced)
 
 Want your agent to think more like a human? You can use an LLM:
 
 ```javascript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const anthropic = new Anthropic();
 
 async function decideLLM(playerState, resourceNodes, recentEvents) {
-  const gameContext = `
+    const gameContext = `
 You're playing a resource management game. Your current state:
 - Wood: ${playerState.wood}
 - Stone: ${playerState.stone}  
@@ -422,13 +422,13 @@ What action should you take? Respond with JSON:
 }
 `;
 
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 500,
-    messages: [{ role: 'user', content: gameContext }],
-  });
-  
-  return JSON.parse(response.content[0].text);
+    const response = await anthropic.messages.create({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 500,
+        messages: [{ role: "user", content: gameContext }],
+    });
+
+    return JSON.parse(response.content[0].text);
 }
 ```
 
@@ -438,32 +438,31 @@ A hybrid approach often works best:
 
 ```javascript
 async function decideHybrid(playerState, resourceNodes, recentEvents) {
-  // Try rule-based first (fast, free, predictable)
-  const rulesAction = decideAction(playerState, resourceNodes);
-  
-  // If rules have a clear answer, use it
-  if (rulesAction && rulesAction.confidence > 0.8) {
+    // Try rule-based first (fast, free, predictable)
+    const rulesAction = decideAction(playerState, resourceNodes);
+
+    // If rules have a clear answer, use it
+    if (rulesAction && rulesAction.confidence > 0.8) {
+        return rulesAction;
+    }
+
+    // For ambiguous situations, ask the LLM
+    if (shouldConsultLLM(playerState, recentEvents)) {
+        return await decideLLM(playerState, resourceNodes, recentEvents);
+    }
+
     return rulesAction;
-  }
-  
-  // For ambiguous situations, ask the LLM
-  if (shouldConsultLLM(playerState, recentEvents)) {
-    return await decideLLM(playerState, resourceNodes, recentEvents);
-  }
-  
-  return rulesAction;
 }
 
 function shouldConsultLLM(playerState, recentEvents) {
-  // Consult LLM for complex scenarios:
-  // - Multiple viable options
-  // - Recent threatening player activity
-  // - Resource levels are moderate (not obviously low or high)
-  const hasThreats = recentEvents.some(e => e.type === 'attack_nearby');
-  const resourcesAmbiguous = 
-    playerState.wood > 30 && playerState.wood < 150;
-  
-  return hasThreats || resourcesAmbiguous;
+    // Consult LLM for complex scenarios:
+    // - Multiple viable options
+    // - Recent threatening player activity
+    // - Resource levels are moderate (not obviously low or high)
+    const hasThreats = recentEvents.some((e) => e.type === "attack_nearby");
+    const resourcesAmbiguous = playerState.wood > 30 && playerState.wood < 150;
+
+    return hasThreats || resourcesAmbiguous;
 }
 ```
 
@@ -479,49 +478,49 @@ Each action becomes a transaction. The game's contract defines what calldata it 
 
 ```javascript
 function buildCalldata(action) {
-  switch (action.type) {
-    case 'harvest':
-      // harvest(node_id: u32)
-      return {
-        contract: GAME_CONTRACT,
-        entrypoint: 'harvest',
-        calldata: [action.nodeId.toString()],
-      };
-      
-    case 'build':
-      // build(structure_type: felt252)
-      const structureTypes = {
-        workshop: '0x1',
-        warehouse: '0x2',
-        barracks: '0x3',
-      };
-      return {
-        contract: GAME_CONTRACT,
-        entrypoint: 'build',
-        calldata: [structureTypes[action.structure]],
-      };
-      
-    case 'trade':
-      // trade(give_type: felt, give_amount: u32, receive_type: felt, receive_amount: u32)
-      return {
-        contract: GAME_CONTRACT,
-        entrypoint: 'trade',
-        calldata: [
-          resourceToFelt(Object.keys(action.give)[0]),
-          Object.values(action.give)[0].toString(),
-          resourceToFelt(Object.keys(action.receive)[0]),
-          Object.values(action.receive)[0].toString(),
-        ],
-      };
-      
-    default:
-      return null;
-  }
+    switch (action.type) {
+        case "harvest":
+            // harvest(node_id: u32)
+            return {
+                contract: GAME_CONTRACT,
+                entrypoint: "harvest",
+                calldata: [action.nodeId.toString()],
+            };
+
+        case "build":
+            // build(structure_type: felt252)
+            const structureTypes = {
+                workshop: "0x1",
+                warehouse: "0x2",
+                barracks: "0x3",
+            };
+            return {
+                contract: GAME_CONTRACT,
+                entrypoint: "build",
+                calldata: [structureTypes[action.structure]],
+            };
+
+        case "trade":
+            // trade(give_type: felt, give_amount: u32, receive_type: felt, receive_amount: u32)
+            return {
+                contract: GAME_CONTRACT,
+                entrypoint: "trade",
+                calldata: [
+                    resourceToFelt(Object.keys(action.give)[0]),
+                    Object.values(action.give)[0].toString(),
+                    resourceToFelt(Object.keys(action.receive)[0]),
+                    Object.values(action.receive)[0].toString(),
+                ],
+            };
+
+        default:
+            return null;
+    }
 }
 
 function resourceToFelt(resource) {
-  const mapping = { wood: '0x1', stone: '0x2', gold: '0x3' };
-  return mapping[resource];
+    const mapping = { wood: "0x1", stone: "0x2", gold: "0x3" };
+    return mapping[resource];
 }
 ```
 
@@ -532,31 +531,33 @@ The exact format depends on the game's contract. Read the source (it's public!) 
 Now we call Controller CLI to submit the transaction:
 
 ```javascript
-import { execSync } from 'child_process';
+import { execSync } from "child_process";
 
 function executeAction(calldata) {
-  if (!calldata) return null;
-  
-  const { contract, entrypoint, calldata: args } = calldata;
-  const calldataStr = args.join(',');
-  
-  try {
-    const result = execSync(
-      `controller execute ${contract} ${entrypoint} ${calldataStr} \
+    if (!calldata) return null;
+
+    const { contract, entrypoint, calldata: args } = calldata;
+    const calldataStr = args.join(",");
+
+    try {
+        const result = execSync(
+            `controller execute ${contract} ${entrypoint} ${calldataStr} \
         --rpc-url https://api.cartridge.gg/x/starknet/sepolia \
         --json`,
-      { encoding: 'utf-8' }
-    );
-    
-    const parsed = JSON.parse(result);
-    console.log(`Transaction submitted: ${parsed.transaction_hash}`);
-    console.log(`View on Voyager: https://sepolia.voyager.online/tx/${parsed.transaction_hash}`);
-    
-    return parsed;
-  } catch (error) {
-    console.error('Execution failed:', error.message);
-    throw error;
-  }
+            { encoding: "utf-8" }
+        );
+
+        const parsed = JSON.parse(result);
+        console.log(`Transaction submitted: ${parsed.transaction_hash}`);
+        console.log(
+            `View on Voyager: https://sepolia.voyager.online/tx/${parsed.transaction_hash}`
+        );
+
+        return parsed;
+    } catch (error) {
+        console.error("Execution failed:", error.message);
+        throw error;
+    }
 }
 ```
 
@@ -566,43 +567,43 @@ Transactions can fail for many reasons. Handle them gracefully:
 
 ```javascript
 async function executeWithRetry(calldata, maxRetries = 3) {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      const result = executeAction(calldata);
-      
-      // Check for known error codes
-      if (result.status === 'error') {
-        const { error_code, recovery_hint } = result;
-        
-        if (error_code === 'SessionExpired') {
-          console.log('Session expired. Please re-register.');
-          // In practice, you might notify yourself to re-auth
-          process.exit(1);
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            const result = executeAction(calldata);
+
+            // Check for known error codes
+            if (result.status === "error") {
+                const { error_code, recovery_hint } = result;
+
+                if (error_code === "SessionExpired") {
+                    console.log("Session expired. Please re-register.");
+                    // In practice, you might notify yourself to re-auth
+                    process.exit(1);
+                }
+
+                if (error_code === "ManualExecutionRequired") {
+                    console.log("Action not authorized in session policy");
+                    return null;
+                }
+
+                console.log(`Error: ${error_code}. Hint: ${recovery_hint}`);
+            }
+
+            return result;
+        } catch (error) {
+            console.log(`Attempt ${attempt} failed: ${error.message}`);
+            if (attempt < maxRetries) {
+                await sleep(1000 * attempt); // Exponential backoff
+            }
         }
-        
-        if (error_code === 'ManualExecutionRequired') {
-          console.log('Action not authorized in session policy');
-          return null;
-        }
-        
-        console.log(`Error: ${error_code}. Hint: ${recovery_hint}`);
-      }
-      
-      return result;
-    } catch (error) {
-      console.log(`Attempt ${attempt} failed: ${error.message}`);
-      if (attempt < maxRetries) {
-        await sleep(1000 * attempt); // Exponential backoff
-      }
     }
-  }
-  
-  console.error('All retries exhausted');
-  return null;
+
+    console.error("All retries exhausted");
+    return null;
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 ```
 
@@ -613,72 +614,73 @@ The recovery hints from Controller are genuinely useful. Don't ignore them.
 Time to put it all together. The classic agent loop: observe, decide, act, repeat.
 
 ```javascript
-const PLAYER_ADDRESS = '0x<YOUR_WALLET_ADDRESS>';
+const PLAYER_ADDRESS = "0x<YOUR_WALLET_ADDRESS>";
 const POLL_INTERVAL = 30000; // 30 seconds
 
 async function runAgent() {
-  console.log('Starting game agent...');
-  console.log(`Player: ${PLAYER_ADDRESS}`);
-  console.log(`Polling every ${POLL_INTERVAL / 1000}s`);
-  
-  // Check session is active
-  const status = JSON.parse(
-    execSync('controller status --json', { encoding: 'utf-8' })
-  );
-  
-  if (status.status !== 'active') {
-    console.error('No active session. Run: controller register --file policy.json ...');
-    process.exit(1);
-  }
-  
-  console.log(`Session expires: ${status.session.expires_at_formatted}`);
-  console.log('---');
-  
-  while (true) {
-    try {
-      // 1. OBSERVE: Get current game state
-      const playerState = await getPlayerState(PLAYER_ADDRESS);
-      const resourceNodes = await getResourceNodes();
-      
-      if (!playerState) {
-        console.log('Player not found in game. Have you joined?');
-        await sleep(POLL_INTERVAL);
-        continue;
-      }
-      
-      console.log(`[${new Date().toISOString()}] State:`, {
-        wood: playerState.wood,
-        stone: playerState.stone,
-        gold: playerState.gold,
-      });
-      
-      // 2. DECIDE: What should we do?
-      const action = decideAction(playerState, resourceNodes);
-      
-      if (!action) {
-        console.log('No action needed.');
-        await sleep(POLL_INTERVAL);
-        continue;
-      }
-      
-      console.log('Decided action:', action);
-      
-      // 3. ACT: Execute the decision
-      const calldata = buildCalldata(action);
-      const result = await executeWithRetry(calldata);
-      
-      if (result?.transaction_hash) {
-        console.log('Action executed successfully!');
-        // Wait a bit longer after acting to let state update
-        await sleep(5000);
-      }
-      
-    } catch (error) {
-      console.error('Loop error:', error.message);
+    console.log("Starting game agent...");
+    console.log(`Player: ${PLAYER_ADDRESS}`);
+    console.log(`Polling every ${POLL_INTERVAL / 1000}s`);
+
+    // Check session is active
+    const status = JSON.parse(
+        execSync("controller status --json", { encoding: "utf-8" })
+    );
+
+    if (status.status !== "active") {
+        console.error(
+            "No active session. Run: controller register --file policy.json ..."
+        );
+        process.exit(1);
     }
-    
-    await sleep(POLL_INTERVAL);
-  }
+
+    console.log(`Session expires: ${status.session.expires_at_formatted}`);
+    console.log("---");
+
+    while (true) {
+        try {
+            // 1. OBSERVE: Get current game state
+            const playerState = await getPlayerState(PLAYER_ADDRESS);
+            const resourceNodes = await getResourceNodes();
+
+            if (!playerState) {
+                console.log("Player not found in game. Have you joined?");
+                await sleep(POLL_INTERVAL);
+                continue;
+            }
+
+            console.log(`[${new Date().toISOString()}] State:`, {
+                wood: playerState.wood,
+                stone: playerState.stone,
+                gold: playerState.gold,
+            });
+
+            // 2. DECIDE: What should we do?
+            const action = decideAction(playerState, resourceNodes);
+
+            if (!action) {
+                console.log("No action needed.");
+                await sleep(POLL_INTERVAL);
+                continue;
+            }
+
+            console.log("Decided action:", action);
+
+            // 3. ACT: Execute the decision
+            const calldata = buildCalldata(action);
+            const result = await executeWithRetry(calldata);
+
+            if (result?.transaction_hash) {
+                console.log("Action executed successfully!");
+                // Wait a bit longer after acting to let state update
+                await sleep(5000);
+            }
+        } catch (error) {
+            console.error("Loop error:", error.message);
+        }
+
+        await sleep(POLL_INTERVAL);
+    }
 }
 
 // Entry point
@@ -702,14 +704,14 @@ The loop above works, but it's fragile. Here's how to make it production-ready:
 ```javascript
 let running = true;
 
-process.on('SIGINT', () => {
-  console.log('\nShutting down gracefully...');
-  running = false;
+process.on("SIGINT", () => {
+    console.log("\nShutting down gracefully...");
+    running = false;
 });
 
 // In your loop:
 while (running) {
-  // ... your logic
+    // ... your logic
 }
 ```
 
@@ -717,22 +719,22 @@ while (running) {
 
 ```javascript
 function checkSessionHealth() {
-  const status = JSON.parse(
-    execSync('controller status --json', { encoding: 'utf-8' })
-  );
-  
-  // Warn if less than 24 hours remaining
-  if (status.session?.expires_in_seconds < 86400) {
-    console.warn('⚠️ Session expires in <24h. Consider re-registering.');
-  }
-  
-  // Stop if less than 1 hour remaining
-  if (status.session?.expires_in_seconds < 3600) {
-    console.error('Session nearly expired. Stopping agent.');
-    return false;
-  }
-  
-  return status.status === 'active';
+    const status = JSON.parse(
+        execSync("controller status --json", { encoding: "utf-8" })
+    );
+
+    // Warn if less than 24 hours remaining
+    if (status.session?.expires_in_seconds < 86400) {
+        console.warn("⚠️ Session expires in <24h. Consider re-registering.");
+    }
+
+    // Stop if less than 1 hour remaining
+    if (status.session?.expires_in_seconds < 3600) {
+        console.error("Session nearly expired. Stopping agent.");
+        return false;
+    }
+
+    return status.status === "active";
 }
 ```
 
@@ -742,35 +744,32 @@ function checkSessionHealth() {
 const actionCooldowns = new Map();
 
 function canExecute(actionType) {
-  const lastExecution = actionCooldowns.get(actionType) || 0;
-  const cooldownMs = 60000; // 1 minute between same actions
-  
-  if (Date.now() - lastExecution < cooldownMs) {
-    return false;
-  }
-  
-  actionCooldowns.set(actionType, Date.now());
-  return true;
+    const lastExecution = actionCooldowns.get(actionType) || 0;
+    const cooldownMs = 60000; // 1 minute between same actions
+
+    if (Date.now() - lastExecution < cooldownMs) {
+        return false;
+    }
+
+    actionCooldowns.set(actionType, Date.now());
+    return true;
 }
 ```
 
 **Logging and metrics**: You'll want to know what your agent did while you were asleep:
 
 ```javascript
-const fs = require('fs');
+const fs = require("fs");
 
 function logAction(action, result) {
-  const entry = {
-    timestamp: new Date().toISOString(),
-    action,
-    success: !!result?.transaction_hash,
-    txHash: result?.transaction_hash,
-  };
-  
-  fs.appendFileSync(
-    'agent-log.jsonl',
-    JSON.stringify(entry) + '\n'
-  );
+    const entry = {
+        timestamp: new Date().toISOString(),
+        action,
+        success: !!result?.transaction_hash,
+        txHash: result?.transaction_hash,
+    };
+
+    fs.appendFileSync("agent-log.jsonl", JSON.stringify(entry) + "\n");
 }
 ```
 
@@ -785,20 +784,21 @@ Things will go wrong. Here's how to figure out what:
 ```javascript
 // Before executing, verify the opportunity still exists
 async function verifyOpportunity(action, currentNodes) {
-  if (action.type === 'harvest') {
-    const node = currentNodes.find(n => n.node_id === action.nodeId);
-    if (!node || node.amount === 0) {
-      console.log('Node depleted since we last checked. Skipping.');
-      return false;
+    if (action.type === "harvest") {
+        const node = currentNodes.find((n) => n.node_id === action.nodeId);
+        if (!node || node.amount === 0) {
+            console.log("Node depleted since we last checked. Skipping.");
+            return false;
+        }
     }
-  }
-  return true;
+    return true;
 }
 ```
 
 **Session issues**: If you see `ManualExecutionRequired`, your session doesn't authorize the action you're trying to take. Either update your policy or your decision logic is generating invalid actions.
 
 **Transaction debugging**: Use Voyager to inspect failed transactions. The error message is usually in the execution trace. Common issues:
+
 - Wrong calldata format (check argument types)
 - Insufficient resources (your agent tried to spend what it doesn't have)
 - Game-specific validation (cooldowns, turn requirements, etc.)
@@ -807,8 +807,8 @@ async function verifyOpportunity(action, currentNodes) {
 
 ```javascript
 if (result?.transaction_hash) {
-  console.log('Action executed. Waiting for indexer...');
-  await sleep(10000); // Give Torii time to process
+    console.log("Action executed. Waiting for indexer...");
+    await sleep(10000); // Give Torii time to process
 }
 ```
 
@@ -842,9 +842,10 @@ The code from this tutorial is a starting point, not a ceiling. Fork it, break i
 
 ---
 
-*This article is part of the Agent-Native Games series. Read the previous article: [Why Onchain Games Are Perfect for AI Agents](/blog/why-onchain-games-perfect-for-ai-agents)*
+_This article is part of the Agent-Native Games series. Read the previous article: [Why Onchain Games Are Perfect for AI Agents](/blog/why-onchain-games-perfect-for-ai-agents)_
 
 **Resources:**
+
 - [Controller CLI Documentation](https://github.com/cartridge-gg/controller-cli/blob/main/LLM_USAGE.md)
 - [Torii Documentation](https://book.dojoengine.org/toolchain/torii)
 - [Dojo Book](https://book.dojoengine.org/)

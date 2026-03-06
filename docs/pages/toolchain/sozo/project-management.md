@@ -82,7 +82,7 @@ By default, this clones the [dojo-starter](https://github.com/dojoengine/dojo-st
   :::
 
 **Account Management**: Sozo uses accounts defined in your `dojo_<profile>.toml` files.
-See the [configuration guide](/framework/configuration/index.md) for more information.
+See the [configuration guide](/framework/configuration) for more information.
 
 :::tip
 Use a tool like [starkli](https://book.starkli.rs/accounts) to create and manage accounts and keystores.
@@ -119,7 +119,7 @@ sozo test                     # Run all tests
 
 Tests are Cairo functions marked with `#[test]`.
 Sozo runs them using the Cairo test runner, giving you confidence in your logic before deployment.
-See the [testing guide](/framework/testing/index.md) for more information about testing your Dojo contracts.
+See the [testing guide](/framework/testing) for more information about testing your Dojo contracts.
 
 ### `sozo clean`
 
@@ -219,7 +219,8 @@ You can use `-P` instead of `--profile` for simplicity.
 :::
 
 The migration outputs a manifest file, which is a JSON file that contains information about deployed contracts and resources.
-By default, the manifest will contains all the ABIs merged in only one entry "abis", where Sozo deduplicates the ABIs and makes the manifest easier to read/track diffs (this is called the `all_in_one` format). There is a second per contract (`per_contract` format), where the ABIs are separated by contract.
+By default, the manifest will contains all the ABIs merged in only one entry "abis", where Sozo deduplicates the ABIs and makes the manifest easier to read/track diffs (this is called the `all_in_one` format).
+There is a second per contract (`per_contract` format), where the ABIs are separated by contract.
 
 :::warning
 The `per_contract` format is currently required in one specific case: if you are using `dojo.js` and if you have the same function name in multiple contracts.
@@ -236,6 +237,7 @@ You can also set the default abi format mode in your `dojo_<profile>.toml` file 
 [migration]
 manifest_abi_format = "per_contract"
 ```
+
 :::
 
 :::info
@@ -246,6 +248,8 @@ By default, Sozo is now using `ACCEPTED_ON_L2` as the default transaction finali
 You may want to speed up the migration process by using `PRE_CONFIRMED` instead,
 but this may come to the of the migration failing and having to be restarted.
 :::
+
+For runtime operations like calling systems and querying data, see the [world interaction guide](/toolchain/sozo/world-interaction).
 
 #### How Migration Works
 
@@ -351,7 +355,7 @@ Sozo also supports workspaces.
 However, Sozo requires two additional things:
 
 1. A main package from which Sozo will extract the package's name (for binding generation and migration)
-2. [Dojo configuration files](/framework/configuration/#configuration-files) to inject deployment settings during migration
+2. [Dojo configuration files](/framework/configuration) to inject deployment settings during migration
 
 From here, you have several options for laying out your project:
 
@@ -376,13 +380,15 @@ With this setup, running `sozo build`, `sozo test`, and `sozo migrate` will work
 If in your project you have other folders (not related to cairo), opening the project at the root is currently not supported by the cairo language server.
 You must have a root `Scarb.toml` file.
 
-This issue is being worked on by the Scarb team. In the meantime, you can open the project in your contracts directory, or you can add a virtual workspace to your project as shown in the next section.
+This issue is being worked on by the Scarb team.
+In the meantime, you can open the project in your contracts directory, or you can add a virtual workspace to your project as shown in the next section.
 :::
 
 ### Multi-package
 
 If you want to split your project into multiple packages, you can do so by creating a `packages` directory and placing your packages inside it.
-In the example below, only the `my-world` package is deployed on-chain with a Dojo world. The configuration files are placed inside the `my-world` package.
+In the example below, only the `my-world` package is deployed on-chain with a Dojo world.
+The configuration files are placed inside the `my-world` package.
 
 ```
 ├── my-project/
@@ -407,7 +413,8 @@ In the example below, only the `my-world` package is deployed on-chain with a Do
 
 To make this layout work, you will need the root `Scarb.toml` to be a [virtual workspace](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#virtual-workspace) to ease dependency management.
 
-You will be able to run `sozo test` at the workspace level. However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level.
+You will be able to run `sozo test` at the workspace level.
+However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level.
 This will generate the `target` directory and the `manifest_<profile>.json` file **at the package level**.
 
 If you prefer managing everything from the workspace level, you can simply move the Dojo configuration files to the workspace level.

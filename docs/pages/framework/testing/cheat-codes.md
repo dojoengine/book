@@ -48,7 +48,8 @@ fn f2() {
 
 This cheat code helps you set the contract address to the provided value, allowing you to test contract deployment and interactions.
 
-It is important to note that any test function is considered a contract, which by default uses the `0` address. Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
+It is important to note that any test function is considered a contract, which by default uses the `0` address.
+Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
 
 ```rust
 use starknet::{testing, get_contract_address, contract_address_const};
@@ -96,7 +97,8 @@ fn f5() {
 
 ## `set_account_contract_address`
 
-This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply when simulating a scenario where a contract is called by a different account contract.
+This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts.
+You can apply when simulating a scenario where a contract is called by a different account contract.
 
 ```rust
 use starknet::{testing, get_tx_info, contract_address_const};
@@ -199,21 +201,6 @@ fn f11() {
 
 ```
 
-## `set_block_number`
-
-This cheat code helps one set a specific block number, allowing you to test contract behavior with different block numbers.
-
-```rust
-use starknet::{testing, get_block_info};
-
-#[test]
-fn f12() {
-    testing::set_block_number(12345678);
-    assert_eq!(get_block_info().unbox().block_number, 12345678);
-}
-
-```
-
 ## `pop_log_raw`
 
 This cheat code helps one pop the earliest unpopped logged event for the contract, returning the event data and keys.
@@ -290,8 +277,8 @@ fn f14() {
 ## `pop_l2_to_l1_message`
 
 This cheat code helps one pop the earliest unpopped L2 to L1 message for the contract, returning the message data and keys. You can apply this when:
--Testing a contract's L2 to L1 messaging mechanism, such as checking if a certain message is sent correctly.
 
+- Testing a contract's L2 to L1 messaging mechanism, such as checking if a certain message is sent correctly.
 - Debugging a contract's behavior by inspecting the sent messages.
 
 ```rust

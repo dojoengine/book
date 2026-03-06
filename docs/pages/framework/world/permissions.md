@@ -30,7 +30,8 @@ Dojo provides two complementary approaches to permission management:
 
 ### Configuration-Time Permissions
 
-Set up initial permissions during deployment via your `dojo_<profile>.toml` file:
+Set up initial permissions during deployment via your `dojo_<profile>.toml` file.
+For detailed configuration examples and options, see [Configuration](/framework/configuration).
 
 ```toml
 [writers]
@@ -49,7 +50,7 @@ In this example, permissions are given to **systems**, indicated by tags.
 
 ### Runtime Permissions
 
-Manage permissions dynamically after deployment using the World contract API:
+Manage permissions dynamically after deployment using the [World API](/framework/world/api):
 
 ```cairo
 // Grant runtime permissions
@@ -171,7 +172,8 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a resource:
 
 - **World** → A resource (selector `0`)
 - **Namespace** → A resource (e.g., `"my_game"`)
@@ -317,7 +319,8 @@ world.grant_writer(selector_from_tag!("my_game-MagicSpells"), expansion_contract
 
 ## Permission Events
 
-The World contract emits events when permissions change:
+The World contract emits events when permissions change.
+For comprehensive event details, see [World Events](/framework/world/events).
 
 ```cairo
 // Emitted when owner permission is granted/revoked
@@ -402,9 +405,6 @@ sozo call world is_owner 0x123 0x456   # resource_selector contract_address
 # List all permissions
 sozo auth list
 ```
-
-**Configuration Reference:**
-For detailed configuration options, see [Configuration](/framework/configuration).
 
 ## Debugging Permission Issues
 

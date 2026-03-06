@@ -83,7 +83,8 @@ impl GameStatusFelt252 of Into<GameStatus, felt252> {
 
 ## Enums in Practice
 
-Building upon the `GameStatus` enum, we can define a `Game` struct that includes a `GameStatus` field. By implementing a custom trait for the `Game` struct, we can encapsulate game-specific logic and assertions.
+Building upon the `GameStatus` enum, we can define a `Game` struct that includes a `GameStatus` field.
+By implementing a custom trait for the `Game` struct, we can encapsulate game-specific logic and assertions.
 
 ```cairo
 #[derive(Copy, Drop, Serde)]
@@ -140,7 +141,8 @@ enum Event {
 Now, when handling events, you can use `Event::PlayerSpawned` instead of an arbitrary number.
 
 3. Type Safety:
-   Enums provide type safety. Each enum variant has a type, preventing accidental mixing of incompatible values.
+   Enums provide type safety.
+   Each enum variant has a type, preventing accidental mixing of incompatible values.
    For instance, if you have an enum representing different power-ups, you can't mistakenly assign a PowerUp value to a variable expecting a different type.
 
 ```cairo
@@ -169,7 +171,8 @@ fn handle_power_up(power_up: PowerUp) {
 
 5. Extensibility:
    Enums allow you to add new variants without breaking existing code.
-   Suppose you later introduce a DoubleDamage power-up. You can simply extend the PowerUp enum:
+   Suppose you later introduce a DoubleDamage power-up.
+   You can simply extend the PowerUp enum:
 
 ```cairo
 enum PowerUp {
@@ -180,6 +183,7 @@ enum PowerUp {
 }
 ```
 
-Enums serve as powerful tools for creating expressive, self-documenting code. They enhance readability, prevent errors, and facilitate better software design.
+Enums serve as powerful tools for creating expressive, self-documenting code.
+They enhance readability, prevent errors, and facilitate better software design.
 
 Read more about Cairo enums [here](https://book.cairo-lang.org/ch06-00-enums-and-pattern-matching.html)

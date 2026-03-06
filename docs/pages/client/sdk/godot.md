@@ -9,17 +9,19 @@ Godot Engine is a free, open-source cross-platform game engine renowned for its 
 With its intuitive node-based architecture, GDScript scripting language, and robust 2D and 3D capabilities, Godot empowers developers to create everything from indie platformers to complex multiplayer experiences.
 
 Dojo.godot is the official Godot Engine SDK for building onchain games powered by Dojo.
-This GDExtension seamlessly integrates blockchain functionality into your Godot projects.
+This GDExtension seamlessly integrates blockchain functionality into your Godot projects, built on the [dojo.c](/client/sdk/c) foundation.
 It enables you to create fully decentralized games without compromising on performance or developer experience.
 
 :::tip
 Always [Download](https://github.com/lonewolftechnology/godot-dojo/releases) the latest version.
 :::
+
 :::info
 If there is something that is not covered here, please refer to the in-editor documentation.
-
 You can access it by pressing Ctrl + Left Click on a class name, or by pressing F1 and using the search bar.
 :::
+
+For SDK architecture overview and common patterns, see the [main SDK documentation](/client/sdk).
 
 ## Core Concepts
 
@@ -30,7 +32,7 @@ The `ToriiClient` is your gateway to the Dojo world, managing all communication 
 Key responsibilities:
 
 - **Connection Management**: Establish and maintain connections to Torii servers.
-- **Entity Queries**: Fetch game entities and their associated models from the blockchain.
+- **Entity queries**: Fetch game entities and their associated models from the blockchain.
 - **Event Subscriptions**: Subscribe to real-time blockchain events and entity updates.
 
 ### DojoSessionAccount
@@ -75,12 +77,9 @@ Dojo.godot automatically handles conversions between Cairo types and Godot equiv
 - **Enums**: Cairo enums map to Godot integers with enumeration support.
 
 :::info
-
 Godot doesn't natively support big integers like `i128`, `u128`, and `u256`.
 However, the extension supports them using wrapper classes to store and display the data.
-
 `I128`, `U128`, and `U256` wrappers can be used directly inside the `calldata` array.
-
 :::
 
 ## Getting Started
@@ -104,19 +103,21 @@ Create a new Godot project or open an existing one.
 3. Restart Godot to ensure the extension is correctly loaded.
 
 #### Setup `ToriiClient`
+
 - Add a `ToriiClient` node to your scene tree.
 - Connect the client:
-  ```gdscript
-  var _success = torii_client.connect("http://localhost:8080")
-  ```
+    ```gdscript
+    var _success = torii_client.connect("http://localhost:8080")
+    ```
 - Register a subscription:
   :::tip
   If `ToriiClient.subscribe_entity_updates` is used with an empty `DojoClause`, it retrieves ALL entity updates.
   :::
+
     ```gdscript
     func _entity_callback(entity: Dictionary):
         printt("Entity Models", entity["models"])
-    
+
     func _register_sub():
         var _dojo_callback = DojoCallback.new()
         _dojo_callback.on_update = _entity_callback
@@ -149,14 +150,14 @@ func trigger_login():
 			"method": "spawn"
 		}
 	]}
-	
-    # Generate private key. 
+
+    # Generate private key.
     # If a previously generated key is used, you can create a session without logging in again.
     _priv_key = ControllerHelper.generate_private_key() # Save this key for the next step
-    
+
     # Create session registration URL
     var session_url = ControllerHelper.create_session_registration_url(_priv_key, policies, "http://localhost:5050")
-    
+
     # Open the default web browser
     OS.shell_open(session_url)
 ```
@@ -166,7 +167,7 @@ Once the session is successfully registered, fetch the session:
 ```gdscript
     dojo_session_account.max_fee = "0x100000"
     dojo_session_account.full_policies = policies
-    
+
     dojo_session_account.create_from_subscribe(
         _priv_key,
         "http://localhost:5050", # Katana URL
@@ -177,26 +178,20 @@ Once the session is successfully registered, fetch the session:
 
 ::::
 
-
-### Creating Contract Calls
+### System Calls
 
 When creating calls, you need the contract address, the selector/function name, and call arguments.
 
 :::warning
-
 The `calldata` is an array and an optional parameter.
-
 If the function in your contract doesn't take arguments, you can pass an empty array.
 Otherwise, arguments must be inside an array.
-
 Calldata is always flattened.
 This means that if it has other arrays inside, they will be merged into a single array.
-
 :::
 
 :::info
 If your function uses a custom type defined on your contract, you need to send all members in order inside an array or directly on the calldata array.
-
 In the example a Vector3 is used.
 But it works with any type defined on your contract.
 :::
@@ -212,12 +207,12 @@ var position:Array = [new_pos.x, new_pos.y, new_pos.z]
 var direction:int = Directions.LEFT
 
 func move_to(_position:Array, _direction:int) -> void:
-    var move_call:Dictionary = { 
+    var move_call:Dictionary = {
 		"contract_address": "0x...",
 		"entrypoint": "move",
 		"calldata": [_position, _direction]
 		}
-		
+
     dojo_session_account.execute(
         [move_call]
     )
@@ -232,21 +227,19 @@ func move_to(_position:Array, _direction:int) -> void:
 
 ### Subscriptions
 
-Subscriptions can be created through `ToriiClient`. When a subscription is successfully created, it returns a `sub_id`.
-
+Subscriptions can be created through `ToriiClient`.
+When a subscription is successfully created, it returns a `sub_id`.
 This `sub_id` is required to update or cancel the subscription.
-
 Subscriptions are automatically cancelled when closing the game.
 
 :::tip
-
 Refer to the in-editor documentation to see other available subscriptions.
-
 :::
 
 #### Subscribing to Events
 
-Listen for blockchain events in real-time. The first parameter is always a `Callable`:
+Listen for blockchain events in real-time.
+The first parameter is always a `Callable`:
 
 This can be a lambda function, a `Callable` constructed from another object's function, or any function in the current script.
 
@@ -275,12 +268,12 @@ func callback(data: Dictionary, type: String):
         var _data = data["data"]
         for _key in _data:
             printt("**", _key)
-			
+
 func error_callback(err, type: String):
     push_error("Error on %s subscription: %s" % [type, err])
 ```
 
-### Querying Entities
+### Entity Queries
 
 Fetch the current blockchain state using queries:
 
@@ -289,7 +282,8 @@ An empty query retrieves **ALL** entities across **ALL** worlds indexed by Torii
 :::
 
 :::note
-`DojoQuery` is used for retrieving entities. For other query types, refer to the `ToriiClient` in-editor documentation.
+`DojoQuery` is used for retrieving entities.
+For other query types, refer to the `ToriiClient` in-editor documentation.
 :::
 
 ```gdscript
@@ -319,17 +313,17 @@ All queries follow the **Builder Pattern**, allowing for flexible and readable c
 ```gdscript
     var query: DojoQuery = DojoQuery.new()
     var clause = MemberClause.new()
-    
+
     clause.member("id")
     clause.op(MemberClause.ComparisonOperator.Eq)
     var _addr = "0x..." # Player address
-    
+
     clause.hex(_addr, MemberClause.PrimitiveTag.ContractAddress)
     clause.model("dojo_starter-Player")
-    
+
     query.with_clause(clause)
     query.models(["dojo_starter-Moves", "dojo_starter-Position"])
-    
+
     var data: Dictionary = torii_client.entities(query)
     var _player_items: Array = data['items']
     printt("ITEMS", _player_items)
@@ -344,7 +338,7 @@ You can also create the query in a single line:
             .op(MemberClause.ComparisonOperator.Eq) \
             .hex("0x...", MemberClause.PrimitiveTag.ContractAddress) \
             .model("dojo_starter-Player")) \
-        .models(["dojo_starter-Moves", "dojo_starter-Position"]) 
+        .models(["dojo_starter-Moves", "dojo_starter-Position"])
 
     var data: Dictionary = torii_client.entities(query)
     var _player_items: Array = data['items']
@@ -354,6 +348,7 @@ You can also create the query in a single line:
 ### Managing Policies
 
 The recommended structure for policies for this extension is the following:
+
 ```gdscript
 # Create policy
 var full_policies: Dictionary = {
@@ -413,12 +408,11 @@ The extension compiles and places itself under _demo/addons/godot-dojo_.
 
 As of `godot-dojo` [v0.7.2](https://github.com/lonewolftechnology/godot-dojo/releases/tag/v0.7.2), `Linux`, `Windows`, `MacOS` , `Android` and `iOS` are supported.
 Make sure to check new versions under the [releases tab](https://github.com/lonewolftechnology/godot-dojo/releases)
+
 :::note
 `Linux` and `Windows` builds are x86_64 only.
 You can build arm64 builds.
-
 Let us know if it works by opening an issue or by leaving a message on `Dojo's Discord` under the `Godot section`.
-
 `MacOS` builds are not universal, so while they work on both Intel and Apple Silicon, they require separate binaries.
 A universal build could be created, but we haven't been able to properly test it yet.
 :::
@@ -426,7 +420,6 @@ A universal build could be created, but we haven't been able to properly test it
 ### Editor builds
 
 The editor builds contain code that only runs in-editor and is only found in-editor.
-
 This is the only required build to run the extension; for exporting the templates are required.
 
 ```bash
@@ -472,6 +465,7 @@ The Dojo.godot repository includes a complete demo project showcasing:
 - **Event Handling**: Processing both events and entity updates from subscriptions.
 
 To run the demo:
+
 :::note
 Follow the [dojo-starter](/tutorials/dojo-starter) or [dojo-intro](/getting-started/your-first-dojo-app) guide.
 :::

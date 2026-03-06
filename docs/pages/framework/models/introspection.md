@@ -10,7 +10,8 @@ Introspection is an advanced Dojo topic.
 Beginning Dojo developers can skip this section.
 :::
 
-In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo). This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
+In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo).
+This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
 
 The `dojo/core` library already implements the `Introspect` trait for Cairo built-in types including:
 
@@ -27,7 +28,7 @@ The `dojo/core` library already implements the `Introspect` trait for Cairo buil
 
 User-defined types must implement the `Introspect` trait to be used inside of a model.
 Note that a `#[dojo::model]` struct cannot be embedded as a field in another model — use a plain struct with `Introspect` instead.
-See [Model Composition](/framework/models#model-composition) for details.
+See [Model Composition](./index#model-composition) for details.
 
 ### Automatic Implementation
 

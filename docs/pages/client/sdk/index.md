@@ -49,34 +49,52 @@ This two-layer architecture ensures that:
 - Blockchain operations are consistent and optimized at runtime (dojo.c)
 - Platform SDKs can focus on providing idiomatic APIs for their ecosystems
 
+## Core Concepts
+
+Before diving into platform-specific implementations, let's explore the essential concepts that apply across all Dojo SDKs:
+
+### World Manager
+
+The **World Manager** is the central hub for organizing and controlling entities within your Dojo world.
+
+![world-manager](/client/unity/world-manager.webp)
+
+During initialization, the World Manager receives configuration data that defines essential settings like your Torii URL, RPC URL, and world address.
+While these settings are initially provided, you have the flexibility to adjust them for different environments.
+
+![world-manager-data](/client/unity/world-manager-data.webp)
+
+The World Manager simplifies entity management by offering methods to both add/remove entities and access them collectively or by individual identifiers.
+
+### Synchronization Master
+
+The Synchronization Master acts as the bridge between your client application and your Dojo world, seamlessly synchronizing and managing entities.
+
+![sync-master](/client/unity/sync-master.webp)
+
+Key Features:
+
+- Control synchronization: Set the maximum number of entities to synchronize.
+
+- Event-driven communication:
+    - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to your client.
+    - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the client environment.
+
+- Dynamic entity management:
+    - `SynchronizeEntities`: Asynchronously retrieves and spawns entities from the Dojo world in the client environment.
+    - `HandleEntityUpdate`: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
+
+### Contract Bindings
+
+In order to link your Dojo code, written in Cairo, with your client code, we rely on something known as a "contract binding".
+A contract binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
+
+Dojo's Sozo CLI provides built-in support for contract bindings, through [Cainome](/toolchain/cainome).
+You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
+
 ## Common Patterns
 
-Regardless of which SDK you choose, all Dojo applications follow similar patterns:
-
-### Core Game Loop
-
-```
-Client → SDK → Katana (sequencer) → Torii (indexer) → SDK → Client
-```
-
-All SDKs provide mechanisms to send transactions and query entities from your world.
-Player actions in the client are translated by the SDK into transactions that are sent to the sequencer.
-The sequencer executes the transactions and the indexer updates the world state.
-The client can then query the world state to get the latest state, which is then rendered to the user.
-
-### Account Management
-
-- **Session Accounts**: Temporary accounts for seamless gameplay
-- **Controller Accounts**: Delegate specific permissions to game contracts
-- **Burner Accounts**: Disposable accounts funded by a master account
-
-### Transaction Flow
-
-1. **Prepare**: Build transaction calls using contract bindings
-2. **Sign**: Use account credentials to sign transaction
-3. **Execute**: Submit transaction to Katana sequencer
-4. **Wait**: Monitor transaction status and confirmation
-5. **Sync**: Update local state with new world state
+For detailed implementation patterns including the core game loop, account management, and transaction flow that apply across all SDKs, see the [JavaScript SDK documentation](./javascript#common-patterns).
 
 ## Platform-Specific SDKs
 
@@ -91,14 +109,18 @@ The client can then query the world state to get the latest state, which is then
 - Real-time entity synchronization with RECS (Reactive Entity Component System)
 - Built-in support for wallet connections and burner accounts
 
+[Learn more →](./javascript)
+
 #### Unity SDK
 
 **Best for:** 2D and 3D games, cross-platform game development
 
-- Native C# bindings built on dojo.c foundation
+- Native C# bindings built on dojo.c foundation using C# P/Invoke
 - Unity-specific components and prefabs for common patterns
 - Support for WebGL, desktop, and mobile platforms
 - Integrated world state synchronization with Unity's component system
+
+[Learn more →](./unity)
 
 ### Active Development
 
@@ -107,8 +129,20 @@ The client can then query the world state to get the latest state, which is then
 **Best for:** Rust-based game development
 
 - ECS-native integration with Bevy's component system
+- Direct access to Dojo as a native Rust crate with zero FFI overhead
 - Rust-first development experience with compile-time safety
-- Direct access to dojo.c functionality without FFI overhead
+
+[Learn more →](./bevy)
+
+#### Godot SDK
+
+**Best for:** Open-source game development with GDScript
+
+- GDExtension integration built on dojo.c foundation
+- Native performance with Godot's node-based architecture
+- Cross-platform support for desktop and mobile
+
+[Learn more →](./godot)
 
 #### Unreal Engine SDK
 
@@ -117,6 +151,8 @@ The client can then query the world state to get the latest state, which is then
 - C++ integration with Unreal's Blueprint system
 - Support for complex game mechanics and AAA-quality experiences
 - Native performance with dojo.c foundation
+
+[Learn more →](./unrealengine)
 
 ### Experimental
 
@@ -128,6 +164,8 @@ The client can then query the world state to get the latest state, which is then
 - Full control over memory management and optimization
 - Foundation for building custom SDK wrappers
 
+[Learn more →](./c)
+
 #### Native Rust Integration
 
 **Best for:** Rust applications requiring direct Dojo integration
@@ -136,6 +174,18 @@ The client can then query the world state to get the latest state, which is then
 - Zero-cost abstractions with compile-time optimization
 - Suitable for high-performance backends and custom tooling
 
+[Learn more →](./rust)
+
+#### Telegram Mini Apps SDK
+
+**Best for:** Lightweight games and applications within Telegram
+
+- Simplified JavaScript SDK optimized for Telegram's runtime environment
+- Built-in integration with Telegram's user authentication and payment systems
+- Optimized for mobile-first experiences
+
+[Learn more →](./telegram)
+
 ## Choosing the Right SDK
 
 | Platform/Framework       | Recommended SDK       | Maturity Level        |
@@ -143,7 +193,9 @@ The client can then query the world state to get the latest state, which is then
 | Web (React, Vue, Svelte) | JavaScript/TypeScript | ✅ Production         |
 | Unity Games              | Unity SDK             | ✅ Production         |
 | Bevy Games               | Bevy SDK              | 🔄 Active Development |
+| Godot Games              | Godot SDK             | 🔄 Active Development |
 | Unreal Engine            | Unreal SDK            | 🔄 Active Development |
+| Telegram Mini Apps       | Telegram SDK          | 🔄 Active Development |
 | Custom C/C++             | C Bindings            | ⚗️ Experimental       |
 | Rust Applications        | Native Rust           | ⚗️ Experimental       |
 
@@ -161,7 +213,9 @@ To begin development with any Dojo SDK:
 - [JavaScript/TypeScript SDK →](./javascript)
 - [Unity SDK →](./unity)
 - [Bevy SDK →](./bevy)
+- [Godot SDK →](./godot)
 - [Unreal Engine SDK →](./unrealengine)
+- [Telegram Mini Apps SDK →](./telegram)
 - [C Bindings →](./c)
 - [Rust Integration →](./rust)
 

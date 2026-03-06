@@ -195,7 +195,7 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Custom Events
+## Event System
 
 #### `emit_event<T>`
 
@@ -225,7 +225,11 @@ world.emit_event(@PlayerMoved {
 - Must have at least one `#[key]` field
 - All types must derive `Introspect`
 
+For more information about events, see the [World Events](/framework/world/events) documentation.
+
 ## Permission Management
+
+For detailed permission configuration and management, see the [World Permissions](/framework/world/permissions) guide.
 
 ### Checking Permissions
 

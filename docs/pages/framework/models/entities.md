@@ -9,21 +9,7 @@ description: Understand how entities work in Dojo's ECS architecture and how the
 
 An entity is described by a `felt252` identifier that serves as a common key across models, allowing you to group related data together.
 
-## ECS Theory
-
-Entities in Dojo follow the Entity-Component-System (ECS) architectural pattern:
-
-- **Entities**: Unique identifiers that group related components
-- **Components**: Data containers (your Dojo models) that store entity state
-- **Systems**: Functions that operate on entities with specific component combinations
-
-This separation allows for:
-
-- **Composition over inheritance**: Build complex entities from simple components
-- **Performance**: Efficient data access and cache-friendly operations
-- **Flexibility**: Easy to add, remove, or modify entity behaviors
-
-> For deeper understanding of ECS concepts, read the [ECS-FAQ](https://github.com/SanderMertens/ecs-faq)
+For a comprehensive explanation of ECS theory and concepts, see the [Framework Overview](./index).
 
 ## Entity Concepts
 
@@ -233,6 +219,8 @@ fn move_character(ref world: WorldStorage, entity_id: u32, new_x: u32, new_y: u3
 ```
 
 ### Deleting Entities
+
+For detailed model operations including deletion, see the [Model API reference](./api).
 
 ```cairo
 fn destroy_character(ref world: WorldStorage, entity_id: u32) {

@@ -1,6 +1,7 @@
 # Development Workflow
 
-Now that you understand Dojo's toolchain, let's explore the typical development workflow. You'll learn how to iterate efficiently, test your code, and debug issues as you build your Dojo applications.
+Now that you understand Dojo's toolchain, let's explore the typical development workflow.
+You'll learn how to iterate efficiently, test your code, and debug issues as you build your Dojo applications.
 
 ## The Development Cycle
 
@@ -24,6 +25,8 @@ Let's walk through each step with practical examples.
 
 ## Setting Up Your Development Environment
 
+For comprehensive setup instructions and advanced configuration options, see the [Understanding the Toolchain](./understanding-the-toolchain) guide.
+
 Start each development session by launching your tools:
 
 ```bash
@@ -38,7 +41,8 @@ torii --dev
 # (keep this free for running sozo commands)
 ```
 
-> **Tip**: Create a simple script to start all tools at once. Save this as `start-dev.sh`:
+:::tip
+Create a simple script to start all tools at once. Save this as `start-dev.sh`:
 
 ```bash
 #!/bin/bash
@@ -49,6 +53,8 @@ sozo migrate --dev
 torii --dev &
 echo "🚀 Development environment ready!"
 ```
+
+:::
 
 ## Planning and Design
 
@@ -265,6 +271,8 @@ mod tests {
 ## Debugging and Troubleshooting
 
 ### Common Development Issues
+
+For detailed troubleshooting of tool-specific problems, see the [Troubleshooting Common Issues section](./understanding-the-toolchain#troubleshooting-common-issues) in the toolchain documentation.
 
 #### Compilation Errors
 
@@ -602,4 +610,8 @@ pkill katana && pkill torii
 
 ## Next Steps
 
-You now have a solid understanding of the Dojo development workflow! Ready to explore what comes next in your journey? Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.
+You now have a solid understanding of the Dojo development workflow!
+For detailed configuration options for each tool, see the [Tool Configuration section](./understanding-the-toolchain#tool-configuration).
+
+Ready to explore what comes next in your journey?
+Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.

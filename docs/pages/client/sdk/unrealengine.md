@@ -15,6 +15,8 @@ To install the Unreal Engine, [follow these instructions](https://www.unrealengi
 
 ## Getting Started
 
+For foundational concepts and architecture patterns used across all Dojo SDKs, see the [SDK overview](./index).
+
 To get started with the dojo.unreal SDK, follow these steps:
 
 ::::steps
@@ -45,7 +47,7 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 
 5. Enable the Dojo plugin by adding `"Dojo"` to the `PublicDependencyModuleNames.AddRange` list in `Source/DojoBookTest/PROJECTNAME.Build.cs`
 
-6. Generate bindings using `sozo build --unrealengine` and add the resulting `DojoHelpers.cpp` and `DojoHelpers.h` to `Source/PROJECTNAME`
+6. Generate contract bindings using `sozo build --unrealengine` and add the resulting `DojoHelpers.cpp` and `DojoHelpers.h` to `Source/PROJECTNAME`
 
 7. Regenerate project files (see [Regenerate project files](#regenerate-project-files) for detailed instructions)
 
@@ -115,7 +117,7 @@ Run from project directory:
 
 ::::
 
-## Integrating Bindings
+## Contract Bindings
 
 Using the command `sozo build --unrealengine`, you can add the `DojoHelpers.h` and `DojoHelpers.cpp` files to your project.
 
@@ -191,9 +193,9 @@ We also call the `CallControllerDojoStarterActionsSpawn` function.
 
 ![unrealcontroller](/client/unreal/controllerconnectandcall.webp)
 
-More information about calls is provided below.
+More information about system calls is provided below.
 
-#### Calls
+#### System Calls
 
 There are two functions available for each selector of your contracts.
 
