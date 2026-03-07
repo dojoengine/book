@@ -38,17 +38,13 @@ jobs:
               run: |
                   if [ -z "$(git status --porcelain docs/)" ]; then
                     echo "No documentation changes to commit"
-                    echo "has-changes=false" >> "$GITHUB_OUTPUT"
                     exit 0
                   fi
-
-                  echo "has-changes=true" >> "$GITHUB_OUTPUT"
 
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
 
                   BRANCH="defrag-docs-$(date +%s)"
-                  echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
                   git checkout -b "$BRANCH"
 
                   git add docs/
@@ -95,6 +91,8 @@ jobs:
                     --base main \
                     --head "$BRANCH"
 
+                  echo "has-changes=true" >> "$GITHUB_OUTPUT"
+
             - name: Fix dead links
               if: steps.create-pr.outputs.has-changes == 'true'
               run: node scripts/confirm-build.mjs
@@ -109,4 +107,4 @@ jobs:
 
                   git add docs/
                   git commit -m "fix: auto-fix docs build errors"
-                  git push
+                  git push origin HEAD
