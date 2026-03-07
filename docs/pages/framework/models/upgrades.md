@@ -248,7 +248,7 @@ struct PlayerStats {
 
 When you need to make breaking changes, consider these strategies:
 
-For deployment and migration configuration details, see the [Configuration guide](./../../configuration/).
+For deployment and migration configuration details, see the [Configuration guide](#TODO).
 
 #### 1. Create New Models
 

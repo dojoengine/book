@@ -58,7 +58,7 @@ As you can see, like contracts we can have a trait defining a `#[starknet::inter
 
 ## Configure a library
 
-In order to instruct the Dojo toolchain that you have a library to use, you need to configure it in your [Dojo configuration file](./configuration).
+In order to instruct the Dojo toolchain that you have a library to use, you need to configure it in your [Dojo configuration file](#TODO).
 
 If we take the example of the previous library, we would need to configure it like this:
 

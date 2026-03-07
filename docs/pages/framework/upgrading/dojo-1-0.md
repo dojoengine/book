@@ -117,7 +117,7 @@ world.emit_event(@e);
 ## Permissions
 
 In Dojo 1.0, the permission system has been updated to be more resource-based.
-For detailed information about the new permission system, see the [World Permissions documentation](./world/permissions).
+For detailed information about the new permission system, see the [World Permissions documentation](#TODO).
 
 Notable changes from Dojo 0.x:
 
@@ -160,7 +160,7 @@ historical = ["ns-MyEvent", "ns-MyOtherEvent"]
 ## Testing
 
 In Dojo 1.0, the test runner has been updated to use the `cairo-test` system instead of the previous testing framework.
-For detailed testing examples, patterns, and comprehensive testing documentation, see the [Testing guide](./testing).
+For detailed testing examples, patterns, and comprehensive testing documentation, see the [Testing guide](#TODO).
 
 Notable testing changes from Dojo 0.x:
 
@@ -170,7 +170,7 @@ Notable testing changes from Dojo 0.x:
 
 ## Configuration
 
-For detailed information about configuring your Dojo project, including profile management, environment settings, and deployment configuration, see the [Configuration guide](./configuration).
+For detailed information about configuring your Dojo project, including profile management, environment settings, and deployment configuration, see the [Configuration guide](#TODO).
 
 ## Sozo
 

@@ -5,7 +5,7 @@ description: Learn how to set up a Dojo chess game project, including project st
 
 # 0. Setup
 
-_Before starting recommend following the [hello-dojo tutorial](./dojo-starter) to gain a basic understanding of the Dojo game._
+_Before starting recommend following the [hello-dojo tutorial](#TODO) to gain a basic understanding of the Dojo game._
 
 ## What are we building?
 
@@ -121,7 +121,7 @@ While there are many ways to design a chess game using the ECS model, we'll foll
 > Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square position, that position will hold that piece.
 
 First, add this basic `player` model to `models/player.cairo` file.
-If you are not familar with model syntax in Dojo engine, go back to the [models documentation](../framework/models).
+If you are not familar with model syntax in Dojo engine, go back to the [models documentation](#TODO).
 
 ```rust
 use starknet::ContractAddress;

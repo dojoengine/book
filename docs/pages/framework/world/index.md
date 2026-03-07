@@ -250,7 +250,7 @@ The World contract includes several optimizations:
 ## Configuration Management
 
 The World contract supports profile-based configuration for different deployment environments (dev, release, custom).
-For detailed information about configuring your world including namespace settings, permissions, and custom profiles, see the [Configuration Guide](./configuration).
+For detailed information about configuring your world including namespace settings, permissions, and custom profiles, see the [Configuration Guide](#TODO).
 
 ## The World Interface
 

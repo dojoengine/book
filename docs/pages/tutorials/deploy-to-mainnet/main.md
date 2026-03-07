@@ -8,7 +8,7 @@ description: Learn how to deploy your Dojo world to Sepolia testnet or Mainnet, 
 This is a guide to deploy a Dojo world to Sepolia.
 The steps for Mainnet are exactly the same, just replace the chain name and ID when necessary.
 
-For an alternative deployment approach using Slot's managed infrastructure, see our [deployment using Slot tutorial](./tutorials/deploy-using-slot/main).
+For an alternative deployment approach using Slot's managed infrastructure, see our [deployment using Slot tutorial](#TODO).
 
 ### Setup
 
