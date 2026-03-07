@@ -30,7 +30,7 @@ This separation allows for:
 ### Entity as Primary Key
 
 Entities in Dojo are not objects themselves (they have no state), but rather unique identifiers that models use as storage keys.
-Multiple models can share the same entity ID, effectively creating a collection of components for that entity.
+Multiple models can share the same entity_id, effectively creating a collection of components for that entity.
 
 ```cairo
 #[derive(Drop, Serde)]
@@ -60,7 +60,7 @@ Entity IDs in Dojo are automatically generated from model keys through a determi
 
 1. **Key Serialization**: All `#[key]` fields are serialized using Cairo's `Serde` trait
 2. **Poseidon Hashing**: The serialized keys are hashed using `poseidon_hash_span()`
-3. **Entity ID Result**: The hash becomes the unique `felt252` entity ID
+3. **Entity ID Result**: The hash becomes the unique `felt252` entity_id
 
 ```cairo
 // For a single key model:
@@ -120,7 +120,7 @@ const GAME_CONFIG_ENTITY: u32 = 999999;
 
 **Key Properties:**
 
-- **Deterministic**: Same keys always produce the same entity ID
+- **Deterministic**: Same keys always produce the same entity_id
 - **Collision Resistant**: Poseidon hash ensures unique IDs for different key combinations
 - **Order Sensitive**: Key order in the struct determines the serialization order
 

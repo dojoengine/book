@@ -39,7 +39,7 @@ cargo build --release
 **2. Connect to a Dojo world:**
 
 ```c
-// World address
+// world address
 FieldElement world;
 hex_to_bytes("0x01385f25d20a724edc9c7b3bd9636c59af64cbaf9fcd12f33b3af96b2452f295", &world);
 
@@ -92,7 +92,9 @@ The essential functions most developers use:
 
 ### Client Management
 
-Client functions connect your application to the Dojo world state via Torii (the indexer). Use these to fetch current game state, query historical data, and receive real-time updates as the world changes. This is your **read** interface to the blockchain.
+Client functions connect your application to the Dojo world state via Torii (the indexer).
+Use these to fetch current game state, query historical data, and receive real-time updates as the world changes.
+This is your **read** interface to the blockchain.
 
 | Function                                                  | Returns              | Description                                    |
 | --------------------------------------------------------- | -------------------- | ---------------------------------------------- |
@@ -102,7 +104,9 @@ Client functions connect your application to the Dojo world state via Torii (the
 
 ### Account Operations
 
-Account functions handle the **write** side of blockchain interaction. Controller accounts provide session-based gameplay (users approve once, then play freely within policy limits), while direct accounts give full control for advanced use cases. Use these to execute game actions and manage player permissions.
+Account functions handle the **write** side of blockchain interaction.
+Controller accounts provide session-based gameplay (users approve once, then play freely within policy limits), while direct accounts give full control for advanced use cases.
+Use these to execute game actions and manage player permissions.
 
 | Function                                                        | Returns                   | Description                             |
 | --------------------------------------------------------------- | ------------------------- | --------------------------------------- |
@@ -220,7 +224,7 @@ Account functions handle the **write** side of blockchain interaction. Controlle
 | `carray_free(data, length)`         | Free C array        |
 | `string_free(string)`               | Free string         |
 
-## Building Platform SDKs
+## Platform Integration Examples
 
 dojo.c is designed to be the foundation for platform-specific SDKs:
 

@@ -1,0 +1,157 @@
+---
+title: Advanced Dojo Concepts
+description: Learn advanced Dojo patterns and techniques
+---
+
+# Advanced Dojo Concepts
+
+This section covers advanced patterns and techniques for building sophisticated applications with Dojo.
+These concepts build on the fundamentals covered in the [getting started guide](../getting-started).
+
+## Advanced System Patterns
+
+### System Composition
+
+Complex games often require multiple Systems working together.
+Learn how to design Systems that can be composed and coordinated effectively.
+
+```cairo
+// Example of coordinated Systems
+#[dojo::interface]
+trait IBattleSystem {
+    fn initiate_battle(world: IWorldDispatcher, attacker: felt252, defender: felt252);
+    fn resolve_battle(world: IWorldDispatcher, battle_id: felt252);
+}
+
+#[dojo::interface]
+trait IRewardSystem {
+    fn distribute_rewards(world: IWorldDispatcher, winner: felt252, battle_id: felt252);
+}
+```
+
+### Event-Driven Architecture
+
+Use Dojo's event system to create loose coupling between Systems.
+
+```cairo
+#[derive(Drop, starknet::Event)]
+struct BattleResolved {
+    battle_id: felt252,
+    winner: felt252,
+    experience_gained: u32,
+}
+```
+
+## Advanced Model Patterns
+
+### Hierarchical Models
+
+Design Models that represent complex hierarchical relationships.
+
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct Guild {
+    #[key]
+    guild_id: felt252,
+    name: felt252,
+    leader: felt252,
+    member_count: u32,
+}
+
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct GuildMember {
+    #[key]
+    guild_id: felt252,
+    #[key]
+    player_id: felt252,
+    role: GuildRole,
+    joined_at: u64,
+}
+```
+
+### Temporal Models
+
+Handle time-based game mechanics with temporal Models.
+
+```cairo
+#[derive(Copy, Drop, Serde)]
+#[dojo::model]
+struct TimedEffect {
+    #[key]
+    entity_id: felt252,
+    #[key]
+    effect_type: felt252,
+    duration: u64,
+    started_at: u64,
+    intensity: u32,
+}
+```
+
+## Performance Optimization
+
+### Efficient Queries
+
+Structure your Models for optimal query patterns.
+Consider how your client will access data and design accordingly.
+
+### Batch Operations
+
+When possible, batch multiple operations in a single System call to reduce transaction costs.
+
+```cairo
+fn batch_move_units(world: IWorldDispatcher, moves: Span<UnitMove>) {
+    let mut i = 0;
+    while i < moves.len() {
+        // Process each move
+        i += 1;
+    };
+}
+```
+
+## Security Considerations
+
+### Access Control Patterns
+
+Implement robust access control in your Systems.
+
+```cairo
+fn assert_player_owns_unit(world: IWorldDispatcher, player: felt252, unit_id: felt252) {
+    let unit = get!(world, unit_id, Unit);
+    assert(unit.owner == player, 'Player does not own unit');
+}
+```
+
+### Preventing Common Vulnerabilities
+
+- **Reentrancy**: Structure your Systems to avoid reentrancy issues
+- **Integer overflow**: Use safe math operations
+- **Access control**: Always validate permissions before state changes
+
+## Testing Strategies
+
+### Integration Testing
+
+Test complete workflows across multiple Systems.
+
+```cairo
+#[test]
+fn test_complete_battle_workflow() {
+    let world = spawn_test_world();
+
+    // Setup initial state
+    // Execute battle sequence
+    // Verify final state
+}
+```
+
+### Property-Based Testing
+
+Use property-based testing for complex game mechanics.
+
+## Next Steps
+
+For specific implementation examples, explore the [onchain chess tutorial](./onchain-chess/README) which demonstrates many of these advanced patterns in practice.
+
+For deployment strategies, see the [deployment tutorials](./deploy-to-mainnet/main).

@@ -13,7 +13,7 @@ Written in Rust, it provides everything you need for Dojo game development: worl
 Rather than implementing blockchain logic separately in each SDK, all Dojo integrations build on this single foundation:
 
 - **Unity SDK** uses dojo.c via C# P/Invoke
-- **JavaScript SDK** uses dojo.c compiled to WebAssembly
+- **JavaScript SDK** uses dojo.c compiled to WebAssembly (WASM)
 - **Unreal Engine** integrates dojo.c through C++ bindings
 - **Custom integrations** can use dojo.c directly
 
@@ -120,22 +120,6 @@ dojo.c is a "batteries included" SDK that bundles everything needed for Dojo gam
 - **Rapid Prototyping**: Quick development with familiar JavaScript patterns
 - **Node.js Backends**: Server-side game logic, bots, APIs
 - **Rich Debugging**: Browser DevTools, source maps, hot reload
-
-### Integration Examples
-
-**Unity Integration Example:**
-
-```csharp
-[DllImport("libdojo_c", CallingConvention = CallingConvention.Cdecl)]
-public static extern ResultToriiClient client_new(CString torii_url, FieldElement world);
-```
-
-**Node.js Integration Example:**
-
-```javascript
-const { ToriiClient } = require("./pkg/dojo_c");
-const client = await new ToriiClient(config);
-```
 
 dojo.c provides everything you need for Dojo game development in one comprehensive package.
 Whether you're building Unity games, web applications, or custom integrations, it delivers consistent, reliable blockchain interaction with the convenience of an integrated Torii client, account management, and Starknet provider.

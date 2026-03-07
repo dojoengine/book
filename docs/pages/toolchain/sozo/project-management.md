@@ -82,7 +82,7 @@ By default, this clones the [dojo-starter](https://github.com/dojoengine/dojo-st
   :::
 
 **Account Management**: Sozo uses accounts defined in your `dojo_<profile>.toml` files.
-See the [configuration guide](/framework/configuration/index.md) for more information.
+See the [configuration guide](/framework/configuration) for more information.
 
 :::tip
 Use a tool like [starkli](https://book.starkli.rs/accounts) to create and manage accounts and keystores.
@@ -119,7 +119,7 @@ sozo test                     # Run all tests
 
 Tests are Cairo functions marked with `#[test]`.
 Sozo runs them using the Cairo test runner, giving you confidence in your logic before deployment.
-See the [testing guide](/framework/testing/index.md) for more information about testing your Dojo contracts.
+See the [testing guide](/framework/testing) for more information about testing your Dojo contracts.
 
 ### `sozo clean`
 
@@ -152,7 +152,7 @@ sozo bindgen --typescript     # Generate TypeScript bindings only
 sozo bindgen --unity          # Generate Unity bindings only
 ```
 
-Bindgen reads from your build artifacts to create platform-specific client code for interacting with your world.
+For more architectural details, see [Cainome](/toolchain/cainome).
 
 ### `sozo dev`
 
@@ -236,6 +236,7 @@ You can also set the default abi format mode in your `dojo_<profile>.toml` file 
 [migration]
 manifest_abi_format = "per_contract"
 ```
+
 :::
 
 :::info
@@ -312,6 +313,8 @@ sozo clean && sozo build         # Clean build for production
 sozo migrate --profile prod
 ```
 
+For deployment to remote networks, consider using [Starkli vs Sozo](/toolchain/sozo/project-management) based on your specific needs.
+
 ## Development Utilities
 
 ### `sozo hash`
@@ -351,7 +354,7 @@ Sozo also supports workspaces.
 However, Sozo requires two additional things:
 
 1. A main package from which Sozo will extract the package's name (for binding generation and migration)
-2. [Dojo configuration files](/framework/configuration/#configuration-files) to inject deployment settings during migration
+2. [Dojo configuration files](/framework/configuration) to inject deployment settings during migration
 
 From here, you have several options for laying out your project:
 

@@ -14,8 +14,8 @@ Prior to 1.7, Sozo implemented Dojo's specialized functionality (like `#[dojo::m
 This was an advanced feature that few other teams used, meaning that Dojo had to essentially maintain a separate fork of Scarb, Cairo's build tool.
 This extra complexity made Dojo development slower and more difficult than it otherwise would have been.
 
-With Dojo 1.7, Sozo will instead began relying on "proc macros" (procedural macros) to implement specialized Dojo functionality.
-With proc macros, Dojo functionality can be accessed by Scarb at compile-time, rather than requiring separate pre-compilation.
+With Dojo 1.7, Sozo will instead began relying on procedural macros to implement specialized Dojo functionality.
+With procedural macros, Dojo functionality can be accessed by Scarb at compile-time, rather than requiring separate pre-compilation.
 This means that Sozo can leverage the mainstream Scarb directly; going forward, calls to `sozo build` will be thin wrappers around underlying Scarb functionality.
 
 The move to mainstream Scarb has reduced typical compile-times by about 3x, as well as unblocked quality-of-life improvements like in-editor syntax highligting and terminal text coloring.
@@ -39,7 +39,8 @@ allow-prebuilt-plugins = ["dojo_cairo_macros"]
 Since `1.8.0` contains a very small but breaking change, you must use the `=1.7.2` to ensure that Scarb is not fetching `1.8.0` or greater instead.
 :::
 
-The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier. You need to add the `dojo_cairo_macros` dependency instead.
+The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier.
+You need to add the `dojo_cairo_macros` dependency instead.
 See the note below for more details.
 
 :::note
@@ -131,7 +132,8 @@ struct MyModel {
 }
 ```
 
-If this model is read from storage before being explicitly written, the world’s storage remains uninitialized (filled with `0x0`s). This results in:
+If this model is read from storage before being explicitly written, the world's storage remains uninitialized (filled with `0x0`s).
+This results in:
 
 ```rust
 let my_key: u32 = 0x1234;
@@ -215,9 +217,11 @@ For a new Dojo project, just add the `DojoStore` derive attribute to all the dat
 
 For stored enums, you must also add the `Default` derive attribute and configure a default variant (or implement the `Default` trait like in the previous example).
 
-You can omit the `DojoStore` attribute on the model `struct` itself because it will be automatically added when a `struct` is tagged with `dojo::model`. Same for `Introspect`, `Drop` and `Serde`.
+You can omit the `DojoStore` attribute on the model `struct` itself because it will be automatically added when a `struct` is tagged with `dojo::model`.
+Same for `Introspect`, `Drop` and `Serde`.
 
-Note that Dojo events and all the data structures used in events are not stored and so, don't need the `DojoStore` attribute. Of course, if a data structure is used in both Dojo models and events, you have to add the `DojoStore` attribute.
+Note that Dojo events and all the data structures used in events are not stored and so, don't need the `DojoStore` attribute.
+Of course, if a data structure is used in both Dojo models and events, you have to add the `DojoStore` attribute.
 
 Some examples:
 
@@ -304,7 +308,8 @@ read_schemas_legacy
 
 ### Conclusion to avoid an issue with uninitialized storage and enums
 
-If your project relies on `Option<T>` or custom enums, this issue may be critical. We recommend reviewing your usage and considering explicit initialization strategies when applicable.
+If your project relies on `Option<T>` or custom enums, this issue may be critical.
+We recommend reviewing your usage and considering explicit initialization strategies when applicable.
 
 For projects already on `mainnet`, upgrading the contract to modify logic or adding a dedicated initialization field can mitigate potential security risks.
 
@@ -314,9 +319,11 @@ From Dojo `1.7.0`, the `DojoStore` trait ensures that uninitialized storage is h
 
 ### Testing with `dojo-cairo-test`
 
-Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`. The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
+Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`.
+The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
 
-You now have to import the `world` and pass its class hash to the `spawn_test_world` function. There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
+You now have to import the `world` and pass its class hash to the `spawn_test_world` function.
+There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
 
 ```rust
 use dojo::world::{WorldStorageTrait, world};
@@ -349,7 +356,7 @@ fn test_world_test_set() {
 ### Using Starknet Foundry
 
 Now that Starknet Foundry is supported for Dojo contracts, you can opt to use it instead of `dojo-cairo-test` for testing.
-YOu can use the whole Starknet Foundry test suite and cheatcodes.
+You can use the whole Starknet Foundry test suite and cheatcodes.
 
 Update your `Scarb.toml` to add the `dojo_snf_test` dependency:
 

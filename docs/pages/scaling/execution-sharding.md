@@ -20,6 +20,7 @@ This enables parallel processing across multiple shards while maintaining unifie
 
 :::info
 Execution sharding differs from sovereign chains, in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+For more details on sovereign rollups, see the [Sovereign Rollups guide](/scaling/sovereign-rollups).
 :::
 
 ### Key Benefits
@@ -113,12 +114,11 @@ A specific event emitted by a designated Cairo contract signals shard completion
 Once the completion event is detected, Saya would initiate the settlement process:
 
 1. **Execution Trace Generation**: DojoOS generates an execution trace similar to SNOS but optimized for shard validation:
-
     - Validates transaction sequences rather than blocks
     - Outputs only modified storage addresses per settlement config
     - Supports shard-specific validation rules
 
-2. **Proof Generation**: Saya submits the trace to a proving service (e.g., Atlantic) for cryptographic proof generation
+2. **Proof Generation**: Saya submits the trace to a proving service (e.g., Atlantic proving service) for cryptographic proof generation
 
 3. **Layout Bridge**: Proof conversion to `recursive_with_poseidon` layout for Starknet verification
 

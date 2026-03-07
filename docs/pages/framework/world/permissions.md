@@ -66,6 +66,8 @@ In this example, permissions are given to **addresses**, which can be systems or
 - **Configuration**: Initial setup, predictable permissions, deployment automation
 - **Runtime**: Dynamic permission changes, game progression, admin functions
 
+For comprehensive configuration options, see the [Configuration guide](/framework/configuration).
+
 ## Permission Types
 
 Dojo has two permission types:
@@ -87,6 +89,10 @@ Dojo has two permission types:
 - Cannot grant permissions to others
 - Cannot upgrade the resource
 
+## Permission API Examples
+
+### Checking Permissions
+
 ```cairo
 // Check if an address is an owner
 let is_owner = world.is_owner(resource_selector, address);
@@ -96,6 +102,34 @@ let can_write = world.is_writer(resource_selector, address);
 
 // Reading is always permissionless
 let position: Position = world.read_model(player);
+```
+
+### How to Check Ownership Within a Contract
+
+```cairo
+use dojo::world::IWorldDispatcherTrait;
+
+// How to check that the caller is a owner of the current contract
+// executing code:
+fn system_1(ref self: ContractState) {
+    let mut world = self.world(@"ns");
+
+    // A dojo selector is computed from namespace and name.
+    // The namespace is already set by the `world` instance,
+    // so we just have to use the dojo name of the contract.
+    // Every contract has a `dojo_name` function available.
+    let current_contract_selector = world.contract_selector(
+        @self.dojo_name()
+    );
+
+    // Using the world dispatcher to call the world contract
+    // and verify that the resource (the current contract)
+    // is owned by the caller.
+    world.dispatcher.is_owner(
+        current_contract_selector,
+        starknet::get_caller_address()
+    );
+}
 ```
 
 ## Permission Hierarchy
@@ -408,7 +442,7 @@ For detailed configuration options, see [Configuration](/framework/configuration
 
 ## Debugging Permission Issues
 
-1. **Check Resource Selector**: Ensure you're using the correct resource selector
+1. **Check resource_selector**: Ensure you're using the correct resource_selector
 2. **Verify Caller**: Confirm the caller address is what you expect
 3. **Check Hierarchy**: Verify the permission hierarchy is set up correctly
 4. **Use Events**: Monitor permission events to track changes

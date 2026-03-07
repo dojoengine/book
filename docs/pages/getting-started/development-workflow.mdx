@@ -1,6 +1,12 @@
+---
+title: Development Workflow
+description: Learn the essential development workflow for building Dojo applications efficiently.
+---
+
 # Development Workflow
 
-Now that you understand Dojo's toolchain, let's explore the typical development workflow. You'll learn how to iterate efficiently, test your code, and debug issues as you build your Dojo applications.
+Now that you understand Dojo's toolchain, let's explore the typical development workflow.
+You'll learn how to iterate efficiently, test your code, and debug issues as you build your Dojo applications.
 
 ## The Development Cycle
 
@@ -22,39 +28,16 @@ A typical Dojo development session follows this pattern:
 
 Let's walk through each step with practical examples.
 
-## Setting Up Your Development Environment
+## Development Environment Setup
 
-Start each development session by launching your tools:
-
-```bash
-# Terminal 1: Start Katana
-katana --dev
-
-# Terminal 2: Deploy and start Torii
-sozo migrate --dev
-torii --dev
-
-# Terminal 3: Your workspace for commands
-# (keep this free for running sozo commands)
-```
-
-> **Tip**: Create a simple script to start all tools at once. Save this as `start-dev.sh`:
-
-```bash
-#!/bin/bash
-# Start development environment
-katana --dev &
-sleep 2
-sozo migrate --dev
-torii --dev &
-echo "🚀 Development environment ready!"
-```
+For a comprehensive development environment setup guide, see the [first app tutorial](./your-first-dojo-app).
+The tutorial provides detailed terminal setup instructions and troubleshooting context for getting your development environment running smoothly.
 
 ## Planning and Design
 
 Before writing code, think about your game or application structure:
 
-### Define Your Models (Components)
+### Define Your Models
 
 What data does your application need to track?
 
@@ -83,7 +66,7 @@ pub struct Game {
 }
 ```
 
-### Plan Your Systems (Actions)
+### Plan Your Systems
 
 What actions can players take?
 
@@ -157,6 +140,8 @@ mod actions {
     }
 }
 ```
+
+For complete working examples of models and systems, see the [spawn-and-move example](./your-first-dojo-app) in the first app tutorial.
 
 ### Compile Early and Often
 
@@ -407,60 +392,6 @@ sozo migrate --dev
 sozo model get Player $ACCOUNT_ADDRESS --dev > player_backup.json
 ```
 
-## Performance Optimization
-
-### Efficient Data Queries
-
-Structure your GraphQL queries to minimize data transfer:
-
-```graphql
-# Good: Specific fields only
-query GetActiveGames {
-  gameModels(where: {status: {eq: "ACTIVE"}}) {
-    edges {
-      node {
-        id
-        player1
-        player2
-        current_turn
-      }
-    }
-  }
-}
-
-# Avoid: Fetching all data
-query GetAllGames {
-  gameModels {
-    edges {
-      node {
-        # all fields...
-      }
-    }
-  }
-}
-```
-
-### Gas Optimization
-
-Keep transactions lightweight:
-
-```cairo
-// Good: Single batch operation
-fn play_multiple_cards(ref world: IWorldDispatcher, cards: Array<u32>) {
-    let mut i = 0;
-    loop {
-        if i >= cards.len() {
-            break;
-        }
-        // Process card
-        i += 1;
-    };
-}
-
-// Less efficient: Multiple separate transactions
-// (would require multiple sozo execute calls)
-```
-
 ## Deployment Strategy
 
 ### Local to Testnet Progression
@@ -602,4 +533,6 @@ pkill katana && pkill torii
 
 ## Next Steps
 
-You now have a solid understanding of the Dojo development workflow! Ready to explore what comes next in your journey? Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.
+You now have a solid understanding of the Dojo development workflow!
+For more advanced toolchain capabilities and performance optimization techniques, see [Understanding the Toolchain](./understanding-the-toolchain).
+Ready to explore what comes next in your journey? Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.

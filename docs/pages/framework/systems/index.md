@@ -38,6 +38,7 @@ Systems are **stateless functions** that:
 :::warning
 In order to write data to the world, a system needs explicit permission from the model owner.
 Permissions are defined at the contract (address) level, which means that all the systems inside the same contract will inherit the same permissions.
+See [World Permissions](./framework/world/permissions) for details on configuring system permissions.
 :::
 
 ## System Design Philosophy
@@ -181,7 +182,7 @@ mod my_system {
 ```
 
 Initialization arguments are configured in your profile's `[init_call_args]` section.
-See [Contract Initialization](/framework/configuration#contract-initialization) for details.
+See [Configuration](./framework/configuration) for details.
 
 ### Execution
 
@@ -259,7 +260,7 @@ Systems should be designed for testability:
 Understanding system design philosophy is crucial for building robust Dojo applications.
 Explore the deeper aspects of system implementation:
 
-- **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
-- **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
+- **[System Architecture](./architecture)** - Structural patterns and organization
+- **[System Coordination](./coordination)** - How systems interact and coordinate
 
 Systems are the heart of your application - design them thoughtfully and they'll serve you well.

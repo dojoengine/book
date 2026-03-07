@@ -54,7 +54,6 @@ If the upgrade would break existing data, the upgrade will fail.
 - To be upgradeable, the layout of a model must not be packed (using `IntrospectPacked`).
 
 - For composite data structures like `struct`, `enum`, `tuple` and `array`:
-
     - they are upgreadable as long as all their elements are upgreadable
     - existing elements cannot be removed, only modified
     - new elements can be freely added.
@@ -248,6 +247,8 @@ struct PlayerStats {
 ### Handling Breaking Changes
 
 When you need to make breaking changes, consider these strategies:
+
+For deployment and migration configuration details, see the [Configuration guide](./../../configuration/).
 
 #### 1. Create New Models
 

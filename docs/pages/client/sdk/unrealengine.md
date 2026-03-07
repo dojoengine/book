@@ -41,11 +41,12 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 
 3. Copy the Plugins/Dojo directory from dojo.unreal into your project's Plugins folder
 
-4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`. For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
+4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`.
+   For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
 
 5. Enable the Dojo plugin by adding `"Dojo"` to the `PublicDependencyModuleNames.AddRange` list in `Source/DojoBookTest/PROJECTNAME.Build.cs`
 
-6. Generate bindings using `sozo build --unrealengine` and add the resulting `DojoHelpers.cpp` and `DojoHelpers.h` to `Source/PROJECTNAME`
+6. Generate bindings using [Sozo's binding generation feature](./../../toolchain/sozo/binding-generation) and add the resulting `DojoHelpers.cpp` and `DojoHelpers.h` to `Source/PROJECTNAME`
 
 7. Regenerate project files (see [Regenerate project files](#regenerate-project-files) for detailed instructions)
 
@@ -117,7 +118,7 @@ Run from project directory:
 
 ## Integrating Bindings
 
-Using the command `sozo build --unrealengine`, you can add the `DojoHelpers.h` and `DojoHelpers.cpp` files to your project.
+Using Sozo's [binding generation feature](./../../toolchain/sozo/binding-generation), you can add the `DojoHelpers.h` and `DojoHelpers.cpp` files to your project.
 
 These files use the Dojo plugin and expose simple functions that you can use from another `cpp` file or directly from a Blueprint.
 If you have set up everything correctly, you will have a connected Torii client in a Blueprint.
@@ -148,21 +149,21 @@ Click on the closed eye to be able to change it in the Inspector.
 
 ![unrealtoriicontracts](/client/unreal/connect_setup.webp)
 
-#### Subscribe to and fetch existing models
+#### Subscribe to and fetch existing Models
 
-This is where you will retrieve all the models that are stored on-chain.
+This is where you will retrieve all the Models that are stored on-chain.
 
-Both subscription and fetch existing models will trigger a custom event called `OnDojoModelUpdate`.
+Both subscription and fetch existing Models will trigger a custom event called `OnDojoModelUpdate`.
 Always bind this custom event before calling any of these functions.
 
 ![unrealmodels0](/client/unreal/getmodelupdate.webp)
 
-You can then create functions for each model to retrieve the values and update your game.
+You can then create functions for each Model to retrieve the values and update your game.
 
 ![unrealmodels3](/client/unreal/accessmodel2.webp)
 
-Generated models follow the Unreal Engine 5 convention in `cpp`.
-For example, if you have a `Vec2` model, it will be called `FVec2`.
+Generated Models follow the Unreal Engine 5 convention in `cpp`.
+For example, if you have a `Vec2` Model, it will be called `FVec2`.
 
 For enums, to avoid conflicts, they are prefixed with "ED" (E for Enums, D for Dojo).
 For example, `Direction` enum becomes `EDDirection`.
@@ -210,7 +211,7 @@ The format for each function is `<PREFIX><NAMESPACE><CONTRACT><SELECTOR>` with a
 
 To update the plugin to a new version:
 
-1. Build the `dojo.c` library for your platform
+1. Build the dojo.c library for your platform
 2. In your UE5 project directory, create a new directory next to `Dojo.Build.cs` named after your version number (e.g. "1.7.0")
 3. Copy the `dojo.h` header file into this new version directory
 4. Create a `lib/<platform>` subdirectory and copy the `libdojo_c` library file into it
@@ -223,7 +224,7 @@ To add support for a new platform:
 
 ::::steps
 
-#### Build the `dojo.c` library for your target platform
+#### Build the dojo.c library for your target platform
 
 - Use `cargo build --release --target <target>`
 - Common targets include:
@@ -255,9 +256,9 @@ To add support for a new platform:
 The dojo.unreal repository contains `ue5dojostarter`, a complete sample project that demonstrates how Dojo can be integrated with Unreal Engine.
 This sample is built on top of the Unreal Engine 5 First Person template and showcases:
 
-- **Complete Dojo Integration**: Working examples of connecting to Torii, subscribing to model updates, and calling system functions
+- **Complete Dojo Integration**: Working examples of connecting to Torii, subscribing to Model updates, and calling system functions
 - **Blueprint Implementation**: All Dojo functionality implemented through Blueprint nodes for easy understanding
-- **Game Mechanics**: A simple boat movement game where players can spawn and move around a world
+- **Game Mechanics**: A simple boat movement game where players can spawn and move around a World
 - **Controller Authentication**: Integration with Cartridge Controller for wallet authentication
 - **Model Synchronization**: Real-time updates between onchain state and game visuals
 
@@ -265,7 +266,7 @@ The sample project works with the [Dojo Starter](https://github.com/dojoengine/d
 
 To run the sample project locally:
 
-1. Set up and deploy the Dojo Starter contracts following the [getting started guide](/getting-started)
+1. Set up and deploy the Dojo Starter contracts following the [getting started guide](./../../getting-started)
 2. Clone the dojo.unreal repository
 3. Follow the detailed setup instructions in the [repository README](https://github.com/dojoengine/dojo.unreal)
 4. Configure the game with your deployed contract addresses and RPC endpoints

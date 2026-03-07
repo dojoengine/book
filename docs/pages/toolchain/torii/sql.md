@@ -55,7 +55,8 @@ The SQL playground is marked as BETA and actively under development.
 
 ## Database Schema
 
-Understanding Torii's database structure is essential for effective querying:
+Understanding Torii's database structure is essential for effective querying.
+For comprehensive information about Torii's data indexing and storage, see the [Torii overview](./index.md).
 
 ### Core System Tables
 
@@ -179,7 +180,8 @@ You can submit the query using a `GET` or `POST` request.
 
 ### Using GET
 
-The query is sent as a URL parameter. Both `q` and `query` parameters are supported:
+The query is sent as a URL parameter.
+Both `q` and `query` parameters are supported:
 
 ```bash
 query=$(printf '%s' "SELECT * FROM [ns-Position];" | jq -s -R -r @uri)
