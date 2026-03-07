@@ -5,11 +5,31 @@ description: Learn how to set up a Dojo chess game project, including project st
 
 # 0. Setup
 
-_Before starting recommend following the [`hello-dojo`](/tutorials/dojo-starter.mdx) chapter to gain a basic understanding of the Dojo game._
+_Before starting recommend following the [hello-dojo tutorial](#TODO) to gain a basic understanding of the Dojo game._
+
+## What are we building?
+
+We're building an on-chain chess game system that lets you start a new game and play chess.
+This guide does not cover every rules of the chess game.
+You will build step by step as follows:
+
+1. A system to spawn all the chess pieces
+2. A system to make pieces move
+3. Add some functions to check a legal move
+4. Play chess ♟♙ - integration test!
+
+The full code of tutorial is based on [this repo](https://github.com/dojoengine/origami/tree/main/examples/chess).
+
+If this seems too hard, don't worry!
+This guide is for beginners.
+If you know some basics about Cairo and Dojo, you're good.
+We won't make a full chess game with all the rules.
+We're keeping it simple.
 
 ## Initializing the Project
 
-Create and initialize a new Dojo project. You can name your project what you want.
+Create and initialize a new Dojo project.
+You can name your project what you want.
 
 ```sh
 sozo init chess
@@ -17,7 +37,9 @@ sozo init chess
 
 ## Cleaning Up the Boilerplate
 
-The project comes with a lot of boilerplate codes. Clear it all. Make sure your directory looks like this
+The project comes with a lot of boilerplate codes.
+Clear it all.
+Make sure your directory looks like this
 
 ```shell
 ├── README.md
@@ -98,7 +120,8 @@ While there are many ways to design a chess game using the ECS model, we'll foll
 
 > Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square position, that position will hold that piece.
 
-First, add this basic `player` model to `models/player.cairo` file. If you are not familar with model syntax in Dojo engine, go back to this [chapter](/framework/models).
+First, add this basic `player` model to `models/player.cairo` file.
+If you are not familar with model syntax in Dojo engine, go back to the [models documentation](#TODO).
 
 ```rust
 use starknet::ContractAddress;
@@ -120,7 +143,8 @@ enum Color {
 }
 ```
 
-Second, we do the same for `game` model. Edit your `models/game.cairo` file and add this content.
+Second, we do the same for `game` model.
+Edit your `models/game.cairo` file and add this content.
 
 ```rust
 use chess::models::player::Color;
@@ -177,9 +201,10 @@ enum PieceType {
 }
 ```
 
-## Basic systems
+## Basic Systems
 
-Starting from the next chapter, you will implement the `actions.cairo` file. This is where our game logic/contract will reside.
+Starting from the next chapter, you will implement the `actions.cairo` file.
+This is where our game logic will reside.
 
 For now, `actions.cairo` should look like this:
 
@@ -195,7 +220,9 @@ It should be noted that Systems function are contract methods, by implication, r
 
 Now try `sozo build` to build.
 
-Complied? Great! then let's move on. If not fix the issues, so that you can run the `sozo build` command successfully.
+Complied?
+Great! then let's move on.
+If not fix the issues, so that you can run the `sozo build` command successfully.
 
 ## Implement Traits for models
 

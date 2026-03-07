@@ -7,6 +7,11 @@ description: Find answers to common questions about Dojo, onchain games, Autonom
 
 ## Provable Games
 
+### What is Dojo?
+
+[Dojo](/overview) is a comprehensive framework for building onchain games and autonomous worlds.
+It provides a standardized approach to developing provable games with an integrated toolchain, including an Entity Component System (ECS) architecture, development tools, and client libraries.
+
 ### What is an onchain game?
 
 Onchain games are games that exist entirely on a public blockchain network; all states and logic are onchain.
@@ -29,7 +34,7 @@ This constitutes a provable game.
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
@@ -67,6 +72,7 @@ If you have ideas for the project, please open an issue.
 
 ### How do I get involved?
 
+[Get started with installation](/installation) to set up your development environment.
 Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine).
 
 ## Known Limitations

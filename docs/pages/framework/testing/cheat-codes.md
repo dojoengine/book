@@ -48,7 +48,8 @@ fn f2() {
 
 This cheat code helps you set the contract address to the provided value, allowing you to test contract deployment and interactions.
 
-It is important to note that any test function is considered a contract, which by default uses the `0` address. Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
+It is important to note that any test function is considered a contract, which by default uses the `0` address.
+Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
 
 ```rust
 use starknet::{testing, get_contract_address, contract_address_const};
@@ -96,7 +97,8 @@ fn f5() {
 
 ## `set_account_contract_address`
 
-This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply when simulating a scenario where a contract is called by a different account contract.
+This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts.
+You can apply when simulating a scenario where a contract is called by a different account contract.
 
 ```rust
 use starknet::{testing, get_tx_info, contract_address_const};

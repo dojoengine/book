@@ -40,7 +40,6 @@ Key Features:
 - Control synchronization: Set the maximum number of entities to synchronize.
 
 - Event-driven communication:
-
     - `OnSynchronized`: Notifies you when entities were successfully synchronized from Dojo world to Unity.
     - `OnEntitySpawned`: Triggered whenever a new entity is spawned in the Unity environment.
 
@@ -54,7 +53,7 @@ In order to link your Dojo code, written in Cairo, with your Unity code, written
 A code binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
 
 Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](/toolchain/cainome).
-You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
+You can learn more about Sozo's binding generation features in the [binding generation documentation](/toolchain/sozo/binding-generation).
 
 ## Getting Started
 
@@ -197,7 +196,7 @@ private async Task<Account> CreateBurnerAccount(string rpcUrl, string masterAddr
 ```
 
 :::tip
-Replace `masterAddress` and `masterPrivateKey` with the **account Address** and **private key** of the prefunded Katana account.
+Replace `masterAddress` and `masterPrivateKey` with the **account address** and **private key** of the prefunded Katana account.
 :::
 
 ### System Execution
@@ -293,7 +292,7 @@ It is possible to execute an array of calls simultaneously, by passing multiple 
 ## Building your Dojo Game
 
 The final stage is building your onchain game for interaction and deployment.
-Dojo currently supports building for both **desktop** and **WebGL** platforms.
+Dojo currently supports building for both **desktop** and **WebAssembly (WASM)** platforms.
 
 ### Building for Desktop
 
@@ -359,7 +358,6 @@ You may encounter the following error while building for WebGL:
 Here are the steps to address it:
 
 1. **Verify Dojo Template Selection**:
-
     - Navigate to `Edit > Project Settings > Player` (or directly through the Project Settings window).
       ![webgl-error](/client/unity/webgl-build-fail.webp)
         > Example without `Dojo` template selected
@@ -368,7 +366,6 @@ Here are the steps to address it:
     - If the Dojo template is missing, proceed to `step 2`.
 
 2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
-
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
     - Add this folder to your project's Assets directory.
@@ -446,7 +443,7 @@ Clone the [dojo.unity](https://github.com/dojoengine/dojo.unity) and [Dojo Start
 
 #### Setting up Dojo Starter
 
-Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter.mdx) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
+Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
 
 #### Setting up dojo.unity
 

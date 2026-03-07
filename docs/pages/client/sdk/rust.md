@@ -17,7 +17,7 @@ The Dojo Rust ecosystem provides several key crates for different use cases:
 - **`torii-client`**: Client for connecting to Torii indexer
 - **`torii-grpc`**: gRPC client for real-time data streaming
 - **`torii-relay`**: P2P networking and relay functionality
-- **`cainome`**: Contract bindings generation for Cairo contracts
+- **[`cainome`](../../toolchain/cainome)**: Contract bindings generation for Cairo contracts
 
 ## Getting Started
 

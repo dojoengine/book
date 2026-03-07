@@ -208,6 +208,9 @@ mappings = {
 
 ### Permission Configuration
 
+Permission configuration defines access control for your Dojo world resources.
+See the [World Permissions guide](/framework/world/permissions) for comprehensive details about resource_selectors, permission hierarchies, and security patterns.
+
 ```toml
 # Format: "<TARGET_TAG>" = ["<GRANTEE_TAG>"]
 
@@ -252,7 +255,7 @@ mod my_system {
 ```
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### External Contract Deployment
@@ -280,7 +283,7 @@ constructor_data = [
 - `constructor_data` - Arguments for contract constructor
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### Migration Control
@@ -377,9 +380,62 @@ mappings = { "items" = ["Sword", "Shield", "Potion"] }
 "game" = ["game-admin"]
 ```
 
+## Migrating from Dojo 1.0
+
+If you're upgrading from Dojo 1.0.x, the configuration system has been completely redesigned for better clarity and environment management.
+
+### Configuration Structure Changes
+
+Dojo 1.0.x used embedded configuration within `Scarb.toml`.
+Dojo 1.7+ uses separate profile-specific `dojo_<profile>.toml` files for deployment and environment configuration.
+
+**Migration Steps:**
+
+1. **Extract environment configuration** - Move RPC endpoints, account details, and deployment settings from `Scarb.toml` to profile-specific files
+2. **Update profile references** - Replace `[tool.dojo.env]` sections with dedicated `dojo_dev.toml`, `dojo_staging.toml`, etc.
+3. **Set world address** - Add your deployed world address to enable automatic version detection
+
+### New Required Fields
+
+For mainnet deployments, add these required fields to support proper node synchronization:
+
+```toml
+[env]
+world_address = "0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d"
+world_block = 821000  # Block number where world was deployed
+```
+
+### Permission System Updates
+
+The permission configuration syntax has been updated for better namespace support.
+Replace permission contract addresses with resource tags:
+
+**Dojo 1.0.x:**
+
+```toml
+[tool.dojo.permissions]
+"0x1234..." = ["0x5678..."]
+```
+
+**Dojo 1.7+:**
+
+```toml
+[writers]
+"game-Position" = ["game-movement", "game-actions"]
+"items" = ["item-manager"]
+```
+
+See the [World Permissions guide](/framework/world/permissions) for complete migration details.
+
+### Testing Configuration
+
+Testing configuration is now managed through profiles.
+See the [Testing guide](/framework/testing) for updated test configuration patterns and examples.
+
 ## See Also
 
 - **[World Permissions](/framework/world/permissions)** - Runtime permission management
 - **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
-- **[Calldata Format](/toolchain/sozo/index.md#data-format-reference)** - Constructor argument formatting
+- **[Calldata Format](/toolchain/sozo#data-format-reference)** - Constructor argument formatting
 - **[World Metadata](/framework/world/metadata)** - World and resource metadata
+- **[Testing Guide](/framework/testing)** - Profile-based testing configuration

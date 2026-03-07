@@ -32,7 +32,7 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 - **Account Management**: Support for controller accounts, session accounts, and burner wallets
 - **Transaction Handling**: Sign and execute transactions with proper gas estimation
 - **Torii Client Integration**: Query entities, subscribe to real-time updates, and sync world state
-- **Cross-Platform Compatibility**: Compiles to both native binaries (via C bindings) and WebAssembly
+- **Cross-Platform Compatibility**: Compiles to both native binaries (via C bindings) and WebAssembly (WASM)
 
 **Dual Compilation Strategy:**
 
@@ -67,7 +67,7 @@ The client can then query the world state to get the latest state, which is then
 ### Account Management
 
 - **Session Accounts**: Temporary accounts for seamless gameplay
-- **Controller Accounts**: Delegate specific permissions to game contracts
+- **Controller accounts**: Delegate specific permissions to game contracts
 - **Burner Accounts**: Disposable accounts funded by a master account
 
 ### Transaction Flow
@@ -106,9 +106,9 @@ The client can then query the world state to get the latest state, which is then
 
 **Best for:** Rust-based game development
 
-- ECS-native integration with Bevy's component system
+- Entity Component System (ECS)-native integration with Bevy's component system
 - Rust-first development experience with compile-time safety
-- Direct access to dojo.c functionality without FFI overhead
+- Direct access to [dojo.c](./c) functionality without FFI overhead
 
 #### Unreal Engine SDK
 
@@ -124,7 +124,7 @@ The client can then query the world state to get the latest state, which is then
 
 **Best for:** Custom integrations, maximum performance requirements
 
-- Direct access to dojo.c API without additional abstraction layers
+- Direct access to [dojo.c](./c) API without additional abstraction layers
 - Full control over memory management and optimization
 - Foundation for building custom SDK wrappers
 

@@ -1,3 +1,8 @@
+---
+title: Understanding the Toolchain
+description: Learn about the Dojo toolchain - Katana, Torii, Sozo, and Saya
+---
+
 # Understanding the Toolchain
 
 Now that you've built your first Dojo app, let's explore the tools that made it possible.
@@ -148,6 +153,60 @@ You can learn more about GraphQL [here](https://graphql.org/learn).
 
 For high-performance applications, use the gRPC endpoint at `localhost:8080`.
 
+### Performance Optimization
+
+#### Efficient Data Queries
+
+Structure your GraphQL queries to minimize data transfer:
+
+```graphql
+# Good: Specific fields only
+query GetActiveGames {
+  gameModels(where: {status: {eq: "ACTIVE"}}) {
+    edges {
+      node {
+        id
+        player1
+        player2
+        current_turn
+      }
+    }
+  }
+}
+
+# Avoid: Fetching all data
+query GetAllGames {
+  gameModels {
+    edges {
+      node {
+        # all fields...
+      }
+    }
+  }
+}
+```
+
+#### Gas Optimization
+
+Keep transactions lightweight:
+
+```cairo
+// Good: Single batch operation
+fn play_multiple_cards(ref world: IWorldDispatcher, cards: Array<u32>) {
+    let mut i = 0;
+    loop {
+        if i >= cards.len() {
+            break;
+        }
+        // Process card
+        i += 1;
+    };
+}
+
+// Less efficient: Multiple separate transactions
+// (would require multiple sozo execute calls)
+```
+
 ### Torii Configuration
 
 Customize Torii's behavior:
@@ -175,7 +234,7 @@ torii --http.cors_origins "*"
 - Manages World interactions
 - Handles authorization
 
-> **New to Sozo?** See our [complete Sozo reference](/toolchain/sozo/) for all available commands and options.
+> **New to Sozo?** See our [complete Sozo reference](../toolchain/sozo) for all available commands and options.
 
 ### Project Lifecycle with Sozo
 
@@ -240,7 +299,7 @@ You **must** have a `dojo_dev.toml` file in your contract directory, or Sozo wil
 :::
 
 After migrating, Sozo will generate a `manifest_<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
-Thsi file is meant to be consumed by clients to help them interact with the world.
+This file is meant to be consumed by clients to help them interact with the world.
 
 #### 4. Interaction
 
@@ -288,7 +347,7 @@ world_address = "0x04d9..." # For previously deployed worlds
 "di" = ["di-actions"] # target = grantee
 ```
 
-See [this page](/framework/configuration) for more information about Sozo profiles.
+See [this page](../framework/configuration) for more information about Sozo profiles.
 
 ## Saya: Your Proof Generator
 
@@ -313,7 +372,7 @@ Saya becomes important when you want:
 - **L1 settlement**: Settle state changes on Ethereum or other chains
 - **Competition integrity**: Tamper-proof tournaments and rankings
 
-For more information about Saya, [see the docs](/toolchain/saya).
+For more information about Saya, [see the docs](../toolchain/saya).
 
 ## How The Toolchain Works Together
 
@@ -324,6 +383,8 @@ Here's the typical development flow:
 3. **Sozo** deploys your World contract to Katana
 4. **Torii** automatically indexes your World's data
 5. **Saya** (optionally) generates proofs for settlement
+
+For a more detailed look at the development workflow, see the [development workflow guide](./development-workflow).
 
 ## Tool Configuration
 
@@ -390,6 +451,6 @@ sozo execute di-actions spawn --profile staging
 
 ## Next Steps
 
-Now that you understand the toolchain, you're ready to learn about the [development workflow](/getting-started/development-workflow) and start building more complex applications.
+Now that you understand the toolchain, you're ready to learn about the [development workflow](./development-workflow) and start building more complex applications.
 
 Each tool has extensive documentation in the toolchain section for when you need to dive deeper into specific features and configurations.

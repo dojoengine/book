@@ -190,6 +190,8 @@ katana db stats --path /var/lib/katana/production
 Initialize chain configuration for rollup or sovereign blockchain deployment.
 Creates genesis files, chain specifications, and settlement configurations.
 
+For detailed chain initialization configuration, see the [Saya documentation](../saya) which provides settlement orchestration functionality with Katana.
+
 **Usage:**
 
 ```bash

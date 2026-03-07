@@ -18,7 +18,7 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 - **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
 :::note
-dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes Torii client features via WASM.
+dojo.js is a wrapper around [dojo.c](./c) that exposes Torii client features via WASM.
 For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
 :::
 
@@ -79,7 +79,7 @@ export const dojoConfig = createDojoConfig({ manifest });
 
 #### Generate TypeScript Bindings
 
-[Generate code bindings](/toolchain/sozo/binding-generation) with Sozo, letting you import Dojo models into TypeScript:
+[Generate code bindings](/toolchain/sozo/binding-generation) with [Sozo](/toolchain/sozo), letting you import Dojo models into TypeScript:
 
 ```bash
 DOJO_MANIFEST_PATH="../path/to/Scarb.toml" sozo build --typescript
@@ -113,7 +113,7 @@ async function main() {
     // Initialize the SDK with configuration options
     const sdk = await init<SchemaType>({
         client: {
-            // Required: Address of the deployed World contract
+            // Required: Address of the deployed world contract
             worldAddress: dojoConfig.manifest.world.address,
             // Optional: Torii indexer URL (defaults to http://localhost:8080)
             toriiUrl: dojoConfig.toriiUrl || "http://localhost:8080",
@@ -419,7 +419,8 @@ If you want messages to be broadcast to all of your torii client instances, you'
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
+First, configure Torii to index your tokens:
 
 ```toml
 # dojo_dev.toml
@@ -456,7 +457,8 @@ function TokenBalance({ address }: { address: string }) {
 
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

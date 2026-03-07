@@ -8,6 +8,9 @@ description: Overview of Saya, the settlement orchestrator for Katana.
 Saya is the settlement orchestrator for Katana, it is responsible for fetching the blocks from Katana and prove them.
 Once the block execution is proven, Saya can settle the block either by verifying it on a settlement layer and update the state of the core contract, or by posting the data to a data availability layer.
 
+Katana provides `katana init` for initializing new blockchain networks with configurable settlement layers, giving you flexibility in how your appchain settles to different networks based on your specific requirements.
+For more information about Katana's capabilities, see the [Katana introduction](/toolchain/katana).
+
 ## Architecture
 
 ![saya](/toolchain/saya-overview.png)

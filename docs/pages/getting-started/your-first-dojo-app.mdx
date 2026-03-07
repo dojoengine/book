@@ -1,6 +1,7 @@
 # Your First Dojo App
 
-In this tutorial, you'll create your first Dojo project from scratch and deploy it locally. By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
+In this tutorial, you'll create your first Dojo project from scratch and deploy it locally.
+By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
 
 ## What You'll Learn
 
@@ -71,7 +72,7 @@ These models define:
 - **Moves**: How many moves each player has remaining
 
 The `#[dojo::model]` attribute tells Cairo that the struct is a Dojo model.
-The `#[key]` attribute tells Cairo that `player` is the Dojo entity identifier for these components.
+The `#[key]` attribute tells Cairo that `player` is the Dojo entity identifier for these models.
 
 :::info
 These attributes are examples of "procedural macros," a [Cairo language feature](https://www.starknet.io/cairo-book/ch12-10-procedural-macros.html) which tells the compiler to generate additional code at compile-time.
@@ -103,7 +104,7 @@ pub mod actions {
     }
 
     fn move_random(ref self: ContractState) {
-        // Move the player randomly and decrease remaining moves
+        // Use the [Cartridge vRNG](https://docs.cartridge.gg/slot/vrng) to move in a random direction
     }
 }
 ```
@@ -139,13 +140,16 @@ Specifically, it defines `di` as the default namespace and permits the systems d
 
 ## Step 3: Start the Development Environment
 
-Now let's get the development tools running. You'll run three tools simultaneously, each in its own terminal:
+Now let's get the development tools running.
+You'll run three tools simultaneously, each in its own terminal:
 
 | Tool       | Purpose                         | Terminal   |
 | ---------- | ------------------------------- | ---------- |
 | **Katana** | Local blockchain sequencer      | Terminal 1 |
 | **Sozo**   | Build and deploy your contracts | Terminal 2 |
 | **Torii**  | Index and serve game data       | Terminal 3 |
+
+For more details about these tools, see [Understanding the Toolchain](./understanding-the-toolchain).
 
 ### Terminal 1: Start Katana (Local Blockchain)
 
@@ -273,6 +277,44 @@ By default, Torii runs on port 8080
 Congratulations!
 Your Dojo development environment is up-and-running.
 
+### Advanced Development Environment Setup
+
+For longer development sessions, you might want to streamline your workflow.
+Here's a more comprehensive setup:
+
+#### Three-Terminal Workflow
+
+Start each development session by launching your tools:
+
+```bash
+# Terminal 1: Start Katana
+katana --dev
+
+# Terminal 2: Deploy and start Torii
+sozo migrate --dev
+torii --dev
+
+# Terminal 3: Your workspace for commands
+# (keep this free for running sozo commands)
+```
+
+#### Automation Script
+
+Create a simple script to start all tools at once.
+Save this as `start-dev.sh`:
+
+```bash
+#!/bin/bash
+# Start development environment
+katana --dev &
+sleep 2
+sozo migrate --dev
+torii --dev &
+echo "🚀 Development environment ready!"
+```
+
+> **Tip**: This automated approach is especially useful for larger projects with more complex development workflows.
+
 ## Step 4: Launch Your Game Client
 
 Now let's test your game!
@@ -328,8 +370,8 @@ After a while, you should have something which looks like this:
 
 Let's break down what you just accomplished:
 
-1. **Defined Components**: `Position` and `Moves` store data about each player
-2. **Implemented Systems**: The `spawn` and `move` functions modify component data
+1. **Defined Models**: `Position` and `Moves` store data about each player
+2. **Implemented Systems**: The `spawn` and `move` functions modify model data
 3. **Created a World**: Your World contract acts as the central registry for all game data, logic, and access control
 4. **Used the Toolchain**:
     - Katana provided a local blockchain
@@ -341,8 +383,8 @@ Let's break down what you just accomplished:
 ### Entity Component System (ECS)
 
 - **Entities**: Players in your game (identified by their address)
-- **Components**: Data attached to entities (`Position`, `Moves`)
-- **Systems**: Functions that operate on components (`spawn`, `move`)
+- **Models**: Data attached to entities (`Position`, `Moves`)
+- **Systems**: Functions that operate on models (`spawn`, `move`)
 
 ### Dojo World
 
@@ -358,11 +400,13 @@ When you execute a system, it emits events that Torii captures and indexes, whic
 
 ## Next Steps
 
-Congratulations! You've successfully:
+Congratulations!
+You've successfully:
 
 - ✅ Understood basic ECS concepts
 - ✅ Created and deployed your first Dojo project
 - ✅ Used the core development tools
 - ✅ Interacted with your deployed World
 
-Ready to dive deeper? Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible.
+Ready to dive deeper?
+Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible.

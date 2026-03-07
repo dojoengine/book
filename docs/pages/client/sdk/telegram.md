@@ -268,4 +268,4 @@ pnpm run build && npx vercel
 - **Telegram Integration**: [`src/main.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/main.tsx) - SDKProvider and routing setup
 - **Dependencies**: [`package.json`](https://github.com/cartridge-gg/beast-slayers/blob/main/package.json) - Complete package configuration
 
-The game showcases how to build engaging blockchain-based experiences that feel native to the Telegram platform while leveraging Dojo's ECS architecture.
+The game showcases how to build engaging blockchain-based experiences that feel native to the Telegram platform while leveraging Dojo's Entity Component System (ECS) architecture.

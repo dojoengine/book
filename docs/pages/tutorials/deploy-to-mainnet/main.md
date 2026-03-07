@@ -8,6 +8,8 @@ description: Learn how to deploy your Dojo world to Sepolia testnet or Mainnet, 
 This is a guide to deploy a Dojo world to Sepolia.
 The steps for Mainnet are exactly the same, just replace the chain name and ID when necessary.
 
+For an alternative deployment approach using Slot's managed infrastructure, see our [deployment using Slot tutorial](#TODO).
+
 ### Setup
 
 - You need a [Starknet RPC Provider](https://www.starknet.io/fullnodes-rpc-services/) to deploy contracts on-chain.
@@ -43,17 +45,17 @@ SN_SEPOLIA
 [profile.sepolia]
 ```
 
-- Create the [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml) dojo config file, with the same contents of [`dojo_dev.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_dev.toml), except for `[env]`, in which we're going to expose the `world_address` only:
+- Create the [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml) dojo config file, with the same contents of [`dojo_dev.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_dev.toml), except for `[env]`, in which we're going to expose the world address only:
 
 ```toml
 [env]
 # rpc_url = ""         # env: STARKNET_RPC_URL
 # account_address = "" # env: DOJO_ACCOUNT_ADDRESS
 # private_key = ""     # env: DOJO_PRIVATE_KEY
-# world_address = "<World Address>"
+# world_address = "<WORLD_ADDRESS>"
 ```
 
-- It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script. Then you should expose it.
+- It's recommended to keep the world address empty, on the first deployment it will be outputed by the deployment script. Then you should expose it.
 
 - Clone the [`dev`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/dev/) overlays to [`sepolia`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/sepolia/)
 
@@ -139,7 +141,7 @@ Your world is deployed!
 rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"
 # account_address = "" # env: DOJO_ACCOUNT_ADDRESS
 # private_key = ""     # env: DOJO_PRIVATE_KEY
-world_address = <world address>
+world_address = <WORLD_ADDRESS>
 world_block = 42069 # Here you add the block number where the world was deployed
 ```
 
@@ -209,7 +211,8 @@ VITE_PUBLIC_CHAIN_ID=SN_MAIN
 
 ### Debug with Walnut
 
-Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
+Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments.
+Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
 
 #### Step 1: Verify your Contracts
 

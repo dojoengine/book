@@ -5,7 +5,8 @@ description: "The World contract - your application's central database and orche
 
 # World Contract
 
-The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application. Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
+The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
+Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
 ![World Contract Overview](/framework/world-map.png)
 
@@ -37,7 +38,8 @@ world.emit_event(@Moved { player, direction });
 
 ### Resources and Namespaces
 
-In Dojo, everything is a **resource** - models, systems, events, and even the world itself. Resources are organized within **namespaces** to prevent conflicts and enable modular development.
+In Dojo, everything is a **resource** - models, systems, events, and even the world itself.
+Resources are organized within **namespaces** to prevent conflicts and enable modular development.
 
 ```cairo
 // Resources are identified by their namespace and name
@@ -245,9 +247,15 @@ The World contract includes several optimizations:
 - **Efficient Storage**: Optimized storage layouts for different data types
 - **Permission Caching**: Hierarchical permission checks reduce gas costs
 
+## Configuration Management
+
+The World contract supports profile-based configuration for different deployment environments (dev, release, custom).
+For detailed information about configuring your world including namespace settings, permissions, and custom profiles, see the [Configuration Guide](#TODO).
+
 ## The World Interface
 
-The World contract exposes a complete interface for external interactions. While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
+The World contract exposes a complete interface for external interactions.
+While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
 
 ```cairo
 // Generate unique IDs
@@ -264,10 +272,10 @@ world.grant_writer(resource_selector, address);
 
 Now that you understand the World contract's role, dive deeper into specific areas:
 
-- **[API Reference](/framework/world/api)** - Complete API documentation with examples
-- **[Permissions](/framework/world/permissions)** - Understanding and managing permissions
-- **[Events](/framework/world/events)** - Working with the event system
-- **[Metadata](/framework/world/metadata)** - Configuring world and resource metadata
+- **[API Reference](./api)** - Complete API documentation with examples
+- **[Permissions](./permissions)** - Understanding and managing permissions
+- **[Events](./events)** - Working with the event system
+- **[Metadata](./metadata)** - Configuring world and resource metadata
 
 ## Integration with Other Components
 
