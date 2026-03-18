@@ -19,7 +19,7 @@ Configuration provides structured control over indexing, performance, security, 
 
 Most configuration options can be passed as command-line arguments:
 
-```sh
+```bash
 # Basic usage
 torii --world 0x1234...
 

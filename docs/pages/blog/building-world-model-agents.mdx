@@ -10,13 +10,13 @@ part: 4
 
 # Building World Model Agents for Onchain Games
 
-Most game agents react. They see a state, they pick an action. It works—until it doesn't. When the game gets complex, when opponents adapt, when you need to think three moves ahead, reactive agents hit a wall.
+Most game agents react. They see a state, they pick an action. It works---until it doesn't. When the game gets complex, when opponents adapt, when you need to think three moves ahead, reactive agents hit a wall.
 
-World model agents think differently. They build an internal model of how the game works, then *imagine* what happens if they take different actions. They simulate futures before committing to one. This is closer to how humans actually play games—we don't just react to the board, we picture what happens next.
+World model agents think differently. They build an internal model of how the game works, then *imagine* what happens if they take different actions. They simulate futures before committing to one. This is closer to how humans actually play games---we don't just react to the board, we picture what happens next.
 
-And here's the twist: onchain games are uniquely suited for this approach. The state is fully observable, transitions are deterministic, and historical data is permanently indexed. You don't have to guess how the game engine works—you can learn it from data that can't lie.
+And here's the twist: onchain games are uniquely suited for this approach. The state is fully observable, transitions are deterministic, and historical data is permanently indexed. You don't have to guess how the game engine works---you can learn it from data that can't lie.
 
-This article is technical. We'll cover the theory, the architecture, and actual implementation patterns. By the end, you'll understand how to build agents that don't just play games—they understand them.
+This article is technical. We'll cover the theory, the architecture, and actual implementation patterns. By the end, you'll understand how to build agents that don't just play games---they understand them.
 
 ## What World Models Actually Are
 
@@ -38,15 +38,15 @@ The 2018 "World Models" paper by Ha and Schmidhuber laid out an architecture tha
 2. **Memory Model (M)**: An RNN (they used MDN-RNN) that predicts future latent states
 3. **Controller (C)**: A small neural network that selects actions given the latent state
 
-The key insight was training inside the "dream"—the controller can be trained entirely within the world model's imagination, without touching the real environment. This is massively more sample-efficient than reinforcement learning directly on the environment.
+The key insight was training inside the "dream"---the controller can be trained entirely within the world model's imagination, without touching the real environment. This is massively more sample-efficient than reinforcement learning directly on the environment.
 
 ### Why Latent Spaces Matter
 
-You might wonder: why not just predict raw states directly? For visual games, that means predicting pixels. This works but it's wasteful. Most pixels in a game frame are irrelevant noise—background textures, UI elements, decorative particles.
+You might wonder: why not just predict raw states directly? For visual games, that means predicting pixels. This works but it's wasteful. Most pixels in a game frame are irrelevant noise---background textures, UI elements, decorative particles.
 
 A latent space compresses the observation to what matters strategically. In the learned representation, a "dangerous enemy nearby" and "safe path ahead" might be just a few dimensions, not thousands of pixels.
 
-For onchain games, raw observations aren't pixels—they're structured data from Torii. But the principle still applies. A game might have hundreds of entity properties, but the strategically relevant state might be much smaller. Your world model learns that compression automatically.
+For onchain games, raw observations aren't pixels---they're structured data from Torii. But the principle still applies. A game might have hundreds of entity properties, but the strategically relevant state might be much smaller. Your world model learns that compression automatically.
 
 ```python
 # Raw game state from Torii: hundreds of fields
@@ -80,7 +80,7 @@ Onchain games, by design, have:
 - **Deterministic transitions**: Given the same state and action, you get the same next state. Always. (Even "random" events use verifiable randomness with known seeds.)
 - **Perfect historical record**: Torii indexes every state change. You have complete ground truth for training.
 
-This means your world model can be *exact* for the game mechanics. Not a statistical approximation—an exact function. The only uncertainty is what other players will do.
+This means your world model can be *exact* for the game mechanics. Not a statistical approximation---an exact function. The only uncertainty is what other players will do.
 
 ```python
 # In a stochastic environment (traditional games):
@@ -185,7 +185,7 @@ async def fetch_game_state(client: httpx.AsyncClient) -> GameState:
     return GameState(tick=tick, players=players, world_entities=entities)
 ```
 
-Notice we're pulling *everything*—not just our own player. World models need to understand the complete game state to predict what happens when we act.
+Notice we're pulling *everything*---not just our own player. World models need to understand the complete game state to predict what happens when we act.
 
 ### 2. State Encoding: Structured Data → Latent Vector
 
@@ -321,7 +321,7 @@ def preprocess_game_state(state: GameState, my_address: str) -> Tuple[torch.Tens
     )
 ```
 
-This encoder handles variable numbers of players and entities through attention pooling—a technique borrowed from transformer architectures. It's more sophisticated than simple concatenation but handles the variability gracefully.
+This encoder handles variable numbers of players and entities through attention pooling---a technique borrowed from transformer architectures. It's more sophisticated than simple concatenation but handles the variability gracefully.
 
 ### 3. The World Model: Predicting Future States
 
@@ -590,7 +590,7 @@ def train_world_model(
             print(f"Epoch {epoch}: Loss = {avg_loss:.4f}")
 ```
 
-The training loop is standard supervised learning. The key insight is that *Torii gives you perfect supervision*. Every state transition that occurred in the game's history is recorded and queryable. You're not estimating—you're learning from ground truth.
+The training loop is standard supervised learning. The key insight is that *Torii gives you perfect supervision*. Every state transition that occurred in the game's history is recorded and queryable. You're not estimating---you're learning from ground truth.
 
 ### 5. Planning: Imagining Futures
 
@@ -857,7 +857,7 @@ def plan_with_opponents(
 
 ### 2. Best-Response Planning
 
-Assume opponents play optimally against you. This is conservative—it prevents strategies that only work against weak opponents:
+Assume opponents play optimally against you. This is conservative---it prevents strategies that only work against weak opponents:
 
 ```python
 def minimax_planning(world_model, state, depth=3):
@@ -915,7 +915,7 @@ for epoch in range(epochs):
 
 ### Compute Constraints
 
-World models need GPU compute for training and inference. For onchain games, you're running this off-chain—the model lives on your server, not on Starknet.
+World models need GPU compute for training and inference. For onchain games, you're running this off-chain---the model lives on your server, not on Starknet.
 
 **Solutions:**
 - Train offline on historical data (cheap, one-time cost)
@@ -954,7 +954,7 @@ class BeliefWorldModel(nn.Module):
 
 ### Distribution Shift
 
-Your world model was trained on historical data. But as you deploy better agents, the game dynamics change—other players adapt, meta shifts. Your model becomes stale.
+Your world model was trained on historical data. But as you deploy better agents, the game dynamics change---other players adapt, meta shifts. Your model becomes stale.
 
 **Solutions:**
 - Continual learning: fine-tune on recent data periodically
@@ -1058,7 +1058,7 @@ if __name__ == "__main__":
 
 Today, every developer trains their own world model for their own game. But there's an interesting future: shared world models.
 
-Imagine a foundation model trained on every Dojo game's transition data. It learns the grammar of onchain games—how entities move, how resources flow, how combat resolves. Fine-tuning this foundation for a specific game would be much cheaper than training from scratch.
+Imagine a foundation model trained on every Dojo game's transition data. It learns the grammar of onchain games---how entities move, how resources flow, how combat resolves. Fine-tuning this foundation for a specific game would be much cheaper than training from scratch.
 
 The data is already there. Torii indexes it all. The model architectures exist. Someone just needs to build it.
 
@@ -1072,12 +1072,12 @@ World model agents represent a shift from reactive to predictive game AI. Instea
 
 For onchain games built on Dojo:
 
-1. **Torii gives you perfect training data**—every transition ever, with ground truth labels
+1. **Torii gives you perfect training data**---every transition ever, with ground truth labels
 2. **Deterministic game logic** means your world model can be exact, not probabilistic
 3. **Controller CLI** provides secure, scoped execution for agent actions
-4. **The full pipeline**—observe, encode, simulate, plan, act—runs off-chain while interacting with on-chain state
+4. **The full pipeline**---observe, encode, simulate, plan, act---runs off-chain while interacting with on-chain state
 
-Start with the basics: a simple encoder, a feedforward world model, random shooting for planning. Get that working. Then add complexity—better architectures, smarter planning, opponent modeling.
+Start with the basics: a simple encoder, a feedforward world model, random shooting for planning. Get that working. Then add complexity---better architectures, smarter planning, opponent modeling.
 
 The code in this article is a foundation, not a finished product. The architecture scales from simple experiments to sophisticated autonomous systems. Where you take it depends on how deeply you want to understand the game you're playing.
 
