@@ -9,7 +9,7 @@ Godot Engine is a free, open-source cross-platform game engine renowned for its 
 With its intuitive node-based architecture, GDScript scripting language, and robust 2D and 3D capabilities, Godot empowers developers to create everything from indie platformers to complex multiplayer experiences.
 
 Dojo.godot is the official Godot Engine SDK for building onchain games powered by Dojo.
-This GDExtension seamlessly integrates blockchain functionality into your Godot projects, built on the foundation of [dojo.c](../c).
+This GDExtension seamlessly integrates blockchain functionality into your Godot projects, built on the foundation of [dojo.c](/client/sdk/c).
 It enables you to create fully decentralized games without compromising on performance or developer experience.
 
 :::tip

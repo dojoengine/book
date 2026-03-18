@@ -89,7 +89,7 @@ sozo build && sozo migrate
 
 ## Installation
 
-Sozo can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+Sozo can be installed via [`dojoup`](/installation), our dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash
