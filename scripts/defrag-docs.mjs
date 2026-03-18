@@ -21,13 +21,13 @@
 
 import { readFileSync, writeFileSync, readdirSync, statSync } from "fs";
 import { join, relative, dirname } from "path";
-import { execSync } from "child_process";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const DOCS_DIR = join(ROOT, "docs", "pages");
 const MODEL = "claude-sonnet-4-20250514";
 const API_URL = "https://api.anthropic.com/v1/messages";
 const DRY_RUN = process.argv.includes("--dry-run");
+const MAX_REMOVED_LINES = 10;
 
 // Sections to skip (editorial content, not reference docs)
 const SKIP_DIRS = new Set(["blog"]);
@@ -65,6 +65,12 @@ function groupBySection(files) {
         groups[section].push(f);
     }
     return groups;
+}
+
+function countNetRemovedLines(original, corrected) {
+    const origLines = original.split("\n").length;
+    const corrLines = corrected.split("\n").length;
+    return origLines - corrLines;
 }
 
 async function callClaude(system, userContent, maxTokens = 16000) {
@@ -246,12 +252,14 @@ ${styleGuide}
 - One sentence per line is MANDATORY for prose paragraphs. This does NOT apply to list items, headings, code blocks, or frontmatter.
 - Do NOT convert :::note, :::warning, :::tip, or :::info blocks to blockquote format. This site uses Vocs, which renders ::: blocks as styled callout boxes.
 - Do not invent new content or add explanations that weren't there.
+- Do not remove more than ${MAX_REMOVED_LINES} net lines from a file. If the report suggests a larger removal, add a TODO comment instead: <!-- TODO: deduplicate with [target page] -->
 - Do not remove content that is unique and correct — only trim true redundancy.
 - Do NOT delete content and replace it with a cross-reference unless you are certain the target page already contains equivalent information. If unsure, leave the content in place.
 - When the report says to replace duplicated content with a cross-reference, verify that the linked page covers the same material before removing anything.
 - When adding or modifying links, ONLY use targets from the valid routes list provided. Use extensionless relative links (e.g. "./introspection" not "../introspection.md").
 - If the file needs no changes, return it exactly as-is.
-- Preserve the original voice and technical accuracy.`;
+- Preserve the original voice and technical accuracy.
+- Use *single asterisks* for italics and **double asterisks** for bold. Do not use underscores for emphasis.`;
 }
 
 function buildEditPrompt(report, file, routeList) {
@@ -277,6 +285,7 @@ ${content}`;
 async function main() {
     console.log("=== Dojo Docs Defragmentation ===");
     console.log(`Mode: ${DRY_RUN ? "DRY RUN" : "LIVE"}`);
+    console.log(`Max net removed lines per file: ${MAX_REMOVED_LINES}`);
     console.log();
 
     const styleGuide = loadTextFile(join(ROOT, "spec", "style-guide.md"));
@@ -295,7 +304,9 @@ async function main() {
     let filesChanged = 0;
     let filesUnchanged = 0;
     let filesErrored = 0;
+    let filesSkipped = 0;
     const changeLog = [];
+    const skipLog = [];
 
     for (const [section, files] of Object.entries(sections)) {
         console.log(`\n=== Section: ${section} (${files.length} files) ===`);
@@ -379,17 +390,32 @@ async function main() {
                     Math.max(16000, Math.ceil(original.length / 3))
                 );
 
-                if (corrected.trim() === original.trim()) {
+                // Normalize trailing newline before comparing
+                const normalizedCorrected = corrected.replace(/\n*$/, "\n");
+
+                if (normalizedCorrected === original) {
                     console.log(`    No changes.`);
                     filesUnchanged++;
-                } else {
-                    if (!DRY_RUN) {
-                        writeFileSync(file.path, corrected, "utf-8");
-                    }
-                    filesChanged++;
-                    changeLog.push(file.rel);
-                    console.log(`    Updated.`);
+                    continue;
                 }
+
+                // Size guard: reject large removals
+                const netRemoved = countNetRemovedLines(original, normalizedCorrected);
+                if (netRemoved > MAX_REMOVED_LINES) {
+                    console.log(
+                        `    SKIPPED: ${netRemoved} net lines removed (limit: ${MAX_REMOVED_LINES})`
+                    );
+                    filesSkipped++;
+                    skipLog.push({ file: file.rel, netRemoved });
+                    continue;
+                }
+
+                if (!DRY_RUN) {
+                    writeFileSync(file.path, normalizedCorrected, "utf-8");
+                }
+                filesChanged++;
+                changeLog.push(file.rel);
+                console.log(`    Updated (${netRemoved > 0 ? `-${netRemoved}` : `+${-netRemoved}`} net lines).`);
             } catch (err) {
                 console.error(`    Error: ${err.message}`);
                 filesErrored++;
@@ -401,6 +427,7 @@ async function main() {
     console.log("\n=== Summary ===");
     console.log(`Files changed:   ${filesChanged}`);
     console.log(`Files unchanged: ${filesUnchanged}`);
+    console.log(`Files skipped:   ${filesSkipped}`);
     console.log(`Files errored:   ${filesErrored}`);
 
     if (changeLog.length > 0) {
@@ -408,14 +435,17 @@ async function main() {
         for (const f of changeLog) {
             console.log(`- ${f}`);
         }
-    } else {
-        console.log("\nNo changes needed — docs are clean!");
     }
 
-    // Normalize formatting
-    if (!DRY_RUN) {
-        console.log("\nRunning prettier...");
-        execSync("pnpm run prettier", { cwd: ROOT, stdio: "pipe" });
+    if (skipLog.length > 0) {
+        console.log("\n=== Skipped files (large removals — needs manual review) ===");
+        for (const { file, netRemoved } of skipLog) {
+            console.log(`- ${file} (${netRemoved} net lines removed)`);
+        }
+    }
+
+    if (filesChanged === 0 && filesSkipped === 0) {
+        console.log("\nNo changes needed — docs are clean!");
     }
 }
 
