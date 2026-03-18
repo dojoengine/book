@@ -8,7 +8,7 @@ description: Complete guide to configuring Katana using TOML files and command-l
 Katana supports flexible configuration through TOML files and command-line options.
 This enables you to customize everything from network settings to gas prices for both development and production deployments.
 
-### Configuration Priority
+## Configuration Priority
 
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
@@ -38,7 +38,7 @@ katana --config katana_prod.toml
 
 ```toml
 # Core node settings
-silent = false                    # Don't print anything on startup (default: false)
+silent = false                    # Do not print anything on startup (default: false)
 no_mining = false                 # Disable auto/interval mining (default: false)
 block_time = 6000                 # Block time in milliseconds (default: none)
 db_dir = "./katana-db"            # Database dir for non-Slot deployments (default: none)
@@ -132,7 +132,7 @@ Use `katana --help` for a full command reference.
 
 ### Subcommands
 
-Katana provides several subcommands for specialized operations beyond running the sequencer.
+Katana provides several subcommands for specialized operations beyond running the local sequencer.
 
 #### `katana completions <SHELL>`
 

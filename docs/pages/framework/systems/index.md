@@ -15,18 +15,7 @@ They encapsulate business logic, orchestrate state changes, and define how your 
 In Dojo's ECS paradigm, systems represent the **logic** that operates on data stored in models.
 While models define **what** your world contains, systems define **how** it behaves.
 
-```
-┌─────────────────────────────────────────────────┐
-│                    ECS Trinity                  │
-├─────────────────────────────────────────────────┤
-│  Entities  │  Components  │      Systems        │
-│  (Who)     │  (What)      │       (How)         │
-├─────────────────────────────────────────────────┤
-│  Players   │  Position    │   Movement Logic    │
-│  Monsters  │  Health      │   Combat Logic      │
-│  Items     │  Inventory   │   Trading Logic     │
-└─────────────────────────────────────────────────┘
-```
+For a comprehensive explanation of the ECS trinity and how entities, components, and systems work together, see [Entities](/framework/models/entities).
 
 Systems are **stateless functions** that:
 
@@ -116,7 +105,7 @@ impl InternalImpl of InternalTrait {
 
 ### What Systems Should Not Do
 
-1. **Data Storage**: Systems don't store persistent state
+1. **Data Storage**: Systems do not store persistent state
 2. **UI Logic**: Keep presentation concerns separate
 3. **External Integration**: Avoid direct external service calls
 4. **Complex Calculations**: Delegate to specialized libraries when possible
@@ -167,7 +156,7 @@ mod game_actions {
 
 ### Initialization
 
-Systems are stateless functions and don't have constructors.
+Systems are stateless functions and do not have constructors.
 However, Dojo contracts support a `dojo_init` function that acts as a constructor-equivalent.
 The World calls `dojo_init` on each contract during `sozo migrate`, after the contract is registered.
 
@@ -206,35 +195,8 @@ fn move(ref self: ContractState, direction: Direction) {
 }
 ```
 
-## Design Patterns
-
-### Command Pattern
-
-Systems often implement the command pattern, where each public function represents a discrete action.
-
-```cairo
-// Each function is a command
-fn spawn(ref self: ContractState) { /* ... */ }
-fn move(ref self: ContractState, direction: Direction) { /* ... */ }
-fn attack(ref self: ContractState, target: ContractAddress) { /* ... */ }
-```
-
-### State Machine Pattern
-
-Systems can implement state machines for complex entity behaviors.
-
-```cairo
-fn process_turn(ref self: ContractState, player: ContractAddress) {
-    let mut world = self.world(@"game");
-    let mut game_state: GameState = world.read_model(player);
-
-    match game_state.phase {
-        GamePhase::Setup => self.handle_setup(player),
-        GamePhase::Playing => self.handle_playing(player),
-        GamePhase::Ended => self.handle_ended(player),
-    }
-}
-```
+For detailed design patterns and architectural approaches, see [System Architecture](/framework/systems/architecture).
+For understanding how systems interact with each other, see [System Coordination](/framework/systems/coordination).
 
 ## System Testing Philosophy
 
@@ -262,4 +224,4 @@ Explore the deeper aspects of system implementation:
 - **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
 - **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
 
-Systems are the heart of your application - design them thoughtfully and they'll serve you well.
+Systems are the heart of your application - design them thoughtfully and they will serve you well.

@@ -223,6 +223,114 @@ mod game_coordinator {
 - Complex internal logic
 - Harder to extend independently
 
+## Design Patterns
+
+### Command Pattern
+
+Systems often implement the command pattern, where each public function represents a discrete action.
+
+```cairo
+// Each function is a command
+fn spawn(ref self: ContractState) { /* ... */ }
+fn move(ref self: ContractState, direction: Direction) { /* ... */ }
+fn attack(ref self: ContractState, target: ContractAddress) { /* ... */ }
+```
+
+### State Machine Pattern
+
+Systems can implement state machines for complex entity behaviors.
+
+```cairo
+fn process_turn(ref self: ContractState, player: ContractAddress) {
+    let mut world = self.world(@"game");
+    let mut game_state: GameState = world.read_model(player);
+
+    match game_state.phase {
+        GamePhase::Setup => self.handle_setup(player),
+        GamePhase::Playing => self.handle_playing(player),
+        GamePhase::Ended => self.handle_ended(player),
+    }
+}
+```
+
+### Factory Pattern
+
+Use factory patterns for creating complex entities or managing object creation:
+
+```cairo
+#[generate_trait]
+impl EntityFactory of EntityFactoryTrait {
+    fn create_player(ref self: ContractState, owner: ContractAddress) -> ContractAddress {
+        let mut world = self.world(@"game");
+        
+        let player_id = world.uuid();
+        
+        // Create player components
+        let position = Position { x: 0, y: 0 };
+        let health = Health { current: 100, max: 100 };
+        let level = Level { current: 1, experience: 0 };
+        
+        // Write all components
+        world.write_model(@position);
+        world.write_model(@health);
+        world.write_model(@level);
+        
+        player_id
+    }
+    
+    fn create_item(ref self: ContractState, item_type: ItemType) -> ContractAddress {
+        let mut world = self.world(@"game");
+        
+        let item_id = world.uuid();
+        
+        // Create item based on type
+        let (name, stats) = match item_type {
+            ItemType::Sword => ("Iron Sword", Stats { attack: 10, defense: 0 }),
+            ItemType::Shield => ("Wooden Shield", Stats { attack: 0, defense: 8 }),
+        };
+        
+        let item = Item { id: item_id, name, stats };
+        world.write_model(@item);
+        
+        item_id
+    }
+}
+```
+
+### Observer Pattern
+
+Implement event-driven architectures where systems react to changes:
+
+```cairo
+#[dojo::contract]
+mod event_system {
+    use super::GameEvent;
+    
+    fn process_event(ref self: ContractState, event: GameEvent) {
+        match event {
+            GameEvent::PlayerLevelUp(data) => self.handle_level_up(data),
+            GameEvent::ItemCrafted(data) => self.handle_item_crafted(data),
+            GameEvent::PlayerDied(data) => self.handle_player_death(data),
+        }
+    }
+    
+    #[generate_trait]
+    impl EventHandlers of EventHandlersTrait {
+        fn handle_level_up(ref self: ContractState, data: LevelUpData) {
+            // Notify achievement system, update leaderboards, etc.
+        }
+        
+        fn handle_item_crafted(ref self: ContractState, data: CraftData) {
+            // Update market prices, trigger quests, etc.
+        }
+        
+        fn handle_player_death(ref self: ContractState, data: DeathData) {
+            // Respawn logic, item drops, etc.
+        }
+    }
+}
+```
+
 ## Permission Architecture
 
 ### Granular Permissions
@@ -360,7 +468,8 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits

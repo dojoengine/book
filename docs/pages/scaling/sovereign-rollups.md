@@ -32,8 +32,8 @@ Three components power the sovereign rollup:
 
 :::note
 This implementation shares conceptual similarities with **Rollkit**, another framework for building sovereign rollups using modular blockchain architecture.
-The difference lies in the underlying infrastructure: this solution is built specifically around Dojo's proven stack (Katana and Saya), while Rollkit uses different technical components.
-Both approaches enable developers to deploy customizable sovereign rollups with similar capabilities.
+For information about Dojo's alternative scaling approach, see [Execution Sharding](/scaling/execution-sharding).
+Both approaches enable developers to deploy customizable rollups with similar capabilities.
 :::
 
 ## Technical Architecture

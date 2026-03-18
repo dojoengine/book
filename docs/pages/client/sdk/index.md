@@ -29,7 +29,7 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 
 **Key capabilities:**
 
-- **Account Management**: Support for controller accounts, session accounts, and burner wallets
+- **Controller Account Management**: Support for Controller accounts, session accounts, and burner wallets
 - **Transaction Handling**: Sign and execute transactions with proper gas estimation
 - **Torii Client Integration**: Query entities, subscribe to real-time updates, and sync world state
 - **Cross-Platform Compatibility**: Compiles to both native binaries (via C bindings) and WebAssembly
@@ -51,7 +51,8 @@ This two-layer architecture ensures that:
 
 ## Common Patterns
 
-Regardless of which SDK you choose, all Dojo applications follow similar patterns:
+All Dojo applications follow similar patterns regardless of which SDK you choose.
+For detailed implementation patterns including Controller account management and transaction flow, see the [dojo.c overview page](./c).
 
 ### Core Game Loop
 
@@ -63,20 +64,6 @@ All SDKs provide mechanisms to send transactions and query entities from your wo
 Player actions in the client are translated by the SDK into transactions that are sent to the sequencer.
 The sequencer executes the transactions and the indexer updates the world state.
 The client can then query the world state to get the latest state, which is then rendered to the user.
-
-### Account Management
-
-- **Session Accounts**: Temporary accounts for seamless gameplay
-- **Controller Accounts**: Delegate specific permissions to game contracts
-- **Burner Accounts**: Disposable accounts funded by a master account
-
-### Transaction Flow
-
-1. **Prepare**: Build transaction calls using contract bindings
-2. **Sign**: Use account credentials to sign transaction
-3. **Execute**: Submit transaction to Katana sequencer
-4. **Wait**: Monitor transaction status and confirmation
-5. **Sync**: Update local state with new world state
 
 ## Platform-Specific SDKs
 

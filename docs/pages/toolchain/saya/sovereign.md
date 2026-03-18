@@ -17,10 +17,10 @@ For settlement layer integration with state updates, see [Persistent mode](/tool
 Once available, this allows any Katana to sync from the data availability layer information given the `commitment` and the `block height` of the latest Katana block that has been posted to the data availability layer.
 Katana will then sync backwards to the genesis block.
 
-::::warning
+:::warning
 Currently, it is not possible to sync a Katana instance from a data availability layer.
 This functionality is planned and will be available soon.
-::::
+:::
 
 ## Setup Celestia
 
@@ -64,9 +64,9 @@ Or you can go quicker by using the following arguments:
 katana init --id sov1 --sovereign
 ```
 
-::::note
+:::note
 You can inspect the chain spec by running `katana config sov1`.
-::::
+:::
 
 When working with Katana in provable mode, two additional parameters are required:
 
@@ -81,14 +81,14 @@ katana --chain sov1 \
     --sequencing.block-max-cairo-steps 16000000
 ```
 
-::::note
+:::note
 You can define an `--output-path` when working with katana init to output the configuration files in the given directory.
 You will then want to start katana with the `--chain /path` instead of `--chain <CHAIN_ID>`.
-::::
+:::
 
 ## Run Saya
 
-If you haven't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
+If you have not already, consult the [Saya guide](/toolchain/saya) to get an account and an API key.
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.
@@ -147,7 +147,7 @@ Then, you can start Saya with:
 saya sovereign start
 ```
 
-::::info
+:::info
 To avoid double spending of Herodotus credits, Saya has an internal database to track the blocks that have been proven.
 The `DB_DIR` is important to ensure that the database is not lost when Saya is restarted if you have a long running Saya instance.
-::::
+:::

@@ -1,1 +1,309 @@
+---
+title: Dojo React
+description: Build reactive UIs for your Dojo games using React and TypeScript.
+---
+
 # Dojo React
+
+This tutorial will guide you through creating a React frontend for your Dojo game.
+We will build upon the concepts from [Dojo Starter](./dojo-starter) to create an interactive web interface.
+
+## Prerequisites
+
+- Complete the [Dojo Starter](./dojo-starter) tutorial
+- Basic knowledge of React and TypeScript
+- Node.js and npm/yarn installed
+
+## Project Setup
+
+First, let's create a new React project with Vite:
+
+```bash
+npm create vite@latest my-dojo-game -- --template react-ts
+cd my-dojo-game
+npm install
+```
+
+## Installing Dojo SDK
+
+Install the JavaScript SDK for Dojo:
+
+```bash
+npm install @dojoengine/core @dojoengine/state @dojoengine/utils
+npm install @dojoengine/torii-client @dojoengine/recs
+```
+
+## Connecting to Your World
+
+Create a `dojo.config.ts` file to configure your connection:
+
+```typescript
+import { DojoConfig } from "@dojoengine/core";
+
+export const dojoConfig: DojoConfig = {
+  rpcUrl: "http://localhost:5050",
+  toriiUrl: "http://localhost:8080",
+  relayUrl: "",
+  worldAddress: "0x...", // Your world address from migration
+};
+```
+
+## Setting Up the Dojo Provider
+
+Create a context provider to manage your Dojo connection:
+
+```typescript
+// src/dojo/DojoContext.tsx
+import React, { createContext, useContext, useMemo } from "react";
+import { BurnerManager } from "@dojoengine/create-burner";
+import { DojoProvider } from "@dojoengine/core";
+import { dojoConfig } from "../dojo.config";
+
+interface DojoContextType {
+  masterAccount: Account;
+  account: Account;
+}
+
+const DojoContext = createContext<DojoContextType | null>(null);
+
+export const DojoContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const dojoProvider = useMemo(() => new DojoProvider(dojoConfig), []);
+  
+  const masterAccount = useMemo(
+    () => new Account(dojoProvider.provider, dojoConfig.masterAddress, dojoConfig.masterPrivateKey),
+    [dojoProvider.provider]
+  );
+
+  const burnerManager = useMemo(
+    () => new BurnerManager({
+      masterAccount,
+      accountClassHash: dojoConfig.accountClassHash,
+      rpcProvider: dojoProvider.provider,
+    }),
+    [masterAccount, dojoProvider.provider]
+  );
+
+  return (
+    <DojoContext.Provider value={{ masterAccount, account: burnerManager.account }}>
+      {children}
+    </DojoContext.Provider>
+  );
+};
+
+export const useDojo = () => {
+  const context = useContext(DojoContext);
+  if (!context) {
+    throw new Error("useDojo must be used within DojoContextProvider");
+  }
+  return context;
+};
+```
+
+## Creating Game Components
+
+Let's create a simple game component that interacts with your Dojo world:
+
+```tsx
+// src/components/GameBoard.tsx
+import React, { useCallback } from "react";
+import { useDojo } from "../dojo/DojoContext";
+
+interface GameBoardProps {
+  gameId: string;
+}
+
+export const GameBoard: React.FC<GameBoardProps> = ({ gameId }) => {
+  const { account } = useDojo();
+
+  const makeMove = useCallback(async (position: number) => {
+    try {
+      // Execute a move action
+      await account.execute([
+        {
+          contractAddress: "0x...", // Your game contract address
+          entrypoint: "move",
+          calldata: [gameId, position.toString()],
+        },
+      ]);
+    } catch (error) {
+      console.error("Move failed:", error);
+    }
+  }, [account, gameId]);
+
+  return (
+    <div className="game-board">
+      <h2>Game Board</h2>
+      {/* Your game UI components */}
+      <div className="board-grid">
+        {Array.from({ length: 9 }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => makeMove(index)}
+            className="board-cell"
+          >
+            {index}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+## State Management with RECS
+
+Use the RECS (React Entity Component System) for efficient state management:
+
+```typescript
+// src/dojo/setup.ts
+import { getSyncEntities } from "@dojoengine/state";
+import { DojoProvider } from "@dojoengine/core";
+import { createClientComponents } from "./createClientComponents";
+import { createSystemCalls } from "./createSystemCalls";
+
+export type SetupResult = Awaited<ReturnType<typeof setup>>;
+
+export async function setup({ ...config }) {
+  const dojoProvider = new DojoProvider(config);
+  
+  // Create client components for your models
+  const clientComponents = createClientComponents({ contractComponents });
+  
+  // Set up system calls
+  const systemCalls = createSystemCalls({ provider: dojoProvider }, clientComponents);
+
+  // Sync entities from the world
+  const sync = await getSyncEntities(
+    dojoProvider.world,
+    contractComponents as any,
+    [],
+    []
+  );
+
+  return {
+    provider: dojoProvider,
+    components: clientComponents,
+    systemCalls,
+    sync,
+  };
+}
+```
+
+## Real-time Updates
+
+Listen for real-time updates from your Dojo world:
+
+```typescript
+// src/hooks/useGameState.ts
+import { useEffect, useState } from "react";
+import { useComponentValue } from "@dojoengine/react";
+import { Entity } from "@dojoengine/recs";
+import { useDojo } from "../dojo/DojoContext";
+
+export const useGameState = (gameId: string) => {
+  const { sync, components } = useDojo();
+  const [gameEntity, setGameEntity] = useState<Entity | null>(null);
+
+  useEffect(() => {
+    // Subscribe to game state changes
+    const gameEntityId = parseInt(gameId);
+    setGameEntity(gameEntityId as Entity);
+  }, [gameId]);
+
+  const gameState = useComponentValue(components.Game, gameEntity);
+  
+  return { gameState };
+};
+```
+
+## Styling Your Game
+
+Add some basic styling for your game interface:
+
+```css
+/* src/index.css */
+.game-board {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.board-cell {
+  aspect-ratio: 1;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: 1px solid #999;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.board-cell:hover {
+  background: #e5e5e5;
+}
+```
+
+## Main App Component
+
+Finally, put it all together in your main App component:
+
+```tsx
+// src/App.tsx
+import React from "react";
+import { DojoContextProvider } from "./dojo/DojoContext";
+import { GameBoard } from "./components/GameBoard";
+
+function App() {
+  return (
+    <DojoContextProvider>
+      <div className="App">
+        <header className="App-header">
+          <h1>My Dojo Game</h1>
+        </header>
+        <main>
+          <GameBoard gameId="1" />
+        </main>
+      </div>
+    </DojoContextProvider>
+  );
+}
+
+export default App;
+```
+
+## Running Your App
+
+Start your development server:
+
+```bash
+npm run dev
+```
+
+Make sure your Dojo world is running with Katana and Torii:
+
+```bash
+# In your Dojo project directory
+katana --disable-fee
+# In another terminal
+torii --world 0x... --rpc http://localhost:5050
+```
+
+## Next Steps
+
+You now have a basic React frontend connected to your Dojo world.
+Consider exploring:
+
+- Advanced state management patterns with RECS
+- Real-time multiplayer features
+- Integration with wallet providers
+- Deployment to production environments
+
+For more advanced React patterns with Dojo, check out the [Advanced Tutorials](./advanced).

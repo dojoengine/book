@@ -15,7 +15,8 @@ Clients (like web browsers) do not exist on the chain but exist purely to intera
 ### What is a provable game?
 
 Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain.
-But what does that entail? Consider a game of chess.
+But what does that entail?
+Consider a game of chess.
 We aim for an experience where players trust each other's moves.
 In a straightforward approach --- and given the simple rules of chess --- if this were in a blockchain environment, every move would be a transaction on the blockchain.
 This is costly.
@@ -29,7 +30,7 @@ This constitutes a provable game.
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
@@ -46,7 +47,8 @@ Learn more about it here: [Cairo](https://www.cairo-lang.org/).
 
 ### Can I deploy Dojo to Starknet?
 
-Yes! Dojo can run on any StarknetVM including the public blockchains.
+Yes!
+Dojo can run on any StarknetVM including the public blockchains.
 Within the dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
 
 ### Can Dojo do client side proofs?
@@ -68,18 +70,3 @@ If you have ideas for the project, please open an issue.
 ### How do I get involved?
 
 Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine).
-
-## Known Limitations
-
-### Starknet contract size limit
-
-Starknet enforces a maximum size for contract classes.
-If your Dojo contract grows too large (many systems or complex logic in a single contract), deployment will fail with a size limit error.
-
-The mitigation is to split logic across multiple contracts or use [Dojo libraries](/framework/systems/libraries) to separate reusable logic from your contracts via library calls.
-
-### Models inside models
-
-A `#[dojo::model]` struct cannot be used as a field inside another model.
-Use a plain struct deriving `Introspect` instead.
-See [Model Composition](/framework/models#model-composition) for details.

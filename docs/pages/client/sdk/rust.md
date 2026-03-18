@@ -6,7 +6,9 @@ description: "Native Rust integration for building Dojo applications with Rust"
 # Dojo Rust SDK
 
 Dojo is built in Rust, making it seamless to integrate into your Rust projects.
-Simply import the required crates and you're ready to build powerful applications that interact with Dojo worlds.
+Simply import the required crates and you are ready to build powerful applications that interact with Dojo worlds.
+
+The Dojo Rust SDK builds on the foundation provided by [dojo.c](/client/sdk/c), offering native Rust APIs for maximum performance and type safety.
 
 ## Core Components
 
@@ -441,7 +443,7 @@ This example demonstrates the basic integration between Dojo and Discord using R
 You can extend it by:
 
 - Adding more Discord commands to interact with your world
-- Filtering events by specific models or entities
+- Filtering events by specific Models or entities
 - Formatting Discord messages with rich embeds
 - Adding database persistence using Shuttle's shared database
 - Implementing user authentication and authorization

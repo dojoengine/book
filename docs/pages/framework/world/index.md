@@ -5,7 +5,8 @@ description: "The World contract - your application's central database and orche
 
 # World Contract
 
-The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application. Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
+The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
+Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
 ![World Contract Overview](/framework/world-map.png)
 
@@ -37,7 +38,8 @@ world.emit_event(@Moved { player, direction });
 
 ### Resources and Namespaces
 
-In Dojo, everything is a **resource** - models, systems, events, and even the world itself. Resources are organized within **namespaces** to prevent conflicts and enable modular development.
+In Dojo, everything is a **Dojo resource** - models, systems, events, and even the world itself.
+Resources are organized within **namespaces** to prevent conflicts and enable modular development.
 
 ```cairo
 // Resources are identified by their namespace and name
@@ -49,8 +51,8 @@ let position: Position = world.read_model(player);
 
 #### Resource Tags and Selectors
 
-Resources in Dojo are identified by **tags**, which follow the `namespace-resource` format.
-Tags provide a human-readable way to reference resources in code.
+Dojo resources are identified by **resource tags**, which follow the `namespace-resource` format.
+Resource tags provide a human-readable way to reference resources in code.
 
 ```cairo
 // Resource tags follow the "namespace-resource" format
@@ -64,13 +66,13 @@ world.grant_writer(selector_from_tag!("my_game-Position"), address);
 world.grant_owner(selector_from_tag!("my_game-PlayerStats"), address);
 ```
 
-**Tag Structure:**
+**Resource Tag Structure:**
 
 - **Namespace**: The logical grouping (e.g., `"my_game"`, `"dojo_starter"`)
 - **Separator**: Always a hyphen (`-`)
 - **Resource Name**: The specific resource (e.g., `"Position"`, `"PlayerStats"`)
 
-**Common Tag Patterns:**
+**Common Resource Tag Patterns:**
 
 ```cairo
 // Namespace tag (for namespace-level permissions)
@@ -86,9 +88,9 @@ world.grant_owner(selector_from_tag!("my_game-PlayerStats"), address);
 "namespace-EventName"     // e.g., "my_game-PlayerMoved"
 ```
 
-**Selectors:**
+**Resource Selectors:**
 
-Tags are converted to `felt252` **selectors** using `selector_from_tag!`, which computes:
+Resource tags are converted to `felt252` **resource selectors** using `selector_from_tag!`, which computes:
 
 ```
 resource_selector = poseidon_hash(
@@ -103,11 +105,8 @@ The world itself is a special resource, with the resource selector `0`.
 
 ### Entity-Component-System (ECS) Architecture
 
-The World contract implements the ECS pattern:
-
-- **Entities**: Unique identifiers (often player addresses or generated IDs)
-- **Components**: Your models (Position, Health, Inventory, etc.)
-- **Systems**: Functions that operate on components
+The World contract implements the ECS pattern.
+For a comprehensive understanding of how ECS works in Dojo with concrete examples, see the [Entities documentation](/framework/models/entities).
 
 ```cairo
 // Entity: player address
@@ -123,22 +122,15 @@ world.write_model(@updated_position);
 
 ### Permissions and Security
 
-The World contract implements a resource-based permission system with two permission types:
-
-- **Owner**: Can manage resources, grant permissions, and upgrade resources
-- **Writer**: Can write data into resource storage
-
-**Resource Hierarchy** (order of precedence):
-
-1. **World** → Can access all resources
-2. **Namespace** → Can access all resources in that namespace
-3. **Model/Contract/Event** → Can access the specific resource
+The World contract implements a hierarchical permission system that controls access to Dojo resources.
 
 **Key Points**:
 
 - Reading is always permissionless
 - Writing requires Writer permission on the resource or its namespace
 - When you deploy to a world, you automatically become owner of your namespace
+
+For complete details about permission types, hierarchical permission checking, and management patterns, see the [Permissions documentation](/framework/world/permissions).
 
 ## Getting Started
 
@@ -206,6 +198,8 @@ pub struct Moved {
 world.emit_event(@Moved { player, direction });
 ```
 
+For more event details, see the [Events documentation](/framework/world/events).
+
 ## Key Benefits
 
 ### Unified Interface
@@ -235,7 +229,7 @@ sozo build
 sozo migrate
 ```
 
-The `sozo migrate` command automatically detects which resources have changed and calls the appropriate upgrade functions on the world contract.
+The `sozo migrate` command automatically detects which Dojo resources have changed and calls the appropriate upgrade functions on the world contract.
 
 ### Gas Optimization
 
@@ -247,7 +241,8 @@ The World contract includes several optimizations:
 
 ## The World Interface
 
-The World contract exposes a complete interface for external interactions. While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
+The World contract exposes a complete interface for external interactions.
+While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
 
 ```cairo
 // Generate unique IDs

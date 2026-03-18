@@ -1,6 +1,12 @@
+---
+title: Your First Dojo App
+description: Create your first Dojo project from scratch and deploy it locally. Learn basic ECS concepts and the development workflow.
+---
+
 # Your First Dojo App
 
-In this tutorial, you'll create your first Dojo project from scratch and deploy it locally. By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
+In this tutorial, you'll create your first Dojo project from scratch and deploy it locally.
+By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
 
 ## What You'll Learn
 
@@ -139,7 +145,9 @@ Specifically, it defines `di` as the default namespace and permits the systems d
 
 ## Step 3: Start the Development Environment
 
-Now let's get the development tools running. You'll run three tools simultaneously, each in its own terminal:
+Now let's get the development tools running.
+You'll run three tools simultaneously, each in its own terminal.
+To understand how these tools work together, check out [Understanding the Toolchain](./understanding-the-toolchain).
 
 | Tool       | Purpose                         | Terminal   |
 | ---------- | ------------------------------- | ---------- |
@@ -230,7 +238,7 @@ Compiling dojo_intro v1.5.0 (~/dojo-intro/contracts/Scarb.toml)
 
 ### Terminal 3: Start Torii (Indexer)
 
-In a third terminal you'll start Torii, Dojo's indexer:
+In a third terminal you'll start [Torii](/toolchain/torii), Dojo's indexer:
 
 ```bash
 cd contracts && torii --config torii_dev.toml
@@ -365,4 +373,5 @@ Congratulations! You've successfully:
 - ✅ Used the core development tools
 - ✅ Interacted with your deployed World
 
-Ready to dive deeper? Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible.
+Ready to dive deeper?
+Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible.

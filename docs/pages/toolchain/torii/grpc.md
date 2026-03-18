@@ -6,7 +6,7 @@ description: High-performance gRPC interface for efficient world state queries, 
 # gRPC API
 
 Torii's gRPC API provides high-performance access to indexed world data through binary serialization and streaming capabilities.
-It's designed for applications requiring low latency and efficient data fetching.
+It is designed for applications requiring low latency and efficient data fetching.
 
 ## Quick Start
 
@@ -52,7 +52,7 @@ struct Query {
 ```
 
 :::info
-The `HashedKeys` clause can be used with the model's underlying [hashed composite key](https://dojoengine.org/framework/models/entities)
+The `HashedKeys` clause can be used with the model's underlying [hashed composite key](/framework/models/entities)
 :::
 
 **Member Clause** - Query by field values:
@@ -213,7 +213,7 @@ Find entities in coordinate range:
 
 **Query Optimization**:
 
-- Set `dont_include_hashed_keys: true` for better performance if you don't need entity IDs
+- Set `dont_include_hashed_keys: true` for better performance if you do not need entity IDs
 - Use specific models in `entity_models` to reduce data transfer
 - Prefer `VariableLen` pattern matching for flexible key queries
 

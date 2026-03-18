@@ -19,7 +19,7 @@ Shards are independent sequencers that branch from Starknet mainnet, process tra
 This enables parallel processing across multiple shards while maintaining unified state anchored to Starknet mainnet.
 
 :::info
-Execution sharding differs from sovereign chains, in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+Execution sharding differs from sovereign chains — see the [sovereign rollup page](/scaling/sovereign-rollups) for details on that alternative scaling approach.
 :::
 
 ### Key Benefits

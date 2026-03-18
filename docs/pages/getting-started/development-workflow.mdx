@@ -1,6 +1,12 @@
+---
+title: Development Workflow
+description: Learn the typical development workflow for building Dojo applications efficiently.
+---
+
 # Development Workflow
 
-Now that you understand Dojo's toolchain, let's explore the typical development workflow. You'll learn how to iterate efficiently, test your code, and debug issues as you build your Dojo applications.
+Now that you understand [Dojo's toolchain](/getting-started/understanding-the-toolchain), let's explore the typical development workflow.
+You'll learn how to iterate efficiently, test your code, and debug issues as you build your Dojo applications.
 
 ## The Development Cycle
 
@@ -38,7 +44,9 @@ torii --dev
 # (keep this free for running sozo commands)
 ```
 
-> **Tip**: Create a simple script to start all tools at once. Save this as `start-dev.sh`:
+:::tip
+Create a simple script to start all tools at once.
+Save this as `start-dev.sh`:
 
 ```bash
 #!/bin/bash
@@ -49,6 +57,7 @@ sozo migrate --dev
 torii --dev &
 echo "🚀 Development environment ready!"
 ```
+:::
 
 ## Planning and Design
 
@@ -602,4 +611,6 @@ pkill katana && pkill torii
 
 ## Next Steps
 
-You now have a solid understanding of the Dojo development workflow! Ready to explore what comes next in your journey? Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.
+You now have a solid understanding of the Dojo development workflow!
+Ready to explore what comes next in your journey?
+Continue to [Next Steps](./next-steps) to discover advanced topics, deployment strategies, and community resources.

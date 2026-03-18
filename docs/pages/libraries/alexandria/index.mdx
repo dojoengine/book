@@ -6,7 +6,8 @@ description: "Community-maintained standard library for Cairo 1.0, providing alg
 ![alexandria](/libraries/alexandria.png)
 
 :::note
-_I can think of no other edifice constructed by man as altruistic as a lighthouse. They were built only to serve._
+_I can think of no other edifice constructed by man as altruistic as a lighthouse._
+_They were built only to serve._
 
 _- George Bernard Shaw_
 :::
@@ -23,6 +24,8 @@ This library is built outside of the Dojo stack development.
 There is no online documentation yet but most of the implemented features are referenced in the readme files of the crates.
 :::
 
+For game-specific primitives and integration patterns with Dojo, see [Origami: Game Development Primitives](/libraries/origami).
+
 ## Installation
 
 Add the crates you need to your `Scarb.toml`:
@@ -36,7 +39,7 @@ alexandria_sorting = { git = "https://github.com/keep-starknet-strange/alexandri
 # Add others as needed...
 ```
 
-## Key Packages
+## Key Crates
 
 ### [Math](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/math)
 
@@ -194,7 +197,7 @@ fn decode_game_state(encoded_data: ByteArray) -> GameState {
 }
 ```
 
-## Additional Packages
+## Additional Crates
 
 ### [ASCII](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/ascii)
 
@@ -274,12 +277,3 @@ Bitcoin protocol implementations and utilities
 - BIP340 Schnorr signature support
 - Bitcoin script and transaction utilities
 - Taproot and legacy signature schemes
-
-## Integration with Dojo
-
-Alexandria complements Dojo's game development framework by providing:
-
-1. **Mathematical Foundations**: Use `alexandria_math` for game mechanics requiring number theory, cryptography, or advanced calculations
-2. **Data Management**: Leverage `alexandria_data_structures` for efficient in-memory data handling in systems
-3. **Cross-Chain Interoperability**: Use `alexandria_encoding` for communication with other blockchains or off-chain services
-4. **Performance Optimization**: Apply `alexandria_sorting` and `alexandria_searching` for efficient data organization

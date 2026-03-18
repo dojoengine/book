@@ -56,6 +56,8 @@ A code binding is an automatically-generated "stub" allowing code in one languag
 Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](/toolchain/cainome).
 You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
 
+dojo.unity builds on the foundation provided by [dojo.c](/client/sdk/c), leveraging its C# P/Invoke integration to provide seamless Cairo-Unity interoperability.
+
 ## Getting Started
 
 To get started with the dojo.unity SDK, follow these steps:
@@ -138,7 +140,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 #### Adding model bindings
 
-1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
+1. Generate model bindings: If you have not already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
 
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
@@ -367,7 +369,7 @@ Here are the steps to address it:
     - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
     - If the Dojo template is missing, proceed to `step 2`.
 
-2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
+2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it is likely missing from your project.
 
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.

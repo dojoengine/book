@@ -5,7 +5,7 @@ description: "Understanding and managing the hierarchical permission system in D
 
 # World Permissions
 
-The Dojo World contract implements a sophisticated hierarchical permission system that controls access to resources.
+The Dojo World contract implements a sophisticated hierarchical permission system that controls access to Dojo resources.
 This system works at both configuration time (via `dojo_<profile>.toml`) and runtime (via World contract API).
 
 ## Core Permissions Concepts
@@ -18,9 +18,9 @@ They can also be **the addresses of game systems**, typical for regular applicat
 
 ### Permission for What?
 
-Permissions are given for **resources**.
-A **resource** can be a world, namespace, system, or model.
-Resources are indicated by **tags** -- written as `"namespace-resource"`.
+Permissions are given for **Dojo resources**.
+A **Dojo resource** can be a world, namespace, system, or model.
+Dojo resources are indicated by **resource tags** -- written as `"namespace-resource"`.
 
 ![Dojo Permission System](/framework/dojo-auth.png)
 
@@ -44,7 +44,7 @@ Set up initial permissions during deployment via your `dojo_<profile>.toml` file
 ```
 
 :::note
-In this example, permissions are given to **systems**, indicated by tags.
+In this example, permissions are given to **systems**, indicated by resource tags.
 :::
 
 ### Runtime Permissions
@@ -72,7 +72,7 @@ Dojo has two permission types:
 
 ### Owner Permission
 
-**Owners** have full control over a resource and can:
+**Owners** have full control over a Dojo resource and can:
 
 - Write data into the storage of the resource
 - Grant and revoke permissions to other addresses
@@ -98,9 +98,21 @@ let can_write = world.is_writer(resource_selector, address);
 let position: Position = world.read_model(player);
 ```
 
-## Permission Hierarchy
+## Resource Hierarchy
 
 The permission system is resource-based with the following hierarchy:
+
+**Resource Hierarchy** (order of precedence):
+
+1. **World** → Can access all Dojo resources
+2. **Namespace** → Can access all Dojo resources in that namespace
+3. **Model/Contract/Event** → Can access the specific resource
+
+**Key Points**:
+
+- Reading is always permissionless
+- Writing requires Writer permission on the resource or its namespace
+- When you deploy to a world, you automatically become owner of your namespace
 
 ### 1. World Owner (Highest Level)
 
@@ -119,7 +131,7 @@ In the future, Dojo will add support for a governance system where a contract ma
 
 ### 2. Namespace Owner
 
-A **Namespace Owner** can manage all resources within their specific namespace.
+A **Namespace Owner** can manage all Dojo resources within their specific namespace.
 
 ```cairo
 // Namespace owner can manage all resources in "my_game"
@@ -128,14 +140,14 @@ world.grant_owner(selector_from_tag!("my_game"), new_owner_ddress);
 ```
 
 :::note
-When you deploy to a world, you automatically become the owner of that namespace, if it's not already registered.
+When you deploy to a world, you automatically become the owner of that namespace, if it is not already registered.
 :::
 
 **Namespace Owner Rights**:
 
 - Can manage the namespace and write to it
 - Can add more people to the namespace
-- Can grant writer permissions to resources in the namespace
+- Can grant writer permissions to Dojo resources in the namespace
 - Can register new models/contracts/events in the namespace
 
 ### 3. Resource Owner
@@ -171,9 +183,10 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a resource:
 
-- **World** → A resource (selector `0`)
+- **World** → A resource (resource selector `0`)
 - **Namespace** → A resource (e.g., `"my_game"`)
 - **Model** → A resource (e.g., `"my_game-Position"`)
 - **Contract** → A resource (e.g., `"my_game-actions"`)
@@ -408,7 +421,7 @@ For detailed configuration options, see [Configuration](/framework/configuration
 
 ## Debugging Permission Issues
 
-1. **Check Resource Selector**: Ensure you're using the correct resource selector
+1. **Check Resource Selector**: Ensure you are using the correct resource selector
 2. **Verify Caller**: Confirm the caller address is what you expect
 3. **Check Hierarchy**: Verify the permission hierarchy is set up correctly
 4. **Use Events**: Monitor permission events to track changes
@@ -425,4 +438,4 @@ fn debug_permissions(world: @WorldStorage, resource: felt252, address: ContractA
 ```
 
 The permission system in Dojo is powerful and flexible, enabling you to build secure, scalable applications.
-Use it thoughtfully to protect your resources while enabling the functionality your users need.
+Use it thoughtfully to protect your Dojo resources while enabling the functionality your users need.

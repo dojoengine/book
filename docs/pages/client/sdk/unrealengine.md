@@ -8,6 +8,8 @@ description: "Introduction to the official Unreal Engine 5 SDK for building Dojo
 [Dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
+The Unreal Engine SDK is built on the [dojo.c](/client/sdk/c) foundation, providing C++ bindings that integrate seamlessly with Unreal Engine's architecture.
+
 ## Prerequisites
 
 Before getting started, ensure you have the Unreal Engine installed.
@@ -28,7 +30,7 @@ Either clone the repository or download it as a ZIP file to access the plugin.
 
 #### Set Up Your Unreal Project
 
-Launch Unreal Engine 5 and create a new project or open an existing one where you'll implement dojo.unreal.
+Launch Unreal Engine 5 and create a new project or open an existing one where you will implement dojo.unreal.
 
 ![unrealcreate](/client/unreal/create_new_cpp_project.webp)
 
@@ -37,7 +39,7 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 1. Navigate to your project directory by right-clicking the project in Epic Games Launcher (Unreal Engine > Library > My Projects)
    ![unrealdir](/client/unreal/open_project_directory.webp)
 
-2. Create a Plugins directory if one doesn't exist
+2. Create a Plugins directory if one does not exist
 
 3. Copy the Plugins/Dojo directory from dojo.unreal into your project's Plugins folder
 
@@ -150,26 +152,26 @@ Click on the closed eye to be able to change it in the Inspector.
 
 #### Subscribe to and fetch existing models
 
-This is where you will retrieve all the models that are stored on-chain.
+This is where you will retrieve all the **Models** that are stored onchain.
 
 Both subscription and fetch existing models will trigger a custom event called `OnDojoModelUpdate`.
 Always bind this custom event before calling any of these functions.
 
 ![unrealmodels0](/client/unreal/getmodelupdate.webp)
 
-You can then create functions for each model to retrieve the values and update your game.
+You can then create functions for each **Model** to retrieve the values and update your game.
 
 ![unrealmodels3](/client/unreal/accessmodel2.webp)
 
-Generated models follow the Unreal Engine 5 convention in `cpp`.
-For example, if you have a `Vec2` model, it will be called `FVec2`.
+Generated **Models** follow the Unreal Engine 5 convention in `cpp`.
+For example, if you have a `Vec2` **Model**, it will be called `FVec2`.
 
 For enums, to avoid conflicts, they are prefixed with "ED" (E for Enums, D for Dojo).
 For example, `Direction` enum becomes `EDDirection`.
 
 When used in a Blueprint, the prefix is removed.
 
-#### Controller
+#### Controller Account
 
 To send transactions, you need to use the [Cartridge Controller](https://docs.cartridge.gg/controller/overview).
 
@@ -184,7 +186,7 @@ The `ControllerAccount` method always opens a new browser tab for authentication
 `GetAccountOrConnect` first attempts to retrieve a previously stored account, and only opens a new browser tab if no existing account is found.
 
 :::tip
-If the account address is `0x0`, it means the player did not connect to the Controller.
+If the account address is `0x0`, it means the player did not connect to the Controller Account.
 :::
 
 We also call the `CallControllerDojoStarterActionsSpawn` function.
@@ -198,7 +200,7 @@ More information about calls is provided below.
 There are two functions available for each selector of your contracts.
 
 If you used `CreateBurnerDeprecated`, use functions prefixed with `Call`.
-If you used the Controller Connect, use functions prefixed with `CallController`.
+If you used the Controller Account, use functions prefixed with `CallController`.
 
 The format for each function is `<PREFIX><NAMESPACE><CONTRACT><SELECTOR>` with all the required parameters
 
@@ -255,7 +257,7 @@ To add support for a new platform:
 The dojo.unreal repository contains `ue5dojostarter`, a complete sample project that demonstrates how Dojo can be integrated with Unreal Engine.
 This sample is built on top of the Unreal Engine 5 First Person template and showcases:
 
-- **Complete Dojo Integration**: Working examples of connecting to Torii, subscribing to model updates, and calling system functions
+- **Complete Dojo Integration**: Working examples of connecting to Torii, subscribing to **Model** updates, and calling **System** functions
 - **Blueprint Implementation**: All Dojo functionality implemented through Blueprint nodes for easy understanding
 - **Game Mechanics**: A simple boat movement game where players can spawn and move around a world
 - **Controller Authentication**: Integration with Cartridge Controller for wallet authentication

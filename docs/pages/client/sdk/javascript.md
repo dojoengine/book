@@ -18,7 +18,7 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 - **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
 :::note
-dojo.js is a wrapper around [dojo.c](https://github.com/dojoengine/dojo.c) that exposes Torii client features via WASM.
+dojo.js is a wrapper around [dojo.c](/client/sdk/c) that exposes Torii client features via WASM.
 For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
 :::
 
@@ -232,7 +232,7 @@ const entities = await sdk.getEntities({
 ```
 
 :::note
-When you use AND with different model types, you're looking for **entities that have both components**.
+When you use AND with different model types, you are looking for **entities that have both components**.
 :::
 
 For large datasets, use pagination and ordering:
@@ -387,7 +387,7 @@ This can be used to implement things like **chat systems, leaderboards, social f
 
 The key benefit: **Players authenticate the data** (proving it came from them) **without gas fees**, while Torii broadcasts it to all connected clients in real-time.
 
-Here's an example of how to send a signed message:
+Here is an example of how to send a signed message:
 
 ```typescript
 // Generate typed data for a chat message model
@@ -412,14 +412,15 @@ try {
 ```
 
 :::note
-If you want messages to be broadcast to all of your torii client instances, you'll have to pass a `relayUrl` to `init`.
+If you want messages to be broadcast to all of your Torii client instances, you will have to pass a `relayUrl` to `init`.
 `relayUrl` is a _multiaddr_ format which looks like something like this when deployed on slot:
 `/dns4/api.cartridge.gg/tcp/443/x-parity-wss/%2Fx%2Fyour-slot-deployment-name%2Ftorii%2Fwss`
 :::
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
+First, configure Torii to index your tokens:
 
 ```toml
 # dojo_dev.toml
@@ -456,7 +457,8 @@ function TokenBalance({ address }: { address: string }) {
 
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

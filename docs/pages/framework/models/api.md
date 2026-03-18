@@ -108,6 +108,180 @@ use starknet::get_caller_address;
 let mut world: WorldStorage = self.world(@"my_game");
 ```
 
+### Reading Models
+
+#### `read_model<T>`
+
+Reads a model from the world state.
+
+```cairo
+// Read model with single key
+let player = get_caller_address();
+let position: Position = world.read_model(player);
+
+// Read model with multiple keys
+let resource: GameResource = world.read_model((player, location));
+```
+
+:::note
+Cairo's strong typing allows it to infer that the `Position` model is being read.
+:::
+
+**Key Points:**
+
+- Model must have at least one `#[key]` field
+- Returns default values (0, false, etc.) for unset fields
+
+#### `read_member<T>`
+
+Reads a specific member from a model without loading the entire model.
+
+```cairo
+// Read a specific member
+let vec: Vec2 = world.read_member(
+    Model::<Position>::ptr_from_keys(player),
+    selector!("vec")
+);
+```
+
+:::note
+The `ptr_from_keys` function is used to get the pointer to the model in storage, as type inference is not possible.
+The `selector!` macro is used to get the member to target.
+:::
+
+**When to Use:**
+
+- When you only need one field from a large model
+- For gas optimization in read-heavy operations
+- When working with frequently accessed fields
+
+#### `read_member_of_models<T>`
+
+Reads a specific member from multiple models in a single call.
+
+```cairo
+// Read the same member from multiple entities
+let players = [player1, player2, player3];
+let positions: Array<Vec2> = world.read_member_of_models(
+    Model::<Position>::ptr_from_keys(players.span()),
+    selector!("vec")
+);
+```
+
+**Use Cases:**
+
+- Batch reading for dashboards
+- Leaderboard calculations
+- Mass updates based on conditions
+
+#### `read_schema<T>`
+
+Efficiently reads a subset of a model using a custom schema.
+
+```cairo
+// Original model
+#[derive(Drop, Serde)]
+#[dojo::model]
+struct Player {
+    #[key]
+    player: ContractAddress,
+    strength: u8,
+    dexterity: u8,
+    charisma: u8,
+    wisdom: u8,
+}
+
+// Query schema
+#[derive(Serde, Introspect)]
+struct PlayerSchema {
+    strength: u8,
+    dexterity: u8,
+}
+
+// Will return only the strength and dexterity members
+let schema: PlayerSchema = world.read_schema(
+    Model::<Player>::ptr_from_keys(player)
+);
+```
+
+**Requirements:**
+
+- Schema fields must match model fields exactly (name and type)
+- Schema must derive `Serde` and `Introspect`
+- More efficient than `read_member` for 2+ fields
+
+### Writing Models
+
+#### `write_model<T>`
+
+Writes a complete model to the world state.
+
+```cairo
+let mut position: Position = world.read_model(player);
+position.vec.x += 1;
+world.write_model(@position);
+```
+
+**Best Practices:**
+
+- Use `@` (snapshot) when passing to `write_model`
+- Consider using `write_member` for single field updates
+
+#### `write_member<T>`
+
+Updates a specific field in a model without loading the entire model.
+
+```cairo
+let position = Vec2 { x: 10, y: 20 };
+
+world.write_member(
+    Model::<Position>::ptr_from_keys(player),
+    selector!("vec"),
+    position
+);
+```
+
+**Advantages:**
+
+- More gas efficient for single field updates
+- Reduces transaction size
+- Prevents race conditions on concurrent updates
+
+#### `write_member_of_models<T>`
+
+Updates the same field across multiple models.
+
+```cairo
+let players = [player1, player2, player3];
+let new_scores = [100, 200, 300];
+
+world.write_member_of_models(
+    Model::<Player>::ptr_from_keys(players.span()),
+    selector!("score"),
+    new_scores.span()
+);
+```
+
+#### `erase_model<T>`
+
+Resets a model to its default state (all non-key fields become 0/false/empty).
+
+```cairo
+let moves: Moves = world.read_model(player);
+world.erase_model(@moves);
+```
+
+### Batch Operations
+
+For better gas efficiency, use batch operations when working with multiple models of the same type:
+
+```cairo
+let position1 = Position { player1, vec: Vec2 { x: 10, y: 10 } };
+let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
+
+world.write_models([@position1, @position2].span());
+```
+
 ### Basic Storage Operations
 
 #### Writing Models

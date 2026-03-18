@@ -132,7 +132,7 @@ const privateKey = Dojo.signingKeyNew();
 const publicKey = Dojo.verifyingKeyNew(privateKey);
 storage.set("sessionSigner", JSON.stringify({ privateKey, publicKey }));
 
-// Create Cartridge session account
+// Create Controller Account
 const account = CartridgeSessionAccount.new_as_registered(
     rpcUrl,
     privateKey,

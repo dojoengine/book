@@ -203,10 +203,12 @@ mappings = {
 
 **Example:**
 
-- `Player` model → `characters-Player` tag
-- `GameState` model → `game-GameState` tag (uses default namespace)
+- `Player` model → `characters-Player` resource tag
+- `GameState` model → `game-GameState` resource tag (uses default namespace)
 
 ### Permission Configuration
+
+Configure permissions for your Dojo resources using the hierarchical permission system:
 
 ```toml
 # Format: "<TARGET_TAG>" = ["<GRANTEE_TAG>"]
@@ -227,14 +229,16 @@ mappings = {
 
 **Permission Hierarchy:**
 
-- **Namespace permissions** - Control access to all resources in a namespace
+- **Namespace permissions** - Control access to all Dojo resources in a namespace
 - **Resource permissions** - Control access to specific models/contracts
 - **Writers** - Can modify data in models
 - **Owners** - Can modify data AND manage permissions
 
+For complete details on permission management, see [World Permissions](/framework/world/permissions).
+
 ### Contract Initialization
 
-By default, Dojo contracts don't have initialization arguments.
+By default, Dojo contracts do not have initialization arguments.
 However, you can pass init arguments to Dojo contracts using a `dojo_init` function:
 
 ```cairo
@@ -295,7 +299,7 @@ disable_multicall = false
 **Migration Options:**
 
 - `order_inits` - Specific order for contract initialization calls
-- `skip_contracts` - Don't deploy these contracts (but still build them)
+- `skip_contracts` - Do not deploy these contracts (but still build them)
 - `disable_multicall` - Force individual transactions instead of batching
 
 ### Resource Metadata

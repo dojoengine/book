@@ -18,7 +18,7 @@ Building a Dojo project follows a predictable cycle that Sozo streamlines with i
 
 1. **Project Setup**: Initialize structure and configure accounts
 2. **Development Cycle**: Write, build, and test your contracts iteratively
-3. **Deployment**: Deploy to local/remote networks with automatic state management
+3. **Migration**: Deploy to local/remote networks with automatic state management
 4. **Updates**: Iterate with automatic diff detection and minimal migrations
 
 #### From Zero to Deployed
@@ -52,9 +52,9 @@ sozo migrate --profile prod       # Deploy to mainnet
 
 #### Key Concepts
 
-**Automatic State Management**: Sozo tracks your world's state across deployments, automatically detecting changes and generating minimal migration transactions.
+**Automatic State Management**: Sozo tracks your world's state across migrations, automatically detecting changes and generating minimal migration transactions.
 
-**Profile-Based Configuration**: Manage multiple environments (dev, staging, prod) with separate configuration files, allowing seamless deployment across networks.
+**Profile-Based Configuration**: Manage multiple environments (dev, staging, prod) with separate configuration files, allowing seamless migration across networks.
 
 **Incremental Development**: The build-test-migrate cycle is optimized for rapid iteration, with Sozo handling the complexity of blockchain state management.
 
@@ -78,11 +78,11 @@ By default, this clones the [dojo-starter](https://github.com/dojoengine/dojo-st
 
 - Example models (Position, Moves) and systems (Actions)
 - Pre-configured Scarb.toml with Dojo dependencies
-- Basic tests and deployment configuration
-  :::
+- Basic tests and migration configuration
+:::
 
 **Account Management**: Sozo uses accounts defined in your `dojo_<profile>.toml` files.
-See the [configuration guide](/framework/configuration/index.md) for more information.
+See the [configuration guide](/framework/configuration) for more information.
 
 :::tip
 Use a tool like [starkli](https://book.starkli.rs/accounts) to create and manage accounts and keystores.
@@ -94,7 +94,7 @@ The core development loop involves building, testing, and iterating on your cont
 
 ### `sozo build`
 
-Compile your Cairo contracts and generate deployment artifacts:
+Compile your Cairo contracts and generate migration artifacts:
 
 ```bash
 sozo build                    # Compile all contracts
@@ -106,7 +106,7 @@ sozo build --typescript       # Compile + generate TypeScript bindings
 
 - Compiles Cairo contracts using Scarb
 - Validates contract syntax and imports
-- Generates Dojo manifests for deployment
+- Generates Dojo manifests for migration
 - (Optional) Creates language bindings for client integration
 
 ### `sozo test`
@@ -118,8 +118,8 @@ sozo test                     # Run all tests
 ```
 
 Tests are Cairo functions marked with `#[test]`.
-Sozo runs them using the Cairo test runner, giving you confidence in your logic before deployment.
-See the [testing guide](/framework/testing/index.md) for more information about testing your Dojo contracts.
+Sozo runs them using the Cairo test runner, giving you confidence in your logic before migration.
+See the [testing guide](/framework/testing) for more information about testing your Dojo contracts.
 
 ### `sozo clean`
 
@@ -134,7 +134,7 @@ sozo clean --all-profiles     # Clean all profile manifest files
 
 - After major contract restructuring
 - When build artifacts seem corrupted
-- Before important deployments to ensure fresh state
+- Before important migrations to ensure fresh state
 
 **What gets cleaned:**
 
@@ -152,7 +152,7 @@ sozo bindgen --typescript     # Generate TypeScript bindings only
 sozo bindgen --unity          # Generate Unity bindings only
 ```
 
-Bindgen reads from your build artifacts to create platform-specific client code for interacting with your world.
+See the [binding generation guide](/toolchain/sozo/binding-generation) for detailed information on generating client bindings.
 
 ### `sozo dev`
 
@@ -184,7 +184,7 @@ Perfect for rapid development iteration without manual rebuilds.
 - Continuous integration during development
 - Client binding updates alongside contract changes
 
-## Deployment and Updates
+## Migration and Updates
 
 Sozo's migration system is the heart of Dojo deployment, automatically handling the complex process of deploying and updating worlds.
 
@@ -219,7 +219,8 @@ You can use `-P` instead of `--profile` for simplicity.
 :::
 
 The migration outputs a manifest file, which is a JSON file that contains information about deployed contracts and resources.
-By default, the manifest will contains all the ABIs merged in only one entry "abis", where Sozo deduplicates the ABIs and makes the manifest easier to read/track diffs (this is called the `all_in_one` format). There is a second per contract (`per_contract` format), where the ABIs are separated by contract.
+By default, the manifest will contains all the ABIs merged in only one entry "abis", where Sozo deduplicates the ABIs and makes the manifest easier to read/track diffs (this is called the `all_in_one` format).
+There is a second per contract (`per_contract` format), where the ABIs are separated by contract.
 
 :::warning
 The `per_contract` format is currently required in one specific case: if you are using `dojo.js` and if you have the same function name in multiple contracts.
@@ -239,12 +240,10 @@ manifest_abi_format = "per_contract"
 :::
 
 :::info
-Since the 0.14 network upgrade, the PRE-CONFIRMED state may be lagging on nodes
-with load-balanced infrastructure.
+Since the 0.14 network upgrade, the PRE-CONFIRMED state may be lagging on nodes with load-balanced infrastructure.
 
 By default, Sozo is now using `ACCEPTED_ON_L2` as the default transaction finality status.
-You may want to speed up the migration process by using `PRE_CONFIRMED` instead,
-but this may come to the of the migration failing and having to be restarted.
+You may want to speed up the migration process by using `PRE_CONFIRMED` instead, but this may come to the cost of the migration failing and having to be restarted.
 :::
 
 #### How Migration Works
@@ -262,7 +261,7 @@ but this may come to the of the migration failing and having to be restarted.
 - Applies permission changes incrementally
 - Initializes new contracts as needed
 
-**Multi-Environment Management**: Each profile tracks its own deployment state:
+**Multi-Environment Management**: Each profile tracks its own migration state:
 
 ```bash
 sozo migrate                    # Uses 'dev' profile (local Katana)
@@ -270,7 +269,7 @@ sozo migrate --profile staging  # Uses 'staging' profile (testnet)
 sozo migrate --profile prod     # Uses 'prod' profile (mainnet)
 ```
 
-For subsequent deployments, record the world address in your profile:
+For subsequent migrations, record the world address in your profile:
 
 ```toml
 [env]
@@ -283,7 +282,7 @@ private_key = "0x..."
 This tells Sozo to update the existing world rather than deploy a new one.
 
 :::tip
-Make sure to set the `world_address` value after your initial deployment.
+Make sure to set the `world_address` value after your initial migration.
 This will ensure that future migrations are made to your existing world.
 :::
 
@@ -301,7 +300,7 @@ sozo migrate                     # Deploy to local Katana
 sozo migrate                     # Deploy any changes (automatic diff)
 ```
 
-#### Remote Deployment
+#### Remote Migration
 
 ```bash
 # Final validation before production
@@ -351,7 +350,7 @@ Sozo also supports workspaces.
 However, Sozo requires two additional things:
 
 1. A main package from which Sozo will extract the package's name (for binding generation and migration)
-2. [Dojo configuration files](/framework/configuration/#configuration-files) to inject deployment settings during migration
+2. [Dojo configuration files](/framework/configuration) to inject deployment settings during migration
 
 From here, you have several options for laying out your project:
 
@@ -376,13 +375,15 @@ With this setup, running `sozo build`, `sozo test`, and `sozo migrate` will work
 If in your project you have other folders (not related to cairo), opening the project at the root is currently not supported by the cairo language server.
 You must have a root `Scarb.toml` file.
 
-This issue is being worked on by the Scarb team. In the meantime, you can open the project in your contracts directory, or you can add a virtual workspace to your project as shown in the next section.
+This issue is being worked on by the Scarb team.
+In the meantime, you can open the project in your contracts directory, or you can add a virtual workspace to your project as shown in the next section.
 :::
 
 ### Multi-package
 
 If you want to split your project into multiple packages, you can do so by creating a `packages` directory and placing your packages inside it.
-In the example below, only the `my-world` package is deployed on-chain with a Dojo world. The configuration files are placed inside the `my-world` package.
+In the example below, only the `my-world` package is deployed onchain with a Dojo world.
+The configuration files are placed inside the `my-world` package.
 
 ```
 ├── my-project/
@@ -407,7 +408,8 @@ In the example below, only the `my-world` package is deployed on-chain with a Do
 
 To make this layout work, you will need the root `Scarb.toml` to be a [virtual workspace](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#virtual-workspace) to ease dependency management.
 
-You will be able to run `sozo test` at the workspace level. However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level.
+You will be able to run `sozo test` at the workspace level.
+However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level.
 This will generate the `target` directory and the `manifest_<profile>.json` file **at the package level**.
 
 If you prefer managing everything from the workspace level, you can simply move the Dojo configuration files to the workspace level.
@@ -438,7 +440,7 @@ Therefore, you will need to run `sozo build`, `sozo test`, and `sozo migrate` at
 
 #### Example layout
 
-When you want to ship both Cairo libraries and a Dojo world to be deployed on-chain, one way to lay out the project is by creating a `contracts` or `world` package with the name of your project as the package name in its `Scarb.toml` and library packages.
+When you want to ship both Cairo libraries and a Dojo world to be deployed onchain, one way to lay out the project is by creating a `contracts` or `world` package with the name of your project as the package name in its `Scarb.toml` and library packages.
 
 :::note
 This layout is not mandatory---it is an example of how to lay out your project.

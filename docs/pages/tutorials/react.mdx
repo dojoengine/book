@@ -7,13 +7,14 @@ import { LinkCard } from "../../components/LinkCard";
 
 ### Quickstart with React
 
-Concise. Get started with Dojo in minutes.
+Concise.
+Get started with Dojo in minutes.
 
 This assumes knowledge of React and the Dojo CLI.
 
 Prerequisites:
 
-- [Dojo CLI installed](/installation.mdx)
+- [Dojo CLI installed](/installation)
 
 1. Create project
 
@@ -28,7 +29,7 @@ npx @dojoengine/create-dojo start -t example-vite-react-sdk
 katana --dev --dev.no-fee --http.cors_origins "*"
 ```
 
-3. Build and deploy contracts
+3. Build and migrate contracts
 
 ```bash
 cd dojo-starter
@@ -36,7 +37,8 @@ sozo build
 sozo migrate
 ```
 
-From the `sozo migrate` command output, find the deployed world address. For example:
+From the `sozo migrate` command output, find the deployed world address.
+For example:
 
 ```log
  profile | chain_id | rpc_url
@@ -74,11 +76,15 @@ pnpm i
 pnpm dev
 ```
 
-Visit `http://localhost:5173` to view the project. You should now see the project connected to the network and indexed!
+Visit `http://localhost:5173` to view the project.
+You should now see the project connected to the network and indexed!
 
 ### Next Steps
 
-This should have given you a good starting point to build your first application with Dojo. Here are some next steps to take:
+This should have given you a good starting point to build your first application with Dojo.
+For a more detailed walkthrough of Dojo concepts and development patterns, see the [Dojo Starter tutorial](/tutorials/dojo-starter).
+
+Here are some additional resources to explore:
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard

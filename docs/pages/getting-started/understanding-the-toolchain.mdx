@@ -1,3 +1,8 @@
+---
+title: "Understanding the Toolchain"
+description: "Learn how Katana, Torii, Sozo, and Saya work together to power your Dojo development experience."
+---
+
 # Understanding the Toolchain
 
 Now that you've built your first Dojo app, let's explore the tools that made it possible.
@@ -240,7 +245,7 @@ You **must** have a `dojo_dev.toml` file in your contract directory, or Sozo wil
 :::
 
 After migrating, Sozo will generate a `manifest_<PROFILE>.json` file, which contains information about the deployed contracts and interfaces.
-Thsi file is meant to be consumed by clients to help them interact with the world.
+This file is meant to be consumed by clients to help them interact with the world.
 
 #### 4. Interaction
 
@@ -342,9 +347,7 @@ Each tool can be configured through various methods:
 - `torii_dev.toml`: Torii indexing and World settings
 - `katana.toml`: Katana network configuration settings
 
-## Development Best Practices
-
-### Keep Tools Running
+### Development Best Practices
 
 During development, keep all tools running in separate terminals:
 
@@ -387,6 +390,61 @@ sozo execute di-actions spawn --profile staging
 
 - Verify you're in a Dojo project directory (look for `Scarb.toml`)
 - Check that you're using the correct account address and private key
+
+### Development Environment Issues
+
+#### Compilation Errors
+
+```bash
+# Error: trait has no implementation
+# Solution: Make sure all traits are properly implemented
+sozo build 2>&1 | grep -A 5 "error"
+```
+
+#### Transaction Failures
+
+```bash
+# Check recent transactions
+sozo events --dev
+
+# Get detailed transaction info
+sozo call get_transaction --calldata $TX_HASH --dev
+```
+
+#### Data Not Updating
+
+```bash
+# Restart Torii to refresh indexing
+pkill torii
+torii --dev
+```
+
+#### Service Connection Issues
+
+```bash
+# Clean rebuild
+sozo clean && sozo build && sozo migrate
+
+# Check service status
+curl http://localhost:5050  # Katana
+curl http://localhost:8080  # Torii
+
+# Restart development environment
+pkill katana && pkill torii
+# Then restart services
+```
+
+#### Debugging Techniques
+
+Enable detailed logging on your tools:
+
+```bash
+# Katana with debug info
+katana --dev -vvv
+
+# Torii with debug logging
+torii --dev --log-level debug
+```
 
 ## Next Steps
 
