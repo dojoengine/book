@@ -1,4 +1,4 @@
-name: Docs Defragmentation
+name: Monthly docs defragmentation
 
 on:
     schedule:
@@ -16,7 +16,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: "20"
+                  node-version: "22"
 
             - name: Set up pnpm
               uses: pnpm/action-setup@v4
@@ -24,65 +24,153 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
-            - name: Run defragmentation
+            - name: Configure git
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  BRANCH="defrag-docs-$(date +%Y%m%d)"
+                  git checkout -b "$BRANCH"
+                  echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+
+            # ---------------------------------------------------------------
+            # Phase 1: Formatting (deterministic, no LLM)
+            # ---------------------------------------------------------------
+            - name: "Phase 1: Format docs"
+              run: node scripts/format-docs.mjs 2>&1 | tee format-output.txt
+
+            - name: Commit formatting changes
+              run: |
+                  if [ -n "$(git status --porcelain docs/)" ]; then
+                    git add docs/
+                    git commit -m "chore(defrag): phase 1 — formatting
+
+                  Mechanical fixes: trailing newlines, smart quotes,
+                  trailing whitespace, code block language tags.
+
+                  $(tail -10 format-output.txt)"
+                  else
+                    echo "No formatting changes"
+                  fi
+
+            # ---------------------------------------------------------------
+            # Phase 2: Content (LLM-powered, style-guided, size-limited)
+            # ---------------------------------------------------------------
+            - name: "Phase 2: Content defragmentation"
               env:
                   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-              run: |
-                  set -o pipefail
-                  node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
+              run: node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
 
+            - name: Commit content changes
+              run: |
+                  if [ -n "$(git status --porcelain docs/)" ]; then
+                    git add docs/
+                    git commit -m "chore(defrag): phase 2 — content
+
+                  Terminology normalization, deduplication, cross-reference
+                  suggestions. Changes capped at 10 net removed lines per file.
+
+                  $(tail -20 defrag-output.txt)"
+                  else
+                    echo "No content changes"
+                  fi
+
+            # ---------------------------------------------------------------
+            # Phase 3: Link repair (source-validated, no build needed)
+            # ---------------------------------------------------------------
+            - name: "Phase 3: Fix links"
+              run: node scripts/fix-links.mjs 2>&1 | tee links-output.txt
+
+            - name: Commit link fixes
+              run: |
+                  if [ -n "$(git status --porcelain docs/)" ]; then
+                    git add docs/
+                    git commit -m "chore(defrag): phase 3 — link repair
+
+                  Auto-fixed broken internal links validated against source files.
+                  Extension removals, path corrections, broken anchor cleanup.
+
+                  $(tail -15 links-output.txt)"
+                  else
+                    echo "No link fixes needed"
+                  fi
+
+            # ---------------------------------------------------------------
+            # Verify build after all phases
+            # ---------------------------------------------------------------
+            - name: Build site
+              run: pnpm run build
+
+            # ---------------------------------------------------------------
+            # Create PR
+            # ---------------------------------------------------------------
             - name: Create PR if changes exist
-              id: create-pr
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  if [ -z "$(git status --porcelain docs/)" ]; then
-                    echo "No documentation changes to commit"
+                  # Check if we have any commits beyond the initial checkout
+                  COMMIT_COUNT=$(git rev-list --count origin/main..HEAD)
+                  if [ "$COMMIT_COUNT" -eq 0 ]; then
+                    echo "No changes to submit"
                     exit 0
                   fi
 
-                  git config user.name "github-actions[bot]"
-                  git config user.email "github-actions[bot]@users.noreply.github.com"
-
-                  BRANCH="defrag-docs-$(date +%s)"
-                  git checkout -b "$BRANCH"
-
-                  git add docs/
-                  git commit -m "chore: monthly docs defragmentation
-
-                  Automated cleanup of documentation:
-                  - Removed redundant content across pages
-                  - Fixed terminology inconsistencies
-                  - Enforced one-sentence-per-line formatting
-                  - Added missing cross-references
-                  - Relocated misplaced content to canonical pages
-
-                  $(tail -20 defrag-output.txt)"
-
                   git push origin "$BRANCH"
 
-                  SUMMARY=$(sed -n '/=== Summary ===/,$ p' defrag-output.txt)
+                  FORMAT_SUMMARY=$(sed -n '/=== Summary ===/,$ p' format-output.txt 2>/dev/null || echo "No formatting output")
+                  DEFRAG_SUMMARY=$(sed -n '/=== Summary ===/,$ p' defrag-output.txt 2>/dev/null || echo "No defrag output")
+                  LINKS_SUMMARY=$(sed -n '/=== Summary ===/,$ p' links-output.txt 2>/dev/null || echo "No link repair output")
 
                   gh pr create \
                     --title "chore: monthly docs defragmentation" \
                     --body "$(cat <<EOF
                   ## Monthly docs defragmentation
 
-                  Automated review and cleanup of documentation pages using Claude.
+                  Automated review and cleanup of documentation pages.
+                  Each phase is a separate commit for easier review.
 
-                  ### What this does
-                  - **Cross-page analysis**: Finds duplicated explanations, inconsistent terminology, and missing cross-references within each doc section
-                  - **Content relocation**: Moves misplaced content to canonical pages and replaces with cross-references
-                  - **Per-page cleanup**: Fixes one-sentence-per-line violations, formatting inconsistencies, and redundant prose
+                  ### Phase 1: Formatting (mechanical)
+                  Trailing newlines, smart quotes, whitespace, code block language tags.
+                  **Reviewers can skim this commit.**
 
-                  ### Run output
+                  <details><summary>Phase 1 summary</summary>
+
                   \`\`\`
-                  ${SUMMARY}
+                  ${FORMAT_SUMMARY}
                   \`\`\`
+                  </details>
+
+                  ### Phase 2: Content (LLM-generated)
+                  Terminology normalization per style guide, deduplication (capped at 10 lines removed per file), cross-reference suggestions.
+                  **Review this commit carefully.**
+
+                  <details><summary>Phase 2 summary</summary>
+
+                  \`\`\`
+                  ${DEFRAG_SUMMARY}
+                  \`\`\`
+                  </details>
+
+                  ### Phase 3: Link repair (source-validated)
+                  Auto-fixes broken internal links by validating against source files.
+                  Fixes extension removal (.md/.mdx), path corrections, and broken relative links.
+                  **Reviewers can skim this commit.**
+
+                  <details><summary>Phase 3 summary</summary>
+
+                  \`\`\`
+                  ${LINKS_SUMMARY}
+                  \`\`\`
+                  </details>
+
+                  ### Skipped changes
+                  Files where the LLM suggested removing >10 lines are listed in the workflow output.
+                  These need manual review and may warrant separate issues.
 
                   ### Review notes
-                  Please review the diff carefully — all changes are LLM-generated editorial fixes.
-                  Build errors (if any) will be fixed automatically in a follow-up commit.
+                  - The build has been verified to pass after all phases
+                  - Check for \`[TODO: link to X]\` markers that need resolution
+                  - Check for \`<!-- TODO: deduplicate -->\` comments flagging large removals
+                  - Check workflow output for unfixable links that need manual attention
 
                   ---
                   *This PR was automatically created by the monthly defragmentation workflow.*
@@ -90,21 +178,3 @@ jobs:
                   )" \
                     --base main \
                     --head "$BRANCH"
-
-                  echo "has-changes=true" >> "$GITHUB_OUTPUT"
-
-            - name: Fix dead links
-              if: steps.create-pr.outputs.has-changes == 'true'
-              run: node scripts/confirm-build.mjs
-
-            - name: Commit build fixes
-              if: steps.create-pr.outputs.has-changes == 'true'
-              run: |
-                  if [ -z "$(git status --porcelain docs/)" ]; then
-                    echo "No fixes needed"
-                    exit 0
-                  fi
-
-                  git add docs/
-                  git commit -m "fix: auto-fix docs build errors"
-                  git push origin HEAD

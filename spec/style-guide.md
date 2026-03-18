@@ -1,169 +1,204 @@
-# Dojo Documentation Style Guide
+# Dojo Book Style Guide
 
-## Overview
+This guide defines writing conventions for the Dojo documentation site.
+It is the source of truth for automated tooling (defragmentation, linting) and human contributors.
 
-This style guide ensures consistency, clarity, and accessibility across all Dojo documentation.
-Follow these guidelines to create documentation that serves both newcomers to on-chain gaming and experienced Cairo developers.
+## Formatting
 
-## Voice and Tone
+- One sentence per line in markdown source.
+- Files must end with a single trailing newline.
+- Use straight quotes (`"`, `'`), not smart/curly quotes.
+- No trailing whitespace on lines.
+- Use `-` for bullet lists (not `*` or `+`).
+- Use 2-space indentation for nested list items.
 
-### Writing Style
+## Page structure
 
-- **Direct and conversational**: Address readers as "you"
-- **Active voice**: Write "Run the `dojo build` command" instead of "The command should be run"
-- **Present tense**: Use present tense for instructions and descriptions
-- **Concise**: Deliver only the information needed to accomplish the goal
-- **Plain language**: Avoid unnecessary jargon; explain technical terms when first introduced
-- **Emphasize contrasts**: When explaining concepts, emphasize how ideas relate and contrast to each other
-- **Avoid fluff**: Avoid fluffy, generic, or hyperbolic language
+- Every page should have YAML frontmatter with `title` and `description`.
+- Use one H1 (`#`) per page for the title, matching the frontmatter `title`.
+- Use H2 (`##`) for major sections, H3 (`###`) for subsections.
+- Avoid H4 and deeper nesting unless a page genuinely requires it.
 
-### Tone Guidelines
+## Prose
 
-- **Helpful and encouraging**: Assume readers want to succeed
-- **Neutral and inclusive**: Avoid slang, idioms, or culturally-specific references
-- **Professional but approachable**: Maintain expertise without being intimidating
+- Write in **present tense**: "This deploys the contract", not "This will deploy the contract".
+- Use **second person** ("you") for instructions, **third person** for describing system behavior ("the World contract manages all state").
+- Use **imperative mood** for procedural steps: "Configure the world", not "You should configure the world".
+- **Do not use contractions**: "do not", not "don't"; "you will", not "you'll".
+- Use the **Oxford comma**: "models, systems, and events".
+- Prefer **"e.g."** over "for example" in parentheticals.
+- Use **bold** for feature names and key concepts in running text.
+  Do not use italic for emphasis (reserve it for introducing defined terms if needed).
+- **Emojis**: do not use emojis in body text or technical documentation.
 
-## Language and Terminology
+## Lists
 
-### Dojo-Specific Terms
+- Bullet items that are sentence fragments do not need periods.
+- Bullet items that are full sentences should end with periods.
+- Be consistent within a single list — do not mix fragments and full sentences.
 
-- **Dojo**: Always capitalize, never "the framework" or "dojo"
-- **Component**: Capitalize when referring to ECS components
-- **System**: Capitalize when referring to ECS systems
-- **Entity**: Capitalize when referring to ECS entities
-- **World**: Capitalize when referring to Dojo worlds
-- **Cairo**: The programming language (not "cairo")
+## Terminology
 
-### Technical Terms
+### Dojo ecosystem names
 
-- Define domain-specific terms on first use in each document
-- Link to glossary or explanation when introducing complex concepts
-- Use consistent terminology throughout all documentation
-- Avoid switching between synonyms (e.g., don't alternate between "deploy" and "publish")
+These are proper nouns — always capitalize in prose:
 
-## Headings
+| Use | Do not use |
+|-----|-----------|
+| **Dojo** | "dojo" in prose |
+| **Cairo** | "cairo" in prose |
+| **Starknet** | "StarkNet" (outdated branding) |
+| **Katana** | "katana" in prose (lowercase is fine in CLI commands) |
+| **Torii** | "torii" in prose (lowercase is fine in CLI commands and config) |
+| **Sozo** | "sozo" in prose (lowercase is fine in CLI commands) |
+| **Saya** | "saya" in prose |
+| **Scarb** | "scarb" in prose (lowercase is fine in CLI commands) |
 
-- Use sentence case: "Getting started with Dojo" not "Getting Started With Dojo"
-- Be descriptive: "Deploy to testnet" not "Deployment"
-- Use parallel structure in lists of headings
-- Limit to 4 heading levels maximum
+### ECS terms
 
-## Lists and Formatting
+Capitalize when referring to Dojo ECS concepts specifically:
 
-- Place every prose sentence on its own line
-- Use numbered lists for sequential steps
-- Use bullet points for non-sequential items
-- **Bold** for UI elements, important terms, and emphasis
-- `Code formatting` for commands, file names, and code snippets
-- _Italic_ for concepts being defined or emphasized
+| Canonical term | Notes |
+|----------------|-------|
+| **World** | The root contract that manages all state |
+| **Model** | Data structures decorated with `#[dojo::model]` |
+| **System** | Functions that modify models, implementing game logic |
+| **Entity** | An addressable unit of state composed of models |
+| **Component** | Avoid — use **Model** instead (legacy term) |
+| **Event** | On-chain events decorated with `#[dojo::event]` |
 
-## Code Examples
+### Third-party names
 
-### Code Blocks
+Use official branding:
 
-```cairo
-// Always include language identifier
-// Add comments to explain key concepts
-// Keep examples minimal but complete
-```
+| Use | Do not use |
+|-----|-----------|
+| **Cartridge** | "cartridge" in prose |
+| **Cartridge Controller** (first mention) | "the Controller SDK", "CC" |
+| **Controller** (subsequent mentions) | "Cartridge Controller" repeatedly |
+| **MetaMask** | "Metamask", "metamask" |
+| **React Native** | "react native", "ReactNative" |
 
-### Inline Code
+### Hyphenation and compound words
 
-- Use for file names: `dojo.toml`
-- Use for commands: `dojo build`
-- Use for parameters: `--world 0x1234`
-- Use for code elements: `Component` trait
+| Use | Do not use |
+|-----|-----------|
+| **onchain** | "on-chain" |
+| **cross-chain** | "crosschain" |
+| **gasless** | "gas-free", "gas-less" |
+| **multicall** | "multi-call" |
 
-### Code Example Guidelines
+### Technical terms — do not rename
 
-- Provide working, tested examples
-- Include expected output when helpful
-- Add comments to explain non-obvious code
-- Show both basic and advanced usage patterns
-- Keep examples focused on the concept being demonstrated
+These terms are API surface (attribute names, type names, CLI flags).
+They must match the code and should not be rewritten in prose:
 
-## Cross-References and Links
+**Dojo attributes:**
+- `#[dojo::model]` — not "model decorator" or "model annotation"
+- `#[dojo::event]` — not "event decorator"
+- `#[dojo::contract]` — not "contract decorator"
+- `#[key]` — not "key attribute"
 
-### Internal Links
+**Starknet/Cairo terms:**
+- `entrypoint` — not "entry point"
+- `calldata` — not "call data"
+- `felt252` — not "field element" (except when explicitly defining the term)
 
-- Link to related concepts when first mentioned
-- Use descriptive link text: "See the [Component guide](./components.md)" not "click here"
-- Cross-reference between tutorials, how-tos, and reference docs
-- Link to prerequisites rather than repeating information
+**CLI commands** (always use backticks in prose):
+- `sozo build`, `sozo migrate`, `sozo execute`, `sozo inspect`
+- `katana`, `torii`
 
-### External Links
+**Type names** (always use backticks in prose):
+- `WorldStorage`, `IWorldDispatcher`, `ContractAddress`
 
-- Use for official Cairo documentation, Starknet resources
-- Open in same window (users can choose to open in new tab)
-- Verify links regularly to prevent link rot
+When explaining these concepts to users, you may add clarifying language alongside the technical term (e.g., "the `#[key]` attribute marks fields used for entity identification"), but do not replace the term itself.
 
-## Visual Elements
+### Product-adjacent terms
 
-### Images and Diagrams
+| Use | Do not use |
+|-----|-----------|
+| **autonomous world** | "autonomous World" (capitalize only when referring to the Dojo World contract) |
+| **provable game** | "verifiable game" (in Dojo context) |
+| **paymaster** (lowercase) | "Paymaster" in prose |
 
-- Include alt text for accessibility: `![Dojo architecture diagram showing the relationship between worlds, systems, and components](./architecture.png)`
-- Use captions to explain what the image shows
-- Keep images simple and focused
-- Use consistent visual style across diagrams
+## Cross-references
 
-### Callouts and Admonitions
+Links are the highest-risk area for automated edits.
+Broken links fail the build and are hard to debug.
+Follow these rules strictly.
 
+### Path format
+
+- **No extensions.** Use extensionless paths: `[Models](/framework/models)`, not `[Models](/framework/models.md)`.
+- **Relative** for same-section links: `[Testing](./testing)`
+- **Absolute** for cross-section links: `[Katana](/toolchain/katana)`
+
+### Anchors
+
+- Only use anchor links (`#some-heading`) when you have verified the target heading exists on the page.
+- Heading anchors are auto-generated as lowercase, hyphenated slugs (e.g., `## Custom Models` -> `#custom-models`).
+- Do not guess at anchors.
+  If unsure, link to the page without an anchor.
+
+### When adding cross-references
+
+- **Do not invent links during content edits.**
+  If you want to suggest a cross-reference but cannot verify the target, use a TODO marker instead: `[TODO: link to X]`.
+  A separate link-repair pass will resolve these.
+- When replacing duplicated content with a link, verify the target page actually contains equivalent information before deleting.
+- Do not add a cross-reference if the linked page only tangentially covers the topic.
+  A link should save the reader from needing an explanation on the current page.
+
+### Valid link targets
+
+The documentation site has these top-level sections:
+
+- `/getting-started/*` — Onboarding and setup guides
+- `/framework/*` — Core Dojo framework (World, Models, Systems, Testing, Config)
+- `/toolchain/*` — Tool documentation (Katana, Torii, Sozo, Saya, Slot)
+- `/client/sdk/*` — SDK documentation (JavaScript, Unity, Unreal, Bevy, Godot, C, Rust)
+- `/tutorials/*` — Step-by-step learning guides
+- `/libraries/*` — Ecosystem libraries (Origami, Alexandria)
+- `/architecture/*` — Scaling and technical deep-dives
+- `/theory/*` — Conceptual topics (autonomous worlds)
+- `/community/*` — Community resources
+
+## Code examples
+
+### Language tags
+
+- Use `bash` for shell commands (not `sh` or `shell`).
+- Use `typescript` for TypeScript code (not `ts`).
+- Use `tsx` for React component code with JSX.
+- Use `cairo` for Cairo/Dojo smart contract code.
+- Use `toml`, `json`, `rust` as appropriate.
+
+### Style
+
+- Always show import statements — do not assume imports are already present.
+- Use realistic game scenarios, not abstract examples.
+- Keep comments minimal and semantic — explain "why", not "what".
+- Include type annotations for complex objects and function parameters.
+- Quick-start examples may omit error handling for brevity.
+  Advanced or real-world examples should include error handling.
+- Use inline code (backticks) for API names in prose: `` `sozo build` ``, `` `WorldStorage` ``.
+
+## Admonitions
+
+Use admonitions sparingly for genuinely important callouts:
+
+- `:::info` — general context the reader should know
+- `:::warning` — something that could cause problems if ignored
+- `:::note` — supplementary information
+- `:::tip` — helpful suggestion, not required
+
+Do not convert `:::` blocks to blockquote format.
 This site uses Vocs, which renders `:::` blocks as styled callout boxes.
-Always use `:::` syntax — never convert to blockquote format.
+Do not use admonitions for routine information that belongs in body text.
 
-```markdown
-:::note
-Use for helpful information that supplements the main content.
-:::
+## Content guidelines
 
-:::warning
-Use for actions that could cause problems or data loss.
-:::
-
-:::tip
-Use for pro tips and best practices.
-:::
-```
-
-## Accessibility Guidelines
-
-### Writing for Global Audience
-
-- Use simple, clear sentence structure
-- Define acronyms on first use: "Entity Component System (ECS)"
-- Avoid cultural references and idioms
-- Use consistent vocabulary throughout
-
-### Technical Accessibility
-
-- Structure content with proper heading hierarchy
-- Use descriptive link text
-- Provide alt text for all images
-- Ensure code examples are screen-reader friendly
-
-## File and Folder Conventions
-
-### File Naming
-
-- Use lowercase with hyphens: `getting-started.md`
-- Be descriptive: `deploy-to-testnet.md` not `deploy.md`
-- Group related files in folders: `client/sdk/`, `toolchain/sozo/`
-
-### Folder Structure
-
-- Mirror the logical documentation hierarchy
-- Keep related content together
-- Use clear, descriptive folder names
-
-## Review Checklist
-
-Before publishing documentation:
-
-- [ ] Tested all code examples
-- [ ] Verified all links work
-- [ ] Consistent terminology throughout
-- [ ] Clear headings and structure
-- [ ] Appropriate cross-references
-- [ ] Alt text for images
-- [ ] Spell check completed
-- [ ] Follows document template structure
+- Do not duplicate explanations across pages.
+  When content exists on a canonical page, link to it rather than restating it.
+- When removing duplicated content, verify the target page actually contains the information before deleting.
+- Keep code examples focused — show the minimum needed to illustrate the point.
