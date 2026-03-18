@@ -17,7 +17,7 @@ See [Mage Duel](https://mageduel.evolute.network/) for an example of a game buil
 :::
 
 :::info
-This sovereign rollup approach differs from [execution sharding](../execution-sharding), which partitions game logic across multiple chains that settle to mainnet.
+This sovereign rollup approach differs from [execution sharding](/scaling/execution-sharding), which partitions game logic across multiple chains that settle to mainnet.
 Sovereign rollups instead use independent execution environments with proofs posted to Celestia for data availability, providing different tradeoffs in terms of decentralization and settlement guarantees.
 :::
 

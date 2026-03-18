@@ -238,7 +238,7 @@ The client can then query the world state to get the latest state, which is then
 
 To begin development with any Dojo SDK:
 
-1. **Set up your development environment** with Katana and Torii - see the [Getting Started guide](../getting-started)
+1. **Set up your development environment** with Katana and Torii - see the [Getting Started guide](/getting-started)
 2. **Choose your SDK** based on your platform and requirements
 3. **Follow the platform-specific setup guide** linked above
 4. **Explore examples** to understand integration patterns

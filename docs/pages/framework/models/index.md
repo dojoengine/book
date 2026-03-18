@@ -66,7 +66,7 @@ struct GameResource {
 }
 ```
 
-In this case you would then use [`read_model`](/framework/world/api#read_model) with both the player and location fields:
+In this case you would then use [`read_model`](/framework/world/api) with both the player and location fields:
 
 ```cairo
 let player = get_caller_address();
