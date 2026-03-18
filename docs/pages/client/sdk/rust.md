@@ -8,6 +8,8 @@ description: "Native Rust integration for building Dojo applications with Rust"
 Dojo is built in Rust, making it seamless to integrate into your Rust projects.
 Simply import the required crates and you're ready to build powerful applications that interact with Dojo worlds.
 
+The Dojo Rust SDK is built on the same [dojo.c foundation](/client/sdk) as other SDK bindings, providing native Rust integration with the core Dojo architecture.
+
 ## Core Components
 
 The Dojo Rust ecosystem provides several key crates for different use cases:
@@ -283,7 +285,7 @@ async fn main(
 ) -> shuttle_serenity::ShuttleSerenity {
     // Set up Discord permissions - non_privileged() gives us basic bot permissions
     // You might need more permissions depending on what your bot does
-    let intents = GatewayIntents::non_privileged();
+    let intents = GatewayIntents::non_privileged;
 
     let config = Config::from_secrets(secret_store);
 

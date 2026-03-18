@@ -23,12 +23,12 @@ fn f1() {
     testing::set_block_number(1234567);
     assert!(get_block_number() == 1234567, 'bad block number');
 }
-
 ```
 
 ## `set_caller_address`
 
-This cheat code helps you set the caller address to the provided contract address, enabling you to test contract interactions with different callers. This cheat code can be applied when:
+This cheat code helps you set the caller address to the provided contract address, enabling you to test contract interactions with different callers.
+This cheat code can be applied when:
 
 - Testing a contract's access control mechanisms, such as only allowing certain addresses to call specific functions.
 - Simulating a scenario where a contract is called by a different address.
@@ -48,7 +48,8 @@ fn f2() {
 
 This cheat code helps you set the contract address to the provided value, allowing you to test contract deployment and interactions.
 
-It is important to note that any test function is considered a contract, which by default uses the `0` address. Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
+It is important to note that any test function is considered a contract, which by default uses the `0` address.
+Using `set_contract_address` allows you to mock the current address of the testing function, making it useful to call other contract that may use `get_caller_address`.
 
 ```rust
 use starknet::{testing, get_contract_address, contract_address_const};
@@ -63,7 +64,8 @@ fn f3() {
 
 ## `set_block_timestamp`
 
-This cheat code helps you set the block timestamp to the specified value, allowing you to test contract behavior at different points in time. You can apply this code when:
+This cheat code helps you set the block timestamp to the specified value, allowing you to test contract behavior at different points in time.
+You can apply this code when:
 
 - Testing a contract's behavior at a specific point in time, such as checking if a certain function is only callable during a certain time period.
 - Simulating a scenario where a contract is deployed at a different point in time.
@@ -76,7 +78,6 @@ fn f4() {
     testing::set_block_timestamp(123456);
     assert(get_block_timestamp == 123456, 'bad timestamp');
 }
-
 ```
 
 ## `set_version`
@@ -91,12 +92,12 @@ fn f5() {
     testing::set_version('0.1.0');
     assert_eq!(get_tx_info().unbox().version, 1_felt252);
 }
-
 ```
 
 ## `set_account_contract_address`
 
-This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts. You can apply when simulating a scenario where a contract is called by a different account contract.
+This cheat code helps you set the account contract address to the provided value, allowing you to test contract interactions with different account contracts.
+You can apply when simulating a scenario where a contract is called by a different account contract.
 
 ```rust
 use starknet::{testing, get_tx_info, contract_address_const};
@@ -107,12 +108,12 @@ fn f6() {
     testing::set_account_contract_address(contract);
     assert_eq!(get_tx_info().unbox().account_contract_address.into(), contract);
 }
-
 ```
 
 ## `set_max_fee`
 
-This cheat code helps you set the maximum fee to the provided value, enabling you to test contract behavior with different fee structures. You can apply this when:
+This cheat code helps you set the maximum fee to the provided value, enabling you to test contract behavior with different fee structures.
+You can apply this when:
 
 - Testing a contract's behavior with different fee structures, such as checking if a certain function is only callable with a specific fee.
 - Simulating a scenario where a contract is deployed with a different fee structure.
@@ -125,12 +126,12 @@ fn f7() {
     testing::set_max_fee(123456);
     assert_eq!(get_tx_info().unbox().max_fee.into(), 123456);
 }
-
 ```
 
 ## `set_transaction_hash`
 
-This cheat code helps one set the transaction hash to the provided value, allowing you to test contract behavior with different transaction hashes. You can apply this when:
+This cheat code helps one set the transaction hash to the provided value, allowing you to test contract behavior with different transaction hashes.
+You can apply this when:
 
 - Testing a contract's behavior with different transaction hashes, such as checking if a certain function is only callable with a specific transaction hash.
 - Simulating a scenario where a contract is called with a different transaction hash.
@@ -143,12 +144,12 @@ fn f8() {
     testing::set_transaction_hash('12345678');
     assert_eq!(get_tx_info().unbox().transcation_hash.into(), '12345678');
 }
-
 ```
 
 ## `set_chain_id`
 
-This cheat code helps one set the chain ID to the provided value, enabling you to test contract behavior on different chains. You can apply this when:
+This cheat code helps one set the chain ID to the provided value, enabling you to test contract behavior on different chains.
+You can apply this when:
 
 - Testing a contract's behavior on different chains, such as checking if a certain function is only callable on a specific chain.
 - Simulating a scenario where a contract is deployed on a different chain.
@@ -161,12 +162,12 @@ fn f9() {
     testing::set_chain_id('test_chain_id');
     assert_eq!(get_tx_info().unbox().chain_id.into(), 'test_chain_id');
 }
-
 ```
 
 ## `set_nonce`
 
-This cheat code helps one set the nonce to the provided value, allowing you to test contract behavior with different nonces. You can apply this when:
+This cheat code helps one set the nonce to the provided value, allowing you to test contract behavior with different nonces.
+You can apply this when:
 
 - Testing a contract's behavior with different nonces, such as checking if a certain function is only callable with a specific nonce.
 - Simulating a scenario where a contract is called with a different nonce.
@@ -179,7 +180,6 @@ fn f10() {
     testing::set_nonce('test_nonce');
     assert_eq!(get_tx_info().unbox().nonce(), 'test_nonce');
 }
-
 ```
 
 ## `set_signature`
@@ -196,7 +196,6 @@ fn f11() {
     assert_eq!(*s[0], 'r');
     assert_eq!(*s[1], 's');
 }
-
 ```
 
 ## `set_block_number`
@@ -211,7 +210,6 @@ fn f12() {
     testing::set_block_number(12345678);
     assert_eq!(get_block_info().unbox().block_number, 12345678);
 }
-
 ```
 
 ## `pop_log_raw`
@@ -226,12 +224,12 @@ fn f13() {
     let contract_address = starknet::contract_address_const::<0x42>();
     let _log = testing::pop_log_raw(contract_address);
 }
-
 ```
 
 ## `pop_log`
 
-This cheat code helps one pop the earliest unpopped logged event for the contract as the requested type, deserializing the event data into the specified type. You can apply this when:
+This cheat code helps one pop the earliest unpopped logged event for the contract as the requested type, deserializing the event data into the specified type.
+You can apply this when:
 
 - Testing a contract's event handling mechanism, such as checking if a certain event is handled correctly.
 - Debugging a contract's behavior by inspecting the handled events.
@@ -284,14 +282,14 @@ fn f14() {
     dispatcher.post();
     let _log = testing::pop_log::<Post>(contract_address);
 }
-
 ```
 
 ## `pop_l2_to_l1_message`
 
-This cheat code helps one pop the earliest unpopped L2 to L1 message for the contract, returning the message data and keys. You can apply this when:
--Testing a contract's L2 to L1 messaging mechanism, such as checking if a certain message is sent correctly.
+This cheat code helps one pop the earliest unpopped L2 to L1 message for the contract, returning the message data and keys.
+You can apply this when:
 
+- Testing a contract's L2 to L1 messaging mechanism, such as checking if a certain message is sent correctly.
 - Debugging a contract's behavior by inspecting the sent messages.
 
 ```rust
@@ -302,7 +300,6 @@ fn f15() {
     let contract_address = starknet::contract_address_const::<0x42>();
     let _msg = testing::pop_l2_to_l1_message(contract_address);
 }
-
 ```
 
 These cheat codes provide a powerful toolset for testing and debugging Starknet contracts.

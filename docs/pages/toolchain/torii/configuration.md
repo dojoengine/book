@@ -10,6 +10,8 @@ Configuration provides structured control over indexing, performance, security, 
 
 ## Configuration Priority
 
+Configuration values are resolved in the following order (highest to lowest priority):
+
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**
@@ -57,7 +59,7 @@ db_dir = "torii.db"             # Persistent database (omit for in-memory)
 ```
 
 :::info
-AS of Torii 1.6.0, the World address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
+As of Torii 1.6.0, the World address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
 Under the hood, a value passed to `world` is simply appended to the `contracts` array.
 :::
 

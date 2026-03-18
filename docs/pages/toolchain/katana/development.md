@@ -1,23 +1,23 @@
 ---
 title: Katana Development Features
-description: Guide to Katana's development features including mining modes, storage options, network forking, and RPC interfaces for local blockchain development.
+description: Guide to Katana's development features including block production modes, storage options, network forking, and RPC interfaces for local blockchain development.
 ---
 
 # Development Features
 
 Katana provides essential development features designed to streamline local blockchain development and testing workflows.
 
-## Mining Modes
+## Block Production Modes
 
-Katana offers flexible block production through different mining modes.
+Katana offers flexible block production through different modes.
 
 :::info
-By default, blocks are mined instantly when transactions are received.
+By default, blocks are produced instantly when transactions are received.
 :::
 
-### Interval Mining
+### Interval Block Production
 
-Interval mining creates blocks at regular time intervals rather than on each transaction.
+Interval block production creates blocks at regular time intervals rather than on each transaction.
 Enable this mode with the `--block-time <MILLISECONDS>` flag:
 
 ```bash
@@ -25,15 +25,15 @@ Enable this mode with the `--block-time <MILLISECONDS>` flag:
 katana --block-time 10000
 ```
 
-### On-demand Mining
+### On-demand Block Production
 
-On-demand mining gives you complete control over when blocks are created.
+On-demand block production gives you complete control over when blocks are created.
 This mode is ideal for testing scenarios where you need precise timing control.
 
 Transactions are processed immediately but remain pending until you manually trigger block creation using the [`generateBlock`](/toolchain/katana/reference#dev-namespace) RPC method.
 When called, all pending transactions are included in the new block.
 
-To enable on-demand mining, use the `--no-mining` flag.
+To enable on-demand block production, use the `--no-mining` flag.
 
 ```bash
 katana --no-mining
@@ -231,26 +231,7 @@ katana --explorer
 
 This will enable the `/explorer` endpoint, which you can access from the browser to see transaction data and look up information about accounts and deployed contracts.
 
-## Extended JSON-RPC Interface
+## JSON-RPC Interface
 
-Katana provides a comprehensive RPC interface for development and interaction.
-RPC commands are organized across multiple namespaces:
-
-- **`starknet`**: Standard Starknet RPC methods for contract calls and queries
-- **`dev`**: Development utilities like manual block mining and time control
-- **`katana`**: Node-specific endpoints for configuration and account info
-- **`torii`**: ECS entity/component queries for Dojo integration
-
-#### Usage Example
-
-Generate blocks on-demand when using `--no-mining` mode:
-
-```bash
-curl -X POST http://127.0.0.1:5050 \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"dev_generateBlock","params":[],"id":1}'
-```
-
-:::tip
-See the complete [RPC Reference](/toolchain/katana/reference#rpc-method-namespaces) for detailed method documentation and examples.
-:::
+Katana provides a comprehensive JSON-RPC interface for blockchain interaction and development utilities.
+See the complete [JSON-RPC API Reference](/toolchain/katana/reference) for detailed method documentation, namespace organization, and usage examples.

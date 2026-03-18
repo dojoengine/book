@@ -8,7 +8,9 @@ description: Complete guide to configuring Katana using TOML files and command-l
 Katana supports flexible configuration through TOML files and command-line options.
 This enables you to customize everything from network settings to gas prices for both development and production deployments.
 
-### Configuration Priority
+## Configuration Priority
+
+Configuration options are resolved in the following order of precedence:
 
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)

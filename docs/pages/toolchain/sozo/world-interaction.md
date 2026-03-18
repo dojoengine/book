@@ -1,3 +1,8 @@
+---
+title: World Interaction
+description: Execute system functions, query world state, manage permissions, and debug deployed worlds with Sozo commands.
+---
+
 # World Interaction
 
 Once your world is deployed, these commands let you interact with it during development, testing, and runtime operations.
@@ -41,7 +46,7 @@ sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 - **Transaction-based**: Requires account/signer configuration
 - **Tag resolution**: Use contract tags (e.g., `Actions`) or addresses
 - **Multicall support**: Batch multiple system calls efficiently
-- **Type-aware calldata**: Supports Dojo's [calldata format](/toolchain/sozo/index.md#data-format-reference)
+- **Type-aware calldata**: Supports Dojo calldata format
 
 **Common Use Cases:**
 
@@ -54,7 +59,7 @@ sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 ### `sozo call `
 
 Call view functions and read-only system methods.
-These operations don't send transactions or require gas.
+These operations do not send transactions or require gas.
 
 ```bash
 # Query game state
@@ -189,7 +194,7 @@ sozo auth grant writer ns-Position,0x123... ns-Health,0x123... ns-Inventory,0x12
 
 ### `sozo register `
 
-Register new models to your world after they've been declared but not yet registered.
+Register new models to your world after they have been declared but not yet registered.
 
 ```bash
 # Register a model by class hash
@@ -201,7 +206,7 @@ sozo register model 0x123... 0x456... 0x789...
 
 **When to Use:**
 
-- After declaring a new model class that wasn't included in the original world deployment
+- After declaring a new model class that was not included in the original world deployment
 - When adding models from external libraries to your world
 - During development when iterating on model schemas
 

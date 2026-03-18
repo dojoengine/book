@@ -223,6 +223,121 @@ mod game_coordinator {
 - Complex internal logic
 - Harder to extend independently
 
+## Design Patterns
+
+### Command Pattern
+
+Systems often implement the command pattern, where each public function represents a discrete action that can be executed independently.
+
+```cairo
+// Each function is a command that can be executed
+#[dojo::contract]
+mod game_actions {
+    #[abi(embed_v0)]
+    impl ActionsImpl of IGameActions<ContractState> {
+        fn spawn(ref self: ContractState) {
+            let mut world = self.world(@"game");
+            let player = get_caller_address();
+
+            let new_player = Player {
+                player,
+                position: Vec2 { x: 0, y: 0 },
+                health: 100,
+                level: 1
+            };
+
+            world.write_model(@new_player);
+        }
+
+        fn move(ref self: ContractState, direction: Direction) {
+            let mut world = self.world(@"game");
+            let player = get_caller_address();
+
+            let mut player_data: Player = world.read_model(player);
+            player_data.position = player_data.position + direction.to_vec();
+            world.write_model(@player_data);
+        }
+
+        fn attack(ref self: ContractState, target: ContractAddress) {
+            let mut world = self.world(@"game");
+            let attacker = get_caller_address();
+
+            // Attack logic
+        }
+    }
+}
+```
+
+Each method represents a discrete command that modifies world state.
+Commands are stateless and can be composed or sequenced as needed.
+
+### State Machine Pattern
+
+Systems can implement state machines to manage complex entity behaviors and game phases.
+
+```cairo
+#[derive(Drop, Serde)]
+#[dojo::model]
+pub struct GameState {
+    #[key]
+    pub game_id: u32,
+    pub phase: GamePhase,
+    pub current_player: ContractAddress,
+    pub turn_count: u32,
+}
+
+#[derive(Drop, Serde, PartialEq)]
+pub enum GamePhase {
+    Setup,
+    Playing,
+    Paused,
+    Ended,
+}
+
+#[dojo::contract]
+mod game_coordinator {
+    fn process_turn(ref self: ContractState, game_id: u32) {
+        let mut world = self.world(@"game");
+        let mut game_state: GameState = world.read_model(game_id);
+
+        match game_state.phase {
+            GamePhase::Setup => {
+                // Initialize game components
+                self.handle_setup(game_id);
+                game_state.phase = GamePhase::Playing;
+            },
+            GamePhase::Playing => {
+                // Process game actions
+                self.handle_playing(game_id);
+                if self.check_win_condition(game_id) {
+                    game_state.phase = GamePhase::Ended;
+                }
+            },
+            GamePhase::Paused => {
+                // Handle pause state
+                return;
+            },
+            GamePhase::Ended => {
+                // Handle game end
+                self.handle_ended(game_id);
+            },
+        }
+
+        world.write_model(@game_state);
+    }
+
+    #[generate_trait]
+    impl InternalImpl of InternalTrait {
+        fn handle_setup(self: @ContractState, game_id: u32) { /* ... */ }
+        fn handle_playing(self: @ContractState, game_id: u32) { /* ... */ }
+        fn handle_ended(self: @ContractState, game_id: u32) { /* ... */ }
+        fn check_win_condition(self: @ContractState, game_id: u32) -> bool { /* ... */ }
+    }
+}
+```
+
+State machines help manage complex behaviors and ensure valid state transitions.
+
 ## Permission Architecture
 
 ### Granular Permissions
@@ -360,7 +475,8 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits
@@ -578,4 +694,4 @@ Take time to design your architecture thoughtfully - it will pay dividends as yo
 
 ## Next Steps
 
-- **[System Coordination](/framework/systems/coordination)** - Learn how systems interact and coordinate
+- **[System Coordination](./coordination)** - Learn how systems interact and coordinate

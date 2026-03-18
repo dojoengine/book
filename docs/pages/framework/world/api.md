@@ -195,7 +195,7 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Custom Events
+## Event System
 
 #### `emit_event<T>`
 
@@ -382,7 +382,7 @@ if let Option::Some(class_hash) = world.dns_class_hash(@"my_contract") {
 ## Advanced Functions
 
 The following functions are primarily used by framework developers, tooling, and migration scripts.
-Most application developers won't touch these directly:
+Most application developers do not need to use these directly:
 
 ### Entity Operations
 

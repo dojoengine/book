@@ -34,10 +34,62 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 - **Torii Client Integration**: Query entities, subscribe to real-time updates, and sync world state
 - **Cross-Platform Compatibility**: Compiles to both native binaries (via C bindings) and WebAssembly
 
+#### Implementation Architecture
+
+Rather than implementing blockchain logic separately in each SDK, all Dojo integrations build on this single foundation:
+
+- **Unity SDK** uses dojo.c via C# P/Invoke
+- **JavaScript SDK** uses dojo.c compiled to WebAssembly
+- **Unreal Engine** integrates dojo.c through C++ bindings
+- **Custom integrations** can use dojo.c directly
+
+This ensures consistent behavior, shared bug fixes, and optimal performance across all platforms.
+Implementing in Rust provides the following advantages:
+
+- **Memory Safety**: Eliminates classes of bugs (buffer overflows, use-after-free, etc.)
+- **Performance**: Zero-cost abstractions compile to optimal machine code
+- **Concurrency**: Safe async/await and threading without data races
+- **Ecosystem**: Built on battle-tested Rust libraries (tokio, serde, starknet-rs)
+- **Cross-Platform**: Single codebase compiles to all target platforms
+
+```
+dojo.c Repository (Rust Implementation)
+├── Core Rust Logic (types.rs, utils.rs, constants.rs)
+├── Conditional Compilation:
+│   ├── Native Target → C Bindings (cbindgen)
+│   └── WASM Target → JavaScript Bindings (wasm-bindgen)
+└── Generated Outputs:
+    ├── libdojo_c.{so,dylib,dll} + dojo.h
+    └── dojo_c.js + dojo_c.wasm
+```
+
+The key insight: **two interfaces, one implementation**.
+Both C and WASM APIs share identical Rust core logic, ensuring consistency.
+
 **Dual Compilation Strategy:**
 
 - **Native Platforms**: Uses `cbindgen` to generate C headers for Unity, Unreal, and other native integrations
 - **Web Platforms**: Uses `wasm-bindgen` to generate WebAssembly modules for JavaScript/TypeScript applications
+
+The two interfaces are designed for different use cases:
+
+#### C Bindings API
+
+**Target**: Native platform integrations, custom SDKs, maximum performance
+
+- **Style**: Procedural C functions with callback-based async operations
+- **Use Cases**: Building Unity/Unreal plugins, system-level integrations
+- **Memory Management**: Manual with explicit cleanup functions
+- **Threading**: Callback-driven with internal runtime management
+
+#### WASM JavaScript API
+
+**Target**: Web applications, Node.js, rapid prototyping
+
+- **Style**: Modern async/await with object-oriented design
+- **Use Cases**: Browser games, web apps, Node.js backends, testing
+- **Memory Management**: Automatic garbage collection
+- **Threading**: Promise-based with native async support
 
 ### The Complete Foundation
 
@@ -91,6 +143,8 @@ The client can then query the world state to get the latest state, which is then
 - Real-time entity synchronization with RECS (Reactive Entity Component System)
 - Built-in support for wallet connections and burner accounts
 
+[View JavaScript SDK documentation →](./javascript)
+
 #### Unity SDK
 
 **Best for:** 2D and 3D games, cross-platform game development
@@ -99,6 +153,8 @@ The client can then query the world state to get the latest state, which is then
 - Unity-specific components and prefabs for common patterns
 - Support for WebGL, desktop, and mobile platforms
 - Integrated world state synchronization with Unity's component system
+
+[View Unity SDK documentation →](./unity)
 
 ### Active Development
 
@@ -109,6 +165,9 @@ The client can then query the world state to get the latest state, which is then
 - ECS-native integration with Bevy's component system
 - Rust-first development experience with compile-time safety
 - Direct access to dojo.c functionality without FFI overhead
+- Built on the dojo.c foundation for consistent blockchain interactions
+
+[View Bevy SDK documentation →](./bevy)
 
 #### Unreal Engine SDK
 
@@ -117,6 +176,28 @@ The client can then query the world state to get the latest state, which is then
 - C++ integration with Unreal's Blueprint system
 - Support for complex game mechanics and AAA-quality experiences
 - Native performance with dojo.c foundation
+
+[View Unreal Engine SDK documentation →](./unrealengine)
+
+#### Godot SDK
+
+**Best for:** Cross-platform game development with GDScript
+
+- GDScript bindings with dojo.c integration
+- Support for Godot's scene system and node architecture
+- Cross-platform compatibility for desktop and mobile
+
+[View Godot SDK documentation →](./godot)
+
+#### Telegram SDK
+
+**Best for:** Telegram Mini Apps and bot integrations
+
+- Built on the JavaScript SDK foundation
+- Optimized for Telegram's Web App environment
+- Streamlined authentication and payment flows
+
+[View Telegram SDK documentation →](./telegram)
 
 ### Experimental
 
@@ -128,6 +209,8 @@ The client can then query the world state to get the latest state, which is then
 - Full control over memory management and optimization
 - Foundation for building custom SDK wrappers
 
+[View C Bindings documentation →](./c)
+
 #### Native Rust Integration
 
 **Best for:** Rust applications requiring direct Dojo integration
@@ -135,6 +218,8 @@ The client can then query the world state to get the latest state, which is then
 - Import Dojo as a native Rust crate
 - Zero-cost abstractions with compile-time optimization
 - Suitable for high-performance backends and custom tooling
+
+[View Rust Integration documentation →](./rust)
 
 ## Choosing the Right SDK
 
@@ -144,6 +229,8 @@ The client can then query the world state to get the latest state, which is then
 | Unity Games              | Unity SDK             | ✅ Production         |
 | Bevy Games               | Bevy SDK              | 🔄 Active Development |
 | Unreal Engine            | Unreal SDK            | 🔄 Active Development |
+| Godot                    | Godot SDK             | 🔄 Active Development |
+| Telegram Mini Apps       | Telegram SDK          | 🔄 Active Development |
 | Custom C/C++             | C Bindings            | ⚗️ Experimental       |
 | Rust Applications        | Native Rust           | ⚗️ Experimental       |
 
@@ -151,19 +238,10 @@ The client can then query the world state to get the latest state, which is then
 
 To begin development with any Dojo SDK:
 
-1. **Set up your development environment** with Katana and Torii
+1. **Set up your development environment** with Katana and Torii - see the [Getting Started guide](../getting-started)
 2. **Choose your SDK** based on your platform and requirements
-3. **Follow the platform-specific setup guide** linked below
+3. **Follow the platform-specific setup guide** linked above
 4. **Explore examples** to understand integration patterns
-
-### Quick Links
-
-- [JavaScript/TypeScript SDK →](./javascript)
-- [Unity SDK →](./unity)
-- [Bevy SDK →](./bevy)
-- [Unreal Engine SDK →](./unrealengine)
-- [C Bindings →](./c)
-- [Rust Integration →](./rust)
 
 ## Architecture Benefits
 

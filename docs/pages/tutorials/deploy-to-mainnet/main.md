@@ -53,11 +53,13 @@ SN_SEPOLIA
 # world_address = "<World Address>"
 ```
 
-- It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script. Then you should expose it.
+- It's recommended to keep the `world_address` empty, on the first deployment it will be outputed by the deployment script.
+  Then you should expose it.
 
 - Clone the [`dev`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/dev/) overlays to [`sepolia`](https://github.com/rsodre/512karat/blob/main/dojo/overlays/sepolia/)
 
-- Create `.env.sepolia` containing your RPC provider, account and private key. Make sure that account is deployed and has some [ETH](https://starknet-faucet.vercel.app) in it (0.001 is more than enough).
+- Create `.env.sepolia` containing your RPC provider, account and private key.
+  Make sure that account is deployed and has some [ETH](https://starknet-faucet.vercel.app) in it (0.001 is more than enough).
 
 ```bash
 # usage: source .env.sepolia
@@ -109,7 +111,7 @@ sozo -P sepolia migrate
 echo "Deployment completed successfully."
 ```
 
-- For this script to work don't forget to give it execution permissions:
+- For this script to work do not forget to give it execution permissions:
   `chmod +x <script_name>.sh`
 
 - This localises the env variables to the deployment script, so if for any reason the deployment is aborted, it cleans up the env variables.
@@ -127,13 +129,13 @@ echo "Deployment completed successfully."
 ```
 
 :::note
-If the world is already deployed by other user, you must change your `seed` in `dojo_<PROFILE>.toml` config file.
+If the World is already deployed by other user, you must change your `seed` in `dojo_<PROFILE>.toml` config file.
 This will yield a different world address.
 :::
 
-Your world is deployed!
+Your World is deployed!
 
-- Once the world is deployed, you need to add the world*block in the `dojo*<PROFILE>.toml` file.
+- Once the World is deployed, you need to add the world*block in the `dojo*<PROFILE>.toml` file.
 
 ```toml
 rpc_url = "https://api.cartridge.gg/x/starknet/mainnet"
@@ -145,9 +147,10 @@ world_block = 42069 # Here you add the block number where the world was deployed
 
 ### Torii Indexer
 
-Now, if you're building a Dojo client, you will need a Torii service to index our world...
+Now, if you are building a Dojo client, you will need a Torii service to index our World.
 
-- Install [slot](https://github.com/cartridge-gg/slot) or update it. You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
+- Install [slot](https://github.com/cartridge-gg/slot) or update it.
+  You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
 
 ```bash
 slotup
@@ -169,15 +172,15 @@ world_address = "<WORLD_ADDRESS>"
 rpc = "<RPC_URL>"
 ```
 
-- Create Torii service with this command, replacing...
-    - `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
-    - `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
+- Create Torii service with this command, replacing... - `SERVICE_NAME` can be the name of the game/dapp.
+  Once you create it, you own that name. - `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
 
 ```bash
 slot deployments create <SERVICE_NAME> torii --config torii.toml --version <DOJO_VERSION>
 ```
 
-- slot will output something like this. Save it for later, you will need the endpoints on your client.
+- slot will output something like this.
+  Save it for later, you will need the endpoints on your client.
 
 ```
 Deployment success 🚀
@@ -185,7 +188,8 @@ Deployment success 🚀
 Stream logs with `slot deployments logs <SERVICE_NAME> torii -f`
 ```
 
-- If for any reasons we need to recreate Torii, we can just delete it and run the create command again. This is safe, all your data is on-chain.
+- If for any reasons we need to recreate Torii, we can just delete it and run the create command again.
+  This is safe, all your data is onchain.
 
 ```bash
 slot deployments delete <SERVICE_NAME> torii
@@ -195,7 +199,8 @@ slot deployments delete <SERVICE_NAME> torii
 
 - The `migrate` script is copying manifests to `/client/src/dojo/generated/<PROFILE>`, each chain needs to use their own manifest!
 
-- The client needs the env variable `VITE_PUBLIC_CHAIN_ID` to be set to your chain id. Configure on your sever and add it to your `.env` to access your deployment localy:
+- The client needs the env variable `VITE_PUBLIC_CHAIN_ID` to be set to your chain id.
+  Configure on your sever and add it to your `.env` to access your deployment locally:
 
 ```
 VITE_PUBLIC_CHAIN_ID=SN_SEPOLIA
@@ -209,7 +214,8 @@ VITE_PUBLIC_CHAIN_ID=SN_MAIN
 
 ### Debug with Walnut
 
-Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments. Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
+Use [Walnut](https://walnut.dev) to debug your onchain transactions on Mainnet, Sepolia, or Slot deployments.
+Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
 
 #### Step 1: Verify your Contracts
 

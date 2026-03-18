@@ -20,7 +20,7 @@ Katana follows a **modular, layered architecture** with key components:
 
 **Backend**: Manages block processing and sequencer state coordination.
 
-**Block Producer**: Handles block creation with configurable mining strategies.
+**Block Producer**: Handles block creation with configurable block production strategies.
 
 **Executor Factory**: Creates Cairo executors using Starknet's **Blockifier**.
 
@@ -56,7 +56,7 @@ It is not available on Ubuntu 20.04 LTS, Debian 10 Buster, CentOS 7, or below.
 
 ### Quick Start
 
-Start a local development sequencer with pre-funded accounts and instant mining:
+Start a local development sequencer with pre-funded accounts and instant block production:
 
 ```bash
 katana --dev --dev.no-fee
@@ -66,7 +66,7 @@ This launches Katana in development mode with:
 
 - An RPC server at `http://localhost:5050`
 - 10 pre-funded accounts
-- Instant block mining
+- Instant block production
 - Gas fees disabled
 
 ### Production Configuration
@@ -83,13 +83,15 @@ Common production scenarios:
 # Fork from Starknet mainnet at block 1000000
 katana --fork.provider https://api.cartridge.gg/x/starknet/mainnet --fork.block 1000000
 
-# Custom mining interval (every 10 seconds)
+# Custom block production interval (every 10 seconds)
 katana --block-time 10000 --db-dir ./katana-db
 ```
 
 ## Installation
 
-Katana can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+For detailed installation instructions, see the [Installation Guide](/installation).
+
+Katana can be installed via [`dojoup`](/installation), our dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash
@@ -99,45 +101,9 @@ curl -L https://install.dojoengine.org | bash
 dojoup install
 ```
 
-:::note
-This will install the `katana` binary at `~/.dojo/bin`
-:::
-
-:::tip
-Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
-:::
-
-### Installing with `asdf`
-
-If you prefer to install with the `asdf` version manager:
-
-```bash
-asdf plugin add katana https://github.com/dojoengine/asdf-katana.git
-
-asdf install katana latest
-```
-
-:::note
-This will install the `katana` binary at `~/.asdf/shims`
-:::
-
-### Building from Source
-
-If you prefer to build from source:
-
-```bash
-git clone https://github.com/dojoengine/katana
-
-cargo install --path ./katana/bin/katana --locked --force
-```
-
-:::note
-This will install the `katana` binary at `~/.cargo/bin`
-:::
-
 ## Next Steps
 
-- **[Development Features](/toolchain/katana/development)**: Explore mining, storage, forking, and contract deployment
+- **[Development Features](/toolchain/katana/development)**: Explore block production, storage, forking, and contract deployment
 - **[Configuration Guide](/toolchain/katana/configuration)**: Learn about TOML configuration files and advanced options
 - **[CLI and RPC Reference](/toolchain/katana/reference)**: Complete reference for commands and API endpoints
 - **[Advanced Features](/toolchain/katana/advanced)**: Understand execution, messaging, and settlement

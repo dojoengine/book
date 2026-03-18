@@ -79,7 +79,7 @@ Schema definition for model fields and types
 
 #### `events`
 
-Raw blockchain events from world contract
+Raw blockchain events from World contract
 
 :::info
 Requires `--events.raw`
@@ -179,7 +179,8 @@ You can submit the query using a `GET` or `POST` request.
 
 ### Using GET
 
-The query is sent as a URL parameter. Both `q` and `query` parameters are supported:
+The query is sent as a URL parameter.
+Both `q` and `query` parameters are supported:
 
 ```bash
 query=$(printf '%s' "SELECT * FROM [ns-Position];" | jq -s -R -r @uri)

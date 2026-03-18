@@ -1,1 +1,347 @@
-# Dojo React
+---
+title: "Building with React"
+description: "Build a frontend application with React and Dojo using the official SDK"
+---
+
+# Building with React
+
+This tutorial demonstrates how to build a frontend application using React and the Dojo TypeScript SDK.
+We'll create a simple game interface that interacts with your Dojo world.
+
+## Prerequisites
+
+Before starting this tutorial, you should be familiar with:
+
+- Basic React development
+- TypeScript fundamentals
+- Dojo core concepts (Models, Systems, Events)
+
+If you are new to Dojo, we recommend completing the [Dojo Starter tutorial](./dojo-starter) first to understand the framework fundamentals.
+
+## Setting up the React project
+
+First, create a new React project with TypeScript:
+
+```bash
+npx create-react-app my-dojo-game --template typescript
+cd my-dojo-game
+```
+
+Install the Dojo TypeScript SDK:
+
+```bash
+npm install @dojoengine/sdk
+```
+
+## Connecting to your Dojo world
+
+Create a configuration file for your Dojo connection:
+
+```typescript
+// src/dojo.config.ts
+import { createDojoConfig } from "@dojoengine/sdk";
+
+export const dojoConfig = createDojoConfig({
+    rpcUrl: "http://localhost:5050",
+    toriiUrl: "http://localhost:8080",
+    relayUrl: "http://localhost:9090",
+    worldAddress: "0x...", // Your deployed world address
+});
+```
+
+## Creating the Dojo provider
+
+Set up the Dojo provider to manage connection state:
+
+```tsx
+// src/DojoProvider.tsx
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { DojoProvider as DojoSDKProvider, DojoContext } from "@dojoengine/sdk";
+import { dojoConfig } from "./dojo.config";
+
+const DojoContextProvider = createContext<DojoContext | null>(null);
+
+export const DojoProvider: React.FC<{ children: React.ReactNode }> = ({
+    children,
+}) => {
+    const [context, setContext] = useState<DojoContext | null>(null);
+
+    useEffect(() => {
+        const initDojo = async () => {
+            const dojoContext = new DojoSDKProvider(dojoConfig);
+            await dojoContext.init();
+            setContext(dojoContext);
+        };
+
+        initDojo();
+    }, []);
+
+    if (!context) {
+        return <div>Loading Dojo...</div>;
+    }
+
+    return (
+        <DojoContextProvider.Provider value={context}>
+            {children}
+        </DojoContextProvider.Provider>
+    );
+};
+
+export const useDojo = () => {
+    const context = useContext(DojoContextProvider);
+    if (!context) {
+        throw new Error("useDojo must be used within a DojoProvider");
+    }
+    return context;
+};
+```
+
+## Interacting with Models
+
+Create a hook to interact with your game models:
+
+```tsx
+// src/hooks/useGameState.ts
+import { useEntityQuery } from "@dojoengine/sdk";
+import { useDojo } from "../DojoProvider";
+
+export interface Player {
+    id: string;
+    name: string;
+    health: number;
+    position: { x: number; y: number };
+}
+
+export const useGameState = () => {
+    const { client } = useDojo();
+
+    // Query all player entities
+    const players = useEntityQuery({
+        component: "Player",
+        query: {},
+    });
+
+    return {
+        players: players as Player[],
+    };
+};
+```
+
+## Executing Systems
+
+Create a hook for executing game actions:
+
+```tsx
+// src/hooks/useGameActions.ts
+import { useDojo } from "../DojoProvider";
+
+export const useGameActions = () => {
+    const { client } = useDojo();
+
+    const movePlayer = async (playerId: string, x: number, y: number) => {
+        try {
+            await client.execute({
+                contractName: "actions",
+                entrypoint: "move",
+                calldata: [playerId, x, y],
+            });
+        } catch (error) {
+            console.error("Failed to move player:", error);
+        }
+    };
+
+    const attackPlayer = async (attackerId: string, targetId: string) => {
+        try {
+            await client.execute({
+                contractName: "actions",
+                entrypoint: "attack",
+                calldata: [attackerId, targetId],
+            });
+        } catch (error) {
+            console.error("Failed to attack:", error);
+        }
+    };
+
+    return {
+        movePlayer,
+        attackPlayer,
+    };
+};
+```
+
+## Building the game interface
+
+Create your main game component:
+
+```tsx
+// src/Game.tsx
+import React from "react";
+import { useGameState, useGameActions } from "./hooks";
+
+export const Game: React.FC = () => {
+    const { players } = useGameState();
+    const { movePlayer, attackPlayer } = useGameActions();
+
+    const handlePlayerMove = (playerId: string, direction: string) => {
+        const player = players.find((p) => p.id === playerId);
+        if (!player) return;
+
+        let newX = player.position.x;
+        let newY = player.position.y;
+
+        switch (direction) {
+            case "up":
+                newY += 1;
+                break;
+            case "down":
+                newY -= 1;
+                break;
+            case "left":
+                newX -= 1;
+                break;
+            case "right":
+                newX += 1;
+                break;
+        }
+
+        movePlayer(playerId, newX, newY);
+    };
+
+    return (
+        <div className="game-container">
+            <h1>My Dojo Game</h1>
+
+            <div className="game-board">
+                {players.map((player) => (
+                    <div
+                        key={player.id}
+                        className="player"
+                        style={{
+                            position: "absolute",
+                            left: `${player.position.x * 50}px`,
+                            top: `${player.position.y * 50}px`,
+                            width: "40px",
+                            height: "40px",
+                            backgroundColor: "blue",
+                            borderRadius: "50%",
+                        }}
+                    >
+                        <div className="player-info">
+                            <div>Health: {player.health}</div>
+                            <div>Name: {player.name}</div>
+                        </div>
+
+                        <div className="player-controls">
+                            <button
+                                onClick={() =>
+                                    handlePlayerMove(player.id, "up")
+                                }
+                            >
+                                ↑
+                            </button>
+                            <button
+                                onClick={() =>
+                                    handlePlayerMove(player.id, "down")
+                                }
+                            >
+                                ↓
+                            </button>
+                            <button
+                                onClick={() =>
+                                    handlePlayerMove(player.id, "left")
+                                }
+                            >
+                                ←
+                            </button>
+                            <button
+                                onClick={() =>
+                                    handlePlayerMove(player.id, "right")
+                                }
+                            >
+                                →
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+```
+
+## Putting it all together
+
+Update your main App component:
+
+```tsx
+// src/App.tsx
+import React from "react";
+import { DojoProvider } from "./DojoProvider";
+import { Game } from "./Game";
+import "./App.css";
+
+function App() {
+    return (
+        <div className="App">
+            <DojoProvider>
+                <Game />
+            </DojoProvider>
+        </div>
+    );
+}
+
+export default App;
+```
+
+## Real-time updates
+
+The Dojo SDK automatically subscribes to entity updates through Torii.
+Your React components will re-render when the game state changes, providing real-time updates without additional configuration.
+
+## Error handling
+
+Add proper error handling to your components:
+
+```tsx
+// src/hooks/useGameState.ts (updated)
+import { useEntityQuery } from "@dojoengine/sdk";
+import { useDojo } from "../DojoProvider";
+import { useState, useEffect } from "react";
+
+export const useGameState = () => {
+    const { client } = useDojo();
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    const players = useEntityQuery({
+        component: "Player",
+        query: {},
+        onError: (err) => setError(err.message),
+    });
+
+    useEffect(() => {
+        if (players) {
+            setLoading(false);
+            setError(null);
+        }
+    }, [players]);
+
+    return {
+        players: players as Player[],
+        loading,
+        error,
+    };
+};
+```
+
+## Next steps
+
+You now have a basic React frontend connected to your Dojo world.
+Consider exploring these additional features:
+
+- Wallet integration for user authentication
+- Advanced querying with filters and pagination
+- Optimistic updates for better user experience
+- Component-based architecture for larger applications
+
+For production deployment, see our deployment guides for [mainnet deployment](./deploy-to-mainnet/main) or [using Katana slots](./deploy-using-slot/main).

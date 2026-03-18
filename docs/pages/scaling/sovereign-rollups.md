@@ -16,6 +16,11 @@ Sovereign rollups provide scalable and decentralized execution by leveraging Cel
 See [Mage Duel](https://mageduel.evolute.network/) for an example of a game built using this architecture.
 :::
 
+:::info
+This sovereign rollup approach differs from [execution sharding](../execution-sharding), which partitions game logic across multiple chains that settle to mainnet.
+Sovereign rollups instead use independent execution environments with proofs posted to Celestia for data availability, providing different tradeoffs in terms of decentralization and settlement guarantees.
+:::
+
 ### Architecture Overview
 
 Three components power the sovereign rollup:

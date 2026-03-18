@@ -1,6 +1,12 @@
+---
+title: Your First Dojo App
+description: Create your first Dojo project from scratch and deploy it locally
+---
+
 # Your First Dojo App
 
-In this tutorial, you'll create your first Dojo project from scratch and deploy it locally. By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
+In this tutorial, you'll create your first Dojo project from scratch and deploy it locally.
+By the end, you'll have a working game where you can spawn and move a character using a browser-based client.
 
 ## What You'll Learn
 
@@ -70,7 +76,7 @@ These models define:
 - **Position**: Where each player is located (x, y coordinates)
 - **Moves**: How many moves each player has remaining
 
-The `#[dojo::model]` attribute tells Cairo that the struct is a Dojo model.
+The `#[dojo::model]` attribute tells Cairo that the struct is a Dojo Model.
 The `#[key]` attribute tells Cairo that `player` is the Dojo entity identifier for these components.
 
 :::info
@@ -103,7 +109,7 @@ pub mod actions {
     }
 
     fn move_random(ref self: ContractState) {
-        // Move the player randomly and decrease remaining moves
+        // Use the Cartridge vRNG to move in a random direction
     }
 }
 ```
@@ -114,38 +120,20 @@ These functions define the game's core actions:
 - **move**: Move a player in a direction (up, down, left, right)
 - **move_random**: Use the [Cartridge vRNG](https://docs.cartridge.gg/slot/vrng) to move in a random direction
 
-### Project Configuration
-
-Open `contracts/dojo_dev.toml` to see the project's Dojo configuration:
-
-```toml
-[world]
-name = "Dojo intro"
-... additional project details
-
-[namespace]
-default = "di"
-
-[env]
-rpc_url = "http://localhost:5050/"
-... additional environment details
-
-[writers]
-"di" = ["di-actions"]
-```
-
-This configuration tells Dojo how to organize permissions when deploying the World.
-Specifically, it defines `di` as the default namespace and permits the systems defined in `actions.cairo` to write game state.
+For information about project configuration including the `dojo_dev.toml` file, see the [Project Configuration section](./understanding-the-toolchain#project-configuration) in Understanding the Toolchain.
 
 ## Step 3: Start the Development Environment
 
-Now let's get the development tools running. You'll run three tools simultaneously, each in its own terminal:
+Now let's get the development tools running.
+You'll run three tools simultaneously, each in its own terminal:
 
 | Tool       | Purpose                         | Terminal   |
 | ---------- | ------------------------------- | ---------- |
 | **Katana** | Local blockchain sequencer      | Terminal 1 |
 | **Sozo**   | Build and deploy your contracts | Terminal 2 |
 | **Torii**  | Index and serve game data       | Terminal 3 |
+
+For a comprehensive guide to setting up your development environment, see the [Development Environment Setup](./development-workflow#setting-up-your-development-environment) section in Development Workflow.
 
 ### Terminal 1: Start Katana (Local Blockchain)
 
@@ -341,8 +329,8 @@ Let's break down what you just accomplished:
 ### Entity Component System (ECS)
 
 - **Entities**: Players in your game (identified by their address)
-- **Components**: Data attached to entities (`Position`, `Moves`)
-- **Systems**: Functions that operate on components (`spawn`, `move`)
+- **Models**: Data attached to entities (`Position`, `Moves`)
+- **Systems**: Functions that operate on models (`spawn`, `move`)
 
 ### Dojo World
 
@@ -356,6 +344,8 @@ Your World contract coordinates everything:
 
 When you execute a system, it emits events that Torii captures and indexes, which clients can subscribe to.
 
+For a deeper understanding of these concepts, see [Understanding the Toolchain](./understanding-the-toolchain).
+
 ## Next Steps
 
 Congratulations! You've successfully:
@@ -365,4 +355,5 @@ Congratulations! You've successfully:
 - ✅ Used the core development tools
 - ✅ Interacted with your deployed World
 
-Ready to dive deeper? Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible.
+Ready to dive deeper?
+Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible, or explore the [Next Steps](./next-steps) guide for additional learning paths.

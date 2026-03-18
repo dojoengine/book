@@ -57,7 +57,7 @@ my-dojo-project/
 ## Project Manifest (`Scarb.toml`)
 
 Your `Scarb.toml` file defines the core project structure and dependencies.
-Here's the minimum configuration needed for a Dojo project:
+Here is the minimum configuration needed for a Dojo project:
 
 ```toml
 [package]
@@ -126,7 +126,7 @@ build-external-contracts = [
 - Example: If `armory` crate has `models::Flatbow` model, include `"armory::models::m_Flatbow"`
 
 :::warning
-Missing external contracts won't cause compilation errors but will cause runtime failures when the World tries to interact with missing model contracts, or when Torii cannot find model definitions to match blockchain event data.
+Missing external contracts will not cause compilation errors but will cause runtime failures when the World tries to interact with missing model contracts, or when Torii cannot find model definitions to match blockchain event data.
 :::
 
 ## Profile Configuration (`dojo_<profile>.toml`)
@@ -197,14 +197,14 @@ mappings = {
 
 **How Namespace Mapping Works:**
 
-1. **Default namespace**: All resources not explicitly mapped use this namespace
+1. **Default namespace**: All Dojo resources not explicitly mapped use this namespace
 2. **Explicit mappings**: Map specific models/contracts to custom namespaces
 3. **Resource tags**: Final resource tags become `<namespace>-<resource_name>`
 
 **Example:**
 
-- `Player` model → `characters-Player` tag
-- `GameState` model → `game-GameState` tag (uses default namespace)
+- `Player` model → `characters-Player` resource tag
+- `GameState` model → `game-GameState` resource tag (uses default namespace)
 
 ### Permission Configuration
 
@@ -227,14 +227,16 @@ mappings = {
 
 **Permission Hierarchy:**
 
-- **Namespace permissions** - Control access to all resources in a namespace
+- **Namespace permissions** - Control access to all Dojo resources in a namespace
 - **Resource permissions** - Control access to specific models/contracts
 - **Writers** - Can modify data in models
 - **Owners** - Can modify data AND manage permissions
 
+For more details on permission management, see [World Permissions](/framework/world/permissions).
+
 ### Contract Initialization
 
-By default, Dojo contracts don't have initialization arguments.
+By default, Dojo contracts do not have initialization arguments.
 However, you can pass init arguments to Dojo contracts using a `dojo_init` function:
 
 ```cairo
@@ -252,7 +254,7 @@ mod my_system {
 ```
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### External Contract Deployment
@@ -280,7 +282,7 @@ constructor_data = [
 - `constructor_data` - Arguments for contract constructor
 
 :::tip
-See the [Sozo calldata format](/toolchain/sozo/index.md#data-format-reference) for initialization argument formatting.
+See the [Sozo calldata format](/toolchain/sozo#data-format-reference) for initialization argument formatting.
 :::
 
 ### Migration Control
@@ -295,7 +297,7 @@ disable_multicall = false
 **Migration Options:**
 
 - `order_inits` - Specific order for contract initialization calls
-- `skip_contracts` - Don't deploy these contracts (but still build them)
+- `skip_contracts` - Do not deploy these contracts (but still build them)
 - `disable_multicall` - Force individual transactions instead of batching
 
 ### Resource Metadata
@@ -381,5 +383,5 @@ mappings = { "items" = ["Sword", "Shield", "Potion"] }
 
 - **[World Permissions](/framework/world/permissions)** - Runtime permission management
 - **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
-- **[Calldata Format](/toolchain/sozo/index.md#data-format-reference)** - Constructor argument formatting
+- **[Calldata Format](/toolchain/sozo#data-format-reference)** - Constructor argument formatting
 - **[World Metadata](/framework/world/metadata)** - World and resource metadata

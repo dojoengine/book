@@ -20,7 +20,7 @@ They can also be **the addresses of game systems**, typical for regular applicat
 
 Permissions are given for **resources**.
 A **resource** can be a world, namespace, system, or model.
-Resources are indicated by **tags** -- written as `"namespace-resource"`.
+Resources are indicated by **resource tags** -- written as `"namespace-resource"`.
 
 ![Dojo Permission System](/framework/dojo-auth.png)
 
@@ -44,7 +44,7 @@ Set up initial permissions during deployment via your `dojo_<profile>.toml` file
 ```
 
 :::note
-In this example, permissions are given to **systems**, indicated by tags.
+In this example, permissions are given to **systems**, indicated by resource tags.
 :::
 
 ### Runtime Permissions
@@ -128,7 +128,7 @@ world.grant_owner(selector_from_tag!("my_game"), new_owner_ddress);
 ```
 
 :::note
-When you deploy to a world, you automatically become the owner of that namespace, if it's not already registered.
+When you deploy to a world, you automatically become the owner of that namespace, if it is not already registered.
 :::
 
 **Namespace Owner Rights**:
@@ -171,13 +171,14 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a Dojo resource:
 
-- **World** → A resource (selector `0`)
-- **Namespace** → A resource (e.g., `"my_game"`)
-- **Model** → A resource (e.g., `"my_game-Position"`)
-- **Contract** → A resource (e.g., `"my_game-actions"`)
-- **Event** → A resource (e.g., `"my_game-PlayerMoved"`)
+- **World** → A Dojo resource (resource selector `0`)
+- **Namespace** → A Dojo resource (e.g., `"my_game"`)
+- **Model** → A Dojo resource (e.g., `"my_game-Position"`)
+- **Contract** → A Dojo resource (e.g., `"my_game-actions"`)
+- **Event** → A Dojo resource (e.g., `"my_game-PlayerMoved"`)
 
 **Permission Hierarchy** (order of precedence):
 
@@ -408,7 +409,7 @@ For detailed configuration options, see [Configuration](/framework/configuration
 
 ## Debugging Permission Issues
 
-1. **Check Resource Selector**: Ensure you're using the correct resource selector
+1. **Check Resource Selector**: Ensure you are using the correct resource selector
 2. **Verify Caller**: Confirm the caller address is what you expect
 3. **Check Hierarchy**: Verify the permission hierarchy is set up correctly
 4. **Use Events**: Monitor permission events to track changes

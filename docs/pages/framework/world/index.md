@@ -5,7 +5,8 @@ description: "The World contract - your application's central database and orche
 
 # World Contract
 
-The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application. Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
+The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
+Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
 ![World Contract Overview](/framework/world-map.png)
 
@@ -37,7 +38,8 @@ world.emit_event(@Moved { player, direction });
 
 ### Resources and Namespaces
 
-In Dojo, everything is a **resource** - models, systems, events, and even the world itself. Resources are organized within **namespaces** to prevent conflicts and enable modular development.
+In Dojo, everything is a **resource** - models, systems, events, and even the world itself.
+Resources are organized within **namespaces** to prevent conflicts and enable modular development.
 
 ```cairo
 // Resources are identified by their namespace and name
@@ -49,8 +51,8 @@ let position: Position = world.read_model(player);
 
 #### Resource Tags and Selectors
 
-Resources in Dojo are identified by **tags**, which follow the `namespace-resource` format.
-Tags provide a human-readable way to reference resources in code.
+Dojo resources are identified by **resource tags**, which follow the `namespace-resource` format.
+Resource tags provide a human-readable way to reference resources in code.
 
 ```cairo
 // Resource tags follow the "namespace-resource" format
@@ -59,18 +61,18 @@ Tags provide a human-readable way to reference resources in code.
 // - "my_game-PlayerStats" (PlayerStats model in my_game namespace)
 // - "dojo_starter-actions" (actions contract in dojo_starter namespace)
 
-// Use tags with selector_from_tag! for permissions
+// Use resource tags with selector_from_tag! for permissions
 world.grant_writer(selector_from_tag!("my_game-Position"), address);
 world.grant_owner(selector_from_tag!("my_game-PlayerStats"), address);
 ```
 
-**Tag Structure:**
+**Resource Tag Structure:**
 
 - **Namespace**: The logical grouping (e.g., `"my_game"`, `"dojo_starter"`)
 - **Separator**: Always a hyphen (`-`)
 - **Resource Name**: The specific resource (e.g., `"Position"`, `"PlayerStats"`)
 
-**Common Tag Patterns:**
+**Common Resource Tag Patterns:**
 
 ```cairo
 // Namespace tag (for namespace-level permissions)
@@ -86,9 +88,9 @@ world.grant_owner(selector_from_tag!("my_game-PlayerStats"), address);
 "namespace-EventName"     // e.g., "my_game-PlayerMoved"
 ```
 
-**Selectors:**
+**Resource Selectors:**
 
-Tags are converted to `felt252` **selectors** using `selector_from_tag!`, which computes:
+Resource tags are converted to `felt252` **resource selectors** using `selector_from_tag!`, which computes:
 
 ```
 resource_selector = poseidon_hash(
@@ -139,6 +141,8 @@ The World contract implements a resource-based permission system with two permis
 - Reading is always permissionless
 - Writing requires Writer permission on the resource or its namespace
 - When you deploy to a world, you automatically become owner of your namespace
+
+For detailed permission management, see the [Permissions](/framework/world/permissions) documentation.
 
 ## Getting Started
 
@@ -206,6 +210,8 @@ pub struct Moved {
 world.emit_event(@Moved { player, direction });
 ```
 
+For more details on working with events, see the [Events](/framework/world/events) documentation.
+
 ## Key Benefits
 
 ### Unified Interface
@@ -247,7 +253,8 @@ The World contract includes several optimizations:
 
 ## The World Interface
 
-The World contract exposes a complete interface for external interactions. While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
+The World contract exposes a complete interface for external interactions.
+While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
 
 ```cairo
 // Generate unique IDs
@@ -259,6 +266,8 @@ let can_write = world.is_writer(resource_selector, address);
 // Manage permissions
 world.grant_writer(resource_selector, address);
 ```
+
+For the complete API reference, see the [API Reference](/framework/world/api) documentation.
 
 ## Next Steps
 

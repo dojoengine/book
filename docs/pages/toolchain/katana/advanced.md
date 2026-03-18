@@ -242,6 +242,8 @@ See the [starknet-messaging-dev](https://github.com/glihm/starknet-messaging-dev
 Katana provides `katana init` for initializing new blockchain networks with configurable settlement layers.
 This enables deployment of rollup chains that settle to Starknet networks or sovereign chains with data availability layers.
 
+For detailed settlement architecture and production deployment patterns, see [Saya](/toolchain/saya) documentation.
+
 ### Settlement Models
 
 **Rollup Settlement**: Deploy a rollup chain that settles to Starknet mainnet or testnet.

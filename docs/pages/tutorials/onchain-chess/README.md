@@ -1,28 +1,44 @@
+---
+title: Building a Chess Game
+description: Step-by-step tutorial for building an on-chain chess game with Dojo
+---
+
 # Building a Chess Game
 
 _"I just finished reading The Dojo Book. What should I do next?"_
 
-The answers to this question are always "Make something!", sometimes followed by a list of cool projects. This is a great answer for some people, but others might be looking for a little more direction.
+The answers to this question are always "Make something!", sometimes followed by a list of cool projects.
+This is a great answer for some people, but others might be looking for a little more direction.
 
-This guide is intended to fill the gap between heavily directed beginner tutorials and working on your projects. The primary goal here is to get you to write code. The secondary goal is to get you reading documentation.
+This guide is intended to fill the gap between heavily directed beginner tutorials and working on your projects.
+The primary goal here is to get you to write code.
+The secondary goal is to get you reading documentation.
 
-If you haven't read the Dojo Book yet, it is highly encouraged for you to do so before starting this project.
+If you have not read the Dojo Book yet, it is highly encouraged for you to do so before starting this project.
+For readers unfamiliar with Dojo basics, check out the [Dojo Starter](/tutorials/dojo-starter) tutorial first.
 
 ## What are we building?
 
-We're building an on-chain chess game contract that lets you start a new game and play chess. This guide does not cover every rules of the chess game. You will build step by step as follows:
+We are building an onchain chess game contract that lets you start a new game and play chess.
+This guide does not cover every rule of the chess game.
+You will build step by step as follows:
 
-1. A system contract to spawn all the chess pieces
-2. A system contract to make pieces move
+1. A contract to spawn all the chess pieces
+2. A contract to make pieces move
 3. Add some functions to check a legal move
 4. Play chess ♟♙ - integration test!
 
 The full code of tutorial is based on [this repo](https://github.com/dojoengine/origami/tree/main/examples/chess).
 
-If this seems too hard, don't worry! This guide is for beginners. If you know some basics about Cairo and Dojo, you're good. We won't make a full chess game with all the rules. We're keeping it simple.
+If this seems too hard, do not worry!
+This guide is for beginners.
+If you know some basics about Cairo and Dojo, you are good.
+We will not make a full chess game with all the rules.
+We are keeping it simple.
 
 ## What after this guide?
 
-We're making another guide to help design the frontend. This will make our chess game complete.
+We are making another guide to help design the frontend.
+This will make our chess game complete.
 
 After you finish all the four chapters, we can move on to the frontend guide.
