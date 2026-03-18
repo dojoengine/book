@@ -15,13 +15,13 @@ Before we start, make sure you are using the latest dojo version. Run `dojoup` t
 
 Now, let's create a new project and initialize it with sozo.
 
-```sh
+```bash
 sozo init dojo-starter && cd dojo-starter
 ```
 
 First, we need to set up our configuration, starting by authenticating with Cartridge. To do this, run the following command, which will then prompt a new screen where you will need to go through the authentication process.
 
-```sh
+```bash
 slot auth login
 
 # Slot Auth debug (if old auth credentials):
@@ -32,13 +32,13 @@ Once successful, you can create a new deployment with a unique `DEPLOYMENT_NAME`
 
 The simplest way to get started is using `--optimistic` mode:
 
-```sh
+```bash
 slot deployments create DEPLOYMENT_NAME katana --optimistic
 ```
 
 Alternatively, you can provide a [Katana configuration file](/toolchain/katana/configuration) via `--config`:
 
-```sh
+```bash
 slot deployments create DEPLOYMENT_NAME katana --config katana.toml
 ```
 
@@ -51,7 +51,7 @@ rpc_url = "YOUR_NEW_RPC_URL"
 
 Now, you can stream katana in a new terminal. Open a new terminal and run the following command:
 
-```sh
+```bash
 slot deployments logs DEPLOYMENT_NAME katana -f
 ```
 
@@ -68,19 +68,19 @@ Note: For each new Katana slot, a different account seed is used, making all the
 
 Once finished with the new configurations, we are ready to build and migrate the project. To build the project, run the following command:
 
-```sh
+```bash
 sozo build
 ```
 
 Now, let's migrate the project to our new katana slot:
 
-```sh
+```bash
 sozo migrate
 ```
 
 If the migrations have been successful, you will receive the `WORLD_ADDRESS`, which then you can use to interact with your world.
 
-```sh
+```bash
 🎉 Successfully migrated World at address WORLD_ADDRESS
 
 ✨ Updating manifest.json...
@@ -103,13 +103,13 @@ rpc = "YOUR_NEW_RPC_URL"
 
 Then create the deployment:
 
-```sh
+```bash
 slot deployments create DEPLOYMENT_NAME torii --config torii.toml
 ```
 
 You can also specify a Dojo version with `--version`:
 
-```sh
+```bash
 slot deployments create DEPLOYMENT_NAME torii --config torii.toml --version v1.8.0
 ```
 
@@ -117,6 +117,6 @@ Once deployment is successful, you should receive the endpoints for GraphQL and 
 
 If you wish to stream the logs, you can run the following command in a new terminal:
 
-```sh
+```bash
 slot deployments logs DEPLOYMENT_NAME torii -f
 ```

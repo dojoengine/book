@@ -11,7 +11,7 @@ date: 2026-02-12
 
 AI agents are getting good at games. Really good. But here's the thing most people miss: the limiting factor isn't intelligence anymore. It's access.
 
-An agent can reason about complex strategy, optimize resource allocation, and learn from thousands of simulated games. What it can't do? Reliably interact with most games. Traditional games weren't built for programmatic players — they were built to keep them out.
+An agent can reason about complex strategy, optimize resource allocation, and learn from thousands of simulated games. What it can't do? Reliably interact with most games. Traditional games weren't built for programmatic players --- they were built to keep them out.
 
 Onchain games flip this entirely. They're permissionless by default, transparent by design, and cryptographically verifiable. For developers building AI game agents, this isn't just convenient. It's transformative.
 
@@ -24,11 +24,11 @@ Let's break down exactly why onchain architecture gives agents what they need, a
 
 Before we talk about solutions, let's be precise about the problem. An AI agent trying to play a game needs four things:
 
-**Observable state.** The agent needs to see what's happening. Not through pixel parsing or screen scraping — through structured data it can reason about. Give it a JSON object with game state, not a 1920x1080 screenshot.
+**Observable state.** The agent needs to see what's happening. Not through pixel parsing or screen scraping --- through structured data it can reason about. Give it a JSON object with game state, not a 1920x1080 screenshot.
 
 **Reliable execution.** When the agent decides to make a move, that move needs to happen. Consistently. No random failures, no "please complete this CAPTCHA," no silent drops.
 
-**Verifiable outcomes.** The agent needs to know its action worked. Not "the server said it worked" — cryptographic proof that the state changed as expected. This matters when real value is on the line.
+**Verifiable outcomes.** The agent needs to know its action worked. Not "the server said it worked" --- cryptographic proof that the state changed as expected. This matters when real value is on the line.
 
 **Economic alignment.** Agents need skin in the game. If playing well leads to real rewards (and playing poorly to real losses), you get agents that optimize for actually winning, not just exploring the action space.
 
@@ -79,7 +79,7 @@ The games that do allow programmatic access typically lock it behind expensive l
 
 Game companies spend millions fighting bots. CAPTCHAs, behavioral analysis, device fingerprinting, rate limiting, shadow bans. It's an arms race, and as an agent developer, you're the enemy.
 
-Even if your agent provides value — even if it makes the game more interesting — you're fighting the infrastructure instead of building cool stuff.
+Even if your agent provides value --- even if it makes the game more interesting --- you're fighting the infrastructure instead of building cool stuff.
 
 ## How Onchain Games Deliver
 
@@ -117,7 +117,7 @@ query GetGameState {
 }
 ```
 
-This isn't cached data from a friendly API. It's indexed directly from the blockchain. The state you're querying is the same state everyone else sees — cryptographically guaranteed.
+This isn't cached data from a friendly API. It's indexed directly from the blockchain. The state you're querying is the same state everyone else sees --- cryptographically guaranteed.
 
 Want to know if an opponent is massing troops near your border? Query it. Want historical data about price movements in the in-game market? It's all there, indexed and searchable.
 
@@ -140,7 +140,7 @@ client.subscribe({ query: subscription }).subscribe({
 });
 ```
 
-Your agent can subscribe to events and react in real-time. When an opponent moves, you know immediately — not when the game client decides to render it.
+Your agent can subscribe to events and react in real-time. When an opponent moves, you know immediately --- not when the game client decides to render it.
 
 ### Permissionless Execution
 
@@ -158,7 +158,7 @@ controller execute \
   --json
 ```
 
-Your agent has the exact same interface as a human player. Better, actually — humans use clunky GUIs while your agent talks directly to the contract.
+Your agent has the exact same interface as a human player. Better, actually --- humans use clunky GUIs while your agent talks directly to the contract.
 
 This isn't just convenient. It's a different relationship with the game. You're not a guest hoping the game company lets you play. You're a participant in a permissionless protocol.
 
@@ -206,7 +206,7 @@ For agent developers, this is huge. You can build agents that earn their own ope
 
 Consider the training implications. With traditional games, you might run millions of simulated games to train an agent, but deployment is disconnected from training. The simulation doesn't match reality perfectly, and there's no economic feedback.
 
-With onchain games, your agent learns from real stakes from day one. Bad decisions cost real resources. Good decisions accumulate real value. The agent isn't optimizing for a proxy metric — it's optimizing for the actual thing that matters.
+With onchain games, your agent learns from real stakes from day one. Bad decisions cost real resources. Good decisions accumulate real value. The agent isn't optimizing for a proxy metric --- it's optimizing for the actual thing that matters.
 
 This also enables new business models. Imagine an agent-as-a-service that plays on behalf of users, taking a cut of winnings. Or a DAO-owned agent that distributes profits to token holders. The permissionless nature of onchain games makes these arrangements enforceable and trustless.
 
@@ -216,7 +216,7 @@ Let's get concrete. Here's how the pieces fit together.
 
 ### World Contract
 
-Every Dojo game has a World contract — a single entry point that manages all game state. Think of it as the game's database and execution engine rolled into one.
+Every Dojo game has a World contract --- a single entry point that manages all game state. Think of it as the game's database and execution engine rolled into one.
 
 ```
 World Contract (0x123...abc)
@@ -270,7 +270,7 @@ The indexer is your agent's eyes. Query frequently, subscribe to what matters, a
 
 ### Controller CLI
 
-Here's where agent execution gets practical. The Controller CLI lets you sign and submit transactions programmatically — no browser wallet, no popup confirmations.
+Here's where agent execution gets practical. The Controller CLI lets you sign and submit transactions programmatically --- no browser wallet, no popup confirmations.
 
 **Generate a keypair:**
 ```bash
@@ -322,10 +322,10 @@ The key insight: sessions are pre-authorized. Once a user approves a session pol
 
 Not quite. Session keys are scoped:
 
-- **Contract whitelist** — only call specific game contracts
-- **Method whitelist** — only call specific functions
-- **Expiration** — sessions automatically expire
-- **No token transfers** — session can't move assets out of the game
+- **Contract whitelist** --- only call specific game contracts
+- **Method whitelist** --- only call specific functions
+- **Expiration** --- sessions automatically expire
+- **No token transfers** --- session can't move assets out of the game
 
 Even in a worst case leak, the damage is limited to in-game actions the session was authorized for. An attacker could make your agent play badly, but they can't steal your tokens.
 
@@ -413,7 +413,7 @@ Think about what queries agents will run and optimize for them.
 
 Be intentional about what's public and what's hidden. Onchain state is public by default, but you can design around this.
 
-Some information should be visible — it creates strategic depth when agents can observe and react to each other. Army positions, resource levels, territorial control.
+Some information should be visible --- it creates strategic depth when agents can observe and react to each other. Army positions, resource levels, territorial control.
 
 Other information might benefit from fog of war. You can implement commitment schemes where agents commit to actions in one transaction and reveal them later. This prevents reactive counter-play and rewards genuine prediction.
 
@@ -437,12 +437,12 @@ The key is making information visibility a deliberate design choice, not an acci
 
 Here's the actual workflow for building a game agent:
 
-1. **Explore state** — Query Torii, understand what data is available
-2. **Understand actions** — Read the system contracts, know what you can do
-3. **Build perception** — Write code to fetch and parse game state into useful representations
-4. **Implement strategy** — Rule-based, ML-powered, or LLM-driven decision making
-5. **Execute actions** — Submit transactions via Controller
-6. **Monitor and iterate** — Watch performance, refine strategy
+1. **Explore state** --- Query Torii, understand what data is available
+2. **Understand actions** --- Read the system contracts, know what you can do
+3. **Build perception** --- Write code to fetch and parse game state into useful representations
+4. **Implement strategy** --- Rule-based, ML-powered, or LLM-driven decision making
+5. **Execute actions** --- Submit transactions via Controller
+6. **Monitor and iterate** --- Watch performance, refine strategy
 
 ```python
 # The core agent loop
@@ -463,7 +463,7 @@ async def agent_loop():
         await asyncio.sleep(POLL_INTERVAL)
 ```
 
-It's simple in structure, complex in the details. But the infrastructure handles the hard parts — you focus on strategy.
+It's simple in structure, complex in the details. But the infrastructure handles the hard parts --- you focus on strategy.
 
 ## What's Next
 
@@ -479,4 +479,4 @@ Onchain games aren't just compatible with AI agents. They're waiting for them. T
 
 ---
 
-*Building an agent for a Dojo game? Share what you're working on — we'd love to see it.*
+*Building an agent for a Dojo game? Share what you're working on --- we'd love to see it.*

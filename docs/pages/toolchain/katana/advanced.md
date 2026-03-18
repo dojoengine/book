@@ -79,7 +79,7 @@ In this setup:
 - Katana executes these transactions locally, producing immediate state updates and events
 - In parallel, Katana forwards the same transactions to a real Starknet node for canonical inclusion
 
-Since Katana executes transactions faster than the actual network, it can serve "pre-confirmed" results almost instantly — enabling frontends and clients to interact with what feels like a live, responsive chain.
+Since Katana executes transactions faster than the actual network, it can serve "pre-confirmed" results almost instantly --- enabling frontends and clients to interact with what feels like a live, responsive chain.
 
 Importantly, Optimistic Katana does not produce blocks itself.
 Instead, it maintains a local view of pre-confirmed transactions (executed locally) and exposes them as part of its state until the corresponding Starknet confirmations arrive.
@@ -151,7 +151,7 @@ On the Torii side, a caching layer has been added to handle optimistic execution
 Specifically:
 
 - Torii now maintains a cache of processed transactions (instead of only a cursor to latest processed transaction), ensuring that pre-confirmed events are not re-processed multiple times
-- It is resistant to missed transactions — cases where a transaction was forwarded to Starknet before Torii fetched the corresponding pre-confirmed state (for example, if a block is very long to process)
+- It is resistant to missed transactions --- cases where a transaction was forwarded to Starknet before Torii fetched the corresponding pre-confirmed state (for example, if a block is very long to process)
 - When such cases occur, Torii will backfill the missing events once the canonical Starknet state includes them, ensuring complete and consistent indexing
 
 This design ensures that Torii's view of the world remains consistent across both the optimistic and canonical layers without duplication or event loss.

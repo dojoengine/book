@@ -9,11 +9,11 @@ date: 2026-02-12
 
 # Building Your First Dojo Game Agent
 
-You've read about why onchain games are perfect for AI agents. The theory makes sense—verifiable state, permissionless execution, real stakes. But how do you actually *build* one?
+You've read about why onchain games are perfect for AI agents. The theory makes sense---verifiable state, permissionless execution, real stakes. But how do you actually *build* one?
 
 That's what we're doing today. No hand-waving, no "exercise left to the reader" cop-outs. By the end of this tutorial, you'll have a working game agent that can observe game state, make decisions, and execute actions on a Dojo-powered game. The whole loop.
 
-We'll build something simple: an agent for a hypothetical resource management game. Think Settlers of Catan meets automation. Your agent will monitor resources, spot opportunities, and act on them—all without you clicking a single button.
+We'll build something simple: an agent for a hypothetical resource management game. Think Settlers of Catan meets automation. Your agent will monitor resources, spot opportunities, and act on them---all without you clicking a single button.
 
 Let's get into it.
 
@@ -21,10 +21,10 @@ Let's get into it.
 
 Before we start coding, make sure you've got:
 
-- **Node.js 18+** — We're writing the agent in JavaScript/TypeScript. You could use Python or Rust, but JS has the lowest friction for a tutorial.
-- **Controller CLI** — Cartridge's tool for programmatic Starknet transactions. This is how your agent gets hands.
-- **Basic Starknet knowledge** — You should know what a transaction is, what felt252 means, and roughly how smart contracts work. If terms like "calldata" make you nervous, spend 30 minutes with the Starknet docs first.
-- **A Dojo game to target** — We'll use examples from a generic game, but you'll want to adapt this to a real deployed game. Eternum is a great candidate once you're comfortable.
+- **Node.js 18+** --- We're writing the agent in JavaScript/TypeScript. You could use Python or Rust, but JS has the lowest friction for a tutorial.
+- **Controller CLI** --- Cartridge's tool for programmatic Starknet transactions. This is how your agent gets hands.
+- **Basic Starknet knowledge** --- You should know what a transaction is, what felt252 means, and roughly how smart contracts work. If terms like "calldata" make you nervous, spend 30 minutes with the Starknet docs first.
+- **A Dojo game to target** --- We'll use examples from a generic game, but you'll want to adapt this to a real deployed game. Eternum is a great candidate once you're comfortable.
 
 Got all that? Good. Let's build.
 
@@ -34,7 +34,7 @@ Before your agent can play a game, it needs to understand the game. This isn't l
 
 ### The World Contract
 
-Every Dojo game has a World contract—the single source of truth for all game state. Models (think of them as tables) store entities and their components. Events emit whenever something interesting happens.
+Every Dojo game has a World contract---the single source of truth for all game state. Models (think of them as tables) store entities and their components. Events emit whenever something interesting happens.
 
 For our example game, imagine these models exist:
 
@@ -84,7 +84,7 @@ Let's explore what's available. Open GraphQL Playground (usually at `/graphql` o
 }
 ```
 
-This shows you all the queryable types—essentially, all the models your target game has defined. For our resource game, we'd see `Player`, `ResourceNode`, and whatever else the devs created.
+This shows you all the queryable types---essentially, all the models your target game has defined. For our resource game, we'd see `Player`, `ResourceNode`, and whatever else the devs created.
 
 ### Reading Your Player State
 
@@ -112,13 +112,13 @@ This is the first superpower of onchain game agents: perfect information. Your a
 
 ## Step 2: Setting Up Controller
 
-Reading state is only half the equation. Your agent also needs to *act*—submit transactions that change game state. That's where Controller CLI comes in.
+Reading state is only half the equation. Your agent also needs to *act*---submit transactions that change game state. That's where Controller CLI comes in.
 
 ### Why Controller?
 
 Normally, Starknet transactions require a wallet signature. Every. Single. Time. That's fine for humans clicking buttons, but disastrous for an agent that might execute hundreds of actions per hour.
 
-Controller solves this with session keys. You authorize a temporary keypair to sign transactions on your behalf, scoped to specific contracts and methods. Even if someone steals the session key, the damage is limited—they can only call what you authorized, and the session expires.
+Controller solves this with session keys. You authorize a temporary keypair to sign transactions on your behalf, scoped to specific contracts and methods. Even if someone steals the session key, the damage is limited---they can only call what you authorized, and the session expires.
 
 ### Installing Controller CLI
 
@@ -156,7 +156,7 @@ You'll get something like:
 }
 ```
 
-Keep that public key handy—you'll need it for registration.
+Keep that public key handy---you'll need it for registration.
 
 The private key is stored locally. Even if someone got it, they couldn't do much without an authorized session. But still, treat it like a credential.
 
@@ -300,7 +300,7 @@ async function getResourceNodes() {
 }
 ```
 
-Simple, right? GraphQL makes this feel almost like querying a regular database. But remember—this "database" is cryptographically verifiable and can't lie to you.
+Simple, right? GraphQL makes this feel almost like querying a regular database. But remember---this "database" is cryptographically verifiable and can't lie to you.
 
 ### Subscribing to Events
 
@@ -774,13 +774,13 @@ function logAction(action, result) {
 }
 ```
 
-**Multiple agents**: Some strategies work better with coordination. But be careful—this can get complex fast. Start with one agent that works reliably before scaling up.
+**Multiple agents**: Some strategies work better with coordination. But be careful---this can get complex fast. Start with one agent that works reliably before scaling up.
 
 ## Debugging Your Agent
 
 Things will go wrong. Here's how to figure out what:
 
-**State mismatch**: Your agent thinks it should harvest, but the transaction fails. Check if someone else harvested the node first. Onchain games are competitive—state changes between your read and your write.
+**State mismatch**: Your agent thinks it should harvest, but the transaction fails. Check if someone else harvested the node first. Onchain games are competitive---state changes between your read and your write.
 
 ```javascript
 // Before executing, verify the opportunity still exists
@@ -818,8 +818,8 @@ Most bugs fall into these categories. When something new happens, add it to your
 
 Let's recap. You now have:
 
-1. **State observation** via Torii GraphQL—perfect information about the game
-2. **Autonomous signing** via Controller sessions—scoped, time-limited, secure
+1. **State observation** via Torii GraphQL---perfect information about the game
+2. **Autonomous signing** via Controller sessions---scoped, time-limited, secure
 3. **Decision logic** that can be as simple or sophisticated as you want
 4. **Transaction execution** with proper error handling
 5. **A running loop** that ties it all together

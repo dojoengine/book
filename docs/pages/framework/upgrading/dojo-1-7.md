@@ -131,7 +131,7 @@ struct MyModel {
 }
 ```
 
-If this model is read from storage before being explicitly written, the world’s storage remains uninitialized (filled with `0x0`s). This results in:
+If this model is read from storage before being explicitly written, the world's storage remains uninitialized (filled with `0x0`s). This results in:
 
 ```rust
 let my_key: u32 = 0x1234;
