@@ -46,7 +46,7 @@ sozo execute ns-Actions spawn / ns-Actions move 5 3 / ns-Actions open_chest
 - **Transaction-based**: Requires account/signer configuration
 - **Tag resolution**: Use contract tags (e.g., `Actions`) or addresses
 - **Multicall support**: Batch multiple system calls efficiently
-- **Type-aware calldata**: Supports Dojo's [calldata format](./index#data-format-reference)
+- **Type-aware calldata**: Supports Dojo's [calldata format](/index)
 
 **Common Use Cases:**
 
