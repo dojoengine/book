@@ -21,13 +21,14 @@
 
 import { readFileSync, writeFileSync, readdirSync, statSync } from "fs";
 import { join, relative, dirname } from "path";
+import { structuredPatch } from "diff";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const DOCS_DIR = join(ROOT, "docs", "pages");
 const MODEL = "claude-sonnet-4-20250514";
 const API_URL = "https://api.anthropic.com/v1/messages";
 const DRY_RUN = process.argv.includes("--dry-run");
-const MAX_REMOVED_LINES = 10;
+const MAX_HUNK_LINES = 10;
 
 // Sections to skip (editorial content, not reference docs)
 const SKIP_DIRS = new Set(["blog"]);
@@ -67,10 +68,31 @@ function groupBySection(files) {
     return groups;
 }
 
-function countNetRemovedLines(original, corrected) {
-    const origLines = original.split("\n").length;
-    const corrLines = corrected.split("\n").length;
-    return origLines - corrLines;
+/**
+ * Check if any single diff hunk exceeds the size limit.
+ * Returns { ok: true } if all hunks are within limits,
+ * or { ok: false, maxHunkSize, hunks } with details if not.
+ */
+function checkHunkSizes(original, corrected, filename) {
+    const patch = structuredPatch(filename, filename, original, corrected);
+    let maxHunkSize = 0;
+    const oversized = [];
+    for (const hunk of patch.hunks) {
+        const changedLines = hunk.lines.filter(
+            (l) => l.startsWith("+") || l.startsWith("-")
+        ).length;
+        if (changedLines > maxHunkSize) maxHunkSize = changedLines;
+        if (changedLines > MAX_HUNK_LINES) {
+            oversized.push({
+                start: hunk.oldStart,
+                changedLines,
+            });
+        }
+    }
+    if (oversized.length > 0) {
+        return { ok: false, maxHunkSize, hunks: oversized };
+    }
+    return { ok: true, maxHunkSize, hunks: [] };
 }
 
 async function callClaude(system, userContent, maxTokens = 16000) {
@@ -252,7 +274,7 @@ ${styleGuide}
 - One sentence per line is MANDATORY for prose paragraphs. This does NOT apply to list items, headings, code blocks, or frontmatter.
 - Do NOT convert :::note, :::warning, :::tip, or :::info blocks to blockquote format. This site uses Vocs, which renders ::: blocks as styled callout boxes.
 - Do not invent new content or add explanations that weren't there.
-- Do not remove more than ${MAX_REMOVED_LINES} net lines from a file. If the report suggests a larger removal, add a TODO comment instead: <!-- TODO: deduplicate with [target page] -->
+- Keep each continuous change small — no single diff hunk should touch more than ${MAX_HUNK_LINES} lines. If the report suggests a larger change, add a TODO comment instead: <!-- TODO: deduplicate with [target page] -->
 - Do not remove content that is unique and correct — only trim true redundancy.
 - Do NOT delete content and replace it with a cross-reference unless you are certain the target page already contains equivalent information. If unsure, leave the content in place.
 - When the report says to replace duplicated content with a cross-reference, verify that the linked page covers the same material before removing anything.
@@ -285,7 +307,7 @@ ${content}`;
 async function main() {
     console.log("=== Dojo Docs Defragmentation ===");
     console.log(`Mode: ${DRY_RUN ? "DRY RUN" : "LIVE"}`);
-    console.log(`Max net removed lines per file: ${MAX_REMOVED_LINES}`);
+    console.log(`Max lines per diff hunk: ${MAX_HUNK_LINES}`);
     console.log();
 
     const styleGuide = loadTextFile(join(ROOT, "spec", "style-guide.md"));
@@ -358,6 +380,20 @@ async function main() {
                     const targetFile = allFiles.find(
                         (f) => f.rel === reloc.to
                     );
+                    const sourceOrig = loadTextFile(sourceFile.path);
+                    const targetOrig = loadTextFile(targetFile.path);
+                    const sourceCheck = checkHunkSizes(sourceOrig, parsed.source, reloc.from);
+                    const targetCheck = checkHunkSizes(targetOrig, parsed.target, reloc.to);
+                    if (!sourceCheck.ok || !targetCheck.ok) {
+                        const details = [];
+                        if (!sourceCheck.ok) details.push(`${reloc.from}: hunk of ${sourceCheck.maxHunkSize} lines`);
+                        if (!targetCheck.ok) details.push(`${reloc.to}: hunk of ${targetCheck.maxHunkSize} lines`);
+                        console.log(`    SKIPPED relocation: oversized hunks (${details.join(", ")})`);
+                        filesSkipped += 2;
+                        skipLog.push({ file: reloc.from, reason: "relocation", maxHunkSize: sourceCheck.maxHunkSize, hunks: sourceCheck.hunks });
+                        skipLog.push({ file: reloc.to, reason: "relocation", maxHunkSize: targetCheck.maxHunkSize, hunks: targetCheck.hunks });
+                        continue;
+                    }
                     if (!DRY_RUN) {
                         writeFileSync(sourceFile.path, parsed.source, "utf-8");
                         writeFileSync(targetFile.path, parsed.target, "utf-8");
@@ -399,14 +435,14 @@ async function main() {
                     continue;
                 }
 
-                // Size guard: reject large removals
-                const netRemoved = countNetRemovedLines(original, normalizedCorrected);
-                if (netRemoved > MAX_REMOVED_LINES) {
+                // Size guard: reject files with any oversized diff hunk
+                const sizeCheck = checkHunkSizes(original, normalizedCorrected, file.rel);
+                if (!sizeCheck.ok) {
                     console.log(
-                        `    SKIPPED: ${netRemoved} net lines removed (limit: ${MAX_REMOVED_LINES})`
+                        `    SKIPPED: hunk of ${sizeCheck.maxHunkSize} lines (limit: ${MAX_HUNK_LINES})`
                     );
                     filesSkipped++;
-                    skipLog.push({ file: file.rel, netRemoved });
+                    skipLog.push({ file: file.rel, reason: "edit", maxHunkSize: sizeCheck.maxHunkSize, hunks: sizeCheck.hunks });
                     continue;
                 }
 
@@ -415,7 +451,7 @@ async function main() {
                 }
                 filesChanged++;
                 changeLog.push(file.rel);
-                console.log(`    Updated (${netRemoved > 0 ? `-${netRemoved}` : `+${-netRemoved}`} net lines).`);
+                console.log(`    Updated (max hunk: ${sizeCheck.maxHunkSize} lines).`);
             } catch (err) {
                 console.error(`    Error: ${err.message}`);
                 filesErrored++;
@@ -438,14 +474,64 @@ async function main() {
     }
 
     if (skipLog.length > 0) {
-        console.log("\n=== Skipped files (large removals — needs manual review) ===");
-        for (const { file, netRemoved } of skipLog) {
-            console.log(`- ${file} (${netRemoved} net lines removed)`);
+        console.log("\n=== Skipped files (oversized hunks — needs manual review) ===");
+        for (const entry of skipLog) {
+            const hunkDetail = entry.hunks.map((h) => `line ${h.start} (${h.changedLines} lines)`).join(", ");
+            console.log(`- ${entry.file} [${entry.reason}]: max hunk ${entry.maxHunkSize} lines — ${hunkDetail}`);
+        }
+
+        // Create a GitHub issue with all skipped changes
+        if (!DRY_RUN && process.env.GITHUB_ACTIONS) {
+            await createSkipIssue(skipLog);
         }
     }
 
     if (filesChanged === 0 && filesSkipped === 0) {
         console.log("\nNo changes needed — docs are clean!");
+    }
+}
+
+async function createSkipIssue(skipLog) {
+    const rows = skipLog.map((entry) => {
+        const hunks = entry.hunks
+            .map((h) => `line ${h.start} (${h.changedLines} lines)`)
+            .join(", ");
+        return `| \`${entry.file}\` | ${entry.reason} | ${entry.maxHunkSize} | ${hunks} |`;
+    });
+
+    const body = `## Defrag: skipped changes need manual review
+
+The monthly defrag workflow skipped the following files because they contained
+diff hunks larger than ${MAX_HUNK_LINES} lines. These changes may still be valid
+but need a human to review and apply manually.
+
+| File | Stage | Max hunk | Oversized hunks |
+|------|-------|----------|-----------------|
+${rows.join("\n")}
+
+> Created automatically by the defrag workflow.`;
+
+    try {
+        const res = await fetch("https://api.github.com/repos/dojoengine/book/issues", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${process.env.GH_TOKEN || process.env.GITHUB_TOKEN}`,
+            },
+            body: JSON.stringify({
+                title: "defrag: skipped changes need manual review",
+                body,
+                labels: ["documentation"],
+            }),
+        });
+        if (res.ok) {
+            const issue = await res.json();
+            console.log(`\nCreated issue #${issue.number}: ${issue.html_url}`);
+        } else {
+            console.error(`Failed to create issue: ${res.status} ${await res.text()}`);
+        }
+    } catch (err) {
+        console.error(`Failed to create issue: ${err.message}`);
     }
 }
 

@@ -12,6 +12,7 @@
     "dependencies": {
         "@cartridge/presets": "github:cartridge-gg/presets#b0def0f",
         "@dojoengine/sdk": "1.7.6",
+        "diff": "^8.0.3",
         "prettier": "^3.6.2",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
