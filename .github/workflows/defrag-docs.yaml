@@ -58,6 +58,7 @@ jobs:
             - name: "Phase 2: Content defragmentation"
               env:
                   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
 
             - name: Commit content changes
@@ -67,7 +68,7 @@ jobs:
                     git commit -m "chore(defrag): phase 2 — content
 
                   Terminology normalization, deduplication, cross-reference
-                  suggestions. Changes capped at 10 net removed lines per file.
+                  suggestions. Max 10 changed lines per diff hunk.
 
                   $(tail -20 defrag-output.txt)"
                   else
@@ -140,7 +141,7 @@ jobs:
                   </details>
 
                   ### Phase 2: Content (LLM-generated)
-                  Terminology normalization per style guide, deduplication (capped at 10 lines removed per file), cross-reference suggestions.
+                  Terminology normalization per style guide, deduplication (max 10 lines per diff hunk), cross-reference suggestions.
                   **Review this commit carefully.**
 
                   <details><summary>Phase 2 summary</summary>
@@ -163,8 +164,7 @@ jobs:
                   </details>
 
                   ### Skipped changes
-                  Files where the LLM suggested removing >10 lines are listed in the workflow output.
-                  These need manual review and may warrant separate issues.
+                  Files with diff hunks >10 lines were skipped and filed as a GitHub issue for manual review.
 
                   ### Review notes
                   - The build has been verified to pass after all phases
