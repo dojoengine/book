@@ -11,7 +11,7 @@ Torii's GraphQL API provides type-safe access to your indexed Dojo world data. T
 
 Start Torii and access the GraphQL endpoint:
 
-```sh
+```bash
 torii --world <WORLD_ADDRESS>
 ```
 

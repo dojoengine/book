@@ -11,7 +11,7 @@ _Before starting recommend following the [`hello-dojo`](/tutorials/dojo-starter.
 
 Create and initialize a new Dojo project. You can name your project what you want.
 
-```sh
+```bash
 sozo init chess
 ```
 
@@ -19,7 +19,7 @@ sozo init chess
 
 The project comes with a lot of boilerplate codes. Clear it all. Make sure your directory looks like this
 
-```shell
+```bash
 ├── README.md
 ├── Scarb.toml
 └── src
@@ -88,7 +88,7 @@ world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8d
 
 Compile your project with:
 
-```sh
+```bash
 sozo build
 ```
 

@@ -441,7 +441,7 @@ Therefore, you will need to run `sozo build`, `sozo test`, and `sozo migrate` at
 When you want to ship both Cairo libraries and a Dojo world to be deployed on-chain, one way to lay out the project is by creating a `contracts` or `world` package with the name of your project as the package name in its `Scarb.toml` and library packages.
 
 :::note
-This layout is not mandatory—it is an example of how to lay out your project.
+This layout is not mandatory---it is an example of how to lay out your project.
 Using a virtual workspace helps manage dependencies between packages.
 :::
 

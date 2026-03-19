@@ -26,7 +26,7 @@ The `dojo/core` library already implements the `Introspect` trait for Cairo buil
 ## Custom Types
 
 User-defined types must implement the `Introspect` trait to be used inside of a model.
-Note that a `#[dojo::model]` struct cannot be embedded as a field in another model — use a plain struct with `Introspect` instead.
+Note that a `#[dojo::model]` struct cannot be embedded as a field in another model --- use a plain struct with `Introspect` instead.
 See [Model Composition](/framework/models#model-composition) for details.
 
 ### Automatic Implementation

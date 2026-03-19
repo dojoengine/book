@@ -17,7 +17,7 @@ Clients (like web browsers) do not exist on the chain but exist purely to intera
 Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain.
 But what does that entail? Consider a game of chess.
 We aim for an experience where players trust each other's moves.
-In a straightforward approach — and given the simple rules of chess — if this were in a blockchain environment, every move would be a transaction on the blockchain.
+In a straightforward approach --- and given the simple rules of chess --- if this were in a blockchain environment, every move would be a transaction on the blockchain.
 This is costly.
 We just want to know the winner, not every move.
 
