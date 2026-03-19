@@ -28,7 +28,7 @@ Either clone the repository or download it as a ZIP file to access the plugin.
 
 #### Set Up Your Unreal Project
 
-Launch Unreal Engine 5 and create a new project or open an existing one where you'll implement dojo.unreal.
+Launch Unreal Engine 5 and create a new project or open an existing one where you will implement dojo.unreal.
 
 ![unrealcreate](/client/unreal/create_new_cpp_project.webp)
 
@@ -37,7 +37,7 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 1. Navigate to your project directory by right-clicking the project in Epic Games Launcher (Unreal Engine > Library > My Projects)
    ![unrealdir](/client/unreal/open_project_directory.webp)
 
-2. Create a Plugins directory if one doesn't exist
+2. Create a Plugins directory if one does not exist
 
 3. Copy the Plugins/Dojo directory from dojo.unreal into your project's Plugins folder
 
@@ -150,7 +150,7 @@ Click on the closed eye to be able to change it in the Inspector.
 
 #### Subscribe to and fetch existing models
 
-This is where you will retrieve all the models that are stored on-chain.
+This is where you will retrieve all the models that are stored onchain.
 
 Both subscription and fetch existing models will trigger a custom event called `OnDojoModelUpdate`.
 Always bind this custom event before calling any of these functions.
@@ -227,10 +227,10 @@ To add support for a new platform:
 
 - Use `cargo build --release --target <target>`
 - Common targets include:
-    - iOS: `aarch64-apple-ios`
-    - Android: `aarch64-linux-android`
-    - Windows: `x86_64-pc-windows-msvc`
-    - Mac: `aarch64-apple-darwin`
+  - iOS: `aarch64-apple-ios`
+  - Android: `aarch64-linux-android`
+  - Windows: `x86_64-pc-windows-msvc`
+  - Mac: `aarch64-apple-darwin`
 
 #### Create the platform-specific directory structure
 

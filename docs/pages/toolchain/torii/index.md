@@ -24,9 +24,9 @@ The database schema is dynamically generated based on your world's model definit
 
 **API Layer**: Multiple interfaces for accessing indexed data:
 
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Provides a flexible, typed interface with real-time subscriptions
-- **[gRPC API](/toolchain/torii/grpc.md)**: High-performance binary protocol for efficient data fetching
-- **[SQL Endpoint](/toolchain/torii/sql.md)**: Direct database access for custom queries
+- **[GraphQL API](/toolchain/torii/graphql)**: Provides a flexible, typed interface with real-time subscriptions
+- **[gRPC API](/toolchain/torii/grpc)**: High-performance binary protocol for efficient data fetching
+- **[SQL Endpoint](/toolchain/torii/sql)**: Direct database access for custom queries
 
 ### Data Flow
 
@@ -50,7 +50,7 @@ Torii is designed for production deployment with several performance optimizatio
 
 Torii leverages world introspection to bootstrap directly from an on-chain deployment:
 
-```sh
+```bash
 torii --world <WORLD_ADDRESS>
 ```
 
@@ -64,15 +64,21 @@ This starts Torii with default settings:
 
 For production deployments, use persistent storage and custom configuration:
 
-```sh
+```bash
 torii --world <WORLD_ADDRESS> --db-dir ./torii-db --config torii_prod.toml
+```
+
+Start local [Katana](/toolchain/katana):
+
+```bash
+katana --dev --dev.no-fee
 ```
 
 ## Installation
 
-Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+Torii can be installed via [`dojoup`](/installation), our dedicated package manager:
 
-```sh
+```bash
 curl -L https://install.dojoengine.org | bash
 
 # Restart your terminal
@@ -92,7 +98,7 @@ Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
 
 If you prefer to install with the `asdf` version manager:
 
-```sh
+```bash
 asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
 
 asdf install torii latest
@@ -106,7 +112,7 @@ This will install the `torii` binary at `~/.asdf/shims`
 
 If you prefer to build from the source code:
 
-```sh
+```bash
 git clone https://github.com/dojoengine/torii.git
 
 cargo install --path ./torii/bin/torii --profile local --force
@@ -118,6 +124,6 @@ This will install the `torii` binary at `~/.cargo/bin`
 
 ## Next Steps
 
-- **[Configuration Guide](/toolchain/katana/configuration.md)**: Learn how to configure Torii with TOML files and CLI arguments
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Explore the GraphQL interface for flexible data queries
-- **[gRPC API](/toolchain/torii/grpc.md)**: Use the high-performance gRPC interface
+- **[Configuration Guide](/toolchain/torii/configuration)**: Learn how to configure Torii with TOML files and CLI arguments
+- **[GraphQL API](/toolchain/torii/graphql)**: Explore the GraphQL interface for flexible data queries
+- **[gRPC API](/toolchain/torii/grpc)**: Use the high-performance gRPC interface

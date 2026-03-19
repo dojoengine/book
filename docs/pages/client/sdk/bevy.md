@@ -3,7 +3,7 @@ title: "Dojo Bevy SDK"
 description: "Official Bevy engine integration for building Dojo-powered games with native Rust performance"
 ---
 
-# Dojo.bevy
+# Dojo Bevy SDK
 
 Bevy is a modern, data-driven game engine built in Rust that leverages the Entity Component System (ECS) architecture.
 Known for its performance, modularity, and ergonomic API, Bevy enables developers to create everything from simple 2D games to complex 3D experiences with compile-time safety and zero-cost abstractions.
@@ -405,3 +405,5 @@ fn main() {
         .run();
 }
 ```
+
+For more advanced Rust integration patterns, see the [Dojo Rust SDK](/client/sdk/rust) documentation.

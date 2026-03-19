@@ -79,7 +79,7 @@ In this setup:
 - Katana executes these transactions locally, producing immediate state updates and events
 - In parallel, Katana forwards the same transactions to a real Starknet node for canonical inclusion
 
-Since Katana executes transactions faster than the actual network, it can serve "pre-confirmed" results almost instantly — enabling frontends and clients to interact with what feels like a live, responsive chain.
+Since Katana executes transactions faster than the actual network, it can serve "pre-confirmed" results almost instantly --- enabling frontends and clients to interact with what feels like a live, responsive chain.
 
 Importantly, Optimistic Katana does not produce blocks itself.
 Instead, it maintains a local view of pre-confirmed transactions (executed locally) and exposes them as part of its state until the corresponding Starknet confirmations arrive.
@@ -90,7 +90,7 @@ Every block mined on Starknet is still reflected in Optimistic Katana (only bloc
 
 To prevent state contention and ensure consistency with the canonical Starknet state, Optimistic Katana is combined with strict operator whitelisting.
 
-Only designated operator accounts (typically Cartridge's paymaster executors) are permitted to modify the on-chain state of the world.
+Only designated operator accounts (typically Cartridge's paymaster executors) are permitted to modify the onchain state of the world.
 This guarantees that:
 
 - Only transactions forwarded from Katana are authorized by infrastructure to land on Starknet for this world
@@ -102,9 +102,9 @@ This prevents race conditions and ensures deterministic state updates across bot
 
 #### World Layer: Operator Component
 
-At the smart contract level, the World contract implements the on-chain enforcement of the operator whitelist through the Operator component.
+At the smart contract level, the World contract implements the onchain enforcement of the operator whitelist through the Operator component.
 
-This component defines a simple but flexible interface for managing authorized executors, controlling who can mutate world entities on-chain.
+This component defines a simple but flexible interface for managing authorized executors, controlling who can mutate world entities onchain.
 
 ```cairo
 #[derive(Default, Serde, Drop, starknet::Store)]
@@ -141,17 +141,17 @@ In practice:
 - The infrastructure ensures that only these operators can push mutations to Starknet
 - Any unauthorized attempt to modify entities is rejected at the contract level
 
-This mechanism establishes a trust boundary: Katana can optimistically execute and stage updates, but only the approved executors have authority to finalize them on-chain.
+This mechanism establishes a trust boundary: Katana can optimistically execute and stage updates, but only the approved executors have authority to finalize them onchain.
 
 It is the contract-level foundation that enables Optimistic Katana to function safely without reconciliation or rollback logic.
 
 #### Torii Integration (Indexer)
 
-On the Torii side, a caching layer has been added to handle optimistic execution correctly.
+On the [Torii](/toolchain/torii) side, a caching layer has been added to handle optimistic execution correctly.
 Specifically:
 
 - Torii now maintains a cache of processed transactions (instead of only a cursor to latest processed transaction), ensuring that pre-confirmed events are not re-processed multiple times
-- It is resistant to missed transactions — cases where a transaction was forwarded to Starknet before Torii fetched the corresponding pre-confirmed state (for example, if a block is very long to process)
+- It is resistant to missed transactions --- cases where a transaction was forwarded to Starknet before Torii fetched the corresponding pre-confirmed state (for example, if a block is very long to process)
 - When such cases occur, Torii will backfill the missing events once the canonical Starknet state includes them, ensuring complete and consistent indexing
 
 This design ensures that Torii's view of the world remains consistent across both the optimistic and canonical layers without duplication or event loss.
@@ -367,6 +367,7 @@ starkli invoke <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
 ```
 
 :::note
-[Sozo](/toolchain/sozo) is the preferred build and deployment for Dojo development.
+[Sozo](/toolchain/sozo) is the preferred build and deployment tool for Dojo development.
 Starkli integration is useful for standard Cairo contracts and production validation workflows.
+For more binding generation workflows, see the [Sozo binding documentation](/toolchain/sozo/binding-generation).
 :::

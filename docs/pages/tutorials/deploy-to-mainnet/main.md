@@ -14,14 +14,14 @@ The steps for Mainnet are exactly the same, just replace the chain name and ID w
 
 You can use the _Cartridge RPC provider_ for this.
 
-```sh
+```bash
 https://api.cartridge.gg/x/starknet/mainnet # mainnet
 https://api.cartridge.gg/x/starknet/sepolia # sepolia
 ```
 
 After you get yours, you can check if it works and is on the correct chain (`SN_SEPOLIA` or `SN_MAIN`)
 
-```sh
+```bash
 # run this...
 curl --location '<RPC_PROVIDER_URL>' \
 --header 'Content-Type: application/json' \
@@ -59,7 +59,7 @@ SN_SEPOLIA
 
 - Create `.env.sepolia` containing your RPC provider, account and private key. Make sure that account is deployed and has some [ETH](https://starknet-faucet.vercel.app) in it (0.001 is more than enough).
 
-```sh
+```bash
 # usage: source .env.sepolia
 export STARKNET_RPC_URL=<RPC_PROVIDER_URL>
 export DOJO_ACCOUNT_ADDRESS=<YOUR_ACCOUNT_ADDRESS>
@@ -116,7 +116,7 @@ echo "Deployment completed successfully."
 
 - sozo will output the rpc url, account address and deployed block.
 
-```sh
+```bash
  profile | chain_id | rpc_url
 ---------+----------+------------------------
  sepolia | SN_SEPOLIA | <RPC_PROVIDER_URL>
@@ -149,13 +149,13 @@ Now, if you're building a Dojo client, you will need a Torii service to index ou
 
 - Install [slot](https://github.com/cartridge-gg/slot) or update it. You can find the docs [here](https://docs.cartridge.gg/slot/getting-started).
 
-```sh
+```bash
 slotup
 ```
 
 - Authorize
 
-```sh
+```bash
 slot auth login
 ```
 
@@ -173,7 +173,7 @@ rpc = "<RPC_URL>"
     - `SERVICE_NAME` can be the name of the game/dapp. Once you create it, you own that name.
     - `DOJO_VERSION`: your Dojo version (ex: `v1.0.1`)
 
-```sh
+```bash
 slot deployments create <SERVICE_NAME> torii --config torii.toml --version <DOJO_VERSION>
 ```
 
@@ -187,7 +187,7 @@ Stream logs with `slot deployments logs <SERVICE_NAME> torii -f`
 
 - If for any reasons we need to recreate Torii, we can just delete it and run the create command again. This is safe, all your data is on-chain.
 
-```sh
+```bash
 slot deployments delete <SERVICE_NAME> torii
 ```
 

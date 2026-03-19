@@ -5,7 +5,9 @@ description: Learn how to write and run unit tests and integration tests for you
 
 # Testing
 
-Testing is a crucial part of any software development process. Dojo provides a testing framework that allows you to write tests for your smart contracts. Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.
+Testing is a crucial part of any software development process.
+Dojo provides a testing framework that allows you to write tests for your smart contracts.
+Since Dojo uses a custom compiler, you need to use [Sozo](/toolchain/sozo/) to test your contracts.
 
 From your project directory, run:
 
@@ -52,7 +54,9 @@ It is good practise to test all functions of your models.
 
 ## Writing Integration Tests
 
-Integration tests are e2e tests that test the entire [system](/framework/systems/). You can write integration tests for your world by creating a `tests` directory in your project root. Then create a file for each integration test you want to write.
+Integration tests are e2e tests that test the entire [system](/framework/systems/).
+You can write integration tests for your world by creating a `tests` directory in your project root.
+Then create a file for each integration test you want to write.
 
 This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
@@ -150,7 +154,8 @@ mod tests {
 
 ## Dojo Test Utilities
 
-Dojo includes some helpful utilities to make testing easier:
+Dojo includes some helpful utilities to make testing easier.
+For more advanced testing capabilities, see the available [cheat codes](./cheat-codes).
 
 - [`spawn_test_world`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/dojo-snf-test/src/world.cairo#L140) - Deploy a new world and register the models passed in.
 

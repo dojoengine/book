@@ -213,7 +213,7 @@ Find entities in coordinate range:
 
 **Query Optimization**:
 
-- Set `dont_include_hashed_keys: true` for better performance if you don't need entity IDs
+- Set `dont_include_hashed_keys: true` for better performance if you do not need entity IDs
 - Use specific models in `entity_models` to reduce data transfer
 - Prefer `VariableLen` pattern matching for flexible key queries
 

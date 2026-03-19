@@ -10,7 +10,7 @@ In persistent mode, Saya fetches blocks from Katana, verifies proofs, and update
 ![saya](/toolchain/saya-persistent.png)
 
 :::tip
-For data availability without settlement layer integration, see [Sovereign mode](/toolchain/saya/sovereign).
+For data availability without settlement layer integration, see [Sovereign mode](./sovereign).
 :::
 
 :::info
@@ -20,7 +20,7 @@ Piltover acts as the settlement layer contract that receives and verifies state 
 
 ## Setup Katana
 
-Katana must be configured in provable mode to work with Saya.
+[Katana](/toolchain/katana) must be configured in provable mode to work with Saya.
 First, initialize a new chain spec:
 
 ```bash
@@ -41,15 +41,15 @@ katana init --id per1 \
     --settlement-facts-registry <ADDRESS>
 ```
 
-::::tip
+:::tip
 You can inspect the chain by running `katana config per1`
-::::
+:::
 
-::::note
+:::note
 The settlement core contract must receive configuration parameters on deployment.
-It's recommended to let Katana handle this.
+It is recommended to let Katana handle this.
 If the core contract is already deployed, you should provide it so Katana can verify the configuration parameters.
-::::
+:::
 
 When working with Katana in provable mode, two additional parameters are required:
 
@@ -66,14 +66,14 @@ katana --chain per1 \
     --sequencing.block-max-cairo-steps 16000000
 ```
 
-::::note
+:::note
 You can define an `--output-path` when working with katana init to output the configuration files in the given directory.
 You will then want to start katana with the `--chain /path` instead of `--chain <CHAIN_ID>`.
-::::
+:::
 
 ## Run Saya
 
-If you haven't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
+If you have not already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.
@@ -127,7 +127,7 @@ Then, you can start Saya with:
 saya persistent start
 ```
 
-::::info
+:::info
 To avoid double spending of Herodotus credits, Saya has an internal database to track the blocks that have been proven.
 The `DB_DIR` is important to ensure that the database is not lost when Saya is restarted if you have a long running Saya instance.
-::::
+:::

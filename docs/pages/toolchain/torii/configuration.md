@@ -10,6 +10,8 @@ Configuration provides structured control over indexing, performance, security, 
 
 ## Configuration Priority
 
+Configuration options are resolved in this priority order:
+
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**
@@ -19,7 +21,7 @@ Configuration provides structured control over indexing, performance, security, 
 
 Most configuration options can be passed as command-line arguments:
 
-```sh
+```bash
 # Basic usage
 torii --world 0x1234...
 
@@ -251,7 +253,7 @@ http2_keepalive_timeout = 10     # HTTP/2 keepalive timeout in seconds (default:
 
 ### Development
 
-Fast iteration with local Katana:
+Fast iteration with local [Katana](/toolchain/katana):
 
 ```toml
 world_address = "0x1234..."

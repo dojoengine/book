@@ -10,7 +10,8 @@ Introspection is an advanced Dojo topic.
 Beginning Dojo developers can skip this section.
 :::
 
-In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo). This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
+In Dojo, every Model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo).
+This trait outlines the data structure of the Model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
 
 The `dojo/core` library already implements the `Introspect` trait for Cairo built-in types including:
 
@@ -25,8 +26,8 @@ The `dojo/core` library already implements the `Introspect` trait for Cairo buil
 
 ## Custom Types
 
-User-defined types must implement the `Introspect` trait to be used inside of a model.
-Note that a `#[dojo::model]` struct cannot be embedded as a field in another model — use a plain struct with `Introspect` instead.
+User-defined types must implement the `Introspect` trait to be used inside of a Model.
+Note that a `#[dojo::model]` struct cannot be embedded as a field in another Model --- use a plain struct with `Introspect` instead.
 See [Model Composition](/framework/models#model-composition) for details.
 
 ### Automatic Implementation
@@ -54,7 +55,7 @@ trait Introspect<T> {
 ```
 
 :::info
-The `size` function should return `None` if your model, or any type within it, includes at least one dynamic type such as `ByteArray` or `Array`.
+The `size` function should return `None` if your Model, or any type within it, includes at least one dynamic type such as `ByteArray` or `Array`.
 :::
 
 The [`Layout`](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/layout.cairo#L10) enum describes **how** data is stored in the world database:
@@ -206,7 +207,7 @@ In case you're using a function you don't know the complexity of, you should avo
 
 ## IntrospectPacked trait
 
-In some situations, you might want to store a model in a packed way -- useful when you know the size of the model and want to save some storage space.
+In some situations, you might want to store a Model in a packed way -- useful when you know the size of the Model and want to save some storage space.
 
 For this, you can derive the `IntrospectPacked` trait, which will force the use of the [`Fixed` layout](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo).
 
@@ -219,7 +220,7 @@ struct Stats {
 ```
 
 :::warning
-Dynamic types such as `ByteArray` and `Array` are prohibited in a packed model.
+Dynamic types such as `ByteArray` and `Array` are prohibited in a packed Model.
 :::
 
 ### IntrospectPacked vs Introspect
@@ -230,14 +231,14 @@ Dynamic types such as `ByteArray` and `Array` are prohibited in a packed model.
 | **Gas cost**       | Lower (fewer reads/writes) | Higher (more reads/writes) |
 | **Upgrade safety** | Not upgradeable            | Upgradeable                |
 | **Dynamic types**  | Not supported              | Supported                  |
-| **Field access**   | Must read entire model     | Can read individual fields |
+| **Field access**   | Must read entire Model     | Can read individual fields |
 
 ### When to Use IntrospectPacked
 
 Use `IntrospectPacked` when:
 
 - Model has a fixed, known size
-- Model structure is stable (won't change)
+- Model structure is stable (will not change)
 - Performance is critical
 - Model is read/written frequently as a whole
 
@@ -259,7 +260,7 @@ struct PlayerData {
 
 ### Nested Packed Types
 
-You can nest structs within a packed model, provided they also implement `IntrospectPacked`.
+You can nest structs within a packed Model, provided they also implement `IntrospectPacked`.
 
 ```cairo
 #[derive(Copy, Drop, Serde, IntrospectPacked)]
@@ -278,23 +279,23 @@ struct Transform {
 
 :::tip
 Old Dojo versions (before `0.7.0`) used to implement only the `IntrospectPacked` trait.
-Hence, you should use this trait if you're upgrading from an old version of Dojo.
+Hence, you should use this trait if you are upgrading from an old version of Dojo.
 :::
 
 ### Storage Optimization Tips
 
-1. **Use packed layouts** for stable, frequently-accessed models
+1. **Use packed layouts** for stable, frequently-accessed Models
 2. **Group related fields** to minimize storage slots
 3. **Consider field ordering** - place smaller fields together
-4. **Use appropriate types** - don't use `u256` when `u32` suffices
+4. **Use appropriate types** - do not use `u256` when `u32` suffices
 
 ## Best Practices
 
 ### Trait Selection
 
 1. **Use `Introspect` by default** - provides flexibility and upgrade safety
-2. **Use `IntrospectPacked` for performance** - when model is stable and frequently accessed
-3. **Mix approaches** - use packed for stable core models, unpacked for extensible ones
+2. **Use `IntrospectPacked` for performance** - when Model is stable and frequently accessed
+3. **Mix approaches** - use packed for stable core Models, unpacked for extensible ones
 
 ### Implementation Guidelines
 
@@ -305,9 +306,9 @@ Hence, you should use this trait if you're upgrading from an old version of Dojo
 
 ### Future-Proofing
 
-1. **Plan for upgrades** - use unpacked layouts for evolving models
-2. **Version your data** - include version fields for complex models
+1. **Plan for upgrades** - use unpacked layouts for evolving Models
+2. **Version your data** - include version fields for complex Models
 3. **Document constraints** - clearly document why certain layouts were chosen
-4. **Test upgrade paths** - validate that model changes work as expected
+4. **Test upgrade paths** - validate that Model changes work as expected
 
-By following these guidelines, you can create efficient, maintainable models that work well with Dojo's introspection system.
+By following these guidelines, you can create efficient, maintainable Models that work well with Dojo's introspection system.

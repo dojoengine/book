@@ -6,18 +6,18 @@ description: "Native Rust integration for building Dojo applications with Rust"
 # Dojo Rust SDK
 
 Dojo is built in Rust, making it seamless to integrate into your Rust projects.
-Simply import the required crates and you're ready to build powerful applications that interact with Dojo worlds.
+Simply import the required crates and you are ready to build powerful applications that interact with Dojo worlds.
 
 ## Core Components
 
 The Dojo Rust ecosystem provides several key crates for different use cases:
 
 - **`dojo-types`**: Core types and data structures for Dojo
-- **`dojo-world`**: World contract interaction and management
-- **`torii-client`**: Client for connecting to Torii indexer
+- **`dojo-world`**: **World** contract interaction and management
+- **`torii-client`**: Client for connecting to **Torii** indexer
 - **`torii-grpc`**: gRPC client for real-time data streaming
 - **`torii-relay`**: P2P networking and relay functionality
-- **`cainome`**: Contract bindings generation for Cairo contracts
+- **`cainome`**: Contract bindings generation for **Cairo** contracts
 
 ## Getting Started
 
@@ -56,7 +56,7 @@ use torii_client::client::Client;
 use starknet_crypto::Felt;
 
 // The #[tokio::main] attribute makes this function run in an async runtime
-// This is required because we'll be making network calls
+// This is required because we will be making network calls
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Configure connection URLs for your Dojo world
@@ -120,7 +120,7 @@ while let Some(Ok((_, entity))) = subscription.next().await {
 
 ## Discord Bot Example
 
-This example demonstrates how to build a Discord bot that connects to a Dojo World using the Rust SDK.
+This example demonstrates how to build a Discord bot that connects to a **Dojo** **World** using the Rust SDK.
 The bot monitors world events and posts updates to a Discord channel.
 This example uses the Shuttle runtime for easy deployment.
 
@@ -390,7 +390,7 @@ async fn subscribe(client: torii_client::client::Client, config: Config) {
                 }
                 // If we get here, the stream ended (connection lost)
             }
-            // Failed to connect - we'll retry
+            // Failed to connect - we will retry
             Err(_) => {
                 println!("Subscription was lost, attempting to reconnect");
                 tries += 1;
@@ -422,7 +422,7 @@ shuttle run
 ```
 
 This will start the bot using your local `Secrets.toml` file.
-The bot will connect to your specified Dojo world and Discord channel.
+The bot will connect to your specified **Dojo** world and Discord channel.
 
 #### Production Deployment
 
@@ -437,11 +437,11 @@ Make sure your `Secrets.toml` contains production-ready values before deploying.
 
 ### Next Steps
 
-This example demonstrates the basic integration between Dojo and Discord using Rust.
+This example demonstrates the basic integration between **Dojo** and Discord using Rust.
 You can extend it by:
 
 - Adding more Discord commands to interact with your world
-- Filtering events by specific models or entities
+- Filtering **Events** by specific **Models** or entities
 - Formatting Discord messages with rich embeds
 - Adding database persistence using Shuttle's shared database
 - Implementing user authentication and authorization

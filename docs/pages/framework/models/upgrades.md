@@ -59,14 +59,11 @@ If the upgrade would break existing data, the upgrade will fail.
     - existing elements cannot be removed, only modified
     - new elements can be freely added.
 
-- Each element of a data structure must keep the same type (i.e a `tuple` must remain a `tuple`), the same name and
-  the same attributes if any (such as `#[key]` for model members).
+- Each element of a data structure must keep the same type (i.e a `tuple` must remain a `tuple`), the same name and the same attributes if any (such as `#[key]` for model members).
 
-- A primitive type can be upgraded to a larger primitive type as long as its `felt252` representation does not change
-  (`u8` to `u128`, but not `u128` to `u256`).
+- A primitive type can be upgraded to a larger primitive type as long as its `felt252` representation does not change (`u8` to `u128`, but not `u128` to `u256`).
 
-- A key model member is upgradeable only if its type is an upgreadable primitive or an enum with new variants only (existing variants cannot be
-  modified for a key member).
+- A key model member is upgradeable only if its type is an upgreadable primitive or an enum with new variants only (existing variants cannot be modified for a key member).
 
 - The new fields must be added at the end of the model to ease the upgrade checks in Cairo.
 
@@ -320,7 +317,7 @@ mod migration {
 
 1. **Start with unpacked models**: Use `Introspect` for new models to maintain flexibility
 2. **Group stable fields**: Keep frequently changing fields separate from stable ones
-3. **Use appropriate types**: Don't over-size fields, but leave room for growth
+3. **Use appropriate types**: Do not over-size fields, but leave room for growth
 4. **Document constraints**: Clearly document which fields can be changed
 
 ### Upgrade Process

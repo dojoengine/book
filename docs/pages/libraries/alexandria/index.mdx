@@ -16,7 +16,8 @@ _- George Bernard Shaw_
 [Alexandria](https://github.com/keep-starknet-strange/alexandria) is a community maintained standard library for Cairo 1.0.
 It is a collection of useful algorithms and data structures implemented in Cairo.
 
-Alexandria provides essential building blocks for Cairo and Starknet development, covering mathematics, data structures, algorithms, and utilities that complement Dojo's game development framework.
+Alexandria provides essential building blocks for Cairo and Starknet development, covering mathematics, data structures, algorithms, and utilities that complement Dojo's onchain game development framework.
+For game-specific primitives and utilities, consider using [Origami](/libraries/origami) alongside Alexandria to get both general-purpose algorithms and specialized game development features.
 
 :::warning
 This library is built outside of the Dojo stack development.
@@ -36,11 +37,12 @@ alexandria_sorting = { git = "https://github.com/keep-starknet-strange/alexandri
 # Add others as needed...
 ```
 
-## Key Packages
+## Key Crates
 
 ### [Math](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/math)
 
 Mathematical operations and utilities for numerical computations, cryptography, and algorithm implementation.
+For specialized game mathematics like algebraic operations on vectors and matrices, see [Origami's Algebra crate](/libraries/origami#algebra) which provides complementary game-focused mathematical primitives.
 
 **Key Features**: Prime number testing, fast power/root calculations, bitwise operations, cryptographic hashes
 
@@ -194,7 +196,7 @@ fn decode_game_state(encoded_data: ByteArray) -> GameState {
 }
 ```
 
-## Additional Packages
+## Additional Crates
 
 ### [ASCII](https://github.com/keep-starknet-strange/alexandria/tree/main/packages/ascii)
 
@@ -277,7 +279,7 @@ Bitcoin protocol implementations and utilities
 
 ## Integration with Dojo
 
-Alexandria complements Dojo's game development framework by providing:
+Alexandria complements Dojo's onchain game development framework by providing:
 
 1. **Mathematical Foundations**: Use `alexandria_math` for game mechanics requiring number theory, cryptography, or advanced calculations
 2. **Data Management**: Leverage `alexandria_data_structures` for efficient in-memory data handling in systems

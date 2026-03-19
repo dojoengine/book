@@ -20,7 +20,7 @@ By default, blocks are mined instantly when transactions are received.
 Interval mining creates blocks at regular time intervals rather than on each transaction.
 Enable this mode with the `--block-time <MILLISECONDS>` flag:
 
-```sh
+```bash
 # Produces a new block every 10 seconds
 katana --block-time 10000
 ```
@@ -35,7 +35,7 @@ When called, all pending transactions are included in the new block.
 
 To enable on-demand mining, use the `--no-mining` flag.
 
-```sh
+```bash
 katana --no-mining
 ```
 
@@ -61,12 +61,12 @@ Persistent storage for forked networks is not yet available.
 
 #### Usage Examples
 
-```sh
+```bash
 # Initialize a new database in the specified directory
 katana --db-dir ./katana-db
 ```
 
-```sh
+```bash
 # Resume from a previously saved state
 katana --db-dir ./existing-katana-db
 ```
@@ -96,7 +96,7 @@ Full historical data support is planned.
 Fork Starknet mainnet at a specific block.
 Your local node will have all mainnet state up to that block and continue with new local blocks:
 
-```sh
+```bash
 # Forks mainnet at block 1200
 katana --fork.block 1200 \
     --fork.provider "https://api.cartridge.gg/x/starknet/mainnet"
@@ -240,6 +240,8 @@ RPC commands are organized across multiple namespaces:
 - **`dev`**: Development utilities like manual block mining and time control
 - **`katana`**: Node-specific endpoints for configuration and account info
 - **`torii`**: ECS entity/component queries for Dojo integration
+
+For detailed Torii integration and world state queries, see [Torii's documentation](/toolchain/torii).
 
 #### Usage Example
 

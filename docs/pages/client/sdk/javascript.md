@@ -202,7 +202,7 @@ Models are accessed using the pattern `entity.models.{namespace}.{ModelName}` wh
 
 - `{namespace}` is your project's namespace (e.g., `dojo_starter`, `world`, `game`)
 - `{ModelName}` is the exact model name as defined in your Cairo code
-  :::
+:::
 
 :::tip
 You do not need to `build()` your `query`; the sdk will build it automatically.
@@ -419,7 +419,8 @@ If you want messages to be broadcast to all of your torii client instances, you'
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii. First, configure Torii to index your tokens:
+Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
+First, configure Torii to index your tokens:
 
 ```toml
 # dojo_dev.toml
@@ -456,7 +457,8 @@ function TokenBalance({ address }: { address: string }) {
 
 ### Optimistic Client Rendering
 
-We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering. This allows instant client-side entity state updates while awaiting blockchain confirmation.
+We use [immer](https://immerjs.github.io/immer/) for efficient optimistic rendering.
+This allows instant client-side entity state updates while awaiting blockchain confirmation.
 
 **The process:**
 

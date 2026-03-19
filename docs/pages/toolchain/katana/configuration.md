@@ -8,12 +8,14 @@ description: Complete guide to configuring Katana using TOML files and command-l
 Katana supports flexible configuration through TOML files and command-line options.
 This enables you to customize everything from network settings to gas prices for both development and production deployments.
 
-### Configuration Priority
+## Configuration Priority
 
-1. **Command-line arguments** (highest)
+Configuration values are resolved using the following priority order:
+
+1. **Command-line arguments** (highest priority)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**
-4. **Default values** (lowest)
+4. **Default values** (lowest priority)
 
 ## TOML Configuration
 
@@ -24,7 +26,10 @@ Pass the configuration file using the `--config` flag:
 katana --config katana_prod.toml
 ```
 
-### Key Configuration Sections
+### Configuration Structure
+
+TOML configuration files use nested sections to organize related settings.
+Each section corresponds to a functional area of Katana:
 
 - **Core**: Node behavior (`silent`, `no_mining`, `block_time`, `db_dir`)
 - **Server**: HTTP server settings (`http_addr`, `http_port`, CORS)

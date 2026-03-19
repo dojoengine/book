@@ -8,12 +8,14 @@ import { LinkCard } from "../../components/LinkCard";
 # Dojo Framework Overview
 
 :::note
-Dojo is built on top of Cairo. We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
+Dojo is built on top of Cairo.
+We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
 :::
 
 ## What is Dojo?
 
-Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet. It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
+Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet.
+It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
 
 **Key Benefits:**
 
@@ -29,15 +31,16 @@ Dojo is a comprehensive framework for building provable games and autonomous wor
 [Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern that separates data from logic, enabling highly modular and scalable applications.
 
 **The Problem ECS Solves:**
-Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior. ECS addresses these issues by decomposing your application into three distinct parts:
+Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior.
+ECS addresses these issues by decomposing your application into three distinct parts:
 
 ### The ECS Trinity
 
 ![ECS Pattern](/framework/ECS.png)
 
-- **Entities**: The _objects_ in your game — characters, items, etc.
-- **Components**: The _properties_ of your entities — position, durability, etc.
-- **Systems**: The _rules_ that govern your game — movement, combat, etc.
+- **Entities**: The _objects_ in your game --- characters, items, etc.
+- **Components**: The _properties_ of your entities --- position, durability, etc.
+- **Systems**: The _rules_ that govern your game --- movement, combat, etc.
 
 With ECS, you assign **components** to **entities**, and operate on them using **systems**.
 This approach allows for a more modular and scalable design, as well as better performance and memory usage.
@@ -117,11 +120,13 @@ Both player and monsters can have Position and Health components, and the same s
 
 ## Dojo's ECS Implementation
 
-Dojo adapts ECS for the onchain environment with three core concepts:
+Dojo adapts ECS for the onchain environment with three core concepts.
+For a comprehensive understanding of how these work together, see our detailed coverage in the following sections:
 
 ### 1. Models (Components)
 
-Models are Cairo structs that define your application's data structures. They act as _components_ in the ECS pattern.
+Models are Cairo structs that define your application's data structures.
+They act as _components_ in the ECS pattern.
 
 ```rust
 #[derive(Copy, Drop, Serde)]
@@ -144,6 +149,8 @@ struct Position {
 - **Automatic indexing**: All model changes are automatically indexed by Torii
 - **Type safety**: Full Cairo type system support
 - **Composability**: Models can be reused across different entity types
+
+Learn more about [Models](/framework/models).
 
 ### 2. Systems (Smart Contracts)
 
@@ -194,6 +201,8 @@ mod actions {
 - **Atomic operations**: All state changes happen in a single transaction
 - **Event emission**: Automatic event generation for state changes
 
+Learn more about [Systems](/framework/systems).
+
 ### 3. World (Resource Registry)
 
 The World contract serves as the central coordinator, managing all models and systems.
@@ -218,6 +227,8 @@ world.emit_event(@PlayerMoved { player, direction });
 - **Permission management**: Hierarchical authorization system
 - **Upgradeability**: Safe model and system upgrades
 - **Introspection**: Rich metadata and schema information
+
+Learn more about the [World](/framework/world).
 
 ## Architecture Overview
 

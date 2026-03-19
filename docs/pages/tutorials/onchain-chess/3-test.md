@@ -5,6 +5,11 @@ description: Learn how to write integration tests for your onchain chess game, i
 
 # 3 Test Contract
 
+:::info
+This tutorial assumes you have completed the [onchain chess setup](./0-setup) and [action and move system](./2-move) chapters.
+For a foundational understanding of Dojo concepts, see the [Dojo starter tutorial](/tutorials/dojo-starter).
+:::
+
 In this chapter, we'll use everything we've learned to run a full chess game scenario.
 
 Here's what we'll do in our test:
@@ -15,7 +20,9 @@ Here's what we'll do in our test:
 4. Move `white_pawn` to (1,4)
 5. Capture `black_pawn`
 
-To place the pieces, use our `spawn` function in our `actions` contract. For moving them, use the `move` contract. Remember to check if a piece can be captured when using `move`.
+To place the pieces, use our `spawn` function in our `actions` contract.
+For moving them, use the `move` contract.
+Remember to check if a piece can be captured when using `move`.
 
 Before we get to the code, set up your integration test like this:
 
@@ -94,7 +101,10 @@ Keep moving pieces and checking if they're in the right places.
 
 ## Congratulations!
 
-You've made the basic contracts for a chess game using the Dojo engine! This tutorial was just the beginning. There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases. If you want to do more with this chess game, try these challenges:
+You've made the basic contracts for a chess game using the Dojo engine!
+This tutorial was just the beginning.
+There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases.
+If you want to do more with this chess game, try these challenges:
 
 - Add a checkmate feature. Our game doesn't end now, so decide when it should!
 - Include special moves like castling, En Passant Capture, or Pawn Promotion.
