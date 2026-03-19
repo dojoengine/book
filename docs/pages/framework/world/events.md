@@ -5,7 +5,8 @@ description: "Understanding and working with events in Dojo worlds - from built-
 
 # World Events
 
-Events are the backbone of real-time updates and indexing in Dojo worlds. The World contract automatically emits events for all state changes, and you can create custom events for your specific use cases.
+Events are the backbone of real-time updates and indexing in Dojo worlds.
+The World contract automatically emits events for all state changes, and you can create custom events for your specific use cases.
 
 ## Overview
 
@@ -212,7 +213,8 @@ pub struct EventEmitted {
 
 ## Custom Events
 
-Custom events allow you to emit domain-specific events for your application. They're particularly useful for:
+Custom events allow you to emit domain-specific events for your application.
+They are particularly useful for:
 
 - Game-specific UI updates
 - Non-historical data

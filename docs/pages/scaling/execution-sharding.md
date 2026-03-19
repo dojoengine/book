@@ -19,7 +19,8 @@ Shards are independent sequencers that branch from Starknet mainnet, process tra
 This enables parallel processing across multiple shards while maintaining unified state anchored to Starknet mainnet.
 
 :::info
-Execution sharding differs from sovereign chains, in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+Execution sharding differs from [sovereign chains](./sovereign-rollups), which are long-lived and **do not** commit state back to Starknet.
+Sovereign rollups maintain their own independent chains, while execution sharding creates temporary execution environments that always settle back to Starknet.
 :::
 
 ### Key Benefits
@@ -118,7 +119,7 @@ Once the completion event is detected, Saya would initiate the settlement proces
     - Outputs only modified storage addresses per settlement config
     - Supports shard-specific validation rules
 
-2. **Proof Generation**: Saya submits the trace to a proving service (e.g., Atlantic) for cryptographic proof generation
+2. **STARK Proof Generation**: Saya submits the trace to a proving service (e.g., Atlantic) for cryptographic proof generation
 
 3. **Layout Bridge**: Proof conversion to `recursive_with_poseidon` layout for Starknet verification
 
@@ -173,7 +174,7 @@ While execution sharding offers significant potential for scaling and parallel e
 
 ### 1. Proving Time Bottleneck
 
-Proof generation and verification is computationally intensive, potentially creating settlement delays and state update backlogs.
+STARK proof generation and verification is computationally intensive, potentially creating settlement delays and state update backlogs.
 
 ### 2. All-or-Nothing Proof Validation
 

@@ -24,9 +24,9 @@ The database schema is dynamically generated based on your world's model definit
 
 **API Layer**: Multiple interfaces for accessing indexed data:
 
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Provides a flexible, typed interface with real-time subscriptions
-- **[gRPC API](/toolchain/torii/grpc.md)**: High-performance binary protocol for efficient data fetching
-- **[SQL Endpoint](/toolchain/torii/sql.md)**: Direct database access for custom queries
+- **[GraphQL API](/toolchain/torii/graphql)**: Provides a flexible, typed interface with real-time subscriptions
+- **[gRPC API](/toolchain/torii/grpc)**: High-performance binary protocol for efficient data fetching
+- **[SQL Endpoint](/toolchain/torii/sql)**: Direct database access for custom queries
 
 ### Data Flow
 
@@ -68,9 +68,15 @@ For production deployments, use persistent storage and custom configuration:
 torii --world <WORLD_ADDRESS> --db-dir ./torii-db --config torii_prod.toml
 ```
 
+Start local [Katana](/toolchain/katana):
+
+```bash
+katana --dev --dev.no-fee
+```
+
 ## Installation
 
-Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+Torii can be installed via [`dojoup`](/installation), our dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash
@@ -118,6 +124,6 @@ This will install the `torii` binary at `~/.cargo/bin`
 
 ## Next Steps
 
-- **[Configuration Guide](/toolchain/katana/configuration.md)**: Learn how to configure Torii with TOML files and CLI arguments
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Explore the GraphQL interface for flexible data queries
-- **[gRPC API](/toolchain/torii/grpc.md)**: Use the high-performance gRPC interface
+- **[Configuration Guide](/toolchain/torii/configuration)**: Learn how to configure Torii with TOML files and CLI arguments
+- **[GraphQL API](/toolchain/torii/graphql)**: Explore the GraphQL interface for flexible data queries
+- **[gRPC API](/toolchain/torii/grpc)**: Use the high-performance gRPC interface

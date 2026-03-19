@@ -114,7 +114,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 ::::
 
-## Account Management with Controller
+## Account Management with Cartridge Controller
 
 ### Session Key Management
 
@@ -178,7 +178,7 @@ const handleAttack = async () => {
 
 ### Torii Client Setup
 
-Initialize the Torii client for real-time blockchain data synchronization:
+Initialize the ToriiClient for real-time blockchain data synchronization:
 
 ```typescript
 import { useState, useEffect } from "react";
@@ -196,7 +196,7 @@ useEffect(() => {
 
 ### Entity Queries and Subscriptions
 
-Use the Torii client to query and subscribe to entities:
+Use the ToriiClient to query and subscribe to entities:
 
 ```typescript
 // Entity queries

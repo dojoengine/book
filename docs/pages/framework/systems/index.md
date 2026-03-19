@@ -15,6 +15,8 @@ They encapsulate business logic, orchestrate state changes, and define how your 
 In Dojo's ECS paradigm, systems represent the **logic** that operates on data stored in models.
 While models define **what** your world contains, systems define **how** it behaves.
 
+For a comprehensive overview of how systems fit into Dojo's ECS architecture alongside entities and models, see the [Framework Overview](/framework).
+
 ```
 ┌─────────────────────────────────────────────────┐
 │                    ECS Trinity                  │
@@ -116,7 +118,7 @@ impl InternalImpl of InternalTrait {
 
 ### What Systems Should Not Do
 
-1. **Data Storage**: Systems don't store persistent state
+1. **Data Storage**: Systems do not store persistent state
 2. **UI Logic**: Keep presentation concerns separate
 3. **External Integration**: Avoid direct external service calls
 4. **Complex Calculations**: Delegate to specialized libraries when possible
@@ -167,7 +169,7 @@ mod game_actions {
 
 ### Initialization
 
-Systems are stateless functions and don't have constructors.
+Systems are stateless functions and do not have constructors.
 However, Dojo contracts support a `dojo_init` function that acts as a constructor-equivalent.
 The World calls `dojo_init` on each contract during `sozo migrate`, after the contract is registered.
 
@@ -181,7 +183,7 @@ mod my_system {
 ```
 
 Initialization arguments are configured in your profile's `[init_call_args]` section.
-See [Contract Initialization](/framework/configuration#contract-initialization) for details.
+See [Configuration](/framework/configuration) for details on contract initialization.
 
 ### Execution
 
@@ -262,4 +264,4 @@ Explore the deeper aspects of system implementation:
 - **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
 - **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
 
-Systems are the heart of your application - design them thoughtfully and they'll serve you well.
+Systems are the heart of your application - design them thoughtfully and they will serve you well.

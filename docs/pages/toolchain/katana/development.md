@@ -241,6 +241,8 @@ RPC commands are organized across multiple namespaces:
 - **`katana`**: Node-specific endpoints for configuration and account info
 - **`torii`**: ECS entity/component queries for Dojo integration
 
+For detailed Torii integration and world state queries, see [Torii's documentation](/toolchain/torii).
+
 #### Usage Example
 
 Generate blocks on-demand when using `--no-mining` mode:

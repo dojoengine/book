@@ -30,7 +30,8 @@ Dojo provides two complementary approaches to permission management:
 
 ### Configuration-Time Permissions
 
-Set up initial permissions during deployment via your `dojo_<profile>.toml` file:
+Set up initial permissions during deployment via your `dojo_<profile>.toml` file.
+For detailed configuration options, see [Configuration](/framework/configuration).
 
 ```toml
 [writers]
@@ -171,7 +172,8 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a resource:
 
 - **World** → A resource (selector `0`)
 - **Namespace** → A resource (e.g., `"my_game"`)
@@ -403,12 +405,9 @@ sozo call world is_owner 0x123 0x456   # resource_selector contract_address
 sozo auth list
 ```
 
-**Configuration Reference:**
-For detailed configuration options, see [Configuration](/framework/configuration).
-
 ## Debugging Permission Issues
 
-1. **Check Resource Selector**: Ensure you're using the correct resource selector
+1. **Check Resource Selector**: Ensure you are using the correct resource selector
 2. **Verify Caller**: Confirm the caller address is what you expect
 3. **Check Hierarchy**: Verify the permission hierarchy is set up correctly
 4. **Use Events**: Monitor permission events to track changes

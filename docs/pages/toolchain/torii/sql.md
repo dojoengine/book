@@ -163,8 +163,8 @@ Model table names contain hyphens and must be escaped with square brackets `[tab
 - Model fields are prefixed with `external_` in the database
 - Primitive types (felt252, u32, bool, ByteArray) are stored directly
 - Complex types (arrays, enums, structs) create separate tables:
-    - Format: `<NAMESPACE>-<MODEL_NAME>$<FIELD_NAME>`
-    - Example: `game-Inventory$items`
+  - Format: `<NAMESPACE>-<MODEL_NAME>$<FIELD_NAME>`
+  - Example: `game-Inventory$items`
 
 **Key Fields**:
 
@@ -179,7 +179,8 @@ You can submit the query using a `GET` or `POST` request.
 
 ### Using GET
 
-The query is sent as a URL parameter. Both `q` and `query` parameters are supported:
+The query is sent as a URL parameter.
+Both `q` and `query` parameters are supported:
 
 ```bash
 query=$(printf '%s' "SELECT * FROM [ns-Position];" | jq -s -R -r @uri)

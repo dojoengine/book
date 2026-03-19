@@ -9,25 +9,25 @@ Unity is one of the world's most popular cross-platform game engines, powering m
 With its intuitive visual editor, robust scripting capabilities in C#, and extensive asset ecosystem, Unity enables developers to create everything from simple 2D indies to complex 3D AAA titles.
 
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
-Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
+Whether you are creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
 ## Core Concepts
 
 Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
 
-### World Manager
+### WorldManager
 
-The **World Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
+The **WorldManager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
 
 ![world-manager](/client/unity/world-manager.webp)
 
-During initialization, the World Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
+During initialization, the WorldManager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
 While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
 In Unity, entities are represented by `GameObject` instances.
-The World Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
+The WorldManager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
 
 ### Synchronization Master
 
@@ -48,12 +48,12 @@ Key Features:
     - `SynchronizeEntities`: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
     - `HandleEntityUpdate`: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
 
-### Code Bindings
+### Bindings
 
-In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as a "code binding".
-A code binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
+In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on bindings.
+Bindings are automatically-generated code allowing one language to call functions implemented in another language.
 
-Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](/toolchain/cainome).
+Dojo's Sozo CLI provides built-in support for bindings, through [Cainome](/toolchain/cainome).
 You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
 
 ## Getting Started
@@ -120,7 +120,7 @@ In your Unity project, navigate to the scene where you want to integrate the SDK
 
 **Default Configuration**
 
-The World Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
+The WorldManager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
@@ -138,7 +138,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 #### Adding model bindings
 
-1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
+1. Generate model bindings: If you have not already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
 
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
@@ -154,7 +154,7 @@ This section explores the process of interacting with Dojo systems from Unity.
 ### Account Creation
 
 Every transaction to a Dojo system must come from an **account**.
-Accounts are required to sign and execute transactions that modify your game's on-chain state.
+Accounts are required to sign and execute transactions that modify your game's onchain state.
 
 We have two options for creating an account: a simple account, or a burner account.
 
@@ -203,12 +203,12 @@ Replace `masterAddress` and `masterPrivateKey` with the **account Address** and 
 ### System Execution
 
 Once we have an [account](#account-creation), we must execute a call to a Dojo system.
-To do this, we must first teach our Unity project about our Dojo contracts using [code bindings](#code-bindings).
+To do this, we must first teach our Unity project about our Dojo contracts using [bindings](#bindings).
 
 Sozo's [bindgen](/toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
 
 Let's consider a practical example: a `PlayerActions` contract that handles player creation in an RPG game.
-This system allows players to create their character by choosing a name and selecting their gender, then stores this information on-chain as part of the game state.
+This system allows players to create their character by choosing a name and selecting their gender, then stores this information onchain as part of the game state.
 
 ```rust
 #[starknet::interface]
@@ -282,9 +282,9 @@ Let's break down the concepts:
 
 - `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
 - `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
-- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a burner account.
+- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction onchain, creating the player character with the specified attributes. The `account` can be either a simple account or a burner account.
 
-When this function is called from Unity (e.g., when a player fills out a character creation form), it will create a new on-chain player entity that persists in your Dojo world and can be queried by other systems or clients.
+When this function is called from Unity (e.g., when a player fills out a character creation form), it will create a new onchain player entity that persists in your Dojo world and can be queried by other systems or clients.
 
 :::tip
 It is possible to execute an array of calls simultaneously, by passing multiple `dojo.Call` instances to `ExecuteRaw`.
@@ -367,7 +367,7 @@ Here are the steps to address it:
     - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
     - If the Dojo template is missing, proceed to `step 2`.
 
-2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
+2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it is likely missing from your project.
 
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
@@ -446,7 +446,7 @@ Clone the [dojo.unity](https://github.com/dojoengine/dojo.unity) and [Dojo Start
 
 #### Setting up Dojo Starter
 
-Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter.mdx) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
+Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
 
 #### Setting up dojo.unity
 
