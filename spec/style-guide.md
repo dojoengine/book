@@ -56,16 +56,17 @@ These are proper nouns — always capitalize in prose:
 
 ### ECS terms
 
-Capitalize when referring to Dojo ECS concepts specifically:
+Use **lowercase** for ECS terms in running prose (e.g., "define a model", "the world contract", "write a system").
+Capitalize only in headings, link text, or when using the term as a label (e.g., a table column header).
 
-| Canonical term | Notes |
-|----------------|-------|
-| **World** | The root contract that manages all state |
-| **Model** | Data structures decorated with `#[dojo::model]` |
-| **System** | Functions that modify models, implementing game logic |
-| **Entity** | An addressable unit of state composed of models |
-| **Component** | Avoid — use **Model** instead (legacy term) |
-| **Event** | On-chain events decorated with `#[dojo::event]` |
+| Term | Notes |
+|------|-------|
+| **model** | Data structures decorated with `#[dojo::model]` |
+| **system** | Functions that modify models, implementing game logic |
+| **entity** | An addressable unit of state composed of models |
+| **event** | On-chain events decorated with `#[dojo::event]` |
+| **world** | The root contract that manages all state (capitalize in "World contract" as a proper noun) |
+| **component** | Avoid — use **model** instead (legacy term) |
 
 ### Third-party names
 
@@ -117,7 +118,7 @@ When explaining these concepts to users, you may add clarifying language alongsi
 
 | Use | Do not use |
 |-----|-----------|
-| **autonomous world** | "autonomous World" (capitalize only when referring to the Dojo World contract) |
+| **autonomous world** | "autonomous World" |
 | **provable game** | "verifiable game" (in Dojo context) |
 | **paymaster** (lowercase) | "Paymaster" in prose |
 
