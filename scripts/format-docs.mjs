@@ -56,8 +56,6 @@ const SMART_QUOTES = [
     [/\u2019/g, "'"], // right single
     [/\u201C/g, '"'], // left double
     [/\u201D/g, '"'], // right double
-    [/\u2013/g, "--"], // en dash
-    [/\u2014/g, "---"], // em dash
 ];
 
 function formatFile(content) {
