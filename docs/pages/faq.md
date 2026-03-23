@@ -29,7 +29,7 @@ This constitutes a provable game.
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
