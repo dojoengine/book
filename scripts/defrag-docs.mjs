@@ -274,7 +274,7 @@ ${styleGuide}
 - One sentence per line is MANDATORY for prose paragraphs. This does NOT apply to list items, headings, code blocks, or frontmatter.
 - Do NOT convert :::note, :::warning, :::tip, or :::info blocks to blockquote format. This site uses Vocs, which renders ::: blocks as styled callout boxes.
 - Do NOT use HTML comments (<!-- -->) in .mdx files — MDX cannot parse them. Use JSX comments instead: {/* comment */}
-- ECS terms (model, system, entity, event, world) must be lowercase in prose. Do NOT capitalize "Model", "System", etc. unless in a heading, link text, or table header.
+- ECS terms (model, system, entity, event, world) must be lowercase in prose sentences. HOWEVER, keep them capitalized in markdown headings (lines starting with #), table column headers, and table description cells. For example: "### Model Design" stays capitalized, "| Free World metadata |" stays capitalized, but "the world contract manages state" is lowercase.
 - Do not invent new content or add explanations that weren't there.
 - Keep each continuous change small — no single diff hunk should touch more than ${MAX_HUNK_LINES} lines. If the report suggests a larger change, add a TODO comment instead: {/* TODO: deduplicate with [target page] */}
 - Do not remove content that is unique and correct — only trim true redundancy.

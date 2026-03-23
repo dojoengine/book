@@ -57,7 +57,7 @@ These are proper nouns — always capitalize in prose:
 ### ECS terms
 
 Use **lowercase** for ECS terms in running prose (e.g., "define a model", "the world contract", "write a system").
-Capitalize only in headings, link text, or when using the term as a label (e.g., a table column header).
+Capitalize in headings, link text, table headers, and table description cells (e.g., "Free World metadata", "Model Binding Errors").
 
 | Term | Notes |
 |------|-------|
