@@ -9,8 +9,10 @@ Godot Engine is a free, open-source cross-platform game engine renowned for its 
 With its intuitive node-based architecture, GDScript scripting language, and robust 2D and 3D capabilities, Godot empowers developers to create everything from indie platformers to complex multiplayer experiences.
 
 Dojo.godot is the official Godot Engine SDK for building onchain games powered by Dojo.
-This GDExtension seamlessly integrates blockchain functionality into your Godot projects.
+This GDExtension seamlessly integrates blockchain functionality into your Godot projects, building on [the foundational dojo.c architecture](/client/sdk/c).
 It enables you to create fully decentralized games without compromising on performance or developer experience.
+
+For general SDK concepts and architecture patterns, see the [main SDK documentation](/client/sdk).
 
 :::tip
 Always [Download](https://github.com/lonewolftechnology/godot-dojo/releases) the latest version.
@@ -49,7 +51,7 @@ Used for smart contract function calls.
 
 Structure:
 
-- **Contract Address**: The address of the target smart contract.
+- **Contract Address**: The world address of the target smart contract.
 - **Function Name (`entrypoint/method`)**: The name of the function to call.
 - **Call Data**: An array of parameters to pass to the function.
 
@@ -76,7 +78,7 @@ Dojo.godot automatically handles conversions between Cairo types and Godot equiv
 
 :::info
 
-Godot doesn't natively support big integers like `i128`, `u128`, and `u256`.
+Godot does not natively support big integers like `i128`, `u128`, and `u256`.
 However, the extension supports them using wrapper classes to store and display the data.
 
 `I128`, `U128`, and `U256` wrappers can be used directly inside the `calldata` array.
@@ -99,7 +101,7 @@ Create a new Godot project or open an existing one.
 
 #### Install the GDExtension
 
-1. Create an `addons` folder in the root of your project if it doesn't exist.
+1. Create an `addons` folder in the root of your project if it does not exist.
 2. Copy the downloaded files into the `addons` folder.
 3. Restart Godot to ensure the extension is correctly loaded.
 
@@ -186,7 +188,7 @@ When creating calls, you need the contract address, the selector/function name, 
 
 The `calldata` is an array and an optional parameter.
 
-If the function in your contract doesn't take arguments, you can pass an empty array.
+If the function in your contract does not take arguments, you can pass an empty array.
 Otherwise, arguments must be inside an array.
 
 Calldata is always flattened.
@@ -232,7 +234,8 @@ func move_to(_position:Array, _direction:int) -> void:
 
 ### Subscriptions
 
-Subscriptions can be created through `ToriiClient`. When a subscription is successfully created, it returns a `sub_id`.
+Subscriptions can be created through `ToriiClient`.
+When a subscription is successfully created, it returns a `sub_id`.
 
 This `sub_id` is required to update or cancel the subscription.
 
@@ -246,7 +249,8 @@ Refer to the in-editor documentation to see other available subscriptions.
 
 #### Subscribing to Events
 
-Listen for blockchain events in real-time. The first parameter is always a `Callable`:
+Listen for blockchain events in real-time.
+The first parameter is always a `Callable`:
 
 This can be a lambda function, a `Callable` constructed from another object's function, or any function in the current script.
 
@@ -289,7 +293,8 @@ An empty query retrieves **ALL** entities across **ALL** worlds indexed by Torii
 :::
 
 :::note
-`DojoQuery` is used for retrieving entities. For other query types, refer to the `ToriiClient` in-editor documentation.
+`DojoQuery` is used for retrieving entities.
+For other query types, refer to the `ToriiClient` in-editor documentation.
 :::
 
 ```gdscript
@@ -420,7 +425,7 @@ You can build arm64 builds.
 Let us know if it works by opening an issue or by leaving a message on `Dojo's Discord` under the `Godot section`.
 
 `MacOS` builds are not universal, so while they work on both Intel and Apple Silicon, they require separate binaries.
-A universal build could be created, but we haven't been able to properly test it yet.
+A universal build could be created, but we have not been able to properly test it yet.
 :::
 
 ### Editor builds

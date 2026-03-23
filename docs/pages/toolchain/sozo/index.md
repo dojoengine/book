@@ -24,11 +24,11 @@ Sozo's functionality spans two primary domains:
 
 Sozo manages five core resource types that form the building blocks of Dojo worlds:
 
-**Models**: Data structures that define the ECS components of your world state (e.g., `Position`, `Health`, `Inventory`).
+**models**: Data structures that define the ECS components of your world state (e.g., `Position`, `Health`, `Inventory`).
 
-**Systems**: Smart contracts containing the game logic that operates on models (e.g., `MovementSystem`, `CombatSystem`).
+**systems**: Smart contracts containing the game logic that operates on models (e.g., `MovementSystem`, `CombatSystem`).
 
-**Events**: Structured notifications emitted by systems to communicate state changes and enable efficient indexing.
+**events**: Structured notifications emitted by systems to communicate state changes and enable efficient indexing.
 
 **Libraries**: Reusable Cairo code that can be shared across multiple systems within the world.
 
@@ -69,7 +69,8 @@ Sozo automatically generates and maintains deployment manifests that eliminate m
 
 **Generated Manifests**: After each `sozo migrate`, Sozo writes a `manifest_{profile}.json` file containing complete deployment state: contract addresses, class hashes, ABIs, and metadata for all resources.
 
-**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses. Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
+**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses.
+Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
 
 **Fallback to Chain State**: When manifests are missing or `--diff` is used, Sozo rebuilds contract mappings by querying deployed world state directly.
 
@@ -89,7 +90,7 @@ sozo build && sozo migrate
 
 ## Installation
 
-Sozo can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+Sozo can be installed via [`dojoup`](/installation), our dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash

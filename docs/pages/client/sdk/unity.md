@@ -11,6 +11,8 @@ With its intuitive visual editor, robust scripting capabilities in C#, and exten
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
 Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
+Built on the same [foundational architecture](/client/sdk) as all Dojo SDKs, dojo.unity leverages [C# P/Invoke integration](/client/sdk/c/c-bindings) to provide native Unity performance with full access to Dojo's world state management.
+
 ## Core Concepts
 
 Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
@@ -156,7 +158,7 @@ This section explores the process of interacting with Dojo systems from Unity.
 Every transaction to a Dojo system must come from an **account**.
 Accounts are required to sign and execute transactions that modify your game's on-chain state.
 
-We have two options for creating an account: a simple account, or a burner account.
+We have two options for creating an account: a simple account, or a Controller account.
 
 To create a **simple account**, use this code:
 
@@ -173,7 +175,7 @@ void Start()
 }
 ```
 
-For a **burner account**, use this code:
+For a **Controller account**, use this code:
 
 ```cs
 using Dojo;
@@ -258,7 +260,7 @@ using UnityEngine;
 using dojo_bindings;
 
 public class PlayerActions : MonoBehaviour {
-    // The address of this contract
+    // The world address of this contract
     public string contractAddress;
 
     // Call the `create` system with the specified Account and calldata
@@ -282,7 +284,7 @@ Let's break down the concepts:
 
 - `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
 - `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
-- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a burner account.
+- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a Controller account.
 
 When this function is called from Unity (e.g., when a player fills out a character creation form), it will create a new on-chain player entity that persists in your Dojo world and can be queried by other systems or clients.
 
@@ -342,7 +344,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 
 ### Build Issues
 
-#### Model Binding Errors
+#### model Binding Errors
 
 When modifying the bindings generated during [bindgen](/toolchain/sozo/binding-generation#unity), ensure that all fields in the model bindings are declared as public.
 
@@ -446,7 +448,7 @@ Clone the [dojo.unity](https://github.com/dojoengine/dojo.unity) and [Dojo Start
 
 #### Setting up Dojo Starter
 
-Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter.mdx) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
+Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
 
 #### Setting up dojo.unity
 

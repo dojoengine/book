@@ -21,7 +21,7 @@ use dojo::world::{WorldStorage, WorldStorageTrait};
 // Systems coordinate through shared models
 // Movement system updates position
 fn move(ref self: ContractState, direction: Direction) {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
     let player = get_caller_address();
 
     let mut position: Position = world.read_model(player);
@@ -39,7 +39,7 @@ fn move(ref self: ContractState, direction: Direction) {
 
 // Combat system reads position for range calculations
 fn attack(ref self: ContractState, target: ContractAddress) {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
     let attacker = get_caller_address();
 
     let attacker_pos: Position = world.read_model(attacker);
@@ -69,7 +69,7 @@ struct ActionHistory {
 }
 
 fn coordinated_action(ref self: ContractState) {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
     let player = get_caller_address();
 
     let mut history: ActionHistory = world.read_model(player);
@@ -93,7 +93,7 @@ One system produces data that other systems consume.
 #[dojo::contract]
 mod resource_system {
     fn generate_resources(ref self: ContractState) {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
 
         // Produce resources at regular intervals
         let mut resource_node: ResourceNode = world.read_model(NODE_ID);
@@ -106,7 +106,7 @@ mod resource_system {
 #[dojo::contract]
 mod crafting_system {
     fn craft_item(ref self: ContractState, recipe: Recipe) {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
 
         // Consume resources for crafting
         let mut resource_node: ResourceNode = world.read_model(NODE_ID);
@@ -131,7 +131,7 @@ Systems observe and react to changes made by other systems.
 #[dojo::contract]
 mod health_system {
     fn take_damage(ref self: ContractState, amount: u32) {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
         let player = get_caller_address();
 
         let mut health: Health = world.read_model(player);
@@ -148,7 +148,7 @@ mod health_system {
 #[dojo::contract]
 mod achievement_system {
     fn check_survival_achievements(ref self: ContractState, player: ContractAddress) {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
 
         let health: Health = world.read_model(player);
         let mut achievements: PlayerAchievements = world.read_model(player);
@@ -170,7 +170,7 @@ A central system coordinates multiple subsystems.
 #[dojo::contract]
 mod turn_coordinator {
     fn process_turn(ref self: ContractState, player: ContractAddress) {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
 
         // Coordinate multiple subsystems in order
         self.process_movement(player);
@@ -229,7 +229,7 @@ struct GameState {
 
 // Systems coordinate through game phase
 fn player_action(ref self: ContractState, action: PlayerAction) {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
     let game_state: GameState = world.read_model(GAME_ID);
 
     match game_state.phase {

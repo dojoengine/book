@@ -55,9 +55,9 @@ If the upgrade would break existing data, the upgrade will fail.
 
 - For composite data structures like `struct`, `enum`, `tuple` and `array`:
 
-    - they are upgreadable as long as all their elements are upgreadable
-    - existing elements cannot be removed, only modified
-    - new elements can be freely added.
+  - they are upgreadable as long as all their elements are upgreadable
+  - existing elements cannot be removed, only modified
+  - new elements can be freely added.
 
 - Each element of a data structure must keep the same type (i.e a `tuple` must remain a `tuple`), the same name and
   the same attributes if any (such as `#[key]` for model members).
@@ -249,7 +249,7 @@ struct PlayerStats {
 
 When you need to make breaking changes, consider these strategies:
 
-#### 1. Create New Models
+#### 1. Create New models
 
 ```cairo
 // Create new v2 model going forward
@@ -274,7 +274,7 @@ struct Player {
 }
 ```
 
-#### 2. Use Migration Systems
+#### 2. Use Migration systems
 
 Create systems to migrate data from old to new models:
 
@@ -316,11 +316,11 @@ mod migration {
 
 ## Best Practices
 
-### Model Design
+### model Design
 
 1. **Start with unpacked models**: Use `Introspect` for new models to maintain flexibility
 2. **Group stable fields**: Keep frequently changing fields separate from stable ones
-3. **Use appropriate types**: Don't over-size fields, but leave room for growth
+3. **Use appropriate types**: Do not over-size fields, but leave room for growth
 4. **Document constraints**: Clearly document which fields can be changed
 
 ### Upgrade Process

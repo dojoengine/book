@@ -195,7 +195,7 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Custom Events
+## Event System
 
 #### `emit_event<T>`
 
@@ -226,6 +226,8 @@ world.emit_event(@PlayerMoved {
 - All types must derive `Introspect`
 
 ## Permission Management
+
+For detailed information on permission concepts and hierarchy, see the [World Permissions](/framework/world/permissions) guide.
 
 ### Checking Permissions
 
@@ -382,7 +384,7 @@ if let Option::Some(class_hash) = world.dns_class_hash(@"my_contract") {
 ## Advanced Functions
 
 The following functions are primarily used by framework developers, tooling, and migration scripts.
-Most application developers won't touch these directly:
+Most application developers will not need these directly.
 
 ### Entity Operations
 

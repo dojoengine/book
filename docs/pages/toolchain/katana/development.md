@@ -252,5 +252,5 @@ curl -X POST http://127.0.0.1:5050 \
 ```
 
 :::tip
-See the complete [RPC Reference](/toolchain/katana/reference#rpc-method-namespaces) for detailed method documentation and examples.
+See the complete [RPC Reference](/toolchain/katana/reference) for detailed method documentation and examples.
 :::

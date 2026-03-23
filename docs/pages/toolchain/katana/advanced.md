@@ -241,6 +241,7 @@ See the [starknet-messaging-dev](https://github.com/glihm/starknet-messaging-dev
 
 Katana provides `katana init` for initializing new blockchain networks with configurable settlement layers.
 This enables deployment of rollup chains that settle to Starknet networks or sovereign chains with data availability layers.
+For details on Katana's data availability integration with Celestia and proving with SHARP, see [Saya](/toolchain/saya).
 
 ### Settlement Models
 
@@ -367,6 +368,6 @@ starkli invoke <CONTRACT_ADDRESS> <FUNCTION_NAME> <ARGS>
 ```
 
 :::note
-[Sozo](/toolchain/sozo) is the preferred build and deployment for Dojo development.
+[Sozo](/toolchain/sozo) is the preferred build and deployment tool for Dojo development.
 Starkli integration is useful for standard Cairo contracts and production validation workflows.
 :::

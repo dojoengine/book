@@ -7,19 +7,21 @@ description: Learn how to deploy your Dojo project using Slot, including authent
 
 # Deploy your game using Slot
 
-Welcome to this tutorial where we'll guide you through deploying a project using the Slot.
+Welcome to this tutorial where we'll guide you through deploying a project using Slot.
 
 ---
 
-Before we start, make sure you are using the latest dojo version. Run `dojoup` to have the latest version installed.
+Before we start, make sure you are using the latest Dojo version.
+Run `dojoup` to have the latest version installed.
 
-Now, let's create a new project and initialize it with sozo.
+Now, let's create a new project and initialize it with `sozo init`.
 
 ```bash
 sozo init dojo-starter && cd dojo-starter
 ```
 
-First, we need to set up our configuration, starting by authenticating with Cartridge. To do this, run the following command, which will then prompt a new screen where you will need to go through the authentication process.
+First, we need to set up our configuration, starting by authenticating with Cartridge.
+To do this, run the following command, which will then prompt a new screen where you will need to go through the authentication process.
 
 ```bash
 slot auth login
@@ -42,14 +44,16 @@ Alternatively, you can provide a [Katana configuration file](/toolchain/katana/c
 slot deployments create DEPLOYMENT_NAME katana --config katana.toml
 ```
 
-After that, you should receive the RPC endpoint for the katana slot. Now, you can use that and update your `Scarb.toml` file with the new RPC endpoint as follows:
+After that, you should receive the RPC endpoint for the Katana slot.
+Now, you can use that and update your `Scarb.toml` file with the new RPC endpoint as follows:
 
 ```toml
 [tool.dojo.env]
 rpc_url = "YOUR_NEW_RPC_URL"
 ```
 
-Now, you can stream katana in a new terminal. Open a new terminal and run the following command:
+Now, you can stream Katana in a new terminal.
+Open a new terminal and run the following command:
 
 ```bash
 slot deployments logs DEPLOYMENT_NAME katana -f
@@ -66,19 +70,20 @@ Note: For each new Katana slot, a different account seed is used, making all the
 
 ---
 
-Once finished with the new configurations, we are ready to build and migrate the project. To build the project, run the following command:
+Once finished with the new configurations, we are ready to build and migrate the project.
+To build the project, run the following command:
 
 ```bash
 sozo build
 ```
 
-Now, let's migrate the project to our new katana slot:
+Now, let's migrate the project to our new Katana slot:
 
 ```bash
 sozo migrate
 ```
 
-If the migrations have been successful, you will receive the `WORLD_ADDRESS`, which then you can use to interact with your world.
+If the migrations have been successful, you will receive the world address, which then you can use to interact with your world.
 
 ```bash
 🎉 Successfully migrated World at address WORLD_ADDRESS
@@ -89,9 +94,12 @@ If the migrations have been successful, you will receive the `WORLD_ADDRESS`, wh
 
 ```
 
-Congratulations! You have successfully deployed your project with a Katana slot.
+Congratulations!
+You have successfully deployed your project with a Katana slot.
 
 ## Torii
+
+For comprehensive Torii deployment and configuration instructions, including debugging with Walnut and advanced configuration options, see the [mainnet deployment guide](/tutorials/deploy-to-mainnet/main).
 
 To deploy a Torii indexer slot, first create a [Torii configuration file](/toolchain/torii/configuration) with your world address and RPC endpoint:
 

@@ -57,7 +57,7 @@ db_dir = "torii.db"             # Persistent database (omit for in-memory)
 ```
 
 :::info
-AS of Torii 1.6.0, the World address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
+AS of Torii 1.6.0, the world address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
 Under the hood, a value passed to `world` is simply appended to the `contracts` array.
 :::
 
@@ -287,6 +287,14 @@ page_size = 65536             # Large pages (vs default 32768)
 [metrics]
 metrics = true                # Essential monitoring
 ```
+
+## Next Steps
+
+Continue exploring Torii's API capabilities:
+
+- [GraphQL API](./graphql) for flexible data queries
+- [gRPC API](./grpc) for real-time subscriptions
+- [SQL access](./sql) for direct database queries
 
 ## Best Practices
 

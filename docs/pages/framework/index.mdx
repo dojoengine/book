@@ -8,12 +8,14 @@ import { LinkCard } from "../../components/LinkCard";
 # Dojo Framework Overview
 
 :::note
-Dojo is built on top of Cairo. We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
+Dojo is built on top of Cairo.
+We suggest [familiarizing yourself with Cairo](https://book.cairo-lang.org/) before using Dojo.
 :::
 
 ## What is Dojo?
 
-Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet. It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
+Dojo is a comprehensive framework for building provable games and autonomous worlds on Starknet.
+It combines the power of Cairo smart contracts with Entity-Component-System (ECS) architecture to create scalable, composable onchain applications.
 
 **Key Benefits:**
 
@@ -29,7 +31,8 @@ Dojo is a comprehensive framework for building provable games and autonomous wor
 [Entity-Component-System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) is a design pattern that separates data from logic, enabling highly modular and scalable applications.
 
 **The Problem ECS Solves:**
-Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior. ECS addresses these issues by decomposing your application into three distinct parts:
+Traditional object-oriented programming can lead to complex inheritance hierarchies and tight coupling between data and behavior.
+ECS addresses these issues by decomposing your application into three distinct parts:
 
 ### The ECS Trinity
 
@@ -121,7 +124,8 @@ Dojo adapts ECS for the onchain environment with three core concepts:
 
 ### 1. Models (Components)
 
-Models are Cairo structs that define your application's data structures. They act as _components_ in the ECS pattern.
+Models are Cairo structs that define your application's data structures.
+They act as _components_ in the ECS pattern.
 
 ```rust
 #[derive(Copy, Drop, Serde)]
@@ -196,7 +200,7 @@ mod actions {
 
 ### 3. World (Resource Registry)
 
-The World contract serves as the central coordinator, managing all models and systems.
+The world contract serves as the central coordinator, managing all models and systems.
 
 ```rust
 // The World provides a unified interface for all operations
@@ -258,7 +262,8 @@ world.emit_event(@PlayerMoved { player, direction });
 
 ## Next Steps
 
-Ready to start building with Dojo? Here's your learning path:
+Ready to start building with Dojo?
+Here's your learning path:
 
 <div className="grid grid-cols-2 gap-8">
   <LinkCard

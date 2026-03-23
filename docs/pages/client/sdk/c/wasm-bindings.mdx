@@ -8,6 +8,8 @@ description: "Modern async JavaScript API for web applications and Node.js devel
 The **WASM JavaScript API** provides a modern, async/await interface to dojo.c functionality compiled to WebAssembly.
 This API is designed for web applications, Node.js backends, rapid prototyping, and developers who prefer JavaScript/TypeScript.
 
+See the [C SDK overview](./index) for dojo.c architecture details and compilation strategy.
+
 :::info
 [WebAssembly](https://webassembly.org/) (WASM) is a binary format that allows high-performance code (like Rust) to run in web browsers and Node.js at near-native speeds.
 Released in 2017, it has become a core technology for modern web development.
@@ -73,7 +75,9 @@ async function main() {
 
 ### Client Configuration
 
-Client functions connect your application to the Dojo world state via Torii (the indexer). Use these to fetch current game state, query historical data, and receive real-time updates as the world changes. This is your **read** interface to the blockchain.
+Client functions connect your application to the Dojo world state via Torii (the indexer).
+Use these to fetch current game state, query historical data, and receive real-time updates as the world changes.
+This is your **read** interface to the blockchain.
 
 **`new ToriiClient(config)`**
 Creates a new client instance.
@@ -296,7 +300,7 @@ const txSub = await client.onTransaction(
 ### Controller Operations
 
 **`getControllers(query)`**
-Queries controller information.
+Queries Controller account information.
 
 ```javascript
 const controllers = await client.getControllers({
@@ -351,7 +355,8 @@ Updates an existing token balance subscription with new addresses and token IDs.
 
 ## Account Operations
 
-Account functions handle the **write** side of blockchain interaction. Use these to execute game transactions, manage player accounts, and handle cryptographic operations like signing and verification.
+Account functions handle the **write** side of blockchain interaction.
+Use these to execute game transactions, manage player accounts, and handle cryptographic operations like signing and verification.
 
 ### Signing Key Operations
 

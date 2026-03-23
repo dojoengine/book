@@ -5,7 +5,8 @@ description: Complete guide to Torii's GraphQL interface, including queries, sub
 
 # GraphQL API
 
-Torii's GraphQL API provides type-safe access to your indexed Dojo world data. The schema is dynamically generated from your world's models, offering both flexible queries and real-time subscriptions.
+Torii's GraphQL API provides type-safe access to your indexed Dojo world data.
+The schema is dynamically generated from your world's models, offering both flexible queries and real-time subscriptions.
 
 ## Quick Start
 
@@ -74,7 +75,9 @@ This query will return an output like this:
 }
 ```
 
-> **Tip**: Use [stark-utils](https://www.stark-utils.xyz/) or `starkli` to compute model selectors.
+:::tip
+Use [stark-utils](https://www.stark-utils.xyz/) or `starkli` to compute model selectors.
+:::
 
 :::info
 You can find information about your schema definitions in the **Documentation Explorer** section of the GraphQL IDE.
@@ -156,8 +159,7 @@ This query will return an output like this:
                             "0x0"
                         ]
                     }
-                },
-                # ... four more results
+                }
             ],
             "totalCount": 5
         }
@@ -171,7 +173,8 @@ Torii supports both cursor-based and offset/limit pagination using GraphQL [Conn
 
 ### Cursor-Based Pagination
 
-Recommended for performance. Use `first`/`after` for forward pagination, `last`/`before` for backward:
+Recommended for performance.
+Use `first`/`after` for forward pagination, `last`/`before` for backward:
 
 ```graphql
 query {
@@ -321,3 +324,9 @@ Use the built-in GraphiQL IDE at `http://localhost:8080/graphql` to:
 - Subscribe to specific entities rather than all events when possible
 - Handle connection drops and reconnection in production
 - Use subscription filters to reduce bandwidth
+
+## Next Steps
+
+- [SQL API](./sql) for direct database queries and analytics
+- [gRPC API](./grpc) for high-performance client integration
+- [Configuration](./configuration) for customizing Torii behavior

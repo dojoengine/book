@@ -66,7 +66,7 @@ struct GameResource {
 }
 ```
 
-In this case you would then use [`read_model`](/framework/world/api.md#read_model) with both the player and location fields:
+In this case you would then use [`read_model`](/framework/world/api) with both the player and location fields:
 
 ```cairo
 let player = get_caller_address();
@@ -78,6 +78,12 @@ world.read_model((player, location));
 :::warning
 If you define multiple keys, they must **all** be provided to query the model.
 :::
+
+## Key-Entity Relationships
+
+Models with keys define entities in your world.
+Each unique combination of key values creates a distinct entity that can have multiple models attached to it.
+For more details on how entities work and best practices for designing them, see the [entities guide](./entities).
 
 ## Models in Practice
 
@@ -174,7 +180,7 @@ mod spawnHuman {
 
 Suppose we want to store a global game value, which we may want to modify in the future.
 To achieve this, we can create a model to store this value, while also allowing for its future modification.
-The key difference is that, instead of a variable key, we would use a **constant identifie**r.
+The key difference is that, instead of a variable key, we would use a **constant identifier**.
 
 ```cairo
 const RESPAWN_DELAY: u128 = 9999999999999;

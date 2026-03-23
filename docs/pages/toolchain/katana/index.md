@@ -89,7 +89,7 @@ katana --block-time 10000 --db-dir ./katana-db
 
 ## Installation
 
-Katana can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+Katana can be installed via [`dojoup`](/installation), our dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash

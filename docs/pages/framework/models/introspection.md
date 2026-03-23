@@ -10,7 +10,8 @@ Introspection is an advanced Dojo topic.
 Beginning Dojo developers can skip this section.
 :::
 
-In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo). This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
+In Dojo, every model automatically implements the [`Introspect` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/meta/introspect.cairo).
+This trait outlines the data structure of the model, which is utilized by both the world database engine and [Torii](/toolchain/torii) for automatic data indexing.
 
 The `dojo/core` library already implements the `Introspect` trait for Cairo built-in types including:
 
@@ -201,7 +202,7 @@ impl StatsIntrospect of dojo::meta::introspect::Introspect<Stats> {
 :::warning
 Use `#[inline(always)]` wisely to avoid hidden bugs during the cairo to sierra compilation.
 Usually it's fine to use it with dojo utils functions.
-In case you're using a function you don't know the complexity of, you should avoid using it.
+In case you're using a function you do not know the complexity of, you should avoid using it.
 :::
 
 ## IntrospectPacked trait
@@ -237,7 +238,7 @@ Dynamic types such as `ByteArray` and `Array` are prohibited in a packed model.
 Use `IntrospectPacked` when:
 
 - Model has a fixed, known size
-- Model structure is stable (won't change)
+- Model structure is stable (will not change)
 - Performance is critical
 - Model is read/written frequently as a whole
 
@@ -278,7 +279,7 @@ struct Transform {
 
 :::tip
 Old Dojo versions (before `0.7.0`) used to implement only the `IntrospectPacked` trait.
-Hence, you should use this trait if you're upgrading from an old version of Dojo.
+Hence, you should use this trait if you are upgrading from an old version of Dojo.
 :::
 
 ### Storage Optimization Tips
@@ -286,7 +287,7 @@ Hence, you should use this trait if you're upgrading from an old version of Dojo
 1. **Use packed layouts** for stable, frequently-accessed models
 2. **Group related fields** to minimize storage slots
 3. **Consider field ordering** - place smaller fields together
-4. **Use appropriate types** - don't use `u256` when `u32` suffices
+4. **Use appropriate types** - do not use `u256` when `u32` suffices
 
 ## Best Practices
 

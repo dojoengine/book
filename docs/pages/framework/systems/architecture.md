@@ -92,6 +92,10 @@ trait IGameActions<T> {
 }
 ```
 
+## Contract Creation Patterns
+
+For foundational information on creating Dojo contracts with `#[dojo::contract]` and implementing interfaces, see the [Systems overview](/framework/systems).
+
 ## Structural Patterns
 
 ### Single System Per Contract
@@ -108,7 +112,7 @@ mod movement {
     #[abi(embed_v0)]
     impl MovementImpl of IMovement<ContractState> {
         fn move(ref self: ContractState, direction: Direction) {
-            let mut world = self.world(@"game");
+            let mut world = self.world(@"namespace");
             // Movement logic
         }
     }
@@ -122,7 +126,7 @@ mod combat {
     #[abi(embed_v0)]
     impl CombatImpl of ICombat<ContractState> {
         fn attack(ref self: ContractState, target: ContractAddress) {
-            let mut world = self.world(@"game");
+            let mut world = self.world(@"namespace");
             // Combat logic
         }
     }
@@ -193,7 +197,7 @@ mod game_coordinator {
     #[abi(embed_v0)]
     impl CoordinatorImpl of IGameCoordinator<ContractState> {
         fn process_turn(ref self: ContractState, player: ContractAddress) {
-            let mut world = self.world(@"game");
+            let mut world = self.world(@"namespace");
 
             // Coordinate multiple subsystems
             self.handle_movement(player);
@@ -224,6 +228,8 @@ mod game_coordinator {
 - Harder to extend independently
 
 ## Permission Architecture
+
+For detailed information on permissions, see the [World permissions documentation](/framework/world/permissions).
 
 ### Granular Permissions
 
@@ -335,7 +341,7 @@ Use internal traits to compose functionality across systems.
 #[generate_trait]
 impl ValidationMixin of ValidationTrait {
     fn validate_player_exists(self: @ContractState, player: ContractAddress) -> bool {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
         let player_data: Player = world.read_model(player);
         player_data.exists
     }
@@ -360,14 +366,15 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits
 #[generate_trait]
 impl ValidationMixin of ValidationTrait {
     fn validate_player_exists(self: @ContractState, player: ContractAddress) -> bool {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
         let player_data: Player = world.read_model(player);
         player_data.exists
     }
@@ -421,7 +428,7 @@ Plan for system upgrades and data migration.
 #[dojo::contract]
 mod migration_system {
     fn migrate_player_data(ref self: ContractState, player: ContractAddress) {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
 
         // Read old format
         let old_data: PlayerV1 = world.read_model(player);
@@ -546,7 +553,7 @@ Systems can be discovered through the world's DNS (Dojo Name System).
 ```cairo
 // Register a system with the world
 fn register_system(ref self: ContractState, system_name: ByteArray, class_hash: ClassHash) {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
 
     // Register the system contract
     world.register_contract(0, system_name, class_hash);
@@ -554,7 +561,7 @@ fn register_system(ref self: ContractState, system_name: ByteArray, class_hash: 
 
 // Discover systems through DNS
 fn find_system(self: @ContractState, system_name: ByteArray) -> Option<ContractAddress> {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
 
     if let Some((address, _)) = world.dns(@system_name) {
         Option::Some(address)
@@ -578,4 +585,4 @@ Take time to design your architecture thoughtfully - it will pay dividends as yo
 
 ## Next Steps
 
-- **[System Coordination](/framework/systems/coordination)** - Learn how systems interact and coordinate
+- **[System Coordination](/framework/systems/coordination)** - Learn how systems interact and coordinate with detailed patterns and examples

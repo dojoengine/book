@@ -8,6 +8,8 @@ description: "Introduction to the official Unreal Engine 5 SDK for building Dojo
 [Dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
+{/* TODO: link to main SDK architecture page for foundation context */}
+
 ## Prerequisites
 
 Before getting started, ensure you have the Unreal Engine installed.
@@ -28,7 +30,7 @@ Either clone the repository or download it as a ZIP file to access the plugin.
 
 #### Set Up Your Unreal Project
 
-Launch Unreal Engine 5 and create a new project or open an existing one where you'll implement dojo.unreal.
+Launch Unreal Engine 5 and create a new project or open an existing one where you will implement dojo.unreal.
 
 ![unrealcreate](/client/unreal/create_new_cpp_project.webp)
 
@@ -37,11 +39,12 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 1. Navigate to your project directory by right-clicking the project in Epic Games Launcher (Unreal Engine > Library > My Projects)
    ![unrealdir](/client/unreal/open_project_directory.webp)
 
-2. Create a Plugins directory if one doesn't exist
+2. Create a Plugins directory if one does not exist
 
 3. Copy the Plugins/Dojo directory from dojo.unreal into your project's Plugins folder
 
-4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`. For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
+4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`.
+   For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
 
 5. Enable the Dojo plugin by adding `"Dojo"` to the `PublicDependencyModuleNames.AddRange` list in `Source/DojoBookTest/PROJECTNAME.Build.cs`
 
@@ -150,7 +153,7 @@ Click on the closed eye to be able to change it in the Inspector.
 
 #### Subscribe to and fetch existing models
 
-This is where you will retrieve all the models that are stored on-chain.
+This is where you will retrieve all the models that are stored onchain.
 
 Both subscription and fetch existing models will trigger a custom event called `OnDojoModelUpdate`.
 Always bind this custom event before calling any of these functions.
