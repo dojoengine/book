@@ -50,7 +50,7 @@ Torii is designed for production deployment with several performance optimizatio
 
 Torii leverages world introspection to bootstrap directly from an on-chain deployment:
 
-```sh
+```bash
 torii --world <WORLD_ADDRESS>
 ```
 
@@ -64,7 +64,7 @@ This starts Torii with default settings:
 
 For production deployments, use persistent storage and custom configuration:
 
-```sh
+```bash
 torii --world <WORLD_ADDRESS> --db-dir ./torii-db --config torii_prod.toml
 ```
 
@@ -72,7 +72,7 @@ torii --world <WORLD_ADDRESS> --db-dir ./torii-db --config torii_prod.toml
 
 Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
 
-```sh
+```bash
 curl -L https://install.dojoengine.org | bash
 
 # Restart your terminal
@@ -92,7 +92,7 @@ Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
 
 If you prefer to install with the `asdf` version manager:
 
-```sh
+```bash
 asdf plugin add torii https://github.com/dojoengine/asdf-torii.git
 
 asdf install torii latest
@@ -106,7 +106,7 @@ This will install the `torii` binary at `~/.asdf/shims`
 
 If you prefer to build from the source code:
 
-```sh
+```bash
 git clone https://github.com/dojoengine/torii.git
 
 cargo install --path ./torii/bin/torii --profile local --force
