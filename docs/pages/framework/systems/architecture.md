@@ -108,7 +108,7 @@ mod movement {
     #[abi(embed_v0)]
     impl MovementImpl of IMovement<ContractState> {
         fn move(ref self: ContractState, direction: Direction) {
-            let mut world = self.world(@"game");
+            let mut world = self.world(@"namespace");
             // Movement logic
         }
     }
@@ -122,7 +122,7 @@ mod combat {
     #[abi(embed_v0)]
     impl CombatImpl of ICombat<ContractState> {
         fn attack(ref self: ContractState, target: ContractAddress) {
-            let mut world = self.world(@"game");
+            let mut world = self.world(@"namespace");
             // Combat logic
         }
     }
@@ -193,7 +193,7 @@ mod game_coordinator {
     #[abi(embed_v0)]
     impl CoordinatorImpl of IGameCoordinator<ContractState> {
         fn process_turn(ref self: ContractState, player: ContractAddress) {
-            let mut world = self.world(@"game");
+            let mut world = self.world(@"namespace");
 
             // Coordinate multiple subsystems
             self.handle_movement(player);
@@ -232,13 +232,13 @@ Assign permissions at the finest grain possible while maintaining operational ef
 ```cairo
 // Each system gets specific permissions
 [writers]
-"game-Position" = ["game-movement"]
-"game-Health" = ["game-combat"]
-"game-Inventory" = ["game-inventory"]
+"namespace-Position" = ["namespace-movement"]
+"namespace-Health" = ["namespace-combat"]
+"namespace-Inventory" = ["namespace-inventory"]
 
 // Avoid overly broad permissions
 # Bad: Too broad
-# "game" = ["game-player_actions"]
+# "namespace" = ["namespace-player_actions"]
 ```
 
 ### Permission Inheritance
@@ -248,11 +248,11 @@ Use namespace-level permissions for systems that need broad access.
 ```cairo
 // For systems that coordinate multiple models
 [writers]
-"game" = ["game-coordinator"]  // Can write to all models in namespace
+"namespace" = ["namespace-coordinator"]  // Can write to all models in namespace
 
 // For systems with specific access
-"game-PlayerStats" = ["game-character_system"]
-"game-MarketData" = ["game-trading_system"]
+"namespace-PlayerStats" = ["namespace-character_system"]
+"namespace-MarketData" = ["namespace-trading_system"]
 ```
 
 ### Permission Hierarchies
@@ -335,7 +335,7 @@ Use internal traits to compose functionality across systems.
 #[generate_trait]
 impl ValidationMixin of ValidationTrait {
     fn validate_player_exists(self: @ContractState, player: ContractAddress) -> bool {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
         let player_data: Player = world.read_model(player);
         player_data.exists
     }
@@ -360,14 +360,15 @@ mod movement {
 
 ### Trait Composition
 
-Compose system behavior through trait implementations. Traits allow you to share common functionality across multiple systems.
+Compose system behavior through trait implementations.
+Traits allow you to share common functionality across multiple systems.
 
 ```cairo
 // Define reusable utility traits
 #[generate_trait]
 impl ValidationMixin of ValidationTrait {
     fn validate_player_exists(self: @ContractState, player: ContractAddress) -> bool {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
         let player_data: Player = world.read_model(player);
         player_data.exists
     }
@@ -421,7 +422,7 @@ Plan for system upgrades and data migration.
 #[dojo::contract]
 mod migration_system {
     fn migrate_player_data(ref self: ContractState, player: ContractAddress) {
-        let mut world = self.world(@"game");
+        let mut world = self.world(@"namespace");
 
         // Read old format
         let old_data: PlayerV1 = world.read_model(player);
@@ -546,7 +547,7 @@ Systems can be discovered through the world's DNS (Dojo Name System).
 ```cairo
 // Register a system with the world
 fn register_system(ref self: ContractState, system_name: ByteArray, class_hash: ClassHash) {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
 
     // Register the system contract
     world.register_contract(0, system_name, class_hash);
@@ -554,7 +555,7 @@ fn register_system(ref self: ContractState, system_name: ByteArray, class_hash: 
 
 // Discover systems through DNS
 fn find_system(self: @ContractState, system_name: ByteArray) -> Option<ContractAddress> {
-    let mut world = self.world(@"game");
+    let mut world = self.world(@"namespace");
 
     if let Some((address, _)) = world.dns(@system_name) {
         Option::Some(address)
@@ -578,4 +579,4 @@ Take time to design your architecture thoughtfully - it will pay dividends as yo
 
 ## Next Steps
 
-- **[System Coordination](/framework/systems/coordination)** - Learn how systems interact and coordinate
+- **[System Coordination](./coordination)** - Learn how systems interact and coordinate

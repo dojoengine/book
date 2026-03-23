@@ -79,10 +79,10 @@ By default, this clones the [dojo-starter](https://github.com/dojoengine/dojo-st
 - Example models (Position, Moves) and systems (Actions)
 - Pre-configured Scarb.toml with Dojo dependencies
 - Basic tests and deployment configuration
-  :::
+:::
 
 **Account Management**: Sozo uses accounts defined in your `dojo_<profile>.toml` files.
-See the [configuration guide](/framework/configuration/index.md) for more information.
+See the [configuration guide](/framework/configuration) for more information.
 
 :::tip
 Use a tool like [starkli](https://book.starkli.rs/accounts) to create and manage accounts and keystores.
@@ -119,7 +119,7 @@ sozo test                     # Run all tests
 
 Tests are Cairo functions marked with `#[test]`.
 Sozo runs them using the Cairo test runner, giving you confidence in your logic before deployment.
-See the [testing guide](/framework/testing/index.md) for more information about testing your Dojo contracts.
+See the [testing guide](/framework/testing) for more information about testing your Dojo contracts.
 
 ### `sozo clean`
 
@@ -219,7 +219,8 @@ You can use `-P` instead of `--profile` for simplicity.
 :::
 
 The migration outputs a manifest file, which is a JSON file that contains information about deployed contracts and resources.
-By default, the manifest will contains all the ABIs merged in only one entry "abis", where Sozo deduplicates the ABIs and makes the manifest easier to read/track diffs (this is called the `all_in_one` format). There is a second per contract (`per_contract` format), where the ABIs are separated by contract.
+By default, the manifest will contains all the ABIs merged in only one entry "abis", where Sozo deduplicates the ABIs and makes the manifest easier to read/track diffs (this is called the `all_in_one` format).
+There is a second per contract (`per_contract` format), where the ABIs are separated by contract.
 
 :::warning
 The `per_contract` format is currently required in one specific case: if you are using `dojo.js` and if you have the same function name in multiple contracts.
@@ -376,13 +377,15 @@ With this setup, running `sozo build`, `sozo test`, and `sozo migrate` will work
 If in your project you have other folders (not related to cairo), opening the project at the root is currently not supported by the cairo language server.
 You must have a root `Scarb.toml` file.
 
-This issue is being worked on by the Scarb team. In the meantime, you can open the project in your contracts directory, or you can add a virtual workspace to your project as shown in the next section.
+This issue is being worked on by the Scarb team.
+In the meantime, you can open the project in your contracts directory, or you can add a virtual workspace to your project as shown in the next section.
 :::
 
 ### Multi-package
 
 If you want to split your project into multiple packages, you can do so by creating a `packages` directory and placing your packages inside it.
-In the example below, only the `my-world` package is deployed on-chain with a Dojo world. The configuration files are placed inside the `my-world` package.
+In the example below, only the `my-world` package is deployed onchain with a Dojo world.
+The configuration files are placed inside the `my-world` package.
 
 ```
 ├── my-project/
@@ -407,7 +410,8 @@ In the example below, only the `my-world` package is deployed on-chain with a Do
 
 To make this layout work, you will need the root `Scarb.toml` to be a [virtual workspace](https://docs.swmansion.com/scarb/docs/reference/workspaces.html#virtual-workspace) to ease dependency management.
 
-You will be able to run `sozo test` at the workspace level. However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level.
+You will be able to run `sozo test` at the workspace level.
+However, since the Dojo configuration files are placed inside the `my-world` package, you will need to run `sozo build` and `sozo migrate` at the package level.
 This will generate the `target` directory and the `manifest_<profile>.json` file **at the package level**.
 
 If you prefer managing everything from the workspace level, you can simply move the Dojo configuration files to the workspace level.
@@ -438,7 +442,7 @@ Therefore, you will need to run `sozo build`, `sozo test`, and `sozo migrate` at
 
 #### Example layout
 
-When you want to ship both Cairo libraries and a Dojo world to be deployed on-chain, one way to lay out the project is by creating a `contracts` or `world` package with the name of your project as the package name in its `Scarb.toml` and library packages.
+When you want to ship both Cairo libraries and a Dojo world to be deployed onchain, one way to lay out the project is by creating a `contracts` or `world` package with the name of your project as the package name in its `Scarb.toml` and library packages.
 
 :::note
 This layout is not mandatory—it is an example of how to lay out your project.

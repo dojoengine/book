@@ -10,6 +10,8 @@ Configuration provides structured control over indexing, performance, security, 
 
 ## Configuration Priority
 
+Configuration priority follows a standard hierarchy:
+
 1. **Command-line arguments** (highest)
 2. **Configuration file** (via `--config`)
 3. **Environment variables**

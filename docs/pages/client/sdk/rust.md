@@ -8,6 +8,8 @@ description: "Native Rust integration for building Dojo applications with Rust"
 Dojo is built in Rust, making it seamless to integrate into your Rust projects.
 Simply import the required crates and you're ready to build powerful applications that interact with Dojo worlds.
 
+The Dojo Rust SDK provides access to the core framework functionality, built on the same [dojo.c foundation](/client/sdk/c) that powers other language bindings.
+
 ## Core Components
 
 The Dojo Rust ecosystem provides several key crates for different use cases:
@@ -120,7 +122,7 @@ while let Some(Ok((_, entity))) = subscription.next().await {
 
 ## Discord Bot Example
 
-This example demonstrates how to build a Discord bot that connects to a Dojo World using the Rust SDK.
+This example demonstrates how to build a Discord bot that connects to a Dojo world using the Rust SDK.
 The bot monitors world events and posts updates to a Discord channel.
 This example uses the Shuttle runtime for easy deployment.
 

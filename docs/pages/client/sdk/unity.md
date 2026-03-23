@@ -48,12 +48,12 @@ Key Features:
     - `SynchronizeEntities`: Asynchronously retrieves and spawns entities from the Dojo world in the Unity environment.
     - `HandleEntityUpdate`: Dynamically updates existing entities or spawns new ones based on changes received from the Dojo world, ensuring seamless synchronization.
 
-### Code Bindings
+### Contract Bindings
 
-In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as a "code binding".
-A code binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
+In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as a "contract binding".
+A contract binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
 
-Dojo's Sozo CLI provides built-in support for code bindings, through [Cainome](/toolchain/cainome).
+Dojo's Sozo CLI provides built-in support for contract bindings, through [Cainome](/toolchain/cainome).
 You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
 
 ## Getting Started
@@ -113,7 +113,8 @@ Enter `com.unity.nuget.newtonsoft-json` as the package URL, click `Add` and then
 In your Unity project, navigate to the scene where you want to integrate the SDK.
 
 1. From the `Project` window, locate the `Assets/Dojo/Prefabs` folder.
-2. Drag the `WorldManager` prefab into your scene. This prefab acts as the central hub for managing entities in your Dojo world.
+2. Drag the `WorldManager` prefab into your scene.
+   This prefab acts as the central hub for managing entities in your Dojo world.
 3. Additionally, navigate to the `Assets/Dojo/Runtime` folder and drag the `UnityMainThreadDispatcher` prefab into your scene.
 
 #### Configuring the `WorldManager`
@@ -154,7 +155,7 @@ This section explores the process of interacting with Dojo systems from Unity.
 ### Account Creation
 
 Every transaction to a Dojo system must come from an **account**.
-Accounts are required to sign and execute transactions that modify your game's on-chain state.
+Accounts are required to sign and execute transactions that modify your game's onchain state.
 
 We have two options for creating an account: a simple account, or a burner account.
 
@@ -203,12 +204,12 @@ Replace `masterAddress` and `masterPrivateKey` with the **account Address** and 
 ### System Execution
 
 Once we have an [account](#account-creation), we must execute a call to a Dojo system.
-To do this, we must first teach our Unity project about our Dojo contracts using [code bindings](#code-bindings).
+To do this, we must first teach our Unity project about our Dojo contracts using [contract bindings](#contract-bindings).
 
 Sozo's [bindgen](/toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
 
 Let's consider a practical example: a `PlayerActions` contract that handles player creation in an RPG game.
-This system allows players to create their character by choosing a name and selecting their gender, then stores this information on-chain as part of the game state.
+This system allows players to create their character by choosing a name and selecting their gender, then stores this information onchain as part of the game state.
 
 ```rust
 #[starknet::interface]
@@ -282,9 +283,10 @@ Let's break down the concepts:
 
 - `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
 - `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
-- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction on-chain, creating the player character with the specified attributes. The `account` can be either a simple account or a burner account.
+- `account.ExecuteRaw(new dojo.Call[] { ... })`: Executes the transaction onchain, creating the player character with the specified attributes.
+  The `account` can be either a simple account or a burner account.
 
-When this function is called from Unity (e.g., when a player fills out a character creation form), it will create a new on-chain player entity that persists in your Dojo world and can be queried by other systems or clients.
+When this function is called from Unity (e.g., when a player fills out a character creation form), it will create a new onchain player entity that persists in your Dojo world and can be queried by other systems or clients.
 
 :::tip
 It is possible to execute an array of calls simultaneously, by passing multiple `dojo.Call` instances to `ExecuteRaw`.
@@ -446,7 +448,7 @@ Clone the [dojo.unity](https://github.com/dojoengine/dojo.unity) and [Dojo Start
 
 #### Setting up Dojo Starter
 
-Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter.mdx) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
+Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
 
 #### Setting up dojo.unity
 

@@ -39,7 +39,8 @@ allow-prebuilt-plugins = ["dojo_cairo_macros"]
 Since `1.8.0` contains a very small but breaking change, you must use the `=1.7.2` to ensure that Scarb is not fetching `1.8.0` or greater instead.
 :::
 
-The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier. You need to add the `dojo_cairo_macros` dependency instead.
+The `allow-prebuilt-plugins` attribute is not available if you are using `1.7.0` or earlier.
+You need to add the `dojo_cairo_macros` dependency instead.
 See the note below for more details.
 
 :::note
@@ -131,7 +132,8 @@ struct MyModel {
 }
 ```
 
-If this model is read from storage before being explicitly written, the world's storage remains uninitialized (filled with `0x0`s). This results in:
+If this model is read from storage before being explicitly written, the world's storage remains uninitialized (filled with `0x0`s).
+This results in:
 
 ```rust
 let my_key: u32 = 0x1234;
@@ -215,9 +217,11 @@ For a new Dojo project, just add the `DojoStore` derive attribute to all the dat
 
 For stored enums, you must also add the `Default` derive attribute and configure a default variant (or implement the `Default` trait like in the previous example).
 
-You can omit the `DojoStore` attribute on the model `struct` itself because it will be automatically added when a `struct` is tagged with `dojo::model`. Same for `Introspect`, `Drop` and `Serde`.
+You can omit the `DojoStore` attribute on the model `struct` itself because it will be automatically added when a `struct` is tagged with `dojo::model`.
+Same for `Introspect`, `Drop` and `Serde`.
 
-Note that Dojo events and all the data structures used in events are not stored and so, don't need the `DojoStore` attribute. Of course, if a data structure is used in both Dojo models and events, you have to add the `DojoStore` attribute.
+Note that Dojo events and all the data structures used in events are not stored and so, do not need the `DojoStore` attribute.
+Of course, if a data structure is used in both Dojo models and events, you have to add the `DojoStore` attribute.
 
 Some examples:
 
@@ -258,9 +262,13 @@ struct E2 {
 
 If your project is already deployed on mainnet, there are two cases for each of your models.
 
-1. The model does not contain any enum/option, directly in the model `struct` or in any nested data structures. In this case, just use the `DojoStore` trait as explained in the previous chapter about new projects. Already stored data will be preserved as `DojoStore` do the same thing than `Serde` for all data types other than enums.
+1. The model does not contain any enum/option, directly in the model `struct` or in any nested data structures.
+In this case, just use the `DojoStore` trait as explained in the previous chapter about new projects.
+Already stored data will be preserved as `DojoStore` do the same thing than `Serde` for all data types other than enums.
 
-2. The model contains at least an enum/option (directly in the model `struct` or in nested data structures). In this case, you must keep the old Dojo storage behaviour to preserve already stored data. To do that, you must add the `DojoLegacyStore` derive attribute to your model `struct` only.
+2. The model contains at least an enum/option (directly in the model `struct` or in nested data structures).
+In this case, you must keep the old Dojo storage behaviour to preserve already stored data.
+To do that, you must add the `DojoLegacyStore` derive attribute to your model `struct` only.
 
 ```rust
 // The enum only need to derive Serde, which should already be the case
@@ -284,7 +292,8 @@ struct MyModel {
 That means, you still have the potential issue described earlier with uninitialized storage and enums, but there are some solutions to mitigate the risks:
 
 - Ensure models are explicitly initialized before being used.
-- Avoid relying on `Option<T>` for initialization checks. Instead, use a separate `bool` or `integer` field, as these default to `0x0`.
+- Avoid relying on `Option<T>` for initialization checks.
+Instead, use a separate `bool` or `integer` field, as these default to `0x0`.
 - Define the default variant as the first variant to ensure correct behavior when reading uninitialized storage, and if you define an associated variant data, keep in mind that it will be set to 0 by default.
 
 :::warning
@@ -304,7 +313,8 @@ read_schemas_legacy
 
 ### Conclusion to avoid an issue with uninitialized storage and enums
 
-If your project relies on `Option<T>` or custom enums, this issue may be critical. We recommend reviewing your usage and considering explicit initialization strategies when applicable.
+If your project relies on `Option<T>` or custom enums, this issue may be critical.
+We recommend reviewing your usage and considering explicit initialization strategies when applicable.
 
 For projects already on `mainnet`, upgrading the contract to modify logic or adding a dedicated initialization field can mitigate potential security risks.
 
@@ -314,9 +324,11 @@ From Dojo `1.7.0`, the `DojoStore` trait ensures that uninitialized storage is h
 
 ### Testing with `dojo-cairo-test`
 
-Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`. The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
+Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`.
+The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
 
-You now have to import the `world` and pass its class hash to the `spawn_test_world` function. There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
+You now have to import the `world` and pass its class hash to the `spawn_test_world` function.
+There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
 
 ```rust
 use dojo::world::{WorldStorageTrait, world};

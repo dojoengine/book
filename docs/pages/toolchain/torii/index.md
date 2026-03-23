@@ -24,13 +24,13 @@ The database schema is dynamically generated based on your world's model definit
 
 **API Layer**: Multiple interfaces for accessing indexed data:
 
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Provides a flexible, typed interface with real-time subscriptions
-- **[gRPC API](/toolchain/torii/grpc.md)**: High-performance binary protocol for efficient data fetching
-- **[SQL Endpoint](/toolchain/torii/sql.md)**: Direct database access for custom queries
+- **[GraphQL API](/toolchain/torii/graphql)**: Provides a flexible, typed interface with real-time subscriptions
+- **[gRPC API](/toolchain/torii/grpc)**: High-performance binary protocol for efficient data fetching
+- **[SQL Endpoint](/toolchain/torii/sql)**: Direct database access for custom queries
 
 ### Data Flow
 
-1. **World Introspection**: Torii automatically discovers your world's structure by reading model and system registrations from the World contract
+1. **World Introspection**: Torii automatically discovers your world's structure by reading model and system registrations from the world contract
 2. **Event Processing**: Monitors for Dojo-specific events (`StoreSetRecord`, `StoreUpdateRecord`, `StoreDelRecord`, etc.) and ERC token transfers
 3. **ECS Synchronization**: Translates blockchain events into ECS entity and component updates
 4. **Real-time Broadcasting**: Propagates changes to connected clients via GraphQL subscriptions
@@ -48,7 +48,8 @@ Torii is designed for production deployment with several performance optimizatio
 
 ### Quick Start
 
-Torii leverages world introspection to bootstrap directly from an on-chain deployment:
+Torii leverages world introspection to bootstrap directly from an on-chain deployment.
+For local development with [Katana](/toolchain/katana) sequencer:
 
 ```bash
 torii --world <WORLD_ADDRESS>
@@ -70,7 +71,7 @@ torii --world <WORLD_ADDRESS> --db-dir ./torii-db --config torii_prod.toml
 
 ## Installation
 
-Torii can be installed via [`dojoup`](/installation.mdx), our dedicated package manager:
+Torii can be installed via [`dojoup`](/installation), our dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash
@@ -118,6 +119,6 @@ This will install the `torii` binary at `~/.cargo/bin`
 
 ## Next Steps
 
-- **[Configuration Guide](/toolchain/katana/configuration.md)**: Learn how to configure Torii with TOML files and CLI arguments
-- **[GraphQL API](/toolchain/torii/graphql.md)**: Explore the GraphQL interface for flexible data queries
-- **[gRPC API](/toolchain/torii/grpc.md)**: Use the high-performance gRPC interface
+- **[Configuration Guide](/toolchain/torii/configuration)**: Learn how to configure Torii with TOML files and CLI arguments
+- **[GraphQL API](/toolchain/torii/graphql)**: Explore the GraphQL interface for flexible data queries
+- **[gRPC API](/toolchain/torii/grpc)**: Use the high-performance gRPC interface
