@@ -19,7 +19,7 @@ Shards are independent sequencers that branch from Starknet mainnet, process tra
 This enables parallel processing across multiple shards while maintaining unified state anchored to Starknet mainnet.
 
 :::info
-Execution sharding differs from sovereign chains, in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+Execution sharding differs from [sovereign rollups](/scaling/sovereign-rollups), in that sovereign chains are long-lived and **do not** commit state back to Starknet.
 :::
 
 ### Key Benefits
@@ -43,7 +43,7 @@ The proposed execution sharding system involves five key components:
 
 ## Proposed Shard Initialization
 
-A shard begins when an initialization transaction is submitted to the World Contract, specifying:
+A shard begins when an initialization transaction is submitted to the world contract, specifying:
 
 - Unique shard identifier
 - Designated operator address
@@ -110,7 +110,7 @@ A specific event emitted by a designated Cairo contract signals shard completion
 
 ### Proposed Settlement Pipeline
 
-Once the completion event is detected, Saya would initiate the settlement process:
+Once the completion event is detected, [Saya](/toolchain/saya) would initiate the settlement process:
 
 1. **Execution Trace Generation**: DojoOS generates an execution trace similar to SNOS but optimized for shard validation:
 
@@ -122,7 +122,7 @@ Once the completion event is detected, Saya would initiate the settlement proces
 
 3. **Layout Bridge**: Proof conversion to `recursive_with_poseidon` layout for Starknet verification
 
-4. **Settlement**: Final proof and storage updates submitted to the World Contract
+4. **Settlement**: Final proof and storage updates submitted to the world contract
 
 :::note
 The DojoOS component and shard settlement pipeline are currently in development.

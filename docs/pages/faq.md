@@ -29,7 +29,7 @@ This constitutes a provable game.
 
 An autonomous world is one that exists entirely onchain.
 It's not controlled by any single entity but is instead governed by the rules set within that world.
-[Dive deeper into the topic here](/theory/autonomous-worlds.md).
+[Dive deeper into the topic here](/theory/autonomous-worlds).
 
 ## Dojo Development
 
@@ -76,7 +76,7 @@ Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING
 Starknet enforces a maximum size for contract classes.
 If your Dojo contract grows too large (many systems or complex logic in a single contract), deployment will fail with a size limit error.
 
-The mitigation is to split logic across multiple contracts or use [Dojo libraries](/framework/systems/libraries) to separate reusable logic from your contracts via library calls.
+The mitigation is to split logic across multiple contracts or use [Dojo libraries](/libraries/origami) to separate reusable logic from your contracts via library calls.
 
 ### Models inside models
 

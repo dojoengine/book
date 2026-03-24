@@ -7,7 +7,7 @@ description: An overview of Dojo upgrading guides
 
 ## Major Releases
 
-### [Dojo 1.x](dojo-1-0)
+### [Dojo 1.x](/framework/upgrading/dojo-1-0)
 
 Dojo's first **major release** in November 2024, which stabilized the Dojo API.
 
@@ -19,7 +19,7 @@ It is unlikely that a new Dojo developer will need to upgrade from Dojo 0.x
 
 ## Minor Releases
 
-### [Dojo 1.7.x](dojo-1-7)
+### [Dojo 1.7.x](/framework/upgrading/dojo-1-7)
 
 **Dojo 1.7.0 key changes:**
 
