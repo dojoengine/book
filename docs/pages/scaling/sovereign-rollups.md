@@ -23,7 +23,7 @@ See [Mage Duel](https://mageduel.evolute.network/) for an example of a game buil
 Three components power the sovereign rollup:
 
 - [**Katana**](/toolchain/katana): Sequences transactions into blocks
-- [**Saya**](/toolchain/saya): Generates proofs from Katana blocks and posts to Celestia
+- [**Saya**](/toolchain/saya): Generates proofs from Katana blocks and submits to Celestia
 - [**Celestia**](https://celestia.org/): Stores proofs as blobs with retrieval metadata
 
 ### Key Features
@@ -57,13 +57,13 @@ Katana reconstructs complete state from Celestia proofs:
 
 ### 2. Saya - Prover and Proof Poster
 
-Saya generates proofs from Katana blocks and posts them to Celestia.
+Saya generates proofs from Katana blocks and submits them to Celestia.
 
 #### Workflow
 
 - **Polling**: Actively retrieves new blocks from Katana
 - **STARK Proving**: Generates cryptographic proofs of block validity and state updates
-- **Posting**: Submits proofs to Celestia for storage
+- **Submission**: Submits proofs to Celestia for storage
 
 #### Proof Aggregation
 

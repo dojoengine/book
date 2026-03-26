@@ -19,7 +19,7 @@ Shards are independent sequencers that branch from Starknet mainnet, process tra
 This enables parallel processing across multiple shards while maintaining unified state anchored to Starknet mainnet.
 
 :::info
-Execution sharding differs from [sovereign rollups](/scaling/sovereign-rollups), in that sovereign chains are long-lived and **do not** commit state back to Starknet.
+Execution sharding differs from [sovereign rollups](/scaling/sovereign-rollups), in that sovereign rollups are long-lived and **do not** commit state back to Starknet.
 :::
 
 ### Key Benefits
@@ -50,7 +50,7 @@ A shard begins when an initialization transaction is submitted to the world cont
 - Initial state conditions
 - Settlement configuration for mainnet data merging
 
-The operator then spins up a Katana instance, branching from Starknet mainnet to create the shard environment.
+The operator then spins up a [Katana](/toolchain/katana) instance, branching from Starknet mainnet to create the shard environment.
 
 ### Planned Data Structure
 

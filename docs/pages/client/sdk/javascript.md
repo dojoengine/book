@@ -18,7 +18,7 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 - **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
 :::note
-dojo.js is a wrapper around [dojo.c](/client/sdk/c/wasm-bindings) that exposes Torii client features via WASM.
+dojo.js is a wrapper around [dojo.c WASM bindings](/client/sdk/c/wasm-bindings) that exposes Torii client features via WASM.
 For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
 :::
 
@@ -283,6 +283,16 @@ const [initialEntities, subscription] = await sdk.subscribeEntityQuery({
 // Cancel the subscription when no longer needed
 // subscription.cancel();
 ```
+
+### Account Management
+
+For onchain interactions, dojo.js supports multiple account types for different use cases:
+
+- **Session accounts**: Short-lived accounts with limited permissions for specific game actions
+- **Burner accounts**: Temporary accounts for testing and gasless interactions
+- **Controller accounts**: Smart contract accounts with advanced features like session keys
+
+For detailed account management patterns and examples, see the canonical [account management documentation](/client/sdk/javascript).
 
 ### Saving State With Zustand
 

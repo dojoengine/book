@@ -161,8 +161,8 @@ world.erase_models_ptrs(ptrs);
 Field operations are more efficient when you only need to update specific fields:
 
 :::warning
-Field-level operations are advanced features that require careful use. For most applications,
-use the simpler `world.read_model()` and `world.write_model()` methods.
+Field-level operations are advanced features that require careful use.
+For most applications, use the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
 #### Reading Fields
@@ -199,7 +199,7 @@ world.write_member_of_models(ptrs, selector!("x"), new_x_values.span());
 
 ### Schema Reading
 
-You can read models using custom schemas that implement the `Introspect` trait:
+You can read models using custom schemas that implement the [`Introspect` trait](/framework/models/introspection):
 
 ```cairo
 #[derive(Drop, Serde, Introspect)]

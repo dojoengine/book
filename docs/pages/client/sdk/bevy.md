@@ -9,7 +9,7 @@ Bevy is a modern, data-driven game engine built in Rust that leverages the Entit
 Known for its performance, modularity, and ergonomic API, Bevy enables developers to create everything from simple 2D games to complex 3D experiences with compile-time safety and zero-cost abstractions.
 
 Dojo.bevy is the official Bevy engine SDK for interacting with Dojo worlds, providing native Rust integration for building high-performance onchain games.
-Built specifically for Bevy's ECS architecture, it seamlessly integrates with Bevy's component system while maintaining the performance and safety guarantees that Rust developers expect.
+Built on the [dojo.c foundation](../c), it seamlessly integrates with Bevy's ECS architecture while maintaining the performance and safety guarantees that Rust developers expect.
 
 ## Core Concepts
 
@@ -155,7 +155,7 @@ fn handle_dojo_events(
 
 ## Usage Patterns
 
-### Querying Entities
+### Entity Queries
 
 Fetch entities from your Dojo world using Torii queries:
 
@@ -203,7 +203,7 @@ fn setup_subscriptions(
 }
 ```
 
-### Executing Transactions
+### System Calls
 
 Send transactions to your Dojo systems:
 

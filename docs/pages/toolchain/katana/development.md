@@ -221,7 +221,7 @@ watch -n 1 'curl -s http://127.0.0.1:9100/metrics | grep block_producer'
 
 This provides real-time visibility into your local blockchain's performance characteristics during development and testing.
 
-### Enabling explorer
+### Enabling Explorer
 
 Enable the browser-based explorer:
 

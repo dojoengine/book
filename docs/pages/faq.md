@@ -1,11 +1,11 @@
 ---
 title: Frequently Asked Questions
-description: Find answers to common questions about Dojo, onchain games, Autonomous Worlds, and how to get involved.
+description: Find answers to common questions about Dojo, provable applications, Autonomous Worlds, and how to get involved.
 ---
 
 # FAQ
 
-## Provable Games
+## Provable Applications
 
 ### What is an onchain game?
 
@@ -37,6 +37,7 @@ It's not controlled by any single entity but is instead governed by the rules se
 
 Dojo was created to solve problems the founders faced when building onchain games in Cairo.
 It standardizes the process of building such games and provides a suite of tools to make it easier.
+See the [Dojo overview](/overview) for a comprehensive introduction to the framework and toolchain.
 
 ### What is Cairo?
 
@@ -48,6 +49,7 @@ Learn more about it here: [Cairo](https://www.cairo-lang.org/).
 
 Yes! Dojo can run on any StarknetVM including the public blockchains.
 Within the dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
+For deployment guidance, see the [installation instructions](/installation).
 
 ### Can Dojo do client side proofs?
 
@@ -68,6 +70,7 @@ If you have ideas for the project, please open an issue.
 ### How do I get involved?
 
 Check out our [Github](https://github.com/dojoengine/dojo/blob/main/CONTRIBUTING.md), [Twitter](https://x.com/ohayo_dojo), or [Discord](https://discord.gg/invite/dojoengine).
+To get started with development, see the [installation guide](/installation) and [getting started documentation](/getting-started).
 
 ## Known Limitations
 

@@ -172,7 +172,7 @@ Model table names contain hyphens and must be escaped with square brackets `[tab
 - Composite keys are supported for multi-key entities
 - Key fields are automatically indexed for query performance
 
-## Endpoint queries
+## Endpoint Queries
 
 To submit a query to the SQL endpoint, append `/sql` to the Torii URL.
 You can submit the query using a `GET` or `POST` request.

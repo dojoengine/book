@@ -105,4 +105,6 @@ If you want to do more with this chess game, try these challenges:
 - Include special moves like castling, En Passant Capture, or Pawn Promotion.
 - Make your own chess rules! You could even create your own version of the [immortal game](https://immortal.game/)
 
+For a deeper understanding of Dojo's capabilities and more complex game development patterns, see the [Dojo Starter tutorial](../dojo-starter).
+
 Lastly, share your project with others in the [Dojo community](https://discord.gg/akd2yfuRS3)!

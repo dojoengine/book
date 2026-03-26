@@ -8,7 +8,7 @@ import { LinkCard } from "../components/LinkCard";
 # Installing Dojo
 
 Dojo's installation process was designed to be idiomatically consistent with its dependencies, Rust and Cairo.
-You can get up-and-running in just a few steps, and be building provable games in no time.
+You can get up-and-running in just a few steps, and be building provable applications in no time.
 
 :::warning
 Windows is not natively supported. We recommend [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows development.
@@ -17,11 +17,11 @@ Windows is not natively supported. We recommend [WSL2](https://learn.microsoft.c
 ## Quick Start
 
 For existing Cairo developers, the fastest way to get started is with our `asdf` installer.
-Simply run the following command in your terminal to install the Dojo toolchain.
+
+For a comprehensive understanding of Dojo's capabilities, see the [Dojo overview](/overview).
 
 ```bash
 curl -L https://install.dojoengine.org | bash
-
 ```
 
 This script will install the `asdf` plugins for Sozo, Katana, and Torii, install their latest versions, and set them for global use.
@@ -97,7 +97,7 @@ For more information, see the [starkup documentation](https://github.com/softwar
 
 ## Installing Dojo
 
-The Dojo framework consists of a Cairo framework and three Rust-based tools: `katana`, `torii`, and `sozo`.
+The Dojo toolchain consists of a Cairo framework and three Rust-based tools: `katana`, `torii`, and `sozo`.
 
 :::note
 The Cairo framework is managed by Scarb as a compile-time dependency.
@@ -108,15 +108,6 @@ See the [Dojo configuration](/framework/configuration) documentation for more in
 
 [`asdf`](https://asdf-vm.com/) is a popular version manager, supporting programmatic management of dependencies.
 `asdf` is the preferred way to install Dojo.
-
-:::tip
-You can use our `asdf` installer to install the toolchain in a single command:
-
-```bash
-curl -L https://install.dojoengine.org | bash
-```
-
-:::
 
 ::::steps
 
@@ -322,6 +313,8 @@ npx skills add dojoengine/book
 2. Try cleaning and rebuilding: `sozo clean && sozo build`
 
 3. Check for [version mismatches](https://github.com/dojoengine/dojo/blob/main/versions.json) between your installed tools
+
+For additional troubleshooting information, see our [FAQ](/faq).
 
 ### Getting Additional Help
 

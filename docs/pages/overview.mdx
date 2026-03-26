@@ -31,6 +31,7 @@ Write like you would a database schema and have it reflected onchain and synced 
 
 Katana is a high-performance sequencer you can spin up with a single command.
 Blazing fast and easy to use, Katana gets you up and running quickly.
+Katana serves as your local development environment, providing fast block times and instant transaction finality for rapid iteration.
 
 [Read more about Katana](/toolchain/katana)
 
@@ -38,6 +39,7 @@ Blazing fast and easy to use, Katana gets you up and running quickly.
 
 Torii is an indexer that automatically generates GraphQL and gRPC APIs for real-time state updates.
 It is designed to make it easy to query and subscribe to onchain state changes.
+Torii watches your world contract and maintains a synchronized view of all entities and events, exposing them through multiple query interfaces.
 
 [Read more about Torii](/toolchain/torii)
 
@@ -45,8 +47,16 @@ It is designed to make it easy to query and subscribe to onchain state changes.
 
 Sozo is a CLI tool for planning and managing smart contract deployments, upgrades, and maintenance.
 It is designed to make it easy to manage your onchain application's lifecycle.
+Sozo handles everything from building your Cairo contracts to deploying your world and executing system calls.
 
 [Read more about Sozo](/toolchain/sozo)
+
+## Saya Settlement Layer
+
+Saya is a data availability layer that enables proving and settling of state transitions.
+It bridges the gap between local development and production deployment by providing cryptographic proofs of state changes.
+
+[Read more about Saya](/toolchain/saya)
 
 ## Multiplatform Client SDKs
 

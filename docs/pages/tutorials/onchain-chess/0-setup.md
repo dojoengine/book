@@ -5,7 +5,7 @@ description: Learn how to set up a Dojo chess game project, including project st
 
 # 0. Setup
 
-*Before starting recommend following the [`hello-dojo`](/tutorials/dojo-starter) chapter to gain a basic understanding of the Dojo game.*
+*Before starting recommend following the [Dojo Starter tutorial](/tutorials/dojo-starter) chapter to gain a basic understanding of the Dojo game.*
 
 ## Initializing the Project
 
@@ -334,4 +334,4 @@ impl PieceImpl of PieceTrait {
 This tutorial is extracted from [here](https://github.com/dojoengine/origami/tree/main/examples/chess)
 
 Congratulations!
-You've completed the basic setup for building an onchain chess game 🎉
+You have completed the basic setup for building an onchain chess game 🎉

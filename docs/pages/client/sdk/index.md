@@ -12,9 +12,12 @@ All SDKs share a unified foundation built on **dojo.c**, ensuring consistent fun
 
 The Dojo SDK ecosystem is built on a two-layer foundation that ensures both consistency and type safety across all platforms.
 
+Rather than implementing blockchain logic separately for each platform, the Dojo SDK architecture uses a shared foundation approach.
+This ensures consistency across all implementations while allowing for platform-specific optimizations.
+
 ### Layer 1: Cainome - Type-Safe Binding Generation
 
-**Cainome** generates type-safe bindings from Cairo contract ABIs, providing the compile-time foundation for all SDK interactions.
+[Cainome](/toolchain/cainome) generates type-safe bindings from Cairo contract ABIs, providing the compile-time foundation for all SDK interactions.
 
 **Key capabilities:**
 
@@ -38,6 +41,16 @@ The Dojo SDK ecosystem is built on a two-layer foundation that ensures both cons
 
 - **Native Platforms**: Uses `cbindgen` to generate C headers for Unity, Unreal, and other native integrations
 - **Web Platforms**: Uses `wasm-bindgen` to generate WebAssembly modules for JavaScript/TypeScript applications
+
+This architecture provides several key benefits:
+
+**Consistency**: All platforms use the same core blockchain logic, ensuring identical behavior across different implementations.
+
+**Efficiency**: Rather than reimplementing complex cryptography and networking in each language, all SDKs share the battle-tested dojo.c implementation.
+
+**Maintainability**: Bug fixes, optimizations, and new features in dojo.c automatically benefit all platform SDKs.
+
+**Type Safety**: Cainome ensures that contract interactions are validated at compile-time across all supported languages.
 
 ### The Complete Foundation
 

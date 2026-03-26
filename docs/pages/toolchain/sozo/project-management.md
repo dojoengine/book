@@ -240,12 +240,10 @@ manifest_abi_format = "per_contract"
 :::
 
 :::info
-Since the 0.14 network upgrade, the PRE-CONFIRMED state may be lagging on nodes
-with load-balanced infrastructure.
+Since the 0.14 network upgrade, the PRE-CONFIRMED state may be lagging on nodes with load-balanced infrastructure.
 
 By default, Sozo is now using `ACCEPTED_ON_L2` as the default transaction finality status.
-You may want to speed up the migration process by using `PRE_CONFIRMED` instead,
-but this may come to the of the migration failing and having to be restarted.
+You may want to speed up the migration process by using `PRE_CONFIRMED` instead, but this may come to the of the migration failing and having to be restarted.
 :::
 
 #### How Migration Works

@@ -39,7 +39,7 @@ katana --config katana_prod.toml
 ```toml
 # Core node settings
 silent = false                    # Don't print anything on startup (default: false)
-no_mining = false                 # Disable auto/interval mining (default: false)
+no_mining = false                 # Disable auto/on-demand mining (default: false)
 block_time = 6000                 # Block time in milliseconds (default: none)
 db_dir = "./katana-db"            # Database dir for non-Slot deployments (default: none)
 

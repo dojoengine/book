@@ -59,7 +59,7 @@ db_dir = "torii.db"             # Persistent database (omit for in-memory)
 ```
 
 :::info
-AS of Torii 1.6.0, the World address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
+AS of Torii 1.6.0, the world address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
 Under the hood, a value passed to `world` is simply appended to the `contracts` array.
 :::
 
@@ -253,7 +253,7 @@ http2_keepalive_timeout = 10     # HTTP/2 keepalive timeout in seconds (default:
 
 ### Development
 
-Fast iteration with local Katana:
+Fast iteration with local [Katana](/toolchain/katana):
 
 ```toml
 world_address = "0x1234..."

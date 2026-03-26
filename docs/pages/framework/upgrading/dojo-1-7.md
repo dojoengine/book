@@ -18,7 +18,7 @@ With Dojo 1.7, Sozo will instead began relying on "proc macros" (procedural macr
 With proc macros, Dojo functionality can be accessed by Scarb at compile-time, rather than requiring separate pre-compilation.
 This means that Sozo can leverage the mainstream Scarb directly; going forward, calls to `sozo build` will be thin wrappers around underlying Scarb functionality.
 
-The move to mainstream Scarb has reduced typical compile-times by about 3x, as well as unblocked quality-of-life improvements like in-editor syntax highligting and terminal text coloring.
+The move to mainstream Scarb has reduced typical compile-times by about 3x, as well as unblocked quality-of-life improvements like in-editor syntax highlighting and terminal text coloring.
 Most importantly, this change will make it easier to maintain and improve Dojo and Sozo going forward.
 
 The first action you need to take is to update your `Scarb.toml` file to add the `dojo_macros` dependency.
@@ -83,7 +83,7 @@ See [this guide](https://hackmd.io/8ILy9nLgTmaEJ98mrtPP3A) for more context and 
 This is a **breaking change**; while migration is straightforward, existing projects which do not migrate are at risk of data loss.
 :::
 
-**TL;DR: all Enums which are stored inside of Dojo models must derive the `Default` trait and set a `#[default]` value.**
+**TL;DR: all enums which are stored inside of Dojo models must derive the `Default` trait and set a `#[default]` value.**
 
 In response to a potential vulnerability identified with the existing implementation of Dojo storage and uninitialized storage, a new `DojoStore` trait was introduced to give developers more fine-grained control of model storage.
 
@@ -91,7 +91,7 @@ This trait will affect data serialization and requires some code updates to hand
 
 ### Dojo Storage Overview
 
-Before describing the issue, here's a brief summary of how Dojo storage works:
+Before describing the issue, here is a brief summary of how Dojo storage works:
 
 1. A model is defined as a Cairo struct.
 2. This model is serialized using the `Serde` trait and written to world storage via `world.model_write(@m)`.
@@ -171,7 +171,7 @@ From Dojo 1.7.0, models are serialized using a new `DojoStore` trait, which basi
 
 When reading an uninitialized model containing an enum, `DojoStore` will automatically use the default variant configured at enum level for deserialization.
 
-Let's see an example:
+Let us see an example:
 
 ```rust
 #[derive(Drop)]
@@ -211,7 +211,7 @@ In this case, `Variant2` is used for deserializing an uninitialized model contai
 
 For `Option<T>`, the default value is already configured as `None`.
 
-### What to do for a new Dojo project ?
+### What to do for a new Dojo project?
 
 For a new Dojo project, just add the `DojoStore` derive attribute to all the data structures used in models (basically all the data structures aimed to be stored).
 
@@ -258,7 +258,7 @@ struct E2 {
 }
 ```
 
-### How to migrate an existing Dojo project ?
+### How to migrate an existing Dojo project?
 
 If your project is already deployed on mainnet, there are two cases for each of your models.
 
@@ -361,7 +361,7 @@ fn test_world_test_set() {
 ### Using Starknet Foundry
 
 Now that Starknet Foundry is supported for Dojo contracts, you can opt to use it instead of `dojo-cairo-test` for testing.
-YOu can use the whole Starknet Foundry test suite and cheatcodes.
+You can use the whole Starknet Foundry test suite and cheatcodes.
 
 Update your `Scarb.toml` to add the `dojo_snf_test` dependency:
 
@@ -432,7 +432,7 @@ torii 1.7.0
 
 ### Sozo build errors
 
-If you're having trouble compiling your contracts with Sozo, try adding `dojo_macros` to your `Scarb.toml`:
+If you are having trouble compiling your contracts with Sozo, try adding `dojo_macros` to your `Scarb.toml`:
 
 ```toml
 [dependencies]

@@ -31,10 +31,10 @@ dojo-intro/
 ├── client/
 ├── contracts/
 │   ├── src/
-│   │   ├── systems/            # Game logic (Systems)
+│   │   ├── systems/            # Game logic (systems)
 │   │   │   └── actions.cairo
 │   │   ├── lib.cairo           # Main Cairo entry point
-│   │   └── models.cairo        # Data models (Components)
+│   │   └── models.cairo        # Data models
 │   ├── dojo_dev.toml           # Dojo configuration
 │   ├── katana.toml             # Katana configuration
 │   ├── Scarb.toml              # Cairo configuration
@@ -48,7 +48,7 @@ dojo-intro/
 
 Let's examine the key `contracts/` files to understand what we're building:
 
-### Models (Entities & Components)
+### Models
 
 Look at `contracts/src/models.cairo` to see the data structures:
 
@@ -77,7 +77,7 @@ These models define:
 - **Moves**: How many moves each player has remaining
 
 The `#[dojo::model]` attribute tells Cairo that the struct is a Dojo model.
-The `#[key]` attribute tells Cairo that `player` is the Dojo entity identifier for these components.
+The `#[key]` attribute tells Cairo that `player` is the Dojo entity identifier for these models.
 
 :::info
 These attributes are examples of "procedural macros," a [Cairo language feature](https://www.starknet.io/cairo-book/ch12-10-procedural-macros.html) which tells the compiler to generate additional code at compile-time.
@@ -210,7 +210,7 @@ Keep this running - it's your local blockchain.
 By default, Katana runs on port 5050
 :::
 
-### Terminal 2: Deploy Your World
+### Terminal 2: Deploy Your world
 
 In a new terminal, run the following command using [Sozo](/toolchain/sozo), Dojo's build tool.
 
@@ -337,10 +337,10 @@ After a while, you should have something which looks like this:
 
 Let's break down what you just accomplished:
 
-1. **Defined Components**: `Position` and `Moves` store data about each player
-2. **Implemented Systems**: The `spawn` and `move` functions modify component data
+1. **Defined models**: `Position` and `Moves` store data about each player
+2. **Implemented systems**: The `spawn` and `move` functions modify model data
 3. **Created a world**: Your world contract acts as the central registry for all game data, logic, and access control
-4. **Used the Toolchain**:
+4. **Used the toolchain**:
     - Katana provided a local blockchain
     - Sozo managed compilation and deployment
     - Torii indexed data and sent it to the client
@@ -350,10 +350,10 @@ Let's break down what you just accomplished:
 ### Entity Component System (ECS)
 
 - **Entities**: Players in your game (identified by their address)
-- **Components**: Data attached to entities (`Position`, `Moves`)
-- **Systems**: Functions that operate on components (`spawn`, `move`)
+- **models**: Data attached to entities (`Position`, `Moves`)
+- **systems**: Functions that operate on models (`spawn`, `move`)
 
-### Dojo World
+### Dojo world
 
 Your world contract coordinates everything:
 

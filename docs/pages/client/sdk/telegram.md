@@ -158,9 +158,9 @@ utils.openLink(keychainUrl + sessionParams);
 
 ## Dojo Integration
 
-### Game Actions
+### System Calls
 
-Execute game actions using the session account:
+Execute system calls using the session account:
 
 ```typescript
 const handleAttack = async () => {
@@ -264,7 +264,7 @@ pnpm run build && npx vercel
 
 - **Account Management**: [`src/hooks/useAccount.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useAccount.tsx) - Session keys & cloud storage
 - **Real-time State**: [`src/hooks/useBeast.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useBeast.tsx) - Entity subscriptions and live updates
-- **Game Actions**: [`src/App.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/App.tsx) - Session-based transaction execution
+- **System Calls**: [`src/App.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/App.tsx) - Session-based transaction execution
 - **Telegram Integration**: [`src/main.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/main.tsx) - SDKProvider and routing setup
 - **Dependencies**: [`package.json`](https://github.com/cartridge-gg/beast-slayers/blob/main/package.json) - Complete package configuration
 

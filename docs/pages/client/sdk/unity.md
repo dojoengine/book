@@ -15,19 +15,19 @@ Whether you're creating a tactical RPG, a real-time strategy game, or an immersi
 
 Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
 
-### World Manager
+### WorldManager
 
-The **World Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
+The **WorldManager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
 
 ![world-manager](/client/unity/world-manager.webp)
 
-During initialization, the World Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
+During initialization, the WorldManager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
 While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
 In Unity, entities are represented by `GameObject` instances.
-The World Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
+The WorldManager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
 
 ### Synchronization Master
 
@@ -50,8 +50,8 @@ Key Features:
 
 ### Contract Bindings
 
-In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as a "contract binding".
-A contract binding is an automatically-generated "stub" allowing code in one language to call functions implemented in another language.
+In order to link your Dojo code, written in Cairo, with your Unity code, written in C#, we rely on something known as contract bindings.
+Contract bindings are automatically-generated "stubs" allowing code in one language to call functions implemented in another language.
 
 Dojo's Sozo CLI provides built-in support for contract bindings, through [Cainome](/toolchain/cainome).
 You can learn more about Sozo's binding generation features [here](/toolchain/sozo/binding-generation).
@@ -121,7 +121,7 @@ In your Unity project, navigate to the scene where you want to integrate the SDK
 
 **Default Configuration**
 
-The World Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
+The WorldManager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
@@ -137,9 +137,9 @@ Customize the configuration values within this new `ScriptableObject` instance.
 To use a specific configuration, locate the `WorldManager` game object in your scene.
 Drag the desired `ScriptableObject` (either the default one or your custom configuration) onto the `DojoConfig` field within the `WorldManager` component.
 
-#### Adding model bindings
+#### Adding Model Bindings
 
-1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
+1. Generate model bindings: If you have not already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
 
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
@@ -148,7 +148,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 ::::
 
-## Calling Dojo Systems
+## System Calls
 
 This section explores the process of interacting with Dojo systems from Unity.
 
@@ -157,7 +157,7 @@ This section explores the process of interacting with Dojo systems from Unity.
 Every transaction to a Dojo system must come from an **account**.
 Accounts are required to sign and execute transactions that modify your game's onchain state.
 
-We have two options for creating an account: a simple account, or a burner account.
+For detailed information on account management patterns including session accounts, burner accounts, and controller accounts, see the [JavaScript SDK documentation](/client/sdk/javascript).
 
 To create a **simple account**, use this code:
 

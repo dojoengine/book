@@ -39,7 +39,7 @@ For local assets, `sozo` will upload them to IPFS and replace the corresponding 
 Arbitrary social links can be set by adding key-value pairs under the `socials` section.
 For example, you could add `telegram = "https://t.me/dojoengine"`.
 
-## Resource Metadata
+## Configuration-based Metadata
 
 To set resource metadata, create the following sections in your `dojo_<PROFILE>.toml`, using `[[models]]`, `[[contracts]]` or `[[events]]` depending on the type of the resource:
 

@@ -40,10 +40,10 @@ The `DojoSessionAccount` handles all transaction-related operations and wallet m
 Core features:
 
 - **Wallet Authentication**: Secure connection to Cartridge Controller accounts.
-- **Transaction Execution**: Execute smart contract calls with proper signing.
+- **Transaction Execution**: Execute system calls with proper signing.
 - **Session Management**: Maintain authenticated sessions with configurable policies.
 
-### Dojo Calls
+### System Calls
 
 Used for smart contract function calls.
 

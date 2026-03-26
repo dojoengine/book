@@ -191,7 +191,7 @@ tokio = { version = "1.39", features = ["full"] }
 
 ### Code
 
-````rust
+```rust
 // Standard library imports
 use std::{num::NonZero, sync::Arc, time::Duration};
 
@@ -411,7 +411,7 @@ async fn subscribe(client: torii_client::client::Client, config: Config) {
 
     println!("Torii client disconnected");
 }
-````
+```
 
 ### Deployment
 

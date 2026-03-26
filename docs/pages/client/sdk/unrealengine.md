@@ -8,6 +8,8 @@ description: "Introduction to the official Unreal Engine 5 SDK for building Dojo
 [Dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
+Built on the [dojo.c foundation](/client/sdk/c), dojo.unreal provides Unreal Engine-specific bindings and Blueprint nodes that expose core Dojo functionality in an Unreal-native way.
+
 ## Prerequisites
 
 Before getting started, ensure you have the Unreal Engine installed.
@@ -41,7 +43,8 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 
 3. Copy the Plugins/Dojo directory from dojo.unreal into your project's Plugins folder
 
-4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`. For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
+4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`.
+   For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
 
 5. Enable the Dojo plugin by adding `"Dojo"` to the `PublicDependencyModuleNames.AddRange` list in `Source/DojoBookTest/PROJECTNAME.Build.cs`
 
@@ -193,7 +196,7 @@ We also call the `CallControllerDojoStarterActionsSpawn` function.
 
 More information about calls is provided below.
 
-#### Calls
+#### System Calls
 
 There are two functions available for each selector of your contracts.
 

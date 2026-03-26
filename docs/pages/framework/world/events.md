@@ -239,7 +239,7 @@ pub struct PlayerEmote {
  }
 ```
 
-The event can then be emitted using the [world API](/framework/world/api):
+The event can then be emitted using the [World API](/framework/world/api):
 
 ```cairo
 world.emit_event(@PlayerEmote { player, mood: Mood::Smile });
