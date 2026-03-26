@@ -91,7 +91,7 @@ This trait will affect data serialization and requires some code updates to hand
 
 ### Dojo Storage Overview
 
-Before describing the issue, here's a brief summary of how Dojo storage works:
+Before describing the issue, here is a brief summary of how Dojo storage works:
 
 1. A model is defined as a Cairo struct.
 2. This model is serialized using the `Serde` trait and written to world storage via `world.model_write(@m)`.
@@ -171,7 +171,7 @@ From Dojo 1.7.0, models are serialized using a new `DojoStore` trait, which basi
 
 When reading an uninitialized model containing an enum, `DojoStore` will automatically use the default variant configured at enum level for deserialization.
 
-Let's see an example:
+Let us see an example:
 
 ```rust
 #[derive(Drop)]
@@ -361,7 +361,7 @@ fn test_world_test_set() {
 ### Using Starknet Foundry
 
 Now that Starknet Foundry is supported for Dojo contracts, you can opt to use it instead of `dojo-cairo-test` for testing.
-YOu can use the whole Starknet Foundry test suite and cheatcodes.
+You can use the whole Starknet Foundry test suite and cheatcodes.
 
 Update your `Scarb.toml` to add the `dojo_snf_test` dependency:
 
@@ -432,7 +432,7 @@ torii 1.7.0
 
 ### Sozo build errors
 
-If you're having trouble compiling your contracts with Sozo, try adding `dojo_macros` to your `Scarb.toml`:
+If you are having trouble compiling your contracts with Sozo, try adding `dojo_macros` to your `Scarb.toml`:
 
 ```toml
 [dependencies]

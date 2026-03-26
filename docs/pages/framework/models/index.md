@@ -83,7 +83,7 @@ If you define multiple keys, they must **all** be provided to query the model.
 
 ### Model Composition
 
-Let's explore ECS composition through a concrete gaming analogy: Orcs and Humans.
+Let us explore ECS composition through a concrete gaming analogy: Orcs and Humans.
 While they possess intrinsic differences, they share common traits, such as having a position and health.
 Humans, however, possess an additional model - potions.
 
@@ -115,7 +115,7 @@ struct Potions {
 ```
 
 Human entities will have `Health`, `Position`, and `Potions` models, while Orcs will have only `Health` and `Position`.
-This lets us re-use models to create a variety of different entities.
+This allows us to re-use models to create a variety of different entities.
 For more details on entity composition patterns, see [entities](./entities).
 
 :::warning

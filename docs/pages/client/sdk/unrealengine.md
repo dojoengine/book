@@ -41,7 +41,8 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 
 3. Copy the Plugins/Dojo directory from dojo.unreal into your project's Plugins folder
 
-4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`. For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
+4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`.
+For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
 
 5. Enable the Dojo plugin by adding `"Dojo"` to the `PublicDependencyModuleNames.AddRange` list in `Source/DojoBookTest/PROJECTNAME.Build.cs`
 

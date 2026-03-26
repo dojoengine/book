@@ -6,7 +6,7 @@ description: "Native Rust integration for building Dojo applications with Rust"
 # Dojo Rust SDK
 
 Dojo is built in Rust, making it seamless to integrate into your Rust projects.
-Simply import the required crates and you're ready to build powerful applications that interact with Dojo worlds.
+Simply import the required crates and you are ready to build powerful applications that interact with Dojo worlds.
 
 The Dojo Rust SDK provides access to the core framework functionality, built on the same [dojo.c foundation](/client/sdk/c) that powers other language bindings.
 
@@ -58,7 +58,7 @@ use torii_client::client::Client;
 use starknet_crypto::Felt;
 
 // The #[tokio::main] attribute makes this function run in an async runtime
-// This is required because we'll be making network calls
+// This is required because we will be making network calls
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Configure connection URLs for your Dojo world
@@ -219,13 +219,13 @@ pub struct Data {}
 #[poise::command(slash_command)]
 pub async fn hello(ctx: Context<'_>) -> Result<(), Error> {
     // ctx.say() sends a message back to Discord in response to the command
-    ctx.say("🤖 Hello! I'm your Dojo Discord Bot - monitoring world events and ready to help!").await?;
+    ctx.say("🤖 Hello! I am your Dojo Discord Bot - monitoring world events and ready to help!").await?;
     Ok(())
 }
 
 #[poise::command(slash_command)]
 pub async fn world_status(ctx: Context<'_>) -> Result<(), Error> {
-    ctx.say("🌍 Connected to Dojo World! I'm watching for all the exciting things happening in your autonomous world.").await?;
+    ctx.say("🌍 Connected to Dojo World! I am watching for all the exciting things happening in your autonomous world.").await?;
     Ok(())
 }
 
@@ -233,7 +233,7 @@ pub async fn world_status(ctx: Context<'_>) -> Result<(), Error> {
 // This keeps our configuration organized and type-safe
 struct Config {
     discord_token: String,        // Discord bot authentication token
-    channel_id: NonZero<u64>,     // Discord channel ID (NonZero ensures it's never 0)
+    channel_id: NonZero<u64>,     // Discord channel ID (NonZero ensures it is never 0)
     torii_url: String,            // URL to connect to Torii indexer
     node_url: String,             // URL to connect to Starknet node (Katana)
     torii_relay_url: String,      // URL for P2P relay connection
@@ -392,7 +392,7 @@ async fn subscribe(client: torii_client::client::Client, config: Config) {
                 }
                 // If we get here, the stream ended (connection lost)
             }
-            // Failed to connect - we'll retry
+            // Failed to connect - we will retry
             Err(_) => {
                 println!("Subscription was lost, attempting to reconnect");
                 tries += 1;

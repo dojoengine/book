@@ -128,7 +128,7 @@ pub trait IOperator<T> {
 }
 ```
 
-The `OperatorMode` allows dynamic control over when and how operators can act (e.g., permanent or time-limited authorization).
+The `OperatorMode` allows dynamic control over when and how operators can act (for example, permanent or time-limited authorization).
 Only the creator of the world can change the mode.
 
 More importantly, the `set_entity` function within the world contract is gated by this operator check.
