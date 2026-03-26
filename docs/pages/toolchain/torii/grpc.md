@@ -175,7 +175,7 @@ Find entities in coordinate range:
 }
 ```
 
-### Model Filtering with `entity_models`
+### model Filtering with `entity_models`
 
 ```json
 {
@@ -232,8 +232,8 @@ Find entities in coordinate range:
 gRPC supports streaming subscriptions for real-time updates:
 
 - **Entity Updates**: Subscribe to changes in specific entities
-- **Event Streams**: Monitor world events as they occur
-- **Model Changes**: Track updates to specific model types
+- **event Streams**: Monitor world events as they occur
+- **model Changes**: Track updates to specific model types
 
 :::note
 Subscription examples require protocol buffer definitions.

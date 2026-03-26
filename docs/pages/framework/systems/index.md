@@ -7,7 +7,7 @@ description: "Understanding system design philosophy and principles in Dojo's EC
 
 > Systems = Business Logic in ECS
 
-Systems are the behavioral layer of Dojo's Entity Component System (ECS) architecture.
+Systems are the behavioral layer of Dojo's Entity Component system (ECS) architecture.
 They encapsulate business logic, orchestrate state changes, and define how your application evolves over time.
 
 ## What are Systems?
@@ -116,7 +116,7 @@ impl InternalImpl of InternalTrait {
 
 ### What Systems Should Not Do
 
-1. **Data Storage**: Systems don't store persistent state
+1. **Data Storage**: Systems do not store persistent state
 2. **UI Logic**: Keep presentation concerns separate
 3. **External Integration**: Avoid direct external service calls
 4. **Complex Calculations**: Delegate to specialized libraries when possible
@@ -167,9 +167,9 @@ mod game_actions {
 
 ### Initialization
 
-Systems are stateless functions and don't have constructors.
+Systems are stateless functions and do not have constructors.
 However, Dojo contracts support a `dojo_init` function that acts as a constructor-equivalent.
-The World calls `dojo_init` on each contract during `sozo migrate`, after the contract is registered.
+The world calls `dojo_init` on each contract during `sozo migrate`, after the contract is registered.
 
 ```cairo
 #[dojo::contract]
@@ -262,4 +262,4 @@ Explore the deeper aspects of system implementation:
 - **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
 - **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
 
-Systems are the heart of your application - design them thoughtfully and they'll serve you well.
+Systems are the heart of your application - design them thoughtfully and they will serve you well.

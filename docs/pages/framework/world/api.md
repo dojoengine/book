@@ -5,23 +5,23 @@ description: "Complete reference for the Dojo World API with examples and best p
 
 # World API Reference
 
-The World API provides a comprehensive interface for interacting with your Dojo world.
+The world API provides a comprehensive interface for interacting with your Dojo world.
 This guide covers the most commonly used developer functions with practical examples and best practices.
 
 ## Quick Reference
 
-The World API is organized into these main categories:
+The world API is organized into these main categories:
 
-- **[Model Operations](#model-operations)** - Read, write, and manage model data
-- **[Event System](#event-system)** - Emit and handle events
+- **[model Operations](#model-operations)** - Read, write, and manage model data
+- **[event system](#event-system)** - Emit and handle events
 - **[Permission Management](#permission-management)** - Control access to resources
 - **[Resource Management](#resource-management)** - Manage models, systems, and contracts
 - **[Utility Functions](#utility-functions)** - Helper functions and tools
-- **[Advanced Functions](#advanced-functions)** - System-level operations for framework developers
+- **[Advanced Functions](#advanced-functions)** - system-level operations for framework developers
 
-## Model Operations
+## model Operations
 
-### Reading Models
+### Reading models
 
 #### `read_model<T>`
 
@@ -42,7 +42,7 @@ Cairo's strong typing allows it to infer that the `Position` model is being read
 
 **Key Points:**
 
-- Model must have at least one `#[key]` field
+- model must have at least one `#[key]` field
 - Returns default values (0, false, etc.) for unset fields
 
 #### `read_member<T>`
@@ -123,7 +123,7 @@ let schema: PlayerSchema = world.read_schema(
 - Schema must derive `Serde` and `Introspect`
 - More efficient than `read_member` for 2+ fields
 
-### Writing Models
+### Writing models
 
 #### `write_model<T>`
 
@@ -195,7 +195,7 @@ let position2 = Position { player2, vec: Vec2 { x: 10, y: 10 } };
 world.write_models([@position1, @position2].span());
 ```
 
-## Event System
+## event system
 
 #### `emit_event<T>`
 
@@ -219,7 +219,7 @@ world.emit_event(@PlayerMoved {
 });
 ```
 
-**Event Requirements:**
+**event Requirements:**
 
 - Must be annotated with `#[dojo::event]`
 - Must have at least one `#[key]` field
@@ -336,7 +336,7 @@ Use sparingly in high-throughput scenarios.
 
 ### DNS Functions
 
-The DNS (Dojo Name System) functions allow you to resolve contract names to their addresses and class hashes.
+The DNS (Dojo Name system) functions allow you to resolve contract names to their addresses and class hashes.
 
 #### `dns`
 
@@ -382,9 +382,9 @@ if let Option::Some(class_hash) = world.dns_class_hash(@"my_contract") {
 ## Advanced Functions
 
 The following functions are primarily used by framework developers, tooling, and migration scripts.
-Most application developers won't touch these directly:
+Most application developers will not touch these directly:
 
-### Entity Operations
+### entity Operations
 
 Low-level functions for direct entity manipulation:
 
@@ -395,7 +395,7 @@ Low-level functions for direct entity manipulation:
 - **`delete_entity`** - Deletes a model value for an entity/member
 - **`delete_entities`** - Deletes model values for multiple entities
 
-### System Management
+### system Management
 
 Functions for registering and upgrading system resources:
 

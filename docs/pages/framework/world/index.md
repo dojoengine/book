@@ -1,16 +1,16 @@
 ---
 title: "World Contract"
-description: "The World contract - your application's central database and orchestrator for models, systems, and permissions in Dojo"
+description: "The world contract - your application's central database and orchestrator for models, systems, and permissions in Dojo"
 ---
 
 # World Contract
 
-The [World contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
+The [world contract](https://github.com/dojoengine/dojo/tree/main/crates/dojo/core/src/world) is the beating heart of every Dojo application.
 Think of it as a sophisticated database and orchestrator that manages all your models, systems, and permissions while providing a unified interface for your autonomous world.
 
 ![World Contract Overview](/framework/world-map.png)
 
-## What is the World Contract?
+## What is the world Contract?
 
 The world contract serves as:
 
@@ -133,9 +133,9 @@ For detailed information about permission management and configuration, see the 
 
 **Resource Hierarchy** (order of precedence):
 
-1. **World** → Can access all resources
+1. **world** → Can access all resources
 2. **Namespace** → Can access all resources in that namespace
-3. **Model/Contract/Event** → Can access the specific resource
+3. **model/Contract/event** → Can access the specific resource
 
 **Key Points**:
 
@@ -145,7 +145,7 @@ For detailed information about permission management and configuration, see the 
 
 ## Getting Started
 
-### Basic World Access
+### Basic world Access
 
 Every Dojo system gets access to the world through the namespace-specific `world()` function:
 
@@ -177,7 +177,7 @@ mod actions {
 
 ### Common Usage Patterns
 
-**Reading Models**:
+**Reading models**:
 
 ```cairo
 // Single key
@@ -187,7 +187,7 @@ let position: Position = world.read_model(player);
 let resource: GameResource = world.read_model((player, location));
 ```
 
-**Writing Models**:
+**Writing models**:
 
 ```cairo
 let mut position: Position = world.read_model(player);
@@ -195,7 +195,7 @@ position.vec.x += 1;
 world.write_model(@position);
 ```
 
-**Emitting Events**:
+**Emitting events**:
 
 ```cairo
 #[derive(Copy, Drop, Serde)]
@@ -248,7 +248,7 @@ The world contract includes several optimizations:
 - **Efficient Storage**: Optimized storage layouts for different data types
 - **Permission Caching**: Hierarchical permission checks reduce gas costs
 
-## The World Interface
+## The world Interface
 
 The world contract exposes a complete interface for external interactions.
 While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
@@ -277,8 +277,8 @@ Now that you understand the world contract's role, dive deeper into specific are
 
 The world contract integrates seamlessly with other Dojo components:
 
-- **[Models](/framework/models)** - Define your data structures
-- **[Systems](/framework/systems)** - Implement your game logic
+- **[models](/framework/models)** - Define your data structures
+- **[systems](/framework/systems)** - Implement your game logic
 - **[Sozo](/toolchain/sozo)** - Deploy and manage your world
 - **[Torii](/toolchain/torii)** - Index and query your world's data
 

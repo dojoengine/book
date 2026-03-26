@@ -88,7 +88,7 @@ sozo call ns-GameView get_player_stats 0x123... --block-id 12345
 ### `sozo model`
 
 Query model data and inspect model schemas.
-Models store your game's ECS component data.
+models store your game's ECS component data.
 
 ```bash
 # Query entity data
@@ -105,7 +105,7 @@ sozo model contract-address ns-Position          # Get Position contract address
 
 **Key Features:**
 
-- **Entity queries**: Get model data for specific entities using their keys
+- **entity queries**: Get model data for specific entities using their keys
 - **Schema inspection**: Understand model structure and field types
 - **Composite keys**: Support for models with multiple key fields
 - **Contract metadata**: Access class hashes and addresses
@@ -137,7 +137,7 @@ sozo events --chunk-size 100 --json > game_events.json
 
 **Key Features:**
 
-- **Event filtering**: Query specific event types or all events
+- **event filtering**: Query specific event types or all events
 - **Block range queries**: Get events from specific time periods
 - **Pagination**: Handle large event sets with chunk-size
 - **JSON export**: Export events for analysis or integration
@@ -182,7 +182,7 @@ sozo auth grant writer ns-Position,0x123... ns-Health,0x123... ns-Inventory,0x12
 **Key Features:**
 
 - **Multicall batching**: Multiple permission changes in one transaction
-- **Resource targeting**: Models, contracts, and namespaces
+- **Resource targeting**: models, contracts, and namespaces
 - **Flexible syntax**: Use contract tags or addresses
 
 **Common Use Cases:**
@@ -230,7 +230,7 @@ sozo inspect --world 0x123...       # Inspect specific world address
 
 - Registered models, systems, events, and libraries
 - Resource permissions and ownership
-- World metadata and configuration
+- world metadata and configuration
 - Class hashes and contract addresses
 
 **Common Use Cases:**

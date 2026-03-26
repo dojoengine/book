@@ -95,9 +95,9 @@ Compile your project with:
 sozo build
 ```
 
-## Basic Models
+## Basic models
 
-While there are many ways to design a chess game using the ECS model, we'll follow this approach:
+While there are many ways to design a chess game using the ECS model, we will follow this approach:
 
 > Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square position, that position will hold that piece.
 
@@ -202,7 +202,8 @@ It should be noted that systems function are contract methods, by implication, r
 Now try `sozo build` to build.
 
 Complied?
-Great! then let's move on.
+Great!
+then let us move on.
 If not fix the issues, so that you can run the `sozo build` command successfully.
 
 ## Implement Traits for models
@@ -228,7 +229,8 @@ fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool;
 }
 ```
 
-Try to implement this code by yourself. Otherwise
+Try to implement this code by yourself.
+Otherwise
 
 <details>
 <summary>Click to see full `models.cairo` code</summary>
@@ -334,4 +336,4 @@ impl PieceImpl of PieceTrait {
 This tutorial is extracted from [here](https://github.com/dojoengine/origami/tree/main/examples/chess)
 
 Congratulations!
-You've completed the basic setup for building an onchain chess game 🎉
+You have completed the basic setup for building an onchain chess game 🎉

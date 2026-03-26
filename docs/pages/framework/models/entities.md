@@ -111,7 +111,7 @@ let entity_id = entity_id_from_serialized_keys([player_felt].span());
 let keys = [player_address.into(), server_id.into()];
 let entity_id = entity_id_from_serialized_keys(keys.span());
 
-// Use the World's sequential unique ID generator
+// Use the world's sequential unique ID generator
 let unique_id: u32 = world.uuid();
 
 // Use predictable IDs for specific entities

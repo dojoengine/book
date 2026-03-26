@@ -201,8 +201,8 @@ impl StatsIntrospect of dojo::meta::introspect::Introspect<Stats> {
 
 :::warning
 Use `#[inline(always)]` wisely to avoid hidden bugs during the cairo to sierra compilation.
-Usually it's fine to use it with dojo utils functions.
-In case you're using a function you do not know the complexity of, you should avoid using it.
+Usually it is fine to use it with dojo utils functions.
+In case you are using a function you do not know the complexity of, you should avoid using it.
 :::
 
 ## IntrospectPacked trait
@@ -239,10 +239,10 @@ See [Model Upgrades](/framework/models/upgrades) for detailed information about 
 
 Use `IntrospectPacked` when:
 
-- Model has a fixed, known size
-- Model structure is stable (will not change)
+- model has a fixed, known size
+- model structure is stable (will not change)
 - Performance is critical
-- Model is read/written frequently as a whole
+- model is read/written frequently as a whole
 
 ```cairo
 // Good for packed: stable, small, fixed-size

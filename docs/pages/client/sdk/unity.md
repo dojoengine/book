@@ -9,25 +9,25 @@ Unity is one of the world's most popular cross-platform game engines, powering m
 With its intuitive visual editor, robust scripting capabilities in C#, and extensive asset ecosystem, Unity enables developers to create everything from simple 2D indies to complex 3D AAA titles.
 
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
-Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
+Whether you are creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
 ## Core Concepts
 
-Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
+Before diving into the exciting world of onchain games and worlds with Unity, let us explore some essential concepts:
 
 ### World Manager
 
-The **World Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
+The **world Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
 
 ![world-manager](/client/unity/world-manager.webp)
 
-During initialization, the World Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
+During initialization, the world Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
 While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
 In Unity, entities are represented by `GameObject` instances.
-The World Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
+The world Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
 
 ### Synchronization Master
 
@@ -121,7 +121,7 @@ In your Unity project, navigate to the scene where you want to integrate the SDK
 
 **Default Configuration**
 
-The World Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
+The world Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
@@ -139,7 +139,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 #### Adding model bindings
 
-1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
+1. Generate model bindings: If you have not already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
 
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
@@ -148,7 +148,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 ::::
 
-## Calling Dojo Systems
+## Calling Dojo systems
 
 This section explores the process of interacting with Dojo systems from Unity.
 
@@ -201,14 +201,14 @@ private async Task<Account> CreateBurnerAccount(string rpcUrl, string masterAddr
 Replace `masterAddress` and `masterPrivateKey` with the **account Address** and **private key** of the prefunded Katana account.
 :::
 
-### System Execution
+### system Execution
 
 Once we have an [account](#account-creation), we must execute a call to a Dojo system.
 To do this, we must first teach our Unity project about our Dojo contracts using [contract bindings](#contract-bindings).
 
 Sozo's [bindgen](/toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
 
-Let's consider a practical example: a `PlayerActions` contract that handles player creation in an RPG game.
+Let us consider a practical example: a `PlayerActions` contract that handles player creation in an RPG game.
 This system allows players to create their character by choosing a name and selecting their gender, then stores this information onchain as part of the game state.
 
 ```rust
@@ -279,7 +279,7 @@ public class PlayerActions : MonoBehaviour {
 }
 ```
 
-Let's break down the concepts:
+Let us break down the concepts:
 
 - `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
 - `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
@@ -344,7 +344,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 
 ### Build Issues
 
-#### Model Binding Errors
+#### model Binding Errors
 
 When modifying the bindings generated during [bindgen](/toolchain/sozo/binding-generation#unity), ensure that all fields in the model bindings are declared as public.
 
@@ -369,7 +369,7 @@ Here are the steps to address it:
     - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
     - If the Dojo template is missing, proceed to `step 2`.
 
-2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
+2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it is likely missing from your project.
 
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.

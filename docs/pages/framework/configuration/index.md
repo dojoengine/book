@@ -120,7 +120,7 @@ build-external-contracts = [
 ]
 ```
 
-**Pattern for External Models:**
+**Pattern for External models:**
 
 - Format: `<crate>::<path>::m_<ModelName>`
 - Example: If `armory` crate has `models::Flatbow` model, include `"armory::models::m_Flatbow"`
@@ -134,12 +134,12 @@ Missing external contracts will not cause compilation errors but will cause runt
 Profile configuration files contain all deployment and runtime settings for specific environments.
 Each section controls a different aspect of your Dojo world.
 
-### Basic World Configuration
+### Basic world Configuration
 
 ```toml
 [world]
 name = "My Dojo Game"
-description = "An awesome on-chain game built with Dojo"
+description = "An awesome onchain game built with Dojo"
 seed = "my-unique-seed"
 cover_uri = "file://assets/cover.png"
 icon_uri = "file://assets/icon.png"
@@ -158,7 +158,7 @@ github = "https://github.com/mydojogame/contracts"
 
 **Optional Fields:**
 
-- `description` - World description for metadata
+- `description` - world description for metadata
 - `cover_uri` / `icon_uri` - Visual assets (supports `file://` and `ipfs://`)
 - `website` - Project website URL
 - `socials` - Social media links
@@ -381,7 +381,7 @@ mappings = { "items" = ["Sword", "Shield", "Potion"] }
 
 ## See Also
 
-- **[World Permissions](/framework/world/permissions)** - Runtime permission management
+- **[world Permissions](/framework/world/permissions)** - Runtime permission management
 - **[Sozo Reference](/toolchain/sozo)** - Command-line tool documentation
 - **[Calldata Format](/toolchain/sozo#data-format-reference)** - Constructor argument formatting
-- **[World Metadata](/framework/world/metadata)** - World and resource metadata
+- **[world Metadata](/framework/world/metadata)** - world and resource metadata

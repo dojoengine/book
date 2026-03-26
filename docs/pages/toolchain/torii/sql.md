@@ -87,7 +87,7 @@ Requires `--events.raw`
 
 #### `transactions`
 
-World-related transactions with calldata
+world-related transactions with calldata
 
 :::info
 Requires `--indexing.transactions`
@@ -139,7 +139,7 @@ Detailed transaction call information with entrypoints
 
 #### `entities_historical`
 
-Entity state snapshots over time
+entity state snapshots over time
 
 :::info
 Requires `--historical`
@@ -155,12 +155,12 @@ Torii automatically creates tables for each registered model:
 - Example: `game-Position`, `combat-Health`
 
 :::info
-Model table names contain hyphens and must be escaped with square brackets `[table-name]` or double quotes `"table-name"` in SQL queries
+model table names contain hyphens and must be escaped with square brackets `[table-name]` or double quotes `"table-name"` in SQL queries
 :::
 
 **Field Mapping**:
 
-- Model fields are prefixed with `external_` in the database
+- model fields are prefixed with `external_` in the database
 - Primitive types (felt252, u32, bool, ByteArray) are stored directly
 - Complex types (arrays, enums, structs) create separate tables:
   - Format: `<NAMESPACE>-<MODEL_NAME>$<FIELD_NAME>`
@@ -254,7 +254,7 @@ WHERE external_x > 0 AND external_y > 0;
 
 ### Performance Analytics
 
-Entity count by model:
+entity count by model:
 
 ```sql
 SELECT m.name, COUNT(*) as entity_count

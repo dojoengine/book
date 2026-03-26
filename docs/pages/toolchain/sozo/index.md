@@ -24,11 +24,11 @@ Sozo's functionality spans two primary domains:
 
 Sozo manages five core resource types that form the building blocks of Dojo worlds:
 
-**Models**: Data structures that define the ECS components of your world state (e.g., `Position`, `Health`, `Inventory`).
+**models**: Data structures that define the ECS components of your world state (e.g., `Position`, `Health`, `Inventory`).
 
-**Systems**: Smart contracts containing the game logic that operates on models (e.g., `MovementSystem`, `CombatSystem`).
+**systems**: Smart contracts containing the game logic that operates on models (e.g., `MovementSystem`, `CombatSystem`).
 
-**Events**: Structured notifications emitted by systems to communicate state changes and enable efficient indexing.
+**events**: Structured notifications emitted by systems to communicate state changes and enable efficient indexing.
 
 **Libraries**: Reusable Cairo code that can be shared across multiple systems within the world.
 
@@ -40,11 +40,11 @@ For more information about working with these resources, see the [Framework docu
 
 Sozo can automatically discover and work with any deployed Dojo world through blockchain introspection, without requiring local build artifacts.
 
-**Automatic Discovery**: Given a world address, Sozo queries the World contract to discover all registered resources (models, systems, events, libraries) along with their metadata, ABIs, and permissions.
+**Automatic Discovery**: Given a world address, Sozo queries the world contract to discover all registered resources (models, systems, events, libraries) along with their metadata, ABIs, and permissions.
 
 **Universal Compatibility**: You can use Sozo to interact with worlds deployed by others, inspect unfamiliar world state, or recover from lost local artifacts by rebuilding complete world understanding from chain state.
 
-**Dynamic Schema Detection**: Sozo reconstructs model schemas, system interfaces, and event definitions from on-chain registrations, enabling type-aware interactions with any world.
+**Dynamic Schema Detection**: Sozo reconstructs model schemas, system interfaces, and event definitions from onchain registrations, enabling type-aware interactions with any world.
 
 ### Migration System
 
@@ -69,7 +69,8 @@ Sozo automatically generates and maintains deployment manifests that eliminate m
 
 **Generated Manifests**: After each `sozo migrate`, Sozo writes a `manifest_{profile}.json` file containing complete deployment state: contract addresses, class hashes, ABIs, and metadata for all resources.
 
-**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses. Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
+**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses.
+Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
 
 **Fallback to Chain State**: When manifests are missing or `--diff` is used, Sozo rebuilds contract mappings by querying deployed world state directly.
 
@@ -137,7 +138,7 @@ This will install the `sozo` binary at `~/.cargo/bin`
 
 ## Data Format Reference
 
-When interacting with Dojo systems through Sozo, you'll need to provide calldata in the proper format.
+When interacting with Dojo systems through Sozo, you will need to provide calldata in the proper format.
 Sozo uses a prefixed format that allows explicit type specification for Cairo values.
 
 By default, calldata values are treated as a `felt252` or any type that fits into one felt:

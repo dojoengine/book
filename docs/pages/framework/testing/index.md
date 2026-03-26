@@ -19,8 +19,8 @@ This will search for all tests within your project and run them.
 
 ## Writing Unit Tests
 
-It is best practise to include unit tests in the same file as the [model](/framework/models/) / [system](/framework/systems/) you are writing.
-Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
+It is best practice to include unit tests in the same file as the [model](/framework/models/) / [system](/framework/systems/) you are writing.
+Let us show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 ```cairo
 // models.cairo
@@ -49,7 +49,7 @@ mod tests {
 In this test we are testing the `is_zero` and `is_equal` functions of the `Position` model.
 
 :::tip
-It is good practise to test all functions of your models.
+It is good practice to test all functions of your models.
 :::
 
 ## Writing Integration Tests

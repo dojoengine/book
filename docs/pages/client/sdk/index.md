@@ -88,7 +88,7 @@ The client can then query the world state to get the latest state, which is then
 
 - Full-featured SDK with React hooks and state management
 - Multiple examples: Vanilla JS, React, Vue, Svelte, Phaser integration
-- Real-time entity synchronization with RECS (Reactive Entity Component System)
+- Real-time entity synchronization with RECS (Reactive entity Component system)
 - Built-in support for wallet connections and burner accounts
 
 #### Unity SDK

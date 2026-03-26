@@ -5,14 +5,14 @@ description: "Structural patterns and organizational strategies for building sca
 
 # System Architecture
 
-System architecture defines how you structure and organize your systems to create maintainable, scalable, and coherent applications.
+system architecture defines how you structure and organize your systems to create maintainable, scalable, and coherent applications.
 Good architecture makes your codebase easier to understand, modify, and extend as your application grows in complexity.
 
 ## Architectural Principles
 
 ### Separation of Concerns
 
-Each system should have a clear, distinct responsibility that doesn't overlap with other systems.
+Each system should have a clear, distinct responsibility that does not overlap with other systems.
 This makes your codebase more modular and easier to maintain.
 
 ```cairo
@@ -50,7 +50,7 @@ mod inventory_system {
 
 ### Dependency Direction
 
-Systems should depend on abstractions (models and world interface) rather than concrete implementations.
+systems should depend on abstractions (models and world interface) rather than concrete implementations.
 This creates a clean dependency flow and makes testing easier.
 
 ```
@@ -64,7 +64,7 @@ This creates a clean dependency flow and makes testing easier.
 
 ### Interface Segregation
 
-Design focused interfaces that expose only what's necessary.
+Design focused interfaces that expose only what is necessary.
 Large, monolithic interfaces become difficult to implement and maintain.
 
 ```cairo
@@ -182,7 +182,7 @@ mod player_actions {
 
 ### Hierarchical Systems
 
-Systems organized in a hierarchy, where higher-level systems coordinate lower-level ones.
+systems organized in a hierarchy, where higher-level systems coordinate lower-level ones.
 
 ```cairo
 // game_coordinator.cairo
@@ -260,12 +260,12 @@ Use namespace-level permissions for systems that need broad access.
 Design permission hierarchies that reflect your system architecture.
 
 ```
-World Owner (Admin)
+world Owner (Admin)
 ├── Namespace Owner (Game Admin)
-│   ├── Coordinator System (Full namespace access)
-│   ├── Movement System (Position models)
-│   ├── Combat System (Health, Combat models)
-│   └── Trading System (Inventory, Market models)
+│   ├── Coordinator system (Full namespace access)
+│   ├── Movement system (Position models)
+│   ├── Combat system (Health, Combat models)
+│   └── Trading system (Inventory, Market models)
 ```
 
 ## Modular Design
@@ -378,7 +378,7 @@ impl ValidationMixin of ValidationTrait {
     }
 }
 
-// Systems compose traits for shared functionality
+// systems compose traits for shared functionality
 #[dojo::contract]
 mod movement {
     impl MovementImpl of IMovement<ContractState> {
@@ -540,9 +540,9 @@ mod system_a {
 }
 ```
 
-## System Discovery
+## system Discovery
 
-Systems can be discovered through the world's DNS (Dojo Name System).
+systems can be discovered through the world's DNS (Dojo Name system).
 
 ```cairo
 // Register a system with the world

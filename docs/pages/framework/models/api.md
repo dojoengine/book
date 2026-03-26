@@ -1,15 +1,15 @@
 ---
-title: Model API Reference
-description: Comprehensive guide to Dojo's Model API, including storage operations, field access, and performance optimizations.
+title: model API Reference
+description: Comprehensive guide to Dojo's model API, including storage operations, field access, and performance optimizations.
 ---
 
-# Model API Reference
+# model API Reference
 
-This reference covers the complete Model API in Dojo, including storage operations, field access patterns, and performance optimizations.
+This reference covers the complete model API in Dojo, including storage operations, field access patterns, and performance optimizations.
 
-## Core Model Trait
+## Core model Trait
 
-Every model in Dojo implements the [`Model<M>` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/model.cairo), which provides comprehensive functionality for model operations.
+Every model in Dojo implements the [`model<M>` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/model.cairo), which provides comprehensive functionality for model operations.
 
 The following examples are based on the following simple `Position` model:
 
@@ -24,7 +24,7 @@ struct Position {
 }
 ```
 
-#### Model Identity
+#### model Identity
 
 ```cairo
 use dojo::model::Model;
@@ -58,7 +58,7 @@ let packed_size: Option<usize> = Model::<Position>::packed_size();
 let instance_layout: Layout = model.instance_layout();
 ```
 
-#### Model Serialization
+#### model Serialization
 
 ```cairo
 use dojo::model::Model;
@@ -71,7 +71,7 @@ let values: Span<felt252> = model.serialized_values();
 let model: Option<Position> = Model::<Position>::from_serialized(keys, values);
 ```
 
-#### Model Pointers
+#### model Pointers
 
 ```cairo
 use dojo::model::{Model, ModelPtr};
@@ -92,11 +92,11 @@ let ptr: ModelPtr<Position> = model.ptr();
 ```
 
 :::note
-Model pointers are primarily used internally for advanced operations like field-level access.
+model pointers are primarily used internally for advanced operations like field-level access.
 For most use cases, prefer the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
-## Model Storage Operations
+## model Storage Operations
 
 The [`ModelStorage` trait](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/storage.cairo) provides all storage operations for models:
 
@@ -161,8 +161,8 @@ world.erase_models_ptrs(ptrs);
 Field operations are more efficient when you only need to update specific fields:
 
 :::warning
-Field-level operations are advanced features that require careful use. For most applications,
-use the simpler `world.read_model()` and `world.write_model()` methods.
+Field-level operations are advanced features that require careful use.
+For most applications, use the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
 #### Reading Fields
@@ -218,9 +218,9 @@ let ptrs = Model::<Position>::ptrs_from_keys(players.span());
 let summaries: Array<PositionSummary> = world.read_schemas(ptrs);
 ```
 
-## Model Values
+## model Values
 
-Model values contain only the non-key fields of a model:
+model values contain only the non-key fields of a model:
 
 ```cairo
 #[derive(Drop, Serde)]
@@ -246,7 +246,7 @@ Under-the-hood, the `*Value` structs are what actually get stored onchain.
 The `key` fields are stripped out, and are used only for storage addressing.
 :::
 
-### Model Value Operations
+### model Value Operations
 
 The `ModelValue<V>` trait provides operations for value-only access:
 
@@ -274,7 +274,7 @@ let instance_layout: Layout = player_value.instance_layout();
 Under the hood, Dojo addresses models as `poseidon(selector, entity_id)`
 :::
 
-### Model Value Storage Operations
+### model Value Storage Operations
 
 The `ModelValueStorage` trait provides value-only storage operations that work with just the non-key fields:
 
@@ -408,7 +408,7 @@ struct Ownership {
 let ownership: Ownership = world.read_model((owner_address, item_id));
 ```
 
-### Entity Component Pattern
+### entity Component Pattern
 
 Following ECS principles:
 
@@ -448,7 +448,7 @@ When reading non-existent models, the API returns default values (all fields set
 // Reading a non-existent model returns default values
 let player: ContractAddress = 0.try_into().unwrap();
 let position: Position = world.read_model(player);
-// If model doesn't exist: position.vec.x = 0, position.vec.y = 0
+// If model does not exist: position.vec.x = 0, position.vec.y = 0
 
 // For optional model reading, check if all fields are default
 let position: Position = world.read_model(player);
@@ -463,15 +463,15 @@ if is_default {
 1. **Use appropriate traits**: Choose between `Introspect` and `IntrospectPacked` based on your needs
 2. **Batch operations**: Use bulk read/write methods when working with multiple models
 3. **Field access**: Use field operations for partial updates
-4. **Model design**: Keep models small and focused (ECS principle)
+4. **model design**: Keep models small and focused (ECS principle)
 5. **Key design**: Use meaningful, collision-resistant keys
 6. **Performance**: Consider storage layout and access patterns
 
-For more advanced usage and examples, see the [Model Examples](https://github.com/dojoengine/dojo/tree/main/examples) in the Dojo repository.
+For more advanced usage and examples, see the [model Examples](https://github.com/dojoengine/dojo/tree/main/examples) in the Dojo repository.
 
-## Complete Real-World Example
+## Complete Real-world Example
 
-Here's a complete example from a typical Dojo game showing common patterns:
+Here is a complete example from a typical Dojo game showing common patterns:
 
 ```cairo
 use dojo::model::{ModelStorage};

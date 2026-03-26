@@ -5,7 +5,7 @@ description: "Complete guide for building Telegram Mini Apps with Dojo and Cartr
 
 # Dojo Telegram Integration
 
-Build fully on-chain games and applications that run seamlessly within Telegram using Dojo and the [Cartridge Controller](https://docs.cartridge.gg/controller/overview).
+Build fully onchain games and applications that run seamlessly within Telegram using Dojo and the [Cartridge Controller](https://docs.cartridge.gg/controller/overview).
 
 Telegram [Mini Apps](https://core.telegram.org/bots/webapps) are web applications that run directly inside Telegram, providing users with rich, interactive experiences directly inside the messaging platform.
 
@@ -263,7 +263,7 @@ pnpm run build && npx vercel
 **[Beast Slayers](https://github.com/cartridge-gg/beast-slayers/blob/main)** is a fully functional Telegram Mini App that demonstrates:
 
 - **Account Management**: [`src/hooks/useAccount.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useAccount.tsx) - Session keys & cloud storage
-- **Real-time State**: [`src/hooks/useBeast.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useBeast.tsx) - Entity subscriptions and live updates
+- **Real-time State**: [`src/hooks/useBeast.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/hooks/useBeast.tsx) - entity subscriptions and live updates
 - **Game Actions**: [`src/App.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/App.tsx) - Session-based transaction execution
 - **Telegram Integration**: [`src/main.tsx`](https://github.com/cartridge-gg/beast-slayers/blob/main/src/main.tsx) - SDKProvider and routing setup
 - **Dependencies**: [`package.json`](https://github.com/cartridge-gg/beast-slayers/blob/main/package.json) - Complete package configuration
