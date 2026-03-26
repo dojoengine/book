@@ -10,7 +10,7 @@ The steps for Mainnet are exactly the same, just replace the chain name and ID w
 
 ### Setup
 
-- You need a [Starknet RPC Provider](https://www.starknet.io/fullnodes-rpc-services/) to deploy contracts on-chain.
+- You need a [Starknet RPC Provider](https://www.starknet.io/fullnodes-rpc-services/) to deploy contracts onchain.
 
 You can use the _Cartridge RPC provider_ for this.
 
@@ -43,7 +43,7 @@ SN_SEPOLIA
 [profile.sepolia]
 ```
 
-- Create the [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml) dojo config file, with the same contents of [`dojo_dev.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_dev.toml), except for `[env]`, in which we are going to expose the `world_address` only:
+- Create the [`dojo_sepolia.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_sepolia.toml) Dojo config file, with the same contents of [`dojo_dev.toml`](https://github.com/rsodre/512karat/blob/main/dojo/dojo_dev.toml), except for `[env]`, in which we are going to expose the `world_address` only:
 
 ```toml
 [env]
@@ -116,7 +116,7 @@ echo "Deployment completed successfully."
 
 - This localises the env variables to the deployment script, so if for any reason the deployment is aborted, it cleans up the env variables.
 
-- sozo will output the rpc url, account address and deployed block.
+- Sozo will output the rpc url, account address and deployed block.
 
 ```bash
  profile | chain_id | rpc_url
@@ -124,7 +124,7 @@ echo "Deployment completed successfully."
  sepolia | SN_SEPOLIA | <RPC_PROVIDER_URL>
 
 
-🌍 World deployed at block <DEPLOYED_BLOCK> with txn hash: <DEPLOYMENT_TXN_HASH>
+🌍 world deployed at block <DEPLOYED_BLOCK> with txn hash: <DEPLOYMENT_TXN_HASH>
 ⛩️  Migration successful with world at address <WORLD_ADDRESS>
 ```
 
@@ -191,7 +191,7 @@ Stream logs with `slot deployments logs <SERVICE_NAME> torii -f`
 ```
 
 - If for any reasons we need to recreate Torii, we can just delete it and run the create command again.
-This is safe, all your data is on-chain.
+This is safe, all your data is onchain.
 
 ```bash
 slot deployments delete <SERVICE_NAME> torii
@@ -216,7 +216,7 @@ VITE_PUBLIC_CHAIN_ID=SN_MAIN
 
 ### Debug with Walnut
 
-Use [Walnut](https://walnut.dev) to debug your on-chain transactions on Mainnet, Sepolia, or Slot deployments.
+Use [Walnut](https://walnut.dev) to debug your onchain transactions on Mainnet, Sepolia, or Slot deployments.
 Walnut helps you inspect transaction details, understand execution flow, and troubleshoot issues.
 
 #### Step 1: Verify your Contracts

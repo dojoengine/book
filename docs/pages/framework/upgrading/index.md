@@ -45,7 +45,7 @@ As such, this is the first release in which version compatibility became an issu
 
 - Dojo lang: introspection is now correctly handling the unity type when explicitly used in enums variant (()).
 
-- World: now that the syscall to get the class hash is supported by the network, using the dns correctly returns the class hash relying on the get_class_hash_at syscall.
+- world: now that the syscall to get the class hash is supported by the network, using the dns correctly returns the class hash relying on the get_class_hash_at syscall.
 
 [See the Dojo 1.5.1 release notes.](https://github.com/dojoengine/dojo/releases/tag/v1.5.1)
 

@@ -17,17 +17,17 @@ Before diving into the exciting world of onchain games and worlds with Unity, le
 
 ### World Manager
 
-The **World Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
+The **world Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
 
 ![world-manager](/client/unity/world-manager.webp)
 
-During initialization, the World Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
+During initialization, the world Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
 While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
 In Unity, entities are represented by `GameObject` instances.
-The World Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
+The world Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
 
 ### Synchronization Master
 
@@ -121,7 +121,7 @@ In your Unity project, navigate to the scene where you want to integrate the SDK
 
 **Default Configuration**
 
-The World Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
+The world Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
@@ -148,7 +148,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 ::::
 
-## Calling Dojo Systems
+## Calling Dojo systems
 
 This section explores the process of interacting with Dojo systems from Unity.
 
@@ -201,7 +201,7 @@ private async Task<Account> CreateBurnerAccount(string rpcUrl, string masterAddr
 Replace `masterAddress` and `masterPrivateKey` with the **account Address** and **private key** of the prefunded Katana account.
 :::
 
-### System Execution
+### system Execution
 
 Once we have an [account](#account-creation), we must execute a call to a Dojo system.
 To do this, we must first teach our Unity project about our Dojo contracts using [contract bindings](#contract-bindings).
@@ -344,7 +344,7 @@ Follow these instructions to build your game for Windows, Mac, or Linux.
 
 ### Build Issues
 
-#### Model Binding Errors
+#### model Binding Errors
 
 When modifying the bindings generated during [bindgen](/toolchain/sozo/binding-generation#unity), ensure that all fields in the model bindings are declared as public.
 

@@ -95,7 +95,7 @@ Compile your project with:
 sozo build
 ```
 
-## Basic Models
+## Basic models
 
 While there are many ways to design a chess game using the ECS model, we will follow this approach:
 

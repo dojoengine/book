@@ -113,7 +113,7 @@ async function main() {
     // Initialize the SDK with configuration options
     const sdk = await init<SchemaType>({
         client: {
-            // Required: Address of the deployed World contract
+            // Required: Address of the deployed world contract
             worldAddress: dojoConfig.manifest.world.address,
             // Optional: Torii indexer URL (defaults to http://localhost:8080)
             toriiUrl: dojoConfig.toriiUrl || "http://localhost:8080",
@@ -198,7 +198,7 @@ entities.items.forEach((entity) => {
 ```
 
 :::note
-Models are accessed using the pattern `entity.models.{namespace}.{ModelName}` where:
+models are accessed using the pattern `entity.models.{namespace}.{ModelName}` where:
 
 - `{namespace}` is your project's namespace (e.g., `dojo_starter`, `world`, `game`)
 - `{ModelName}` is the exact model name as defined in your Cairo code
@@ -371,7 +371,7 @@ function MyComponent() {
                 const item = entity.models.dojo_starter.Item;
                 return (
                     <div key={entity.entityId}>
-                        Entity {entity.entityId}: durability {item?.durability}
+                        entity {entity.entityId}: durability {item?.durability}
                     </div>
                 );
             })}

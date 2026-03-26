@@ -178,7 +178,7 @@ When a player connects, a new browser tab opens to handle authentication.
 The connection result is returned through a custom event after the player successfully connects.
 
 :::tip
-Always bind this Custom Event before calling either `ControllerConnect` or `ControllerGetAccountOrConnect`.
+Always bind this Custom event before calling either `ControllerConnect` or `ControllerGetAccountOrConnect`.
 :::
 
 The `ControllerAccount` method always opens a new browser tab for authentication.

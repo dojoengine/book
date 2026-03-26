@@ -11,7 +11,7 @@ By the end, you will have a working game where you can spawn and move a characte
 ## What You Will Learn
 
 - The structure of a Dojo project
-- Basic Entity Component System (ECS) concepts
+- Basic entity component system (ECS) concepts
 - How to start the development environment
 - Deploying your first world contract
 - Interacting with your deployed game
@@ -31,10 +31,10 @@ dojo-intro/
 ├── client/
 ├── contracts/
 │   ├── src/
-│   │   ├── systems/            # Game logic (Systems)
+│   │   ├── systems/            # Game logic (systems)
 │   │   │   └── actions.cairo
 │   │   ├── lib.cairo           # Main Cairo entry point
-│   │   └── models.cairo        # Data models (Components)
+│   │   └── models.cairo        # Data models (components)
 │   ├── dojo_dev.toml           # Dojo configuration
 │   ├── katana.toml             # Katana configuration
 │   ├── Scarb.toml              # Cairo configuration
@@ -84,7 +84,7 @@ These attributes are examples of "procedural macros," a [Cairo language feature]
 This additional code is what enables Dojo functionality, such as specialized storage formats or events for the Torii indexer.
 :::
 
-### Contracts (Systems)
+### Contracts (systems)
 
 Open `contracts/src/systems/actions.cairo` to see the game logic:
 
@@ -210,7 +210,7 @@ Keep this running - it is your local blockchain.
 By default, Katana runs on port 5050
 :::
 
-### Terminal 2: Deploy Your World
+### Terminal 2: Deploy Your world
 
 In a new terminal, run the following command using [Sozo](/toolchain/sozo), Dojo's build tool.
 
@@ -232,7 +232,7 @@ Compiling dojo_intro v1.5.0 (~/dojo-intro/contracts/Scarb.toml)
 ---------+----------+------------------------
  dev     | KATANA   | http://localhost:5050/
 
-🌍 World deployed at block 2 with txn hash: 0x06a03fcc52739807ff4e7cd96fceb40b8fc194f3d7b370c1c8388eb380a4a069
+🌍 world deployed at block 2 with txn hash: 0x06a03fcc52739807ff4e7cd96fceb40b8fc194f3d7b370c1c8388eb380a4a069
 ⛩️  Deploying 0 external contracts...
 ⛩️  Migration successful with world at address 0x04d9778a74d2c9e6e7e4a24cbe913998a80de217c66ee173a604d06dea5469c3
 ```
@@ -262,7 +262,7 @@ You will see:
 2025-07-10T15:59:27.966177Z  INFO torii:runner: Serving Graphql playground. endpoint=127.0.0.1:8080/graphql
 2025-07-10T15:59:27.966202Z  INFO torii:runner: Serving SQL playground. endpoint=127.0.0.1:8080/sql
 2025-07-10T15:59:27.966207Z  INFO torii:runner: Serving MCP endpoint. endpoint=127.0.0.1:8080/mcp
-2025-07-10T15:59:27.966210Z  INFO torii:runner: Serving World Explorer. url=https://worlds.dev/torii?url=127.0.0.1%3A8080%2Fgraphql
+2025-07-10T15:59:27.966210Z  INFO torii:runner: Serving world Explorer. url=https://worlds.dev/torii?url=127.0.0.1%3A8080%2Fgraphql
 2025-07-10T15:59:27.966212Z  INFO torii:runner: Serving ERC artifacts at path path=/var/folders/dh/khjwlwbd6tx9p785khl57xjr0000gn/T/.tmpqeRBF0
 2025-07-10T15:59:27.967054Z  INFO torii::relay::server: Serving libp2p Relay. address=/ip4/127.0.0.1/tcp/9090
 2025-07-10T15:59:27.967228Z  INFO torii::relay::server: Serving libp2p Relay. address=/ip4/127.0.0.1/udp/9090/quic-v1
@@ -338,7 +338,7 @@ After a while, you should have something which looks like this:
 Let us break down what you just accomplished:
 
 1. **Defined Components**: `Position` and `Moves` store data about each player
-2. **Implemented Systems**: The `spawn` and `move` functions modify component data
+2. **Implemented systems**: The `spawn` and `move` functions modify component data
 3. **Created a world**: Your world contract acts as the central registry for all game data, logic, and access control
 4. **Used the Toolchain**:
     - Katana provided a local blockchain
@@ -347,13 +347,13 @@ Let us break down what you just accomplished:
 
 ## Key Concepts
 
-### Entity Component System (ECS)
+### entity component system (ECS)
 
-- **Entities**: Players in your game (identified by their address)
+- **entities**: Players in your game (identified by their address)
 - **Components**: Data attached to entities (`Position`, `Moves`)
-- **Systems**: Functions that operate on components (`spawn`, `move`)
+- **systems**: Functions that operate on components (`spawn`, `move`)
 
-### Dojo World
+### Dojo world
 
 Your world contract coordinates everything:
 

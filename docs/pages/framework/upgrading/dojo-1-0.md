@@ -16,7 +16,7 @@ Dojo is composed of 5 basic resources:
 - `namespace`: Every resource that is not world or namespace must be namespaced when registered into the world. Namespaces are logical groups of resources, and allow you to organize your resources and permissions.
 - `model` (namespaced): A model defines data that can be stored in the world.
 - `event` (namespaced): An event also defines data, but meant to be stored offchain.
-- `contract` (namespaced): Where you define your business logic, and interact with the world to write/read models and emit events. A function into a contract is called a `System`, which is an entrypoint for users to interact with the world.
+- `contract` (namespaced): Where you define your business logic, and interact with the world to write/read models and emit events. A function into a contract is called a `system`, which is an entrypoint for users to interact with the world.
 
 Every resource in the world is identified by a dojo selector, a single felt identifier obtained by hashing.
 
@@ -162,7 +162,7 @@ struct MyEvent {
 }
 ```
 
-On the torii side, you can start it from the CLI or using a configuration file with the `historical_events` options, by providing tags of events you want to keep historical.
+On the Torii side, you can start it from the CLI or using a configuration file with the `historical_events` options, by providing tags of events you want to keep historical.
 
 ```bash
 torii start --events.historical ns-MyEvent,ns-MyOtherEvent --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
@@ -180,17 +180,17 @@ historical = ["ns-MyEvent", "ns-MyOtherEvent"]
 ## Testing
 
 Currently, Dojo is still only supporting the `cairo-test` test runner.
-Soon `starknet-foundry` will be unlocked once `scarb` and `cairo-lang` merge some missing features.
+Soon `starknet-foundry` will be unlocked once Scarb and `cairo-lang` merge some missing features.
 
 In the meantime, here is how you can test your contracts.
 As we have seen, resources like contracts, models and events are namespaced, so you have to specify the namespace you want to use when testing.
 
-Before starting to test, here is the flow that `Sozo` follows to migrate a world:
+Before starting to test, here is the flow that Sozo follows to migrate a world:
 
-1. First of all, `Sozo` will migrate the world itself.
-2. Then, `Sozo` will register all the resources. Registering the resources means that all models/events/contracts will be declared and deployed onchain. None of those contracts are using constructor calldata, hence `Sozo` can deploy them without prior inputs. All resources are registered to the world and deployed through the world contract.
-3. Once all the resources are registered, `Sozo` will synchronize the permissions that are given in the `dojo_<profile>.json` file.
-4. Finally, `Sozo` will initialize all the contracts. Since the contracts initialization function is very likely to interact with models, at this point all permissions are synchronized and the world is ready to use.
+1. First of all, Sozo will migrate the world itself.
+2. Then, Sozo will register all the resources. Registering the resources means that all models/events/contracts will be declared and deployed onchain. None of those contracts are using constructor calldata, hence Sozo can deploy them without prior inputs. All resources are registered to the world and deployed through the world contract.
+3. Once all the resources are registered, Sozo will synchronize the permissions that are given in the `dojo_<profile>.json` file.
+4. Finally, Sozo will initialize all the contracts. Since the contracts initialization function is very likely to interact with models, at this point all permissions are synchronized and the world is ready to use.
 
 This is important to keep this in mind, since the testing flow must be similar to the migration flow.
 
@@ -424,15 +424,15 @@ sozo build --profile mainnet
 sozo migrate --profile mainnet
 ```
 
-During the migration, sozo will output the block at which the world has been migrated and the address of the world at the end of the migration:
+During the migration, Sozo will output the block at which the world has been migrated and the address of the world at the end of the migration:
 
 ```bash
 🌍 World deployed at block 821000 with txn hash: 0x038e984efa3e91e045b33d14e63c5e9f765e5a8fe2b3546fc3ab872f608e37a2
 ⛩️  Migration successful with world at address 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
 ```
 
-To ensure the nodes serving mainnet data are accepting `Sozo` requests, you must set the `world_block` key in the `dojo_<profile>.json` file.
-Also, once the first migration of your world is done and you have a world address, you must set the `world_address` to ensure `Sozo` can easily detect upgrade of Dojo in the future.
+To ensure the nodes serving mainnet data are accepting Sozo requests, you must set the `world_block` key in the `dojo_<profile>.json` file.
+Also, once the first migration of your world is done and you have a world address, you must set the `world_address` to ensure Sozo can easily detect upgrade of Dojo in the future.
 
 ```toml
 [env]
@@ -446,7 +446,7 @@ world_address = 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da
 [Dojo 1.0.0](https://github.com/dojoengine/dojo/releases/tag/v1.0.0) introduces a number of breaking changes.
 
 - Macros `set/get/delete` are currently not supported. They may be added again in the future.
-- When working with contracts, the `world` is no longer automatically injected. You must use regular starknet interfaces and `self` with `ContractState`.
+- When working with contracts, the world is no longer automatically injected. You must use regular Starknet interfaces and `self` with `ContractState`.
 - World's metadata are not uploaded yet, this should be added back soon.
 - You must remove `[[target.dojo]]` and use `[[target.starknet-contract]]` instead, not forgetting to add the dojo world in the `build-external-contracts`.
 - Overlays files and intermediate manifests that were before produced can be deleted, they are no longer used.

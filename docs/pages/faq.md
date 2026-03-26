@@ -80,7 +80,7 @@ If your Dojo contract grows too large (many systems or complex logic in a single
 
 The mitigation is to split logic across multiple contracts or use [Dojo libraries](/libraries/origami) to separate reusable logic from your contracts via library calls.
 
-### Models inside models
+### models inside models
 
 A `#[dojo::model]` struct cannot be used as a field inside another model.
 Use a plain struct deriving `Introspect` instead.

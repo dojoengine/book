@@ -69,7 +69,7 @@ Great, Now we can start testing our functions
 - Interact with `spawn` function in the `actions` contract by providing white and black player's wallet addresses as inputs.
 - Retrieve the game entity and piece entity created in `actions` contract.
 - Ensure the game has been correctly created.
-- Verify that each `Piece` is located in the correct position.
+- Verify that each piece is located in the correct position.
 
 ## Unit Tests
 
@@ -210,7 +210,7 @@ The system's `spawn` function needs some input i.e the addresses of the players.
 
 Then we check if the players got their setup address.
 After that we check if a White rook is at (0,0).
-Remember, to get a piece that exists on the position, you need to use the keys of the `Piece` model, which are `game_id`, and `curr_pos`.
+Remember, to get a piece that exists on the position, you need to use the keys of the piece model, which are `game_id`, and `curr_pos`.
 
 ```rust
     //get a1 square

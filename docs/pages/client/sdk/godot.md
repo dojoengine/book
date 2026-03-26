@@ -115,7 +115,7 @@ Create a new Godot project or open an existing one.
   :::
     ```gdscript
     func _entity_callback(entity: Dictionary):
-        printt("Entity Models", entity["models"])
+        printt("Entity models", entity["models"])
     
     func _register_sub():
         var _dojo_callback = DojoCallback.new()

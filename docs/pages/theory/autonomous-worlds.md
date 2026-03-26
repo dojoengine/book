@@ -22,27 +22,27 @@ For instance, you could operate an onchain game on an EVM and then layer a Cairo
 
 For more information about Starknet, Cairo and its tech stack, check out the [Starknet & Cairo book](https://book.starknet.io/).
 
-## Autonomous Worlds
+## Autonomous worlds
 
 > "Autonomous worlds represent persistent, permissionless, and decentralized open environments that users can freely interact with and contribute to."
 
-The precise definition of Autonomous Worlds (AWs) remains somewhat elusive, as it is more of an abstract concept that has yet to be fully crystallized.
+The precise definition of autonomous worlds (AWs) remains somewhat elusive, as it is more of an abstract concept that has yet to be fully crystallized.
 Lattice first [introduced](https://0xparc.org/blog/autonomous-worlds) the terminology in 2022, but the notion of open worlds operating on the blockchain has been around for a while.
 The abstraction introduced by MUD served as a catalyst for the market to recognize the potential of these worlds.
 
-Autonomous Worlds share notable similarities with blockchains in their fundamental nature.
+Autonomous worlds share notable similarities with blockchains in their fundamental nature.
 Once established, they persist, maintaining their state throughout the lifespan of the chain.
 Players can join or leave, and developers can expand these worlds by deploying features in a permissionless manner, much like how contracts are added to a chain.
-While there is no universally accepted definition for an Autonomous World, we believe that a game must possess at least the following two essential features to be considered as such:
+While there is no universally accepted definition for an autonomous world, we believe that a game must possess at least the following two essential features to be considered as such:
 
 1. Decentralized data availability layer: While the state execution may reside on a centralized layer, it is crucial that the state can be reconstructed if the execution layer ceases to exist.
 Rollups offer a solution, providing increased capacity execution layers while ensuring data is permanently settled on Ethereum.
 This guarantees the world's perpetual persistence.
 
-2. Permissionless entry point for expanding the world: The World contract must be capable of accepting new systems and components without requiring permission.
+2. Permissionless entry point for expanding the world: The world contract must be capable of accepting new systems and components without requiring permission.
 While this does not imply that every component and system will be utilized, they must adhere to this pattern, ensuring open and unrestricted access for potential enhancements.
 
-We are firm believers in the potential for Autonomous Worlds to catalyze the exploration of novel forms in the medium provided by zk proofs and blockchain technology.
+We are firm believers in the potential for autonomous worlds to catalyze the exploration of novel forms in the medium provided by zk proofs and blockchain technology.
 This is not only about games, but also about new forms of artwork, coordination, fun, emerging from tinkering and radical innovation, eventually questioning the very notion of "play" in this brave new decentralized and trustless world.
 
 ### Homework

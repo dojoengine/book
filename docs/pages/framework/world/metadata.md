@@ -85,7 +85,7 @@ Local assets using `file://` URIs will not be processed.
 
 ## Technical Implementation
 
-Dojo uses the `ResourceMetadata` model to store metadata on-chain.
+Dojo uses the `ResourceMetadata` model to store metadata onchain.
 This model is [defined in Cairo](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/metadata.cairo) as:
 
 ```cairo

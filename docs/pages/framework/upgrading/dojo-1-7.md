@@ -327,7 +327,7 @@ From Dojo `1.7.0`, the `DojoStore` trait ensures that uninitialized storage is h
 Since `1.7.0`, the `TEST_CLASS_HASH` is now an actual `ClassHash`.
 The API of `spawn_test_world` has also been updated to ensure we can publish the package on `scarb.xyz`.
 
-You now have to import the `world` and pass its class hash to the `spawn_test_world` function.
+You now have to import the world and pass its class hash to the `spawn_test_world` function.
 There is no more need of casting the `TEST_CLASS_HASH` to a `ClassHash`.
 
 ```rust

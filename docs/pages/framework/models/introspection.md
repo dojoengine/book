@@ -239,10 +239,10 @@ See [Model Upgrades](/framework/models/upgrades) for detailed information about 
 
 Use `IntrospectPacked` when:
 
-- Model has a fixed, known size
-- Model structure is stable (will not change)
+- model has a fixed, known size
+- model structure is stable (will not change)
 - Performance is critical
-- Model is read/written frequently as a whole
+- model is read/written frequently as a whole
 
 ```cairo
 // Good for packed: stable, small, fixed-size

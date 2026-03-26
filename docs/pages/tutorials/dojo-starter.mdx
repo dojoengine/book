@@ -43,7 +43,7 @@ Inspect the contents of the `dojo-starter` project, and you will notice the foll
         └── test_world.cairo
 ```
 
-The scarb manifest (`Scarb.toml`) is a configuration file where project dependencies, metadata and other configurations are defined.
+The Scarb manifest (`Scarb.toml`) is a configuration file where project dependencies, metadata and other configurations are defined.
 
 ## Models
 
@@ -72,7 +72,7 @@ This tells to the Dojo compiler that this struct should be treated as a model.
 ### Understanding the `#[key]` Attribute in the Moves Model
 
 Our Moves model includes a `player` field, which is crucial for how Dojo manages and queries data.
-Models act like structured database entries, managing and organizing your onchain data.
+models act like structured database entries, managing and organizing your onchain data.
 Like a regular ORM - but onchain!
 
 Next, let us have a look at the `src/models/position.cairo` file.
@@ -102,7 +102,7 @@ struct Vec2 {
 ```
 
 The `Position` model, like `Moves`, is indexed by the `player` field and includes a `Vec2` struct for x and y coordinates.
-Models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspection) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
+models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspection) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard
@@ -298,7 +298,7 @@ In your primary terminal, execute:
 sozo inspect
 ```
 
-This command provides a preview of your World's state and contract addresses.
+This command provides a preview of your world's state and contract addresses.
 It performs a read-only comparison between local and remote resources without sending any transactions.
 Now, let us deploy!
 In your primary terminal, execute:

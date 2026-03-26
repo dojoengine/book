@@ -18,7 +18,7 @@ use starknet::{ContractAddress, get_caller_address};
 use dojo::model::{ModelStorage};
 use dojo::world::{WorldStorage, WorldStorageTrait};
 
-// Systems coordinate through shared models
+// systems coordinate through shared models
 // Movement system updates position
 fn move(ref self: ContractState, direction: Direction) {
     let mut world = self.world(@"game");
@@ -227,7 +227,7 @@ struct GameState {
     turn_count: u32,
 }
 
-// Systems coordinate through game phase
+// systems coordinate through game phase
 fn player_action(ref self: ContractState, action: PlayerAction) {
     let mut world = self.world(@"game");
     let game_state: GameState = world.read_model(GAME_ID);
@@ -254,7 +254,7 @@ fn player_action(ref self: ContractState, action: PlayerAction) {
 ## Best Practices
 
 1. **Design for Coordination**: Consider how systems will interact from the beginning
-2. **Use Shared Models**: Design models that multiple systems can use for coordination
+2. **Use Shared models**: Design models that multiple systems can use for coordination
 3. **Test Coordination Scenarios**: Write tests that verify systems work together correctly
 
 Effective system coordination is essential for creating complex, engaging applications.

@@ -15,7 +15,7 @@ The Dojo Rust SDK provides access to the core framework functionality, built on 
 The Dojo Rust ecosystem provides several key crates for different use cases:
 
 - **`dojo-types`**: Core types and data structures for Dojo
-- **`dojo-world`**: World contract interaction and management
+- **`dojo-world`**: world contract interaction and management
 - **`torii-client`**: Client for connecting to Torii indexer
 - **`torii-grpc`**: gRPC client for real-time data streaming
 - **`torii-relay`**: P2P networking and relay functionality
@@ -50,7 +50,7 @@ tokio = { version = "1.39", features = ["full"] }
 
 ## Basic Usage
 
-### Connecting to a Dojo World
+### Connecting to a Dojo world
 
 ```rust
 // Import necessary types for connecting to Dojo
@@ -84,7 +84,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-### Subscribing to Events
+### Subscribing to events
 
 ```rust
 // Import types needed for event subscriptions and stream processing
@@ -113,7 +113,7 @@ while let Some(Ok((_, entity))) = subscription.next().await {
     // - Ok(...) means no error occurred
     // - The (_, entity) destructures the tuple, ignoring the first value
 
-    println!("Entity updated: {:?}", entity);
+    println!("entity updated: {:?}", entity);
 
     // Here you can add your custom logic to handle the entity update
     // For example: update a database, trigger game logic, send notifications, etc.
@@ -225,7 +225,7 @@ pub async fn hello(ctx: Context<'_>) -> Result<(), Error> {
 
 #[poise::command(slash_command)]
 pub async fn world_status(ctx: Context<'_>) -> Result<(), Error> {
-    ctx.say("🌍 Connected to Dojo World! I am watching for all the exciting things happening in your autonomous world.").await?;
+    ctx.say("🌍 Connected to Dojo world! I am watching for all the exciting things happening in your autonomous world.").await?;
     Ok(())
 }
 
@@ -378,7 +378,7 @@ async fn subscribe(client: torii_client::client::Client, config: Config) {
                 while let Some(Ok((_, entity))) = rcv.next().await {
                     // Format the entity data as a Discord message
                     // {:#?} creates a pretty-printed debug representation
-                    let entity_message = format!("🎮 **Dojo World Update!**\n```\n{:#?}\n```", entity);
+                    let entity_message = format!("🎮 **Dojo world Update!**\n```\n{:#?}\n```", entity);
                     let content = CreateMessage::new().content(entity_message);
 
                     // Send the message to Discord

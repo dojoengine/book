@@ -8,7 +8,7 @@ description: Comprehensive indexing engine for Dojo worlds, providing real-time 
 # Torii
 
 Torii is the official indexing engine for Dojo worlds, designed to provide real-time synchronization between on-chain game state and client applications.
-Built in Rust for performance and reliability, Torii automatically tracks all changes to your game's Entity Component System (ECS) data and makes it accessible through multiple API interfaces.
+Built in Rust for performance and reliability, Torii automatically tracks all changes to your game's entity component system (ECS) data and makes it accessible through multiple API interfaces.
 
 ## Architecture Overview
 
@@ -30,8 +30,8 @@ The database schema is dynamically generated based on your world's model definit
 
 ### Data Flow
 
-1. **World Introspection**: Torii automatically discovers your world's structure by reading model and system registrations from the world contract
-2. **Event Processing**: Monitors for Dojo-specific events (`StoreSetRecord`, `StoreUpdateRecord`, `StoreDelRecord`, etc.) and ERC token transfers
+1. **world Introspection**: Torii automatically discovers your world's structure by reading model and system registrations from the world contract
+2. **event Processing**: Monitors for Dojo-specific events (`StoreSetRecord`, `StoreUpdateRecord`, `StoreDelRecord`, etc.) and ERC token transfers
 3. **ECS Synchronization**: Translates blockchain events into ECS entity and component updates
 4. **Real-time Broadcasting**: Propagates changes to connected clients via GraphQL subscriptions
 
@@ -39,7 +39,7 @@ The database schema is dynamically generated based on your world's model definit
 
 Torii is designed for production deployment with several performance optimizations:
 
-- **Parallel Processing**: Events are processed concurrently using a task manager system
+- **Parallel Processing**: events are processed concurrently using a task manager system
 - **Efficient Batching**: Blockchain data is fetched in configurable chunks to optimize RPC usage
 - **Caching Layer**: In-memory caches reduce database load and improve query performance
 - **Database Optimization**: Configurable indices and query optimization for large datasets
@@ -48,7 +48,7 @@ Torii is designed for production deployment with several performance optimizatio
 
 ### Quick Start
 
-Torii leverages world introspection to bootstrap directly from an on-chain deployment.
+Torii leverages world introspection to bootstrap directly from an onchain deployment.
 For local development with [Katana](/toolchain/katana) sequencer:
 
 ```bash

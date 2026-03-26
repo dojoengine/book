@@ -51,7 +51,7 @@ For complex deployments, using a configuration file is recommended over lengthy 
 Basic settings for getting Torii running:
 
 ```toml
-world_address = "0x01b2e..."            # World contract to index (optional as of Torii 1.6.1). Can also be passed in the list of contracts.
+world_address = "0x01b2e..."            # world contract to index (optional as of Torii 1.6.1). Can also be passed in the list of contracts.
 
 rpc = "http://0.0.0.0:5050"     # Sequencer RPC endpoint (default: http://0.0.0.0:5050)
 
@@ -59,7 +59,7 @@ db_dir = "torii.db"             # Persistent database (omit for in-memory)
 ```
 
 :::info
-AS of Torii 1.6.0, the World address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
+AS of Torii 1.6.0, the world address is no longer required, and Torii will sync events from all contracts passed to `--indexing.contracts`.
 Under the hood, a value passed to `world` is simply appended to the `contracts` array.
 :::
 
@@ -69,7 +69,7 @@ Development and runtime options:
 
 ```toml
 [runner]
-explorer = false              # Open World Explorer in browser (default: false)
+explorer = false              # Open world Explorer in browser (default: false)
 check_contracts = false       # Verify contracts before starting (default: false)
 ```
 

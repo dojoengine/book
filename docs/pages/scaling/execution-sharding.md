@@ -34,9 +34,9 @@ Execution sharding differs from [sovereign rollups](/scaling/sovereign-rollups),
 The proposed execution sharding system involves five key components:
 
 1. **Starknet Mainnet**: The settlement layer where Dojo worlds are deployed
-2. **World Contract**: Receives and incorporates state changes from completed shards
+2. **world Contract**: Receives and incorporates state changes from completed shards
 3. **Katana**: Acts as the sequencer running individual shards
-4. **Saya**: Generates proofs of shard execution and submits them to the World Contract
+4. **Saya**: Generates proofs of shard execution and submits them to the world Contract
 5. **DojoOS**: A specialized Cairo program generating execution traces for validation
 
 ![Sharding execution overview](https://hackmd.io/_uploads/HyF9QoVX1g.png)
@@ -66,17 +66,17 @@ struct ShardStartData {
     initial_state: ShardInitialState {
         // Contracts authorized for execution within the shard
         contracts: Span<felt252>,
-        // Event indicating shard completion
+        // event indicating shard completion
         end_event: EventSelector {
             // Contract address that will emit the completion event
             from: felt252,
-            // Event selector to monitor
+            // event selector to monitor
             selector: felt252,
         },
     },
     // Settlement configuration
     settlement_config: SettlementConfig {
-        // Storage addresses to update on the World Contract
+        // Storage addresses to update on the world Contract
         storage_addresses: Span<felt252>,
     },
 }
@@ -147,7 +147,7 @@ Consider a dungeon game where multiple players participate across different shar
 XP can only increase, ideal for grow-only counter CRDTs.
 Each shard independently awards XP; final XP is the sum across all shards.
 
-#### Gold (Escrow-based System)
+#### Gold (Escrow-based system)
 
 Gold can increase/decrease, requiring careful handling.
 Player gold is "escrowed" (locked on mainnet) when entering a shard, preventing double-spending.

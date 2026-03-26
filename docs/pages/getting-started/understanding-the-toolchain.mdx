@@ -1,5 +1,3 @@
-## File to edit: getting-started/understanding-the-toolchain.mdx
-
 # Understanding the Toolchain
 
 Now that you have built your first Dojo app, let us explore the tools that made it possible.
@@ -94,18 +92,18 @@ katana --rpc-url <RPC_URL> --fork-block-number <BLOCK_NUM>
 
 ## Torii: Your Data Layer
 
-**What it is**: Torii is an automatic indexing engine that makes your World's data easily queryable.
+**What it is**: Torii is an automatic indexing engine that makes your world's data easily queryable.
 
 **What it does**:
 
-- Introspects and monitors all events from your World
+- Introspects and monitors all events from your world
 - Builds a searchable database of application state
 - Provides flexible GraphQL and gRPC APIs
 - Enables real-time client subscriptions
 
 ### How Torii Works
 
-1. **Event Listening**: Monitors your World for state changes
+1. **Event Listening**: Monitors your world for state changes
 2. **Data Processing**: Converts Cairo events into structured data
 3. **Database Storage**: Maintains a SQL database of current state
 4. **API Generation**: Automatically creates GraphQL schemas
@@ -174,7 +172,7 @@ torii --http.cors_origins "*"
 - Initializes new projects
 - Compiles Cairo code
 - Deploys contracts
-- Manages World interactions
+- Manages world interactions
 - Handles authorization
 
 > **New to Sozo?** See our [complete Sozo reference](/toolchain/sozo/) for all available commands and options.
@@ -275,7 +273,7 @@ Each profile defines basic data for a deployment:
 [world]
 name = "Dojo intro"
 description = "A simple intro to Dojo."
-seed = "123" # Changes the World address
+seed = "123" # Changes the world address
 
 [namespace]
 default = "di" # Default namespace for the world
@@ -294,7 +292,7 @@ See [this page](/framework/configuration) for more information about Sozo profil
 
 ## Saya: Your Proof Generator
 
-**What it is**: Saya generates cryptographic proofs of your World's execution.
+**What it is**: Saya generates cryptographic proofs of your world's execution.
 
 **What it does**:
 
@@ -323,8 +321,8 @@ Here is the typical development flow:
 
 1. **Sozo** compiles your Cairo code into deployable contracts
 2. **Katana** provides a local blockchain to deploy and test on
-3. **Sozo** deploys your World contract to Katana
-4. **Torii** automatically indexes your World's data
+3. **Sozo** deploys your world contract to Katana
+4. **Torii** automatically indexes your world's data
 5. **Saya** (optionally) generates proofs for settlement
 
 ## Tool Configuration
@@ -340,8 +338,8 @@ Each tool can be configured through various methods:
 
 ### Common Configuration Files
 
-- `dojo_dev.toml`: Sozo project and World settings
-- `torii_dev.toml`: Torii indexing and World settings
+- `dojo_dev.toml`: Sozo project and world settings
+- `torii_dev.toml`: Torii indexing and world settings
 - `katana.toml`: Katana network configuration settings
 
 ## Development Best Practices
@@ -382,8 +380,8 @@ sozo execute di-actions spawn --profile staging
 
 ### Torii Cannot Connect
 
-- Verify the World address in `torii_dev.toml` matches your migration output
-- Check that the World was successfully deployed (`sozo inspect`)
+- Verify the world address in `torii_dev.toml` matches your migration output
+- Check that the world was successfully deployed (`sozo inspect`)
 
 ### Sozo Commands Fail
 

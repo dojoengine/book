@@ -13,7 +13,7 @@ If you have not read the Dojo Book yet, it is highly encouraged for you to do so
 
 ## What are we building?
 
-We are building an on-chain chess game contract that lets you start a new game and play chess.
+We are building an onchain chess game contract that lets you start a new game and play chess.
 This guide does not cover every rules of the chess game.
 You will build step by step as follows:
 
