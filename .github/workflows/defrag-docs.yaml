@@ -53,30 +53,49 @@ jobs:
                   fi
 
             # ---------------------------------------------------------------
-            # Phase 2: Content (LLM-powered, style-guided, size-limited)
+            # Phase 2a: Sentence formatting (LLM, narrowly scoped)
             # ---------------------------------------------------------------
-            - name: "Phase 2: Content defragmentation"
+            - name: "Phase 2a: Sentence formatting"
               env:
                   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: node scripts/defrag-docs.mjs 2>&1 | tee defrag-output.txt
+              run: node scripts/defrag-sentence.mjs 2>&1 | tee sentence-output.txt
 
-            - name: Commit content changes
+            - name: Commit sentence formatting changes
               run: |
                   if [ -n "$(git status --porcelain docs/)" ]; then
                     git add docs/
-                    git commit -m "chore(defrag): phase 2 — content
+                    git commit -m "chore(defrag): phase 2a — sentence formatting
 
-                  Terminology normalization, deduplication, cross-reference
-                  suggestions. Max 10 changed lines per diff hunk.
+                  One sentence per line, contraction expansion.
 
-                  $(tail -20 defrag-output.txt)"
+                  $(tail -10 sentence-output.txt)"
                   else
-                    echo "No content changes"
+                    echo "No sentence formatting changes"
                   fi
 
             # ---------------------------------------------------------------
-            # Phase 3: Link repair (source-validated, no build needed)
+            # Phase 2b: Terminology normalization (LLM, narrowly scoped)
+            # ---------------------------------------------------------------
+            - name: "Phase 2b: Terminology normalization"
+              env:
+                  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+              run: node scripts/defrag-terminology.mjs 2>&1 | tee terminology-output.txt
+
+            - name: Commit terminology changes
+              run: |
+                  if [ -n "$(git status --porcelain docs/)" ]; then
+                    git add docs/
+                    git commit -m "chore(defrag): phase 2b — terminology
+
+                  ECS term capitalization, proper nouns, hyphenation.
+
+                  $(tail -10 terminology-output.txt)"
+                  else
+                    echo "No terminology changes"
+                  fi
+
+            # ---------------------------------------------------------------
+            # Phase 3: Link repair (source-validated, no LLM)
             # ---------------------------------------------------------------
             - name: "Phase 3: Fix links"
               run: node scripts/fix-links.mjs 2>&1 | tee links-output.txt
@@ -96,13 +115,22 @@ jobs:
                   fi
 
             # ---------------------------------------------------------------
-            # Verify build after all phases
+            # Verify build after all editing phases
             # ---------------------------------------------------------------
             - name: Build site
               run: pnpm run build
 
             # ---------------------------------------------------------------
-            # Create PR
+            # Phase 4: Cross-page analysis (LLM, opens issue, no file edits)
+            # ---------------------------------------------------------------
+            - name: "Phase 4: Cross-page analysis"
+              env:
+                  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: node scripts/defrag-analysis.mjs 2>&1 | tee analysis-output.txt
+
+            # ---------------------------------------------------------------
+            # Create PR if any editing phases made changes
             # ---------------------------------------------------------------
             - name: Create PR if changes exist
               env:
@@ -117,9 +145,10 @@ jobs:
 
                   git push origin "$BRANCH"
 
-                  FORMAT_SUMMARY=$(sed -n '/=== Summary ===/,$ p' format-output.txt 2>/dev/null || echo "No formatting output")
-                  DEFRAG_SUMMARY=$(sed -n '/=== Summary ===/,$ p' defrag-output.txt 2>/dev/null || echo "No defrag output")
-                  LINKS_SUMMARY=$(sed -n '/=== Summary ===/,$ p' links-output.txt 2>/dev/null || echo "No link repair output")
+                  FORMAT_SUMMARY=$(sed -n '/=== Summary ===/,$ p' format-output.txt 2>/dev/null || echo "No output")
+                  SENTENCE_SUMMARY=$(sed -n '/=== Summary ===/,$ p' sentence-output.txt 2>/dev/null || echo "No output")
+                  TERMINOLOGY_SUMMARY=$(sed -n '/=== Summary ===/,$ p' terminology-output.txt 2>/dev/null || echo "No output")
+                  LINKS_SUMMARY=$(sed -n '/=== Summary ===/,$ p' links-output.txt 2>/dev/null || echo "No output")
 
                   gh pr create \
                     --title "chore: monthly docs defragmentation" \
@@ -131,46 +160,46 @@ jobs:
 
                   ### Phase 1: Formatting (mechanical)
                   Trailing newlines, smart quotes, whitespace, code block language tags.
-                  **Reviewers can skim this commit.**
 
-                  <details><summary>Phase 1 summary</summary>
+                  <details><summary>Summary</summary>
 
                   \`\`\`
                   ${FORMAT_SUMMARY}
                   \`\`\`
                   </details>
 
-                  ### Phase 2: Content (LLM-generated)
-                  Terminology normalization per style guide, deduplication (max 10 lines per diff hunk), cross-reference suggestions.
-                  **Review this commit carefully.**
+                  ### Phase 2a: Sentence formatting (LLM)
+                  One sentence per line, contraction expansion. No other changes.
 
-                  <details><summary>Phase 2 summary</summary>
+                  <details><summary>Summary</summary>
 
                   \`\`\`
-                  ${DEFRAG_SUMMARY}
+                  ${SENTENCE_SUMMARY}
+                  \`\`\`
+                  </details>
+
+                  ### Phase 2b: Terminology (LLM)
+                  ECS term capitalization, proper nouns, hyphenation. No other changes.
+
+                  <details><summary>Summary</summary>
+
+                  \`\`\`
+                  ${TERMINOLOGY_SUMMARY}
                   \`\`\`
                   </details>
 
                   ### Phase 3: Link repair (source-validated)
-                  Auto-fixes broken internal links by validating against source files.
-                  Fixes extension removal (.md/.mdx), path corrections, and broken relative links.
-                  **Reviewers can skim this commit.**
+                  Auto-fixes broken internal links.
 
-                  <details><summary>Phase 3 summary</summary>
+                  <details><summary>Summary</summary>
 
                   \`\`\`
                   ${LINKS_SUMMARY}
                   \`\`\`
                   </details>
 
-                  ### Skipped changes
-                  Files with diff hunks >10 lines were skipped and filed as a GitHub issue for manual review.
-
-                  ### Review notes
-                  - The build has been verified to pass after all phases
-                  - Check for \`[TODO: link to X]\` markers that need resolution
-                  - Check for \`<!-- TODO: deduplicate -->\` comments flagging large removals
-                  - Check workflow output for unfixable links that need manual attention
+                  ### Phase 4: Cross-page analysis
+                  Structural issues (redundancy, missing cross-references, content relocations) were filed as a separate GitHub issue for interactive resolution.
 
                   ---
                   *This PR was automatically created by the monthly defragmentation workflow.*
