@@ -23,6 +23,7 @@ import {
     collectDocFiles,
     loadTextFile,
     callClaude,
+    checkLinksPreserved,
 } from "./lib/defrag-utils.mjs";
 import { join } from "path";
 
@@ -99,6 +100,15 @@ async function main() {
             if (normalized === original) {
                 console.log(`    No changes.`);
                 filesUnchanged++;
+                continue;
+            }
+
+            const linkCheck = checkLinksPreserved(original, normalized);
+            if (!linkCheck.ok) {
+                console.warn(`    REJECTED: LLM modified links in ${file.rel}`);
+                if (linkCheck.added.length) console.warn(`      Added: ${linkCheck.added.join(", ")}`);
+                if (linkCheck.removed.length) console.warn(`      Removed: ${linkCheck.removed.join(", ")}`);
+                filesErrored++;
                 continue;
             }
 
