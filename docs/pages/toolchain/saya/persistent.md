@@ -73,7 +73,7 @@ You will then want to start katana with the `--chain /path` instead of `--chain 
 
 ## Run Saya
 
-For setup instructions and API key requirements, see the main [Saya guide](./index).
+For setup instructions and API key requirements, see the main [Saya guide](/index).
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.
