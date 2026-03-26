@@ -52,6 +52,50 @@ export function getValidRoutes() {
 }
 
 /**
+ * Extract all markdown link URLs from content (ignoring code blocks).
+ */
+export function extractLinkUrls(content) {
+    const urls = [];
+    let inCodeBlock = false;
+    for (const line of content.split("\n")) {
+        if (line.trimStart().startsWith("```")) {
+            inCodeBlock = !inCodeBlock;
+            continue;
+        }
+        if (inCodeBlock) continue;
+        const linkRegex = /\[([^\]]*)\]\(([^)]+)\)/g;
+        let match;
+        while ((match = linkRegex.exec(line)) !== null) {
+            urls.push(match[2]);
+        }
+    }
+    return urls;
+}
+
+/**
+ * Check that the LLM output preserved all original links and added none.
+ * Returns { ok, added, removed } where added/removed are URL arrays.
+ */
+export function checkLinksPreserved(original, corrected) {
+    const originalUrls = extractLinkUrls(original);
+    const correctedUrls = extractLinkUrls(corrected);
+    const origCounts = new Map();
+    for (const u of originalUrls) origCounts.set(u, (origCounts.get(u) || 0) + 1);
+    const corrCounts = new Map();
+    for (const u of correctedUrls) corrCounts.set(u, (corrCounts.get(u) || 0) + 1);
+
+    const added = [];
+    const removed = [];
+    const allUrls = new Set([...origCounts.keys(), ...corrCounts.keys()]);
+    for (const u of allUrls) {
+        const diff = (corrCounts.get(u) || 0) - (origCounts.get(u) || 0);
+        if (diff > 0) for (let i = 0; i < diff; i++) added.push(u);
+        if (diff < 0) for (let i = 0; i < -diff; i++) removed.push(u);
+    }
+    return { ok: added.length === 0 && removed.length === 0, added, removed };
+}
+
+/**
  * Check if any single diff hunk exceeds the size limit.
  */
 export function checkHunkSizes(original, corrected, filename) {
