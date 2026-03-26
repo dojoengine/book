@@ -26,6 +26,7 @@ import { structuredPatch } from "diff";
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const DOCS_DIR = join(ROOT, "docs", "pages");
 const MODEL = "claude-sonnet-4-20250514";
+const MODEL_FAST = "claude-haiku-4-5-20251001";
 const API_URL = "https://api.anthropic.com/v1/messages";
 const DRY_RUN = process.argv.includes("--dry-run");
 const MAX_HUNK_LINES = 10;
@@ -95,14 +96,14 @@ function checkHunkSizes(original, corrected, filename) {
     return { ok: true, maxHunkSize, hunks: [] };
 }
 
-async function callClaude(system, userContent, maxTokens = 16000) {
+async function callClaude(system, userContent, maxTokens = 16000, model = MODEL) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
         throw new Error("ANTHROPIC_API_KEY environment variable is required");
     }
 
     const body = {
-        model: MODEL,
+        model,
         max_tokens: maxTokens,
         system,
         messages: [{ role: "user", content: userContent }],
@@ -392,8 +393,8 @@ async function main() {
                         if (!targetCheck.ok) details.push(`${reloc.to}: hunk of ${targetCheck.maxHunkSize} lines`);
                         console.log(`    SKIPPED relocation: oversized hunks (${details.join(", ")})`);
                         filesSkipped += 2;
-                        skipLog.push({ file: reloc.from, reason: "relocation", maxHunkSize: sourceCheck.maxHunkSize, hunks: sourceCheck.hunks });
-                        skipLog.push({ file: reloc.to, reason: "relocation", maxHunkSize: targetCheck.maxHunkSize, hunks: targetCheck.hunks });
+                        skipLog.push({ file: reloc.from, reason: "relocation", maxHunkSize: sourceCheck.maxHunkSize, hunks: sourceCheck.hunks, summary: `Relocation source: ${reloc.description}` });
+                        skipLog.push({ file: reloc.to, reason: "relocation", maxHunkSize: targetCheck.maxHunkSize, hunks: targetCheck.hunks, summary: `Relocation target: ${reloc.description}` });
                         continue;
                     }
                     if (!DRY_RUN) {
@@ -453,7 +454,22 @@ async function main() {
                         `    SKIPPED: hunk of ${sizeCheck.maxHunkSize} lines (limit: ${MAX_HUNK_LINES})`
                     );
                     filesSkipped++;
-                    skipLog.push({ file: file.rel, reason: "edit", maxHunkSize: sizeCheck.maxHunkSize, hunks: sizeCheck.hunks });
+                    let summary = "";
+                    try {
+                        const patch = structuredPatch(file.rel, file.rel, original, normalizedCorrected);
+                        const diffText = patch.hunks
+                            .map((h) => `@@ -${h.oldStart},${h.oldLines} +${h.newStart},${h.newLines} @@\n${h.lines.join("\n")}`)
+                            .join("\n\n");
+                        summary = await callClaude(
+                            "You are a documentation editor. Given a diff, summarize what was changed and why in 1-2 sentences. Be specific and concise.",
+                            diffText,
+                            256,
+                            MODEL_FAST
+                        );
+                    } catch (_) {
+                        summary = "(summary unavailable)";
+                    }
+                    skipLog.push({ file: file.rel, reason: "edit", maxHunkSize: sizeCheck.maxHunkSize, hunks: sizeCheck.hunks, summary });
                     continue;
                 }
 
@@ -503,23 +519,29 @@ async function main() {
 }
 
 async function createSkipIssue(skipLog) {
-    const rows = skipLog.map((entry) => {
+    const relocations = skipLog.filter((e) => e.reason === "relocation");
+    const edits = skipLog.filter((e) => e.reason === "edit");
+
+    function formatEntry(entry) {
         const hunks = entry.hunks
             .map((h) => `line ${h.start} (${h.changedLines} lines)`)
             .join(", ");
-        return `| \`${entry.file}\` | ${entry.reason} | ${entry.maxHunkSize} | ${hunks} |`;
-    });
+        return `- [ ] \`${entry.file}\` — ${hunks}: ${entry.summary}`;
+    }
 
-    const body = `## Defrag: skipped changes need manual review
+    let sections = "";
+    if (relocations.length > 0) {
+        sections += `## Relocations\n\n${relocations.map(formatEntry).join("\n")}\n\n`;
+    }
+    if (edits.length > 0) {
+        sections += `## Edits\n\n${edits.map(formatEntry).join("\n")}\n`;
+    }
 
-The monthly defrag workflow skipped the following files because they contained
-diff hunks larger than ${MAX_HUNK_LINES} lines. These changes may still be valid
-but need a human to review and apply manually.
+    const body = `The monthly defrag workflow skipped the following files because they contained
+diff hunks larger than ${MAX_HUNK_LINES} lines.
+These changes may still be valid but need a human to review and apply manually.
 
-| File | Stage | Max hunk | Oversized hunks |
-|------|-------|----------|-----------------|
-${rows.join("\n")}
-
+${sections}
 > Created automatically by the defrag workflow.`;
 
     try {
