@@ -4,7 +4,6 @@
  * Pass B: Terminology normalization.
  *
  * LLM-powered but narrowly scoped:
- *   - ECS term capitalization (world/model/system/entity/event lowercase in prose)
  *   - Proper noun capitalization (Dojo, Cairo, Starknet, Katana, Torii, Sozo, Saya, Scarb)
  *   - Hyphenation fixes (on-chain → onchain, etc.)
  *
@@ -38,14 +37,9 @@ ${styleGuide}
 
 ## What you change
 
-1. **ECS terms in prose**: model, system, entity, event, world must be lowercase in running prose sentences. Keep them capitalized in:
-   - Headings (lines starting with #)
-   - Table column headers and table description cells
-   - Link text that is a proper name (e.g., "[World API](/framework/world/api)")
+1. **Proper noun capitalization**: Dojo, Cairo, Starknet (not StarkNet), Katana, Torii, Sozo, Saya, Scarb, Cartridge, MetaMask, React Native — capitalize in prose.
 
-2. **Proper noun capitalization**: Dojo, Cairo, Starknet (not StarkNet), Katana, Torii, Sozo, Saya, Scarb, Cartridge, MetaMask, React Native — capitalize in prose.
-
-3. **Hyphenation**: onchain (not on-chain), gasless (not gas-free/gas-less), multicall (not multi-call), cross-chain (keep hyphen).
+2. **Hyphenation**: onchain (not on-chain), gasless (not gas-free/gas-less), multicall (not multi-call), cross-chain (keep hyphen).
 
 ## What you must NOT do
 
@@ -53,7 +47,7 @@ ${styleGuide}
 - Do NOT split or join lines (no one-sentence-per-line changes).
 - Do NOT expand contractions.
 - Do NOT add or remove any content, paragraphs, sections, or sentences.
-- Do NOT rename headings (only fix capitalization of ECS terms in headings per the rules above).
+- Do NOT rename headings.
 - Do NOT add or modify links or cross-references.
 - Do NOT change code blocks, inline code, frontmatter, URLs, or any non-prose content.
 - Do NOT fix typos, grammar, or punctuation.

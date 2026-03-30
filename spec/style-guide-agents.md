@@ -16,9 +16,6 @@ For the full guide, see style-guide.md.
 - **Dojo**, **Cairo**, **Starknet**, **Katana**, **Torii**, **Sozo**, **Saya**, **Scarb**
 - Lowercase is fine in CLI commands and config keys.
 
-**ECS terms — capitalize when referring to Dojo concepts:**
-- **World** (root contract), **Model** (not "Component"), **System**, **Entity**, **Event**
-
 **Third-party — official branding:**
 - **Cartridge Controller** (first mention) → **Controller** (subsequent)
 - **MetaMask**, **React Native**

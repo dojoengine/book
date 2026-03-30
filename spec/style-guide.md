@@ -54,20 +54,6 @@ These are proper nouns — always capitalize in prose:
 | **Saya** | "saya" in prose |
 | **Scarb** | "scarb" in prose (lowercase is fine in CLI commands) |
 
-### ECS terms
-
-Use **lowercase** for ECS terms in running prose (e.g., "define a model", "the world contract", "write a system").
-Capitalize in headings, link text, table headers, and table description cells (e.g., "Free World metadata", "Model Binding Errors").
-
-| Term | Notes |
-|------|-------|
-| **model** | Data structures decorated with `#[dojo::model]` |
-| **system** | Functions that modify models, implementing game logic |
-| **entity** | An addressable unit of state composed of models |
-| **event** | On-chain events decorated with `#[dojo::event]` |
-| **world** | The root contract that manages all state (capitalize in "World contract" as a proper noun) |
-| **component** | Avoid — use **model** instead (legacy term) |
-
 ### Third-party names
 
 Use official branding:
