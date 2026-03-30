@@ -388,10 +388,10 @@ description = "Player position model"
 After migration, you can adjust permissions using the World contract API:
 
 ```bash
-# Grant writer permission using sozo auth
+# Grant writer permission using Sozo auth
 sozo auth grant writer my_game-Position,my_game-actions
 
-# Grant owner permission using sozo auth
+# Grant owner permission using Sozo auth
 sozo auth grant owner my_game,my_game-admin
 
 # Check writer permissions

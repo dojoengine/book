@@ -13,7 +13,7 @@ description: Learn about Dojo models, their role in data storage, key attributes
 - Use the `#[dojo::model]` attribute to define them.
 - Models must have at least one key.
 - Define the key(s) using the `#[key]` attribute.
-- Models are Cairo structs with automatic on-chain introspection.
+- Models are Cairo structs with automatic onchain introspection.
 - Custom enums and types are supported if they implement [`Introspect`](./introspection).
 
 ## What are models?

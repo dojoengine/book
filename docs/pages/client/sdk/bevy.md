@@ -1,5 +1,3 @@
-## File to edit: client/sdk/bevy.md
-
 ---
 title: "Dojo Bevy SDK"
 description: "Official Bevy engine integration for building Dojo-powered games with native Rust performance"

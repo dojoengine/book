@@ -7,7 +7,7 @@ description: A high-performance Starknet sequencer designed for rapid developmen
 
 # Katana
 
-Katana is a **blazingly fast Starknet sequencer** built for onchain game developers and appchain builders, focusing on **rapid iteration** and **flexible deployment models**.
+**Katana** is a **blazingly fast Starknet sequencer** built for onchain game developers and appchain builders, focusing on **rapid iteration** and **flexible deployment models**.
 
 :::info
 Unlike **miners** (who compete to solve puzzles) or **validators** (who verify blocks in consensus), a **sequencer** has singular authority over transaction ordering and block production.
@@ -16,19 +16,19 @@ This enables fast finality and predictable performance, making it ideal for appc
 
 ## Architecture Overview
 
-Katana follows a **modular, layered architecture** with key components:
+**Katana** follows a **modular, layered architecture** with key components:
 
 **Backend**: Manages block processing and sequencer state coordination.
 
 **Block Producer**: Handles block creation with configurable mining strategies.
 
-**Executor Factory**: Creates Cairo executors using Starknet's **Blockifier**.
+**Executor Factory**: Creates **Cairo** executors using **Starknet's** **Blockifier**.
 
 **Storage Provider**: Abstracts database access using **Merkle Patricia Tries** via [Bonsai](https://github.com/dojoengine/bonsai-trie).
 
 **Transaction Pool**: Multi-stage validation pipeline from submission to block inclusion.
 
-**RPC Server**: Provides standard Starknet APIs plus dev-specific endpoints.
+**RPC Server**: Provides standard **Starknet** APIs plus dev-specific endpoints.
 
 **Block Explorer**: Browser-based block explorer for easily visualizing sequencer activity
 
@@ -38,19 +38,19 @@ Katana follows a **modular, layered architecture** with key components:
 
 **State Forking**: Fork existing networks at any block for testing against live contracts.
 
-**Multi-Settlement**: Designed for Starknet settlement (L3 model) or sovereign operation.
+**Multi-Settlement**: Designed for **Starknet** settlement (L3 model) or sovereign operation.
 
 **Cairo Native**: Optional ahead-of-time compilation for significant performance gains.
 
 :::info
-Cairo Native compiles Cairo programs to native machine code via MLIR and LLVM, offering large performance improvements over vanilla VM interpretation.
+**Cairo Native** compiles **Cairo** programs to native machine code via MLIR and LLVM, offering large performance improvements over vanilla VM interpretation.
 This feature must be enabled at compile time with the `native` feature flag and creates additional dependencies.
 :::
 
 ## Getting Started
 
 :::note
-Katana requires glibc version 2.33 or higher.
+**Katana** requires glibc version 2.33 or higher.
 It is not available on Ubuntu 20.04 LTS, Debian 10 Buster, CentOS 7, or below.
 :::
 
@@ -62,7 +62,7 @@ Start a local development sequencer with pre-funded accounts and instant mining:
 katana --dev --dev.no-fee
 ```
 
-This launches Katana in development mode with:
+This launches **Katana** in development mode with:
 
 - An RPC server at `http://localhost:5050`
 - 10 pre-funded accounts
@@ -89,7 +89,7 @@ katana --block-time 10000 --db-dir ./katana-db
 
 ## Installation
 
-Katana can be installed via [`dojoup`](/installation), our dedicated package manager:
+**Katana** can be installed via [`dojoup`](/installation), our dedicated package manager:
 
 ```bash
 curl -L https://install.dojoengine.org | bash
@@ -104,7 +104,7 @@ This will install the `katana` binary at `~/.dojo/bin`
 :::
 
 :::tip
-Dojoup automatically synchronizes compatible versions of Dojo, Katana, and Torii
+Dojoup automatically synchronizes compatible versions of **Dojo**, **Katana**, and **Torii**
 :::
 
 ### Installing with `asdf`

@@ -62,7 +62,7 @@ It allows us to:
 - Ensure state consistency through infrastructure-level control, not by reconciliation (shortcut that typically Sharding execution will solve)
 
 Optimistic Katana does not need to roll back any state.
-Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical on-chain result.
+Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical onchain result.
 
 This approach delivers near-instant feedback for users while maintaining trust and state consistency across the network.
 

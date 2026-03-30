@@ -3,11 +3,11 @@ title: Torii
 description: Comprehensive indexing engine for Dojo worlds, providing real-time ECS data synchronization and multiple API interfaces for game clients.
 ---
 
-![torii](/toolchain/torii-icon-word.png)
+![Torii](/toolchain/torii-icon-word.png)
 
 # Torii
 
-Torii is the official indexing engine for Dojo worlds, designed to provide real-time synchronization between on-chain game state and client applications.
+Torii is the official indexing engine for Dojo worlds, designed to provide real-time synchronization between onchain game state and client applications.
 Built in Rust for performance and reliability, Torii automatically tracks all changes to your game's Entity Component System (ECS) data and makes it accessible through multiple API interfaces.
 
 ## Architecture Overview
@@ -48,7 +48,7 @@ Torii is designed for production deployment with several performance optimizatio
 
 ### Quick Start
 
-Torii leverages world introspection to bootstrap directly from an on-chain deployment.
+Torii leverages world introspection to bootstrap directly from an onchain deployment.
 For local development with [Katana](/toolchain/katana) sequencer:
 
 ```bash

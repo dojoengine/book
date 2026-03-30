@@ -22,7 +22,7 @@ The `actions` contract has two dominant functions `spawn` function which spawns 
    In this case, `move` and `spawn`
 
 ```rust
-    use starknet::ContractAddress;
+    use Starknet::ContractAddress;
     use chess::models::piece::Vec2;
 
     #[dojo::interface]
