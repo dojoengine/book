@@ -62,7 +62,7 @@ It allows us to:
 - Ensure state consistency through infrastructure-level control, not by reconciliation (shortcut that typically Sharding execution will solve)
 
 Optimistic Katana does not need to roll back any state.
-Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical on-chain result.
+Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical onchain result.
 
 This approach delivers near-instant feedback for users while maintaining trust and state consistency across the network.
 
@@ -128,7 +128,7 @@ pub trait IOperator<T> {
 }
 ```
 
-The `OperatorMode` allows dynamic control over when and how operators can act (e.g., permanent or time-limited authorization).
+The `OperatorMode` allows dynamic control over when and how operators can act (for example, permanent or time-limited authorization).
 Only the creator of the world can change the mode.
 
 More importantly, the `set_entity` function within the world contract is gated by this operator check.

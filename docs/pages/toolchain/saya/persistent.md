@@ -47,7 +47,7 @@ You can inspect the chain by running `katana config per1`
 
 :::note
 The settlement core contract must receive configuration parameters on deployment.
-It's recommended to let Katana handle this.
+It is recommended to let Katana handle this.
 If the core contract is already deployed, you should provide it so Katana can verify the configuration parameters.
 :::
 
@@ -56,7 +56,7 @@ When working with Katana in provable mode, two additional parameters are require
 1. `block-time`: Since every block is proven, it is recommended to use a block time instead of the default mode where a block is mined for each transaction.
    This prevents overwhelming the prover with too many blocks and ensures consistent proving performance.
 
-2. `block-max-cairo-steps`: In the current implementation of Katana, the default cairo steps limit in a block is `50` million.
+2. `block-max-cairo-steps`: In the current implementation of Katana, the default Cairo steps limit in a block is `50` million.
    For provable mode with Saya, it is recommended to use `16` million to ensure the proving step succeeds reliably.
    This limit exists due to Cairo VM constraints and proving complexity - larger blocks may fail to prove or timeout.
 
@@ -73,7 +73,7 @@ You will then want to start katana with the `--chain /path` instead of `--chain 
 
 ## Run Saya
 
-If you haven't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
+If you have not already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.

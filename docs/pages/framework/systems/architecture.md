@@ -12,7 +12,7 @@ Good architecture makes your codebase easier to understand, modify, and extend a
 
 ### Separation of Concerns
 
-Each system should have a clear, distinct responsibility that doesn't overlap with other systems.
+Each system should have a clear, distinct responsibility that does not overlap with other systems.
 This makes your codebase more modular and easier to maintain.
 
 ```cairo
@@ -64,7 +64,7 @@ This creates a clean dependency flow and makes testing easier.
 
 ### Interface Segregation
 
-Design focused interfaces that expose only what's necessary.
+Design focused interfaces that expose only what is necessary.
 Large, monolithic interfaces become difficult to implement and maintain.
 
 ```cairo

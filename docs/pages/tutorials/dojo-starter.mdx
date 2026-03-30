@@ -8,24 +8,27 @@ import { LinkCard } from "../../components/LinkCard";
 # Dojo 101 Tutorial
 
 :::note
-This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo. If not, please refer to the [installation](/installation) section and the [Cairo book](https://book.cairo-lang.org).
+This section assumes that you have already installed the Dojo toolchain and are familiar with Cairo.
+If not, please refer to the [installation](/installation) section and the [Cairo book](https://book.cairo-lang.org).
 :::
 
 ## Dojo in 15 minutes or less
 
-To start, let's create a new project to run locally on your machine.
+To start, let us create a new project to run locally on your machine.
 
 ```bash
 sozo init dojo-starter
 ```
 
-Congratulations! You now have a local Dojo project!
+Congratulations!
+You now have a local Dojo project!
 
-This command creates a `dojo-starter` project in your current directory from the [Dojo starter template](https://github.com/dojoengine/dojo-starter). It's the ideal starting point for a new project and equips you with everything you need to begin hacking.
+This command creates a `dojo-starter` project in your current directory from the [Dojo starter template](https://github.com/dojoengine/dojo-starter).
+It is the ideal starting point for a new project and equips you with everything you need to begin hacking.
 
 ### Anatomy of a Dojo Project
 
-Inspect the contents of the `dojo-starter` project, and you'll notice the following structure (excluding the non-Cairo files):
+Inspect the contents of the `dojo-starter` project, and you will notice the following structure (excluding the non-Cairo files):
 
 ```bash
 ├── Scarb.toml
@@ -35,12 +38,12 @@ Inspect the contents of the `dojo-starter` project, and you'll notice the follow
     ├── lib.cairo
     ├── models.cairo
     ├── systems
-    │   └── actions.cairo
+    │   └── actions.cairo
     └── tests
         └── test_world.cairo
 ```
 
-The scarb manifest (`Scarb.toml`) is a configuration file where project dependencies, metadata and other configurations are defined.
+The Scarb manifest (`Scarb.toml`) is a configuration file where project dependencies, metadata and other configurations are defined.
 
 ## Models
 
@@ -63,13 +66,16 @@ struct Moves {
 
 Notice the `#[dojo::model]` attribute.
 
-For a model to be recognized, we _must_ add this attribute to a Cairo struct. This tells to the Dojo compiler that this struct should be treated as a model.
+For a model to be recognized, we _must_ add this attribute to a Cairo struct.
+This tells to the Dojo compiler that this struct should be treated as a model.
 
 ### Understanding the `#[key]` Attribute in the Moves Model
 
-Our Moves model includes a `player` field, which is crucial for how Dojo manages and queries data. Models act like structured database entries, managing and organizing your onchain data. Like a regular ORM - but onchain!
+Our Moves model includes a `player` field, which is crucial for how Dojo manages and queries data.
+Models act like structured database entries, managing and organizing your onchain data.
+Like a regular ORM - but onchain!
 
-Next, lets have a look at the `src/models/position.cairo` file.
+Next, let us have a look at the `src/models/position.cairo` file.
 
 ```rust
 // ...
@@ -95,7 +101,8 @@ struct Vec2 {
 // ...
 ```
 
-The `Position` model, like `Moves`, is indexed by the `player` field and includes a `Vec2` struct for x and y coordinates. Models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspection) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
+The `Position` model, like `Moves`, is indexed by the `player` field and includes a `Vec2` struct for x and y coordinates.
+Models can contain any Cairo struct that derives the [`Introspect`](/framework/models/introspection) trait, which allows the compiler to introspect the struct and generate the necessary code to interact with it.
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard
@@ -107,10 +114,10 @@ The `Position` model, like `Moves`, is indexed by the `player` field and include
 
 ## Contract Systems
 
-A dojo contract is a Starknet contract annotated with the `#[dojo::contract]` attribute.
+A Dojo contract is a Starknet contract annotated with the `#[dojo::contract]` attribute.
 Like any Starknet contract, it defines an interface and an implementation.
 
-Let's examine the `src/systems/actions.cairo` file.
+Let us examine the `src/systems/actions.cairo` file.
 
 ```rust
 use dojo_starter::models::{Direction, Position};
@@ -205,7 +212,7 @@ pub mod actions {
     #[generate_trait]
     impl InternalImpl of InternalTrait {
         // Use the default namespace "dojo_starter".
-        // This function is handy since the ByteArray can't be const.
+        // This function is handy since the ByteArray cannot be const.
         fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
             self.world(@"dojo_starter")
         }
@@ -227,7 +234,8 @@ fn next_position(mut position: Position, direction: Direction) -> Position {
 
 ### Using the `world.write_model` method
 
-Here we use the `world.write_model` method to set the `Moves` and `Position` models for the `player` entity. This method is used to update the world state with the new data.
+Here we use the `world.write_model` method to set the `Moves` and `Position` models for the `player` entity.
+This method is used to update the world state with the new data.
 
 ```rust
 let moves = Moves {
@@ -251,7 +259,8 @@ world.write_model(@moves);
     />
 </div>
 
-We covered a lot here in a short time. Let's recap:
+We covered a lot here in a short time.
+Let us recap:
 
 - Explained the anatomy of a Dojo project
 - Explained the importance of the `#[dojo::model]`attribute and how models are defined
@@ -261,34 +270,45 @@ We covered a lot here in a short time. Let's recap:
 
 ## Deploy it locally
 
-Enough theory! Let's build the Dojo project! In your primary terminal:
+Enough theory!
+Let us build the Dojo project!
+In your primary terminal:
 
 ```bash
 sozo build
 ```
 
-That compiled the models and systems into artifacts that can be deployed. Simple as that!
+That compiled the models and systems into artifacts that can be deployed.
+Simple as that!
 
-Now, let's deploy it to [Katana](/toolchain/katana)! First, we need to get Katana running. Open a second terminal and execute:
+Now, let us deploy it to [Katana](/toolchain/katana)!
+First, we need to get Katana running.
+Open a second terminal and execute:
 
 ```bash
 katana --dev --dev.no-fee
 ```
 
-Success! [Katana](/toolchain/katana) should now be running locally on your machine. Now, let's inspect the world. In your primary terminal, execute:
+Success!
+[Katana](/toolchain/katana) should now be running locally on your machine.
+Now, let us inspect the world.
+In your primary terminal, execute:
 
 ```bash
 sozo inspect
 ```
 
-This command provides a preview of your World's state and contract addresses. It performs a read-only comparison between local and remote resources without sending any transactions.
-Now, let's deploy! In your primary terminal, execute:
+This command provides a preview of your World's state and contract addresses.
+It performs a read-only comparison between local and remote resources without sending any transactions.
+Now, let us deploy!
+In your primary terminal, execute:
 
 ```bash
 sozo migrate
 ```
 
-This command will deploy the artifact to `Katana`. You should see terminal output similar to this:
+This command will deploy the artifact to `Katana`.
+You should see terminal output similar to this:
 
 ```console
  profile | chain_id | rpc_url
@@ -303,7 +323,8 @@ Your 🌎 is now deployed at `0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab
 
 This establishes the world address for your project.
 
-Let's discuss the `Scarb.toml` file in the project. This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/framework/configuration)).
+Let us discuss the `Scarb.toml` file in the project.
+This file contains environment variables that make running CLI commands in your project a breeze (read more about it [here](/framework/configuration)).
 
 ```toml
 [scripts]
@@ -312,7 +333,8 @@ spawn = "sozo execute dojo_starter-actions spawn --wait"    # scarb run spawn
 move = "sozo execute dojo_starter-actions move -c 1 --wait" # scarb run move
 ```
 
-At the same time, make sure your file specifies the version of Dojo you have installed! In this case version `v1.0.0`.
+At the same time, make sure your file specifies the version of Dojo you have installed!
+In this case version `v1.0.0`.
 
 ```toml
 [dependencies]
@@ -321,13 +343,19 @@ dojo = "1.8.0"
 
 ## Indexing
 
-With your local world address established, let's delve into indexing. You can index the entire world. To accomplish this we have to copy your `world address` from the output of `sozo migrate`. Now Open a new terminal and input this simple command that includes your own world address:
+With your local world address established, let us delve into indexing.
+You can index the entire world.
+To accomplish this we have to copy your `world address` from the output of `sozo migrate`.
+Now Open a new terminal and input this simple command that includes your own world address:
 
 ```bash
 torii --world 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18 --http.cors_origins "*"
 ```
 
-Running the command mentioned above starts a [Torii](/toolchain/torii) server on your local machine. This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql. `Torii` will automatically organize your data into tables, making it easy for you to perform queries using GraphQL. When you run the command, you'll see terminal output that looks something like this:
+Running the command mentioned above starts a [Torii](/toolchain/torii) server on your local machine.
+This server uses SQLite as its database and is accessible at http://0.0.0.0:8080/graphql.
+`Torii` will automatically organize your data into tables, making it easy for you to perform queries using GraphQL.
+When you run the command, you will see terminal output that looks something like this:
 
 ```console
 2024-06-14T04:38:33.450886Z  INFO torii::relay::server: Relay peer id. peer_id=12D3KooWNJYDBVvnrWgi6QeVaQr6TZMEgJNni51UhZVGw1is4i9P
@@ -365,7 +393,8 @@ You can observe that our `Moves` and `Position` models have been successfully re
 
 ### GraphQL Queries
 
-Next, let's use the GraphQL IDE to retrieve data from all the models that have been registered. In your web browser, navigate to `http://localhost:8080/graphql`, and enter the following query:
+Next, let us use the GraphQL IDE to retrieve data from all the models that have been registered.
+In your web browser, navigate to `http://localhost:8080/graphql`, and enter the following query:
 
 ```graphql
 query {
@@ -429,7 +458,8 @@ After you run the query, you will receive an output like this:
 }
 ```
 
-Awesome, now let's work with subscriptions to get real-time updates. Let's clean up your workspace on the GraphQL IDE and input the following subscription:
+Awesome, now let us work with subscriptions to get real-time updates.
+Let us clean up your workspace on the GraphQL IDE and input the following subscription:
 
 ```graphql
 subscription {
@@ -443,15 +473,17 @@ subscription {
 }
 ```
 
-Once you execute the subscription, you will receive notifications whenever new entities are updated or created. For now, don't make any changes to it, and proceed to create a new entities.
+Once you execute the subscription, you will receive notifications whenever new entities are updated or created.
+For now, do not make any changes to it, and proceed to create a new entities.
 
-To accomplish this, we have to execute `spawn` function from `actions` contract. In your main local terminal, run the following command:
+To accomplish this, we have to execute `spawn` function from `actions` contract.
+In your main local terminal, run the following command:
 
 ```bash
 sozo execute dojo_starter-actions spawn
 ```
 
-By running this command, you've executed the spawn system, resulting in the creation of a new entity.
+By running this command, you have executed the spawn system, resulting in the creation of a new entity.
 
 Now, go back to your GraphQL IDE, and you will notice that you have received the subscription's results, which should look something like this:
 
@@ -485,9 +517,12 @@ Now, go back to your GraphQL IDE, and you will notice that you have received the
 }
 ```
 
-In the GraphQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation. This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema. In order to know more about query and subscription, you can jump to [GraphQL](/toolchain/torii/graphql) section.
+In the GraphQL IDE, by clicking the `DOCS`-button on the right, you can open the API documentation.
+This documentation is auto-generated based on our schema definition and displays all API operations and data types of our schema.
+In order to know more about query and subscription, you can jump to [GraphQL](/toolchain/torii/graphql) section.
 
-We've covered quite a bit! Here's a recap:
+We have covered quite a bit!
+Here is a recap:
 
 - Built a Dojo world
 - Deployed the project to Katana
@@ -497,7 +532,10 @@ We've covered quite a bit! Here's a recap:
 
 ### Next Steps
 
-This overview provides a rapid end-to-end glimpse of Dojo. However, the potential of these worlds is vast! Designed to manage hundreds of systems and models, Dojo is equipped for expansive creativity. So, what will you craft next?
+This overview provides a rapid end-to-end glimpse of Dojo.
+However, the potential of these worlds is vast!
+Designed to manage hundreds of systems and models, Dojo is equipped for expansive creativity.
+So, what will you craft next?
 
 <div className="grid grid-cols-2 gap-8">
     <LinkCard

@@ -9,8 +9,8 @@ Dojo supports associating offchain metadata with the **world** and its **resourc
 This provides additional context about the world and its resources, such as their name, description, icon URI, and more.
 This enables external services to easily index and distribute worlds and experiences built on them.
 
-During migration, `sozo` automatically manages metadata for you, uploading it to IPFS in `JSON` format and registering it in the world contract through the `ResourceMetadata` Dojo model.
-`sozo` does this by parsing the metadata defined in the Dojo profile configuration `dojo_<PROFILE>.toml`.
+During migration, `Sozo` automatically manages metadata for you, uploading it to IPFS in `JSON` format and registering it in the world contract through the `ResourceMetadata` Dojo model.
+`Sozo` does this by parsing the metadata defined in the Dojo profile configuration `dojo_<PROFILE>.toml`.
 
 ## World Metadata
 
@@ -34,7 +34,7 @@ discord = "https://discord.gg/FB2wR6uF"
 The toolchain supports the `name`, `description`, `icon_uri`, `cover_uri`, `website` and `socials` attributes by default.
 
 `*_uri` attributes can point to an asset in the repo using the `file://` schema or to remote resources using either `ipfs://` or `https://`.
-For local assets, `sozo` will upload them to IPFS and replace the corresponding URIs with an IPFS URI.
+For local assets, `Sozo` will upload them to IPFS and replace the corresponding URIs with an IPFS URI.
 
 Arbitrary social links can be set by adding key-value pairs under the `socials` section.
 For example, you could add `telegram = "https://t.me/dojoengine"`.
@@ -64,7 +64,7 @@ For each type of resource, the toolchain supports the `description` and `icon_ur
 The `name` of the resource, retrieved from its `tag`, is also stored in the resource metadata.
 
 `*_uri` attributes can point to an asset in the repo using the `file://` schema or to remote resources using either `ipfs://` or `https://`.
-For local assets, `sozo` will upload them to IPFS and replace the corresponding URIs with an IPFS URI.
+For local assets, `Sozo` will upload them to IPFS and replace the corresponding URIs with an IPFS URI.
 
 ## IPFS Configuration
 
@@ -85,7 +85,7 @@ Local assets using `file://` URIs will not be processed.
 
 ## Technical Implementation
 
-Dojo uses the `ResourceMetadata` model to store metadata on-chain.
+Dojo uses the `ResourceMetadata` model to store metadata onchain.
 This model is [defined in Cairo](https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/model/metadata.cairo) as:
 
 ```cairo

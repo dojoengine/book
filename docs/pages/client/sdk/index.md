@@ -98,7 +98,7 @@ The client can then query the world state to get the latest state, which is then
 - Native C# bindings built on dojo.c foundation
 - Unity-specific components and prefabs for common patterns
 - Support for WebGL, desktop, and mobile platforms
-- Integrated world state synchronization with Unity's component system
+- Integrated world state synchronization with Unity component system
 
 ### Active Development
 
@@ -106,7 +106,7 @@ The client can then query the world state to get the latest state, which is then
 
 **Best for:** Rust-based game development
 
-- ECS-native integration with Bevy's component system
+- ECS-native integration with Bevy component system
 - Rust-first development experience with compile-time safety
 - Direct access to dojo.c functionality without FFI overhead
 
@@ -114,7 +114,7 @@ The client can then query the world state to get the latest state, which is then
 
 **Best for:** High-fidelity 3D games and applications
 
-- C++ integration with Unreal's Blueprint system
+- C++ integration with Unreal Blueprint system
 - Support for complex game mechanics and AAA-quality experiences
 - Native performance with dojo.c foundation
 

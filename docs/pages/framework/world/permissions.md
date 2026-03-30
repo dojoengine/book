@@ -128,7 +128,7 @@ world.grant_owner(selector_from_tag!("my_game"), new_owner_ddress);
 ```
 
 :::note
-When you deploy to a world, you automatically become the owner of that namespace, if it's not already registered.
+When you deploy to a world, you automatically become the owner of that namespace, if it is not already registered.
 :::
 
 **Namespace Owner Rights**:
@@ -171,13 +171,14 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a resource:
 
 - **World** → A resource (selector `0`)
-- **Namespace** → A resource (e.g., `"my_game"`)
-- **Model** → A resource (e.g., `"my_game-Position"`)
-- **Contract** → A resource (e.g., `"my_game-actions"`)
-- **Event** → A resource (e.g., `"my_game-PlayerMoved"`)
+- **Namespace** → A resource (for example, `"my_game"`)
+- **Model** → A resource (for example, `"my_game-Position"`)
+- **Contract** → A resource (for example, `"my_game-actions"`)
+- **Event** → A resource (for example, `"my_game-PlayerMoved"`)
 
 **Permission Hierarchy** (order of precedence):
 
@@ -387,10 +388,10 @@ description = "Player position model"
 After migration, you can adjust permissions using the World contract API:
 
 ```bash
-# Grant writer permission using sozo auth
+# Grant writer permission using Sozo auth
 sozo auth grant writer my_game-Position,my_game-actions
 
-# Grant owner permission using sozo auth
+# Grant owner permission using Sozo auth
 sozo auth grant owner my_game,my_game-admin
 
 # Check writer permissions
@@ -408,7 +409,7 @@ For detailed configuration options, see [Configuration](/framework/configuration
 
 ## Debugging Permission Issues
 
-1. **Check Resource Selector**: Ensure you're using the correct resource selector
+1. **Check Resource Selector**: Ensure you are using the correct resource selector
 2. **Verify Caller**: Confirm the caller address is what you expect
 3. **Check Hierarchy**: Verify the permission hierarchy is set up correctly
 4. **Use Events**: Monitor permission events to track changes

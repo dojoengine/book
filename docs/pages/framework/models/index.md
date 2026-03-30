@@ -13,7 +13,7 @@ description: Learn about Dojo models, their role in data storage, key attributes
 - Use the `#[dojo::model]` attribute to define them.
 - Models must have at least one key.
 - Define the key(s) using the `#[key]` attribute.
-- Models are Cairo structs with automatic on-chain introspection.
+- Models are Cairo structs with automatic onchain introspection.
 - Custom enums and types are supported if they implement [`Introspect`](./introspection).
 
 ## What are models?
@@ -83,7 +83,7 @@ If you define multiple keys, they must **all** be provided to query the model.
 
 ### Model Composition
 
-Let's explore ECS composition through a concrete gaming analogy: Orcs and Humans.
+Let us explore ECS composition through a concrete gaming analogy: Orcs and Humans.
 While they possess intrinsic differences, they share common traits, such as having a position and health.
 Humans, however, possess an additional model - potions.
 
