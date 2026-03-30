@@ -69,7 +69,8 @@ Sozo automatically generates and maintains deployment manifests that eliminate m
 
 **Generated Manifests**: After each `sozo migrate`, Sozo writes a `manifest_{profile}.json` file containing complete deployment state: contract addresses, class hashes, ABIs, and metadata for all resources.
 
-**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses. Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
+**Tag-Based Contract Resolution**: Commands like `sozo execute` and `sozo call` accept human-readable contract tags (e.g., `Actions`, `dojo_examples-actions`) instead of raw addresses.
+Sozo resolves tags by consulting the local manifest first, then falling back to live chain introspection.
 
 **Fallback to Chain State**: When manifests are missing or `--diff` is used, Sozo rebuilds contract mappings by querying deployed world state directly.
 
@@ -137,7 +138,7 @@ This will install the `sozo` binary at `~/.cargo/bin`
 
 ## Data Format Reference
 
-When interacting with Dojo systems through Sozo, you'll need to provide calldata in the proper format.
+When interacting with Dojo systems through Sozo, you will need to provide calldata in the proper format.
 Sozo uses a prefixed format that allows explicit type specification for Cairo values.
 
 By default, calldata values are treated as a `felt252` or any type that fits into one felt:

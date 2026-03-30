@@ -1,1 +1,278 @@
-# Dojo React
+## Dojo React
+
+This tutorial will guide you through building a simple React application that interacts with a Dojo world.
+We will create a basic counter application where users can increment and decrement a value stored on-chain.
+
+## Prerequisites
+
+Before starting this tutorial, make sure you have:
+
+- Node.js (version 14 or higher)
+- Basic knowledge of React and TypeScript
+- A Dojo world set up (you can use the example world from the Dojo Book)
+
+## Setting up the React Application
+
+First, let us create a new React application using Vite:
+
+```bash
+npm create vite@latest dojo-react-app -- --template react-ts
+cd dojo-react-app
+npm install
+```
+
+Now, let us install the necessary Dojo dependencies:
+
+```bash
+npm install @dojoengine/core @dojoengine/state @dojoengine/utils
+```
+
+## Configuring the Dojo Client
+
+Create a new file `src/dojo.ts` to configure your Dojo client:
+
+```typescript
+import { DojoConfig } from "@dojoengine/core";
+
+export const dojoConfig: DojoConfig = {
+  rpcUrl: "http://localhost:5050",
+  toriiUrl: "http://localhost:8080",
+  relayUrl: "",
+  worldAddress: "0x...", // Replace with your world address
+  masterAddress: "0x...", // Replace with your master address
+  masterPrivateKey: "0x...", // Replace with your master private key
+};
+```
+
+## Creating the Counter Component
+
+Let us create a counter component that interacts with our Dojo world.
+First, create a file `src/Counter.tsx`:
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { useDojoStore } from '@dojoengine/state';
+import { useDojo } from './hooks/useDojo';
+
+interface CounterProps {
+  entityId: string;
+}
+
+export const Counter: React.FC<CounterProps> = ({ entityId }) => {
+  const [count, setCount] = useState(0);
+  const { account, execute } = useDojo();
+  const entities = useDojoStore((state) => state.entities);
+
+  useEffect(() => {
+    // Get the counter value from the store
+    const entity = entities[entityId];
+    if (entity && entity.models.Counter) {
+      setCount(entity.models.Counter.value);
+    }
+  }, [entities, entityId]);
+
+  const increment = async () => {
+    try {
+      await execute('increment', []);
+      console.log('Counter incremented successfully');
+    } catch (error) {
+      console.error('Failed to increment counter:', error);
+    }
+  };
+
+  const decrement = async () => {
+    try {
+      await execute('decrement', []);
+      console.log('Counter decremented successfully');
+    } catch (error) {
+      console.error('Failed to decrement counter:', error);
+    }
+  };
+
+  return (
+    <div className="counter">
+      <h2>Counter: {count}</h2>
+      <div className="counter-buttons">
+        <button onClick={increment}>Increment</button>
+        <button onClick={decrement}>Decrement</button>
+      </div>
+    </div>
+  );
+};
+```
+
+## Creating Custom Hooks
+
+Create a custom hook to manage Dojo interactions.
+Create a file `src/hooks/useDojo.ts`:
+
+```typescript
+import { useMemo } from 'react';
+import { DojoProvider } from '@dojoengine/core';
+import { BurnerManager } from '@dojoengine/create-burner';
+import { dojoConfig } from '../dojo';
+
+export const useDojo = () => {
+  const dojoProvider = useMemo(() => {
+    return new DojoProvider(dojoConfig);
+  }, []);
+
+  const burnerManager = useMemo(() => {
+    return new BurnerManager({
+      masterAccount: dojoProvider.masterAccount,
+      accountClassHash: dojoConfig.accountClassHash,
+      rpcProvider: dojoProvider.provider,
+    });
+  }, [dojoProvider]);
+
+  const execute = async (systemCall: string, calldata: any[]) => {
+    const account = burnerManager.getActiveAccount();
+    if (!account) {
+      throw new Error('No active account');
+    }
+
+    return await dojoProvider.execute(account, systemCall, calldata);
+  };
+
+  return {
+    dojoProvider,
+    burnerManager,
+    account: burnerManager.getActiveAccount(),
+    execute,
+  };
+};
+```
+
+## Setting up the Main App Component
+
+Update your `src/App.tsx` file:
+
+```tsx
+import React, { useEffect } from 'react';
+import { DojoProvider } from '@dojoengine/state';
+import { Counter } from './Counter';
+import { useDojo } from './hooks/useDojo';
+import { dojoConfig } from './dojo';
+import './App.css';
+
+function App() {
+  const { dojoProvider } = useDojo();
+
+  useEffect(() => {
+    // Initialize the Dojo provider
+    dojoProvider.init().then(() => {
+      console.log('Dojo provider initialized');
+    }).catch((error) => {
+      console.error('Failed to initialize Dojo provider:', error);
+    });
+  }, [dojoProvider]);
+
+  return (
+    <DojoProvider value={dojoProvider}>
+      <div className="App">
+        <header className="App-header">
+          <h1>Dojo React Counter</h1>
+          <Counter entityId="0x1" />
+        </header>
+      </div>
+    </DojoProvider>
+  );
+}
+
+export default App;
+```
+
+## Styling the Application
+
+Add some basic styles to `src/App.css`:
+
+```css
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter {
+  margin: 20px 0;
+}
+
+.counter h2 {
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+.counter-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.counter-buttons button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #61dafb;
+  color: black;
+  transition: background-color 0.3s;
+}
+
+.counter-buttons button:hover {
+  background-color: #21a9c7;
+  color: white;
+}
+```
+
+## Running the Application
+
+Before running your React application, make sure your Dojo world is running:
+
+```bash
+# In your Dojo project directory
+sozo build
+katana --disable-fee
+sozo migrate
+torii --world 0x... # Replace with your world address
+```
+
+Now you can run your React application:
+
+```bash
+# In your React app directory
+npm run dev
+```
+
+Your application should now be running at `http://localhost:5173`.
+
+## Understanding the Integration
+
+This tutorial demonstrates several key concepts:
+
+1. **Configuration**: We set up the Dojo configuration with RPC and Torii URLs
+2. **State Management**: We use the Dojo state management to sync with the blockchain
+3. **Account Management**: We use burner accounts for easy testing
+4. **System Execution**: We execute Dojo systems from React components
+5. **Real-time Updates**: The UI automatically updates when the blockchain state changes
+
+## Next Steps
+
+You can extend this application by:
+
+- Adding more complex game logic
+- Implementing user authentication
+- Adding error handling and loading states
+- Creating more sophisticated UI components
+- Integrating with wallet providers
+
+For more advanced features and patterns, check out the official Dojo documentation and examples.

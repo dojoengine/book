@@ -24,7 +24,7 @@ struct Player {
 }
 ```
 
-Now, let's say we want to enhance our system by adding a new field called `level`.
+Now, let us say we want to enhance our system by adding a new field called `level`.
 
 ```cairo
 #[derive(Drop, Serde)]
@@ -320,7 +320,7 @@ mod migration {
 
 1. **Start with unpacked models**: Use `Introspect` for new models to maintain flexibility
 2. **Group stable fields**: Keep frequently changing fields separate from stable ones
-3. **Use appropriate types**: Don't over-size fields, but leave room for growth
+3. **Use appropriate types**: Do not over-size fields, but leave room for growth
 4. **Document constraints**: Clearly document which fields can be changed
 
 ### Upgrade Process

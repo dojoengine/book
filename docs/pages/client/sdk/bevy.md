@@ -1,3 +1,5 @@
+## File to edit: client/sdk/bevy.md
+
 ---
 title: "Dojo Bevy SDK"
 description: "Official Bevy engine integration for building Dojo-powered games with native Rust performance"
@@ -13,7 +15,7 @@ Built specifically for Bevy's ECS architecture, it seamlessly integrates with Be
 
 ## Core Concepts
 
-Before diving into building onchain games with Bevy, let's explore the essential components of the Dojo.bevy architecture:
+Before diving into building onchain games with Bevy, let us explore the essential components of the Dojo.bevy architecture:
 
 ### `DojoPlugin`
 
@@ -245,7 +247,7 @@ fn handle_player_actions(
 
 ## Example Game
 
-Here's a pedagogical example showing the key concepts for a 3D game where players can spawn and move cubes:
+Here is a pedagogical example showing the key concepts for a 3D game where players can spawn and move cubes:
 
 ```rust
 use bevy::prelude::*;
@@ -325,7 +327,7 @@ For a complete implementation including 3D rendering, entity tracking, and full 
 
 ### Account Management
 
-For production applications, you'll want to use custom accounts instead of predeployed ones:
+For production applications, you will want to use custom accounts instead of predeployed ones:
 
 ```rust
 fn setup_custom_account(

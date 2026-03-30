@@ -161,8 +161,8 @@ world.erase_models_ptrs(ptrs);
 Field operations are more efficient when you only need to update specific fields:
 
 :::warning
-Field-level operations are advanced features that require careful use. For most applications,
-use the simpler `world.read_model()` and `world.write_model()` methods.
+Field-level operations are advanced features that require careful use.
+For most applications, use the simpler `world.read_model()` and `world.write_model()` methods.
 :::
 
 #### Reading Fields
@@ -448,7 +448,7 @@ When reading non-existent models, the API returns default values (all fields set
 // Reading a non-existent model returns default values
 let player: ContractAddress = 0.try_into().unwrap();
 let position: Position = world.read_model(player);
-// If model doesn't exist: position.vec.x = 0, position.vec.y = 0
+// If model does not exist: position.vec.x = 0, position.vec.y = 0
 
 // For optional model reading, check if all fields are default
 let position: Position = world.read_model(player);
@@ -471,7 +471,7 @@ For more advanced usage and examples, see the [Model Examples](https://github.co
 
 ## Complete Real-World Example
 
-Here's a complete example from a typical Dojo game showing common patterns:
+Here is a complete example from a typical Dojo game showing common patterns:
 
 ```cairo
 use dojo::model::{ModelStorage};

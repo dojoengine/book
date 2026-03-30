@@ -5,9 +5,9 @@ description: Learn how to write integration tests for your onchain chess game, i
 
 # 3 Test Contract
 
-In this chapter, we'll use everything we've learned to run a full chess game scenario.
+In this chapter, we will use everything we have learned to run a full chess game scenario.
 
-Here's what we'll do in our test:
+Here is what we will do in our test:
 
 1. Call spawn to setup `white_pawn` to (0,1) and `black_pawn` to (1,6)
 2. Move `white_pawn` to (0,3)
@@ -92,16 +92,16 @@ mod tests {
 }
 ```
 
-Keep moving pieces and checking if they're in the right places.
+Keep moving pieces and checking if they are in the right places.
 
 ## Congratulations!
 
-You've made the basic contracts for a chess game using the Dojo engine!
+You have made the basic contracts for a chess game using the Dojo engine!
 This tutorial was just the beginning.
 There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases.
 If you want to do more with this chess game, try these challenges:
 
-- Add a checkmate feature. Our game doesn't end now, so decide when it should!
+- Add a checkmate feature. Our game does not end now, so decide when it should!
 - Include special moves like castling, En Passant Capture, or Pawn Promotion.
 - Make your own chess rules! You could even create your own version of the [immortal game](https://immortal.game/)
 
