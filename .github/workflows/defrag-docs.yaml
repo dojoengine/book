@@ -87,7 +87,7 @@ jobs:
                     git add docs/
                     git commit -m "chore(defrag): phase 2b — terminology
 
-                  ECS term capitalization, proper nouns, hyphenation.
+                  Proper noun capitalization, hyphenation.
 
                   $(tail -10 terminology-output.txt)"
                   else
@@ -179,7 +179,7 @@ jobs:
                   </details>
 
                   ### Phase 2b: Terminology (LLM)
-                  ECS term capitalization, proper nouns, hyphenation. No other changes.
+                  Proper noun capitalization, hyphenation. No other changes.
 
                   <details><summary>Summary</summary>
 
