@@ -58,7 +58,7 @@ dojo_cairo_test = "=1.7.0"
 
 Also, precompiled proc macros are only available if you are using `1.7.1` or later.
 Therefore, if you have an issue while compiling the project, ensure that you have rust `1.90` correctly installed locally.
-Starting from `1.7.1`, the dojo proc macros are pre-compiled which removes the need of having Cargo installed locally.
+Starting from `1.7.1`, the Dojo proc macros are pre-compiled which removes the need of having Cargo installed locally.
 :::
 
 ## Starknet 0.14.0

@@ -1,1 +1,401 @@
-## File to edit: tutorials/advanced.mdx
+---
+title: Advanced Tutorials
+description: In-depth guides for experienced Dojo developers
+---
+
+# Advanced Tutorials
+
+These tutorials assume familiarity with Dojo fundamentals and cover advanced patterns, optimization techniques, and complex game mechanics.
+
+## State Management Patterns
+
+### Complex Entity Relationships
+
+Learn how to model sophisticated game state with multiple interconnected entities.
+
+```cairo
+#[dojo::model]
+struct Guild {
+    #[key]
+    guild_id: u32,
+    name: felt252,
+    leader: ContractAddress,
+    member_count: u32,
+    treasury: u256,
+}
+
+#[dojo::model]
+struct GuildMember {
+    #[key]
+    guild_id: u32,
+    #[key]
+    member: ContractAddress,
+    role: u8, // 0: member, 1: officer, 2: leader
+    joined_at: u64,
+    contribution: u256,
+}
+```
+
+### Event-Driven Architecture
+
+Build reactive game systems that respond to player actions through events.
+
+```cairo
+#[dojo::event]
+struct PlayerLevelUp {
+    #[key]
+    player: ContractAddress,
+    old_level: u32,
+    new_level: u32,
+    skill_points_gained: u32,
+}
+
+#[dojo::event]
+struct QuestCompleted {
+    #[key]
+    player: ContractAddress,
+    #[key]
+    quest_id: u32,
+    rewards: Span<Reward>,
+    completion_time: u64,
+}
+```
+
+## Performance Optimization
+
+### Batch Operations
+
+Optimize gas costs by grouping related operations.
+
+```cairo
+#[dojo::contract]
+mod batch_systems {
+    use super::{IBatchActionsDispatcher, IBatchActionsDispatcherTrait};
+
+    #[abi(embed_v0)]
+    impl BatchActionsImpl of IBatchActions<ContractState> {
+        fn execute_batch_moves(
+            ref world: IWorldDispatcher,
+            actions: Span<MoveAction>
+        ) {
+            let mut i = 0;
+            loop {
+                if i >= actions.len() {
+                    break;
+                }
+                
+                let action = *actions.at(i);
+                // Process individual move
+                self.process_move(ref world, action);
+                i += 1;
+            };
+        }
+    }
+}
+```
+
+### Efficient Query Patterns
+
+Structure your models for optimal query performance.
+
+```typescript
+// Efficient entity queries with proper indexing
+const guilds = await client.getEntities({
+  clause: {
+    Keys: {
+      keys: [undefined], // Guild key
+      pattern_matching: "VariableLen",
+      models: ["tutorials-Guild"]
+    }
+  }
+});
+
+// Batch member queries
+const members = await client.getEntities({
+  clause: {
+    Composite: {
+      operator: "And",
+      clauses: [
+        {
+          Keys: {
+            keys: [guildId, undefined],
+            pattern_matching: "VariableLen", 
+            models: ["tutorials-GuildMember"]
+          }
+        },
+        {
+          Member: {
+            model: "tutorials-GuildMember",
+            member: "role",
+            operator: "Gte",
+            value: { Primitive: { U8: 1 } } // Officers and leaders
+          }
+        }
+      ]
+    }
+  }
+});
+```
+
+## Advanced Game Mechanics
+
+### Turn-Based Combat System
+
+Implement complex combat with multiple phases and timing constraints.
+
+```cairo
+#[dojo::model]
+struct CombatSession {
+    #[key]
+    session_id: u32,
+    participants: Span<ContractAddress>,
+    current_turn: u32,
+    turn_deadline: u64,
+    phase: CombatPhase,
+    winner: Option<ContractAddress>,
+}
+
+#[derive(Drop, Serde, PartialEq, Introspect)]
+enum CombatPhase {
+    Planning,
+    Execution,
+    Resolution,
+    Completed,
+}
+
+#[dojo::contract]
+mod combat_system {
+    fn submit_combat_actions(
+        ref world: IWorldDispatcher,
+        session_id: u32,
+        actions: Span<CombatAction>
+    ) {
+        let mut session = get!(world, session_id, CombatSession);
+        
+        assert!(session.phase == CombatPhase::Planning, "Invalid phase");
+        assert!(self.is_participant(session, get_caller_address()), "Not participant");
+        
+        // Validate and store actions
+        self.validate_actions(session, actions);
+        set!(world, (session));
+        
+        emit!(world, CombatActionsSubmitted {
+            session_id,
+            player: get_caller_address(),
+            action_count: actions.len()
+        });
+    }
+}
+```
+
+### Economic Systems
+
+Build complex in-game economies with multiple currencies and market dynamics.
+
+```cairo
+#[dojo::model]
+struct MarketOrder {
+    #[key]
+    order_id: u32,
+    trader: ContractAddress,
+    item_type: u32,
+    quantity: u32,
+    price_per_unit: u256,
+    order_type: OrderType, // Buy or Sell
+    created_at: u64,
+    expires_at: u64,
+}
+
+#[dojo::model]  
+struct MarketPrice {
+    #[key]
+    item_type: u32,
+    current_price: u256,
+    volume_24h: u256,
+    price_change_24h: i128, // Can be negative
+    last_trade: u64,
+}
+```
+
+## Cross-Chain Integration
+
+### Bridging Assets
+
+Connect your Dojo world with other blockchains for asset transfers.
+
+```cairo
+#[dojo::contract]
+mod bridge_system {
+    #[abi(embed_v0)]
+    impl BridgeImpl of IBridge<ContractState> {
+        fn initiate_bridge_transfer(
+            ref world: IWorldDispatcher,
+            asset_id: u32,
+            quantity: u256,
+            target_chain: u32,
+            recipient: felt252
+        ) {
+            let caller = get_caller_address();
+            
+            // Lock assets in world
+            let mut player_assets = get!(world, caller, PlayerAssets);
+            assert!(player_assets.get_balance(asset_id) >= quantity, "Insufficient balance");
+            
+            player_assets.decrease_balance(asset_id, quantity);
+            set!(world, (player_assets));
+            
+            // Emit bridge event for oracle pickup
+            emit!(world, BridgeTransferInitiated {
+                from_player: caller,
+                asset_id,
+                quantity,
+                target_chain,
+                recipient,
+                bridge_id: self.generate_bridge_id()
+            });
+        }
+    }
+}
+```
+
+## Testing Advanced Scenarios
+
+### Integration Testing
+
+Test complex multi-system interactions.
+
+```rust
+#[cfg(test)]
+mod integration_tests {
+    use super::*;
+
+    #[test]
+    fn test_guild_combat_scenario() {
+        let mut world = spawn_test_world();
+        
+        // Setup two guilds
+        let guild_a = setup_test_guild(&mut world, "Warriors");
+        let guild_b = setup_test_guild(&mut world, "Mages");
+        
+        // Initiate guild war
+        guild_system::declare_war(
+            world, guild_a.guild_id, guild_b.guild_id
+        );
+        
+        // Simulate combat rounds
+        for round in 0..5 {
+            let combat_session = combat_system::start_guild_combat(
+                world, guild_a.guild_id, guild_b.guild_id
+            );
+            
+            // Submit actions for both guilds
+            submit_guild_actions(world, guild_a, round);
+            submit_guild_actions(world, guild_b, round);
+            
+            // Resolve combat
+            let result = combat_system::resolve_combat(world, combat_session.session_id);
+            assert!(result.is_some());
+        }
+        
+        // Verify war outcome
+        let final_state = get!(world, guild_a.guild_id, GuildWarState);
+        assert!(final_state.status == WarStatus::Completed);
+    }
+}
+```
+
+### Performance Benchmarking
+
+Measure and optimize your system performance.
+
+```rust
+#[bench]
+fn bench_batch_operations(b: &mut Bencher) {
+    let world = setup_benchmark_world();
+    let actions = generate_test_actions(1000);
+    
+    b.iter(|| {
+        batch_system::execute_batch(world, actions.span())
+    });
+}
+```
+
+## Production Deployment
+
+### Monitoring and Analytics
+
+Implement comprehensive monitoring for your deployed world.
+
+```typescript
+// Track key game metrics
+class GameAnalytics {
+    private client: DojoProvider;
+    
+    async trackPlayerRetention(): Promise<RetentionMetrics> {
+        const activeToday = await this.getActivePlayers(1);
+        const activeWeek = await this.getActivePlayers(7);
+        const activeMonth = await this.getActivePlayers(30);
+        
+        return {
+            daily: activeToday.length,
+            weekly: activeWeek.length,
+            monthly: activeMonth.length,
+            retention7d: activeWeek.length / activeToday.length,
+            retention30d: activeMonth.length / activeToday.length
+        };
+    }
+    
+    async getEconomicHealth(): Promise<EconomicMetrics> {
+        const trades = await this.getRecentTrades(24 * 60 * 60);
+        const totalVolume = trades.reduce((sum, trade) => sum + trade.value, 0);
+        
+        return {
+            dailyVolume: totalVolume,
+            activeTraders: new Set(trades.map(t => t.trader)).size,
+            averageTradeSize: totalVolume / trades.length,
+            priceVolatility: this.calculateVolatility(trades)
+        };
+    }
+}
+```
+
+### Security Considerations
+
+Implement proper access controls and validation.
+
+```cairo
+#[dojo::contract]
+mod secure_admin_system {
+    #[abi(embed_v0)]
+    impl AdminImpl of IAdmin<ContractState> {
+        fn emergency_pause(ref world: IWorldDispatcher) {
+            // Multi-signature validation
+            self.require_admin_consensus(world);
+            
+            let mut world_state = get!(world, 0, WorldState);
+            world_state.paused = true;
+            world_state.pause_timestamp = get_block_timestamp();
+            set!(world, (world_state));
+            
+            emit!(world, EmergencyPauseActivated {
+                admin: get_caller_address(),
+                timestamp: get_block_timestamp()
+            });
+        }
+        
+        fn update_critical_parameter(
+            ref world: IWorldDispatcher,
+            parameter: felt252,
+            new_value: felt252
+        ) {
+            self.require_timelock_delay(world, parameter);
+            self.require_admin_role(world, get_caller_address());
+            
+            // Apply parameter change
+            self.apply_parameter_change(world, parameter, new_value);
+        }
+    }
+}
+```
+
+These advanced tutorials provide the foundation for building sophisticated, production-ready games on Dojo. Each pattern can be adapted to your specific game requirements while maintaining performance and security best practices.

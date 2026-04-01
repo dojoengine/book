@@ -5,7 +5,7 @@ description: "Complete guide for building Telegram Mini Apps with Dojo and Cartr
 
 # Dojo Telegram Integration
 
-Build fully on-chain games and applications that run seamlessly within Telegram using Dojo and the [Cartridge Controller](https://docs.cartridge.gg/controller/overview).
+Build fully onchain games and applications that run seamlessly within Telegram using Dojo and the [Cartridge Controller](https://docs.cartridge.gg/controller/overview).
 
 Telegram [Mini Apps](https://core.telegram.org/bots/webapps) are web applications that run directly inside Telegram, providing users with rich, interactive experiences directly inside the messaging platform.
 

@@ -169,7 +169,7 @@ mod game_actions {
 
 Systems are stateless functions and do not have constructors.
 However, Dojo contracts support a `dojo_init` function that acts as a constructor-equivalent.
-The World calls `dojo_init` on each contract during `sozo migrate`, after the contract is registered.
+The World calls `dojo_init` on each contract during `Sozo migrate`, after the contract is registered.
 
 ```cairo
 #[dojo::contract]

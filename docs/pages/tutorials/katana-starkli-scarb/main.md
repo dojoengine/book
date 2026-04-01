@@ -218,7 +218,7 @@ Place the following environment variables in a .env file within the `src/` direc
 
 ```bash
 export STARKNET_ACCOUNT=katana-0        #A pre-funded account on the local development network.
-export STARKNET_RPC=http://0.0.0.0:5050 #To specify the network, targeting the local katana devnet.
+export STARKNET_RPC=http://0.0.0.0:5050 #To specify the network, targeting the local Katana devnet.
 ```
 
 Then, ensure your project acknowledges the environment variables:

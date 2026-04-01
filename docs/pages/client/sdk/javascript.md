@@ -18,7 +18,7 @@ It streamlines data fetching and subscriptions, supporting both simple and compl
 - **Optimistic Client Rendering**: Update state before a transaction has finalized.
 
 :::note
-dojo.js is a wrapper around [dojo.c](/client/sdk/c/wasm-bindings) that exposes Torii client features via WASM.
+Dojo.js is a wrapper around [dojo.c](/client/sdk/c/wasm-bindings) that exposes Torii client features via WASM.
 For more information about the Torii gRPC client, check out [this documentation](/toolchain/torii/grpc).
 :::
 
