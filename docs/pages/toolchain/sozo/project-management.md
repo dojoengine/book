@@ -374,7 +374,7 @@ The simplest way to lay out your project is to have a single package where all t
 With this setup, running `sozo build`, `sozo test`, and `sozo migrate` will work as expected at the root of the project.
 
 :::note
-If in your project you have other folders (not related to cairo), opening the project at the root is currently not supported by the cairo language server.
+If in your project you have other folders (not related to cairo), opening the project at the root is currently not supported by the Cairo language server.
 You must have a root `Scarb.toml` file.
 
 This issue is being worked on by the Scarb team.

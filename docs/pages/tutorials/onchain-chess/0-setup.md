@@ -83,7 +83,7 @@ initializer_class_hash = "0xbeef"
 
 [tool.dojo.env]
 rpc_url = "http://localhost:5050/"
-# Default account for katana with seed = 0
+# Default account for Katana with seed = 0
 account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
 private_key = "0x1800000000300000180000000000030000000000003006001800006600"
 world_address = "0x446f1f19ba951b59935df72974f8ba6060e5fbb411ca21d3e3e3812e3eb8df8"
@@ -97,12 +97,12 @@ sozo build
 
 ## Basic Models
 
-While there are many ways to design a chess game using the ECS model, we'll follow this approach:
+While there are many ways to design a chess game using the ECS model, we will follow this approach:
 
-> Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square position, that position will hold that piece.
+> Every square of the chess board (for example, A1) will be treated as an entity. If a piece exists on a square position, that position will hold that piece.
 
 First, add this basic `player` model to `models/player.cairo` file.
-If you are not familar with model syntax in Dojo engine, go back to this [chapter](/framework/models).
+If you are not familiar with model syntax in Dojo engine, go back to this [chapter](/framework/models).
 
 ```rust
 use starknet::ContractAddress;
@@ -201,8 +201,8 @@ It should be noted that systems function are contract methods, by implication, r
 
 Now try `sozo build` to build.
 
-Complied?
-Great! then let's move on.
+Compiled?
+Great! then let us move on.
 If not fix the issues, so that you can run the `sozo build` command successfully.
 
 ## Implement Traits for models
@@ -228,7 +228,8 @@ fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool;
 }
 ```
 
-Try to implement this code by yourself. Otherwise
+Try to implement this code by yourself.
+Otherwise
 
 <details>
 <summary>Click to see full `models.cairo` code</summary>
@@ -334,4 +335,4 @@ impl PieceImpl of PieceTrait {
 This tutorial is extracted from [here](https://github.com/dojoengine/origami/tree/main/examples/chess)
 
 Congratulations!
-You've completed the basic setup for building an onchain chess game 🎉
+You have completed the basic setup for building an onchain chess game 🎉

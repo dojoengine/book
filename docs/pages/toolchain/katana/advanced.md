@@ -62,7 +62,7 @@ It allows us to:
 - Ensure state consistency through infrastructure-level control, not by reconciliation (shortcut that typically Sharding execution will solve)
 
 Optimistic Katana does not need to roll back any state.
-Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical on-chain result.
+Thanks to the operator whitelisting strategy, only authorized executors can modify the Starknet state of a specified world, ensuring that no conflicts arise between the local optimistic execution and the canonical onchain result.
 
 This approach delivers near-instant feedback for users while maintaining trust and state consistency across the network.
 
@@ -163,7 +163,7 @@ Since Katana is in forking mode, syncing historical events may take additional t
 
 ## Cross-Layer Messaging
 
-Cross-layer messaging enables communication between Katana and external blockchain networks, supporting L1 ↔ L2 message passing for complex multi-chain applications.
+Cross-layer messaging enables communication between Katana and external blockchain networks, supporting L1 ↔ L2 message passing for complex multicall applications.
 This system allows contracts on Katana to interact with Ethereum mainnet or other Starknet networks.
 
 ### Supported Settlement Chains

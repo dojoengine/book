@@ -218,7 +218,7 @@ Place the following environment variables in a .env file within the `src/` direc
 
 ```bash
 export STARKNET_ACCOUNT=katana-0        #A pre-funded account on the local development network.
-export STARKNET_RPC=http://0.0.0.0:5050 #To specify the network, targeting the local katana devnet.
+export STARKNET_RPC=http://0.0.0.0:5050 #To specify the network, targeting the local Katana devnet.
 ```
 
 Then, ensure your project acknowledges the environment variables:
@@ -277,7 +277,7 @@ Contract deployed:
 ### Call contract (only read state)
 
 The first parameter is the contract address, the second parameter is the function to be called, and the third parameter is the function parameter.
-Let's pass the address of `Katana-0` account
+Let us pass the address of `Katana-0` account
 
 ```bash
 starkli call 0x02c44f2d396fc5f9caa551e8c1d901d943a3b8cc5c433c88a1bf10b1f15fcd15 voter_can_vote 0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03
@@ -296,19 +296,19 @@ After running, expect an output similar to:
 ### Invoke contract (can write state)
 
 The first parameter is the contract address, the second parameter is the function to be invoked, and the third parameter is the function parameter.
-Let's vote `Yes` with `katana-0` user
+Let us vote `Yes` with `katana-0` user
 
 ```bash
 starkli invoke 0x02c44f2d396fc5f9caa551e8c1d901d943a3b8cc5c433c88a1bf10b1f15fcd15 vote 1
 ```
 
-Now let's vote `No` with `katana-1` user
+Now let us vote `No` with `katana-1` user
 
 ```bash
 starkli invoke 0x02c44f2d396fc5f9caa551e8c1d901d943a3b8cc5c433c88a1bf10b1f15fcd15 vote 0 --account katana-1
 ```
 
-Let's try to vote again with `katana-0` user
+Let us try to vote again with `katana-0` user
 
 ```bash
 starkli invoke 0x02c44f2d396fc5f9caa551e8c1d901d943a3b8cc5c433c88a1bf10b1f15fcd15 vote 0

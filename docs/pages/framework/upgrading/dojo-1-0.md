@@ -18,21 +18,25 @@ Dojo is composed of 5 basic resources:
 - `event` (namespaced): An event also defines data, but meant to be stored offchain.
 - `contract` (namespaced): Where you define your business logic, and interact with the world to write/read models and emit events. A function into a contract is called a `System`, which is an entrypoint for users to interact with the world.
 
-Every resource in the world is identified by a dojo selector, a single felt identifier obtained by hashing.
+Every resource in the world is identified by a Dojo selector, a single felt identifier obtained by hashing.
 
-For human readability, namespaced resources can also be identified by what's called a `Tag`, which is a combination of the namespace and the resource name:
-`namespace-resource_name`. The tag can be used to obtain the dojo selector of the resource.
+For human readability, namespaced resources can also be identified by what is called a `Tag`, which is a combination of the namespace and the resource name:
+`namespace-resource_name`.
+The tag can be used to obtain the Dojo selector of the resource.
 
 A single resource can be registered multiple times into the world using different namespaces.
 
-All the resources without exception in the world are permissioned. This means that only the specified addresses can write/own resources. There's only two permissions in Dojo:
+All the resources without exception in the world are permissioned.
+This means that only the specified addresses can write/own resources.
+There are only two permissions in Dojo:
 
 - `writer`: Can write to the resource.
 - `owner`: Can grant/revoke writer permissions, can register/upgrade resources.
 
 ## Interacting with the world and its data
 
-First, when you are inside a dojo contract (define with `#[dojo::contract]`), you have to retrieve the world's instance. As mentioned previously, all the resources are namespaced, so you have to specify the default namespace to use:
+First, when you are inside a Dojo contract (define with `#[dojo::contract]`), you have to retrieve the world instance.
+As mentioned previously, all the resources are namespaced, so you have to specify the default namespace to use:
 
 ```rust
 // Get the world instance, using the namespace "ns":
@@ -86,9 +90,11 @@ world.erase_model(@model);
 
 The full API of the `ModelStorage` can be found [here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core/src/model/storage.cairo#L9) before more documentation is written.
 The important concept to keep in mind is that the data stored in the world are identified by the `keys` you are adding using `#[key]` in models and events.
-A model/event can have one or multiple keys. When those keys are hashed, it's called the `entity_id`.
+A model/event can have one or multiple keys.
+When those keys are hashed, it is called the `entity_id`.
 
-Events are only emitted by the world, and never stored onchain. Instead, Torii will index them and store them in the SQL database.
+Events are only emitted by the world, and never stored onchain.
+Instead, Torii will index them and store them in the SQL database.
 However, they are subjected to the same namespace rules as models.
 
 To emit an event, you have to import the `EventStorage` trait:
@@ -110,7 +116,8 @@ world.emit_event(@e);
 
 ## Permissions
 
-As mentioned previously, all the resources are permissioned. Some examples of the permission API:
+As mentioned previously, all the resources are permissioned.
+Some examples of the permission API:
 
 ```rust
 use dojo::world::IWorldDispatcherTrait;
@@ -120,9 +127,9 @@ use dojo::world::IWorldDispatcherTrait;
 fn system_1(ref self: ContractState) {
     let mut world = self.world(@"ns");
 
-    // A dojo selector is computed from namespace and name.
+    // A Dojo selector is computed from namespace and name.
     // The namespace is already set by the `world` instance,
-    // so we just have to use the dojo name of the contract.
+    // so we just have to use the Dojo name of the contract.
     // Every contract has a `dojo_name` function available.
     let current_contract_selector = world.contract_selector(
         @self.dojo_name()
@@ -140,8 +147,9 @@ fn system_1(ref self: ContractState) {
 
 ## Events and Torii
 
-Events are not stored onchain, they are indexed by Torii. And by default, events behave like models, which means only the latest state is kept.
-However, you may want sometimes to keep events historical as it's regurlarly for blockchain events.
+Events are not stored onchain, they are indexed by Torii.
+And by default, events behave like models, which means only the latest state is kept.
+However, you may want sometimes to keep events historical as it is regularly for blockchain events.
 
 To do so, nothing to change onchain, only one way to define events:
 
@@ -154,7 +162,7 @@ struct MyEvent {
 }
 ```
 
-On the torii side, you can start it from the CLI or using a configuration file with the `historical_events` options, by providing tags of events you want to keep historical.
+On the Torii side, you can start it from the CLI or using a configuration file with the `historical_events` options, by providing tags of events you want to keep historical.
 
 ```bash
 torii start --events.historical ns-MyEvent,ns-MyOtherEvent --world 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da8d
@@ -171,11 +179,13 @@ historical = ["ns-MyEvent", "ns-MyOtherEvent"]
 
 ## Testing
 
-Currently, Dojo is still only supporting the `cairo-test` test runner. Soon `starknet-foundry` will be unlocked once `scarb` and `cairo-lang` merge some missing features.
+Currently, Dojo is still only supporting the `cairo-test` test runner.
+Soon `starknet-foundry` will be unlocked once `Scarb` and `cairo-lang` merge some missing features.
 
-In the meantime, here's how you can test your contracts. As we've seen, resources like contracts, models and events are namespaced, so you have to specify the namespace you want to use when testing.
+In the meantime, here is how you can test your contracts.
+As we have seen, resources like contracts, models and events are namespaced, so you have to specify the namespace you want to use when testing.
 
-Before starting to test, here's the flow that `Sozo` follows to migrate a world:
+Before starting to test, here is the flow that `Sozo` follows to migrate a world:
 
 1. First of all, `Sozo` will migrate the world itself.
 2. Then, `Sozo` will register all the resources. Registering the resources means that all models/events/contracts will be declared and deployed onchain. None of those contracts are using constructor calldata, hence `Sozo` can deploy them without prior inputs. All resources are registered to the world and deployed through the world contract.
@@ -184,7 +194,8 @@ Before starting to test, here's the flow that `Sozo` follows to migrate a world:
 
 This is important to keep this in mind, since the testing flow must be similar to the migration flow.
 
-Now, let's move on to testing. First, you have to use the `dojo_cairo_test` crate to use dojo utilities in your tests.
+Now, let us move on to testing.
+First, you have to use the `dojo_cairo_test` crate to use Dojo utilities in your tests.
 
 ```toml
 # Scarb.toml
@@ -211,7 +222,8 @@ use dojo_starter::models::{
 };
 ```
 
-Then, for each resource, you can add them to a specific namespace. Once again, the same model or event type can be registered multiple times into different namespaces, which will yield different resources.
+Then, for each resource, you can add them to a specific namespace.
+Once again, the same model or event type can be registered multiple times into different namespaces, which will yield different resources.
 
 ```rust
 // Here we map the resource to the namespace "ns".
@@ -230,7 +242,7 @@ fn namespace_def() -> NamespaceDef {
 }
 ```
 
-Let's then prepare some contracts definitions [defined here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core-cairo-test/src/world.cairo#L57):
+Let us then prepare some contracts definitions [defined here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core-cairo-test/src/world.cairo#L57):
 
 ```rust
 // Here, we have one contract, and we define at this step
@@ -245,7 +257,8 @@ fn contract_defs() -> Span<ContractDef> {
 }
 ```
 
-Once you have a namespace definition and contracts definitions, you can spawn a test world with it. The function `spawn_test_world` will register all the resources and return a world instance we've seen previously.
+Once you have a namespace definition and contracts definitions, you can spawn a test world with it.
+The function `spawn_test_world` will register all the resources and return a world instance we have seen previously.
 
 ```rust
 #[test]
@@ -266,7 +279,9 @@ fn test_world_test_set() {
 
 By having the registration of the resources and the synchronization of the permissions/init separated, you can easily separate tests functions to setup the world at your will to test different scenarios.
 
-As you remember, the resources are also permissioned. In some occasions, you may want to interact with the world bypassing the permission check. For this, you can use the `test_only` world:
+As you remember, the resources are also permissioned.
+In some occasions, you may want to interact with the world bypassing the permission check.
+For this, you can use the `test_only` world:
 
 ```rust
 let m = MyModel { id: 1, value: 123 };
@@ -276,16 +291,19 @@ world.write_model_test(@m);
 
 ## Configuration
 
-The configuration of your dojo project is now fully managed by a dojo configuration file alongside the `Scarb.toml` manifest file.
+The configuration of your Dojo project is now fully managed by a Dojo configuration file alongside the `Scarb.toml` manifest file.
 This ease the profile management and regroup all the functionalities at the same place.
 
 You can find detailed information about the configuration file [here](/framework/configuration).
 
 ## Sozo
 
-Sozo has changed to be more robust and 100% stateless for the migration. All the data required to compute diffs and migration strategy are locally built or onchain.
+Sozo has changed to be more robust and 100% stateless for the migration.
+All the data required to compute diffs and migration strategy are locally built or onchain.
 
-As you remember, Dojo is profile based. Hence, the build and migration must respond to the profile. To specify a profile, use `-P` or `--profile` argument.
+As you remember, Dojo is profile based.
+Hence, the build and migration must respond to the profile.
+To specify a profile, use `-P` or `--profile` argument.
 
 Basic commands:
 
@@ -307,7 +325,9 @@ sozo migrate
 ```
 
 If you change a permission, you just have to run `sozo migrate` again and the permissions will be updated.
-We recommend using `sozo inspect` instead of reading output of migration or the build. The `inspect` commands gives you summary of the world or specific resource. Use it at your advantage.
+We recommend using `sozo inspect` instead of reading output of migration or the build.
+The `inspect` commands gives you summary of the world or specific resource.
+Use it at your advantage.
 
 ## Sozo useful commands
 
@@ -392,7 +412,8 @@ sozo auth clone --from 0xa --to 0xb --revoke-from
 
 ## Road to mainnet
 
-Mainnet is a network with a huge history and thousands of blocks. Currently, some nodes are not supported syncing the events providing block ranges that are too wide.
+Mainnet is a network with a huge history and thousands of blocks.
+Currently, some nodes are not supported syncing the events providing block ranges that are too wide.
 For this reason, when you target mainnet, you should do the following:
 
 ```bash
@@ -403,7 +424,7 @@ sozo build --profile mainnet
 sozo migrate --profile mainnet
 ```
 
-During the migration, sozo will output the block at which the world has been migrated and the address of the world at the end of the migration:
+During the migration, Sozo will output the block at which the world has been migrated and the address of the world at the end of the migration:
 
 ```bash
 🌍 World deployed at block 821000 with txn hash: 0x038e984efa3e91e045b33d14e63c5e9f765e5a8fe2b3546fc3ab872f608e37a2
@@ -425,9 +446,9 @@ world_address = 0x00e2ea9b5dd9804d13903edf712998943b7d5d606c139dd0f13eeb8f5b84da
 [Dojo 1.0.0](https://github.com/dojoengine/dojo/releases/tag/v1.0.0) introduces a number of breaking changes.
 
 - Macros `set/get/delete` are currently not supported. They may be added again in the future.
-- When working with contracts, the `world` is no longer automatically injected. You must use regular starknet interfaces and `self` with `ContractState`.
-- World's metadata are not uploaded yet, this should be added back soon.
-- You must remove `[[target.dojo]]` and use `[[target.starknet-contract]]` instead, not forgetting to add the dojo world in the `build-external-contracts`.
+- When working with contracts, the `world` is no longer automatically injected. You must use regular Starknet interfaces and `self` with `ContractState`.
+- World metadata are not uploaded yet, this should be added back soon.
+- You must remove `[[target.dojo]]` and use `[[target.starknet-contract]]` instead, not forgetting to add the Dojo world in the `build-external-contracts`.
 - Overlays files and intermediate manifests that were before produced can be deleted, they are no longer used.
 - The `Model` API has changed, please refer to the new one [here](https://github.com/dojoengine/dojo/blob/ab081b9fb8444d84aecaba848126f8c64db45eb8/crates/dojo/core/src/model/model.cairo#L31).
 - Katana has a different CLI arguments, please refer to `katana --help` for more details at the moment.

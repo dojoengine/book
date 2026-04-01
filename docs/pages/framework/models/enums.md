@@ -11,7 +11,7 @@ Enums, or **enumerations**, are a way to define a custom data type that consists
 Enums are useful for representing a collection of related values where each value is distinct and has a specific meaning.
 Enums can be used in game development to represent game states, player actions, or any other set of related constants that a game needs to track.
 
-In this example, we've defined an enum called `PlayerCharacter` with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`.
+In this example, we have defined an enum called `PlayerCharacter` with four variants: `Godzilla`, `Dragon`, `Fox`, and `Rhyno`.
 Each variant represents a distinct value of the `PlayerCharacter` type.
 
 ```rust
@@ -128,7 +128,7 @@ This approach helps to avoid duplication and keeps the codebase organized.
    Magic numbers (hard-coded numeric values) in your code can be confusing and error-prone.
    Enums help you avoid this pitfall.
    Suppose you have an event system where different events trigger specific actions.
-   Instead of using 0, 1, 2, etc., you can define an enum like this:
+   Instead of using 0, 1, 2, you can define an enum like this:
 
 ```cairo
 enum Event {

@@ -9,11 +9,11 @@ Unity is one of the world's most popular cross-platform game engines, powering m
 With its intuitive visual editor, robust scripting capabilities in C#, and extensive asset ecosystem, Unity enables developers to create everything from simple 2D indies to complex 3D AAA titles.
 
 Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
-Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
+Whether you are creating a tactical RPG, a real-time strategy game, or an immersive 3D world, Dojo.unity provides the tools you need to bring your onchain game vision to life.
 
 ## Core Concepts
 
-Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
+Before diving into the exciting world of onchain games and worlds with Unity, let us explore some essential concepts:
 
 ### World Manager
 
@@ -58,7 +58,7 @@ You can learn more about Sozo's binding generation features [here](/toolchain/so
 
 ## Getting Started
 
-To get started with the dojo.unity SDK, follow these steps:
+To get started with the Dojo.unity SDK, follow these steps:
 
 ::::steps
 
@@ -66,13 +66,13 @@ To get started with the dojo.unity SDK, follow these steps:
 
 Before getting started, ensure you have [Unity](https://unity.com/download) `>= 2022.3.15f1` installed.
 
-#### Download dojo.unity
+#### Download Dojo.unity
 
-Visit the [dojo.unity release page](https://github.com/dojoengine/dojo.unity/releases) and download the latest version of `dojo.unitypackage`.
+Visit the [Dojo.unity release page](https://github.com/dojoengine/dojo.unity/releases) and download the latest version of `dojo.unitypackage`.
 
 #### Open or create a Unity project
 
-Launch Unity and either create a new project or open an existing one where you intend to integrate dojo.unity
+Launch Unity and either create a new project or open an existing one where you intend to integrate Dojo.unity
 
 #### Import `dojo.unitypackage`
 
@@ -139,7 +139,7 @@ Drag the desired `ScriptableObject` (either the default one or your custom confi
 
 #### Adding model bindings
 
-1. Generate model bindings: If you haven't already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
+1. Generate model bindings: If you have not already created your model bindings, please refer to the [bindgen section](/toolchain/sozo/binding-generation#unity) for instructions.
 
 2. Import model bindings: Locate the `bindings/client/unity/Models` folder within your Dojo project, and drag the desired `model` files from this folder into your Unity project.
    The [Synchronization Master](#synchronization-master) will automatically detect and load these models for seamless data exchange.
@@ -208,7 +208,7 @@ To do this, we must first teach our Unity project about our Dojo contracts using
 
 Sozo's [bindgen](/toolchain/sozo/binding-generation#unity) generates bindings for contracts, which must be transferred into your Unity project.
 
-Let's consider a practical example: a `PlayerActions` contract that handles player creation in an RPG game.
+Let us consider a practical example: a `PlayerActions` contract that handles player creation in an RPG game.
 This system allows players to create their character by choosing a name and selecting their gender, then stores this information onchain as part of the game state.
 
 ```rust
@@ -279,7 +279,7 @@ public class PlayerActions : MonoBehaviour {
 }
 ```
 
-Let's break down the concepts:
+Let us break down the concepts:
 
 - `public string contractAddress;`: The contract address of the `PlayerActions` system, obtained as output from `sozo migrate`.
 - `new dojo.Call{ ... }`: Creates a new call, where the `selector` is the name of the system function ("create"), and `calldata` contains the serialized parameters (player name and gender ID).
@@ -369,7 +369,7 @@ Here are the steps to address it:
     - Under `Resolution and Presentation`, ensure the `Dojo` Template is selected.
     - If the Dojo template is missing, proceed to `step 2`.
 
-2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it's likely missing from your project.
+2. **Download WebGL Templates Folder**: If the Dojo template is unavailable in Player Settings, it is likely missing from your project.
 
     - Navigate to the [Dojo Unity repository](https://github.com/dojoengine/dojo.unity)
     - Download the `WebGL templates` folder.
@@ -436,21 +436,21 @@ The solution is to navigate to the `src` directory within your Dojo project and 
 
 ## Example Project
 
-This section provides a walkthrough for running the example from the dojo.unity repository using the `Dojo Starter` repository.
+This section provides a walkthrough for running the example from the Dojo.unity repository using the `Dojo Starter` repository.
 
-[![dojo.unity demo](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2F25ocgPsHs4w)](https://youtu.be/25ocgPsHs4w)
+[![Dojo.unity demo](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2F25ocgPsHs4w)](https://youtu.be/25ocgPsHs4w)
 
 :::steps
 
 #### Prerequisites
 
-Clone the [dojo.unity](https://github.com/dojoengine/dojo.unity) and [Dojo Starter](https://github.com/dojoengine/dojo-starter) repositories.
+Clone the [Dojo.unity](https://github.com/dojoengine/dojo.unity) and [Dojo Starter](https://github.com/dojoengine/dojo-starter) repositories.
 
 #### Setting up Dojo Starter
 
 Follow the steps outlined in the [Dojo Starter setup guide](/tutorials/dojo-starter) to deploy your Dojo project locally: 1) launch Katana, 2) build with Sozo, and 3) launch Torii.
 
-#### Setting up dojo.unity
+#### Setting up Dojo.unity
 
 1. Open the scene: In the `Project tab`, navigate to `Assets/Spawn And Move/Scenes/Sample scene`
 2. Adjusting Scriptable Objects:

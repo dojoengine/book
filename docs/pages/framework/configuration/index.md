@@ -139,7 +139,7 @@ Each section controls a different aspect of your Dojo world.
 ```toml
 [world]
 name = "My Dojo Game"
-description = "An awesome on-chain game built with Dojo"
+description = "An awesome onchain game built with Dojo"
 seed = "my-unique-seed"
 cover_uri = "file://assets/cover.png"
 icon_uri = "file://assets/icon.png"
@@ -358,7 +358,7 @@ icon_uri = "ipfs://YourIconHash"
 website = "https://mygame.com"
 
 [env]
-rpc_url = "https://api.cartridge.gg/x/prod-my-game/katana"
+rpc_url = "https://api.Cartridge.gg/x/prod-my-game/katana"
 account_address = "0x127fd..."
 keystore_path = "~/.starknet_accounts/mainnet.json"
 

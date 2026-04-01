@@ -12,7 +12,7 @@ It is designed for applications requiring low latency and efficient data fetchin
 
 **Endpoint**: `http://localhost:8080` (gRPC protocol)
 
-**Protocol Type Definitions**: [torii/proto/types](https://github.com/dojoengine/torii/blob/main/crates/proto/proto/types.proto)
+**Protocol Type Definitions**: [Torii/proto/types](https://github.com/dojoengine/torii/blob/main/crates/proto/proto/types.proto)
 
 **Client Libraries**:
 

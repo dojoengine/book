@@ -25,15 +25,15 @@ Enable this mode with the `--block-time <MILLISECONDS>` flag:
 katana --block-time 10000
 ```
 
-### On-demand Mining
+### Onchain Mining
 
-On-demand mining gives you complete control over when blocks are created.
+Onchain mining gives you complete control over when blocks are created.
 This mode is ideal for testing scenarios where you need precise timing control.
 
 Transactions are processed immediately but remain pending until you manually trigger block creation using the [`generateBlock`](/toolchain/katana/reference#dev-namespace) RPC method.
 When called, all pending transactions are included in the new block.
 
-To enable on-demand mining, use the `--no-mining` flag.
+To enable onchain mining, use the `--no-mining` flag.
 
 ```bash
 katana --no-mining
@@ -243,7 +243,7 @@ RPC commands are organized across multiple namespaces:
 
 #### Usage Example
 
-Generate blocks on-demand when using `--no-mining` mode:
+Generate blocks onchain when using `--no-mining` mode:
 
 ```bash
 curl -X POST http://127.0.0.1:5050 \
