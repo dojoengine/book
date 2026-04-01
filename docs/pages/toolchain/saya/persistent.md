@@ -47,7 +47,7 @@ You can inspect the chain by running `katana config per1`
 
 :::note
 The settlement core contract must receive configuration parameters on deployment.
-It's recommended to let Katana handle this.
+It is recommended to let Katana handle this.
 If the core contract is already deployed, you should provide it so Katana can verify the configuration parameters.
 :::
 
@@ -73,7 +73,7 @@ You will then want to start katana with the `--chain /path` instead of `--chain 
 
 ## Run Saya
 
-If you haven't already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
+If you have not already, consult the [Herodotus guide](/toolchain/saya) to get an account and an API key.
 
 If you are not running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), you can download the SNOS program and the Layout Bridge program from the [Saya releases](https://github.com/dojoengine/saya/releases).
 If you are running Saya in [docker](https://github.com/dojoengine/saya/pkgs/container/saya), the programs are already present in the `/programs` directory.

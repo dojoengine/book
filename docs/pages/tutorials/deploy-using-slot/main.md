@@ -7,14 +7,14 @@ description: Learn how to deploy your Dojo project using Slot, including authent
 
 # Deploy your game using Slot
 
-Welcome to this tutorial where we'll guide you through deploying a project using the Slot.
+Welcome to this tutorial where we will guide you through deploying a project using the Slot.
 
 ---
 
 Before we start, make sure you are using the latest dojo version.
 Run `dojoup` to have the latest version installed.
 
-Now, let's create a new project and initialize it with sozo.
+Now, let us create a new project and initialize it with sozo.
 
 ```bash
 sozo init dojo-starter && cd dojo-starter
@@ -77,7 +77,7 @@ To build the project, run the following command:
 sozo build
 ```
 
-Now, let's migrate the project to our new development network:
+Now, let us migrate the project to our new development network:
 
 ```bash
 sozo migrate

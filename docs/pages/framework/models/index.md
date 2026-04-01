@@ -83,7 +83,7 @@ If you define multiple keys, they must **all** be provided to query the model.
 
 ### Model Composition
 
-Let's explore ECS composition through a concrete gaming analogy: Orcs and Humans.
+Let us explore ECS composition through a concrete gaming analogy: Orcs and Humans.
 While they possess intrinsic differences, they share common traits, such as having a position and health.
 Humans, however, possess an additional model - potions.
 

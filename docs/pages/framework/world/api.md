@@ -382,7 +382,7 @@ if let Option::Some(class_hash) = world.dns_class_hash(@"my_contract") {
 ## Advanced Functions
 
 The following functions are primarily used by framework developers, tooling, and migration scripts.
-Most application developers won't touch these directly:
+Most application developers will not touch these directly:
 
 ### Entity Operations
 
