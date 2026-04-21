@@ -1,5 +1,3 @@
-## File to edit: toolchain/katana/configuration.md
-
 ---
 title: Katana Configuration
 description: Complete guide to configuring Katana using TOML files and command-line options for development and production deployments.

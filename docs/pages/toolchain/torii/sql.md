@@ -127,7 +127,7 @@ These tables require ERC contract configuration
 
 #### `controllers`
 
-Cartridge controller integration
+Cartridge Controller integration
 
 :::info
 Requires `--indexing.controllers`

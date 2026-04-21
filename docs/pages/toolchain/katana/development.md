@@ -33,7 +33,7 @@ This mode is ideal for testing scenarios where you need precise timing control.
 Transactions are processed immediately but remain pending until you manually trigger block creation using the [`generateBlock`](/toolchain/katana/reference#dev-namespace) RPC method.
 When called, all pending transactions are included in the new block.
 
-To enable on-demand mining, use the `--no-mining` flag.
+To enable ondemand mining, use the `--no-mining` flag.
 
 ```bash
 katana --no-mining
@@ -243,7 +243,7 @@ RPC commands are organized across multiple namespaces:
 
 #### Usage Example
 
-Generate blocks on-demand when using `--no-mining` mode:
+Generate blocks ondemand when using `--no-mining` mode:
 
 ```bash
 curl -X POST http://127.0.0.1:5050 \
