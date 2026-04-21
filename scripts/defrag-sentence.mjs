@@ -5,7 +5,6 @@
  *
  * LLM-powered but narrowly scoped:
  *   - One sentence per line (break multi-sentence lines)
- *   - Contraction expansion (don't → do not, you're → you are, etc.)
  *
  * Nothing else — no rewording, no content changes, no terminology fixes,
  * no cross-references, no heading changes, no link modifications.
@@ -22,13 +21,14 @@ import {
     loadTextFile,
     callClaude,
     checkLinksPreserved,
+    checkCodeRegionsPreserved,
 } from "./lib/defrag-utils.mjs";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 
-const SYSTEM_PROMPT = `You are a documentation formatting tool. You make exactly two types of changes and nothing else.
+const SYSTEM_PROMPT = `You are a documentation formatting tool. You make exactly one type of change and nothing else.
 
-## Task 1: One sentence per line
+## Task: One sentence per line
 
 Break multi-sentence prose lines so each sentence starts on its own line.
 
@@ -39,34 +39,15 @@ Rules:
 - Do NOT split on periods inside inline code backticks.
 - Do NOT reword, rephrase, or change any content.
 
-## Task 2: Contraction expansion
-
-Expand English contractions in prose text to their full forms.
-
-Common contractions to expand:
-- don't → do not, doesn't → does not, won't → will not, can't → cannot
-- shouldn't → should not, wouldn't → would not, couldn't → could not
-- isn't → is not, aren't → are not, wasn't → was not, weren't → were not
-- haven't → have not, hasn't → has not, hadn't → had not
-- you're → you are, they're → they are, we're → we are, it's → it is
-- let's → let us, here's → here is, there's → there is, that's → that is
-- what's → what is, who's → who is
-- you'll → you will, you've → you have, we've → we have
-- I'm → I am (rare in docs, but expand if found)
-
-Rules:
-- Do NOT expand contractions inside code blocks, inline code backticks, frontmatter, or URLs.
-- Do NOT expand contractions in quoted speech or proper names.
-- Preserve the original capitalization of the first letter (e.g., "Don't" → "Do not").
-
 ## What you must NOT do
 
 - Do NOT change any wording, phrasing, or meaning.
+- Do NOT expand or introduce contractions — leave them exactly as written.
 - Do NOT add or remove any content, paragraphs, or sentences.
-- Do NOT change terminology, capitalization (beyond contraction expansion), or heading text.
+- Do NOT change terminology, capitalization, or heading text.
 - Do NOT add or modify links or cross-references.
 - Do NOT change code blocks, frontmatter, or any non-prose content.
-- Do NOT fix typos, grammar, or punctuation (other than sentence splitting and contraction expansion).
+- Do NOT fix typos, grammar, or punctuation (other than sentence splitting).
 
 Return ONLY the complete corrected file content — no commentary, no wrapping, no code fences.
 If the file needs no changes, return it exactly as-is.`;
@@ -113,6 +94,14 @@ async function main() {
                 console.warn(`    REJECTED: LLM modified links in ${file.rel}`);
                 if (linkCheck.added.length) console.warn(`      Added: ${linkCheck.added.join(", ")}`);
                 if (linkCheck.removed.length) console.warn(`      Removed: ${linkCheck.removed.join(", ")}`);
+                filesErrored++;
+                continue;
+            }
+
+            const codeCheck = checkCodeRegionsPreserved(original, normalized);
+            if (!codeCheck.ok) {
+                console.warn(`    REJECTED: LLM modified code regions in ${file.rel}`);
+                for (const m of codeCheck.mismatches) console.warn(`      ${m}`);
                 filesErrored++;
                 continue;
             }

@@ -23,6 +23,7 @@ import {
     loadTextFile,
     callClaude,
     checkLinksPreserved,
+    checkCodeRegionsPreserved,
 } from "./lib/defrag-utils.mjs";
 import { join } from "path";
 
@@ -37,21 +38,38 @@ ${styleGuide}
 
 ## What you change
 
-1. **Proper noun capitalization**: Dojo, Cairo, Starknet (not StarkNet), Katana, Torii, Sozo, Saya, Scarb, Cartridge, MetaMask, React Native — capitalize in prose.
+Apply these rules ONLY to prose text — never to code.
+
+1. **Proper noun capitalization**: Dojo, Cairo, Starknet (not StarkNet), Katana, Torii, Sozo, Saya, Scarb, Cartridge, MetaMask, React Native — capitalize when they appear in running prose.
 
 2. **Hyphenation**: onchain (not on-chain), gasless (not gas-free/gas-less), multicall (not multi-call), cross-chain (keep hyphen).
+
+## Protected regions — never modify
+
+These regions must be returned byte-for-byte identical to the input:
+
+- **Fenced code blocks** (anything between \`\`\` fences), including comments and string literals inside them.
+- **Inline code spans** (text inside single backticks: \`katana\`, \`sozo\`, \`Sozo\`). If a CLI tool name appears in backticks, do NOT change its capitalization — backticks signal this is a code token, not prose.
+- **URLs** in any context: full URLs in prose, inside quotes, inside code blocks, inside link targets. Do not change capitalization of host names or paths.
+- **Link text and link targets** in markdown links \`[text](target)\`.
+- **Frontmatter** (the YAML block at the top of the file between \`---\` markers).
+- **HTML/JSX attribute values and tag names.**
+
+Concrete examples of changes you must NOT make:
+- \`\`katana\`\` → \`\`Katana\`\` (inline code, leave alone)
+- \`https://api.cartridge.gg\` → \`https://api.Cartridge.gg\` (URL host, leave alone)
+- \`rpc_url = "https://api.cartridge.gg/..."\` inside a code block (never touch code blocks)
+- \`dojo.js\` → \`Dojo.js\` (package/module identifier, leave alone)
 
 ## What you must NOT do
 
 - Do NOT change any wording, phrasing, meaning, or sentence structure.
 - Do NOT split or join lines (no one-sentence-per-line changes).
-- Do NOT expand contractions.
+- Do NOT expand or introduce contractions.
 - Do NOT add or remove any content, paragraphs, sections, or sentences.
 - Do NOT rename headings.
 - Do NOT add or modify links or cross-references.
-- Do NOT change code blocks, inline code, frontmatter, URLs, or any non-prose content.
 - Do NOT fix typos, grammar, or punctuation.
-- Do NOT change link text or link targets.
 
 Return ONLY the complete corrected file content — no commentary, no wrapping, no code fences.
 If the file needs no changes, return it exactly as-is.`;
@@ -102,6 +120,14 @@ async function main() {
                 console.warn(`    REJECTED: LLM modified links in ${file.rel}`);
                 if (linkCheck.added.length) console.warn(`      Added: ${linkCheck.added.join(", ")}`);
                 if (linkCheck.removed.length) console.warn(`      Removed: ${linkCheck.removed.join(", ")}`);
+                filesErrored++;
+                continue;
+            }
+
+            const codeCheck = checkCodeRegionsPreserved(original, normalized);
+            if (!codeCheck.ok) {
+                console.warn(`    REJECTED: LLM modified code regions in ${file.rel}`);
+                for (const m of codeCheck.mismatches) console.warn(`      ${m}`);
                 filesErrored++;
                 continue;
             }
