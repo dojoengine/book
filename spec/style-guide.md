@@ -24,7 +24,6 @@ It is the source of truth for automated tooling (defragmentation, linting) and h
 - Write in **present tense**: "This deploys the contract", not "This will deploy the contract".
 - Use **second person** ("you") for instructions, **third person** for describing system behavior ("the World contract manages all state").
 - Use **imperative mood** for procedural steps: "Configure the world", not "You should configure the world".
-- **Do not use contractions**: "do not", not "don't"; "you will", not "you'll".
 - Use the **Oxford comma**: "models, systems, and events".
 - Prefer **"e.g."** over "for example" in parentheticals.
 - Use **bold** for feature names and key concepts in running text.

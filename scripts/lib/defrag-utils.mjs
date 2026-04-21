@@ -96,6 +96,81 @@ export function checkLinksPreserved(original, corrected) {
 }
 
 /**
+ * Extract all fenced code block bodies and inline code spans from content.
+ * Returns { blocks, spans } where each is an ordered list of strings.
+ */
+export function extractCodeRegions(content) {
+    const blocks = [];
+    const spans = [];
+
+    const lines = content.split("\n");
+    let inBlock = false;
+    let buffer = [];
+    const prose = [];
+
+    for (const line of lines) {
+        if (line.trimStart().startsWith("```")) {
+            if (inBlock) {
+                blocks.push(buffer.join("\n"));
+                buffer = [];
+                inBlock = false;
+            } else {
+                inBlock = true;
+            }
+            continue;
+        }
+        if (inBlock) {
+            buffer.push(line);
+        } else {
+            prose.push(line);
+        }
+    }
+
+    const proseText = prose.join("\n");
+    const inlineRegex = /`([^`\n]+)`/g;
+    let m;
+    while ((m = inlineRegex.exec(proseText)) !== null) {
+        spans.push(m[1]);
+    }
+
+    return { blocks, spans };
+}
+
+/**
+ * Verify that all fenced code blocks and inline code spans are preserved
+ * verbatim between original and corrected content.
+ */
+export function checkCodeRegionsPreserved(original, corrected) {
+    const a = extractCodeRegions(original);
+    const b = extractCodeRegions(corrected);
+    const mismatches = [];
+
+    if (a.blocks.length !== b.blocks.length) {
+        mismatches.push(`block count: ${a.blocks.length} → ${b.blocks.length}`);
+    } else {
+        for (let i = 0; i < a.blocks.length; i++) {
+            if (a.blocks[i] !== b.blocks[i]) {
+                mismatches.push(`fenced block #${i + 1} modified`);
+            }
+        }
+    }
+
+    const aSpans = [...a.spans].sort();
+    const bSpans = [...b.spans].sort();
+    if (aSpans.length !== bSpans.length) {
+        mismatches.push(`inline code count: ${aSpans.length} → ${bSpans.length}`);
+    } else {
+        for (let i = 0; i < aSpans.length; i++) {
+            if (aSpans[i] !== bSpans[i]) {
+                mismatches.push(`inline code "${aSpans[i]}" → "${bSpans[i]}"`);
+            }
+        }
+    }
+
+    return { ok: mismatches.length === 0, mismatches };
+}
+
+/**
  * Check if any single diff hunk exceeds the size limit.
  */
 export function checkHunkSizes(original, corrected, filename) {
