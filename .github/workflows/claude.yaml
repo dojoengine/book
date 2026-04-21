@@ -1,0 +1,38 @@
+name: Claude
+
+on:
+    issues:
+        types: [labeled, assigned]
+    issue_comment:
+        types: [created]
+    pull_request_review_comment:
+        types: [created]
+    pull_request_review:
+        types: [submitted]
+
+jobs:
+    claude:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            issues: write
+            pull-requests: write
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - uses: anthropics/claude-code-action@v1
+              with:
+                  anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  prompt: |
+                      You are acting on the Dojo documentation repo. The project-level CLAUDE.md and the files in `spec/` (style-guide.md, page-types.md, best-practices.md) are the source of truth for writing conventions — read them before drafting changes.
+
+                      When responding to a cross-page analysis issue opened by the defrag workflow (title "defrag: cross-page analysis findings"), treat it as a scoping document, not a spec:
+
+                      - Draft a PR that addresses the concrete, low-judgment items (terminology consistency, adding cross-references whose targets clearly exist, heading format alignment).
+                      - Leave structural changes (content relocations, redundancy removal) for human review — propose them in the PR description with pros/cons rather than applying them directly.
+                      - Verify every link target exists in `docs/pages/` before adding a cross-reference. Do not invent paths.
+                      - Run `pnpm run build` before finalizing and fix any errors the build surfaces.
+                      - In the PR description, enumerate which findings you addressed and which you deferred to the reviewer, so the human can curate quickly.
