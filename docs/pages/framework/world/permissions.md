@@ -171,7 +171,8 @@ world.grant_writer(selector_from_tag!("my_game"), system_contract);
 
 ## Resource-Based Permissions
 
-All permissions in Dojo are resource-based. Every component is a resource:
+All permissions in Dojo are resource-based.
+Every component is a resource:
 
 - **World** → A resource (selector `0`)
 - **Namespace** → A resource (e.g., `"my_game"`)

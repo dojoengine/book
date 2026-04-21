@@ -99,7 +99,8 @@ sozo build
 
 While there are many ways to design a chess game using the ECS model, we'll follow this approach:
 
-> Every square of the chess board (e.g., A1) will be treated as an entity. If a piece exists on a square position, that position will hold that piece.
+> Every square of the chess board (e.g., A1) will be treated as an entity.
+If a piece exists on a square position, that position will hold that piece.
 
 First, add this basic `player` model to `models/player.cairo` file.
 If you are not familar with model syntax in Dojo engine, go back to this [chapter](/framework/models).
@@ -228,7 +229,8 @@ fn is_right_piece_move(self: @Piece, next_position: Vec2) -> bool;
 }
 ```
 
-Try to implement this code by yourself. Otherwise
+Try to implement this code by yourself.
+Otherwise
 
 <details>
 <summary>Click to see full `models.cairo` code</summary>

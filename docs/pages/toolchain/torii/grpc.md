@@ -1,3 +1,5 @@
+## File to edit: toolchain/torii/grpc.md
+
 ---
 title: gRPC API
 description: High-performance gRPC interface for efficient world state queries, subscriptions, and real-time data streaming.

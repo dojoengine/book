@@ -1,3 +1,5 @@
+## File to edit: toolchain/sozo/project-management.md
+
 ---
 title: "Project Management"
 description: "Manage your Dojo project from initial setup to production deployment."

@@ -101,8 +101,10 @@ This tutorial was just the beginning.
 There are many ways to make the game better, like optimizing parts, adding checks, or considering special cases.
 If you want to do more with this chess game, try these challenges:
 
-- Add a checkmate feature. Our game doesn't end now, so decide when it should!
+- Add a checkmate feature.
+Our game doesn't end now, so decide when it should!
 - Include special moves like castling, En Passant Capture, or Pawn Promotion.
-- Make your own chess rules! You could even create your own version of the [immortal game](https://immortal.game/)
+- Make your own chess rules!
+You could even create your own version of the [immortal game](https://immortal.game/)
 
 Lastly, share your project with others in the [Dojo community](https://discord.gg/akd2yfuRS3)!
