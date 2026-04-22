@@ -3,12 +3,12 @@ title: "Dojo Unity SDK"
 description: "Introduction to the official Unity SDK for building Dojo-powered games"
 ---
 
-# Dojo.unity
+# dojo.unity
 
 Unity is one of the world's most popular cross-platform game engines, powering millions of games across mobile, desktop, console, and web platforms.
 With its intuitive visual editor, robust scripting capabilities in C#, and extensive asset ecosystem, Unity enables developers to create everything from simple 2D indies to complex 3D AAA titles.
 
-Dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
+dojo.unity is the official Unity Engine SDK for interacting with Dojo worlds to develop web and desktop 2D and 3D games.
 Whether you're creating a tactical RPG, a real-time strategy game, or an immersive 3D world, dojo.unity provides the tools you need to bring your onchain game vision to life.
 
 ## Core Concepts

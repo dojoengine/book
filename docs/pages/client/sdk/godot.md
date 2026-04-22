@@ -3,12 +3,12 @@ title: "Dojo Godot SDK"
 description: "Introduction to the official Godot Engine SDK for building Dojo-powered games"
 ---
 
-# Dojo.godot
+# dojo.godot
 
 Godot Engine is a free, open-source cross-platform game engine renowned for its flexibility, ease of use, and powerful scene system.
 With its intuitive node-based architecture, GDScript scripting language, and robust 2D and 3D capabilities, Godot empowers developers to create everything from indie platformers to complex multiplayer experiences.
 
-Dojo.godot is the official Godot Engine SDK for building onchain games powered by Dojo.
+dojo.godot is the official Godot Engine SDK for building onchain games powered by Dojo.
 This GDExtension seamlessly integrates blockchain functionality into your Godot projects, built on the [dojo.c](/client/sdk/c) foundation.
 It enables you to create fully decentralized games without compromising on performance or developer experience.
 
@@ -67,7 +67,7 @@ Some in-editor tools were added under
 
 ### Cairo Type System
 
-Dojo.godot automatically handles conversions between Cairo types and Godot equivalents:
+dojo.godot automatically handles conversions between Cairo types and Godot equivalents:
 
 - **Primitives**: `u8`, `u16`, `u32`, `u64`, `u128`, `u256`, `felt252` map to Godot integers and strings.
 - **Structures**: Cairo structs convert to Godot Dictionaries with proper field mapping.
@@ -384,7 +384,7 @@ dojo_session_account.create_from_subscribe(
 
 ### Type Conversion
 
-Dojo.godot handles type conversion automatically:
+dojo.godot handles type conversion automatically:
 
 Every struct/type in your contract will return inside a Dictionary with its name and parameters.
 In the Starter Project there is a custom struct `Vec2`, the following snippet is an example.
@@ -467,7 +467,7 @@ scons platform=macos target=template_release
 
 ## Example Project
 
-The Dojo.godot repository includes a complete demo project showcasing:
+The dojo.godot repository includes a complete demo project showcasing:
 
 - **Player Movement**: Onchain player spawning and movement using arrow keys.
 - **Real-time Updates**: Live synchronization between blockchain state and game visuals.
@@ -480,7 +480,7 @@ Follow the [dojo-starter](/tutorials/dojo-starter) or [dojo-intro](/getting-star
 :::
 
 1. Set up a local Dojo Starter environment.
-2. Build/download the Dojo.godot extension following the instructions above.
+2. Build/download the dojo.godot extension following the instructions above.
 3. Open the `demo` folder in Godot and run the project.
 
 The demo connects to a live testnet deployment, demonstrating real blockchain integration in a simple 2D movement game.

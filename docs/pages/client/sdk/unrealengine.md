@@ -3,9 +3,9 @@ title: "Dojo Unreal Engine SDK"
 description: "Introduction to the official Unreal Engine 5 SDK for building Dojo-powered games"
 ---
 
-# Dojo.unreal
+# dojo.unreal
 
-[Dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
+[dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
 ## Prerequisites

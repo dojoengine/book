@@ -44,7 +44,7 @@ Sozo can automatically discover and work with any deployed Dojo world through bl
 
 **Universal Compatibility**: You can use Sozo to interact with worlds deployed by others, inspect unfamiliar world state, or recover from lost local artifacts by rebuilding complete world understanding from chain state.
 
-**Dynamic Schema Detection**: Sozo reconstructs model schemas, system interfaces, and event definitions from on-chain registrations, enabling type-aware interactions with any world.
+**Dynamic Schema Detection**: Sozo reconstructs model schemas, system interfaces, and event definitions from onchain registrations, enabling type-aware interactions with any world.
 
 ### Migration System
 

@@ -1,11 +1,11 @@
 ---
-title: "Dojo.js Overview"
-description: "Comprehensive guide to using the Dojo.js for building onchain applications"
+title: "dojo.js Overview"
+description: "Comprehensive guide to using the dojo.js for building onchain applications"
 ---
 
-# Dojo.js
+# dojo.js
 
-The Dojo.js SDK provides a powerful, intuitive interface for interacting with onchain state in JavaScript.
+The dojo.js SDK provides a powerful, intuitive interface for interacting with onchain state in JavaScript.
 It streamlines data fetching and subscriptions, supporting both simple and complex queries.
 
 ## Key Features
@@ -419,7 +419,7 @@ If you want messages to be broadcast to all of your Torii client instances, you'
 
 ### Querying Tokens
 
-Dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
+dojo.js can query token data (ERC20, ERC721, ERC1155) indexed by Torii.
 First, configure Torii to index your tokens:
 
 ```toml

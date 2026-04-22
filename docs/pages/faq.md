@@ -49,7 +49,7 @@ Learn more about it here: [Cairo](https://www.cairo-lang.org/).
 
 Yes!
 Dojo can run on any StarknetVM including the public blockchains.
-Within the dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
+Within the Dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
 
 ### Can Dojo do client side proofs?
 
