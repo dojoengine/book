@@ -35,9 +35,10 @@ jobs:
               with:
                   anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
                   github_token: ${{ secrets.GITHUB_TOKEN }}
+                  track_progress: true
                   show_full_output: true
                   claude_args: |
-                      --allowedTools "Bash(pnpm:*),Bash(gh:*)"
+                      --allowedTools "Edit,Write,Read,Glob,Grep,LS,MultiEdit,Bash(git:*),Bash(pnpm:*),Bash(gh:*)"
                   prompt: |
                       You are acting on the Dojo documentation repo. The project-level CLAUDE.md and the files in `spec/` (style-guide.md, page-types.md, best-practices.md) are the source of truth for writing conventions — read them before drafting changes.
 
