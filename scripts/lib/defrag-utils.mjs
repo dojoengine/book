@@ -171,6 +171,70 @@ export function checkCodeRegionsPreserved(original, corrected) {
 }
 
 /**
+ * Lowercase `Dojo.<platform>` package identifiers back to `dojo.<platform>`
+ * in prose. Skips fenced code blocks, inline code spans, and markdown link
+ * targets. The LLM terminology pass tends to proper-noun these even though
+ * the real repo/package names are lowercase (e.g., github.com/dojoengine/dojo.unreal).
+ */
+export function normalizePackageNames(content) {
+    const PACKAGE_RE = /\bDojo\.(unreal|unity|js|c|bevy|godot)\b/g;
+    const lowercase = (s) => s.replace(PACKAGE_RE, (_, p) => `dojo.${p}`);
+
+    const out = [];
+    let inBlock = false;
+    for (const line of content.split("\n")) {
+        if (line.trimStart().startsWith("```")) {
+            inBlock = !inBlock;
+            out.push(line);
+            continue;
+        }
+        if (inBlock) {
+            out.push(line);
+            continue;
+        }
+        out.push(lowercaseInProseLine(line, lowercase));
+    }
+    return out.join("\n");
+}
+
+function lowercaseInProseLine(line, lowercase) {
+    let result = "";
+    let i = 0;
+    while (i < line.length) {
+        if (line[i] === "`") {
+            const end = line.indexOf("`", i + 1);
+            if (end === -1) {
+                result += line.slice(i);
+                return result;
+            }
+            result += line.slice(i, end + 1);
+            i = end + 1;
+            continue;
+        }
+        if (line[i] === "]" && line[i + 1] === "(") {
+            const end = line.indexOf(")", i + 2);
+            if (end === -1) {
+                result += line.slice(i);
+                return result;
+            }
+            result += line.slice(i, end + 1);
+            i = end + 1;
+            continue;
+        }
+        let next = line.length;
+        for (let j = i; j < line.length; j++) {
+            if (line[j] === "`" || (line[j] === "]" && line[j + 1] === "(")) {
+                next = j;
+                break;
+            }
+        }
+        result += lowercase(line.slice(i, next));
+        i = next;
+    }
+    return result;
+}
+
+/**
  * Check if any single diff hunk exceeds the size limit.
  */
 export function checkHunkSizes(original, corrected, filename) {
