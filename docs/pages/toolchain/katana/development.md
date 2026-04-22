@@ -1,15 +1,15 @@
 ---
 title: Katana Development Features
-description: Guide to Katana's development features including mining modes, storage options, network forking, and RPC interfaces for local blockchain development.
+description: Guide to Katana's development features including block production modes, storage options, network forking, and RPC interfaces for local development.
 ---
 
 # Development Features
 
-Katana provides essential development features designed to streamline local blockchain development and testing workflows.
+Katana provides essential development features designed to streamline local development and testing workflows.
 
-## Mining Modes
+## Block Production Modes
 
-Katana offers flexible block production through different mining modes.
+Katana offers flexible block production through different block production modes.
 
 :::info
 By default, blocks are mined instantly when transactions are received.
