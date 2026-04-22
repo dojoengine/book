@@ -20,7 +20,7 @@ This will search for all tests within your project and run them.
 ## Writing Unit Tests
 
 It is best practise to include unit tests in the same file as the [model](/framework/models/) / [system](/framework/systems/) you are writing.
-Lets show a `model` test example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
+Lets show a `model` test example from the [Dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 ```cairo
 // models.cairo
@@ -58,7 +58,7 @@ Integration tests are e2e tests that test the entire [system](/framework/systems
 You can write integration tests for your world by creating a `tests` directory in your project root.
 Then create a file for each integration test you want to write.
 
-This is the example from the [dojo-starter](https://github.com/dojoengine/dojo-starter):
+This is the example from the [Dojo-starter](https://github.com/dojoengine/dojo-starter):
 
 ```rust
 // move.cairo

@@ -12,7 +12,7 @@ Think of it as a sophisticated database and orchestrator that manages all your m
 
 ## What is the World Contract?
 
-The world contract serves as:
+The World contract serves as:
 
 - **Central Database**: Stores all your application's models and their data
 - **Permission Manager**: Controls who can write to your models
@@ -105,7 +105,7 @@ The world itself is a special resource, with the resource selector `0`.
 
 ### Entity-Component-System (ECS) Architecture
 
-The world contract implements the ECS pattern:
+The World contract implements the ECS pattern:
 
 - **Entities**: Unique identifiers (often player addresses or generated IDs)
 - **Components**: Your models (Position, Health, Inventory, etc.)
@@ -125,7 +125,7 @@ world.write_model(@updated_position);
 
 ### Permissions and Security
 
-The world contract implements a resource-based permission system with two permission types.
+The World contract implements a resource-based permission system with two permission types.
 For detailed information about permission management and configuration, see the [Permissions](/framework/world/permissions) guide.
 
 - **Owner**: Can manage resources, grant permissions, and upgrade resources
@@ -224,7 +224,7 @@ world.emit_event(@event);
 
 ### Automatic Indexing
 
-The world contract automatically emits events for all state changes, enabling automatic indexing by [Torii](/toolchain/torii) for your frontend applications.
+The World contract automatically emits events for all state changes, enabling automatic indexing by [Torii](/toolchain/torii) for your frontend applications.
 
 ### Upgradeable Architecture
 
@@ -238,11 +238,11 @@ sozo build
 sozo migrate
 ```
 
-The `sozo migrate` command automatically detects which resources have changed and calls the appropriate upgrade functions on the world contract.
+The `sozo migrate` command automatically detects which resources have changed and calls the appropriate upgrade functions on the World contract.
 
 ### Gas Optimization
 
-The world contract includes several optimizations:
+The World contract includes several optimizations:
 
 - **Batch Operations**: Write multiple models in one transaction
 - **Efficient Storage**: Optimized storage layouts for different data types
@@ -250,7 +250,7 @@ The world contract includes several optimizations:
 
 ## The World Interface
 
-The world contract exposes a complete interface for external interactions.
+The World contract exposes a complete interface for external interactions.
 While you typically use the high-level API in your systems, understanding the full interface helps with advanced use cases:
 
 ```cairo
@@ -266,7 +266,7 @@ world.grant_writer(resource_selector, address);
 
 ## Next Steps
 
-Now that you understand the world contract's role, dive deeper into specific areas:
+Now that you understand the World contract's role, dive deeper into specific areas:
 
 - **[API Reference](/framework/world/api)** - Complete API documentation with examples
 - **[Permissions](/framework/world/permissions)** - Understanding and managing permissions
@@ -275,11 +275,11 @@ Now that you understand the world contract's role, dive deeper into specific are
 
 ## Integration with Other Components
 
-The world contract integrates seamlessly with other Dojo components:
+The World contract integrates seamlessly with other Dojo components:
 
 - **[Models](/framework/models)** - Define your data structures
 - **[Systems](/framework/systems)** - Implement your game logic
 - **[Sozo](/toolchain/sozo)** - Deploy and manage your world
 - **[Torii](/toolchain/torii)** - Index and query your world's data
 
-The world contract is your application's foundation - everything else builds on top of it.
+The World contract is your application's foundation - everything else builds on top of it.
