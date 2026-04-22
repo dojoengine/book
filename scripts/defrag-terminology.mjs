@@ -24,6 +24,7 @@ import {
     callClaude,
     checkLinksPreserved,
     checkCodeRegionsPreserved,
+    normalizePackageNames,
 } from "./lib/defrag-utils.mjs";
 import { join } from "path";
 
@@ -108,6 +109,7 @@ async function main() {
             );
 
             let normalized = corrected.replace(/\n*$/, "\n");
+            normalized = normalizePackageNames(normalized);
 
             if (normalized === original) {
                 console.log(`    No changes.`);
