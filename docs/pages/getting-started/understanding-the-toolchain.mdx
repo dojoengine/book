@@ -13,7 +13,7 @@ The code examples are run in the context of the `dojo-intro` repo.
 
 **What it does**:
 
-- Provides a local blockchain environment
+- Provides a local sequencer environment
 - Mines blocks instantly for fast development
 - Comes with pre-funded accounts for testing
 - Supports gRPC for faster network communication
@@ -320,8 +320,8 @@ For more information about Saya, [see the docs](/toolchain/saya).
 Here's the typical development flow:
 
 1. **Sozo** compiles your Cairo code into deployable contracts
-2. **Katana** provides a local blockchain to deploy and test on
-3. **Sozo** deploys your World contract to Katana
+2. **Katana** provides a local sequencer to deploy and test on
+3. **Sozo** deploys your World to Katana
 4. **Torii** automatically indexes your World's data
 5. **Saya** (optionally) generates proofs for settlement
 

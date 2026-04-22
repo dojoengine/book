@@ -13,7 +13,7 @@ By the end, you'll have a working game where you can spawn and move a character 
 - The structure of a Dojo project
 - Basic Entity Component System (ECS) concepts
 - How to start the development environment
-- Deploying your first world contract
+- Deploying your first World
 - Interacting with your deployed game
 
 ## Step 1: Create Your Project
@@ -204,7 +204,7 @@ ACCOUNTS SEED
 2025-07-10T15:46:43.496406Z  INFO rpc: RPC server started. addr=127.0.0.1:5050
 ```
 
-Keep this running - it's your local blockchain.
+Keep this running - it's your local sequencer environment.
 
 :::tip
 By default, Katana runs on port 5050
@@ -218,7 +218,7 @@ In a new terminal, run the following command using [Sozo](/toolchain/sozo), Dojo
 cd contracts && sozo build && sozo migrate
 ```
 
-_This compiles your Cairo contracts and deploys them to your local blockchain_
+_This compiles your Cairo contracts and deploys them to the local sequencer_
 
 **Expected output:**
 
@@ -339,9 +339,9 @@ Let's break down what you just accomplished:
 
 1. **Defined Components**: `Position` and `Moves` store data about each player
 2. **Implemented Systems**: The `spawn` and `move` functions modify component data
-3. **Created a world**: Your world contract acts as the central registry for all game data, logic, and access control
+3. **Created a World**: Your World acts as the central registry for all game data, logic, and access control
 4. **Used the Toolchain**:
-    - Katana provided a local blockchain
+    - Katana provided a local sequencer
     - Sozo managed compilation and deployment
     - Torii indexed data and sent it to the client
 
@@ -355,7 +355,7 @@ Let's break down what you just accomplished:
 
 ### Dojo World
 
-Your world contract coordinates everything:
+Your World coordinates everything:
 
 - Registers all models and systems
 - Handles permissions and authorization
@@ -377,3 +377,4 @@ You've successfully:
 
 Ready to dive deeper?
 Continue to [Understanding the Toolchain](./understanding-the-toolchain) to learn more about the tools that make Dojo development possible.
+When you're ready to explore the broader Dojo ecosystem, see [Next Steps](./next-steps) for advanced topics and deployment strategies.
