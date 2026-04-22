@@ -225,6 +225,8 @@ mod game_coordinator {
 
 ## Permission Architecture
 
+For comprehensive information about managing permissions, see the [Permissions](/framework/world/permissions) guide.
+
 ### Granular Permissions
 
 Assign permissions at the finest grain possible while maintaining operational efficiency.
