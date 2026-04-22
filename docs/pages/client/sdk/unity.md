@@ -15,19 +15,19 @@ Whether you're creating a tactical RPG, a real-time strategy game, or an immersi
 
 Before diving into the exciting world of onchain games and worlds with Unity, let's explore some essential concepts:
 
-### World Manager
+### WorldManager
 
-The **World Manager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
+The **WorldManager** is the central hub for organizing and controlling entities within your Dojo world in Unity.
 
 ![world-manager](/client/unity/world-manager.webp)
 
-During initialization, the World Manager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
+During initialization, the WorldManager receives `WorldManagerData`, which defines essential settings like your Torii URL, RPC URL, and world address.
 While these settings are initially provided, you have the flexibility to adjust them by creating different scriptable objects.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 
 In Unity, entities are represented by `GameObject` instances.
-The World Manager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
+The WorldManager simplifies their management by offering methods to both add/remove entitites and access them collectively or by individual identifiers.
 
 ### Synchronization Master
 
@@ -121,7 +121,7 @@ In your Unity project, navigate to the scene where you want to integrate the SDK
 
 **Default Configuration**
 
-The World Manager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
+The WorldManager operates with a default configuration called `WorldManagerDataLocalConfig`, residing in `Dojo/Runtime/Config`.
 
 ![world-manager-data](/client/unity/world-manager-data.webp)
 

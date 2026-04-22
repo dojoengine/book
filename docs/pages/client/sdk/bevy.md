@@ -243,7 +243,7 @@ fn handle_player_actions(
 }
 ```
 
-## Example Game
+## Example Project
 
 Here's a pedagogical example showing the key concepts for a 3D game where players can spawn and move cubes:
 

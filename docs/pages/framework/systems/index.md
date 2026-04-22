@@ -259,6 +259,7 @@ Systems should be designed for testability:
 Understanding system design philosophy is crucial for building robust Dojo applications.
 Explore the deeper aspects of system implementation:
 
+- **[Entities](/framework/models/entities)** - How entities work in Dojo's ECS model
 - **[System Architecture](/framework/systems/architecture)** - Structural patterns and organization
 - **[System Coordination](/framework/systems/coordination)** - How systems interact and coordinate
 
