@@ -209,6 +209,7 @@ The format for each function is `<PREFIX><NAMESPACE><CONTRACT><SELECTOR>` with a
 
 ## Updating the Plugin
 
+The dojo.unreal plugin is built on [dojo.c](/client/sdk/c), the foundational C library that powers all Dojo SDKs.
 To update the plugin to a new version:
 
 1. Build the `dojo.c` library for your platform
