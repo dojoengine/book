@@ -15,7 +15,8 @@ Clients (like web browsers) do not exist on the chain but exist purely to intera
 ### What is a provable game?
 
 Thanks to the magic of zero-knowledge proofs, we can ensure a game is fair by verifying a zk proof created off-chain.
-But what does that entail? Consider a game of chess.
+But what does that entail?
+Consider a game of chess.
 We aim for an experience where players trust each other's moves.
 In a straightforward approach — and given the simple rules of chess — if this were in a blockchain environment, every move would be a transaction on the blockchain.
 This is costly.
@@ -46,7 +47,8 @@ Learn more about it here: [Cairo](https://www.cairo-lang.org/).
 
 ### Can I deploy Dojo to Starknet?
 
-Yes! Dojo can run on any StarknetVM including the public blockchains.
+Yes!
+Dojo can run on any StarknetVM including the public blockchains.
 Within the dojo toolchain exists [Katana](/toolchain/katana) which is a gaming specific sequencer, which is perfectly suited to Dojo games.
 
 ### Can Dojo do client side proofs?
