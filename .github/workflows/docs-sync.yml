@@ -1,0 +1,219 @@
+name: Reusable docs-sync
+
+on:
+  workflow_call:
+    inputs:
+      target-docs-repo:
+        description: "owner/name of the docs repo to open PRs against (e.g., dojoengine/book)"
+        required: true
+        type: string
+      source-repo-slug:
+        description: "owner/name of the caller repo (e.g., dojoengine/katana)"
+        required: true
+        type: string
+      diff-globs:
+        description: "newline-separated pathspec globs passed to `git diff --` (e.g., `*.rs` one per line)"
+        required: true
+        type: string
+      docs-patterns:
+        description: "newline-separated bash regexes; a changed file matching any triggers docs-sync"
+        required: true
+        type: string
+      canonical-desc:
+        description: "prose describing the single canonical docs location for this caller"
+        required: true
+        type: string
+      docs-structure-desc:
+        description: "prose describing the target docs repo's layout (Vocs content root, nav path, conventions)"
+        required: true
+        type: string
+
+jobs:
+  docs-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      id-token: write
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        env:
+          DIFF_GLOBS: ${{ inputs.diff-globs }}
+        run: |
+          set -e
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            git fetch origin
+            DIFF_BASE="${{ github.event.inputs.commit_sha }}~1"
+            DIFF_HEAD="${{ github.event.inputs.commit_sha }}"
+          else
+            git fetch origin main
+            DIFF_BASE="${{ github.event.pull_request.base.sha }}"
+            DIFF_HEAD="${{ github.event.pull_request.merge_commit_sha }}"
+          fi
+          CHANGED_FILES=$(git diff --name-only "$DIFF_BASE" "$DIFF_HEAD")
+
+          GLOBS=()
+          while IFS= read -r g; do
+            [ -z "$g" ] && continue
+            GLOBS+=("$g")
+          done <<< "$DIFF_GLOBS"
+          # Truncate diff to avoid blowing up the prompt
+          DIFF_CONTENT=$(git diff "$DIFF_BASE" "$DIFF_HEAD" -- "${GLOBS[@]}" | head -c 60000)
+
+          {
+            echo "changed_files<<EOF"
+            echo "$CHANGED_FILES"
+            echo "EOF"
+            echo "diff_content<<EOF"
+            echo "$DIFF_CONTENT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Check if docs update needed
+        id: check-docs
+        env:
+          CHANGED_FILES: ${{ steps.changed-files.outputs.changed_files }}
+          DOCS_PATTERNS: ${{ inputs.docs-patterns }}
+        run: |
+          NEEDS_DOCS_UPDATE=false
+          while IFS= read -r pattern; do
+            [ -z "$pattern" ] && continue
+            while IFS= read -r file; do
+              [ -z "$file" ] && continue
+              if [[ $file =~ $pattern ]]; then
+                NEEDS_DOCS_UPDATE=true
+                break 2
+              fi
+            done <<< "$CHANGED_FILES"
+          done <<< "$DOCS_PATTERNS"
+
+          echo "needs_update=$NEEDS_DOCS_UPDATE" >> "$GITHUB_OUTPUT"
+          echo "Files that may need docs updates: $(echo "$CHANGED_FILES" | tr '\n' ' ')"
+
+      - name: Checkout docs repository
+        if: steps.check-docs.outputs.needs_update == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.target-docs-repo }}
+          token: ${{ secrets.CREATE_PR_TOKEN }}
+          path: docs-repo
+
+      - name: Analyze changes and update docs
+        if: steps.check-docs.outputs.needs_update == 'true'
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          model: "claude-sonnet-4-5-20250929"
+          direct_prompt: |
+            Analyze changes in the ${{ inputs.source-repo-slug }} repository and update documentation
+            in the ${{ inputs.target-docs-repo }} repository ONLY if user-facing behavior changed.
+
+            **Change Information:**
+            - Title: ${{ github.event.pull_request.title || format('Manual trigger for commit {0}', github.event.inputs.commit_sha) }}
+            - Description: ${{ github.event.pull_request.body || 'Manually triggered documentation sync' }}
+            - Files changed: ${{ steps.changed-files.outputs.changed_files }}
+            - Commit SHA: ${{ github.event.pull_request.merge_commit_sha || github.event.inputs.commit_sha }}
+
+            **Diff of user-facing files:**
+            ${{ steps.changed-files.outputs.diff_content }}
+
+            **Docs repo structure** (checked out in `docs-repo/`):
+            ${{ inputs.docs-structure-desc }}
+
+            **Canonical docs location for this repo:**
+            ${{ inputs.canonical-desc }}
+
+            **Rules — read these carefully:**
+            1. DEFAULT TO NO CHANGES. Most code PRs do not need docs updates.
+               Internal refactors, test changes, CI changes, and dependency bumps need nothing.
+               Only proceed if there is a concrete user-facing change (new API, changed behavior,
+               new feature, removed feature, changed configuration).
+            2. SINGLE CANONICAL LOCATION. Each piece of information belongs on exactly one page.
+               Find the one page that owns the topic and make your substantive edits there.
+               Other pages MAY add a brief cross-reference linking to the canonical page,
+               but do NOT duplicate explanations, code samples, or configuration details
+               across multiple pages.
+            3. MINIMAL EDITS. Update only the specific section affected. Do not rewrite
+               surrounding paragraphs, add new sections for context, or reorganize existing content.
+            4. ONE CODE EXAMPLE per concept. If a code sample is needed, add it once in the
+               canonical location. Do not add the same or similar examples to multiple pages.
+            5. Do NOT create git branches, commits, or PRs — just update files.
+            6. Do NOT create new top-level sections or pages unless the canonical location
+               description above explicitly says to. Edit existing pages.
+            7. If no documentation updates are needed, state that clearly and exit.
+
+          allowed_tools: "Read,Write,Edit,MultiEdit,Glob,Grep"
+
+      - name: Create branch and commit changes
+        if: steps.check-docs.outputs.needs_update == 'true'
+        working-directory: docs-repo
+        env:
+          SOURCE_REPO_SLUG: ${{ inputs.source-repo-slug }}
+          GITHUB_TOKEN: ${{ secrets.CREATE_PR_TOKEN }}
+        run: |
+          SOURCE_REPO_NAME="${SOURCE_REPO_SLUG##*/}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            BRANCH_NAME="docs-update-$(date +%s)"
+            git checkout -b "$BRANCH_NAME"
+
+            git add .
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              git commit -m "docs: Update documentation for $SOURCE_REPO_NAME commit ${{ github.event.inputs.commit_sha }}
+
+              Updates documentation to reflect changes made in commit:
+              ${{ github.event.inputs.commit_sha }}
+
+              Manually triggered documentation sync"
+            else
+              git commit -m "docs: Update documentation for $SOURCE_REPO_NAME PR #${{ github.event.pull_request.number }}
+
+              Updates documentation to reflect changes made in:
+              ${{ github.event.pull_request.title }}
+
+              Related $SOURCE_REPO_NAME PR: $SOURCE_REPO_SLUG#${{ github.event.pull_request.number }}"
+            fi
+
+            git push origin "$BRANCH_NAME"
+
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              gh pr create \
+                --title "docs: Update documentation for $SOURCE_REPO_NAME commit ${{ github.event.inputs.commit_sha }}" \
+                --body "This PR updates the documentation to reflect changes made in $SOURCE_REPO_SLUG commit ${{ github.event.inputs.commit_sha }}
+
+              **Commit Details:**
+              - Commit SHA: ${{ github.event.inputs.commit_sha }}
+              - Files changed: ${{ steps.changed-files.outputs.changed_files }}
+              - Trigger: Manual documentation sync
+
+              Please review the documentation changes to ensure they accurately reflect the $SOURCE_REPO_NAME updates."
+              gh pr merge --auto --squash
+            else
+              gh pr create \
+                --title "docs: Update documentation for $SOURCE_REPO_NAME PR #${{ github.event.pull_request.number }}" \
+                --body "This PR updates the documentation to reflect changes made in $SOURCE_REPO_SLUG#${{ github.event.pull_request.number }}
+
+              **Original PR Details:**
+              - Title: ${{ github.event.pull_request.title }}
+              - Files changed: ${{ steps.changed-files.outputs.changed_files }}
+
+              Please review the documentation changes to ensure they accurately reflect the $SOURCE_REPO_NAME updates."
+              gh pr merge --auto --squash
+            fi
+          else
+            echo "No documentation changes were made by Claude"
+          fi
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -rf docs-repo || true
