@@ -3,17 +3,17 @@ title: "Dojo Bevy SDK"
 description: "Official Bevy engine integration for building Dojo-powered games with native Rust performance"
 ---
 
-# dojo.bevy
+# Dojo.Bevy
 
 Bevy is a modern, data-driven game engine built in Rust that leverages the Entity Component System (ECS) architecture.
 Known for its performance, modularity, and ergonomic API, Bevy enables developers to create everything from simple 2D games to complex 3D experiences with compile-time safety and zero-cost abstractions.
 
-dojo.bevy is the official Bevy engine SDK for interacting with Dojo worlds, providing native Rust integration for building high-performance onchain games.
+Dojo.Bevy is the official Bevy engine SDK for interacting with Dojo worlds, providing native Rust integration for building high-performance onchain games.
 Built specifically for Bevy's ECS architecture, it seamlessly integrates with Bevy's component system while maintaining the performance and safety guarantees that Rust developers expect.
 
 ## Core Concepts
 
-Before diving into building onchain games with Bevy, let's explore the essential components of the dojo.bevy architecture:
+Before diving into building onchain games with Bevy, let's explore the essential components of the Dojo.Bevy architecture:
 
 ### `DojoPlugin`
 
@@ -54,7 +54,7 @@ fn connect_to_dojo(
 
 ### Event System
 
-dojo.bevy leverages Bevy's event system for reactive blockchain interactions:
+Dojo.Bevy leverages Bevy's event system for reactive blockchain interactions:
 
 - **`DojoInitializedEvent`**: Emitted when connections to Torii and Starknet are established
 - **`DojoEntityUpdated`**: Emitted when entity state changes are received from Torii
@@ -92,7 +92,7 @@ Before getting started, ensure you have:
 
 ### Installation
 
-Add dojo.bevy to your `Cargo.toml`:
+Add Dojo.Bevy to your `Cargo.toml`:
 
 ```toml
 [dependencies]

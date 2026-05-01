@@ -3,9 +3,9 @@ title: "Dojo Unreal Engine SDK"
 description: "Introduction to the official Unreal Engine 5 SDK for building Dojo-powered games"
 ---
 
-# dojo.unreal
+# Dojo.Unreal
 
-[dojo.unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
+[Dojo.Unreal](https://github.com/dojoengine/dojo.unreal) is the official Unreal Engine 5 SDK for Dojo.
 With this SDK, you can combine the power of Dojo and Unreal to develop mobile and desktop 2D and 3D games.
 
 ## Prerequisites
@@ -15,20 +15,20 @@ To install the Unreal Engine, [follow these instructions](https://www.unrealengi
 
 ## Getting Started
 
-To get started with the dojo.unreal SDK, follow these steps:
+To get started with the Dojo.Unreal SDK, follow these steps:
 
 ::::steps
 
-#### Download dojo.unreal
+#### Download Dojo.Unreal
 
-Obtain the Dojo plugin by visiting [dojo.unreal](https://github.com/dojoengine/dojo.unreal).
+Obtain the Dojo plugin by visiting [Dojo.Unreal](https://github.com/dojoengine/dojo.unreal).
 Either clone the repository or download it as a ZIP file to access the plugin.
 
 ![unrealdl](/client/unreal/downloadzip.webp)
 
 #### Set Up Your Unreal Project
 
-Launch Unreal Engine 5 and create a new project or open an existing one where you will implement dojo.unreal.
+Launch Unreal Engine 5 and create a new project or open an existing one where you will implement Dojo.Unreal.
 
 ![unrealcreate](/client/unreal/create_new_cpp_project.webp)
 
@@ -39,7 +39,7 @@ Launch Unreal Engine 5 and create a new project or open an existing one where yo
 
 2. Create a Plugins directory if one does not exist
 
-3. Copy the Plugins/Dojo directory from dojo.unreal into your project's Plugins folder
+3. Copy the Plugins/Dojo directory from Dojo.Unreal into your project's Plugins folder
 
 4. Verify the plugin version in `Plugins/Dojo/Source/Dojo/Dojo.Build.cs`.
    For version updates or platform-specific deployments, refer to [Update the plugin](#update-the-plugin) or [Add a new platform](#add-a-new-platform) respectively.
@@ -209,7 +209,7 @@ The format for each function is `<PREFIX><NAMESPACE><CONTRACT><SELECTOR>` with a
 
 ## Updating the Plugin
 
-The dojo.unreal plugin is built on [dojo.c](/client/sdk/c), the foundational C library that powers all Dojo SDKs.
+The Dojo.Unreal plugin is built on [dojo.c](/client/sdk/c), the foundational C library that powers all Dojo SDKs.
 To update the plugin to a new version:
 
 1. Build the `dojo.c` library for your platform
@@ -254,7 +254,7 @@ To add support for a new platform:
 
 ## Sample Project
 
-The dojo.unreal repository contains `ue5dojostarter`, a complete sample project that demonstrates how Dojo can be integrated with Unreal Engine.
+The Dojo.Unreal repository contains `ue5dojostarter`, a complete sample project that demonstrates how Dojo can be integrated with Unreal Engine.
 This sample is built on top of the Unreal Engine 5 First Person template and showcases:
 
 - **Complete Dojo Integration**: Working examples of connecting to Torii, subscribing to model updates, and calling system functions
@@ -268,7 +268,7 @@ The sample project works with the [Dojo Starter](https://github.com/dojoengine/d
 To run the sample project locally:
 
 1. Set up and deploy the Dojo Starter contracts following the [getting started guide](/getting-started)
-2. Clone the dojo.unreal repository
+2. Clone the Dojo.Unreal repository
 3. Follow the detailed setup instructions in the [repository README](https://github.com/dojoengine/dojo.unreal)
 4. Configure the game with your deployed contract addresses and RPC endpoints
 
