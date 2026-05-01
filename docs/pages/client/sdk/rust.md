@@ -1,5 +1,3 @@
-## File to edit: client/sdk/rust.md
-
 ---
 title: "Dojo Rust SDK"
 description: "Native Rust integration for building Dojo applications with Rust"

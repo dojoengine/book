@@ -1,3 +1,5 @@
+## File to edit: tutorials/onchain-chess/2-move.md
+
 ---
 title: Implementing Chess Piece Movement
 description: Learn how to implement and test chess piece movement logic, including move validation and turn management.

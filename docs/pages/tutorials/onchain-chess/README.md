@@ -9,7 +9,7 @@ This guide is intended to fill the gap between heavily directed beginner tutoria
 The primary goal here is to get you to write code.
 The secondary goal is to get you reading documentation.
 
-If you haven't read the Dojo Book yet, it is highly encouraged for you to do so before starting this project.
+If you haven't read The Dojo Book yet, it is highly encouraged for you to do so before starting this project.
 
 ## What are we building?
 

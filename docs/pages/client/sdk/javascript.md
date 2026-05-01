@@ -1,5 +1,3 @@
-## File to edit: client/sdk/javascript.md
-
 ---
 title: "dojo.js Overview"
 description: "Comprehensive guide to using the dojo.js for building onchain applications"

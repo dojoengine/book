@@ -1,5 +1,3 @@
-## File to edit: framework/models/entities.md
-
 ---
 title: Entities in Dojo
 description: Understand how entities work in Dojo's ECS architecture and how they relate to models through primary keys.

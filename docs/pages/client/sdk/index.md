@@ -66,7 +66,7 @@ The client can then query the world state to get the latest state, which is then
 
 ### Account Management
 
-- **Session Accounts**: Temporary accounts for seamless gameplay
+- **Session Accounts**: Temporary accounts for gasless gameplay
 - **Controller Accounts**: Delegate specific permissions to game contracts
 - **Burner Accounts**: Disposable accounts funded by a master account
 
@@ -93,7 +93,7 @@ The client can then query the world state to get the latest state, which is then
 
 #### Unity SDK
 
-**Best for:** 2D and 3D games, cross-platform game development
+**Best for:** 2D and 3D games, crosschain game development
 
 - Native C# bindings built on dojo.c foundation
 - Unity-specific components and prefabs for common patterns
