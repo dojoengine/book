@@ -1,10 +1,12 @@
+---
+name: dojo-vrf
+description: "Integrate Cartridge VRF for provably fair, atomic randomness in Dojo games. Generate random numbers, dice rolls, weighted selections, and shuffles using onchain verifiable randomness. Use when adding randomness to game mechanics, rolling dice, shuffling cards, or implementing loot drops."
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
+---
+
 # Cartridge VRF Integration
 
-Integrate Cartridge's Verifiable Random Function (VRF) for provably fair, atomic randomness in Dojo games.
-
-## Overview
-
-Cartridge VRF provides cheap, atomic verifiable randomness for fully onchain games. The VRF request and response are processed within the **same transaction**, enabling synchronous and immediate randomness.
+Integrate Cartridge's Verifiable Random Function (VRF) for provably fair, atomic randomness in Dojo games. The VRF request and response are processed within the **same transaction**, enabling synchronous and immediate randomness.
 
 ## Contract Addresses
 
@@ -241,15 +243,28 @@ fn shuffle<T, impl TCopy: Copy<T>, impl TDrop: Drop<T>>(
 }
 ```
 
-## Important Notes
+## Critical Rules
 
 - **Always** match `Source` in `request_random` and `consume_random`
 - `consume_random` must be called within the same transaction
 - The Paymaster handles proof submission automatically
 - Works with Cartridge Controller out of the box
 
-## Resources
+## Verification
 
-- GitHub: https://github.com/cartridge-gg/vrf
-- Voyager (Mainnet): https://voyager.online/contract/0x051fea4450da9d6aee758bdeba88b2f665bcbf549d2c61421aa724e9ac0ced8f
-- Voyager (Sepolia): https://sepolia.voyager.online/contract/0x051fea4450da9d6aee758bdeba88b2f665bcbf549d2c61421aa724e9ac0ced8f
+After integrating VRF, verify the setup:
+
+```bash
+# Build to check compilation
+sozo build
+
+# Run tests with mock provider
+sozo test
+```
+
+## Related Skills
+
+- **dojo-system**: Create systems that use VRF randomness
+- **dojo-deploy**: Deploy your VRF-enabled contracts
+- **dojo-test**: Test randomness with mock provider
+- **dojo-client**: Call VRF-enabled systems from frontend
